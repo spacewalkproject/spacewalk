@@ -1,3 +1,10 @@
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
 Version: 2.8.1
@@ -13,47 +20,10 @@ BuildRequires: update-desktop-files
 %endif
 
 Requires: rpm >= 4.2.3-24_nonptl
-Requires: rpm-python 
 Requires: gnupg
 Requires: sh-utils
-BuildRequires: python-devel
-%if 0%{?fedora}
-Requires: libgudev
-Requires: newt-python3
-Requires: python3-gobject-base
-Requires: python3-dmidecode
-Requires: python3-netifaces
-Requires: python3-hwdata
-Requires: python3-rhnlib >= 2.5.78
-%else
-Requires: python-dmidecode
-Requires: python-ethtool >= 0.4
-Requires: rhnlib >= 2.5.78
-%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-Requires: python-gudev
-Requires: python-hwdata
-%else
-Requires: hal >= 0.5.8.1-52
-%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-%if 0%{?suse_version}
-Requires: python-newt
-%endif
-%if 0%{?rhel} > 5
-Requires: newt-python
-%else
-Requires: newt
-%endif
-%endif # 0%{?fedora}
+Requires: %{pythonX}-%{name}
 
-%if 0%{?suse_version}
-Requires: dbus-1-python
-%else
-%if 0%{?fedora}
-Requires: python3-dbus
-%else
-Requires: dbus-python
-%endif # 0%{?fedora}
-%endif # 0%{?suse_version}
 %if 0%{?suse_version}
 Requires: zypper
 %else
@@ -84,18 +54,69 @@ BuildRequires: redhat-logos
 BuildRequires: yum
 %endif
 
-# The following BuildRequires are for check only
-%if 0%{?fedora}
-BuildRequires: python-coverage
-BuildRequires: rpm-python
-Requires: python3-rhnlib >= 2.5.78
-%else
-Requires: rhnlib >= 2.5.78
-%endif
-
 %description
 Red Hat Satellite Client Tools provides programs and libraries to allow your
 system to receive software updates from Red Hat Satellite or Spacewalk.
+
+%package -n python2-%{name}
+Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name}
+Requires: rpm-python
+Requires: python-dmidecode
+Requires: python-ethtool >= 0.4
+Requires: rhnlib >= 2.5.78
+BuildRequires: python-devel
+%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+Requires: python-gudev
+Requires: python-hwdata
+%else
+Requires: hal >= 0.5.8.1-52
+%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%if 0%{?rhel} > 5
+Requires: newt-python
+%else
+Requires: newt
+%endif
+%if 0%{?suse_version}
+Requires: dbus-1-python
+Requires: python-newt
+%else
+Requires: dbus-python
+%endif # 0%{?suse_version}
+
+# The following BuildRequires are for check only
+BuildRequires: python-coverage
+BuildRequires: rpm-python
+Requires: rhnlib >= 2.5.78
+
+%description -n python2-%{name}
+Python 2 specific files of %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name}
+Requires: python3-dbus
+Requires: python3-rpm
+Requires: libgudev
+Requires: newt-python3
+Requires: python3-gobject-base
+Requires: python3-dmidecode
+Requires: python3-netifaces
+Requires: python3-hwdata
+Requires: python3-rhnlib >= 2.5.78
+BuildRequires: python3-devel
+
+# The following BuildRequires are for check only
+BuildRequires: python3-coverage
+BuildRequires: python3-rpm
+Requires: python3-rhnlib >= 2.5.78
+
+%description -n python3-%{name}
+Python 3 specific files of %{name}.
+%endif
 
 %package -n rhn-check
 Summary: Check for RHN actions
