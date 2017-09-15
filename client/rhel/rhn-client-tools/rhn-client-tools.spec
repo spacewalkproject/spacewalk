@@ -17,7 +17,7 @@ Requires: rpm-python
 Requires: gnupg
 Requires: sh-utils
 BuildRequires: python-devel
-%if 0%{?fedora} >= 23
+%if 0%{?fedora}
 Requires: libgudev
 Requires: newt-python3
 Requires: python3-gobject-base
@@ -29,11 +29,6 @@ Requires: python3-rhnlib >= 2.5.78
 Requires: python-dmidecode
 Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
-%if 0%{?fedora}
-Requires: newt-python
-Requires: pygobject3-base libgudev1
-Requires: python-hwdata
-%else
 %if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 Requires: python-gudev
 Requires: python-hwdata
@@ -43,14 +38,13 @@ Requires: hal >= 0.5.8.1-52
 %if 0%{?suse_version}
 Requires: python-newt
 %endif
-%if 0%{?rhel} == 5
-Requires: newt
-%endif
 %if 0%{?rhel} > 5
 Requires: newt-python
+%else
+Requires: newt
 %endif
 %endif # 0%{?fedora}
-%endif # 0%{?fedora} >= 23
+
 %if 0%{?suse_version}
 Requires: dbus-1-python
 %else
@@ -63,11 +57,11 @@ Requires: dbus-python
 %if 0%{?suse_version}
 Requires: zypper
 %else
-%if 0%{?fedora} >= 22
+%if 0%{?fedora}
 Requires: dnf
 %else
 Requires: yum
-%endif # 0%{?fedora} >= 22
+%endif # 0%{?fedora}
 %endif # 0%{?suse_version}
 
 Conflicts: up2date < 5.0.0
@@ -83,22 +77,17 @@ BuildRequires: desktop-file-utils
 
 %if 0%{?fedora}
 BuildRequires: fedora-logos
-%if 0%{?fedora} >= 22
 BuildRequires: dnf
-%else
-BuildRequires: yum
-%endif
 %endif
 %if 0%{?rhel}
 BuildRequires: redhat-logos
+BuildRequires: yum
 %endif
 
 # The following BuildRequires are for check only
 %if 0%{?fedora}
 BuildRequires: python-coverage
 BuildRequires: rpm-python
-%endif
-%if 0%{?fedora} >= 23
 Requires: python3-rhnlib >= 2.5.78
 %else
 Requires: rhnlib >= 2.5.78
@@ -115,7 +104,7 @@ Requires: %{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
-%if 0%{?fedora} >= 22
+%if 0%{?fedora}
 Requires: dnf-plugin-spacewalk >= 2.4.0
 %else
 Requires: yum-rhn-plugin >= 1.6.4-1
@@ -219,7 +208,7 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 
 %find_lang %{name}
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora}
 /usr/lib/rpm/brp-python-bytecompile /usr/bin/python3 1
 %endif
 
@@ -345,7 +334,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/actions/rhnsd.*
 %{_datadir}/rhn/actions/up2date_config.*
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora}
 %dir %{_datadir}/rhn/actions/__pycache__/
 %{_datadir}/rhn/up2date_client/__pycache__/getMethod.*
 %{_datadir}/rhn/actions/__pycache__/__init__.*
@@ -377,7 +366,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/rhn/up2date_client/tui.*
 %{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora}
 %{_datadir}/rhn/up2date_client/__pycache__/rhnreg.*
 %{_datadir}/rhn/up2date_client/__pycache__/pmPlugin.*
 %{_datadir}/rhn/up2date_client/__pycache__/tui.*
@@ -434,7 +423,7 @@ make -f Makefile.rhn-client-tools test
 %endif
 %endif
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora}
 %{_datadir}/rhn/up2date_client/__pycache__/messageWindow.*
 %{_datadir}/rhn/up2date_client/__pycache__/rhnregGui.*
 %{_datadir}/rhn/up2date_client/__pycache__/gui.*
