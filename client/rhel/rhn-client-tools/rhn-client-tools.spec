@@ -350,55 +350,6 @@ make -f Makefile.rhn-client-tools test
 %dir %{_datadir}/rhn/up2date_client
 %dir %{_localstatedir}/spool/up2date
 
-#files
-%{_datadir}/rhn/up2date_client/__init__.*
-%{_datadir}/rhn/up2date_client/config.*
-%{_datadir}/rhn/up2date_client/haltree.*
-%{_datadir}/rhn/up2date_client/hardware*
-%{_datadir}/rhn/up2date_client/up2dateUtils.*
-%{_datadir}/rhn/up2date_client/up2dateLog.*
-%{_datadir}/rhn/up2date_client/up2dateErrors.*
-%{_datadir}/rhn/up2date_client/up2dateAuth.*
-%{_datadir}/rhn/up2date_client/rpcServer.*
-%{_datadir}/rhn/up2date_client/rhnserver.*
-%{_datadir}/rhn/up2date_client/pkgUtils.*
-%{_datadir}/rhn/up2date_client/rpmUtils.*
-%{_datadir}/rhn/up2date_client/debUtils.*
-%{_datadir}/rhn/up2date_client/rhnPackageInfo.*
-%{_datadir}/rhn/up2date_client/rhnChannel.*
-%{_datadir}/rhn/up2date_client/rhnHardware.*
-%{_datadir}/rhn/up2date_client/transaction.*
-%{_datadir}/rhn/up2date_client/clientCaps.*
-%{_datadir}/rhn/up2date_client/capabilities.*
-%{_datadir}/rhn/up2date_client/rhncli.*
-%{_datadir}/rhn/up2date_client/pkgplatform.*
-%{_datadir}/rhn/__init__.*
-%if 0%{?fedora} >= 23
-%{_datadir}/rhn/__pycache__/
-%dir %{_datadir}/rhn/up2date_client/__pycache__/
-%{_datadir}/rhn/up2date_client/__pycache__/__init__.*
-%{_datadir}/rhn/up2date_client/__pycache__/config.*
-%{_datadir}/rhn/up2date_client/__pycache__/haltree.*
-%{_datadir}/rhn/up2date_client/__pycache__/hardware*
-%{_datadir}/rhn/up2date_client/__pycache__/up2dateUtils.*
-%{_datadir}/rhn/up2date_client/__pycache__/up2dateLog.*
-%{_datadir}/rhn/up2date_client/__pycache__/up2dateErrors.*
-%{_datadir}/rhn/up2date_client/__pycache__/up2dateAuth.*
-%{_datadir}/rhn/up2date_client/__pycache__/rpcServer.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnserver.*
-%{_datadir}/rhn/up2date_client/__pycache__/pkgUtils.*
-%{_datadir}/rhn/up2date_client/__pycache__/rpmUtils.*
-%{_datadir}/rhn/up2date_client/__pycache__/debUtils.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnPackageInfo.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnChannel.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnHardware.*
-%{_datadir}/rhn/up2date_client/__pycache__/transaction.*
-%{_datadir}/rhn/up2date_client/__pycache__/clientCaps.*
-%{_datadir}/rhn/up2date_client/__pycache__/capabilities.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhncli.*
-%{_datadir}/rhn/up2date_client/__pycache__/pkgplatform.*
-%endif
-
 %{_sbindir}/rhn-profile-sync
 
 %ghost %attr(600,root,root) %verify(not md5 size mtime) %{_localstatedir}/spool/up2date/loginAuth.pkl
@@ -408,6 +359,80 @@ make -f Makefile.rhn-client-tools test
 
 %if 0%{?fedora}
 %{_presetdir}/50-spacewalk-client.preset
+%endif
+
+%files -n python2-%{name}
+%{_sbindir}/rhn-profile-sync-%{python_version}
+%dir %{python_sitelib}/up2date_client/
+%{python_sitelib}/up2date_client/__init__.*
+%{python_sitelib}/up2date_client/config.*
+%{python_sitelib}/up2date_client/haltree.*
+%{python_sitelib}/up2date_client/hardware*
+%{python_sitelib}/up2date_client/up2dateUtils.*
+%{python_sitelib}/up2date_client/up2dateLog.*
+%{python_sitelib}/up2date_client/up2dateErrors.*
+%{python_sitelib}/up2date_client/up2dateAuth.*
+%{python_sitelib}/up2date_client/rpcServer.*
+%{python_sitelib}/up2date_client/rhnserver.*
+%{python_sitelib}/up2date_client/pkgUtils.*
+%{python_sitelib}/up2date_client/rpmUtils.*
+%{python_sitelib}/up2date_client/debUtils.*
+%{python_sitelib}/up2date_client/rhnPackageInfo.*
+%{python_sitelib}/up2date_client/rhnChannel.*
+%{python_sitelib}/up2date_client/rhnHardware.*
+%{python_sitelib}/up2date_client/transaction.*
+%{python_sitelib}/up2date_client/clientCaps.*
+%{python_sitelib}/up2date_client/capabilities.*
+%{python_sitelib}/up2date_client/rhncli.*
+%{python_sitelib}/up2date_client/pkgplatform.*
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{_sbindir}/rhn-profile-sync-%{python3_version}
+%dir %{python3_sitelib}/up2date_client/
+%{python3_sitelib}/up2date_client/__init__.*
+%{python3_sitelib}/up2date_client/config.*
+%{python3_sitelib}/up2date_client/haltree.*
+%{python3_sitelib}/up2date_client/hardware*
+%{python3_sitelib}/up2date_client/up2dateUtils.*
+%{python3_sitelib}/up2date_client/up2dateLog.*
+%{python3_sitelib}/up2date_client/up2dateErrors.*
+%{python3_sitelib}/up2date_client/up2dateAuth.*
+%{python3_sitelib}/up2date_client/rpcServer.*
+%{python3_sitelib}/up2date_client/rhnserver.*
+%{python3_sitelib}/up2date_client/pkgUtils.*
+%{python3_sitelib}/up2date_client/rpmUtils.*
+%{python3_sitelib}/up2date_client/debUtils.*
+%{python3_sitelib}/up2date_client/rhnPackageInfo.*
+%{python3_sitelib}/up2date_client/rhnChannel.*
+%{python3_sitelib}/up2date_client/rhnHardware.*
+%{python3_sitelib}/up2date_client/transaction.*
+%{python3_sitelib}/up2date_client/clientCaps.*
+%{python3_sitelib}/up2date_client/capabilities.*
+%{python3_sitelib}/up2date_client/rhncli.*
+%{python3_sitelib}/up2date_client/pkgplatform.*
+%dir %{python3_sitelib}/up2date_client/__pycache__/
+%{python3_sitelib}/up2date_client/__pycache__/__init__.*
+%{python3_sitelib}/up2date_client/__pycache__/config.*
+%{python3_sitelib}/up2date_client/__pycache__/haltree.*
+%{python3_sitelib}/up2date_client/__pycache__/hardware*
+%{python3_sitelib}/up2date_client/__pycache__/up2dateUtils.*
+%{python3_sitelib}/up2date_client/__pycache__/up2dateLog.*
+%{python3_sitelib}/up2date_client/__pycache__/up2dateErrors.*
+%{python3_sitelib}/up2date_client/__pycache__/up2dateAuth.*
+%{python3_sitelib}/up2date_client/__pycache__/rpcServer.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnserver.*
+%{python3_sitelib}/up2date_client/__pycache__/pkgUtils.*
+%{python3_sitelib}/up2date_client/__pycache__/rpmUtils.*
+%{python3_sitelib}/up2date_client/__pycache__/debUtils.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnPackageInfo.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnChannel.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnHardware.*
+%{python3_sitelib}/up2date_client/__pycache__/transaction.*
+%{python3_sitelib}/up2date_client/__pycache__/clientCaps.*
+%{python3_sitelib}/up2date_client/__pycache__/capabilities.*
+%{python3_sitelib}/up2date_client/__pycache__/rhncli.*
+%{python3_sitelib}/up2date_client/__pycache__/pkgplatform.*
 %endif
 
 %files -n rhn-check
