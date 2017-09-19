@@ -175,7 +175,6 @@ int main (int argc, char **argv)
 
         if (setsid() < 0)
             exit(EXIT_FAILURE);
-	umask(0);
 
 	chdir ("/");
 
