@@ -483,6 +483,12 @@ find . -type f -name '*.xml' | xargs perl -CSAD -lne '
           }
           END { exit $exit }'
 
+# disable crash dumps in IBM java (OpenJDK have them off by default)
+if java -version 2>&1 | grep -q IBM ; then
+    sed -i '/#wrapper\.java\.additional\.[0-9]=-Xdump:none/ { s/^#//; }' \
+        conf/default/rhn_taskomatic_daemon.conf
+fi
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
