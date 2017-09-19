@@ -70,6 +70,9 @@ cat share/tomcat.java_opts.rhel5 >>share/tomcat.java_opts
 %if 0%{?rhel} == 6
 cat share/tomcat.java_opts.rhel6 >>share/tomcat.java_opts
 %endif
+if java -version 2>&1 | grep -q IBM ; then
+    cat share/tomcat.java_opts.ibm >>share/tomcat.java_opts
+fi
 rm -f share/tomcat.java_opts.*
 
 chmod -R u+w %{buildroot}/*
