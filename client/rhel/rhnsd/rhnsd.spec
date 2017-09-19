@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.31
+Version: 5.0.32
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -138,6 +138,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Tue Sep 19 2017 Tomas Kasparek <tkasparek@redhat.com> 5.0.32-1
+- 1489989 - umask(0) does not reset to default umask
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.0.31-1
 - purged changelog entries for Spacewalk 2.0 and older
 
