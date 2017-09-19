@@ -64,9 +64,6 @@ rm -rf %{buildroot}
 make pure_install PERL_INSTALL_ROOT=%{buildroot}
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -type d -depth -exec rmdir {} 2>/dev/null ';'
-%if 0%{?rhel} == 5
-cat share/tomcat.java_opts.rhel5 >>share/tomcat.java_opts
-%endif
 %if 0%{?rhel} == 6
 cat share/tomcat.java_opts.rhel6 >>share/tomcat.java_opts
 %endif
