@@ -2073,8 +2073,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser, mergeFrom
-                .getErratas(), mergeTo, mergeFrom);
+        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser, new HashSet(mergeFrom
+                .getErratas()), mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
