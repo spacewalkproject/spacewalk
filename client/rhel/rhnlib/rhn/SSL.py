@@ -144,7 +144,19 @@ class SSLSocket:
         pass
 
     def _really_close(self):
-        self._connection.shutdown()
+        # No connection was established
+        if self._connection is None:
+            return
+
+        # for Python 3
+        if sys.version_info[0] == 3:
+            if self._connection.get_state_string() == b'SSL negotiation finished successfully':
+                self._connection.shutdown()
+        # for Python 2
+        else:
+            if self._connection.state_string() == 'SSL negotiation finished successfully':
+                self._connection.shutdown()
+
         self._connection.close()
         self._closed = 1
 
