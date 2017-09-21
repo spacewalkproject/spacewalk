@@ -201,8 +201,18 @@ Python 3 specific files for rhn-setup.
 Summary: A GUI interface for RHN/Spacewalk Registration
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-rhn-setup
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
+
+%description -n rhn-setup-gnome
+rhn-setup-gnome contains a GTK+ graphical interface for configuring and
+registering a system with a Red Hat Satellite or Spacewalk server.
+
+%package -n python2-rhn-setup-gnome
+Summary: Configure and register an RHN/Spacewalk client
+%{?python_provide:%python_provide python2-rhn-setup-gnome}
+Requires: rhn-setup-gnome
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
@@ -214,9 +224,28 @@ Requires: gnome-python2-gnome gnome-python2-bonobo
 Requires: liberation-sans-fonts
 %endif
 
-%description -n rhn-setup-gnome
-rhn-setup-gnome contains a GTK+ graphical interface for configuring and
-registering a system with a Red Hat Satellite or Spacewalk server.
+%description -n python2-rhn-setup-gnome
+Python 2 specific files for rhn-setup-gnome.
+
+%if 0%{?build_py3}
+%package -n python3-rhn-setup-gnome
+Summary: Configure and register an RHN/Spacewalk client
+%{?python_provide:%python_provide python3-rhn-setup-gnome}
+Requires: rhn-setup-gnome
+%if 0%{?suse_version}
+Requires: python-gnome python-gtk
+%else
+Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
+Requires: usermode-gtk
+%endif
+%if 0%{?fedora} || 0%{?rhel} > 5
+Requires: gnome-python2-gnome gnome-python2-bonobo
+Requires: liberation-sans-fonts
+%endif
+
+%description -n python3-rhn-setup-gnome
+Python 3 specific files for rhn-setup-gnome.
+%endif
 
 
 %prep
