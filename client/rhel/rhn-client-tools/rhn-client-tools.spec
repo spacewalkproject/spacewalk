@@ -436,30 +436,40 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %files -n rhn-check
-%dir %{_datadir}/rhn/actions
 %{_mandir}/man8/rhn_check.8*
-
 %{_sbindir}/rhn_check
 
-%{_datadir}/rhn/up2date_client/getMethod.*
-
+%files -n python2-rhn-check
+%{_sbindir}/rhn_check-%{python_version}
+%dir %{python_sitelib}/actions/
+%{python_sitelib}/up2date_client/getMethod.*
 # actions for rhn_check to run
-%{_datadir}/rhn/actions/__init__.*
-%{_datadir}/rhn/actions/hardware.*
-%{_datadir}/rhn/actions/systemid.*
-%{_datadir}/rhn/actions/reboot.*
-%{_datadir}/rhn/actions/rhnsd.*
-%{_datadir}/rhn/actions/up2date_config.*
+%{python_sitelib}/actions/__init__.*
+%{python_sitelib}/actions/hardware.*
+%{python_sitelib}/actions/systemid.*
+%{python_sitelib}/actions/reboot.*
+%{python_sitelib}/actions/rhnsd.*
+%{python_sitelib}/actions/up2date_config.*
 
-%if 0%{?fedora}
-%dir %{_datadir}/rhn/actions/__pycache__/
-%{_datadir}/rhn/up2date_client/__pycache__/getMethod.*
-%{_datadir}/rhn/actions/__pycache__/__init__.*
-%{_datadir}/rhn/actions/__pycache__/hardware.*
-%{_datadir}/rhn/actions/__pycache__/systemid.*
-%{_datadir}/rhn/actions/__pycache__/reboot.*
-%{_datadir}/rhn/actions/__pycache__/rhnsd.*
-%{_datadir}/rhn/actions/__pycache__/up2date_config.*
+%if 0%{?build_py3}
+%files -n python3-rhn-check
+%{_sbindir}/rhn_check-%{python3_version}
+%dir %{python3_sitelib}/actions/
+%{python3_sitelib}/up2date_client/getMethod.*
+%{python3_sitelib}/actions/__init__.*
+%{python3_sitelib}/actions/hardware.*
+%{python3_sitelib}/actions/systemid.*
+%{python3_sitelib}/actions/reboot.*
+%{python3_sitelib}/actions/rhnsd.*
+%{python3_sitelib}/actions/up2date_config.*
+%dir %{python3_sitelib}/actions/__pycache__/
+%{python3_sitelib}/up2date_client/__pycache__/getMethod.*
+%{python3_sitelib}/actions/__pycache__/__init__.*
+%{python3_sitelib}/actions/__pycache__/hardware.*
+%{python3_sitelib}/actions/__pycache__/systemid.*
+%{python3_sitelib}/actions/__pycache__/reboot.*
+%{python3_sitelib}/actions/__pycache__/rhnsd.*
+%{python3_sitelib}/actions/__pycache__/up2date_config.*
 %endif
 
 %files -n rhn-setup
