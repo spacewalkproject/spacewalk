@@ -93,9 +93,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
 
-    <query name="KickstartData.findByOrg">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.org = :org_id]]>
-    </query>
     <query name="KickstartData.findByCobblerIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.cobblerId = :id and t.org = :org_id]]>
     </query>

@@ -22,8 +22,6 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -34,9 +32,6 @@ import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import org.cobbler.Profile;
 
 import java.util.Collections;
 import java.util.Date;
@@ -347,13 +342,5 @@ public class OrgManager extends BaseManager {
         // Org's private channel family contains org name in it
         ChannelFamily cf = ChannelFamilyFactory.lookupByOrg(org);
         cf.setName(newName + " (" + org.getId() + ") " + "Channel Family");
-        // Cobbler profile name contains org name in it
-        List<KickstartData> profiles = KickstartFactory.lookupKickstartDataByOrg(org);
-        for (KickstartData profile : profiles) {
-            Profile cobblerProfile = Profile.lookupById(
-                    CobblerXMLRPCHelper.getAutomatedConnection(), profile.getCobblerId());
-            cobblerProfile.setName(CobblerCommand.makeCobblerName(profile.getLabel(), org));
-            cobblerProfile.save();
-        }
     }
 }
