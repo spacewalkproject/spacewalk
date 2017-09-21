@@ -118,10 +118,12 @@ Requires: python3-rhnlib >= 2.5.78
 Python 3 specific files of %{name}.
 %endif
 
+
 %package -n rhn-check
 Summary: Check for RHN actions
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-rhn-check
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
@@ -135,6 +137,25 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 %description -n rhn-check
 rhn-check polls a Red Hat Satellite or Spacewalk server to find and execute
 scheduled actions.
+
+%package -n python2-rhn-check
+Summary: Check for RHN actions
+%{?python_provide:%python_provide python2-rhn-check}
+Requires: rhn-check
+
+%description -n python2-rhn-check
+Python 2 specific files for rhn-check.
+
+%if 0%{?build_py3}
+%package -n python3-rhn-check
+Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
+%{?python_provide:%python_provide python3-rhn-check}
+Requires: rhn-check
+
+%description -n python3-rhn-check
+Python 3 specific files for rhn-check.
+%endif
+
 
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
