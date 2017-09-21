@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -125,6 +125,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Thu Sep 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- clean up RHEL5 specific settings
+- 1483503 - disable ibm java coredumps for tomcat
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
