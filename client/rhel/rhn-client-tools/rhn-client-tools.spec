@@ -488,18 +488,6 @@ make -f Makefile.rhn-client-tools test
 %{_sbindir}/spacewalk-channel
 %{_sbindir}/rhn-channel
 
-%{_datadir}/rhn/up2date_client/rhnreg.*
-%{_datadir}/rhn/up2date_client/pmPlugin.*
-%{_datadir}/rhn/up2date_client/tui.*
-%{_datadir}/rhn/up2date_client/rhnreg_constants.*
-
-%if 0%{?fedora}
-%{_datadir}/rhn/up2date_client/__pycache__/rhnreg.*
-%{_datadir}/rhn/up2date_client/__pycache__/pmPlugin.*
-%{_datadir}/rhn/up2date_client/__pycache__/tui.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnreg_constants.*
-%endif
-
 %{_datadir}/setuptool/setuptool.d/99rhn_register
 
 %if 0%{?suse_version}
@@ -507,6 +495,30 @@ make -f Makefile.rhn-client-tools test
 %dir %{_sysconfdir}/security/console.apps
 %dir %{_datadir}/setuptool
 %dir %{_datadir}/setuptool/setuptool.d
+%endif
+
+%files -n python2-rhn-setup
+%{_sbindir}/rhn_register-%{python_version}
+%{_sbindir}/rhnreg_ks-%{python_version}
+%{_sbindir}/spacewalk-channel-%{python_version}
+%{python2_sitelib}/up2date_client/rhnreg.*
+%{python2_sitelib}/up2date_client/pmPlugin.*
+%{python2_sitelib}/up2date_client/tui.*
+%{python2_sitelib}/up2date_client/rhnreg_constants.*
+
+%if 0%{?build_py3}
+%files -n python3-rhn-setup
+%{_sbindir}/rhn_register-%{python3_version}
+%{_sbindir}/rhnreg_ks-%{python3_version}
+%{_sbindir}/spacewalk-channel-%{python3_version}
+%{python3_sitelib}/up2date_client/rhnreg.*
+%{python3_sitelib}/up2date_client/pmPlugin.*
+%{python3_sitelib}/up2date_client/tui.*
+%{python3_sitelib}/up2date_client/rhnreg_constants.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnreg.*
+%{python3_sitelib}/up2date_client/__pycache__/pmPlugin.*
+%{python3_sitelib}/up2date_client/__pycache__/tui.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnreg_constants.*
 %endif
 
 %files -n rhn-setup-gnome
