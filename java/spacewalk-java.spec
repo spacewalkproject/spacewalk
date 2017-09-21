@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.17
+Version: 2.8.18
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Sep 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.18-1
+- 1483503 - disable ibm java coredumps in tanukiwrapper
+
 * Thu Sep 21 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.17-1
 - 1493143 - keep errata in the original channel for
   channel.software.mergeErrata
