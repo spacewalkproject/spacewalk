@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -229,6 +229,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- 1483503 - disable ibm java coredumps in tanukiwrapper
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
