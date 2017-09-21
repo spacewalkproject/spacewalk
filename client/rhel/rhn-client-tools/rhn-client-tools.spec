@@ -522,11 +522,6 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %files -n rhn-setup-gnome
-%{_datadir}/rhn/up2date_client/messageWindow.*
-%{_datadir}/rhn/up2date_client/rhnregGui.*
-%{_datadir}/rhn/up2date_client/rh_register.glade
-%{_datadir}/rhn/up2date_client/gui.*
-%{_datadir}/rhn/up2date_client/progress.*
 %{_datadir}/pixmaps/*png
 %{_datadir}/icons/hicolor/16x16/apps/up2date.png
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
@@ -537,46 +532,9 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif
 %{_datadir}/applications/rhn_register.desktop
-
-%if 0%{?rhel} > 0 && 0%{?rhel} < 6
-%{_datadir}/firstboot/modules/rhn_login_gui.*
-%{_datadir}/firstboot/modules/rhn_choose_channel.*
-%{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
-%{_datadir}/firstboot/modules/rhn_start_gui.*
-%{_datadir}/firstboot/modules/rhn_choose_server_gui.*
-%{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
-%{_datadir}/firstboot/modules/rhn_create_profile_gui.*
-%{_datadir}/firstboot/modules/rhn_review_gui.*
-%{_datadir}/firstboot/modules/rhn_finish_gui.*
-%else
-%if 0%{?rhel} < 7
-%{_datadir}/firstboot/modules/rhn_register.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_login_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_start_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_choose_server_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_choose_channel.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_provide_certificate_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_create_profile_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_review_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/rhn_finish_gui.*
-%endif
-%endif
-
-%if 0%{?fedora}
-%{_datadir}/rhn/up2date_client/__pycache__/messageWindow.*
-%{_datadir}/rhn/up2date_client/__pycache__/rhnregGui.*
-%{_datadir}/rhn/up2date_client/__pycache__/gui.*
-%{_datadir}/rhn/up2date_client/__pycache__/progress.*
-%{_datadir}/firstboot/modules/__pycache__/rhn_register.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_login_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_start_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_choose_server_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_choose_channel.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_provide_certificate_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_create_profile_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_review_gui.*
-%{_datadir}/rhn/up2date_client/firstboot/__pycache__/rhn_finish_gui.*
-%endif
+%{_datadir}/rhn/up2date_client/gui.glade
+%{_datadir}/rhn/up2date_client/progress.glade
+%{_datadir}/rhn/up2date_client/rh_register.glade
 
 %if 0%{?suse_version}
 # on SUSE these directories are part of packages not installed
@@ -593,6 +551,47 @@ make -f Makefile.rhn-client-tools test
 %dir %{_datadir}/rhn/up2date_client/firstboot
 %dir %{_datadir}/firstboot
 %dir %{_datadir}/firstboot/modules
+%endif
+
+%files -n python2-rhn-setup-gnome
+%{python_sitelib}/up2date_client/messageWindow.*
+%{python_sitelib}/up2date_client/rhnregGui.*
+%{python_sitelib}/up2date_client/gui.*
+%{python_sitelib}/up2date_client/progress.*
+%if 0%{?rhel} == 5
+%{_datadir}/firstboot/modules/rhn_login_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_channel.*
+%{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
+%{_datadir}/firstboot/modules/rhn_start_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_server_gui.*
+%{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
+%{_datadir}/firstboot/modules/rhn_create_profile_gui.*
+%{_datadir}/firstboot/modules/rhn_review_gui.*
+%{_datadir}/firstboot/modules/rhn_finish_gui.*
+%else
+%if 0%{?rhel} == 6
+%{_datadir}/firstboot/modules/rhn_register.*
+%{python_sitelib}/up2date_client/firstboot/rhn_login_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_start_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_choose_server_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_choose_channel.*
+%{python_sitelib}/up2date_client/firstboot/rhn_provide_certificate_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_create_profile_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_review_gui.*
+%{python_sitelib}/up2date_client/firstboot/rhn_finish_gui.*
+%endif
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-rhn-setup-gnome
+%{python3_sitelib}/up2date_client/messageWindow.*
+%{python3_sitelib}/up2date_client/rhnregGui.*
+%{python3_sitelib}/up2date_client/gui.*
+%{python3_sitelib}/up2date_client/progress.*
+%{python3_sitelib}/up2date_client/__pycache__/messageWindow.*
+%{python3_sitelib}/up2date_client/__pycache__/rhnregGui.*
+%{python3_sitelib}/up2date_client/__pycache__/gui.*
+%{python3_sitelib}/up2date_client/__pycache__/progress.*
 %endif
 
 %changelog
