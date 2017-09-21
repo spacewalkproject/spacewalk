@@ -160,11 +160,21 @@ Python 3 specific files for rhn-check.
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 Group: System Environment/Base
+Requires: %{pythonX}-rhn-setup
 %if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
 %endif
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
+
+%description -n rhn-setup
+rhn-setup contains programs and utilities to configure a system to use
+Red Hat Satellite or Spacewalk, and to register a system with a Red Hat Satellite or Spacewalk server.
+
+%package -n python2-rhn-setup
+Summary: Configure and register an RHN/Spacewalk client
+%{?python_provide:%python_provide python2-rhn-setup}
+Requires: rhn-setup
 %if 0%{?rhel} == 5
 Requires: newt
 %endif
@@ -172,9 +182,20 @@ Requires: newt
 Requires: newt-python
 %endif
 
-%description -n rhn-setup
-rhn-setup contains programs and utilities to configure a system to use
-Red Hat Satellite or Spacewalk, and to register a system with a Red Hat Satellite or Spacewalk server.
+%description -n python2-rhn-setup
+Python 2 specific files for rhn-setup.
+
+%if 0%{?build_py3}
+%package -n python3-rhn-setup
+Summary: Configure and register an RHN/Spacewalk client
+%{?python_provide:%python_provide python3-rhn-setup}
+Requires: rhn-setup
+Requires: newt-python3
+
+%description -n python3-rhn-setup
+Python 3 specific files for rhn-setup.
+%endif
+
 
 %package -n rhn-setup-gnome
 Summary: A GUI interface for RHN/Spacewalk Registration
