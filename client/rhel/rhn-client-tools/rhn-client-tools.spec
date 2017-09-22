@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -611,6 +611,20 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- install files into python_sitelib/python3_sitelib
+- let rpmbuild take care of .pyc/.pyo
+- move rhn-setup-gnome files into proper python2/python3 subpackages
+- move rhn-setup files into proper python2/python3 subpackages
+- move rhn-check files into proper python2/python3 subpackages
+- move rhn-client-tools files into proper python2/python3 subpackages
+- split rhn-setup-gnome into python2/python3 specific packages
+- split rhn-setup into python2/python3 specific packages
+- split rhn-check into python2/python3 specific packages
+- split rhn-client-tools into python2/python3 specific packages
+- simplified Requires/Provides definition
+- remove unused import
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
