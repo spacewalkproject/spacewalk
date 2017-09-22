@@ -2,7 +2,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -88,6 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- added proper python*-rhnlib provides
+
 * Wed Sep 20 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.1-1
 - 1471045 - check a state of handshake before shutdown SSL connection
 - Bumping package versions for 2.8.
