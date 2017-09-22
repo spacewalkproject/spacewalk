@@ -853,9 +853,12 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
         # for rhel 5 and up it's the full release number of rhel, followed by
         # the true release number of the rpm, like 5.0.0.9 (for the 9th
         # version of the redhat-release rpm, for RHEL GA)
+        # in RHEL7 the version is in this form 7.1-1.el7_1
         db_release = channel['release']
         if version in ['4AS', '4ES']:
             parts = 1
+        elif version.startswith("7"):
+            parts = 2
         else:
             parts = 3
 
