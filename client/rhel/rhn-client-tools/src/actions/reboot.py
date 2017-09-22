@@ -6,9 +6,7 @@
 # Author: Adrian Likins <alikins@redhat.com
 #
 
-import sys
 import os
-sys.path.append("/usr/share/rhn/")
 
 __rhnexport__ = [
     'reboot']

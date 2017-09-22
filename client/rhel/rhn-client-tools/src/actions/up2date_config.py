@@ -7,9 +7,7 @@
 
 import os
 import re
-import sys
 
-sys.path.append("/usr/share/rhn")
 from up2date_client import config
 
 cfg = config.initUp2dateConfig()

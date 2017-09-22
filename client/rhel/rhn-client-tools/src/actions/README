@@ -64,7 +64,7 @@ send the exit status.
 As mentioned earlier, actions are simply python methods to
 the up2date client. The methods are implemented in python
 modules or classes. The module files themselves will be
-installed into the actions/ dir (typically /usr/share/rhn/up2date/actions)
+installed into the actions/ dir (typically /usr/lib/python2.7/up2date/actions)
 
 What A Module File Should Look Like
 

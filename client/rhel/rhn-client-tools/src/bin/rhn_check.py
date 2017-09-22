@@ -40,7 +40,6 @@ if not hasattr(t, 'ugettext'):
 _ = t.ugettext
 
 import OpenSSL
-sys.path.append("/usr/share/rhn/")
 
 # disable sgmlop module
 # it breaks rhn_check when loaded during xmlrpclib import

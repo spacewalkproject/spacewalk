@@ -18,7 +18,6 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateAuth
 from up2date_client import rhncli

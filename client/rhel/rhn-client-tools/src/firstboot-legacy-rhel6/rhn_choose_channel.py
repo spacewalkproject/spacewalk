@@ -17,8 +17,6 @@
 # Authors:
 #     Miroslav Suchy <msuchy@redhat.com>
 
-import sys
-sys.path.append("/usr/share/rhn")
 from up2date_client import rhnreg, rhnregGui, rhnserver
 
 import gtk

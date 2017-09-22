@@ -368,7 +368,6 @@ make -f Makefile.rhn-client-tools test
 
 # dirs
 %dir %{_datadir}/rhn
-%dir %{_datadir}/rhn/up2date_client
 %dir %{_localstatedir}/spool/up2date
 
 %{_sbindir}/rhn-profile-sync

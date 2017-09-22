@@ -7,8 +7,6 @@
 
 
 # imports are a bit weird here to avoid name collions on "harware"
-import sys
-sys.path.append("/usr/share/rhn/")
 from up2date_client import hardware
 from up2date_client import up2dateAuth
 from up2date_client import rpcServer

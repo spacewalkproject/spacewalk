@@ -16,13 +16,10 @@
 # Authors:
 #     Daniel Benamy <dbenamy@redhat.com>
 
-import sys
-sys.path.append("/usr/share/rhn/up2date_client/")
-sys.path.append("/usr/share/rhn")
-import rhnreg
-import rhnregGui
 from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
-import config
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
+from up2date_client import config
 
 import gtk
 from gtk import glade

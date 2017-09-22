@@ -35,11 +35,6 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-_LIBPATH = "/usr/share/rhn"
-# add to the path if need be
-if _LIBPATH not in sys.path:
-    sys.path.append(_LIBPATH)
-
 from up2date_client.rhnChannel import subscribeChannels, unsubscribeChannels, getChannels
 from up2date_client import up2dateAuth, config, up2dateErrors, rhncli, rhnserver
 

@@ -20,8 +20,6 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-sys.path.append("/usr/share/rhn/")
-
 from up2date_client import up2dateLog
 up2dateLog.initLog().set_app_name('rhn_register')
 from up2date_client import up2dateAuth
