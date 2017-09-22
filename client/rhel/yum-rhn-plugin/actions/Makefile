@@ -2,7 +2,7 @@ PREFIX ?= /
 
 PYTHON ?= python
 PYFILES = $(wildcard *.py)
-PKGDIR = usr/share/rhn/actions/
+PKGDIR = $(PYTHONPATH)/actions/
 
 all: 
 	echo "Nothing to do"

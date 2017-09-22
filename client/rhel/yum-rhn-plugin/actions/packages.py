@@ -25,8 +25,6 @@ sys.path.append("/usr/share/yum-cli")
 
 import callback
 
-sys.path.append("/usr/share/rhn/")
-
 from up2date_client import up2dateLog
 from up2date_client import config
 from up2date_client import rpmUtils

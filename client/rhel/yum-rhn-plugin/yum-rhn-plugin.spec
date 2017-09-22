@@ -36,7 +36,7 @@ make -f Makefile.yum-rhn-plugin
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} 
+make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} PYTHONPATH=%{python_sitelib}
 
 %find_lang %{name}
 
@@ -66,7 +66,7 @@ fi
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{_datadir}/yum-plugins/*
-%{_datadir}/rhn/actions/*
+%{python_sitelib}/actions/*
 %doc LICENSE
 
 %changelog
