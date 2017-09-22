@@ -6,7 +6,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.1
+Version:	2.8.2
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -92,6 +92,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- install files into python_sitelib/python3_sitelib
+- split spacewalk-oscap into python2/python3 specific packages
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
