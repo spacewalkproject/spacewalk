@@ -14,13 +14,10 @@
 #
 
 import os
-import sys
 import time
 
 import dnf.exceptions
 import dnf.cli
-
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateLog
 from up2date_client import config

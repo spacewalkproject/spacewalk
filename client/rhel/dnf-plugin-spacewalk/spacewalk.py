@@ -26,12 +26,9 @@ import errno
 import json
 import librepo
 import os
-import sys
 from copy import copy
 from dnf.conf.config import PRIO_PLUGINCONFIG
 
-# up2date libs are in non-standard path
-sys.path.append("/usr/share/rhn/")
 import up2date_client.up2dateAuth
 import up2date_client.config
 import up2date_client.rhnChannel

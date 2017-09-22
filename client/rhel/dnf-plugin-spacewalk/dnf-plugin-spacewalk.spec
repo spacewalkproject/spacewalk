@@ -60,21 +60,26 @@ patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
 
 %install
 install -d %{buildroot}%{_sysconfdir}/dnf/plugins/
-install -d %{buildroot}/usr/share/rhn/actions
 install -d %{buildroot}/var/lib/up2date
 install -d %{buildroot}%{_mandir}/man{5,8}
-%if 0%{?fedora}
-install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
-install -m 644 spacewalk.py %{buildroot}%{python3_sitelib}/dnf-plugins/
-%else
-install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
-install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
-%endif
-install -m 644 actions/packages.py %{buildroot}/usr/share/rhn/actions/
-install -m 644 actions/errata.py %{buildroot}/usr/share/rhn/actions/
 install -m 644 spacewalk.conf %{buildroot}%{_sysconfdir}/dnf/plugins/
 install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
+
+# python2
+install -d %{buildroot}%{python2_sitelib}/actions
+install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
+install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
+install -m 644 actions/packages.py %{buildroot}%{python2_sitelib}/actions/
+install -m 644 actions/errata.py %{buildroot}%{python2_sitelib}/actions/
+
+%if 0%{?build_py3}
+install -d %{buildroot}%{python3_sitelib}/actions
+install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
+install -m 644 spacewalk.py %{buildroot}%{python3_sitelib}/dnf-plugins/
+install -m 644 actions/packages.py %{buildroot}%{python3_sitelib}/actions/
+install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/actions/
+%endif
 
 %pre
 
