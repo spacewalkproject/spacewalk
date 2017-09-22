@@ -1,3 +1,10 @@
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:		spacewalk-oscap
 Version:	2.8.1
 Release:	1%{?dist}
@@ -9,8 +16,6 @@ URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
-BuildRequires:	python-devel
-BuildRequires:	rhnlib
 BuildRequires:  libxslt
 %if 0%{?rhel}
 Requires: openscap-utils
@@ -18,11 +23,35 @@ Requires: openscap-utils
 Requires:	openscap-scanner
 %endif
 Requires:	libxslt
-Requires:       rhnlib >= 0:2.5.78-1
-Requires:       rhn-check
+Requires:       %{pythonX}-%{name}
+
 %description
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
 to run OpenSCAP scan from Spacewalk or Red Hat Satellite server.
+
+%package -n python2-%{name}
+Summary:	OpenSCAP plug-in for rhn-check
+%{?python_provide:%python_provide python2-%{name}}
+Requires:       spacewalk-oscap
+Requires:       rhnlib >= 0:2.5.78-1
+Requires:       python2-rhn-check
+BuildRequires:	python-devel
+BuildRequires:	rhnlib
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary:	OpenSCAP plug-in for rhn-check
+%{?python_provide:%python_provide python3-%{name}}
+Requires:       spacewalk-oscap
+Requires:       python3-rhnlib >= 0:2.5.78-1
+Requires:       python3-rhn-check
+BuildRequires:	python3-devel
+BuildRequires:	python3-rhnlib
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
@@ -42,15 +71,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %config  /etc/sysconfig/rhn/clientCaps.d/scap
-%{_datadir}/rhn/actions/scap.*
 %{_datadir}/openscap/xsl/xccdf-resume.xslt
 %if 0%{?suse_version}
 %dir /etc/sysconfig/rhn
 %dir /etc/sysconfig/rhn/clientCaps.d
 %dir %{_datadir}/openscap
 %dir %{_datadir}/openscap/xsl
-%dir %{_datadir}/rhn
-%dir %{_datadir}/rhn/actions
+%endif
+
+%files -n python2-%{name}
+%{python_sitelib}/actions/scap.*
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/actions/scap.*
+%{python3_sitelib}/actions/__pycache__/scap.*
 %endif
 
 %changelog
