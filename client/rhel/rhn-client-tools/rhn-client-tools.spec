@@ -300,10 +300,6 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/rhn_register
 
 %find_lang %{name}
 
-%if 0%{?fedora}
-/usr/lib/rpm/brp-python-bytecompile /usr/bin/python3 1
-%endif
-
 %post
 rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
 

@@ -13,9 +13,6 @@ INSTALL_DIR     = $(INSTALL) -m 755 -d
 INSTALL_BIN     := $(INSTALL) -m 755 
 
 DIRS		= $(BIN_DIR) $(SBIN_DIR)
-# default compile rule:
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
 
 $(DIRS):
 	@$(INSTALL_DIR) $@

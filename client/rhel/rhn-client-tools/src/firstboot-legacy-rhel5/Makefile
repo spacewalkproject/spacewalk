@@ -7,7 +7,7 @@ MODULES		= rhn_login_gui \
 		  rhn_provide_certificate_gui rhn_create_profile_gui \
 		  rhn_review_gui rhn_finish_gui rhn_choose_channel
 PYFILES		= $(addsuffix .py, $(MODULES))
-OBJECTS		= $(PYFILES) $(addsuffix .pyc, $(MODULES))
+OBJECTS		= $(PYFILES)
 
 # Install stuff
 INSTALL         = /usr/bin/install -c
@@ -21,10 +21,6 @@ FIRSTBOOTDIR	= $(PREFIX)/usr/share/firstboot/modules/
 PYCHECKER       = /usr/bin/pychecker
 
 all:: $(OBJECTS)
-
-# default compile rule:
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
 
 install: all $(FIRSTBOOTDIR)
 	$(INSTALL_DATA) $(OBJECTS) $(FIRSTBOOTDIR)/

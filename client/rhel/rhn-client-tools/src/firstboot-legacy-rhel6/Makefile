@@ -8,8 +8,8 @@ MODULES		= rhn_login_gui \
 		  rhn_review_gui rhn_finish_gui rhn_choose_channel
 TOPPYFILE	= $(addsuffix .py, $(TOPMODULE))
 PYFILES		= $(addsuffix .py, $(MODULES))
-TOPOBJECT	= $(TOPPYFILE) $(addsuffix .pyc, $(TOPMODULE))
-OBJECTS		= $(PYFILES) $(addsuffix .pyc, $(MODULES))
+TOPOBJECT	= $(TOPPYFILE)
+OBJECTS		= $(PYFILES)
 
 # Install stuff
 INSTALL         = /usr/bin/install -c
@@ -24,10 +24,6 @@ FIRSTBOOTDIR	= $(PREFIX)/usr/share/rhn/up2date_client/firstboot/
 PYCHECKER       = /usr/bin/pychecker
 
 all:: $(TOPOBJECT) $(OBJECTS)
-
-# default compile rule:
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
 
 install: all $(FIRSTBOOTDIR) $(SYSTEMFIRSTBOOTDIR)
 	$(INSTALL_DATA) $(OBJECTS) $(FIRSTBOOTDIR)/

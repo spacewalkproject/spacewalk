@@ -20,10 +20,6 @@ PYCHECKER       = /usr/bin/pychecker
 
 all:: $(OBJECTS)
 
-# default compile rule:
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
-
 install: all $(ACTIONDIR)
 	$(INSTALL_BIN) $(OBJECTS) $(ACTIONDIR)/ 
 
