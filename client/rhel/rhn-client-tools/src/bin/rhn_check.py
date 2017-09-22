@@ -55,7 +55,6 @@ from up2date_client import config
 from up2date_client import clientCaps
 from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
-import signal
 from rhn import SSL
 from rhn import rhnLockfile
 from rhn.i18n import bstr, sstr
