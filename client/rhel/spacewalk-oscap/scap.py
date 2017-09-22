@@ -6,7 +6,6 @@ import xml.sax
 import tempfile
 import shutil
 from base64 import encodestring
-sys.path.append("/usr/share/rhn/")
 from up2date_client import up2dateLog
 from up2date_client import rhnserver
 from up2date_client import up2dateAuth

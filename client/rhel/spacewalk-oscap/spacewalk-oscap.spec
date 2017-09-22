@@ -63,7 +63,10 @@ make -f Makefile.spacewalk-oscap
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT
+make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{python_sitelib}
+%if 0%{?build_py3}
+make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{python3_sitelib}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
