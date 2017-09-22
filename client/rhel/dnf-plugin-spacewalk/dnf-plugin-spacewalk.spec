@@ -7,7 +7,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -102,6 +102,10 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/actions/
 %endif
 
 %changelog
+* Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- install files into python_sitelib/python3_sitelib
+- split dnf-plugin-spacewalk into python2/python3 specific packages
+
 * Thu Sep 07 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.1-1
 - unload function has been renamed to _unload() in DNF 2
 - Bumping package versions for 2.8.
