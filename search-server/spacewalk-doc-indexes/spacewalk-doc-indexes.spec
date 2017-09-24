@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.7.2
+Version: 2.7.3
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -48,6 +48,13 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Sep 24 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- Reindex documentation for SW 2.7
+- fix urls, filters and conf for doc indexing
+- Revert "reindex docs after update to ReleaseNotes27"
+- fixing crawler filter, 5.8 doc is using lower case url
+- reindex docs after update to ReleaseNotes27
+
 * Mon Sep 11 2017 Eric Herget <eherget@redhat.com> 2.7.2-1
 - reindex docs for search
 - reindex docs
