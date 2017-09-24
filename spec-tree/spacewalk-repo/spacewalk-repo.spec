@@ -87,7 +87,7 @@ enabled_metadata=1
 REPO
 
 %if 0%{?rhel} == 6
-        cat >$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-java.repo <<REPO
+        cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-java.repo <<REPO
 
 [group_spacewalkproject-epel6-addons]
 name=Copr repo for epel6-addons owned by @spacewalkproject
