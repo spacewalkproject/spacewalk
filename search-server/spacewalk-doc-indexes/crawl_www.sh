@@ -28,17 +28,5 @@ if [ ! -d ${OUTPUT_DIR} ]; then
     mkdir -p ${OUTPUT_DIR}
 fi
 
-# The original command - newer versions of nutch use separate crawl command
-# ${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR} -depth 10 -threads 50 | tee ${NUTCH_LOG_DIR}/$0.log
+${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR} -depth 10 -threads 50 | tee ${NUTCH_LOG_DIR}/$0.log
 
-# This new command is supposed to do crawl and index all at once.  But it fails when it attempts the nutch clean command below.  So run without the -i to skip indexing and then do indexing in separate step
-${NUTCH_HOME}/bin/crawl -i -D solr.server.url=http://localhost:8983/solr/spacewalk ${NUTCH_CONF_DIR}/../urls ${OUTPUT_DIR} 10 | tee ${NUTCH_LOG_DIR}/$0.log
-
-# The command that fails as part of the crawl with indexing enabled
-# /usr/share/nutch/bin/nutch clean -Dsolr.server.url=http://localhost:8983/solr/spacewalk /home/rdu/eherget/sources/spacewalk/search-server/spacewalk-doc-indexes/data/crawl_www/crawldb
-
-# The crawl command without indexing.  This actually works
-# ${NUTCH_HOME}/bin/crawl -D solr.server.url=http://localhost:8983/solr/spacewalk ${NUTCH_CONF_DIR}/../urls ${OUTPUT_DIR} 10 | tee ${NUTCH_LOG_DIR}/$0.log
-
-# The command for indexing the crawl from command immediately above this one
-# ${NUTCH_HOME}/bin/nutch solrindex http://localhost:8983/solr/spacewalk ${OUTPUT_DIR}/crawldb -linkdb ${OUTPUT_DIR}/linkdb -dir ${OUTPUT_DIR}/segments -filter -normalize -deleteGone
