@@ -6,6 +6,15 @@
 <configuration>
 
 <property>
+  <name>http.content.limit</name>
+  <value>-1</value>
+  <description>The length limit for downloaded content, in bytes.
+  If this value is nonnegative (>=0), content longer than it will be truncated;
+  otherwise, no truncation at all.
+  </description>
+</property>
+
+<property>
   <name>http.agent.name</name>
   <value>Spacewalk</value>
   <description>HTTP 'User-Agent' request header. MUST NOT be empty -
@@ -21,6 +30,16 @@
 
   and set their values appropriately.
 
+  </description>
+</property>
+
+<property>
+  <name>http.robots.agents</name>
+  <value>Spacewalk,*</value>
+  <description>The agent strings we'll look for in robots.txt files,
+  comma-separated, in decreasing order of precedence. You should
+  put the value of http.agent.name as the first agent name, and keep the
+  default * at the end of the list. E.g.: BlurflDev,Blurfl,*
   </description>
 </property>
 
