@@ -39,6 +39,8 @@
 # accept hosts in MY.DOMAIN.NAME
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
 #+^http://([a-z0-9]*\.)*redhat.com/
+# skip the single page html doc.  the - line must come first
+-^https://access.redhat.com/documentation/en-us/red_hat_satellite/5.8/html-single/
 +^https://access.redhat.com/documentation/en-us/red_hat_satellite/5.8/
 +^https://github.com/spacewalkproject/spacewalk/wiki/ReleaseNotes27
 # skip everything else
