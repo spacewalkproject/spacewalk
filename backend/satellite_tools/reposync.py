@@ -416,6 +416,11 @@ class RepoSync(object):
         sync_error = 0
         start_time = datetime.now()
         for (repo_id, url, repo_type, repo_label) in self.urls:
+            log(0, '')
+            log(0, "  Processing repository with URL: %s" % url)
+            if self.metadata_only:
+                log(0, '    * WARNING: processing RPM metadata only.')
+
             log(0, "Repo URL: %s" % url)
             plugin = None
 
@@ -566,7 +571,8 @@ class RepoSync(object):
 
     def import_updates(self, plug, url):
         notices = plug.get_updates()
-        log(0, "Repo %s has %s errata." % (url, len(notices)))
+        log(0, '')
+        log(0, "  Errata in repo: %s." % len(notices))
         if notices:
             self.upload_updates(notices)
 
@@ -574,7 +580,8 @@ class RepoSync(object):
         groupsfile = plug.get_groups()
         if groupsfile:
             basename = os.path.basename(groupsfile)
-            log(0, "Repo %s has comps file %s." % (url, basename))
+            log(0, '')
+            log(0, "  Importing groups from comps file %s." % basename)
             relativedir = os.path.join(relative_comps_dir, self.channel_label)
             absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
             if not os.path.exists(absdir):
@@ -794,13 +801,13 @@ class RepoSync(object):
                     raise
 
         if batch:
-            log(0, "Syncing %s new errata to channel." % len(batch))
+            log(0, "    Syncing %s new errata to channel." % len(batch))
             backend = SQLBackend()
             importer = ErrataImport(batch, backend)
             importer.run()
             self.regen = True
         elif notices:
-            log(0, "No new errata to sync.")
+            log(0, "    No new errata to sync.")
 
     def import_packages(self, plug, source_id, url):
         failed_packages = 0
@@ -821,9 +828,9 @@ class RepoSync(object):
         to_disassociate = {}
         to_process = []
         num_passed = len(packages)
-        log(0, "Packages in repo:             %5d" % plug.num_packages)
+        log(0, "    Packages in repo:             %5d" % plug.num_packages)
         if plug.num_excluded:
-            log(0, "Packages passed filter rules: %5d" % num_passed)
+            log(0, "    Packages passed filter rules: %5d" % num_passed)
         channel_id = int(self.channel['id'])
 
         for pack in packages:
@@ -867,13 +874,13 @@ class RepoSync(object):
 
         num_to_process = len(to_process)
         if num_to_process == 0:
-            log(0, "No new packages to sync.")
+            log(0, "    No new packages to sync.")
             # If we are just appending, we can exit
             if not self.strict:
                 return failed_packages
         else:
-            log(0, "Packages already synced:      %5d" % (num_passed - num_to_process))
-            log(0, "Packages to sync:             %5d" % num_to_process)
+            log(0, "    Packages already synced:      %5d" % (num_passed - num_to_process))
+            log(0, "    Packages to sync:             %5d" % num_to_process)
 
         is_non_local_repo = (url.find("file:/") < 0)
 
@@ -892,13 +899,16 @@ class RepoSync(object):
                 downloader.add(params)
                 to_download_count += 1
         if num_to_process != 0:
-            log(0, "New packages to download:     %5d" % to_download_count)
+            log(0, "    New packages to download:     %5d" % to_download_count)
+            log2(0, 0, "  Downloading packages:")
         logger = TextLogger(None, to_download_count)
         downloader.set_log_obj(logger)
         downloader.run()
 
         log2background(0, "Importing packages started.")
-        progress_bar = ProgressBarLogger("Importing packages:    ", to_download_count)
+        log(0, '')
+        log(0, '  Importing packages to DB:')
+        progress_bar = ProgressBarLogger("               Importing packages:    ", to_download_count)
 
         # Prepare SQL statements
         h_delete_package_queue = rhnSQL.prepare("""delete from rhnPackageFileDeleteQueue where path = :path""")
@@ -1028,7 +1038,8 @@ class RepoSync(object):
                 self.disassociate_package(checksum_type, checksum)
         # Do not re-link if nothing was marked to link
         if any([to_link for (pack, to_download, to_link) in to_process]):
-            log(0, "Linking packages to channel.")
+            log(0, '')
+            log(0, "  Linking packages to the channel.")
             # Packages to append to channel
             import_batch = [self.associate_package(pack) for (pack, to_download, to_link) in to_process if to_link]
             backend = SQLBackend()
@@ -1195,6 +1206,8 @@ class RepoSync(object):
         return advisories
 
     def import_kickstart(self, plug, repo_label):
+        log(0, '')
+        log(0, '  Importing kickstarts.')
         ks_path = 'rhn/kickstart/'
         ks_tree_label = re.sub(r'[^-_0-9A-Za-z@.]', '', repo_label.replace(' ', '_'))
         if len(ks_tree_label) < 4:
@@ -1232,7 +1245,7 @@ class RepoSync(object):
                     pass
 
         if not treeinfo_parser:
-            log(0, "Kickstartable tree not detected (no valid treeinfo file)")
+            log(0, "    Kickstartable tree not detected (no valid treeinfo file)")
             return
 
         if self.ks_install_type is None:
@@ -1254,7 +1267,7 @@ class RepoSync(object):
                 to_download.add(repo_path)
 
         if row:
-            log(0, "Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
+            log(0, "    Kickstartable tree %s already synced. Updating content..." % ks_tree_label)
             ks_id = row['id']
         else:
             row = rhnSQL.fetchone_dict("""
@@ -1273,7 +1286,7 @@ class RepoSync(object):
                            channel_id=self.channel['id'], ks_tree_type=self.ks_tree_type,
                            ks_install_type=self.ks_install_type)
 
-            log(0, "Added new kickstartable tree %s. Downloading content..." % ks_tree_label)
+            log(0, "    Added new kickstartable tree %s. Downloading content..." % ks_tree_label)
 
         insert_h = rhnSQL.prepare("""
                 insert into rhnKSTreeFile (kstree_id, relative_filename, checksum_id, file_size, last_modified, created,
@@ -1287,7 +1300,7 @@ class RepoSync(object):
 
         # Downloading/Updating content of KS Tree
         dirs_queue = ['']
-        log(0, "Gathering all files in kickstart repository...")
+        log(0, "    Gathering all files in kickstart repository...")
         while len(dirs_queue) > 0:
             cur_dir_name = dirs_queue.pop(0)
             cur_dir_html = plug.get_file(cur_dir_name)
@@ -1329,8 +1342,8 @@ class RepoSync(object):
                             to_download.add(repo_path)
 
         if to_download:
-            log(0, "Downloading %d kickstart files." % len(to_download))
-            progress_bar = ProgressBarLogger("Downloading kickstarts:", len(to_download))
+            log(0, "    Downloading %d kickstart files." % len(to_download))
+            progress_bar = ProgressBarLogger("              Downloading kickstarts:", len(to_download))
             downloader = ThreadedDownloader(force=self.force_kickstart)
             for item in to_download:
                 params = {}

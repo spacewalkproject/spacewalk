@@ -80,9 +80,9 @@ class TextLogger:
         self.lock.acquire()
         self.status += 1
         if success:
-            log(0, "%d/%d : %s" % (self.status, self.total, str(param)))
+            log(0, "    %d/%d : %s" % (self.status, self.total, str(param)))
         else:
-            log2(0, 0, "%d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
+            log2(0, 0, "    %d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
         self.lock.release()
 
 
