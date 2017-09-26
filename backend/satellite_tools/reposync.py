@@ -479,10 +479,10 @@ class RepoSync(object):
                 if not self.no_packages:
                     ret = self.import_packages(plugin, repo_id, url)
                     failed_packages += ret
-                    self.import_groups(plugin, url)
+                    self.import_groups(plugin)
 
                 if not self.no_errata:
-                    self.import_updates(plugin, url)
+                    self.import_updates(plugin)
 
                 # only for repos obtained from the DB
                 if self.sync_kickstart and repo_label:
@@ -569,14 +569,14 @@ class RepoSync(object):
         submod = getattr(mod, name)
         return getattr(submod, "ContentSource")
 
-    def import_updates(self, plug, url):
+    def import_updates(self, plug):
         notices = plug.get_updates()
         log(0, '')
         log(0, "  Errata in repo: %s." % len(notices))
         if notices:
             self.upload_updates(notices)
 
-    def import_groups(self, plug, url):
+    def import_groups(self, plug):
         groupsfile = plug.get_groups()
         if groupsfile:
             basename = os.path.basename(groupsfile)
