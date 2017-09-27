@@ -25,6 +25,8 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,10 +62,19 @@ public class DeleteCustomKeyAction extends RhnAction {
         if (requestContext.isSubmitted()) {
             ServerFactory.removeCustomKey(key);
 
+            bindMessage(requestContext, "system.customkey.deletesuccess");
             return mapping.findForward("deleted");
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private void bindMessage(RequestContext requestContext, String error) {
+        ActionMessages msg = new ActionMessages();
+        String[] actionParams = {};
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage(error, actionParams));
+        getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
     }
 
 }
