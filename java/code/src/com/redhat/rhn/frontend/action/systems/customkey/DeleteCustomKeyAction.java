@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.systems.customkey;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -47,7 +46,6 @@ public class DeleteCustomKeyAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getCurrentUser();
         Long cikid = requestContext.getParamAsLong(CIKID_PARAM);
 
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
