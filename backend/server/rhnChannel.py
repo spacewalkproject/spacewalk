@@ -859,7 +859,7 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
         else:
             parts = 3
 
-        server_rel = '.'.join(release.split('.')[:parts])
+        server_rel = '.'.join(release..split('-')[0].split('.')[:parts])
         channel_rel = '.'.join(db_release.split('.')[:parts])
 
         # XXX we're no longer using the is_default column from the db
