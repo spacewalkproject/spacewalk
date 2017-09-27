@@ -67,17 +67,22 @@ Requires: python-dmidecode
 Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
 BuildRequires: python-devel
-%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+
+%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140 || 0%{?fedora}
 Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
-%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
-%if 0%{?rhel} > 5
-Requires: newt-python
-%else
+%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140 || 0%{?fedora}
+
+%if 0%{?rhel} == 5 
 Requires: newt
 %endif
+
+%if 0%{?rhel} > 5 || 0%{?fedora}
+Requires: newt-python
+%endif
+
 %if 0%{?suse_version}
 Requires: dbus-1-python
 Requires: python-newt
