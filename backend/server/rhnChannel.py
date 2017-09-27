@@ -857,7 +857,7 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
         if version in ['4AS', '4ES']:
             parts = 1
         else:
-            parts = 3
+            parts = 2
 
         server_rel = '.'.join(release..split('-')[0].split('.')[:parts])
         channel_rel = '.'.join(db_release.split('.')[:parts])
