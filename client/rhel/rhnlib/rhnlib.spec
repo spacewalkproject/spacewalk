@@ -2,7 +2,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -88,6 +88,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Sep 28 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.3-1
+- Python's OpenSSL.SSL.Connection method for getting state was renamed. Now
+  before run it we should determinate its name via getattr built-in function.
+
 * Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - added proper python*-rhnlib provides
 
