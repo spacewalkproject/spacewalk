@@ -147,15 +147,21 @@ class SSLSocket:
         # No connection was established
         if self._connection is None:
             return
+        get_state = None
+        try:
+            get_state = getattr(self._connection, 'state_string')
+        except AttributeError:
+            get_state = getattr(self._connection, 'get_state_string')
 
-        # for Python 3
-        if sys.version_info[0] == 3:
-            if self._connection.get_state_string() == b'SSL negotiation finished successfully':
-                self._connection.shutdown()
-        # for Python 2
-        else:
-            if self._connection.state_string() == 'SSL negotiation finished successfully':
-                self._connection.shutdown()
+        if get_state is not None:
+            # for Python 3
+            if sys.version_info[0] == 3:
+                if get_state() == b'SSL negotiation finished successfully':
+                    self._connection.shutdown()
+            # for Python 2
+            else:
+                if get_state() == 'SSL negotiation finished successfully':
+                    self._connection.shutdown()
 
         self._connection.close()
         self._closed = 1
