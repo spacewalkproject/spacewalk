@@ -120,10 +120,28 @@ Python 2 specific files for python3-%{name}-management.
 Summary: Spacewalk Configuration Client Actions
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Requires: %{name}-client
+Requires: %{pythonX}-%{name}-actions = %{version}-%{release}
 
 %description actions
 The code required to run configuration actions scheduled via the RHN Classic website or Red Hat Satellite or Spacewalk.
+
+%package -n python2-%{name}-actions
+Summary: Spacewalk Configuration Client Actions
+%{?python_provide:%python_provide python2-%{name}-actions}
+Requires: %{name}-actions = %{version}-%{release}
+Requires: python2-%{name}-client
+%description -n python2-%{name}-actions
+Python 2 specific files for python2-%{name}-actions.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-actions
+Summary: Spacewalk Configuration Client Actions
+%{?python_provide:%python_provide python3-%{name}-actions}
+Requires: %{name}-actions = %{version}-%{release}
+Requires: python3-%{name}-client
+%description -n python3-%{name}-actions
+Python 3 specific files for python2-%{name}-actions.
+%endif
 
 %prep
 %setup -q
