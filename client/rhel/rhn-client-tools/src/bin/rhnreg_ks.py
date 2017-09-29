@@ -133,6 +133,18 @@ class RegisterKsCli(rhncli.RhnCli):
                                                    self.options.password)
             other['channel'] = channels['default_channel']
 
+            # Find close version of channel
+            if not channels['default_channel']:
+                tmp_version = None
+                for channel in channels['channels']:
+                    chennel_version = channel.split(".")[1]
+                    if tmp_version == None:
+                        tmp_version = chennel_version
+                        other['channel'] = channel
+                    elif tmp_version > chennel_version:
+                        tmp_version = chennel_version
+                        other['channel'] = channel
+
         try:
             systemId = rhnreg.registerSystem(self.options.username,
                 self.options.password, profilename, self.options.activationkey, other)
