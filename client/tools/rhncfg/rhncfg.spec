@@ -193,10 +193,19 @@ fi
 %endif
 
 %files client
-%{rhnroot}/config_client
 %{_bindir}/rhncfg-client
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-client.conf
 %{_mandir}/man8/rhncfg-client.8*
+
+%files -n python2-%{name}-client
+%{python_sitelib}/config_client
+%{_bindir}/rhncfg-client-%{python_version}
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-client
+%{python3_sitelib}/config_client
+%{_bindir}/rhncfg-client-%{python3_version}
+%endif
 
 %files management
 %{rhnroot}/config_management
