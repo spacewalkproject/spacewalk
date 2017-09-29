@@ -208,10 +208,19 @@ fi
 %endif
 
 %files management
-%{rhnroot}/config_management
 %{_bindir}/rhncfg-manager
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-manager.conf
 %{_mandir}/man8/rhncfg-manager.8*
+
+%files -n python2-%{name}-management
+%{python_sitelib}/config_management
+%{_bindir}/rhncfg-manager-%{python_version}
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-management
+%{python3_sitelib}/config_management
+%{_bindir}/rhncfg-manager-%{python3_version}
+%endif
 
 %files actions
 %{rhnroot}/actions
