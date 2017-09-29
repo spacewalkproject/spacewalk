@@ -223,11 +223,20 @@ fi
 %endif
 
 %files actions
-%{rhnroot}/actions
 %{_bindir}/rhn-actions-control
 %config(noreplace) %{client_caps_dir}/*
 %{_mandir}/man8/rhn-actions-control.8*
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
+
+%files -n python2-%{name}-actions
+%{python_sitelib}/rhn/actions
+%{_bindir}/rhn-actions-control-%{python_version}
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-actions
+%{python3_sitelib}/rhn/actions
+%{_bindir}/rhn-actions-control-%{python3_version}
+%endif
 
 %changelog
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.111-1
