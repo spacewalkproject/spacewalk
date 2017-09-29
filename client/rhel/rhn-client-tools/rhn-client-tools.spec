@@ -22,7 +22,7 @@ BuildRequires: update-desktop-files
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: gnupg
 Requires: sh-utils
-Requires: %{pythonX}-%{name}
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 
 %if 0%{?suse_version}
 Requires: zypper
@@ -61,7 +61,7 @@ system to receive software updates from Red Hat Satellite or Spacewalk.
 %package -n python2-%{name}
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
-Requires: %{name}
+Requires: %{name} = %{version}-%{release}
 Requires: rpm-python
 Requires: python-dmidecode
 Requires: python-ethtool >= 0.4
@@ -102,7 +102,7 @@ Python 2 specific files of %{name}.
 %package -n python3-%{name}
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python3-%{name}}
-Requires: %{name}
+Requires: %{name} = %{version}-%{release}
 Requires: python3-dbus
 Requires: python3-rpm
 Requires: libgudev
@@ -128,7 +128,7 @@ Python 3 specific files of %{name}.
 Summary: Check for RHN actions
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
-Requires: %{pythonX}-rhn-check
+Requires: %{pythonX}-rhn-check = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
@@ -146,7 +146,7 @@ scheduled actions.
 %package -n python2-rhn-check
 Summary: Check for RHN actions
 %{?python_provide:%python_provide python2-rhn-check}
-Requires: rhn-check
+Requires: rhn-check = %{version}-%{release}
 
 %description -n python2-rhn-check
 Python 2 specific files for rhn-check.
@@ -155,7 +155,7 @@ Python 2 specific files for rhn-check.
 %package -n python3-rhn-check
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python3-rhn-check}
-Requires: rhn-check
+Requires: rhn-check = %{version}-%{release}
 
 %description -n python3-rhn-check
 Python 3 specific files for rhn-check.
@@ -165,7 +165,7 @@ Python 3 specific files for rhn-check.
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 Group: System Environment/Base
-Requires: %{pythonX}-rhn-setup
+Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
 %endif
@@ -179,7 +179,7 @@ Red Hat Satellite or Spacewalk, and to register a system with a Red Hat Satellit
 %package -n python2-rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python2-rhn-setup}
-Requires: rhn-setup
+Requires: rhn-setup = %{version}-%{release}
 %if 0%{?rhel} == 5
 Requires: newt
 %endif
@@ -194,7 +194,7 @@ Python 2 specific files for rhn-setup.
 %package -n python3-rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python3-rhn-setup}
-Requires: rhn-setup
+Requires: rhn-setup = %{version}-%{release}
 Requires: newt-python3
 
 %description -n python3-rhn-setup
@@ -206,7 +206,8 @@ Python 3 specific files for rhn-setup.
 Summary: A GUI interface for RHN/Spacewalk Registration
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
-Requires: %{pythonX}-rhn-setup
+Requires: %{pythonX}-rhn-setup = %{version}-%{release}
+Requires: %{pythonX}-rhn-setup-gnome = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
 
@@ -217,7 +218,7 @@ registering a system with a Red Hat Satellite or Spacewalk server.
 %package -n python2-rhn-setup-gnome
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python2-rhn-setup-gnome}
-Requires: rhn-setup-gnome
+Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
@@ -236,7 +237,7 @@ Python 2 specific files for rhn-setup-gnome.
 %package -n python3-rhn-setup-gnome
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python3-rhn-setup-gnome}
-Requires: rhn-setup-gnome
+Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
