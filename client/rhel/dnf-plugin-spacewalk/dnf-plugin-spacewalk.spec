@@ -7,7 +7,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -103,6 +103,10 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Fri Sep 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- require new version of rhn-client-tools
+- move client actions to rhn namespace
+
 * Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - install files into python_sitelib/python3_sitelib
 - split dnf-plugin-spacewalk into python2/python3 specific packages
