@@ -43,7 +43,7 @@ def sanity(methodNameComps):
                 "Method names should start with an alphabetic character")
 
 
-def getMethod(methodName, abspath, baseClass):
+def getMethod(methodName, baseClass):
     #"""
     #Retreive method given methodName, path to base of tree, and class/module
     #route/label.
@@ -52,37 +52,24 @@ def getMethod(methodName, abspath, baseClass):
     methodNameComps = baseClass.split('.') + methodName.split('.')
     # Sanity checks
     sanity(methodNameComps)
-    # Build the path to the file
-    path = abspath
-    for index in range(len(methodNameComps)):
-        comp = methodNameComps[index]
-        path = "%s/%s" % (path, comp)
-        # If this is a directory, fine...
-        if os.path.isdir(path):
-            # Okay, go on
+    # Look for the module, start with the most specific
+    for index in range(len(methodNameComps), 0, -1):
+        modulename = '.'.join(methodNameComps[:index])
+        try:
+            actions = __import__(modulename)
+        except ImportError:
+            # does not exist, try next one
             continue
-        # Try to load this as a file
-        for extension in ['py', 'pyc', 'pyo']:
-            if os.path.isfile("%s.%s" % (path, extension)):
-                # Yes, this is a file
-                break
-        else:
-            # No dir and no file. Die
-            raise GetMethodException("Action %s could not be found" % methodName)
+        except Exception:
+            raise_with_tb(GetMethodException("Could not import module %s" % modulename))
+        # found one, skip the rest
         break
     else:
-        # Only directories. This can't happen
-        raise GetMethodException("Very wrong")
+        # no module found. die
+        raise GetMethodException("Action %s could not be imported" % methodName)
 
     # The position of the file
-    fIndex = index + 1
-    # Now build the module name
-    modulename = '.'.join(methodNameComps[:fIndex])
-    # And try to import it
-    try:
-        actions = __import__(modulename)
-    except ImportError:
-        raise_with_tb(GetMethodException("Could not import module %s" % modulename))
+    fIndex = index
 
     className = actions
     # Iterate through the list of components and try to load that specific
@@ -133,7 +120,7 @@ if __name__ == '__main__':
     for m in methods:
         print("----Running method %s: " % m)
         try:
-            method = getMethod(m, '.', 'Actions')
+            method = getMethod(m, 'Actions')
         except GetMethodException:
             e = sys.exc_info()[1]
             print("Error getting the method %s: %s" % (m,
