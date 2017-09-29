@@ -13,6 +13,13 @@
 %global include_selinux_package 1
 %endif
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
@@ -23,37 +30,13 @@ URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-%if 0%{?fedora} && 0%{?fedora} > 26
+%if 0%{?fedora} > 26
 BuildRequires: perl-interpreter
 %else
 BuildRequires: perl
 %endif
-%if 0%{?fedora} >= 23
-BuildRequires: python3-devel
-Requires: python3
-Requires: python3-rhnlib
-Requires: python3-spacewalk-usix
-Requires: python3-jabberpy
-%else
-BuildRequires: python-devel
-Requires: python
-Requires: rhnlib >= 1.8-3
-Requires: spacewalk-usix
-Requires: jabberpy
-%endif
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 Requires: osa-common = %{version}
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: rhn-client-tools >= 0.4.20-66
-%else
-%if 0%{?el6}
-Requires: rhn-client-tools >= 1.0.0-44
-%else
-Requires: rhn-client-tools >= 1.3.7
-%endif
-%endif
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-hashlib
-%endif
 %if 0%{?suse_version} >= 1140
 Requires: python-xml
 %endif
@@ -92,6 +75,37 @@ commands are instantly executed.
 
 This package effectively replaces the behavior of rhnsd/rhn_check that
 only poll the Spacewalk Server from time to time.
+
+%package -n python2-%{name}
+Summary: Open Source Architecture Daemon
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python
+Requires: rhnlib >= 2.8.3
+Requires: spacewalk-usix
+Requires: jabberpy
+Requires: python2-rhn-client-tools >= 2.8.4
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
+BuildRequires: python-devel
+%description -n python2-%{name}
+Python 2 specific files for %{name}
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Open Source Architecture Daemon
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python3
+Requires: python3-rhnlib >= 2.8.3
+Requires: python3-spacewalk-usix
+Requires: python3-jabberpy
+Requires: python3-rhn-client-tools >= 2.8.4
+BuildRequires: python3-devel
+%description -n python3-%{name}
+Python 3 specific files for %{name}
+%endif
 
 %package -n osa-common
 Summary: OSA common files
