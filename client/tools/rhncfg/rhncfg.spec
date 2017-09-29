@@ -89,13 +89,32 @@ Requires: %{name}-client = %{version}-%{release}
 Python 3 specific files for %{name}-client.
 %endif
 
+
 %package management
 Summary: Spacewalk Configuration Management Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-%{name}-management = %{version}-%{release}
 
 %description management
 A command line interface used to manage Spacewalk configuration.
+
+%package -n python2-%{name}-management
+Summary: Spacewalk Configuration Management Client
+%{?python_provide:%python_provide python2-%{name}-management}
+Requires: %{name}-management = %{version}-%{release}
+%description -n python2-%{name}-management
+Python 2 specific files for python2-%{name}-management.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-management
+Summary: Spacewalk Configuration Management Client
+%{?python_provide:%python_provide python3-%{name}-management}
+Requires: %{name}-management = %{version}-%{release}
+%description -n python3-%{name}-management
+Python 2 specific files for python3-%{name}-management.
+%endif
+
 
 %package actions
 Summary: Spacewalk Configuration Client Actions
