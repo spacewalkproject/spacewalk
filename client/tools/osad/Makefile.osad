@@ -35,7 +35,7 @@ install-bins : $(addsuffix .inst, $(PROGS))
 install-rcs : $(addsuffix .inst.rc, $(PROGS))
 
 %.inst : %.new $(PREFIX)$(SBINDIR)
-	$(INSTALL_BIN) $*.new $(PREFIX)$(SBINDIR)/$*
+	$(INSTALL_BIN) $*.new $(PREFIX)$(SBINDIR)/$*-$(PYTHONVERSION)
 	rm -f $*.new
 
 %.new : invocation.py

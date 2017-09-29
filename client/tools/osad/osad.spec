@@ -217,12 +217,8 @@ cp prog.init.SUSE prog.init
 sed -i 's@^#!/usr/bin/python$@#!/usr/bin/python -s@' invocation.py
 %endif
 
-%if 0%{?fedora} >= 23
-%global __python /usr/bin/python3
-%endif
-
 %build
-make -f Makefile.osad all
+make -f Makefile.osad all PYTHONPATH=%{python_sitelib}
 
 %if 0%{?include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
@@ -240,12 +236,19 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
-make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir}
-%if 0%{?fedora} >= 23
-    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad
-    # osa-dispatches is still py2 even on F23+, so we need to run py2 recompile in addition
-    /usr/lib/rpm/brp-python-bytecompile /usr/bin/python 1
+make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
+        PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version}
+%if 0%{?build_py3}
+make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
+        PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad-%{python3_version}
 %endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s osad%{default_suffix} $RPM_BUILD_ROOT/usr/sbin/osad
+# osa-dispatcher is python2 even on Fedora
+ln -s osa-dispatcher-%{python_version} $RPM_BUILD_ROOT/usr/sbin/osa-dispatcher
+
 mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
 touch %{buildroot}%{_var}/log/rhn/osa-dispatcher.log
