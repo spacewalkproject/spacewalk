@@ -2,6 +2,13 @@
 %global rhnconf %{_sysconfdir}/sysconfig/rhn
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name: rhncfg
 Version: 5.10.111
 Release: 1%{?dist}
@@ -13,28 +20,7 @@ Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
-BuildRequires: python
-Requires: python
-%if 0%{?fedora} >= 23
-Requires: python3-rhnlib
-Requires: python3-spacewalk-usix
-%else
-Requires: rhnlib
-Requires: spacewalk-usix
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: rhn-client-tools >= 0.4.20-86
-%else
-%if 0%{?el6}
-Requires: rhn-client-tools >= 1.0.0-51
-%else
-# who knows what version we need? Let's just hope it's up to date enough.
-Requires: rhn-client-tools
-%endif
-%endif
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-hashlib
-%endif
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 
 %if 0%{?suse_version}
 # provide rhn directories and no selinux on suse
@@ -45,6 +31,37 @@ Requires: libselinux-python
 
 %description
 The base libraries and functions needed by all rhncfg-* packages.
+
+%package -n python2-%{name}
+Summary: Spacewalk Configuration Client Libraries
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python
+Requires: rhnlib >= 2.8.3
+Requires: spacewalk-usix
+Requires: python2-rhn-client-tools >= 2.8.4
+%if 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
+BuildRequires: python
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Spacewalk Configuration Client Libraries
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python3
+Requires: python3-rhnlib >= 2.8.3
+Requires: python3-spacewalk-usix
+Requires: python3-rhn-client-tools >= 2.8.4
+BuildRequires: python3
+BuildRequires: python3-rpm-macros
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
+
 
 %package client
 Summary: Spacewalk Configuration Client
