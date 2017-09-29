@@ -181,9 +181,16 @@ fi
 %endif
 %dir %{_sharedstatedir}/rhncfg
 %dir %{_localstatedir}/spool/rhn
-%{rhnroot}/config_common
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE
+
+%files -n python2-%{name}
+%{python_sitelib}/config_common
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/config_common
+%endif
 
 %files client
 %{rhnroot}/config_client
