@@ -461,35 +461,35 @@ make -f Makefile.rhn-client-tools test
 
 %files -n python2-rhn-check
 %{_sbindir}/rhn_check-%{python_version}
-%dir %{python_sitelib}/actions/
+%dir %{python_sitelib}/rhn/actions/
 %{python_sitelib}/up2date_client/getMethod.*
 # actions for rhn_check to run
-%{python_sitelib}/actions/__init__.*
-%{python_sitelib}/actions/hardware.*
-%{python_sitelib}/actions/systemid.*
-%{python_sitelib}/actions/reboot.*
-%{python_sitelib}/actions/rhnsd.*
-%{python_sitelib}/actions/up2date_config.*
+%{python_sitelib}/rhn/actions/__init__.*
+%{python_sitelib}/rhn/actions/hardware.*
+%{python_sitelib}/rhn/actions/systemid.*
+%{python_sitelib}/rhn/actions/reboot.*
+%{python_sitelib}/rhn/actions/rhnsd.*
+%{python_sitelib}/rhn/actions/up2date_config.*
 
 %if 0%{?build_py3}
 %files -n python3-rhn-check
 %{_sbindir}/rhn_check-%{python3_version}
-%dir %{python3_sitelib}/actions/
+%dir %{python3_sitelib}/rhn/actions/
 %{python3_sitelib}/up2date_client/getMethod.*
-%{python3_sitelib}/actions/__init__.*
-%{python3_sitelib}/actions/hardware.*
-%{python3_sitelib}/actions/systemid.*
-%{python3_sitelib}/actions/reboot.*
-%{python3_sitelib}/actions/rhnsd.*
-%{python3_sitelib}/actions/up2date_config.*
-%dir %{python3_sitelib}/actions/__pycache__/
+%{python3_sitelib}/rhn/actions/__init__.*
+%{python3_sitelib}/rhn/actions/hardware.*
+%{python3_sitelib}/rhn/actions/systemid.*
+%{python3_sitelib}/rhn/actions/reboot.*
+%{python3_sitelib}/rhn/actions/rhnsd.*
+%{python3_sitelib}/rhn/actions/up2date_config.*
+%dir %{python3_sitelib}/rhn/actions/__pycache__/
 %{python3_sitelib}/up2date_client/__pycache__/getMethod.*
-%{python3_sitelib}/actions/__pycache__/__init__.*
-%{python3_sitelib}/actions/__pycache__/hardware.*
-%{python3_sitelib}/actions/__pycache__/systemid.*
-%{python3_sitelib}/actions/__pycache__/reboot.*
-%{python3_sitelib}/actions/__pycache__/rhnsd.*
-%{python3_sitelib}/actions/__pycache__/up2date_config.*
+%{python3_sitelib}/rhn/actions/__pycache__/__init__.*
+%{python3_sitelib}/rhn/actions/__pycache__/hardware.*
+%{python3_sitelib}/rhn/actions/__pycache__/systemid.*
+%{python3_sitelib}/rhn/actions/__pycache__/reboot.*
+%{python3_sitelib}/rhn/actions/__pycache__/rhnsd.*
+%{python3_sitelib}/rhn/actions/__pycache__/up2date_config.*
 %endif
 
 %files -n rhn-setup

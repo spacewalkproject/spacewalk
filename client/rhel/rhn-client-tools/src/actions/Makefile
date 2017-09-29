@@ -13,7 +13,7 @@ INSTALL_DIR     = $(INSTALL) -m 755 --verbose -d
 
 # Install Directories
 PYTHON_DIR      = $(PREFIX)$(PYTHONPATH)
-ACTIONDIR	= $(PYTHON_DIR)/actions
+ACTIONDIR	= $(PYTHON_DIR)/rhn/actions
 
 
 PYCHECKER       = /usr/bin/pychecker

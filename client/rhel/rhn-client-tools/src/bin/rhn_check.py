@@ -369,7 +369,7 @@ class CheckCli(rhncli.RhnCli):
     def __do_call(method, params, kwargs={}):
         log.log_debug("do_call ", method, params, kwargs)
 
-        method = getMethod.getMethod(method, "actions")
+        method = getMethod.getMethod(method, "rhn.actions")
         retval = method(*params, **kwargs)
 
         return retval

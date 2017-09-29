@@ -66,7 +66,7 @@ fi
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{_datadir}/yum-plugins/*
-%{python_sitelib}/actions/*
+%{python_sitelib}/rhn/actions/*
 %doc LICENSE
 
 %changelog

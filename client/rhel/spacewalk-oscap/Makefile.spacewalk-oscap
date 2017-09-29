@@ -8,7 +8,7 @@ CAPABILITY	= scap
 OBJECTS		= $(PYFILES) $(XSLT)
 
 PREFIX		?=
-ACTIONDIR	= $(PREFIX)$(PYTHONPATH)/actions
+ACTIONDIR	= $(PREFIX)$(PYTHONPATH)/rhn/actions
 XSLTDIR		= $(PREFIX)/usr/share/openscap/xsl
 CAPSDIR		= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
 INSTALL		= /usr/bin/install -c

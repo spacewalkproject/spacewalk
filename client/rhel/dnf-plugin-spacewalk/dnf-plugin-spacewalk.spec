@@ -67,18 +67,18 @@ install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
 # python2
-install -d %{buildroot}%{python2_sitelib}/actions
+install -d %{buildroot}%{python2_sitelib}/rhn/actions
 install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
-install -m 644 actions/packages.py %{buildroot}%{python2_sitelib}/actions/
-install -m 644 actions/errata.py %{buildroot}%{python2_sitelib}/actions/
+install -m 644 actions/packages.py %{buildroot}%{python2_sitelib}/rhn/actions/
+install -m 644 actions/errata.py %{buildroot}%{python2_sitelib}/rhn/actions/
 
 %if 0%{?build_py3}
-install -d %{buildroot}%{python3_sitelib}/actions
+install -d %{buildroot}%{python3_sitelib}/rhn/actions
 install -d %{buildroot}%{python3_sitelib}/dnf-plugins/
 install -m 644 spacewalk.py %{buildroot}%{python3_sitelib}/dnf-plugins/
-install -m 644 actions/packages.py %{buildroot}%{python3_sitelib}/actions/
-install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/actions/
+install -m 644 actions/packages.py %{buildroot}%{python3_sitelib}/rhn/actions/
+install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %pre
@@ -93,12 +93,12 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/actions/
 
 %files -n python2-%{name}
 %{python_sitelib}/dnf-plugins/*
-%{python_sitelib}/actions/*
+%{python_sitelib}/rhn/actions/*
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
 %{python3_sitelib}/dnf-plugins/*
-%{python3_sitelib}/actions/*
+%{python3_sitelib}/rhn/actions/*
 %endif
 
 %changelog
