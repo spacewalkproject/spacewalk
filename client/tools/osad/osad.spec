@@ -451,14 +451,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 %files -n osa-dispatcher
 %defattr(0644,root,root,0755)
-%dir %{rhnroot}/osad
-%attr(755,root,root) %{_sbindir}/osa-dispatcher
-%{rhnroot}/osad/osa_dispatcher.py*
-%{rhnroot}/osad/dispatcher_client.py*
-%if 0%{?fedora} >= 23
-%{rhnroot}/osad/__pycache__/osa_dispatcher.*
-%{rhnroot}/osad/__pycache__/dispatcher_client.*
-%endif
+%{_sbindir}/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %{rhnroot}/config-defaults/rhn_osa-dispatcher.conf
@@ -478,6 +471,22 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %attr(750,root,%{apache_group}) %dir %{_sysconfdir}/rhn
 %attr(755,root,%{apache_group}) %dir %{rhnroot}/config-defaults
 %dir %{_var}/log/rhn
+%endif
+
+%files -n python2-osa-dispatcher
+%attr(755,root,root) %{_sbindir}/osa-dispatcher-%{python_version}
+%dir %{python_sitelib}/osad
+%{python_sitelib}/osad/osa_dispatcher.py*
+%{python_sitelib}/osad/dispatcher_client.py*
+
+%if 0%{?build_py3}
+%files -n python3-osa-dispatcher
+%attr(755,root,root) %{_sbindir}/osa-dispatcher-%{python3_version}
+%dir %{python3_sitelib}/osad
+%{python3_sitelib}/osad/osa_dispatcher.py*
+%{python3_sitelib}/osad/dispatcher_client.py*
+%{python3_sitelib}/osad/__pycache__/osa_dispatcher.*
+%{python3_sitelib}/osad/__pycache__/dispatcher_client.*
 %endif
 
 %files -n python2-osa-common
