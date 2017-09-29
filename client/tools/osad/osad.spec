@@ -36,7 +36,6 @@ BuildRequires: perl-interpreter
 BuildRequires: perl
 %endif
 Requires: %{pythonX}-%{name} = %{version}-%{release}
-Requires: osa-common = %{version}
 %if 0%{?suse_version} >= 1140
 Requires: python-xml
 %endif
@@ -85,6 +84,7 @@ Requires: rhnlib >= 2.8.3
 Requires: spacewalk-usix
 Requires: jabberpy
 Requires: python2-rhn-client-tools >= 2.8.4
+Requires: python2-osa-common = %{version}
 %if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
@@ -102,20 +102,35 @@ Requires: python3-rhnlib >= 2.8.3
 Requires: python3-spacewalk-usix
 Requires: python3-jabberpy
 Requires: python3-rhn-client-tools >= 2.8.4
+Requires: python3-osa-common = %{version}
 BuildRequires: python3-devel
 %description -n python3-%{name}
 Python 3 specific files for %{name}
 %endif
 
-%package -n osa-common
+%package -n python2-osa-common
 Summary: OSA common files
 Group:    System Environment/Daemons
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
+Obsoletes: osa-common <= 5.11.91
+Provides:  osa-common = %{version}
+%description -n python2-osa-common
+Python 2 common files needed by osad and osa-dispatcher
 
-%description -n osa-common
-Common files needed by osad and osa-dispatcher
+%if 0%{?build_py3}
+%package -n python3-osa-common
+Summary: OSA common files
+Group:    System Environment/Daemons
+Requires: python3-jabberpy
+Conflicts: %{name} < %{version}-%{release}
+Conflicts: %{name} > %{version}-%{release}
+Obsoletes: osa-common <= 5.11.91
+Provides:  osa-common = %{version}
+%description -n python3-osa-common
+Python 3 common files needed by osad and osa-dispatcher
+%endif
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
