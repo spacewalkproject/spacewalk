@@ -23,7 +23,7 @@ Requires: openscap-utils
 Requires:	openscap-scanner
 %endif
 Requires:	libxslt
-Requires:       %{pythonX}-%{name}
+Requires:       %{pythonX}-%{name} = %{version}-%{release}
 
 %description
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
@@ -32,11 +32,11 @@ to run OpenSCAP scan from Spacewalk or Red Hat Satellite server.
 %package -n python2-%{name}
 Summary:	OpenSCAP plug-in for rhn-check
 %{?python_provide:%python_provide python2-%{name}}
-Requires:       spacewalk-oscap
-Requires:       rhnlib >= 0:2.5.78-1
-Requires:       python2-rhn-check
+Requires:       %{name} = %{version}-%{release}
+Requires:       rhnlib >= 2.8.3
+Requires:       python2-rhn-check >= 2.8.4
 BuildRequires:	python-devel
-BuildRequires:	rhnlib
+BuildRequires:	rhnlib >= 2.8.3
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
 
@@ -44,11 +44,11 @@ Python 2 specific files for %{name}.
 %package -n python3-%{name}
 Summary:	OpenSCAP plug-in for rhn-check
 %{?python_provide:%python_provide python3-%{name}}
-Requires:       spacewalk-oscap
-Requires:       python3-rhnlib >= 0:2.5.78-1
-Requires:       python3-rhn-check
+Requires:       %{name} = %{version}-%{release}
+Requires:       python3-rhnlib >= 2.8.3
+Requires:       python3-rhn-check >= 2.8.4
 BuildRequires:	python3-devel
-BuildRequires:	python3-rhnlib
+BuildRequires:	python3-rhnlib >= 2.8.3
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
 %endif
