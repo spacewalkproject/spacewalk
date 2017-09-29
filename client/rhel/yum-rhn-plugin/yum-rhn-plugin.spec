@@ -15,12 +15,12 @@ BuildRequires: intltool
 BuildRequires: gettext
 
 Requires: yum >= 3.2.19-15
-Requires: rhn-client-tools >= 1.10.3-1
+Requires: rhn-client-tools >= 2.8.4
 Requires: m2crypto >= 0.16-6
 Requires: python-iniparse
 
 # Not really, but for upgrades we need these
-Requires: rhn-setup
+Requires: rhn-setup >= 2.8.4
 Obsoletes: up2date < 5.0.0
 Provides: up2date = 5.0.0
 
