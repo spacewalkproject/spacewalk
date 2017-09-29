@@ -15,7 +15,7 @@ Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
 
-Requires: %{pythonX}-%{name}
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 %if 0%{?fedora} <= 25
 Requires: dnf >= 0.5.3
 %else
@@ -34,8 +34,8 @@ This DNF plugin provides access to a Spacewalk server for software updates.
 Summary: DNF plugin for Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
 BuildRequires: python-devel
-Requires: python2-rhn-client-tools
-
+Requires: %{name} = %{version}-%{release}
+Requires: python2-rhn-client-tools >= 2.8.4
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
 
@@ -44,7 +44,8 @@ Python 2 specific files for %{name}.
 Summary: DNF plugin for Spacewalk
 %{?python_provide:%python_provide python3-%{name}}
 BuildRequires: python3-devel
-Requires: python3-rhn-client-tools
+Requires: %{name} = %{version}-%{release}
+Requires: python3-rhn-client-tools >= 2.8.4
 
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
