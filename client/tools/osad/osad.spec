@@ -411,16 +411,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files
-%dir %{rhnroot}/osad
-%attr(755,root,root) %{_sbindir}/osad
-%{rhnroot}/osad/osad.py*
-%{rhnroot}/osad/osad_client.py*
-%{rhnroot}/osad/osad_config.py*
-%if 0%{?fedora} >= 23
-%{rhnroot}/osad/__pycache__/osad.*
-%{rhnroot}/osad/__pycache__/osad_client.*
-%{rhnroot}/osad/__pycache__/osad_config.*
-%endif
+%{_sbindir}/osad
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %verify(not md5 mtime size) %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %config(noreplace) %{client_caps_dir}/*
@@ -434,9 +425,28 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %ghost %attr(600,root,root) %{_var}/log/osad
 %if 0%{?suse_version}
 # provide directories not owned by any package during build
-%dir %{rhnroot}
 %dir %{_sysconfdir}/sysconfig/rhn
 %dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
+%endif
+
+%files -n python2-%{name}
+%attr(755,root,root) %{_sbindir}/osad-%{python_version}
+%dir %{python_sitelib}/osad
+%{python_sitelib}/osad/osad.py*
+%{python_sitelib}/osad/osad_client.py*
+%{python_sitelib}/osad/osad_config.py*
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%attr(755,root,root) %{_sbindir}/osad-%{python3_version}
+%dir %{python3_sitelib}/osad
+%{python3_sitelib}/osad/osad.py*
+%{python3_sitelib}/osad/osad_client.py*
+%{python3_sitelib}/osad/osad_config.py*
+%dir %{python3_sitelib}/osad/__pycache__
+%{python3_sitelib}/osad/__pycache__/osad.*
+%{python3_sitelib}/osad/__pycache__/osad_client.*
+%{python3_sitelib}/osad/__pycache__/osad_config.*
 %endif
 
 %files -n osa-dispatcher
