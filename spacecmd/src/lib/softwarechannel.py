@@ -2232,6 +2232,8 @@ def help_softwarechannel_setsyncschedule(self):
     print 'Sets the repo sync schedule for a software channel'
     print
     print 'usage: softwarechannel_setsyncschedule <CHANNEL> <SCHEDULE>'
+    print 'Options:'
+    print '    -l/--latest : Only download latest package versions when repo syncs'
     print
     print 'The schedule is specified in Quartz CronTrigger format without enclosing quotes.'
     print 'For example, to set a schedule of every day at 1am, <SCHEDULE> would be 0 0 1 * * ?'
@@ -2243,7 +2245,13 @@ def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
 
 
 def do_softwarechannel_setsyncschedule(self, args):
-    (args, _options) = parse_arguments(args, glob=False)
+    options = [Option('-l', '--latest', action='store_true')]
+
+    (args, options) = parse_arguments(args, options, glob=False)
+
+    params = {}
+    if (options.latest):
+        params["latest"] = True
 
     if not len(args) == 7:
         self.help_softwarechannel_setsyncschedule()
@@ -2252,7 +2260,7 @@ def do_softwarechannel_setsyncschedule(self, args):
     channel = args[0]
     schedule = ' '.join(args[1:])
 
-    self.client.channel.software.syncRepo(self.session, channel, schedule)
+    self.client.channel.software.syncRepo(self.session, channel, schedule, params)
 
 ####################
 
