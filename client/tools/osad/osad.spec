@@ -480,14 +480,19 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_var}/log/rhn
 %endif
 
-%files -n osa-common
-%{rhnroot}/osad/__init__.py*
-%{rhnroot}/osad/jabber_lib.py*
-%{rhnroot}/osad/rhn_log.py*
-%if 0%{?fedora} >= 23
-%{rhnroot}/osad/__pycache__/__init__.*
-%{rhnroot}/osad/__pycache__/jabber_lib.*
-%{rhnroot}/osad/__pycache__/rhn_log.*
+%files -n python2-osa-common
+%{python_sitelib}/osad/__init__.py*
+%{python_sitelib}/osad/jabber_lib.py*
+%{python_sitelib}/osad/rhn_log.py*
+
+%if 0%{?build_py3}
+%files -n python3-osa-common
+%{python3_sitelib}/osad/__init__.py*
+%{python3_sitelib}/osad/jabber_lib.py*
+%{python3_sitelib}/osad/rhn_log.py*
+%{python3_sitelib}/osad/__pycache__/__init__.*
+%{python3_sitelib}/osad/__pycache__/jabber_lib.*
+%{python3_sitelib}/osad/__pycache__/rhn_log.*
 %endif
 
 %if 0%{?include_selinux_package}
