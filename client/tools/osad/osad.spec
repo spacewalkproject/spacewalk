@@ -136,12 +136,8 @@ Python 3 common files needed by osad and osa-dispatcher
 Summary: OSA dispatcher
 Group:    System Environment/Daemons
 Requires: spacewalk-backend-server >= 1.2.32
-# this subpackage is python2 even on Fedora 23+ so it needs python v2
-BuildRequires: python-devel
-Requires: python
-Requires: jabberpy
+Requires: python2-osa-dispatcher = %{version}-%{release}
 Requires: lsof
-Requires: osa-common = %{version}
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
 %if 0%{?suse_version} >= 1210
@@ -162,6 +158,26 @@ Requires(preun): initscripts
 OSA dispatcher is supposed to run on the Spacewalk server. It gets information
 from the Spacewalk server that some command needs to be execute on the client;
 that message is transported via jabber protocol to OSAD agent on the clients.
+
+%package -n python2-osa-dispatcher
+Summary: OSA dispatcher
+BuildRequires: python-devel
+Requires: python
+Requires: jabberpy
+Requires: python2-osa-common = %{version}
+%description -n python2-osa-dispatcher
+Python 2 specific files for osa-dispatcher.
+
+%if 0%{?build_py3}
+%package -n python3-osa-dispatcher
+Summary: OSA dispatcher
+BuildRequires: python3-devel
+Requires: python3
+Requires: python3-jabberpy
+Requires: python3-osa-common = %{version}
+%description -n python3-osa-dispatcher
+Python 3 specific files for osa-dispatcher.
+%endif
 
 %if 0%{?include_selinux_package}
 %package -n osa-dispatcher-selinux
