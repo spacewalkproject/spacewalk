@@ -5,7 +5,7 @@
 TOP     = ..
 
 # Specific stuff
-SUBDIR		= actions
+SUBDIR		= rhn/actions
 EXEC_FILES      = rhn-actions-control
 FILES           = $(EXEC_FILES) configfiles script \
                   Modes ModeController ModeControllerCreator

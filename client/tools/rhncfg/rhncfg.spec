@@ -145,25 +145,35 @@ Python 3 specific files for python2-%{name}-actions.
 
 %prep
 %setup -q
-%if 0%{?fedora} >= 23
-%global __python /usr/bin/python3
-%endif
 
 %build
 make -f Makefile.rhncfg all
-%if 0%{?fedora} >= 23
-    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    MANDIR=%{_mandir}
+install -d $RPM_BUILD_ROOT/%{python_sitelib}
+make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
+    MANDIR=%{_mandir} PYTHONVERSION=%{python_version}
+%if 0%{?build_py3}
+    install -d $RPM_BUILD_ROOT/%{python3_sitelib}
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
+    make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
+        MANDIR=%{_mandir} PYTHONVERSION=%{python3_version}
+%endif
 mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/rhncfg/backups
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/spool/rhn
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log
 touch $RPM_BUILD_ROOT/%{_localstatedir}/log/rhncfg-actions
+
+# create links to default script version
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+for i in \
+    /usr/bin/rhncfg-client \
+    /usr/bin/rhncfg-manager \
+    /usr/bin/rhn-actions-control \
+; do
+    ln -s $(basename "$i")%{default_suffix} "$RPM_BUILD_ROOT$i"
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
