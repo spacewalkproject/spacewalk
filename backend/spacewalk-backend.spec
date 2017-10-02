@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.11
+Version: 2.8.12
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -790,6 +790,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Oct 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
+- require python2 version of rhn-client-tools on all platforms
+- fix syntax error 'release..split'
+
 * Wed Sep 27 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.11-1
 - 1494575 - 2 parts of version are enough to dermine minor release
 - 1494575 - RHEL7 sends also release - drop it as it's not needed
