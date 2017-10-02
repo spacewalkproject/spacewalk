@@ -14,19 +14,19 @@
  */
 package com.redhat.rhn.frontend.action.help;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HelpAction extends RhnAction {
 
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
@@ -44,12 +45,7 @@ public class HelpAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
 
-        String doc = Config.get().getString(ConfigDefaults.DOC_REFERENCE_GUIDE);
-        if (doc != null && doc.trim().length() > 0) {
-            request.setAttribute("reference_guide", doc);
-        }
-
-        doc = Config.get().getString(ConfigDefaults.DOC_INSTALL_GUIDE);
+        String doc = Config.get().getString(ConfigDefaults.DOC_INSTALL_GUIDE);
         if (doc != null && doc.trim().length() > 0) {
             request.setAttribute("install_guide", doc);
         }

@@ -48,7 +48,7 @@
         <td colspan="3">
           <p>
             <small>
-              <bean:message key="general.jsp.org.summary4"/><a href="/rhn/help/reference/index.jsp">
+              <bean:message key="general.jsp.org.summary4"/><a href="/rhn/help/dispatcher/getting_started_guide">
               <bean:message key="general.jsp.org.tbl.link4"/></a>.
             </small>
           </p>

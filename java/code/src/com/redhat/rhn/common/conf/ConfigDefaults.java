@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.common.conf;
 
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
-
-import java.io.File;
 
 /**
  * ConfigDefaults is the place to store application specific Config settings
@@ -82,7 +82,6 @@ public class ConfigDefaults {
 
     public static final String COBBLER_AUTOMATED_USER = "java.taskomatic_cobbler_user";
 
-    public static final String DOC_REFERENCE_GUIDE = "docs.reference_guide";
     public static final String DOC_INSTALL_GUIDE = "docs.install_guide";
     public static final String DOC_PROXY_GUIDE = "docs.proxy_guide";
     public static final String DOC_CLIENT_CONFIG_GUIDE = "docs.client_config_guide";
