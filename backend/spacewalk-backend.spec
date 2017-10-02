@@ -61,7 +61,7 @@ BuildRequires: docbook-utils
 BuildRequires: spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
-BuildRequires: rhn-client-tools
+BuildRequires: python2-rhn-client-tools
 BuildRequires: rpm-python
 BuildRequires: python-crypto
 BuildRequires: python-debian
@@ -306,6 +306,7 @@ Requires: %{name}
 Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python2-gzipstream
+Requires: python2-rhn-client-tools
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
