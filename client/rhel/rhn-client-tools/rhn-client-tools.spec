@@ -68,12 +68,18 @@ Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
 BuildRequires: python-devel
 
-%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140 || 0%{?fedora}
+%if 0%{?fedora}
+Requires: pygobject2
+Requires: libgudev
+Requires: python-hwdata
+%else
+%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
-%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140 || 0%{?fedora}
+%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%endif # 0%{?fedora}
 
 %if 0%{?rhel} == 5 
 Requires: newt
