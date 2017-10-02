@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.20
+Version: 2.8.21
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 02 2017 Grant Gainey 2.8.21-1
+- 1481329 - Repoint references to Reference Guide to Getting Started - th
+  Reference Guide is no longer updated
+
 * Fri Sep 29 2017 Jiri Dostal <jdostal@redhat.com> 2.8.20-1
 - Get rid of unused code
 - Display message after deleting custom key
