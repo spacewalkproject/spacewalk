@@ -4,7 +4,6 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-KillMode=process
 EnvironmentFile=-/etc/sysconfig/osad
 PIDFile=/var/run/osad.pid
 ExecStart=/usr/sbin/osad --pid-file /var/run/osad.pid
