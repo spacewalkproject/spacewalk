@@ -11,7 +11,7 @@
       <rhn-tab-url>/rhn/systems/details/SystemRemoteCommand.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Connection" url="/rhn/systems/details/Connection.do" acl="org_has_proxies()"/>
-    <rhn-tab name="Proxy" url="/rhn/systems/details/ProxyClients.do" acl="user_role(org_admin); system_is_proxy(); not system_is_satellite()">
+    <rhn-tab name="Proxy" url="/rhn/systems/details/ProxyClients.do" acl="system_is_proxy()">
     </rhn-tab>
     <rhn-tab name="Reactivation" url="/rhn/systems/details/Activation.do" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
