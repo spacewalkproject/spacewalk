@@ -17,7 +17,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.91
+Version: 5.11.92
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -447,6 +447,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Oct 03 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.92-1
+- Revert "(bz#1491451) osad: set KillMode=process in systemd unit"
+- (bz#1491451) osad: set KillMode=process in systemd unit
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.91-1
 - purged changelog entries for Spacewalk 2.0 and older
 - fixed selinux error messages during package install, see related BZ#1446487
