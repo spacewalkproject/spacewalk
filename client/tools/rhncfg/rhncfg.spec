@@ -67,10 +67,27 @@ Python 3 specific files for %{name}.
 Summary: Spacewalk Configuration Client
 Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-%{name}-client = %{version}-%{release}
 
 %description client
 A command line interface to the client features of the RHN Configuration
 Management system.
+
+%package -n python2-%{name}-client
+Summary: Spacewalk Configuration Client
+%{?python_provide:%python_provide python2-%{name}-client}
+Requires: %{name}-client = %{version}-%{release}
+%description -n python2-%{name}-client
+Python 2 specific files for %{name}-client.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-client
+Summary: Spacewalk Configuration Client
+%{?python_provide:%python_provide python3-%{name}-client}
+Requires: %{name}-client = %{version}-%{release}
+%description -n python3-%{name}-client
+Python 3 specific files for %{name}-client.
+%endif
 
 %package management
 Summary: Spacewalk Configuration Management Client
