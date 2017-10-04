@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.22
+Version: 2.8.23
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Oct 04 2017 Jiri Dostal <jdostal@redhat.com> 2.8.23-1
+- 1477728 - Upgrade to Sat 5.8 caused url change in kickstarts, have to edit
+  and republish by hand to correct url
+
 * Wed Oct 04 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.22-1
 - 1460960 - change ProxyClients page due to problem with passing acls.
 
