@@ -18,7 +18,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
-
 import org.apache.commons.lang.StringUtils;
 import org.cobbler.Profile;
 
@@ -58,7 +57,7 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
         }
 
         Profile prof = Profile.lookupById(getCobblerConnection(), ksData.getCobblerId());
-
+        validateUrl(prof);
         if (prof != null) {
             String cobName = makeCobblerName(ksData);
             String cobFileName = ksData.buildCobblerFileName();
