@@ -6,7 +6,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -100,6 +100,9 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Oct 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
+- 1459901 - write all answers into answer file, not just fresh ones
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
