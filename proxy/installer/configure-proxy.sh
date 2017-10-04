@@ -206,7 +206,6 @@ default_or_input() {
     echo -n "$MSG [$DEFAULT]: "
     if [ "$INTERACTIVE" = "1" -a  -z "$VARIABLE_ISSET" ]; then
         read INPUT
-        ACCUMULATED_ANSWERS+=$(printf "\n%q=%q" "$VARIABLE" "${INPUT:-$DEFAULT}")
     elif [ -z "$VARIABLE_ISSET" ]; then
         echo "$DEFAULT"
     else
@@ -216,6 +215,7 @@ default_or_input() {
     if [ -z "$INPUT" ]; then
         INPUT="$DEFAULT"
     fi
+    ACCUMULATED_ANSWERS+=$(printf "\n%q=%q" "$VARIABLE" "${INPUT:-$DEFAULT}")
     eval "$(printf "%q=%q" "$VARIABLE" "$INPUT")"
 }
 
