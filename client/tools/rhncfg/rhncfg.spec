@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.112
+Version: 5.10.113
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -249,6 +249,12 @@ fi
 %endif
 
 %changelog
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.113-1
+- 1498813 - store output in the action file so partial output can arrive to
+  server
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+- 1494389 - Revert "1260527 - fix Python 2.4 syntax (RHEL5)"
+
 * Thu Oct 05 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.112-1
 - install files into python_sitelib/python3_sitelib
 - move rhncfg-actions files into proper python2/python3 subpackages
