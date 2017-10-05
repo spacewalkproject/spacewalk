@@ -2,6 +2,10 @@
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
+%if 0%{?fedora}
+%global build_py3   1
+%endif
+
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
@@ -66,13 +70,15 @@ install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cobbler-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 insights-proxy.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
-install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
-install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
 install -m 644 get_system_id.xslt $RPM_BUILD_ROOT%{_usr}/share/rhn/
-install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
 install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 640 jabberd/sm.xml jabberd/c2s.xml $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/jabberd
+
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhn-proxy-activate.py
+%endif
+install -m 755 rhn-proxy-activate.py $RPM_BUILD_ROOT%{_bindir}/rhn-proxy-activate
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,8 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 %check
 %if 0%{?pylint_check}
 # check coding style
-export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
+spacewalk-pylint .
 %endif
 
 %files
@@ -93,8 +98,6 @@ spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %{_usr}/sbin/configure-proxy.sh
 %{_mandir}/man8/*
 %dir %{_usr}/share/rhn/installer
-%{_usr}/share/rhn/installer/__init__.py*
-%{_usr}/share/rhn/installer/rhn_proxy_activate.py*
 %{_usr}/share/rhn/installer/jabberd/*.xml
 %{_usr}/share/rhn/get_system_id.xslt
 %{_bindir}/rhn-proxy-activate
