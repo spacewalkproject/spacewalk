@@ -236,8 +236,9 @@ config_error() {
 
 # Return 0 if rhnParent is Hosted. Otherwise return 1.
 is_hosted() {
+    HOSTEDWHITELIST=$(awk -F '=[[:space:]]*' '/^[[:space:]]*hostedWhitelist[[:space:]]*=/ {print $2}' $UP2DATE_FILE)
     [ "$1" = "xmlrpc.rhn.redhat.com" -o \
-        $( PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print  '$1' in cfg['hostedWhitelist']" ) = "True" ]
+        "$HOSTEDWHITELIST" = "True" ]
     return $?
 }
 
@@ -277,7 +278,9 @@ HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
-SYSTEMID_PATH=`PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print cfg['systemIdPath'] "`
+UP2DATE_FILE=$SYSCONFIG_DIR/up2date
+SYSTEMID_PATH=$(awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $UP2DATE_FILE)
+
 
 if [ ! -r $SYSTEMID_PATH ]; then
     echo ERROR: Spacewalk Proxy does not appear to be registered
@@ -297,7 +300,6 @@ if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
     exit 1
 fi
 
-UP2DATE_FILE=$SYSCONFIG_DIR/up2date
 RHN_PARENT=$(awk -F= '/serverURL=/ {split($2, a, "/")} END {print a[3]}' $UP2DATE_FILE)
 echo "Using RHN parent (from $UP2DATE_FILE): $RHN_PARENT"
 
