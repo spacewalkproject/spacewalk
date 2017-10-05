@@ -1,0 +1,309 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-sync-setup</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-sync-setup</command></RefName>
+<RefPurpose>
+Utility for setting up master and slave relationships for synchronization between multiple servers
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+  <cmdsynopsis>
+    <command>spacewalk-sync-setup</command>
+    <arg>options <replaceable>...</replaceable></arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--ss=<replaceable>SLAVE</replaceable></arg>
+    <arg>--slave-server=<replaceable>SLAVE</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--sl=<replaceable>SLAVE_LOGIN</replaceable></arg>
+    <arg>--slave-login=<replaceable>SLAVE_LOGIN</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--sp=<replaceable>SLAVE_PASSWORD</replaceable></arg>
+    <arg>--slave-password=<replaceable>SLAVE_PASSWORD</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--ms=<replaceable>MASTER</replaceable></arg>
+    <arg>--master-server=<replaceable>MASTER</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--ml=<replaceable>MASTER_LOGIN</replaceable></arg>
+    <arg>--master-login=<replaceable>MASTER_LOGIN</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--mp=<replaceable>MASTER_PASSWORD</replaceable></arg>
+    <arg>--master-password=<replaceable>MASTER_PASSWORD</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--md</arg>
+    <arg>--master-default</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--cst</arg>
+    <arg>--create-slave-template</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--cmt</arg>
+    <arg>--create-master-template</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--ct</arg>
+    <arg>--create-templates</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--msf=<replaceable>FILE</replaceable></arg>
+    <arg>--master-setup-file=<replaceable>FILE</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--ssf=<replaceable>FILE</replaceable></arg>
+    <arg>--slave-setup-file=<replaceable>FILE</replaceable></arg>    
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--dry-run</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--apply</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>--default-ok</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>-h</arg>
+    <arg>--help</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>-d</arg>
+    <arg>--debug</arg>
+  </cmdsynopsis>
+  <cmdsynopsis>
+    <arg>-q</arg>
+    <arg>--quiet</arg>
+  </cmdsynopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+  <para>
+    <command>spacewalk-sync-setup</command> is a utility that sets up master and slave relationships for synchronization between multiple servers.  Its purpose is to ease the burden required to map master-to-slave orgs.
+  </para>
+  <para>
+    A typical use-case workflow for the <command>spacewalk-sync-setup</command> utility will likely be users that have a master instance with a set of orgs that are identical to a set of orgs on the slave instance and will be synchronizing content from that master.  Note that the names of the orgs are the key thing - because two servers do not share the same database, the ord ids in the database are not viable to use as identifiers between the master and slave servers.
+  </para>
+  <para>
+    In this example use-case, there is a master instance with orgs Org1..OrgN and a slave instance with orgs Org1..OrgN.  The master has three channels, Org1-Public, Org1-Protected and Org1-Private.  Org1-Protected is visible only to Org1 and Org3.  The goal is to synchronize the slave to the master and end up with the same visibility.
+  </para>
+  <para>
+    A user that has access to the admin role on both master and slave servers would issue the following command on any machine that can access the public XMLRPC API of both instances:
+  </para>
+  <para>
+    <command>spacewalk-sync-setup --ms=<replaceable>MASTER_FQDN</replaceable> --ml=<replaceable>MASTER_LOGIN</replaceable> --mp=<replaceable>MASTER_PASSWORD</replaceable> --ss=<replaceable>SLAVE_FQDN</replaceable> --sl=<replaceable>SLAVE_LOGIN</replaceable> --sp=<replaceable>SLAVE_PASSWORD</replaceable> --create-templates --apply</command>
+  </para>
+  <para>
+    At this point, the customer could then issue the <command>satellite-sync</command> for each of their customer channels:
+  </para>
+  <para>
+    <command>satellite-sync -c Org1-Public -c Org1-Protected -c Org1-Private</command>
+  </para>
+  <para>
+    and at the end of the sync, see the channels correctly synchronized, with a trust-hierarchy and channel-permissions setup matching that on the master.
+  </para>
+</RefSect1>
+
+<RefSect1><Title>Connection Options</Title>
+  <para>
+    Identify the instances we're going to connect to.
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>-ss=<replaceable>SLAVE</replaceable>, --slave-server=<replaceable>SLAVE</replaceable></term>
+      <listitem>
+        <para>
+	  Name of a slave to connect to.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--sl=<replaceable>SLAVE_LOGIN</replaceable>, --slave-login=<replaceable>SLAVE_LOGIN</replaceable></term>
+      <listitem>
+        <para>
+	  A sat-admin login for slave-server.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--sp=<replaceable>SLAVE_PASSWORD</replaceable>, --slave-password=<replaceable>SLAVE_PASSWORD</replaceable></term>
+      <listitem>
+        <para>
+	  Password for login slave-login on slave-server.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--ms=<replaceable>MASTER</replaceable>, --master-server=<replaceable>MASTER</replaceable></term>
+      <listitem>
+        <para>
+	  Name of a master to connect to.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--ml=<replaceable>MASTER_LOGIN</replaceable>, --master-login=<replaceable>MASTER_LOGIN</replaceable></term>
+      <listitem>
+        <para>
+	  A sat-admin login for master-server.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--mp=<replaceable>MASTER_PASSWORD</replaceable>, --master-password=<replaceable>MASTER_PASSWORD</replaceable></term>
+      <listitem>
+        <para>
+	  Password for login master-login on master-server.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--md, --master-default</term>
+      <listitem>
+        <para>
+	  Should the specified master be made the default-master in a specified template-file.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</RefSect1>
+
+<RefSect1><Title>Template Options</Title>
+  <para>
+    Options for creating initial versions of the setup files.
+  </para>
+  <para>
+    NOTE: This will replace existing maching-specific stanzas with new content.
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>--cst, --create-slave-template</term>
+      <listitem>
+        <para>
+	  Create/update a setup file containing a stanza for the slave we're pointed at, based on information from the master we're pointed at.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--cmt, --create-master-template</term>
+      <listitem>
+        <para>
+	  Create/update a setup file stanza for the master we're pointed at, based on information from the slave we're pointed at.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--ct, --create-templates</term>
+      <listitem>
+        <para>
+	  Create both a master and a slave setup file, for the master/slave pair we're pointed at.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</RefSect1>
+
+<RefSect1><Title>Setup Options</Title>
+  <para>
+    Specify the setup files we're actually going to apply to a slave/master.
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>--msf=<replaceable>FILE</replaceable>, --master-setup-file=<replaceable>FILE</replaceable></term>
+      <listitem>
+        <para>
+	  Specify the master-setup-file we should use.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--ssf=<replaceable>FILE</replaceable>, --slave-setup-file=<replaceable>FILE</replaceable></term>
+      <listitem>
+        <para>
+	  Specify the slave-setup-file we should use.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</RefSect1>
+
+<RefSect1><Title>Action Options</Title>
+  <para>
+    Should we actually affect the specified instances?
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>--dry-run</term>
+      <listitem>
+        <para>
+	  Don't actually change anything, but tell us what you would have done.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--apply</term>
+      <listitem>
+        <para>
+	  Make the changes specified by the setup files to the specified spacewalk instances.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>--default-ok</term>
+      <listitem>
+        <para>
+	  Even if I don't explicitly tell you about a master or slave on the command-line, it's ok to try to apply changes to them!
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</RefSect1>
+
+<RefSect1><Title>Utility Options</Title>
+  <variablelist>
+    <varlistentry>
+      <term>-h, --help</term>
+      <listitem>
+        <para>
+	  Show the help message and exit.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>-d, --debug</term>
+      <listitem>
+        <para>
+	  Log debugging output.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>-q, --quiet</term>
+      <listitem>
+        <para>
+	  Log only errors.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+  <simplelist>
+    <member>Grant Gainey<email>ggainey@redhat.com</email></member>
+    <member>Eric Herget<email>eherget@redhat.com</email></member>
+  </simplelist>
+</RefSect1>
+</RefEntry>
