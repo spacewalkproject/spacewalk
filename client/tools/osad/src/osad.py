@@ -20,7 +20,6 @@ from spacewalk.common.usix import ListType
 from rhn import rpclib
 import random
 import socket
-import signal
 
 from up2date_client.config import initUp2dateConfig
 from up2date_client import config
@@ -40,14 +39,13 @@ else:
     import jabber_lib
     import osad_config
     import osad_client
-    import signal
-
 
 def main():
     return Runner().main()
 
 class Runner(jabber_lib.Runner):
     client_factory = osad_client.Client
+
     # How often will we try to reconnect. We want this randomized, so not all
     # clients hit the server at the same time
     _min_sleep = 60
@@ -73,17 +71,6 @@ class Runner(jabber_lib.Runner):
         # the config from the server)
         self._config_setup_interval = random.randint(50, 100)
         self._use_proxy = 1
-        # Set signal handler
-        signal.signal(signal.SIGTERM, self.handle)
-
-    # We need to handle SIGTERM correctly. If there is rhncheck running,
-    # we must wait for it to finish.
-    def handle(self, signal, frame):
-        if osad_client.Client.rhncheckPID:
-            log_debug(4, "Waiting for process " + str(osad_client.Client.rhncheckPID
-                      .pid) + " to finish.")
-            osad_client.Client.rhncheckPID.wait()
-        sys.exit(0)
 
     def setup_config(self, config, force=0):
         # We don't want to slam the server with lots of XMLRPC requests at the
