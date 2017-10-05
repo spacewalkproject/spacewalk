@@ -331,8 +331,8 @@ set_signal_handlers (void)
     signal (SIGINT, termination_handler);
     signal (SIGQUIT, termination_handler);
     signal (SIGTERM, termination_handler);
-    signal (SIGPIPE, SIG_IGN);
-    signal (SIGHUP, SIGHUP_handler);
+    signal (SIGPIPE, termination_handler);
+    signal (SIGHUP, termination_handler);
 }
 
 static void
