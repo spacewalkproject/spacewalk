@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.111
+Version: 5.10.112
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -249,6 +249,17 @@ fi
 %endif
 
 %changelog
+* Thu Oct 05 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.112-1
+- install files into python_sitelib/python3_sitelib
+- move rhncfg-actions files into proper python2/python3 subpackages
+- move rhncfg-management files into proper python2/python3 subpackages
+- move rhncfg-client files into proper python2/python3 subpackages
+- move rhncfg files into proper python2/python3 subpackages
+- split rhncfg-actions into python2/python3 specific packages
+- split rhncfg-management into python2/python3 specific packages
+- split rhncfg-client into python2/python3 specific packages
+- split rhncfg into python2/python3 specific packages
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.111-1
 - purged changelog entries for Spacewalk 2.0 and older
 
