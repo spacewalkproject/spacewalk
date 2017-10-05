@@ -49,7 +49,7 @@ ACTION_VERSION = 2
 # SystemExit exception error code
 SYSEXIT_CODE = 3
 
-class SignalHandler:
+class SignalHandler():
     def __init__(self):
         self.gotSigterm = False
     # Handle SIGTERM so that we can return status to Satellite
