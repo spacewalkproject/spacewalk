@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.5
+Version: 2.8.6
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -622,6 +622,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- 1494389 - detect if action has been picked up for 2nd time
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+- 1494389 - Revert "fix except to be compatible with Python 2.4"
+
 * Mon Oct 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - fixed python2 on Fedora requires
 
