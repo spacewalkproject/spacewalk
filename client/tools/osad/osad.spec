@@ -17,7 +17,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.92
+Version: 5.11.93
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -447,6 +447,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.93-1
+- (bz#1491451) osad: set KillMode=process in systemd unit
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+
 * Tue Oct 03 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.92-1
 - Revert "(bz#1491451) osad: set KillMode=process in systemd unit"
 - (bz#1491451) osad: set KillMode=process in systemd unit
