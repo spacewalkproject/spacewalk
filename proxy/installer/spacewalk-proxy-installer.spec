@@ -10,7 +10,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -105,6 +105,14 @@ spacewalk-pylint .
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Oct 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove python2 code from confgure-proxy.sh
+- hostname may not be installed by default in containers
+- make rhn-proxy-activate python3 compatible
+- use python3 on Fedora
+- removed unnecessary wrapper around the actual rhn-proxy-activate code
+- pylint requires rhncfg-client
+
 * Wed Oct 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
 - 1459901 - write all answers into answer file, not just fresh ones
 
