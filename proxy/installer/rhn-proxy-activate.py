@@ -1,3 +1,4 @@
+#!/usr/bin/python -u
 #
 # Copyright (c) 2008--2017 Red Hat, Inc.
 #
@@ -12,8 +13,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
-""" Activate a Spacewalk Proxy 3.x ...not the executable
-    (original script can activate a Spacewalk Proxy version 1.1 to 3.x)
+""" Activate a Spacewalk Proxy
     USAGE: ./rhn-proxy-activate
 
     Author: Todd Warner <taw@redhat.com>
@@ -22,7 +22,7 @@
     work with older Spacewalk Proxies.
 """
 
-# pylint: disable=E1101
+# pylint: disable=E1101, invalid-name
 
 # core lang imports
 import os
@@ -35,7 +35,6 @@ import xmlrpclib
 from optparse import Option, OptionParser
 from rhn import rpclib, SSL
 
-sys.path.append('/usr/share/rhn')
 from up2date_client import config # pylint: disable=E0012, C0413
 
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
@@ -520,4 +519,13 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    sys.exit(abs(main() or 0))
+    try:
+        sys.exit(abs(main() or 0))
+    except KeyboardInterrupt:
+        sys.stderr.write("\nUser interrupted process.\n")
+        sys.exit(0)
+    except SystemExit:
+        raise
+    except:
+        sys.stderr.write("\nERROR: unhandled exception occurred:\n")
+        raise
