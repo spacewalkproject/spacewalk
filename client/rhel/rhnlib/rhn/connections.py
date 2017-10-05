@@ -6,7 +6,7 @@
 # Author: Mihai Ibanescu <misa@redhat.com>
 
 
-import sys
+
 import base64
 import encodings.idna
 import socket
@@ -180,8 +180,7 @@ class HTTPSConnection(HTTPConnection):
                 sock = socket.socket(af, socktype, proto)
                 sock.connect((self.host, self.port))
                 sock.settimeout(self.timeout)
-            except socket.error:
-                e = sys.exc_info()[1]
+            except socket.error as e:
                 if e.errno != errno.EINTR:
                     sock.close()
                     sock = None
