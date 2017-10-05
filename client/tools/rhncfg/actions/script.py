@@ -224,7 +224,7 @@ def run(action_id, params, cache_only=None):
     output = None
     timed_out = None
 
-    out_stream = tempfile.TemporaryFile()
+    out_stream = open('/var/lib/up2date/action.%s' % str(action_id), 'a+', 0)
 
     while 1:
         select_wait = None
