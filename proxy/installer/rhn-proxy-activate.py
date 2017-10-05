@@ -28,8 +28,15 @@
 import os
 import sys
 import socket
-import urlparse
-import xmlrpclib
+
+try:                    # python 2
+    import urlparse
+    import xmlrpclib
+except ImportError:     # python3
+    # pylint: disable=F0401,E0611,redefined-builtin
+    import urllib.parse as urlparse
+    import xmlrpc.client as xmlrpclib
+    raw_input = input
 
 # lib imports
 from optparse import Option, OptionParser
@@ -185,18 +192,18 @@ def _errorHandler(pre='', post=''):
         errorString = pre
         try:
             raise
-        except xmlrpclib.ProtocolError, e:
+        except xmlrpclib.ProtocolError as e:
             errorCode, s = _getProtocolError(e)
             errorString = errorString + s
-        except socket.error, e:
+        except socket.error as e:
             errorCode, s = _getSocketError(e)
             errorString = errorString + s
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             errorCode, errorString = _getActivationError(e)
-        except SSL.SSL.Error, e:
+        except SSL.SSL.Error as e:
             errorCode = 13
             errorString = "ERROR: failed SSL connection - bad or expired cert?"
-        except Exception, e:  # pylint: disable=E0012, W0703
+        except Exception as e:  # pylint: disable=E0012, W0703
             e0, e1 = str(e), repr(e)
             if e0:
                 s = "(%s)" % e0
