@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
@@ -23,6 +23,7 @@ Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
 %if 0%{?pylint_check}
 BuildRequires: spacewalk-pylint
+BuildRequires: python2-rhn-client-tools
 %endif
 BuildRequires: /usr/bin/docbook2man
 %if 0%{?fedora} || 0%{?rhel} > 5
