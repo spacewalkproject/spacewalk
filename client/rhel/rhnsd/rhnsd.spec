@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.32
+Version: 5.0.33
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -138,6 +138,11 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.0.33-1
+- fix rhnsd triggered upgrade of rhnsd on systemd systems
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+- 1494389 - Revert "1260527 RHEL7 rhnsd reload doesn't work"
+
 * Tue Sep 19 2017 Tomas Kasparek <tkasparek@redhat.com> 5.0.32-1
 - 1489989 - umask(0) does not reset to default umask
 
