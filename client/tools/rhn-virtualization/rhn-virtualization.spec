@@ -184,40 +184,56 @@ fi
 %dir %{rhn_conf_dir}/virt/auto
 %{_initrddir}/rhn-virtualization-host
 %config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
-%{rhn_dir}/virtualization/domain_config.py*
-%{rhn_dir}/virtualization/domain_control.py*
-%{rhn_dir}/virtualization/domain_directory.py*
-%{rhn_dir}/virtualization/get_config_value.py*
-%{rhn_dir}/virtualization/init_action.py*
-%{rhn_dir}/virtualization/poller.py*
-%{rhn_dir}/virtualization/schedule_poller.py*
-%{rhn_dir}/virtualization/poller_state_cache.py*
-%{rhn_dir}/virtualization/start_domain.py*
-%{rhn_dir}/virtualization/state.py*
-%{rhn_dir}/virtualization/support.py*
-%{rhn_dir}/actions/virt.py*
-%{rhn_dir}/actions/image.py*
-%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
-%{rhn_dir}/virtualization/localvdsm.py*
-%endif
 %{rhn_conf_dir}/studio-*-template.xml
 %config(noreplace) %{rhn_conf_dir}/image.cfg
 %doc LICENSE
-%if 0%{?fedora} >= 23
-%{rhn_dir}/virtualization/__pycache__/domain_config.*
-%{rhn_dir}/virtualization/__pycache__/domain_control.*
-%{rhn_dir}/virtualization/__pycache__/domain_directory.*
-%{rhn_dir}/virtualization/__pycache__/get_config_value.*
-%{rhn_dir}/virtualization/__pycache__/init_action.*
-%{rhn_dir}/virtualization/__pycache__/poller.*
-%{rhn_dir}/virtualization/__pycache__/schedule_poller.*
-%{rhn_dir}/virtualization/__pycache__/poller_state_cache.*
-%{rhn_dir}/virtualization/__pycache__/start_domain.*
-%{rhn_dir}/virtualization/__pycache__/state.*
-%{rhn_dir}/virtualization/__pycache__/support.*
-%dir %{rhn_dir}/actions/__pycache__
-%{rhn_dir}/actions/__pycache__/virt.*
-%{rhn_dir}/actions/__pycache__/image.*
+
+%files -n python2-%{name}-host
+%{python_sitelib}/virtualization/domain_config.py*
+%{python_sitelib}/virtualization/domain_control.py*
+%{python_sitelib}/virtualization/domain_directory.py*
+%{python_sitelib}/virtualization/get_config_value.py*
+%{python_sitelib}/virtualization/init_action.py*
+%{python_sitelib}/virtualization/poller.py*
+%{python_sitelib}/virtualization/schedule_poller.py*
+%{python_sitelib}/virtualization/poller_state_cache.py*
+%{python_sitelib}/virtualization/start_domain.py*
+%{python_sitelib}/virtualization/state.py*
+%{python_sitelib}/virtualization/support.py*
+%{python_sitelib}/rhn/actions/virt.py*
+%{python_sitelib}/rhn/actions/image.py*
+%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
+%{python_sitelib}/virtualization/localvdsm.py*
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-host
+%{python3_sitelib}/virtualization/domain_config.py*
+%{python3_sitelib}/virtualization/domain_control.py*
+%{python3_sitelib}/virtualization/domain_directory.py*
+%{python3_sitelib}/virtualization/get_config_value.py*
+%{python3_sitelib}/virtualization/init_action.py*
+%{python3_sitelib}/virtualization/poller.py*
+%{python3_sitelib}/virtualization/schedule_poller.py*
+%{python3_sitelib}/virtualization/poller_state_cache.py*
+%{python3_sitelib}/virtualization/start_domain.py*
+%{python3_sitelib}/virtualization/state.py*
+%{python3_sitelib}/virtualization/support.py*
+%{python3_sitelib}/rhn/actions/virt.py*
+%{python3_sitelib}/rhn/actions/image.py*
+%{python3_sitelib}/virtualization/__pycache__/domain_config.*
+%{python3_sitelib}/virtualization/__pycache__/domain_control.*
+%{python3_sitelib}/virtualization/__pycache__/domain_directory.*
+%{python3_sitelib}/virtualization/__pycache__/get_config_value.*
+%{python3_sitelib}/virtualization/__pycache__/init_action.*
+%{python3_sitelib}/virtualization/__pycache__/poller.*
+%{python3_sitelib}/virtualization/__pycache__/schedule_poller.*
+%{python3_sitelib}/virtualization/__pycache__/poller_state_cache.*
+%{python3_sitelib}/virtualization/__pycache__/start_domain.*
+%{python3_sitelib}/virtualization/__pycache__/state.*
+%{python3_sitelib}/virtualization/__pycache__/support.*
+%{python3_sitelib}/rhn/actions/__pycache__/virt.*
+%{python3_sitelib}/rhn/actions/__pycache__/image.*
 %endif
 
 %changelog
