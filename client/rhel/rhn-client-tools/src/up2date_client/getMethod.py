@@ -54,14 +54,15 @@ def getMethod(methodName, baseClass):
     sanity(methodNameComps)
     # Look for the module, start with the most specific
     for index in range(len(methodNameComps), 0, -1):
-        modulename = '.'.join(methodNameComps[:index])
+        modulelibrary = '.'.join(methodNameComps[:index-1])
+        modulename = methodNameComps[index-1]
         try:
-            actions = __import__(modulename)
+            actions = __import__(modulelibrary, modulename)
         except ImportError:
             # does not exist, try next one
             continue
         except Exception:
-            raise_with_tb(GetMethodException("Could not import module %s" % modulename))
+            raise_with_tb(GetMethodException("Could not import module %s from %s" % (modulename, modulelibrary))
         # found one, skip the rest
         break
     else:
