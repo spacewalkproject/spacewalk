@@ -2,6 +2,13 @@
 %define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
 %define cron_dir %{_sysconfdir}/cron.d
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
 Version:        5.4.61
@@ -14,7 +21,6 @@ Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
-BuildRequires:  python
 %if 0%{?suse_version}
 # make chkconfig work in OBS
 BuildRequires: sysconfig syslog
@@ -24,16 +30,13 @@ BuildRequires: sysconfig syslog
 rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
 virtual machine guest images.
 
-%package common
+%package -n python2-%{name}-common
 Summary: Files needed by rhn-virtualization-host
-Group: System Environment/Base
-%if 0%{?fedora} >= 23
-Requires: python3-spacewalk-usix
-BuildRequires: python3-devel
-%else
+%{?python_provide:%python_provide python2-%{name}-common}
+Obsoletes: %{name}-common < 5.4.62
+Requires: python2-rhn-client-tools
 Requires: spacewalk-usix
-%endif
-Requires: rhn-client-tools
+BuildRequires: python
 %if 0%{?suse_version}
 # aaa_base provide chkconfig
 Requires: aaa_base
@@ -42,10 +45,22 @@ BuildRequires: rhn-client-tools rhn-check
 %else
 Requires: chkconfig
 %endif
-
-%description common
+%description -n python2-%{name}-common
 This package contains files that are needed by the rhn-virtualization-host
 package.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-common
+Summary: Files needed by rhn-virtualization-host
+%{?python_provide:%python_provide python3-%{name}-common}
+Obsoletes: %{name}-common < 5.4.62
+Requires: python3-spacewalk-usix
+Requires: python3-rhn-client-tools
+BuildRequires: python3-devel
+%description -n python3-%{name}-common
+This package contains files that are needed by the rhn-virtualization-host
+package.
+%endif
 
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
