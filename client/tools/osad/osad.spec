@@ -24,7 +24,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.93
+Version: 5.11.94
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -519,6 +519,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.94-1
+- install files into python_sitelib/python3_sitelib
+- move osa-dispatcher files into proper python2/python3 subpackages
+- move osa-common files into proper python2/python3 subpackages
+- move osad files into proper python2/python3 subpackages
+- split osa-dispatcher into python2/python3 specific packages
+- split osa-common into python2/python3 specific packages
+- split osad into python2/python3 specific packages
+
 * Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.11.93-1
 - (bz#1491451) osad: set KillMode=process in systemd unit
 - 1494389 - Revert "[1260527] RHEL7 reboot loop"
