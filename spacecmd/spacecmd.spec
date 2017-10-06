@@ -8,7 +8,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.5
+Version:     2.8.6
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -91,6 +91,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Oct 06 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- 1497216 - extend original PR to include all sync options
+- bz1497216 - [RFE] Add softwarechannel_setsyncschedule --latest
+
 * Wed Oct 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.5-1
 - 1373378 - don't break multi-word arguments passed to spacecmd
 
