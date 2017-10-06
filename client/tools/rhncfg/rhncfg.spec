@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.113
+Version: 5.10.114
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -249,6 +249,10 @@ fi
 %endif
 
 %changelog
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.114-1
+- write in binary mode
+- import method from standard path
+
 * Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.113-1
 - 1498813 - store output in the action file so partial output can arrive to
   server
