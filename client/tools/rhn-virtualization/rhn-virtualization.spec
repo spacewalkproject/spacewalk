@@ -11,7 +11,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.61
+Version:        5.4.62
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -247,6 +247,13 @@ fi
 %endif
 
 %changelog
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.62-1
+- install files into python_sitelib/python3_sitelib
+- move rhn-virtualization-host files into proper python2/python3 subpackages
+- move rhn-virtualization-common files into proper python2/python3 subpackages
+- split rhn-virtualization-host into python2/python3 specific packages
+- split rhn-virtualization into python2/python3 specific packages
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.61-1
 - purged changelog entries for Spacewalk 2.0 and older
 
