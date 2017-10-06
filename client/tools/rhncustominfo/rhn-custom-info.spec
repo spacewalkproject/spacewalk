@@ -1,3 +1,7 @@
+%if 0%{?fedora}
+%global build_py3   1
+%endif
+
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
 Version: 5.4.39
@@ -7,7 +11,7 @@ License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
-%if 0%{?fedora} >= 23
+%if 0%{?build_py3}
 BuildRequires: python3-devel
 Requires: python3-rhnlib
 %else
@@ -15,11 +19,7 @@ BuildRequires: python-devel
 Requires: rhnlib
 %endif
 
-%if 0%{?rhel} >= 5 || 0%{?fedora} && 0%{?fedora} < 22
-Requires: yum-rhn-plugin
-%else
-# rpm do not support elif
-%if 0%{?fedora} >= 22
+%if 0%{?fedora}
 Requires: dnf-plugin-spacewalk
 %else
 %if 0%{?suse_version}
@@ -27,8 +27,7 @@ Requires: zypp-plugin-spacewalk
 # provide rhn directories for filelist check
 BuildRequires: rhn-client-tools
 %else
-Requires: up2date
-%endif
+Requires: yum-rhn-plugin
 %endif
 %endif
 
@@ -39,20 +38,17 @@ an RHN-enabled system.
 %prep
 %setup -q
 
-%if 0%{?fedora} >= 23
-%global __python /usr/bin/python3
-%endif
-
 %build
 make -f Makefile.rhn-custom-info all
-%if 0%{?fedora} >= 23
+%if 0%{?build_py3}
     sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' *.py
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
-make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT
+%global pypath %{?build_py3:%{python3_sitelib}}%{!?build_py3:%{python_sitelib}}
+make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT ROOT=%{pypath}
 install -d $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 rhn-custom-info.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
@@ -61,11 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/rhn-custom-info
-%dir %{_datadir}/rhn/custominfo
-%{_datadir}/rhn/custominfo/rhn-custom-info.py*
-%if 0%{?fedora} >= 23
-%{_datadir}/rhn/custominfo/__pycache__/
-%endif
+%{pypath}/custominfo/
 %doc LICENSE
 %{_mandir}/man8/rhn-custom-info.*
 
