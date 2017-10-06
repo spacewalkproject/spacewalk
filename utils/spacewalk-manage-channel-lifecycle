@@ -544,9 +544,16 @@ if parent_dest in all_channel_labels:
     merge_channels(parent_source, parent_dest)
 else:
     # channel doesn't exist, clone it from the original
+    # let's check if there's a parent for the original channel and if so, clone it in the right place
+    new_parent_source = client.channel.software.getDetails(session,parent_source)['parent_channel_label']
+    new_parent_dest = ""
+    if new_parent_source:
+        (new_parent_source, new_parent_dest) = build_channel_labels(new_parent_source)
+    
     details = {'label': parent_dest,
                'name': parent_dest,
-               'summary': parent_dest}
+               'summary': parent_dest,
+               'parent_label': new_parent_dest}
 
     clone_channel(parent_source, details)
 
