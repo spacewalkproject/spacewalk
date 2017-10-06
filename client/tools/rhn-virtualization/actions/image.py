@@ -14,7 +14,6 @@ import re
 import sys
 import shutil
 
-sys.path.append("/usr/share/rhn/")
 import virtualization.support as virt_support
 from virtualization.util import generate_uuid
 from virtualization.errors import VirtualizationException

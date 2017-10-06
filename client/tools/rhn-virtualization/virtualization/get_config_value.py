@@ -14,7 +14,6 @@
 #
 
 import sys
-sys.path.append("/usr/share/rhn")
 from virtualization.domain_config import DomainConfig
 
 fieldname = sys.argv[1]

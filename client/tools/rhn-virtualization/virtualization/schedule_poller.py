@@ -14,7 +14,6 @@
 #
 
 import sys
-sys.path.append("/usr/share/rhn")
 try:
     # Python 2
     import commands

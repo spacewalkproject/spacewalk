@@ -16,7 +16,6 @@
 import os
 import subprocess
 import sys
-sys.path.append("/usr/share/rhn/")
 
 import binascii
 import traceback

@@ -15,7 +15,6 @@
 
 import sys
 import gettext
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhncli
 from virtualization import domain_control, poller, schedule_poller
