@@ -2240,6 +2240,7 @@ def help_softwarechannel_setsyncschedule(self):
     print
     print 'The schedule is specified in Quartz CronTrigger format without enclosing quotes.'
     print 'For example, to set a schedule of every day at 1am, <SCHEDULE> would be 0 0 1 * * ?'
+    print 'If <SCHEDULE> is left empty, it will be disabled.'
     print
 
 
@@ -2257,12 +2258,12 @@ def do_softwarechannel_setsyncschedule(self, args):
 
     params = dict((i.replace('_', '-'), getattr(options, i)) for i in ['no_errata', 'fail', 'sync_kickstart', 'latest'])
 
-    if not len(args) == 7:
+    if not len(args) in [1, 7]:
         self.help_softwarechannel_setsyncschedule()
         return
 
     channel = args[0]
-    schedule = ' '.join(args[1:])
+    schedule = ' '.join(args[1:]) if len(args) == 7 else ''
 
     self.client.channel.software.syncRepo(self.session, channel, schedule, params)
 
