@@ -4,7 +4,7 @@
 
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.39
+Version: 5.4.40
 Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.40-1
+- install files into python_sitelib/python3_sitelib
+
 * Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.39-1
 - removed unnecessary BuildRoot tag
 
