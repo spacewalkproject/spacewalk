@@ -2233,6 +2233,9 @@ def help_softwarechannel_setsyncschedule(self):
     print
     print 'usage: softwarechannel_setsyncschedule <CHANNEL> <SCHEDULE>'
     print 'Options:'
+    print '    -e/--no-errata : Do not sync errata'
+    print '    -f/--fail : Terminate upon any error'
+    print '    -k/--sync-kickstart : Create kickstartable tree'
     print '    -l/--latest : Only download latest package versions when repo syncs'
     print
     print 'The schedule is specified in Quartz CronTrigger format without enclosing quotes.'
@@ -2245,13 +2248,14 @@ def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
 
 
 def do_softwarechannel_setsyncschedule(self, args):
-    options = [Option('-l', '--latest', action='store_true')]
+    options = [Option('-e', '--no-errata', action='store_true', default=False),
+        Option('-f', '--fail', action='store_true', default=False),
+        Option('-k', '--sync-kickstart', action='store_true', default=False),
+        Option('-l', '--latest', action='store_true', default=False)]
 
     (args, options) = parse_arguments(args, options, glob=False)
 
-    params = {}
-    if (options.latest):
-        params["latest"] = True
+    params = dict((i.replace('_', '-'), getattr(options, i)) for i in ['no_errata', 'fail', 'sync_kickstart', 'latest'])
 
     if not len(args) == 7:
         self.help_softwarechannel_setsyncschedule()
