@@ -1,6 +1,6 @@
 PYTHON=python
 PYFILES = $(wildcard *.py)
-PKGDIR = /usr/share/rhn/actions/
+PKGDIR = $(PYTHONPATH)/rhn/actions/
 
 all: 
 	echo "Nothing to do"

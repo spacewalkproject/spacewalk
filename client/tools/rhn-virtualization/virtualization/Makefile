@@ -1,6 +1,6 @@
 PYTHON=python
 PYFILES = $(wildcard *.py)
-PKGDIR = /usr/share/rhn/virtualization
+PKGDIR = $(PYTHONPATH)/virtualization
 
 all: 
 	echo "Nothing to do"

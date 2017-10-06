@@ -5,12 +5,11 @@
 . /etc/rc.d/init.d/functions
 
 auto_dir="/etc/sysconfig/rhn/virt/auto"
-py_path="/usr/share/rhn:/usr/share/rhn/virtualization"
-script_path="/usr/share/rhn/virtualization"
-get_config_value="PYTHONPATH=$py_path python $script_path/get_config_value.py"
+script_path="@PYTHONPATH@/virtualization"
+get_config_value="@PYTHON@ $script_path/get_config_value.py"
 get_uuid="$get_config_value uuid"
 get_name="$get_config_value name"
-init_action="PYTHONPATH=$py_path python $script_path/init_action.py"
+init_action="@PYTHON@ $script_path/init_action.py"
 start_action="$init_action start"
 stop_action="$init_action shutdown"
 

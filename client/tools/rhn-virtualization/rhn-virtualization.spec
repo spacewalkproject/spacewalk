@@ -105,9 +105,6 @@ Python 3 files for %{name}-host.
 %if 0%{?suse_version}
 cp scripts/rhn-virtualization-host.SUSE scripts/rhn-virtualization-host
 %endif
-%if 0%{?fedora} >= 23
-%global __python /usr/bin/python3
-%endif
 
 %build
 make -f Makefile.rhn-virtualization
@@ -115,7 +112,20 @@ make -f Makefile.rhn-virtualization
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} install
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
+        PYTHONPATH=%{python_sitelib} install
+sed -i 's,@PYTHON@,python,; s,@PYTHONPATH@,%{python_sitelib},;' \
+        $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host \
+        $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
+
+%if 0%{?build_py3}
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
+        PYTHONPATH=%{python3_sitelib} install
+        sed -i 's,@PYTHON@,python3,; s,@PYTHONPATH@,%{python3_sitelib},;' \
+                $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host \
+                $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
+%endif
+
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
 find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
 %endif

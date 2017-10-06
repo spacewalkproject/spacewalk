@@ -22,13 +22,16 @@ except ImportError:
     import subprocess as commands
 
 from spacewalk.common.usix import StringType
+from distutils.sysconfig import get_python_lib
+
+COMMAND = "python%s %s/virtualization/poller.py" % (sys.version[0], get_python_lib())
 
 def create_crontab_line(minute  =   None,\
                         hour    =   None,\
                         dom     =   None,\
                         month   =   None,\
                         dow     =   None,
-                        command =   "python /usr/share/rhn/virtualization/poller.py"):
+                        command =   COMMAND):
     user = "root"
 
     if minute == None:
