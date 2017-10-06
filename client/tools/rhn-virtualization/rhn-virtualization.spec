@@ -65,27 +65,40 @@ package.
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
-Requires: libvirt-python
-Requires: rhn-virtualization-common = %{version}-%{release}
+Requires: %{pythonX}-%{name}-host = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: cron
-Requires: python-curl
 %else
 Requires: /usr/sbin/crond
-Requires: python-pycurl
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 6
-# in RHEL5 we need libvirt, but in RHEV@RHEL5 there should not be libvirt
-# as there is vdsm and bunch of other packages, but we have no clue how to
-# distinguish those two scenarios
-%else
-Requires: libvirt
 %endif
 
 %description host
 This package contains code for RHN's and Spacewalk's Virtualization support 
 that is specific to the Host system (a.k.a. Dom0).
 
+%package -n python2-%{name}-host
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
+Requires: %{name}-host = %{version}-%{release}
+Requires: libvirt-python
+Requires: python2-%{name}-common = %{version}-%{release}
+%if 0%{?suse_version}
+Requires: python-curl
+%else
+Requires: python-pycurl
+%endif
+%description -n python2-%{name}-host
+Python 2 files for %{name}-host.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-host
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
+Requires: %{name}-host = %{version}-%{release}
+Requires: libvirt-python3
+Requires: python3-%{name}-common = %{version}-%{release}
+Requires: python3-pycurl
+%description -n python3-%{name}-host
+Python 3 files for %{name}-host.
+%endif
 
 %prep
 %setup -q
