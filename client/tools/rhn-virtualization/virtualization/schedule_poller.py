@@ -54,7 +54,7 @@ def create_crontab_line(minute  =   None,\
     if type(month) != StringType:
         month = str(month).strip()
     if type(dow) != StringType:
-        dow = str(dow).strip
+        dow = str(dow).strip()
 
     str_template = "%s %s %s %s %s %s %s\n"
 
