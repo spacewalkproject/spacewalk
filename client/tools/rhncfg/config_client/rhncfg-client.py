@@ -14,10 +14,7 @@
 # in this software or its documentation.
 #
 
-RHNROOT = '/usr/share/rhn'
 import sys, os
-if RHNROOT not in sys.path:
-    sys.path.append(RHNROOT)
 
 from config_common.rhn_main import BaseMain
 

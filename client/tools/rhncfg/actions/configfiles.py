@@ -23,7 +23,6 @@ from config_common.transactions import DeployTransaction, FailedRollback
 
 from config_client import rpc_cli_repository
 
-sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
 from spacewalk.common.usix import StringType, UnicodeType

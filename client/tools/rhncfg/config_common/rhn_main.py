@@ -35,7 +35,6 @@ except:
     from socket import error
     gaierror = error
 
-sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
 class BaseMain:

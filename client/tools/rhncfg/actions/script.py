@@ -30,11 +30,10 @@ except:
 
 
 # this is ugly, hopefully it will be natively supported in up2date
-from actions.configfiles import _local_permission_check, _perm_error
+from rhn.actions.configfiles import _local_permission_check, _perm_error
 from config_common import local_config
 from config_common.rhn_log import set_logfile, log_to_file
 
-sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
 
