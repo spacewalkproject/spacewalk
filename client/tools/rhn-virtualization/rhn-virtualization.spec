@@ -149,23 +149,31 @@ fi
 /sbin/service crond condrestart
 %endif
 
-%files common
-%dir %{rhn_dir}/virtualization
-%{rhn_dir}/virtualization/__init__.py*
-%{rhn_dir}/virtualization/batching_log_notifier.py*
-%{rhn_dir}/virtualization/constants.py*
-%{rhn_dir}/virtualization/errors.py*
-%{rhn_dir}/virtualization/notification.py*
-%{rhn_dir}/virtualization/util.py*
+%files -n python2-%{name}-common
+%{python_sitelib}/virtualization/__init__.py*
+%{python_sitelib}/virtualization/batching_log_notifier.py*
+%{python_sitelib}/virtualization/constants.py*
+%{python_sitelib}/virtualization/errors.py*
+%{python_sitelib}/virtualization/notification.py*
+%{python_sitelib}/virtualization/util.py*
 %doc LICENSE
-%if 0%{?fedora} >= 23
-%dir %{rhn_dir}/virtualization/__pycache__
-%{rhn_dir}/virtualization/__pycache__/__init__.*
-%{rhn_dir}/virtualization/__pycache__/batching_log_notifier.*
-%{rhn_dir}/virtualization/__pycache__/constants.*
-%{rhn_dir}/virtualization/__pycache__/errors.*
-%{rhn_dir}/virtualization/__pycache__/notification.*
-%{rhn_dir}/virtualization/__pycache__/util.*
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-common
+%{python3_sitelib}/virtualization/__init__.py*
+%{python3_sitelib}/virtualization/batching_log_notifier.py*
+%{python3_sitelib}/virtualization/constants.py*
+%{python3_sitelib}/virtualization/errors.py*
+%{python3_sitelib}/virtualization/notification.py*
+%{python3_sitelib}/virtualization/util.py*
+%doc LICENSE
+%dir %{python3_sitelib}/virtualization/__pycache__
+%{python3_sitelib}/virtualization/__pycache__/__init__.*
+%{python3_sitelib}/virtualization/__pycache__/batching_log_notifier.*
+%{python3_sitelib}/virtualization/__pycache__/constants.*
+%{python3_sitelib}/virtualization/__pycache__/errors.*
+%{python3_sitelib}/virtualization/__pycache__/notification.*
+%{python3_sitelib}/virtualization/__pycache__/util.*
 %endif
 
 %files host
