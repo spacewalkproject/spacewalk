@@ -95,16 +95,21 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
 %files
-%dir %{rhnroot}/rhnpush
-%{rhnroot}/rhnpush/*
-%if 0%{?fedora} >= 23
-%{rhnroot}/rhnpush/__pycache__/
-%endif
-%attr(755,root,root) %{_bindir}/rhnpush
-%attr(755,root,root) %{_bindir}/rpm2mpm
+%{_bindir}/rhnpush
+%{_bindir}/rpm2mpm
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
 %{_mandir}/man8/rhnpush.8*
 %doc COPYING
+
+%files -n python2-%{name}
+%attr(755,root,root) %{_bindir}/rhnpush-%{python_version}
+%{python_sitelib}/rhnpush/
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%attr(755,root,root) %{_bindir}/rhnpush-%{python3_version}
+%{python3_sitelib}/rhnpush/
+%endif
 
 %changelog
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.107-1
