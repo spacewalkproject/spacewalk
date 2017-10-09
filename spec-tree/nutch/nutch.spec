@@ -23,6 +23,7 @@ HTML and other document formats, etc.
 #removing the hadoop JNI code
 rm -fr ./lib/native/Linux-amd64-64
 rm -fr ./lib/native/Linux-i386-32
+sed -i 's|^hadoop.log.dir=.*$|hadoop.log.dir=/var/log/rhn/search|' conf/log4j.properties
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -35,6 +36,7 @@ cp -pR conf $RPM_BUILD_ROOT%{_prefix}/share/nutch
 cp -pR lib $RPM_BUILD_ROOT%{_prefix}/share/nutch
 cp -pR plugins $RPM_BUILD_ROOT%{_prefix}/share/nutch
 ln -s %{_prefix}/share/nutch/nutch-2008-12-01_04-01-21.jar $RPM_BUILD_ROOT%{_prefix}/share/nutch/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -44,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_prefix}/share/nutch/*
 %attr(755,root,root) %{_prefix}/share/nutch/bin/*
+%{_var}/log/rhn/search
 
 
 %changelog
