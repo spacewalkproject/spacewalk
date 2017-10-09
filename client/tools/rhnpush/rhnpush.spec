@@ -1,4 +1,4 @@
-%if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
-spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+spacewalk-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
 %endif
 
 %files
