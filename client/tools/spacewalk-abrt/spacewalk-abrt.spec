@@ -48,13 +48,19 @@ Python 3 specific files for %{name}.
 
 %build
 make -f Makefile.spacewalk-abrt
-%if 0%{?fedora} >= 23
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT
+make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
+                PYTHON_PATH=%{python_sitelib} PYTHON_VERSION=%{python_version}
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
+make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
+                PYTHON_PATH=%{python3_sitelib} PYTHON_VERSION=%{python3_version}
+%endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s spacewalk-abrt%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/spacewalk-abrt
 
 %find_lang %{name}
 

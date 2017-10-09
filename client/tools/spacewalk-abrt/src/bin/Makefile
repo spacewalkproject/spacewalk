@@ -12,7 +12,7 @@ all:
 	echo "Nothing to do"
 
 install:: all $(DIRS)
-	$(INSTALL_BIN) spacewalk-abrt $(BIN_DIR)/spacewalk-abrt
+	$(INSTALL_BIN) spacewalk-abrt $(BIN_DIR)/spacewalk-abrt-$(PYTHON_VERSION)
 
 clean::
 	@rm -fv *.pyc *~ .*~
