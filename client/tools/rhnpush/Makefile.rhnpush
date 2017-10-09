@@ -34,23 +34,18 @@ EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR) $(RHN_CONF_DIR)
 install-conf : $(RHNPUSHRC)
 	$(INSTALL_DATA) $(RHNPUSHRC) $(PREFIX)$(RHN_CONF_DIR)/$(RHNPUSHRC)
 
-rhnpush.inst : rhnpush rhnpush.new
-	$(INSTALL_BIN) rhnpush.new $(PREFIX)$(BINDIR)/rhnpush-$(PYTHON_VERSION)
-	rm -f rhnpush.new
-
 %.inst: rhnpush.inst
-	@ln -sfv rhnpush $(PREFIX)$(BINDIR)/$*
 
 all	: $(MANS) $(OBJECTS)
-install : all rhnpush.inst rpm2mpm.inst install-conf
+install : all install-conf
 	$(INSTALL_DIR) $(PREFIX)$(MANDIR)/man8
 	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man8
 
 	$(INSTALL_DIR) $(PREFIX)$(ROOT)/rhnpush
 	$(INSTALL_DATA) $(PYFILES) $(PREFIX)$(ROOT)/rhnpush
 
-%.new : %
-	sed -e 's|@@ROOT@@|$(RHNSHARE_DIR)|g' <$* >$@
+	$(INSTALL_BIN) rhnpush $(PREFIX)$(BINDIR)/rhnpush-$(PYTHON_VERSION)
+	@ln -sfv rhnpush $(PREFIX)$(BINDIR)/rpm2mpm
 
 %.8 : %.sgml
 	/usr/bin/docbook2man $<
