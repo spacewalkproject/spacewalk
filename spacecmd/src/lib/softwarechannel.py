@@ -2250,9 +2250,9 @@ def complete_softwarechannel_setsyncschedule(self, text, line, beg, end):
 
 def do_softwarechannel_setsyncschedule(self, args):
     options = [Option('-e', '--no-errata', action='store_true', default=False),
-        Option('-f', '--fail', action='store_true', default=False),
-        Option('-k', '--sync-kickstart', action='store_true', default=False),
-        Option('-l', '--latest', action='store_true', default=False)]
+               Option('-f', '--fail', action='store_true', default=False),
+               Option('-k', '--sync-kickstart', action='store_true', default=False),
+               Option('-l', '--latest', action='store_true', default=False)]
 
     (args, options) = parse_arguments(args, options, glob=False)
 
