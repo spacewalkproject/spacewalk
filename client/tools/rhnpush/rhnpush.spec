@@ -14,7 +14,7 @@ Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.107
+Version:       5.5.108
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -115,6 +115,14 @@ spacewalk-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
 %endif
 
 %changelog
+* Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.108-1
+- run pylint on all Fedoras
+- simplified Makefile
+- modules are now in standard sitelib path
+- install files into python_sitelib/python3_sitelib
+- move rhnpush files into proper python2/python3 subpackages
+- split rhnpush into python2/python3 specific packages
+
 * Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.107-1
 - precompile py3 bytecode on Fedora 23+
 - use standard brp-python-bytecompile
