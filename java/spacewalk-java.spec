@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.24
+Version: 2.8.25
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 09 2017 Christian Lanig <clanig@suse.com>
+- PR 577 - Harmonize presentation of patch information
+
 * Fri Oct 06 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.24-1
 - add help for new options
 
