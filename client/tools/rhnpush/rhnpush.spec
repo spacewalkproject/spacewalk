@@ -4,7 +4,15 @@
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:          rhnpush
+Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
@@ -13,42 +21,51 @@ Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
-Requires:      rpm-python
-BuildRequires: spacewalk-backend-libs > 1.8.33
-BuildRequires: python-devel
-
-%if 0%{?fedora} >= 23
-Requires:      python3-rhnlib
-Requires:      python3-spacewalk-backend-libs
-Requires:      python3-spacewalk-usix
-%else
-Requires:      rhnlib >= 2.5.74
-Requires:      spacewalk-backend-libs >= 1.7.17
-Requires:      spacewalk-usix
-%endif
-
-Requires:      rhn-client-tools
+Requires:      %{pythonX}-%{name} = %{version}-%{release}
+BuildRequires: docbook-utils, gettext
 %if 0%{?pylint_check}
 BuildRequires:  spacewalk-pylint >= 0.6
 %endif
-%if 0%{?suse_version}
-# provides rhn directories for filelist check in OBS
-BuildRequires:      rhn-client-tools
-%endif
-BuildRequires: docbook-utils, gettext
-
-%if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires:  rhn-client-tools
-
-%endif
-
-Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 
 %description
 rhnpush uploads package headers to the Spacewalk or Red Hat Satellite
 servers into specified channels and allows for several other channel
 management operations relevant to controlling what packages are available
 per channel.
+
+%package -n python2-%{name}
+Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: rpm-python
+Requires: rhnlib >= 2.8.3
+Requires: python2-rhn-client-tools
+Requires: spacewalk-backend-libs >= 1.7.17
+Requires: spacewalk-usix
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python-devel
+BuildRequires: python2-rhn-client-tools
+%description -n python2-%{name}
+Python 2 specific files for rhnpush.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: rpm-python3
+Requires: python3-rhnlib >= 2.8.3
+Requires: python3-rhn-client-tools
+Requires: python3-spacewalk-backend-libs
+Requires: python3-spacewalk-usix
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python-devel
+BuildRequires: python3-rhn-client-tools
+BuildRequires: python3-rpm-macros
+%description -n python3-%{name}
+Python 3 specific files for rhnpush.
+%endif
+
 
 %prep
 %setup -q
