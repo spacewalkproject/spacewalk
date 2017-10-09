@@ -1,5 +1,3 @@
-%define rhnroot %{_datadir}/rhn
-
 %if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
@@ -75,22 +73,27 @@ make -f Makefile.rhnpush all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    MANDIR=%{_mandir}
+install -d $RPM_BUILD_ROOT/%{python_sitelib}
+make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
+    MANDIR=%{_mandir} PYTHON_VERSION=%{python_version}
 
-%if 0%{?fedora} >= 23
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpush
-%global __python /usr/bin/python3
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhnpush
+install -d $RPM_BUILD_ROOT/%{python3_sitelib}
+make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
+    MANDIR=%{_mandir} PYTHON_VERSION=%{python3_version}
 %endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s rhnpush%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhnpush
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?pylint_check} && 0%{?fedora} >= 25
+%if 0%{?pylint_check}
 # check coding style
-export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
+export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
 spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
