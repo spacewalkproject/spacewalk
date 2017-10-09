@@ -29,7 +29,6 @@ from re import search
 from optparse import OptionParser
 from rhn import rpclib
 
-sys.path.append("/usr/share/rhn")
 from up2date_client import config
 from up2date_client import up2dateAuth
 
