@@ -9823,7 +9823,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered">
-        <source>&lt;strong&gt;Recently Registered Systems&lt;/strong&gt;</source>
+        <source>Recently Registered Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
