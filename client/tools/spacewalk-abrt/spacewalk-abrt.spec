@@ -1,3 +1,10 @@
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:           spacewalk-abrt
 Version:        2.8.1
 Release:        1%{?dist}
@@ -10,13 +17,31 @@ Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  gettext
-BuildRequires:  python
+Requires:       %{pythonX}-%{name} = %{version}-%{release}
 Requires:       abrt
 Requires:       abrt-cli
-Requires:       rhn-client-tools
-Requires:       rhn-check
 %description
 spacewalk-abrt - rhn-check plug-in for collecting information about crashes handled by ABRT.
+
+%package -n python2-%{name}
+Summary:        ABRT plug-in for rhn-check
+%{?python_provide:%python_provide python2-%{name}}
+BuildRequires:  python
+Requires:       python2-rhn-client-tools
+Requires:       python2-rhn-check
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary:        ABRT plug-in for rhn-check
+%{?python_provide:%python_provide python3-%{name}}
+BuildRequires:  python3-rpm-macros
+Requires:       python3-rhn-client-tools
+Requires:       python3-rhn-check
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
@@ -43,8 +68,17 @@ service abrtd restart
 %config  /etc/sysconfig/rhn/clientCaps.d/abrt
 %config  /etc/libreport/events.d/spacewalk.conf
 %{_bindir}/spacewalk-abrt
-%{_datadir}/rhn/spacewalk_abrt/*
 %{_mandir}/man8/*
+
+%files -n python2-%{name}
+%{_bindir}/spacewalk-abrt-%{python_version}
+%{python_sitelib}/spacewalk_abrt/
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{_bindir}/spacewalk-abrt-%{python3_version}
+%{python3_sitelib}/spacewalk_abrt/
+%endif
 
 %changelog
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
