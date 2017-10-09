@@ -1,6 +1,6 @@
 Name: nutch
 Version: 1.0
-Release: 0.17.20081201040121nightly%{?dist}
+Release: 0.18.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
 Group: Development/Tools
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 1.0-0.18.20081201040121nightly
+- 1483503 - move hadoop logs to /var/log
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.0-0.17.20081201040121nightly
 - recompile all packages with the same (latest) version of java
 - fixed tito build warning
