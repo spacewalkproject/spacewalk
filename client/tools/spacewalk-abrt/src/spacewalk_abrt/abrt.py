@@ -20,10 +20,6 @@ import sys
 import errno
 from rhn.i18n import bstr
 
-RHNROOT = '/usr/share/rhn'
-if RHNROOT not in sys.path:
-    sys.path.append(RHNROOT)
-
 import gettext
 t = gettext.translation('spacewalk-abrt', fallback=True)
 _ = t.ugettext
