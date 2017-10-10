@@ -3,7 +3,7 @@
 %endif
 
 Name:		spacewalk-client-cert
-Version:	2.8.0
+Version:	2.8.1
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -55,6 +55,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- install files into python_sitelib/python3_sitelib
+- Bumping package versions for 2.8.
+
 * Mon Jul 17 2017 Jan Dobes 2.7.1-1
 - Updated links to github in spec files
 - Migrating Fedorahosted to GitHub
