@@ -1,6 +1,5 @@
-%if ! (0%{?fedora} || 0%{?rhel} > 5)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%if 0%{?fedora}
+%global build_py3   1
 %endif
 
 Name:        spacewalk-remote-utils
@@ -14,18 +13,18 @@ URL:         https://github.com/spacewalkproject/spacewalk
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:   noarch
 
-BuildRequires: python-devel
-%if 0%{?fedora} >= 23
+%if 0%{?build_py}
+BuildRequires: python3-devel
 Requires: python3-rhnlib
 %else
-Requires: rhnlib >= 2.5.74
-%endif
-
-BuildRequires: docbook-utils
+BuildRequires: python-devel
+Requires: rhnlib >= 2.8.4
 %if 0%{?suse_version}
 # provide directories for filelist check in OBS
 BuildRequires: rhn-client-tools
 %endif
+%endif
+BuildRequires: docbook-utils
 
 %description
 Utilities to interact with a Red Hat Satellite or Spacewalk server remotely over XMLRPC.
@@ -35,7 +34,7 @@ Utilities to interact with a Red Hat Satellite or Spacewalk server remotely over
 
 %build
 docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./spacewalk-create-channel/doc/
-%if 0%{?fedora} >= 23
+%if 0%{?build_py3}
     sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-create-channel/spacewalk-create-channel
     sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./spacewalk-add-providers/spacewalk-add-providers
 %endif
@@ -59,9 +58,7 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %files
 %{_bindir}/spacewalk-add-providers
 %{_bindir}/spacewalk-create-channel
-#%{python_sitelib}/spacecmd/
 %{_datadir}/rhn/channel-data/
-
 %doc spacewalk-create-channel/doc/README spacewalk-create-channel/doc/COPYING
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
