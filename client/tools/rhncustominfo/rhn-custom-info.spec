@@ -4,7 +4,7 @@
 
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.40
+Version: 5.4.41
 Release: 1%{?dist}
 Group: Applications/System
 License: GPLv2
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.41-1
+- extra path is not needed anymore
+
 * Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.40-1
 - install files into python_sitelib/python3_sitelib
 
