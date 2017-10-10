@@ -58,8 +58,13 @@ make -f Makefile.spacewalk-koan all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{_datadir}/rhn/ \
+make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir}
+
+%if 0%{?build_py3}
+make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
+    MANDIR=%{_mandir}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT

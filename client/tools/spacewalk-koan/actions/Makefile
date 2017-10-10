@@ -3,7 +3,7 @@
 
 TOP         = ..
 ROOT        = /usr/share/rhn
-SUBDIR      = actions
+SUBDIR      = rhn/actions
 FILES       = kickstart
 CAPS        = kickstart
 CAPS_DIR    = /etc/sysconfig/rhn/clientCaps.d
