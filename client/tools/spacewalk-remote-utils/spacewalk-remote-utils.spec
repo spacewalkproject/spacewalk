@@ -3,7 +3,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.8.2
+Version:     2.8.3
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -63,6 +63,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- make python2/3 defs consistent with other specs
+
 * Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed unnecessary BuildRoot tag
 
