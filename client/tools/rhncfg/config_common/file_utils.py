@@ -58,8 +58,10 @@ class FileProcessor:
             if 'symlink' not in file_struct:
                 raise Exception("Missing key symlink")
 
-            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                  directory=directory, symlink=file_struct['symlink'])
+            (fullpath, dirs_created, fd) = maketemp(prefix=".rhn-cfg-tmp", directory=directory)
+            os.close(fd)
+            os.unlink(fullpath)
+            os.symlink(file_struct['symlink'], fullpath)
             return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
@@ -97,19 +99,14 @@ class FileProcessor:
             raise Exception("Corrupt file received: missing checksum information!")
 
 
-        fh = None
-
-        (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                  directory=directory)
+        (fullpath, dirs_created, fd) = maketemp(prefix=".rhn-cfg-tmp", directory=directory)
 
         try:
-            fh.write(sstr(contents))
+            os.write(fd, bstr(contents))
         except Exception:
-            if fh:
-                fh.close()  # don't leak fds...
             raise
-        else:
-            fh.close()
+        finally:
+            os.close(fd)
 
         # try to set mtime and ctime of the file to
         # the last modified time on the server
@@ -279,11 +276,11 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False):
 
 
 
-def maketemp(prefix=None, directory=None, symlink=None):
+def maketemp(prefix=None, directory=None):
     """Creates a temporary file (guaranteed to be new), using the
        specified prefix.
 
-       Returns the filename and an open stream
+       Returns the filename and a file descriptor
     """
     if not directory:
         directory = tempfile.gettempdir()
@@ -299,14 +296,8 @@ def maketemp(prefix=None, directory=None, symlink=None):
     file_prefix = "%s-%s-" % (prefix, os.getpid())
     (fd, filename) = tempfile.mkstemp(prefix=file_prefix, dir=directory)
 
-    if symlink:
-        os.unlink(filename)
-        os.symlink(symlink, filename)
-        open_file = None
-    else:
-        open_file = os.fdopen(fd, "w+")
+    return filename, dirs_created, fd
 
-    return filename, dirs_created, open_file
 
 # Duplicated from backend/common/fileutils.py to remove dependency requirement.
 # If making changes make them there too.
