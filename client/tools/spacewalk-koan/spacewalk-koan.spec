@@ -1,3 +1,10 @@
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
 Version: 2.8.1
@@ -8,14 +15,9 @@ Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 URL:            https://github.com/spacewalkproject/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
-BuildRequires:  python
-Requires:       python >= 1.5
+Requires:       %{pythonX}-%{name} = %{version}-%{release}
 Requires:       koan >= 1.4.3
 Requires:       xz
-%if 0%{?suse_version}
-# provide directories for filelist check in OBS
-BuildRequires: rhn-client-tools
-%endif
 Conflicts: rhn-kickstart
 Conflicts: rhn-kickstart-common
 Conflicts: rhn-kickstart-virtualization
@@ -24,6 +26,29 @@ Requires: rhn-check
 
 %description
 Support package for spacewalk koan interaction.
+
+%package -n python2-%{name}
+Summary: Support package for spacewalk koan interaction
+%{?python_provide:%python_provide python2-%{name}}
+BuildRequires:  python
+Requires:       python
+%if 0%{?suse_version}
+# provide directories for filelist check in OBS
+BuildRequires: rhn-client-tools
+%endif
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Support package for spacewalk koan interaction
+%{?python_provide:%python_provide python3-%{name}}
+BuildRequires:  python3
+BuildRequires:  python3-rpm-macros
+Requires:       python3
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
@@ -42,8 +67,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
 %{_sbindir}/*
-%{_datadir}/rhn/spacewalkkoan/
-%{_datadir}/rhn/actions/
+
+%files -n python2-%{name}
+%{python_sitelib}/spacewalkkoan/
+%{python_sitelib}/rhn/actions/
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/spacewalkkoan/
+%{python3_sitelib}/rhn/actions/
+%endif
 
 %changelog
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
