@@ -1,3 +1,7 @@
+%if 0%{?fedora}
+%global build_py3   1
+%endif
+
 Name:		spacewalk-client-cert
 Version:	2.8.0
 Release:	1%{?dist}
@@ -9,9 +13,15 @@ URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
+%if 0%{?build_py3}
+BuildRequires:  python3-devel
+Requires:       python3-rhn-client-tools
+Requires:       python3-rhn-setup
+%else
 BuildRequires:  python-devel
-Requires:       rhn-client-tools
-Requires:       rhn-setup
+Requires:       python2-rhn-client-tools
+Requires:       python2-rhn-setup
+%endif
 %description
 spacewalk-client-cert contains client side functionality allowing manipulation
 with Spacewalk client certificates (/etc/sysconfig/rhn/systemid)
@@ -26,7 +36,9 @@ make -f Makefile.spacewalk-client-cert
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -f Makefile.spacewalk-client-cert install PREFIX=$RPM_BUILD_ROOT
+%global pypath %{?build_py3:%{python3_sitelib}}%{!?build_py3:%{python_sitelib}}
+make -f Makefile.spacewalk-client-cert install PREFIX=$RPM_BUILD_ROOT \
+        PYTHONPATH=%{pypath}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -34,12 +46,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %config  /etc/sysconfig/rhn/clientCaps.d/client-cert
-%{_datadir}/rhn/actions/clientcert.*
+%{pypath}/rhn/actions/*
 %if 0%{?suse_version}
 %dir /etc/sysconfig/rhn
 %dir /etc/sysconfig/rhn/clientCaps.d
-%dir %{_datadir}/rhn
-%dir %{_datadir}/rhn/actions
+%dir %{pypath}/rhn
+%dir %{pypath}/rhn/actions
 %endif
 
 %changelog

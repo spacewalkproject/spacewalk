@@ -16,7 +16,6 @@ import sys
 
 if sys.version_info[0] == 3:
     unicode = str
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhnreg
 from up2date_client import rhnserver
