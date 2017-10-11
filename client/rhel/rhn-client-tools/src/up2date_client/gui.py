@@ -55,23 +55,17 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.xml = gtk.glade.XML(gladeFile, "mainWin", domain="rhn-client-tools")
         self.xml.signal_autoconnect (
             { "onDruidCancel" : self.onDruidCancel,
-              "onStartPagePrepare" : self.onStartPagePrepare,
+              "onMainWinPrepare" : self.onMainWinPrepare,
               "onStartPageNext" : self.onStartPageNext,
-              "onChooseServerPagePrepare" : self.onChooseServerPagePrepare,
               "onChooseServerPageNext" : self.onChooseServerPageNext,
-              "onLoginPagePrepare" : self.onLoginPagePrepare,
               "onLoginPageNext" : self.onLoginPageNext,
               "onChooseChannelPageNext" : self.onChooseChannelPageNext,
               "onChooseChannelPageBack" : self.onChooseChannelPageBack,
-              "onChooseChannelPagePrepare" : self.onChooseChannelPagePrepare,
-              "onCreateProfilePagePrepare" : self.onCreateProfilePagePrepare,
               "onCreateProfilePageNext" : self.onCreateProfilePageNext,
               "onCreateProfilePageBack" : self.onCreateProfilePageBack,
-              "onReviewSubscriptionPagePrepare" : self.onReviewSubscriptionPagePrepare,
               "onReviewSubscriptionPageNext" : self.onReviewSubscriptionPageNext,
               "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
               "onProvideCertificatePageNext" : self.onProvideCertificatePageNext,
-              "onFinishPagePrepare" : self.onFinishPagePrepare,
               "onFinishPageFinish" : self.onFinishPageFinish,
         } )
 
@@ -176,8 +170,20 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         gtk.main_quit()
         sys.exit(1)
 
+    def onMainWinPrepare(self, mainWin, vbox):
+        prepare_func = {
+	      "startPageVbox": self.onStartPagePrepare,
+              "chooseServerPageVbox" : self.onChooseServerPagePrepare,
+              "loginPageVbox" : self.onLoginPagePrepare,
+              "chooseChannelPageVbox" : self.onChooseChannelPagePrepare,
+              "createProfilePageVbox" : self.onCreateProfilePagePrepare,
+              "reviewSubscriptionPageVbox" : self.onReviewSubscriptionPagePrepare,
+              "finishPageVbox" : self.onFinishPagePrepare,
+	}
+        if vbox.name in prepare_func:
+            prepare_func[vbox.name](mainWin, vbox)
 
-    def onStartPagePrepare(self, page, dummy, manualPrepare=False):
+    def onStartPagePrepare(self, mainWin, vbox, manualPrepare=False):
 #        self.druid.set_buttons_sensitive(False, True, True, False)
         if rhnreg.rhsm_registered() and not self.rhsm_already_registered_already_shown:
             # Dialog constructor returns when dialog closes
@@ -196,7 +202,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 #        self.druid.set_buttons_sensitive(True, True, True, False)
         pass
 
-    def onChooseServerPagePrepare(self, page, dummy):
+    def onChooseServerPagePrepare(self, mainWin, vbox):
         self.chooseServerPagePrepare()
 
     def onChooseServerPageNext(self, page, dummy):
@@ -211,7 +217,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         return True
 
 
-    def onLoginPagePrepare(self, page, dummy):
+    def onLoginPagePrepare(self, mainWin, vbox):
         self.loginXml.get_widget("loginUserEntry").grab_focus()
         self.loginPagePrepare()
 
@@ -257,10 +263,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 #            self.druid.set_page(self.createProfilePage)
             return True
 
-    def onChooseChannelPagePrepare(self, page, dummy):
+    def onChooseChannelPagePrepare(self, mainWin, vbox):
         self.chooseChannelPagePrepare()
 
-    def onCreateProfilePagePrepare(self, page, dummy):
+    def onCreateProfilePagePrepare(self, mainWin, vbox):
         self.createProfilePagePrepare()
 
     def onCreateProfilePageNext(self, page, dummy):
@@ -278,7 +284,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 #            self.druid.set_page(self.chooseServerPage)
         return True
 
-    def onReviewSubscriptionPagePrepare(self, page, dummy):
+    def onReviewSubscriptionPagePrepare(self, mainWin, vbox):
         self.reviewSubscriptionPagePrepare()
 #        self.druid.set_buttons_sensitive(False, True, False, False)
 
@@ -305,9 +311,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         return True
 
 
-    def onFinishPagePrepare(self, page=None, dummy=None):
-#        self.druid.set_buttons_sensitive(False, False, False, False)
-#        self.druid.set_show_finish(True)
+    def onFinishPagePrepare(self, mainWin, vbox):
         if rhnregGui.hasBaseChannelAndUpdates():
 #            self.druid.finish.set_label(_("_Finish"))
             title = _("Updates Configured")
