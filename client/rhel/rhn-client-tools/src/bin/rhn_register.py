@@ -39,8 +39,7 @@ class RhnRegister(rhncli.RhnCli):
 
     def _get_ui(self):
         try:
-            if os.access("/usr/share/rhn/up2date_client/gui.py", os.R_OK) and \
-               os.environ["DISPLAY"] != "" and \
+            if os.environ["DISPLAY"] != "" and \
                not self.options.nox:
                 from up2date_client import gui
                 self.hasGui = True # Used by base class. Yech.
