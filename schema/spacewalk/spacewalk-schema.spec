@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed Oct 11 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
+- create spacewalk-schema-sanity package providing sanity check script for
+  external usage
+- allow passing command line arguments into schema-source-sanity-check.pl
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
