@@ -116,7 +116,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.already_registered_already_shown = False
         self.rhsm_already_registered_already_shown = False
 
-        self.druid = self.xml.get_widget("druid")
+#        self.druid = self.xml.get_widget("druid")
         self.mainWin = self.xml.get_widget("mainWin")
         self.mainWin.connect("delete-event", gtk.main_quit)
         self.mainWin.connect("hide", gtk.main_quit)
@@ -157,7 +157,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onDruidCancel(self, dummy):
         dialog = rhnregGui.ConfirmQuitDialog()
         if dialog.rc == 1:
-            self.druid.set_page(self.finishPage)
+#            self.druid.set_page(self.finishPage)
+	     pass
         else:
             return True
 
@@ -178,7 +179,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onStartPagePrepare(self, page, dummy, manualPrepare=False):
         if not manualPrepare:
             self.startPage.emit_stop_by_name("prepare")
-        self.druid.set_buttons_sensitive(False, True, True, False)
+#        self.druid.set_buttons_sensitive(False, True, True, False)
         if rhnreg.rhsm_registered() and not self.rhsm_already_registered_already_shown:
             # Dialog constructor returns when dialog closes
             dialog = rhnregGui.AlreadyRegisteredSubscriptionManagerDialog()
@@ -193,8 +194,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.already_registered_already_shown = True
 
     def onStartPageNext(self, page, dummy):
-        self.druid.set_buttons_sensitive(True, True, True, False)
-
+#        self.druid.set_buttons_sensitive(True, True, True, False)
+        pass
 
     def onChooseServerPagePrepare(self, page, dummy):
         self.chooseServerPage.emit_stop_by_name("prepare")
@@ -203,12 +204,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onChooseServerPageNext(self, page, dummy):
         try:
             ret = self.chooseServerPageApply()
-            if ret is False: # Everything is ok
-                self.druid.set_page(self.loginPage)
+#            if ret is False: # Everything is ok
+#                self.druid.set_page(self.loginPage)
         except (up2dateErrors.SSLCertificateVerifyFailedError,\
                 up2dateErrors.SSLCertificateFileNotFound):
             self.setUrlInWidget()
-            self.druid.set_page(self.provideCertificatePage)
+#            self.druid.set_page(self.provideCertificatePage)
         return True
 
 
@@ -237,14 +238,14 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
-        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-            self.druid.set_page(self.chooseChannelPage)
-        else:
-            self.druid.set_page(self.createProfilePage)
-
+#        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
+#            self.druid.set_page(self.chooseChannelPage)
+#        else:
+#            self.druid.set_page(self.createProfilePage)
+	pass
 
     def onChooseChannelPageBack(self, page, dummy):
-        self.druid.set_page(self.loginPage)
+#        self.druid.set_page(self.loginPage)
         return True
 
     def onChooseChannelPageNext(self, page, dummy):
@@ -253,10 +254,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
            self.chose_default_channel is False:
             dialog = rhnregGui.ConfirmAllUpdatesDialog()
             if dialog.rc == 0:
-                self.druid.set_page(self.chooseChannelPage)
+#                self.druid.set_page(self.chooseChannelPage)
                 return True
         else:
-            self.druid.set_page(self.createProfilePage)
+#            self.druid.set_page(self.createProfilePage)
             return True
 
     def onChooseChannelPagePrepare(self, page, dummy):
@@ -276,51 +277,51 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             return ret
 
     def onCreateProfilePageBack(self, page, dummy):
-        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-            self.druid.set_page(self.chooseChannelPage)
-        else:
-            self.druid.set_page(self.chooseServerPage)
+#        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
+#            self.druid.set_page(self.chooseChannelPage)
+#        else:
+#            self.druid.set_page(self.chooseServerPage)
         return True
 
     def onReviewSubscriptionPagePrepare(self, page, dummy):
         self.reviewSubscriptionPagePrepare()
-        self.druid.set_buttons_sensitive(False, True, False, False)
+#        self.druid.set_buttons_sensitive(False, True, False, False)
         self.reviewSubscriptionPage.emit_stop_by_name("prepare")
 
     def onReviewSubscriptionPageNext(self, page, dummy):
-        self.druid.set_page(self.finishPage)
+#        self.druid.set_page(self.finishPage)
         return True
 
 
     def onProvideCertificatePageBack(self, page=None, dummy=None):
-        self.druid.set_page(self.chooseServerPage)
+#        self.druid.set_page(self.chooseServerPage)
         return True
 
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
-        if status == 0:
-            self.druid.set_page(self.loginPage)
-        elif status == 1:
-            self.druid.set_page(self.finishPage)
-        elif status == 3:
-            self.druid.set_page(self.chooseServerPage)
-        else:
-            assert status == 2
-            pass
+#        if status == 0:
+#            self.druid.set_page(self.loginPage)
+#        elif status == 1:
+#            self.druid.set_page(self.finishPage)
+#        elif status == 3:
+#            self.druid.set_page(self.chooseServerPage)
+#        else:
+#            assert status == 2
+#            pass
         return True
 
 
     def onFinishPagePrepare(self, page=None, dummy=None):
-        self.druid.set_buttons_sensitive(False, False, False, False)
-        self.druid.set_show_finish(True)
+#        self.druid.set_buttons_sensitive(False, False, False, False)
+#        self.druid.set_show_finish(True)
         # Stopping the signal is needed to make the druid buttons change the way
         # I want. I have no idea why.
         self.finishPage.emit_stop_by_name("prepare")
         if rhnregGui.hasBaseChannelAndUpdates():
-            self.druid.finish.set_label(_("_Finish"))
+#            self.druid.finish.set_label(_("_Finish"))
             title = _("Updates Configured")
         else:
-            self.druid.finish.set_label(_("_Exit"))
+#            self.druid.finish.set_label(_("_Exit"))
             title = _("Software Updates Not Set Up")
         self.finishPagePrepare()
         self.mainWin.set_title(title)
