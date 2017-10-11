@@ -52,8 +52,6 @@ public class ProxyClientsAction extends BaseSystemsAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
         server = requestContext.lookupAndBindServer();
-        // Long sid = server.getId();
-        // SystemManager.ensureAvailableToUser(user, sid);
 
         if (server.isProxy()) {
             request.setAttribute("version",
@@ -74,7 +72,8 @@ public class ProxyClientsAction extends BaseSystemsAction {
             }
             ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
             request.setAttribute(RequestContext.PAGE_LIST, result);
-            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+            request.setAttribute(ListTagHelper.PARENT_URL,
+                    request.getRequestURI() + "?sid=" + server.getId());
             TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);
         }
 
