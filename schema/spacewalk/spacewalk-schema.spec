@@ -30,6 +30,15 @@ BuildRequires:  fdupes
 %description
 spacewalk-schema is the SQL schema for the Spacewalk server.
 
+%package sanity
+Summary:  Schema source sanity check for Spacewalk database scripts.
+Group:    Applications/Internet
+
+Requires:  perl(Digest::SHA)
+
+%description sanity
+Provides schema-source-sanity-check.pl script for external usage.
+
 %prep
 
 %setup -q
@@ -64,6 +73,8 @@ cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %fdupes %{buildroot}/%{rhnroot}
 %endif
 
+install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-source-sanity-check.pl
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -78,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?suse_version}
 %dir %{rhnroot}
 %endif
+
+%files sanity
+%attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
