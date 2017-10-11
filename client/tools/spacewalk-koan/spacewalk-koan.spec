@@ -16,7 +16,7 @@ URL:            https://github.com/spacewalkproject/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 Requires:       %{pythonX}-%{name} = %{version}-%{release}
-Requires:       koan >= 1.4.3
+Requires:       koan20
 Requires:       xz
 Conflicts: rhn-kickstart
 Conflicts: rhn-kickstart-common
