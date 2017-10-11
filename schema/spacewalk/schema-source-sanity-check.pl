@@ -11,7 +11,12 @@ my %files;
 my $show_ignored = 0;
 Getopt::Long::GetOptions('I' => \$show_ignored) or exit 9;
 
-for my $dir (qw( common oracle postgres upgrade )) {
+my @dirs = qw(common oracle postgres upgrade);
+if (scalar @ARGV > 0) {
+  @dirs = @ARGV;
+}
+
+for my $dir (@dirs) {
         File::Find::find(sub {
                 my $name = $File::Find::name;
                 if ($name eq $dir) {
