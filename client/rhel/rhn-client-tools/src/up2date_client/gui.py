@@ -120,6 +120,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.mainWin = self.xml.get_widget("mainWin")
         self.mainWin.connect("delete-event", gtk.main_quit)
         self.mainWin.connect("hide", gtk.main_quit)
+        self.mainWin.connect("close", gtk.main_quit)
 
 #        # It's better to get widgets in advance so bugs don't hide in get_widget
 #        # calls that only get executed periodically.
