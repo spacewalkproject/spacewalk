@@ -121,17 +121,17 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.mainWin.connect("delete-event", gtk.main_quit)
         self.mainWin.connect("hide", gtk.main_quit)
 
-        # It's better to get widgets in advance so bugs don't hide in get_widget
-        # calls that only get executed periodically.
-        self.startPage = self.xml.get_widget("startPage")
-        self.chooseServerPage = self.xml.get_widget("chooseServerPage")
-        self.provideCertificatePage = self.xml.get_widget("provideCertificatePage")
-        self.loginPage = self.xml.get_widget("loginPage")
-        self.chooseChannelPage = self.xml.get_widget("chooseChannelPage")
-        self.createProfilePage = self.xml.get_widget("createProfilePage")
-        self.reviewSubscriptionPage = \
-            self.xml.get_widget("reviewSubscriptionPage")
-        self.finishPage = self.xml.get_widget("finishPage")
+#        # It's better to get widgets in advance so bugs don't hide in get_widget
+#        # calls that only get executed periodically.
+#        self.startPage = self.xml.get_widget("startPage")
+#        self.chooseServerPage = self.xml.get_widget("chooseServerPage")
+#        self.provideCertificatePage = self.xml.get_widget("provideCertificatePage")
+#        self.loginPage = self.xml.get_widget("loginPage")
+#        self.chooseChannelPage = self.xml.get_widget("chooseChannelPage")
+#        self.createProfilePage = self.xml.get_widget("createProfilePage")
+#        self.reviewSubscriptionPage = \
+#            self.xml.get_widget("reviewSubscriptionPage")
+#        self.finishPage = self.xml.get_widget("finishPage")
 
         # Set up cursor changing functions. Overriding functions that aren't in
         # classes like this could be called a hack, but I think it's the best
