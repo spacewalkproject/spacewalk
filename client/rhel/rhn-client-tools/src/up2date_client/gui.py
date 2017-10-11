@@ -178,8 +178,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
 
     def onStartPagePrepare(self, page, dummy, manualPrepare=False):
-        if not manualPrepare:
-            self.startPage.emit_stop_by_name("prepare")
 #        self.druid.set_buttons_sensitive(False, True, True, False)
         if rhnreg.rhsm_registered() and not self.rhsm_already_registered_already_shown:
             # Dialog constructor returns when dialog closes
@@ -199,7 +197,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         pass
 
     def onChooseServerPagePrepare(self, page, dummy):
-        self.chooseServerPage.emit_stop_by_name("prepare")
         self.chooseServerPagePrepare()
 
     def onChooseServerPageNext(self, page, dummy):
@@ -215,7 +212,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
 
     def onLoginPagePrepare(self, page, dummy):
-        self.loginPage.emit_stop_by_name("prepare")
         self.loginXml.get_widget("loginUserEntry").grab_focus()
         self.loginPagePrepare()
 
@@ -263,11 +259,9 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onChooseChannelPagePrepare(self, page, dummy):
         self.chooseChannelPagePrepare()
-        self.chooseChannelPage.emit_stop_by_name("prepare")
 
     def onCreateProfilePagePrepare(self, page, dummy):
         self.createProfilePagePrepare()
-        self.createProfilePage.emit_stop_by_name("prepare")
 
     def onCreateProfilePageNext(self, page, dummy):
         ret = self.createProfilePageVerify()
@@ -287,7 +281,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onReviewSubscriptionPagePrepare(self, page, dummy):
         self.reviewSubscriptionPagePrepare()
 #        self.druid.set_buttons_sensitive(False, True, False, False)
-        self.reviewSubscriptionPage.emit_stop_by_name("prepare")
 
     def onReviewSubscriptionPageNext(self, page, dummy):
 #        self.druid.set_page(self.finishPage)
@@ -315,9 +308,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onFinishPagePrepare(self, page=None, dummy=None):
 #        self.druid.set_buttons_sensitive(False, False, False, False)
 #        self.druid.set_show_finish(True)
-        # Stopping the signal is needed to make the druid buttons change the way
-        # I want. I have no idea why.
-        self.finishPage.emit_stop_by_name("prepare")
         if rhnregGui.hasBaseChannelAndUpdates():
 #            self.druid.finish.set_label(_("_Finish"))
             title = _("Updates Configured")
