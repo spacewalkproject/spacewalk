@@ -236,25 +236,25 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """
         ret = self.loginPageVerify()
         if ret:
-            return ret
+	    self.nextPage('loginPageVbox')
+            return
 
         ret = self.loginPageApply()
         if ret:
-            return ret
+	    self.nextPage('loginPageVbox')
+            return
 
         self.goToPageAfterLogin()
-        return True
 
 
     def goToPageAfterLogin(self):
         """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
-#        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-#            self.druid.set_page(self.chooseChannelPage)
-#        else:
-#            self.druid.set_page(self.createProfilePage)
-	pass
+        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
+            self.nextPage('chooseChannelPageVbox')
+        else:
+            self.nextPage('createProfilePageVbox')
 
     def onChooseChannelPageBack(self, page, dummy):
 #        self.druid.set_page(self.loginPage)
