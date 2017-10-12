@@ -329,7 +329,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             title = _("Software Updates Not Set Up")
         self.finishPagePrepare()
         self.mainWin.set_title(title)
-        self.finishPage.set_title(title)
+        self.mainWin.set_page_title(vbox, title)
 
     def onFinishPageFinish(self, page, dummy=None):
         gtk.main_quit()
