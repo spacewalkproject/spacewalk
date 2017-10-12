@@ -121,6 +121,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 #        self.reviewSubscriptionPage = \
 #            self.xml.get_widget("reviewSubscriptionPage")
 #        self.finishPage = self.xml.get_widget("finishPage")
+        self.pages = {page.name: n  for n, page in enumerate(self.mainWin.get_children())}
 
         # Set up cursor changing functions. Overriding functions that aren't in
         # classes like this could be called a hack, but I think it's the best
@@ -163,6 +164,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         dlg = messageWindow.ErrorDialog(text,self.mainWin)
         gtk.main_quit()
         sys.exit(1)
+
+    def nextPage(self, vbox):
+        # go one page before desired one and 'forward' will move us where we want
+        self.mainWin.set_current_page(self.pages[vbox]-1)
 
     def onMainWinPrepare(self, mainWin, vbox):
         prepare_func = {
@@ -215,14 +220,13 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onChooseServerPageNext(self, page, dummy):
         try:
             ret = self.chooseServerPageApply()
-#            if ret is False: # Everything is ok
-#                self.druid.set_page(self.loginPage)
+            if ret: # something went wrong
+                self.nextPage('chooseServerPageVbox')
+                return
+            self.nextPage('loginPageVbox')
         except (up2dateErrors.SSLCertificateVerifyFailedError,\
                 up2dateErrors.SSLCertificateFileNotFound):
             self.setUrlInWidget()
-#            self.druid.set_page(self.provideCertificatePage)
-        return True
-
 
     def onLoginPagePrepare(self, mainWin, vbox):
         self.loginXml.get_widget("loginUserEntry").grab_focus()
