@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.25
+Version: 2.8.26
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 12 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.26-1
+- 1460960 - set correct ListTagHelper.PARENT_URL attribute for ProxyClients
+  page.
+
 * Mon Oct 09 2017 Christian Lanig <clanig@suse.com>
 - PR 577 - Harmonize presentation of patch information
 
