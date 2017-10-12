@@ -852,7 +852,7 @@ class CreateProfilePage:
             if not present:
                 reviewLog.pm_plugin_warning()
             if conf_changed:
-                reviewLog.pm_lugin_conf_changed()
+                reviewLog.pm_plugin_conf_changed()
         except IOError:
             e = sys.exc_info()[1]
             errorWindow(_("Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg)
