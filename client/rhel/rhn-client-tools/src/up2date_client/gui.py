@@ -56,16 +56,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.xml.signal_autoconnect (
             { "onDruidCancel" : self.onDruidCancel,
               "onMainWinPrepare" : self.onMainWinPrepare,
-              "onStartPageNext" : self.onStartPageNext,
-              "onChooseServerPageNext" : self.onChooseServerPageNext,
-              "onLoginPageNext" : self.onLoginPageNext,
-              "onChooseChannelPageNext" : self.onChooseChannelPageNext,
+              "onMainWinApply" : self.onMainWinApply,
               "onChooseChannelPageBack" : self.onChooseChannelPageBack,
-              "onCreateProfilePageNext" : self.onCreateProfilePageNext,
               "onCreateProfilePageBack" : self.onCreateProfilePageBack,
-              "onReviewSubscriptionPageNext" : self.onReviewSubscriptionPageNext,
               "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
-              "onProvideCertificatePageNext" : self.onProvideCertificatePageNext,
               "onFinishPageFinish" : self.onFinishPageFinish,
         } )
 
@@ -182,6 +176,19 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 	}
         if vbox.name in prepare_func:
             prepare_func[vbox.name](mainWin, vbox)
+
+    def onMainWinApply(self, mainWin):
+       forward_func = {
+              "chooseServerPageVbox" : self.onChooseServerPageNext,
+              "loginPageVbox" : self.onLoginPageNext,
+              "chooseChannelPageVbox" : self.onChooseChannelPageNext,
+              "createProfilePageVbox" : self.onCreateProfilePageNext,
+              "reviewSubscriptionPageVbox" : self.onReviewSubscriptionPageNext,
+              "provideCertificatePageVbox" : self.onProvideCertificatePageNext,
+       }
+       currentVbox = mainWin.get_nth_page(mainWin.get_current_page())
+       if currentVbox.name in forward_func:
+           forward_func[currentVbox.name](mainWin, None)
 
     def onStartPagePrepare(self, mainWin, vbox, manualPrepare=False):
 #        self.druid.set_buttons_sensitive(False, True, True, False)
