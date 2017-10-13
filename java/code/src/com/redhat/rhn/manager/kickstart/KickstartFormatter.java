@@ -600,7 +600,7 @@ public class KickstartFormatter {
     }
 
     /**
-     * @param scrupts the kickstart scripts we want to render
+     * @param scripts the kickstart scripts we want to render
      * @return rendered script(s)
      */
     private String renderScripts(List<KickstartScript> scripts) {
