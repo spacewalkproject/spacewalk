@@ -93,6 +93,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         contents = self.provideCertificatePageVbox()
         container = self.xml.get_widget("provideCertificatePageVbox")
         container.pack_start(contents, True)
+        self.provideCertificatePageVbox = container
         contents = self.finishPageVbox()
         container = self.xml.get_widget("finishPageVbox")
         container.pack_start(contents, True)
@@ -218,6 +219,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             if ret: # something went wrong
                 self.nextPage('chooseServerPageVbox')
                 return
+            self.provideCertificatePageVbox.set_visible(False)
             self.nextPage('loginPageVbox')
         except (up2dateErrors.SSLCertificateVerifyFailedError,\
                 up2dateErrors.SSLCertificateFileNotFound):
@@ -296,16 +298,16 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
-#        if status == 0:
-#            self.druid.set_page(self.loginPage)
-#        elif status == 1:
-#            self.druid.set_page(self.finishPage)
-#        elif status == 3:
-#            self.druid.set_page(self.chooseServerPage)
-#        else:
-#            assert status == 2
-#            pass
-        return True
+        if status == 0:
+	    pass
+        elif status == 1:
+            self.nextPage('finishPageVbox')
+        elif status == 3:
+            self.nextPage('chooseServerPageVbox')
+        else:
+            assert status == 2
+            self.nextPage('provideCertificatePageVbox')
+        return
 
 
     def onFinishPagePrepare(self, mainWin, vbox):
