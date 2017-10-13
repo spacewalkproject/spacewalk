@@ -57,7 +57,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             { "onMainWinCancel" : self.onMainWinCancel,
               "onMainWinPrepare" : self.onMainWinPrepare,
               "onMainWinApply" : self.onMainWinApply,
-              "onChooseChannelPageBack" : self.onChooseChannelPageBack,
               "onCreateProfilePageBack" : self.onCreateProfilePageBack,
               "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
               "onFinishPageFinish" : self.onFinishPageFinish,
@@ -256,21 +255,13 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         else:
             self.nextPage('createProfilePageVbox')
 
-    def onChooseChannelPageBack(self, page, dummy):
-#        self.druid.set_page(self.loginPage)
-        return True
-
     def onChooseChannelPageNext(self, page, dummy):
         self.chooseChannelPageApply()
         if self.chose_all_updates or \
            self.chose_default_channel is False:
             dialog = rhnregGui.ConfirmAllUpdatesDialog()
             if dialog.rc == 0:
-#                self.druid.set_page(self.chooseChannelPage)
-                return True
-        else:
-#            self.druid.set_page(self.createProfilePage)
-            return True
+                self.nextPage('chooseChannelPageVbox')
 
     def onChooseChannelPagePrepare(self, mainWin, vbox):
         self.chooseChannelPagePrepare()
