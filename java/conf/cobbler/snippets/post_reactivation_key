@@ -1,9 +1,21 @@
-%post --nochroot --interpreter /usr/bin/python
-try:
+%post --nochroot
+if [ -f /usr/bin/python3 ]; then
+    interpreter=/usr/bin/python3
+else
+    interpreter=/usr/bin/python
+fi
+
+cat << EOF | $interpreter
+
+try:  # python 2
     import xmlrpclib
-    import shutil
-    import sys
-    import os.path
+except ImportError:  # python 3
+    import xmlrpc.client as xmlrpclib
+import shutil
+import sys
+import os.path
+
+try:
     old_system_id = "/tmp/rhn/systemid"
     new_system_id = "/mnt/sysimage/root/systemid.old"
     tmp_key = "/mnt/sysimage/tmp/key"
@@ -31,3 +43,4 @@ except:
     # we'll register those as new.
     pass
 
+EOF

@@ -1,8 +1,20 @@
-%post --interpreter /usr/bin/python --nochroot
-import xmlrpclib
+%post --nochroot
+if [ -f /usr/bin/python3 ]; then
+    interpreter=/usr/bin/python3
+else
+    interpreter=/usr/bin/python
+fi
+
+cat << EOF | $interpreter
+
+try:  # python 2
+    import xmlrpclib
+except ImportError:  # python 3
+    import xmlrpc.client as xmlrpclib
 import os.path
-system_id = "/tmp/rhn/systemid"
+
 try:
+    system_id = "/tmp/rhn/systemid"
     if os.path.exists(system_id):
         client =  xmlrpclib.Server("http://$http_server/rpc/api")
         client.system.delete_system(open(system_id).read())
@@ -12,3 +24,4 @@ except:
     # we'll register those as new. 
     pass
 
+EOF
