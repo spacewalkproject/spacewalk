@@ -58,7 +58,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onMainWinPrepare" : self.onMainWinPrepare,
               "onMainWinApply" : self.onMainWinApply,
               "onCreateProfilePageBack" : self.onCreateProfilePageBack,
-              "onProvideCertificatePageBack" : self.onProvideCertificatePageBack,
               "onFinishPageFinish" : self.onFinishPageFinish,
         } )
 
@@ -291,10 +290,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 #        self.druid.set_page(self.finishPage)
         return True
 
-
-    def onProvideCertificatePageBack(self, page=None, dummy=None):
-#        self.druid.set_page(self.chooseServerPage)
-        return True
 
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
