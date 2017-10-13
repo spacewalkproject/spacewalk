@@ -588,8 +588,8 @@ public class KickstartFormatter {
           buf.append("openssh-server" + NEWLINE);
         }
 
-        // packages necessary for RHEL 7
-        if (this.ksdata.isRhel7()) {
+        // packages necessary for RHEL 7 and Fedora
+        if (this.ksdata.isRhel7() || this.ksdata.isFedora()) {
             buf.append("perl" + NEWLINE);
             buf.append("wget" + NEWLINE);
             buf.append("rhn-setup" + NEWLINE);
