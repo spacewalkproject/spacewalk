@@ -193,7 +193,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
            forward_func[currentVbox.name](mainWin, None)
 
     def onStartPagePrepare(self, mainWin, vbox, manualPrepare=False):
-#        self.druid.set_buttons_sensitive(False, True, True, False)
         if rhnreg.rhsm_registered() and not self.rhsm_already_registered_already_shown:
             # Dialog constructor returns when dialog closes
             dialog = rhnregGui.AlreadyRegisteredSubscriptionManagerDialog()
@@ -208,7 +207,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             self.already_registered_already_shown = True
 
     def onStartPageNext(self, page, dummy):
-#        self.druid.set_buttons_sensitive(True, True, True, False)
         pass
 
     def onChooseServerPagePrepare(self, mainWin, vbox):
@@ -286,7 +284,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onReviewSubscriptionPagePrepare(self, mainWin, vbox):
         self.reviewSubscriptionPagePrepare()
-#        self.druid.set_buttons_sensitive(False, True, False, False)
 
     def onReviewSubscriptionPageNext(self, page, dummy):
 #        self.druid.set_page(self.finishPage)
