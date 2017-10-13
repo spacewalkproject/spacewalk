@@ -184,7 +184,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "loginPageVbox" : self.onLoginPageNext,
               "chooseChannelPageVbox" : self.onChooseChannelPageNext,
               "createProfilePageVbox" : self.onCreateProfilePageNext,
-              "reviewSubscriptionPageVbox" : self.onReviewSubscriptionPageNext,
               "provideCertificatePageVbox" : self.onProvideCertificatePageNext,
        }
        currentVbox = mainWin.get_nth_page(mainWin.get_current_page())
@@ -275,11 +274,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onReviewSubscriptionPagePrepare(self, mainWin, vbox):
         self.reviewSubscriptionPagePrepare()
-
-    def onReviewSubscriptionPageNext(self, page, dummy):
-#        self.druid.set_page(self.finishPage)
-        return True
-
 
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
