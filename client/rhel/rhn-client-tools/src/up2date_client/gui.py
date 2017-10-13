@@ -58,7 +58,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
               "onMainWinPrepare" : self.onMainWinPrepare,
               "onMainWinApply" : self.onMainWinApply,
               "onCreateProfilePageBack" : self.onCreateProfilePageBack,
-              "onFinishPageFinish" : self.onFinishPageFinish,
         } )
 
         rhnregGui.StartPage.__init__(self)
@@ -315,9 +314,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.finishPagePrepare()
         self.mainWin.set_title(title)
         self.mainWin.set_page_title(vbox, title)
-
-    def onFinishPageFinish(self, page, dummy=None):
-        gtk.main_quit()
 
 
 def rootWarning():
