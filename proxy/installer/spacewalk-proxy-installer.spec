@@ -22,7 +22,14 @@ Requires: rhncfg
 Requires: rhncfg-management
 Requires: rhncfg-actions
 Requires: glibc-common
+
+%if 0%{?fedora}
 Requires: hostname
+%endif
+%if 0%{?rhel} > 5
+Requires: net-tools
+%endif
+
 Requires: chkconfig
 Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
@@ -31,9 +38,10 @@ BuildRequires: spacewalk-pylint
 BuildRequires: python2-rhn-client-tools
 %endif
 BuildRequires: /usr/bin/docbook2man
+
 %if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires: rhnlib
-BuildRequires: rhn-client-tools
+Requires: rhnlib
+Requires: rhn-client-tools > 2.8.4
 %endif
 
 Obsoletes: proxy-installer < 5.3.0
