@@ -10,7 +10,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -113,6 +113,9 @@ spacewalk-pylint .
 %doc LICENSE answers.txt
 
 %changelog
+* Sun Oct 15 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.4-1
+- fix dependencies for spacewalk-proxy-installer
+
 * Thu Oct 05 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - remove python2 code from confgure-proxy.sh
 - hostname may not be installed by default in containers
