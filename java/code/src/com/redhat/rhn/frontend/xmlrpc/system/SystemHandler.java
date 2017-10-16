@@ -3176,7 +3176,7 @@ public class SystemHandler extends BaseHandler {
         }
 
         if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
+            throw new InvalidParameterException("No packages to install/remove.");
         }
 
         return packageMaps;
@@ -3234,7 +3234,7 @@ public class SystemHandler extends BaseHandler {
         }
 
         if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
+            throw new InvalidParameterException("No packages to install/remove.");
         }
         return packageMaps;
     }
