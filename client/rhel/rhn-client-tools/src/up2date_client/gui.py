@@ -204,9 +204,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
                 sys.exit(0)
             self.already_registered_already_shown = True
 
-    def onStartPageNext(self, page, dummy):
-        pass
-
     def onChooseServerPagePrepare(self, mainWin, vbox):
         self.chooseServerPagePrepare()
 
