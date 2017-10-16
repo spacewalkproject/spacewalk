@@ -36,7 +36,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.14
+Version: 2.8.15
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -790,6 +790,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/cdn-sync.8*
 
 %changelog
+* Mon Oct 16 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.15-1
+- fix the inconsistency in spacewalk-repo-sync documentation.
+
 * Thu Oct 12 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.14-1
 - 1455139 - fix processing '--parent' option.
 
