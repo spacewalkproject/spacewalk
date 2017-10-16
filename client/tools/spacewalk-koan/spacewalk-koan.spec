@@ -7,7 +7,7 @@
 
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 Group: System Environment/Kernel
 License: GPLv2
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 16 2017 Jan Dobes 2.8.3-1
+- upstream koan is not compatible with cobbler20, require our build for now
+
 * Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - install files into python_sitelib/python3_sitelib
 - split spacewalk-koan into python2/python3 specific packages
