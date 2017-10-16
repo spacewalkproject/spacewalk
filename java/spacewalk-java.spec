@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.26
+Version: 2.8.27
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Oct 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.27-1
+- 1445254 - fix error message
+- 1445254 - support removal of packages which are not in database via API
+- bring LineLength max to 120 to be on par with max-line-length in pylint
+- use correct argument name in javadoc
+
 * Thu Oct 12 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.26-1
 - 1460960 - set correct ListTagHelper.PARENT_URL attribute for ProxyClients
   page.
