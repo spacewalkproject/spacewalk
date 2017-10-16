@@ -34,7 +34,18 @@ Setup
 Javadoc
 =======
     # Build
-    cd $SW_GIT/documentation; make java
+    cd $SW_GIT/documentation;
+    # Check the Makefile to make sure the JAVA_DOC_SRC_VERSION is set
+    # to the version of java we're currently using.  Update if not.
+    # Then run `make java`.  There will likely be lots of errors and
+    # warnings, including non-Redhat package does not exist, cannot
+    # find symbol, malformed HTML (from email addresses in author tags,
+    # bad use of '>' in comments, etc.  If all the errors and warnings
+    # look harmless, all should be ok.  Because of these errors, the
+    # make command will report it failed "Error 1", however, the javadoc
+    # was generated.  Check with a web browser against the generated
+    # files to be sure.
+    make java
     # Move to DOCS_GIT repo
     rm -rf $DOCS_GIT/documentation/javadoc; cp -r $SW_GIT/documentation/javadoc $DOCS_GIT/documentation
     # Check your work
