@@ -60,7 +60,7 @@
         </module>
         <module name="LineLength">
           <property name="ignorePattern" value="import"/>
-          <property name="max" value="92"/>
+          <property name="max" value="120"/>
         </module>
 
         <!-- ************************************************************** -->
