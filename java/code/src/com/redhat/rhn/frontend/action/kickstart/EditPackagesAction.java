@@ -142,7 +142,6 @@ public class EditPackagesAction extends RhnAction {
 
         // first clear the kickstart packages set
         ksdata.clearKsPackages();
-        Set ksPackages = ksdata.getKsPackages();
 
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
