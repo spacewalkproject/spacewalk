@@ -50,6 +50,7 @@ $|++;
 
 Dobby::Log->log("Invocation: db-control $mode @params");
 my $status = $cli->invoke_command($mode, @params);
+Dobby::Log->log("Completed: db-control $mode @params");
 
 exit $status || 0;
 
