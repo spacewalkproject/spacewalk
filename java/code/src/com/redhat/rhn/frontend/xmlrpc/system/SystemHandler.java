@@ -3148,7 +3148,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Private helper method to build a list of maps in the format the ActionManager wants.
      *
-     * @param loggedInUser The current user
+     * @param user The current user
      * @param packageIds List of package IDs to install (as Integers)
      * @return list of maps with packages metadata in format ActionManager wants
      */
@@ -3183,7 +3183,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Private helper method to build a list of maps in the format the ActionManager wants.
      *
-     * @param loggedInUser The current user
+     * @param user The current user
      * @param packageNevraList array of dictionaries with package nevra
      * @return list of maps with packages metadata in format ActionManager wants
      */
