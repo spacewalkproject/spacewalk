@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.6
+Version:	2.8.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Oct 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- Fix to promote a child channel as child channel
+
 * Thu Oct 05 2017 Eric Herget <eherget@redhat.com> 2.8.6-1
 - 1001613 - man-page for spacewalk-sync-setup
 
