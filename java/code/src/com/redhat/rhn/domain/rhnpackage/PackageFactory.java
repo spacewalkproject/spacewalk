@@ -222,7 +222,7 @@ public class PackageFactory extends HibernateFactory {
      * @return a PackageName object that has a matching name or null if that
      * doesn't exist
      */
-    private static PackageName lookupPackageName(String pn) {
+    public static PackageName lookupPackageName(String pn) {
         PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
                 "PackageName.findByName").setString("name", pn).uniqueResult();
         return returned;

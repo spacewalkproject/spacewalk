@@ -46,7 +46,9 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
@@ -3188,7 +3190,7 @@ public class SystemHandler extends BaseHandler {
      * @return list of maps with packages metadata in format ActionManager wants
      */
     private List<Map<String, Long>> packageNevrasToMaps(User user,
-            List<Map<String, String>> packageNevraList) {
+            List<Map<String, String>> packageNevraList, Boolean lookupNevra) {
 
         List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
 
@@ -3212,14 +3214,22 @@ public class SystemHandler extends BaseHandler {
                     packageNevra.get("package_release"), epoch, arch);
 
             if (pl == null || pl.size() == 0) {
-                throw new InvalidPackageException(packageNevra.get("package_name"));
+                PackageName pkgName =  PackageFactory.lookupPackageName(packageNevra.get("package_name"));
+                if (pkgName == null || !lookupNevra) {
+                    throw new InvalidPackageException(packageNevra.get("package_name"));
+                }
+                pkgMap.put("name_id", pkgName.getId());
+                pkgMap.put("evr_id", PackageEvrFactory.lookupOrCreatePackageEvr(epoch,
+                        packageNevra.get("package_version"), packageNevra.get("package_release")).getId());
+                pkgMap.put("arch_id", arch.getId());
             }
-
             // in case if we have more than one package with
             // the same nevra we pick up the first one
-            pkgMap.put("name_id", pl.get(0).getPackageName().getId());
-            pkgMap.put("evr_id", pl.get(0).getPackageEvr().getId());
-            pkgMap.put("arch_id", pl.get(0).getPackageArch().getId());
+            else {
+                pkgMap.put("name_id", pl.get(0).getPackageName().getId());
+                pkgMap.put("evr_id", pl.get(0).getPackageEvr().getId());
+                pkgMap.put("arch_id", pl.get(0).getPackageArch().getId());
+            }
             packageMaps.add(pkgMap);
         }
 
@@ -3310,7 +3320,7 @@ public class SystemHandler extends BaseHandler {
             List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
                 ActionFactory.TYPE_PACKAGES_UPDATE);
     }
 
@@ -3346,7 +3356,7 @@ public class SystemHandler extends BaseHandler {
         sids.add(sid);
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
                 ActionFactory.TYPE_PACKAGES_UPDATE)[0];
     }
 
@@ -3431,7 +3441,7 @@ public class SystemHandler extends BaseHandler {
             List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
                 ActionFactory.TYPE_PACKAGES_REMOVE);
     }
 
@@ -3467,7 +3477,7 @@ public class SystemHandler extends BaseHandler {
         sids.add(sid);
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
                 ActionFactory.TYPE_PACKAGES_REMOVE)[0].intValue();
     }
 
