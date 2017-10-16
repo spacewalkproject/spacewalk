@@ -79,7 +79,7 @@ def main():
                       help='The label of the channel to sync packages to. Can be used multiple times.')
     parser.add_option('-p', '--parent-channel', action='append',
                       dest='parent_label', default=[],
-                      help='The label of the channel to sync packages to')
+                      help='Synchronize the parent channel and all its child channels.')
     parser.add_option('-d', '--dry-run', action='store_true',
                       dest='dry_run',
                       help='Test run. No sync takes place.')

@@ -124,7 +124,7 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-p <replaceable>CHANNEL</replaceable>, --parent-channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
-            <para>Synchronize the parent channel and all its child channels. All must have repositories already assigned via WebUI or API.</para>
+            <para>Synchronize the parent channel and all its child channels.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
