@@ -57,7 +57,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             { "onMainWinCancel" : self.onMainWinCancel,
               "onMainWinPrepare" : self.onMainWinPrepare,
               "onMainWinApply" : self.onMainWinApply,
-              "onCreateProfilePageBack" : self.onCreateProfilePageBack,
         } )
 
         rhnregGui.StartPage.__init__(self)
@@ -82,6 +81,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         contents = self.chooseChannelPageVbox()
         container = self.xml.get_widget("chooseChannelPageVbox")
         container.pack_start(contents, True)
+        self.chooseChannelPageVbox = container
         contents = self.createProfilePageVbox()
         container = self.xml.get_widget("createProfilePageVbox")
         container.pack_start(contents, True)
@@ -248,10 +248,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """This function is used by the create new account dialog so it doesn't
         need to have any knowledge of the screen mechanism or order.
         """
-        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-            self.nextPage('chooseChannelPageVbox')
-        else:
-            self.nextPage('createProfilePageVbox')
+        if not rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
+            self.chooseChannelPageVbox.set_visible(False)
 
     def onChooseChannelPageNext(self, page, dummy):
         self.chooseChannelPageApply()
@@ -274,13 +272,6 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         ret = self.createProfilePageApply()
         if ret:
             return ret
-
-    def onCreateProfilePageBack(self, page, dummy):
-#        if rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-#            self.druid.set_page(self.chooseChannelPage)
-#        else:
-#            self.druid.set_page(self.chooseServerPage)
-        return True
 
     def onReviewSubscriptionPagePrepare(self, mainWin, vbox):
         self.reviewSubscriptionPagePrepare()
