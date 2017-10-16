@@ -1,6 +1,8 @@
 Generated documentation is available to users at this url:
 
-http://spacewalk.redhat.com/documentation/
+https://spacewalkproject.github.io/documentation.html
+
+It used to be available here, but no longer - http://spacewalk.redhat.com/documentation/
 
 The documentation available here used to be stored in SVN, not our
 spacewalk.github repo, and auto-pulled into whatever serves content
