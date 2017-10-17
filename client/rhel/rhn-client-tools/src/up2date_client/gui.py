@@ -162,14 +162,14 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
     def onMainWinPrepare(self, mainWin, vbox):
         prepare_func = {
-	      "startPageVbox": self.onStartPagePrepare,
+              "startPageVbox": self.onStartPagePrepare,
               "chooseServerPageVbox" : self.onChooseServerPagePrepare,
               "loginPageVbox" : self.onLoginPagePrepare,
               "chooseChannelPageVbox" : self.onChooseChannelPagePrepare,
               "createProfilePageVbox" : self.onCreateProfilePagePrepare,
               "reviewSubscriptionPageVbox" : self.onReviewSubscriptionPagePrepare,
               "finishPageVbox" : self.onFinishPagePrepare,
-	}
+        }
         if vbox.name in prepare_func:
             prepare_func[vbox.name](mainWin, vbox)
 
@@ -224,12 +224,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         """
         ret = self.loginPageVerify()
         if ret:
-	    self.nextPage('loginPageVbox')
+            self.nextPage('loginPageVbox')
             return
 
         ret = self.loginPageApply()
         if ret:
-	    self.nextPage('loginPageVbox')
+            self.nextPage('loginPageVbox')
             return
 
         self.goToPageAfterLogin()
@@ -270,7 +270,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
     def onProvideCertificatePageNext(self, page=None, dummy=None):
         status = self.provideCertificatePageApply()
         if status == 0:
-	    pass
+            pass
         elif status == 1:
             self.nextPage('finishPageVbox')
         elif status == 3:
