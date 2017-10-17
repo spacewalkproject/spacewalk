@@ -133,9 +133,6 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                 }
                 steps.put(stepName, wizStep);
             }
-            else {
-                continue;
-            }
         }
     }
 

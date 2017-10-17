@@ -896,7 +896,6 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                     containsClearpartCommand = true;
                     break;
                 }
-                continue;
         }
 
         String diskOption = form.getString(DESTROY_DISKS);
