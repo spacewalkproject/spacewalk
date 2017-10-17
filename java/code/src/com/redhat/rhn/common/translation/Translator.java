@@ -73,7 +73,7 @@ public class Translator extends Translations {
      * @return Returns the boolean representation of i
      */
     public static boolean int2Boolean(Integer i) {
-        return (i == null) ? false : i.equals(new Integer(1));
+        return (i != null) && i.equals(new Integer(1));
     }
 
     /**
@@ -82,7 +82,7 @@ public class Translator extends Translations {
      * @return Returns the boolean representation of i
      */
     public static boolean long2Boolean(Long i) {
-        return (i == null) ? false : i == 1;
+        return (i != null) && i == 1;
     }
 
     /** Convert from Integer to User
@@ -234,6 +234,6 @@ public class Translator extends Translations {
      * @return a boolean primitive
      */
     public static boolean boolean2boolean(Boolean b) {
-        return (b == null) ? false : b.booleanValue();
+        return (b != null) && b.booleanValue();
     }
 }
