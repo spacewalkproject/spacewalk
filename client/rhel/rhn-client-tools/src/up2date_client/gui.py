@@ -54,7 +54,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         gladeFile = "/usr/share/rhn/up2date_client/gui.glade"
         self.xml = gtk.glade.XML(gladeFile, "mainWin", domain="rhn-client-tools")
         self.xml.signal_autoconnect (
-            { "onDruidCancel" : self.onDruidCancel,
+            { "onMainWinCancel" : self.onMainWinCancel,
               "onMainWinPrepare" : self.onMainWinPrepare,
               "onMainWinApply" : self.onMainWinApply,
               "onChooseChannelPageBack" : self.onChooseChannelPageBack,
@@ -144,14 +144,12 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         self.onStartPagePrepare(None, None, manualPrepare=True)
 
 
-    def onDruidCancel(self, dummy):
+    def onMainWinCancel(self, mainWin):
         dialog = rhnregGui.ConfirmQuitDialog()
         if dialog.rc == 1:
-#            self.druid.set_page(self.finishPage)
-	     pass
+            self.mainWin.set_current_page(self.pages['finishPageVbox'])
         else:
             return True
-
 
     def fatalError(self, error, wrap=1):
         rhnregGui.setArrowCursor()
