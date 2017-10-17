@@ -53,7 +53,6 @@ public abstract class BaseSetListAction extends BaseListAction {
         RhnSet set = getSetDecl().get(rctx.getCurrentUser());
         rctx.getRequest().setAttribute("set", set);
         rctx.getRequest().setAttribute("newset", trackSet(set, rctx.getRequest()));
-        return;
     }
     /**
      * Helper method  to prePopulate a new set

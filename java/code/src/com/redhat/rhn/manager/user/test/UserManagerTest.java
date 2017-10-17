@@ -81,7 +81,6 @@ public class UserManagerTest extends RhnBaseTestCase {
 
         // Since we have only one org on a sat, all custom created packages will be
         // available to all users in that org.
-        return;
     }
 
     public void testLookup() {

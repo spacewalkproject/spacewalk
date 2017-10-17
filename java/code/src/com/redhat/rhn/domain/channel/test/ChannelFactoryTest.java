@@ -196,7 +196,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertEquals(user.getOrg(), c.getOrg());
 
         //Lookup a channel in a different org
-        return; //no need to test in sat since we have only one org.
     }
 
     public void testIsGloballySubscribable() throws Exception {

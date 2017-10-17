@@ -45,7 +45,6 @@ public class SubscriptionsSetupAction extends BaseSetListAction {
             getSetDecl().clear(rctx.getCurrentUser());
         }
         super.processRequestAttributes(rctx);
-        return;
     }
 
     /**

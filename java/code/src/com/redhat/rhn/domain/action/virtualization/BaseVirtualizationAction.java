@@ -51,7 +51,6 @@ public abstract class BaseVirtualizationAction extends Action {
     public void extractParameters(Map context) {
         // Most virtualization actions require no parameters, default implementation
         // therefore does nothing.
-        return;
     }
 
 }

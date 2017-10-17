@@ -77,8 +77,6 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
         cmd.removeTokensByIds(ids);
         cmd.store();
-
-        return;
     }
 
     /**
@@ -104,8 +102,6 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
 
         cmd.addTokensByIds(ids);
         cmd.store();
-
-        return;
     }
 
     /**

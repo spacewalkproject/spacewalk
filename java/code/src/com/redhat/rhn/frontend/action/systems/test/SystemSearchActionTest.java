@@ -101,7 +101,6 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
     }
 
     public void testQueryWithoutResults() throws Exception {
-        return;
     }
 
     /**
