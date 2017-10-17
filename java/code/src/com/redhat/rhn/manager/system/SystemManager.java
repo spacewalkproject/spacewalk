@@ -1703,11 +1703,7 @@ public class SystemManager extends BaseManager {
             }
 
             if ((base != null) &&
-                    base.isRhelChannel() && !base.isReleaseXChannel(5)) {
-                // do some actions for EL6/EL7/...
-            }
-            else {
-                // otherwise subscribe to the virt channel if possible
+                    (!base.isRhelChannel() || base.isReleaseXChannel(5))) {
                 subscribeToVirtChannel(server, user, result);
             }
         }

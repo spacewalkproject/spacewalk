@@ -237,18 +237,11 @@ public class Validator {
             }
         }
 
-        else if (dataType.equals("java.lang.Boolean")) {
-            if ((data.equalsIgnoreCase("true")) ||
-                (data.equalsIgnoreCase("false")) ||
-                (data.equalsIgnoreCase("yes")) ||
-                (data.equalsIgnoreCase("no"))) {
-                // empty
-                // validationMessage = null;
-            }
-            else {
+        else if (dataType.equals("java.lang.Boolean") &&
+                !((data.equalsIgnoreCase("true")) || (data.equalsIgnoreCase("false")) ||
+                (data.equalsIgnoreCase("yes")) || (data.equalsIgnoreCase("no")))) {
                 validationMessage = new ValidatorError("errors.invalid", identifier);
             }
-        }
 
         return validationMessage;
     }

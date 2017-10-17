@@ -293,8 +293,5 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             CobblerDistroEditCommand command = new CobblerDistroEditCommand(tree);
             command.store();
         }
-        else {
-            //Do nothing.  Let us be out of sync with cobbler
-        }
     }
 }

@@ -210,10 +210,7 @@ public class KickstartFormatter {
     }
 
     private void addLogEnd(StringBuilder buff, String logFile, String interpreter) {
-        if (ksdata.isRhel6OrGreater()) {
-            //nothing
-        }
-        else if (isBashInterpreter(interpreter)) {
+        if (!ksdata.isRhel6OrGreater() && isBashInterpreter(interpreter)) {
             buff.append(") >> " + logFile + " 2>&1" + NEWLINE);
         }
     }
