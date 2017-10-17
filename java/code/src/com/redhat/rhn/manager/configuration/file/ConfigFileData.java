@@ -203,11 +203,8 @@ public abstract class ConfigFileData {
      * @return info pertaining to this form.
      */
     public ConfigInfo extractInfo() {
-        ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
-                            getOwner(), getGroup(),
-                            Long.valueOf(getPermissions()),
-                            getSelinuxCtx(), null);
-        return info;
+        return ConfigurationFactory.lookupOrInsertConfigInfo(getOwner(), getGroup(),
+                            Long.valueOf(getPermissions()), getSelinuxCtx(), null);
     }
 
     /**

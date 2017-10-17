@@ -434,9 +434,8 @@ public abstract class HibernateFactory {
          * Filter$$EnhancerByCGLIB$$9bcc734d_2 instead of Filter.
          * session.get is set to not return the proxy class, so that is what we'll use.
          */
-        Object result = session.get(obj.getClass(), id);
         // assertNotSame(obj, result);
-        return result;
+        return session.get(obj.getClass(), id);
     }
 
     /**

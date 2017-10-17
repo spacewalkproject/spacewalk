@@ -640,8 +640,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         of.setPreserveSpace(true);
         of.setOmitXMLDeclaration(true);
         XMLSerializer tmpSerial = new XMLSerializer(st, of);
-        SimpleContentHandler tmpHandler = new SimpleContentHandler(tmpSerial);
-        return tmpHandler;
+        return new SimpleContentHandler(tmpSerial);
     }
 
 

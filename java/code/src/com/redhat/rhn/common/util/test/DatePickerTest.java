@@ -101,8 +101,7 @@ public class DatePickerTest extends TestCase {
     private Date parseDate(String date) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm", Locale.ENGLISH);
         sdf.setTimeZone(TZ);
-        Date d = sdf.parse(date);
-        return d;
+        return sdf.parse(date);
     }
 
     private DatePicker makePicker(Locale locale, int yearDirection) {

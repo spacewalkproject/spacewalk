@@ -87,8 +87,7 @@ public class OrgDetailsAction extends RhnAction {
     }
 
     private Org getOrgFor(Long oid) {
-        Org org = OrgFactory.lookupById(oid);
-        return org;
+        return OrgFactory.lookupById(oid);
     }
     private void setupFormValues(HttpServletRequest request,
             DynaActionForm daForm,

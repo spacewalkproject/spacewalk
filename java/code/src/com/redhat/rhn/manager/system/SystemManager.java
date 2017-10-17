@@ -1147,8 +1147,7 @@ public class SystemManager extends BaseManager {
      * @return a server object associated with the given Id
      */
     public static Server lookupByIdAndOrg(Long sid, Org org) {
-        Server server = ServerFactory.lookupByIdAndOrg(sid, org);
-        return server;
+        return ServerFactory.lookupByIdAndOrg(sid, org);
     }
 
     /**
@@ -2284,8 +2283,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2302,8 +2300,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2319,9 +2316,8 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
         //toReturn.elaborate();
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2423,8 +2419,7 @@ public class SystemManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("uid", user.getId());
         params.put("org_id", user.getOrg().getId());
-        DataResult<CustomDataKeyOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<CustomDataKeyOverview>) m.execute(params);
     }
     /**
      * Looks up a hardware device by the hardware device id
@@ -2474,8 +2469,7 @@ public class SystemManager extends BaseManager {
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         params.put("package_set_label", packageSetLabel);
 
-        DataResult<Map<String, Object>> result = makeDataResult(params, params, null, m);
-        return result;
+        return (DataResult<Map<String, Object>>) makeDataResult(params, params, null, m);
     }
 
     /**
@@ -2499,8 +2493,7 @@ public class SystemManager extends BaseManager {
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         params.put("package_set_label", packageSetLabel);
 
-        DataResult result = makeDataResult(params, params, null, m);
-        return result;
+        return makeDataResult(params, params, null, m);
     }
 
     /**

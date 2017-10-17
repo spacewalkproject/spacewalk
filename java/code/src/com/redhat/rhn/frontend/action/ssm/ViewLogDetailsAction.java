@@ -79,8 +79,6 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
         HttpServletRequest request = context.getRequest();
         long oid = Long.parseLong(request.getParameter(PARAM_OPERATION_ID));
 
-        DataResult result = SsmOperationManager.findServerDataForOperation(oid);
-
-        return result;
+        return SsmOperationManager.findServerDataForOperation(oid);
     }
 }

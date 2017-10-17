@@ -99,9 +99,7 @@ public class ManagedSystemsList extends RhnListAction {
      * @return A list of Config Channels as a DTO
      */
     private DataResult getDataResult(User user, PageControl pc) {
-        DataResult dr = ConfigurationManager.getInstance()
-                .listManagedSystemsAndFiles(user, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listManagedSystemsAndFiles(user, pc);
     }
 
 }

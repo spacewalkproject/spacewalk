@@ -71,8 +71,7 @@ public class EditSlaveSetupAction extends RhnAction {
         setupFormValues(request, dynaForm);
         setupOrgList(mapping, request, response);
 
-        ActionForward retval = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-        return retval;
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     private void setupOrgList(ActionMapping mapping, HttpServletRequest request,

@@ -82,11 +82,9 @@ public class VirtualInstanceFactory extends HibernateFactory {
      */
     public VirtualInstance lookupByGuestId(Org org, Long id) {
         Session session = HibernateFactory.getSession();
-        VirtualInstance results = (VirtualInstance) session.getNamedQuery(
-                "VirtualInstance.lookupGuestBySid").
-                setParameter("org", org).setParameter("sid", id).uniqueResult();
 
-        return results;
+        return (VirtualInstance) session.getNamedQuery("VirtualInstance.lookupGuestBySid")
+                .setParameter("org", org).setParameter("sid", id).uniqueResult();
 
     }
 

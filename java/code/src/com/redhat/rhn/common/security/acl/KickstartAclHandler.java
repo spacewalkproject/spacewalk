@@ -42,9 +42,7 @@ public class KickstartAclHandler extends BaseHandler {
         }
 
         if (id != null) {
-            KickstartData ks = KickstartFactory.lookupKickstartDataByIdAndOrg(
-                    usr.getOrg(), id);
-            return ks;
+            return KickstartFactory.lookupKickstartDataByIdAndOrg(usr.getOrg(), id);
         }
         return null;
     }

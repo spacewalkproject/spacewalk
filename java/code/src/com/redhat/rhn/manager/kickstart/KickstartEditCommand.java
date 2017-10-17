@@ -200,8 +200,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     public ValidatorError updateKickstartableTree(Long channelId, Long orgId,
             Long treeId, String url) {
         if (!KickstartFactory.verifyTreeAssignment(channelId, orgId, treeId)) {
-            ValidatorError ve = new ValidatorError("kickstart.software.notree");
-            return ve;
+            return new ValidatorError("kickstart.software.notree");
         }
 
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);

@@ -234,8 +234,7 @@ public class ServerGroupHandler extends BaseHandler {
     public ServerGroup create(User loggedInUser, String name, String description) {
         ensureSystemGroupAdmin(loggedInUser);
         ServerGroupManager manager = ServerGroupManager.getInstance();
-        ManagedServerGroup sg = manager.create(loggedInUser, name, description);
-        return sg;
+        return manager.create(loggedInUser, name, description);
     }
 
     /**
@@ -351,9 +350,8 @@ public class ServerGroupHandler extends BaseHandler {
      */
     public ServerGroup getDetails(User loggedInUser, Integer systemGroupId)
         throws FaultException {
-        ServerGroup sg = lookup(systemGroupId, loggedInUser);
 
-        return sg;
+        return lookup(systemGroupId, loggedInUser);
 
     }
 
@@ -372,8 +370,7 @@ public class ServerGroupHandler extends BaseHandler {
      */
     public ServerGroup getDetails(User loggedInUser, String systemGroupName)
         throws FaultException {
-        ServerGroup sg = lookup(systemGroupName, loggedInUser);
-        return sg;
+        return lookup(systemGroupName, loggedInUser);
 
     }
 

@@ -437,8 +437,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
 
         }
 
-        ActionForward retval = mapping.findForward("first");
-        return retval;
+        return mapping.findForward("first");
     }
 
     /**

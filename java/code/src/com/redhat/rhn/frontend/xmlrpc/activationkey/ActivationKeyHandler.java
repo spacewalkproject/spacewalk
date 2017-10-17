@@ -386,8 +386,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.returntype $ActivationKeySerializer
      */
     public ActivationKey getDetails(User loggedInUser, String key) {
-        ActivationKey aKey = lookupKey(key, loggedInUser);
-        return aKey;
+        return lookupKey(key, loggedInUser);
     }
 
     /**

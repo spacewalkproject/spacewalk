@@ -382,9 +382,8 @@ public class ActionChainManager {
      */
     public static Set<Action> scheduleRebootActions(User user, Set<Long> serverIds,
         Date earliest, ActionChain actionChain) {
-        Set<Action> actions = scheduleActions(user, ActionFactory.TYPE_REBOOT,
+        return scheduleActions(user, ActionFactory.TYPE_REBOOT,
             ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, null, serverIds);
-        return actions;
     }
 
     /**

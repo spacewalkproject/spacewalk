@@ -57,8 +57,7 @@ public class SsmOperationManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("user_id", user.getId());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -79,8 +78,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("status", SsmOperationStatus.IN_PROGRESS.getText());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -101,8 +99,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("status", SsmOperationStatus.COMPLETED.getText());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -232,8 +229,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("op_id", operationId);
 
         // list of maps of server_id -> <id>
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**

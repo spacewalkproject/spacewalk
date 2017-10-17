@@ -432,8 +432,7 @@ public class SystemDetailsHandler extends BaseHandler {
                 org.getId());
 
         // Set will contain crypto key
-        Set<CryptoKey> keys = data.getCryptoKeys();
-        return keys;
+        return data.getCryptoKeys();
     }
 
     /**

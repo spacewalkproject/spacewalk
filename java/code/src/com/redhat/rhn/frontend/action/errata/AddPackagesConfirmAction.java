@@ -74,8 +74,7 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
 
         if (helper.isDispatched()) {
             context.requirePost();
-            ActionForward forward = addPackagesToErrata(actionMapping, request, decl);
-            return forward;
+            return addPackagesToErrata(actionMapping, request, decl);
         }
 
         StrutsDelegate strutsDelegate = getStrutsDelegate();

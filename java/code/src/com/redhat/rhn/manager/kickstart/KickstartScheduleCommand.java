@@ -460,10 +460,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public List<ProfileDto> getProfiles() {
         if (!isCobblerOnly()) {
-            List<ProfileDto> profiles = ProfileManager.compatibleWithChannel(
-                    this.ksdata.getKickstartDefaults().getKstree().getChannel(),
+            return ProfileManager.compatibleWithChannel(this.ksdata.getKickstartDefaults().getKstree().getChannel(),
                     user.getOrg(), null);
-            return profiles;
         }
         return Collections.EMPTY_LIST;
 

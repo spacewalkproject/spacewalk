@@ -160,10 +160,7 @@ public class ConfigChannelHandler extends BaseHandler {
                 "Could not find configuration file with filePath=: " + filePath);
         }
 
-        ArrayList<ConfigRevision> revisions =
-            (ArrayList<ConfigRevision>) cm.lookupConfigRevisions(cf);
-
-        return revisions;
+        return (ArrayList<ConfigRevision>) cm.lookupConfigRevisions(cf);
     }
 
     /**
@@ -195,10 +192,7 @@ public class ConfigChannelHandler extends BaseHandler {
                 "Could not find configuration file with filePath=: " + filePath);
         }
 
-        ConfigRevision cr = cm.lookupConfigRevisionByRevId(loggedInUser, cf,
-            revision.longValue());
-
-        return cr;
+        return cm.lookupConfigRevisionByRevId(loggedInUser, cf, revision.longValue());
     }
 
     /**

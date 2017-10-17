@@ -1608,8 +1608,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public List<Map<String, Object>> listErrata(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
-        List<Map<String, Object>> list = listErrata(loggedInUser, channelLabel, "", "");
-        return list;
+        return listErrata(loggedInUser, channelLabel, "", "");
     }
 
     /**
@@ -1688,9 +1687,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        List<Map<String, Object>> errata =
-                ChannelManager.listErrataForDates(channel, startDate, endDate);
-        return errata;
+        return ChannelManager.listErrataForDates(channel, startDate, endDate);
     }
 
     /**
@@ -2490,9 +2487,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
          repoCmd.store();
 
-         ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
-                 loggedInUser.getOrg(), label);
-         return repo;
+         return ChannelFactory.lookupContentSourceByOrgAndLabel(loggedInUser.getOrg(), label);
      }
 
    /**
@@ -2962,10 +2957,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
-        List<ContentSourceFilter> result =
-            ChannelFactory.lookupContentSourceFiltersById(cs.getId());
-
-        return result;
+        return ChannelFactory.lookupContentSourceFiltersById(cs.getId());
     }
 
     /**

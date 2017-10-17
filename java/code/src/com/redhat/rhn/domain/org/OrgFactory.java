@@ -69,8 +69,7 @@ public class OrgFactory extends HibernateFactory {
      * @return Org to be used.
      */
     public static Org createOrg() {
-        Org retval = new Org();
-        return retval;
+        return new Org();
 
     }
 
@@ -205,8 +204,7 @@ public class OrgFactory extends HibernateFactory {
      */
     public static Org lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        Org u = (Org)session.get(Org.class, id);
-        return u;
+        return (Org)session.get(Org.class, id);
     }
 
     /**
@@ -363,9 +361,7 @@ public class OrgFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_to_id", orgTo);
         params.put("org_from_id", orgFrom);
-        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-                "Org.getMigratedSystems", params);
-        return systems;
+        return (Long)singleton.lookupObjectByNamedQuery("Org.getMigratedSystems", params);
     }
 
     /**
@@ -377,9 +373,7 @@ public class OrgFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("org_trust_id", trustId);
-        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-                "Org.getSharedChannels", params);
-        return systems;
+        return (Long)singleton.lookupObjectByNamedQuery("Org.getSharedChannels", params);
     }
 
     /**
@@ -391,9 +385,7 @@ public class OrgFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
         params.put("org_trust_id", trustId);
-        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-                "Org.getSharedSubscribedSys", params);
-        return systems;
+        return (Long)singleton.lookupObjectByNamedQuery("Org.getSharedSubscribedSys", params);
     }
 
     /**

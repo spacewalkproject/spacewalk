@@ -55,8 +55,7 @@ public class XmlRpcUserHelper {
     public User lookupTargetUser(User loggedInUser, String login)
         throws FaultException {
         try {
-            User user = UserManager.lookupUser(loggedInUser, login);
-            return user;
+            return UserManager.lookupUser(loggedInUser, login);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();

@@ -74,8 +74,7 @@ public class TaskomaticHandler extends BaseHandler {
         log.info("Translating " + methodCalled);
 
         try {
-            Object obj = client.invoke(TASKOMATIC_NAMESPACE + "." + methodCalled, params);
-            return obj;
+            return client.invoke(TASKOMATIC_NAMESPACE + "." + methodCalled, params);
         }
         catch (XmlRpcException e) {
             throw new XmlRpcFault(1, e.getMessage());

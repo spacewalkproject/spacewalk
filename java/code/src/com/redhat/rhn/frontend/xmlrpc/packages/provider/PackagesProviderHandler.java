@@ -54,8 +54,7 @@ public class PackagesProviderHandler extends BaseHandler {
      */
     public List<PackageProvider> list(User loggedInUser) {
         isSatelliteAdmin(loggedInUser);
-        List<PackageProvider> list = PackageFactory.listPackageProviders();
-        return list;
+        return PackageFactory.listPackageProviders();
     }
 
 

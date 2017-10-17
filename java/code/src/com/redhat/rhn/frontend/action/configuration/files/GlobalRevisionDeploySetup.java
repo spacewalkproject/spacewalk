@@ -35,9 +35,7 @@ public class GlobalRevisionDeploySetup extends BaseSetListAction {
         User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
-        DataResult dr = ConfigurationManager.getInstance().
-            listGlobalFileDeployInfo(usr, cc, cf, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listGlobalFileDeployInfo(usr, cc, cf, pc);
     }
 
     protected void processRequestAttributes(RequestContext rctxIn) {

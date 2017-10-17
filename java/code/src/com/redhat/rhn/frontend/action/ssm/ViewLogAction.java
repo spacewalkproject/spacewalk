@@ -33,8 +33,7 @@ public class ViewLogAction extends BaseViewLogAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
                 User user = context.getCurrentUser();
-        DataResult result = SsmOperationManager.inProgressOperations(user);
-        return result;
+        return SsmOperationManager.inProgressOperations(user);
     }
 
     /** {@inheritDoc} */

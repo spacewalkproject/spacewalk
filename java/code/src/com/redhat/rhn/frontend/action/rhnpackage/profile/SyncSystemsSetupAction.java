@@ -104,10 +104,7 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                 getDecl(sid));
 
-        DataResult dr = ProfileManager.prepareSyncToServer(sid, sid1,
-                user.getOrg().getId(), null, pkgIdCombos);
-
-        return dr;
+        return ProfileManager.prepareSyncToServer(sid, sid1, user.getOrg().getId(), null, pkgIdCombos);
     }
 
     protected String getDecl(Long sid) {

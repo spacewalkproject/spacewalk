@@ -262,8 +262,7 @@ public class Access extends BaseHandler {
      * @return true if the system is a satellite and has any users.
      */
     public boolean aclNeedFirstUser(Object ctx, String[] p) {
-        boolean flag = !(UserFactory.satelliteHasUsers());
-        return flag;
+        return !(UserFactory.satelliteHasUsers());
     }
 
     /**

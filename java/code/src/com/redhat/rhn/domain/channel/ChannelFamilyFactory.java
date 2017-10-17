@@ -61,9 +61,7 @@ public class ChannelFamilyFactory extends HibernateFactory {
      * @return the ChannelFamily found
      */
     public static ChannelFamily lookupById(Long id) {
-        ChannelFamily cfam = (ChannelFamily)
-            HibernateFactory.getSession().get(ChannelFamily.class, id);
-        return cfam;
+        return (ChannelFamily)HibernateFactory.getSession().get(ChannelFamily.class, id);
     }
 
     /**

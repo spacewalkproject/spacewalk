@@ -66,8 +66,7 @@ public class AclGuard implements RenderGuard {
         }
 
         Acl acl = AclFactory.getInstance().getAcl(mixins);
-        boolean rc = acl.evalAcl(context, aclStr);
-        return rc;
+        return acl.evalAcl(context, aclStr);
     }
 }
 

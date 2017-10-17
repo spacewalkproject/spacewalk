@@ -83,9 +83,7 @@ public class ServerConfigHandler extends BaseHandler {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
         if (listLocal) {
-            DataResult<ConfigFileNameDto> dtos =
-                    cm.listFileNamesForSystemQuick(loggedInUser, server, null);
-            return dtos;
+            return cm.listFileNamesForSystemQuick(loggedInUser, server, null);
         }
         List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
         List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser,

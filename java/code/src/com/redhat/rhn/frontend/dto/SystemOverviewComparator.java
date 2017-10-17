@@ -34,19 +34,17 @@ public class SystemOverviewComparator implements Comparator<SystemOverview> {
          *       Enhancement Errata Count
          *         Alphabetically by system name
          */
-        SystemOverview first = firstObj;
-        SystemOverview second = secondObj;
-        int retval = compareLongs(first.getSecurityErrata(),
-                second.getSecurityErrata());
+        int retval = compareLongs(firstObj.getSecurityErrata(),
+                secondObj.getSecurityErrata());
         if (retval == 0) {
-            retval = compareLongs(first.getBugErrata(),
-                    second.getBugErrata());
+            retval = compareLongs(firstObj.getBugErrata(),
+                    secondObj.getBugErrata());
             if (retval == 0) {
-                retval = compareLongs(first.getEnhancementErrata(),
-                        second.getEnhancementErrata());
+                retval = compareLongs(firstObj.getEnhancementErrata(),
+                        secondObj.getEnhancementErrata());
                 if (retval == 0) {
-                    if (first.getName() != null && second.getName() != null) {
-                        retval = first.getName().compareTo(second.getName());
+                    if (firstObj.getName() != null && secondObj.getName() != null) {
+                        retval = firstObj.getName().compareTo(secondObj.getName());
                     }
                 }
             }

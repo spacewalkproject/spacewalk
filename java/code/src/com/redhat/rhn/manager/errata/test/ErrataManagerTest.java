@@ -650,10 +650,7 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
      * @return the errata action
      */
     private ErrataAction errataActionFromAction(Action action) {
-        ErrataAction errataAction = (ErrataAction) HibernateFactory.getSession()
-                .createCriteria(ErrataAction.class)
-                .add(Restrictions.idEq(action.getId()))
-                .uniqueResult();
-        return errataAction;
+        return (ErrataAction) HibernateFactory.getSession().createCriteria(ErrataAction.class)
+                .add(Restrictions.idEq(action.getId())).uniqueResult();
     }
 }

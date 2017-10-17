@@ -61,8 +61,7 @@ public class ChannelAclHandler extends BaseHandler {
         }
 
         if (cid != null) {
-            Channel chan = ChannelManager.lookupByIdAndUser(cid, usr);
-            return chan;
+            return ChannelManager.lookupByIdAndUser(cid, usr);
         }
         return null;
     }

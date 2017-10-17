@@ -59,8 +59,7 @@ public class UnpublishedErrataAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = ErrataManager.unpublishedOwnedErrata(user);
-        return result;
+        return ErrataManager.unpublishedOwnedErrata(user);
     }
 }
 

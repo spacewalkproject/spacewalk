@@ -150,7 +150,8 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
     public static Test suite()
         throws Exception {
         TestSuite suite = new TestSuite(TestFactoryWrapperTest.class);
-        TestSetup wrapper = new TestSetup(suite) {
+
+        return new TestSetup(suite) {
             protected void setUp() throws Exception {
                 oneTimeSetup();
             }
@@ -159,8 +160,6 @@ public class TestFactoryWrapperTest extends RhnBaseTestCase {
                 oneTimeTeardown();
             }
         };
-
-        return wrapper;
     }
 
     protected static void oneTimeSetup() throws Exception {

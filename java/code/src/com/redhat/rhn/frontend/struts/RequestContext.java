@@ -206,8 +206,7 @@ public class RequestContext {
     // TODO Write unit tests for getUserFromUIDParameter()
     public User getUserFromUIDParameter() {
         Long uid = getParamAsLong(USER_ID);
-        User user = UserManager.lookupUser(getCurrentUser(), uid);
-        return user;
+        return UserManager.lookupUser(getCurrentUser(), uid);
     }
 
     /**

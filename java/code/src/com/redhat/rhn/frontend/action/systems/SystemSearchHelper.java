@@ -250,8 +250,7 @@ public class SystemSearchHelper {
         if ("system_list".equals(whereToSearch)) {
             serverIds = filterOutIdsNotInSSM(user, serverIds);
         }
-        DataResult retval = processResultMap(user, serverIds, viewMode);
-        return retval;
+        return processResultMap(user, serverIds, viewMode);
     }
 
     protected static List performSearch(Long sessionId, String index, String query,

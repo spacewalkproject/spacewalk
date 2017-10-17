@@ -125,8 +125,7 @@ public class PackageFactory extends HibernateFactory {
             // doesn't exist.
             return null;
         }
-        Package pkg = lookupById(id);
-        return pkg;
+        return lookupById(id);
     }
 
     /**
@@ -209,9 +208,8 @@ public class PackageFactory extends HibernateFactory {
      * doesn't exist
      */
      public static PackageName lookupPackageName(Long id) {
-        PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
-                "PackageName.findById").setLong("id", id).uniqueResult();
-        return returned;
+         return (PackageName) HibernateFactory.getSession().getNamedQuery("PackageName.findById")
+                 .setLong("id", id).uniqueResult();
     }
 
     /**
@@ -223,9 +221,8 @@ public class PackageFactory extends HibernateFactory {
      * doesn't exist
      */
     public static PackageName lookupPackageName(String pn) {
-        PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
-                "PackageName.findByName").setString("name", pn).uniqueResult();
-        return returned;
+        return (PackageName) HibernateFactory.getSession().getNamedQuery("PackageName.findByName")
+                .setString("name", pn).uniqueResult();
     }
 
     /**
@@ -470,9 +467,8 @@ public class PackageFactory extends HibernateFactory {
      */
     public static List<PackageProvider> listPackageProviders() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List<PackageProvider> list = singleton.listObjectsByNamedQuery(
-                "PackageProvider.listProviders", params);
-        return list;
+        return (List<PackageProvider>) singleton
+                .listObjectsByNamedQuery("PackageProvider.listProviders", params);
     }
 
     /**
@@ -483,9 +479,7 @@ public class PackageFactory extends HibernateFactory {
     public static PackageProvider lookupPackageProvider(String name) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
-        PackageProvider prov = (PackageProvider) singleton.lookupObjectByNamedQuery(
-                "PackageProvider.findByName", params);
-        return prov;
+        return (PackageProvider) singleton.lookupObjectByNamedQuery("PackageProvider.findByName", params);
     }
 
     /**
@@ -504,9 +498,7 @@ public class PackageFactory extends HibernateFactory {
     public static PackageKey lookupPackageKey(String key) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", key);
-        PackageKey prov = (PackageKey) singleton.lookupObjectByNamedQuery(
-                "PackageKey.findByKey", params);
-        return prov;
+        return (PackageKey) singleton.lookupObjectByNamedQuery("PackageKey.findByKey", params);
     }
 
     /**
@@ -515,9 +507,7 @@ public class PackageFactory extends HibernateFactory {
      */
     public static List<PackageKey> listPackageKeys() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List<PackageKey> prov = singleton.listObjectsByNamedQuery("PackageKey.listKeys",
-                params);
-        return prov;
+        return (List<PackageKey>) singleton.listObjectsByNamedQuery("PackageKey.listKeys", params);
     }
 
     /**

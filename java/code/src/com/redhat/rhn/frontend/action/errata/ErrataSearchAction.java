@@ -461,8 +461,7 @@ public class ErrataSearchAction extends BaseSearchAction {
         java.text.SimpleDateFormat sdf =
             new java.text.SimpleDateFormat(dateFmt);
         sdf.setTimeZone(TimeZone.getDefault());
-        String currentTime = sdf.format(cal.getTime());
-        return currentTime;
+        return sdf.format(cal.getTime());
     }
 
     protected String preprocessSearchString(String searchstring, String mode) {
@@ -520,8 +519,7 @@ public class ErrataSearchAction extends BaseSearchAction {
     private String escapeSpecialChars(String queryIn) {
         // These are the list of possible chars to escape for Lucene:
         //  + - && || ! ( ) { } [ ] ^ " ~ * ? : \
-        String query = queryIn.replace(":", "\\:");
-        return query;
+        return queryIn.replace(":", "\\:");
     }
 
     private Boolean getOptionIssueDateSearch(HttpServletRequest request) {

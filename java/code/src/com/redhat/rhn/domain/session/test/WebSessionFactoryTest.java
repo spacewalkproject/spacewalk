@@ -134,8 +134,7 @@ public class WebSessionFactoryTest extends RhnBaseTestCase {
 
     public void testUnifiedCreate() throws Exception {
         User u = UserTestUtils.findNewUser("sessionTest", "SessionTestOrg");
-        long expTime = EXP_TIME;
-        WebSession s = SessionManager.makeSession(u.getId(), expTime);
+        WebSession s = SessionManager.makeSession(u.getId(), (long) EXP_TIME);
 
         WebSession s2 = WebSessionFactory.lookupById(s.getId());
         assertNotNull(s2);

@@ -48,7 +48,6 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
         Writer output = new StringWriter();
         final Org mockOrg = mock(Org.class);
         final ManagedServerGroup mock = mock(ManagedServerGroup.class);
-        ManagedServerGroup sg = mock;
         context().checking(new Expectations() { {
             oneOf(mockOrg).getId();
             will(returnValue(orgId));
@@ -65,7 +64,7 @@ public class ManagedServerGroupSerializerTest extends MockObjectTestCase {
 
         } });
 
-        sgs.serialize(sg, output, serializer);
+        sgs.serialize(mock, output, serializer);
         String out = output.toString();
         assertExists("name", name, out);
         assertExists("id", id, out);

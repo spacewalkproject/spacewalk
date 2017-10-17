@@ -466,8 +466,7 @@ public class ActionFactory extends HibernateFactory {
      */
     public static Action lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        Action a = (Action)session.get(Action.class, id);
-        return a;
+        return (Action)session.get(Action.class, id);
     }
 
     /**
@@ -536,9 +535,7 @@ public class ActionFactory extends HibernateFactory {
     lookupConfigRevisionAction(Long id) {
 
         Session session = HibernateFactory.getSession();
-        ConfigRevisionAction c = (ConfigRevisionAction) session.
-                get(ConfigRevisionAction.class, id);
-        return c;
+        return (ConfigRevisionAction) session.get(ConfigRevisionAction.class, id);
     }
 
     /**

@@ -51,9 +51,7 @@ public class GlobalRevisionDeploySubmit extends BaseSetOperateOnSelectedItemsAct
         User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
-        DataResult dr = ConfigurationManager.getInstance().
-            listGlobalFileDeployInfo(usr, cc, cf, null);
-        return dr;
+        return ConfigurationManager.getInstance().listGlobalFileDeployInfo(usr, cc, cf, null);
     }
 
     protected void processParamMap(

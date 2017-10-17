@@ -36,8 +36,7 @@ public class SystemChannelsAction extends BaseListAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         Server server = rctxIn.lookupServer();
-        DataResult dr = cm.listConfigChannelsForSystem(user, server, pc);
-        return dr;
+        return cm.listConfigChannelsForSystem(user, server, pc);
     }
 
     /**

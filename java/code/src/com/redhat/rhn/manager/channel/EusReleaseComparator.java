@@ -76,8 +76,6 @@ public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
                 rhelRelease2);
 
         RpmVersionComparator cmp = new RpmVersionComparator();
-        int c = cmp.compare(StringUtils.defaultString(rhelRelease1),
-                        StringUtils.defaultString(rhelRelease2));
-        return c;
+        return cmp.compare(StringUtils.defaultString(rhelRelease1), StringUtils.defaultString(rhelRelease2));
     }
 }

@@ -101,11 +101,8 @@ public class CommonFactory extends HibernateFactory {
         Session session = null;
         //look for Kickstart data by label
         session = HibernateFactory.getSession();
-        FileList list = (FileList) session.getNamedQuery("FileList.findByLabelAndOrg")
-        .setString("label", labelIn)
-        .setLong("org_id", org.getId().longValue())
-        .uniqueResult();
-        return list;
+        return (FileList) session.getNamedQuery("FileList.findByLabelAndOrg").setString("label", labelIn)
+        .setLong("org_id", org.getId().longValue()).uniqueResult();
     }
 
     /**

@@ -59,8 +59,7 @@ public class FilePreservationListHandler extends BaseHandler {
         Org org = loggedInUser.getOrg();
         KickstartLister lister = KickstartLister.getInstance();
 
-        DataResult dataResult = lister.preservationListsInOrg(org, null);
-        return dataResult;
+        return lister.preservationListsInOrg(org, null);
     }
 
     /**

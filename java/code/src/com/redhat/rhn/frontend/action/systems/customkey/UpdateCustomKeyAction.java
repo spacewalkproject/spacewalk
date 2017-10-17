@@ -114,9 +114,8 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
     public  List getResult(RequestContext context) {
         User user  = context.getCurrentUser();
         Long cikid = context.getParamAsLong(CIKID_PARAM);
-        List servers = ServerFactory.lookupServersWithCustomKey(user.getId(), cikid);
 
-        return servers;
+        return ServerFactory.lookupServersWithCustomKey(user.getId(), cikid);
     }
 
 }

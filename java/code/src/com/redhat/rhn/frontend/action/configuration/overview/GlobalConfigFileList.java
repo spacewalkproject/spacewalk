@@ -29,8 +29,7 @@ public class GlobalConfigFileList extends BaseListAction {
 
     protected DataResult getDataResult(RequestContext context, PageControl pc) {
         User user = context.getCurrentUser();
-        DataResult dr = ConfigurationManager.getInstance().listGlobalConfigFiles(user, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listGlobalConfigFiles(user, pc);
     }
 
     protected void processPageControl(PageControl pc) {

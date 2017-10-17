@@ -51,8 +51,7 @@ public class TestFactory extends HibernateFactory {
     }
 
     public static TestInterface createTest() {
-        TestInterface retval = new TestImpl();
-        return retval;
+        return new TestImpl();
     }
 
     public static TestInterface lookupByFoobar(String f) {

@@ -52,8 +52,6 @@ public class ChannelSystemsListSetup extends BaseSetListAction {
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
         User user = ctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
-        DataResult dr = ConfigurationManager.getInstance().
-            listSystemInfoForChannel(user, cc, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listSystemInfoForChannel(user, cc, pc);
     }
 }

@@ -52,9 +52,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
                                        HttpServletRequest requestIn) {
         RequestContext ctx = new RequestContext(requestIn);
         ConfigChannel cc = ConfigActionHelper.getChannel(requestIn);
-        DataResult dr = ConfigurationManager.getInstance().
-            listSystemsNotInChannel(ctx.getCurrentUser(), cc, null);
-        return dr;
+        return ConfigurationManager.getInstance().listSystemsNotInChannel(ctx.getCurrentUser(), cc, null);
     }
 
     /**

@@ -135,8 +135,7 @@ public class RhnHelper {
             String[] param = StringUtils.split(pairs[i], "=");
             String iname = param[0];
             if (StringUtils.equals(name, iname) && param.length > 1) {
-                String value = param[1];
-                return value;
+                return param[1];
             }
         }
 

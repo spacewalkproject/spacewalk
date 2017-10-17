@@ -103,8 +103,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -118,8 +117,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -133,8 +131,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -148,8 +145,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -163,8 +159,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -178,8 +173,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -193,8 +187,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -208,8 +201,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -221,8 +213,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "packages_in_channel");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", cid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
 
@@ -238,8 +229,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -253,8 +243,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -266,8 +255,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "package_files");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -296,8 +284,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", user.getOrg().getId());
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -1384,8 +1371,7 @@ public class PackageManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -1401,8 +1387,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -1479,8 +1464,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", packageId);
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**

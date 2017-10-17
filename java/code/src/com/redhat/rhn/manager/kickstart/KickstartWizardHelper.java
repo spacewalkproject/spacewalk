@@ -118,9 +118,7 @@ public class KickstartWizardHelper {
      * @return Collection of Channels.
      */
     public List<Channel> getAvailableChannels() {
-        List<Channel> returnCollection = ChannelFactory
-                .getKickstartableChannels(currentUser.getOrg());
-        return returnCollection;
+        return ChannelFactory.getKickstartableChannels(currentUser.getOrg());
     }
 
     /**

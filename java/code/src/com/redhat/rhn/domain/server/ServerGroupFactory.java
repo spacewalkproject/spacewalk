@@ -107,12 +107,10 @@ public class ServerGroupFactory extends HibernateFactory {
             throw new IllegalArgumentException(msg);
         }
         Session session = HibernateFactory.getSession();
-        EntitlementServerGroup existingGroup = (EntitlementServerGroup)
-                session.getNamedQuery("ServerGroup.lookupByTypeAndOrg")
+        return (EntitlementServerGroup) session.getNamedQuery("ServerGroup.lookupByTypeAndOrg")
                                         .setParameter("groupType", typeIn)
                                         .setParameter("org", org)
                                         .uniqueResult();
-        return existingGroup;
     }
 
     /**

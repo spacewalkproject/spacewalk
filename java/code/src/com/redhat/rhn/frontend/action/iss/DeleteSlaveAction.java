@@ -57,9 +57,8 @@ public class DeleteSlaveAction extends RhnAction {
 
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         Long sid = deleteSlave(mapping, dynaForm, request, response);
-        ActionForward retval = mapping.findForward("default");
 
-        return retval;
+        return mapping.findForward("default");
     }
 
     private Long deleteSlave(ActionMapping mapping, DynaActionForm dynaForm,

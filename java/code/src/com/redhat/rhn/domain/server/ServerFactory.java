@@ -332,12 +332,10 @@ public class ServerFactory extends HibernateFactory {
      * @return The ServerGroupType
      */
     public static ServerGroupType lookupServerGroupTypeByLabel(String label) {
-        ServerGroupType retval = (ServerGroupType) HibernateFactory
-                .getSession().getNamedQuery("ServerGroupType.findByLabel")
+        return (ServerGroupType) HibernateFactory.getSession().getNamedQuery("ServerGroupType.findByLabel")
                 .setString("label", label)
                 // Retrieve from cache if there
                 .setCacheable(true).uniqueResult();
-        return retval;
 
     }
 
@@ -534,9 +532,7 @@ public class ServerFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", user.getId());
         params.put("label", RhnSetDecl.SYSTEMS.getLabel());
-        List<Server> servers = singleton.listObjectsByNamedQuery(
-                "Server.findInSet", params);
-        return servers;
+        return (List<Server>) singleton.listObjectsByNamedQuery("Server.findInSet", params);
     }
 
     /**
@@ -741,9 +737,7 @@ public class ServerFactory extends HibernateFactory {
     public static List<SnapshotTag> getSnapshotTags(ServerSnapshot snap) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("snap", snap);
-        List<SnapshotTag> snaps = singleton.listObjectsByNamedQuery(
-                "ServerSnapshot.findTags", params);
-        return snaps;
+        return (List<SnapshotTag>) singleton.listObjectsByNamedQuery("ServerSnapshot.findTags", params);
     }
 
     /**
@@ -810,13 +804,11 @@ public class ServerFactory extends HibernateFactory {
      * @return snapshot tag
      */
     public static SnapshotTag lookupSnapshotTagbyName(String tagName) {
-        SnapshotTag retval = (SnapshotTag) HibernateFactory
-                .getSession().getNamedQuery("SnapshotTag.lookupByTagName")
+        return (SnapshotTag) HibernateFactory.getSession().getNamedQuery("SnapshotTag.lookupByTagName")
                 .setString("tag_name", tagName)
                 // Do not use setCacheable(true), as tag deletion will
                 // usually end up making this query's output out of date
                 .uniqueResult();
-        return retval;
     }
 
     /**
@@ -824,13 +816,11 @@ public class ServerFactory extends HibernateFactory {
      * @return snapshot Tag
      */
     public static SnapshotTag lookupSnapshotTagbyId(Long tagId) {
-        SnapshotTag retval = (SnapshotTag) HibernateFactory
-                .getSession().getNamedQuery("SnapshotTag.lookupById")
+        return (SnapshotTag) HibernateFactory.getSession().getNamedQuery("SnapshotTag.lookupById")
                 .setLong("id", tagId)
                 // Do not use setCacheable(true), as tag deletion will
                 // usually end up making this query's output out of date
                 .uniqueResult();
-        return retval;
     }
 
     /**

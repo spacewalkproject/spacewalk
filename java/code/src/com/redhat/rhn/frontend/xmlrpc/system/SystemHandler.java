@@ -5024,8 +5024,7 @@ public class SystemHandler extends BaseHandler {
      */
     private SystemRecord getSystemRecordFromClientCert(String clientcert) {
         Server server = validateClientCertificate(clientcert);
-        SystemRecord rec = server.getCobblerObject(null);
-        return rec;
+        return server.getCobblerObject(null);
     }
 
     /**

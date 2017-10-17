@@ -72,7 +72,6 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = PackageManager.upgradablePackagesFromServerSet(user);
-        return result;
+        return PackageManager.upgradablePackagesFromServerSet(user);
     }
 }

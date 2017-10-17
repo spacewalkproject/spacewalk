@@ -85,7 +85,6 @@ public class FileDownloadAction extends RhnAction {
 
     protected String getDownloadFilename(ConfigRevision cr) {
         String path = cr.getConfigFile().getConfigFileName().getPath();
-        String file = path.substring(path.lastIndexOf('/') + 1);
-        return file;
+        return path.substring(path.lastIndexOf('/') + 1);
     }
 }

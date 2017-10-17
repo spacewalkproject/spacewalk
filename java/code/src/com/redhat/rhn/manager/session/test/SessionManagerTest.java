@@ -139,9 +139,8 @@ public class SessionManagerTest extends RhnBaseTestCase {
     private String generatePxtSessionKey() {
         String id = "12345678";
         String generatedKey = SessionManager.generateSessionKey(id);
-        String pxtSessionKey = id + "x" + generatedKey;
 
-        return pxtSessionKey;
+        return id + "x" + generatedKey;
     }
 
     public void testLookupByEmptyKey() {

@@ -58,9 +58,7 @@ public class RebootSystemAction
         helper.execute();
 
         if (helper.isDispatched()) {
-            ActionForward forward =
-                handleDispatch(helper, mapping, request);
-            return forward;
+            return handleDispatch(helper, mapping, request);
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

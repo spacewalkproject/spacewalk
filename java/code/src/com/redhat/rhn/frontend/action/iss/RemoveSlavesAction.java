@@ -115,8 +115,7 @@ public class RemoveSlavesAction extends RhnAction {
         List<IssSlave> slaves = new ArrayList<IssSlave>();
 
         if (sessionSet != null) {
-            Set<String> sids = sessionSet;
-            for (String sid : sids) {
+            for (String sid : (Set<String>) sessionSet) {
                 IssSlave aSlave = IssFactory.lookupSlaveById(Long.parseLong(sid));
                 slaves.add(aSlave);
             }

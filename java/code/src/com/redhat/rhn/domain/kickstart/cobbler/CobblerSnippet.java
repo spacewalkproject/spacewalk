@@ -43,8 +43,7 @@ public class CobblerSnippet implements Comparable {
      * @return the cobbler snippets dir
      */
     public static File getCobblerSnippetsDir() {
-        File fl = new File(ConfigDefaults.get().getCobblerSnippetsDir());
-        return fl;
+        return new File(ConfigDefaults.get().getCobblerSnippetsDir());
     }
 
     /**

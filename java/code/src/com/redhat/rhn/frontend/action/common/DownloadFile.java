@@ -676,14 +676,12 @@ public class DownloadFile extends DownloadAction {
     }
 
     private StreamInfo getStream(byte[] text, String type) {
-        ByteArrayStreamInfo stream = new ByteArrayStreamInfo(type, text);
-        return stream;
+        return new ByteArrayStreamInfo(type, text);
     }
 
     private StreamInfo getStreamForPath(String path, String type) {
         File file = new File(path);
-        FileStreamInfo stream = new FileStreamInfo(type, file);
-        return stream;
+        return new FileStreamInfo(type, file);
     }
 
 
@@ -801,9 +799,7 @@ public class DownloadFile extends DownloadAction {
             log.debug("chunk size: " + chunk.length);
             log.debug("read chunk into byte array.  returning ByteArrayStreamInfo");
         }
-        ByteArrayStreamInfo stream = new
-            ByteArrayStreamInfo(CONTENT_TYPE_OCTET_STREAM, chunk);
-        return stream;
+        return new ByteArrayStreamInfo(CONTENT_TYPE_OCTET_STREAM, chunk);
     }
 
 }

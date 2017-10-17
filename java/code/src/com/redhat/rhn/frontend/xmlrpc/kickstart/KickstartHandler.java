@@ -463,9 +463,7 @@ public class KickstartHandler extends BaseHandler {
      */
     public List listKickstarts(User loggedInUser) {
         checkKickstartPerms(loggedInUser);
-        DataResult<KickstartDto> result = KickstartLister.getInstance()
-                .kickstartsInOrg(loggedInUser.getOrg(), null);
-        return result;
+        return KickstartLister.getInstance().kickstartsInOrg(loggedInUser.getOrg(), null);
     }
 
     /**

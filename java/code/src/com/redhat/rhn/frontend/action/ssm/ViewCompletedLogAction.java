@@ -27,8 +27,7 @@ public class ViewCompletedLogAction extends BaseViewLogAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = SsmOperationManager.completedOperations(user);
-        return result;
+        return SsmOperationManager.completedOperations(user);
     }
 
     protected String getSummaryKey() {

@@ -1078,8 +1078,7 @@ public class ProfileManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         Map<String, Object> elabParams = new HashMap<String, Object>();
         params.put("cid", cid);
-        DataResult dr = makeDataResult(params, elabParams, null, m);
-        return dr;
+        return makeDataResult(params, elabParams, null, m);
     }
 
     private static List findMissingPackages(DataResult pkgs, Set channels) {

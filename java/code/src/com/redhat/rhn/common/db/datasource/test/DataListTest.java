@@ -113,8 +113,7 @@ public class DataListTest extends RhnBaseTestCase {
         List sub = list.subList(0, end);
         assertTrue(sub.size() == end);
         assertEquals(sub.getClass(), DataList.class);
-        DataList subby = (DataList) sub;
-        return subby;
+        return (DataList) sub;
     }
 
     /**

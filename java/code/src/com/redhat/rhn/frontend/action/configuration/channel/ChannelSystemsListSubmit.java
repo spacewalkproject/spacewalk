@@ -63,9 +63,7 @@ public class ChannelSystemsListSubmit extends BaseSetOperateOnSelectedItemsActio
             HttpServletRequest request) {
         RequestContext ctx = new RequestContext(request);
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
-        DataResult dr = ConfigurationManager.getInstance().
-            listSystemInfoForChannel(u, cc, null);
-        return dr;
+        return ConfigurationManager.getInstance().listSystemInfoForChannel(u, cc, null);
     }
 
     /**

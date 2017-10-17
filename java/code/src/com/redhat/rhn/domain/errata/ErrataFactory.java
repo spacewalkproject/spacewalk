@@ -1179,8 +1179,7 @@ public class ErrataFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("from_cid", fromCid);
         params.put("to_cid", toCid);
-        DataResult<ErrataOverview> results = mode.execute(params);
-        return results;
+        return (DataResult<ErrataOverview>) mode.execute(params);
     }
 
     /**
@@ -1195,8 +1194,7 @@ public class ErrataFactory extends HibernateFactory {
                 "published_owned_unmodified_cloned_errata");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
-        DataResult<OwnedErrata> results = mode.execute(params);
-        return results;
+        return (DataResult<OwnedErrata>) mode.execute(params);
     }
 
     /**

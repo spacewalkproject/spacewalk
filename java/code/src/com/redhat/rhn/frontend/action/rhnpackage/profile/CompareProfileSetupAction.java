@@ -139,9 +139,7 @@ public class CompareProfileSetupAction extends RhnAction {
         Long sid = requestContext.getRequiredParam("sid");
         Long prid = requestContext.getRequiredParam("prid");
 
-        DataResult dr = ProfileManager.compareServerToProfile(sid,
-                prid, requestContext.getCurrentUser().getOrg().getId(), null);
-
-        return dr;
+        return ProfileManager.compareServerToProfile(sid, prid,
+                requestContext.getCurrentUser().getOrg().getId(), null);
     }
 }

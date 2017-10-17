@@ -107,8 +107,7 @@ public class UserHandler extends BaseHandler {
     public List listUsers(User loggedInUser) throws FaultException {
         // Get the logged in user
         try {
-            List users = UserManager.usersInOrg(loggedInUser);
-            return users;
+            return UserManager.usersInOrg(loggedInUser);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();

@@ -100,10 +100,8 @@ public class ServerGroupManager {
      */
     public EntitlementServerGroup lookupEntitled(Entitlement ent, User user) {
         validateOrgAdminCredentials(user);
-        EntitlementServerGroup sg = ServerGroupFactory.
-                                lookupEntitled(ent, user.getOrg());
 
-        return sg;
+        return ServerGroupFactory.lookupEntitled(ent, user.getOrg());
     }
 
     /**

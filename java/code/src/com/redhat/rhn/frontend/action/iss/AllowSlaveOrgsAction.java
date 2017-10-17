@@ -123,10 +123,9 @@ public class AllowSlaveOrgsAction extends RhnAction {
             RequestContext context,
             Long sid,
             Set sessionSet) {
-        Set<String> soids = sessionSet;
         Set<Org> allowedOrgs = new HashSet<Org>();
         IssSlave s = IssFactory.lookupSlaveById(sid);
-        for (String soid : soids) {
+        for (String soid : (Set<String>) sessionSet) {
             Long oid = Long.parseLong(soid);
             Org anOrg = OrgFactory.lookupById(oid);
             allowedOrgs.add(anOrg);
