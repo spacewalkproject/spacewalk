@@ -82,7 +82,7 @@ public class CustomPackageListAction extends RhnAction {
         "channel.jsp.manage.package.delete");
 
         boolean sourcePackagesChecked =
-                "source".equals(request.getParameter("package_type")) ? true : false;
+                "source".equals(request.getParameter("package_type"));
 
         if (button.equals(request.getParameter(RhnHelper.CONFIRM_FORWARD)) &&
             set.size() > 0) {
