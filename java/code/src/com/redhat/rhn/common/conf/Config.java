@@ -55,12 +55,12 @@ public class Config {
     /**
      * The default directory in which to look for config files
      */
-    public static final String DEFAULT_CONF_DIR = "/etc/rhn";
+    private static final String DEFAULT_CONF_DIR = "/etc/rhn";
 
     /**
      * The directory in which to look for default config values
      */
-    public static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
+    private static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
 
     /**
      * The system property containing the configuration directory.
