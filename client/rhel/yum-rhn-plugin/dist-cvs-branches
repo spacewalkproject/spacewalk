@@ -1,4 +1,0 @@
-RHEL-5
-# The z-stream branch we write as the "base" branch, slash, z-stream branch.
-# The "base" branch is where we will run make zstreams.
-RHEL-5/RHEL-5_2-Z
