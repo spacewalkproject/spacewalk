@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.org.Org;

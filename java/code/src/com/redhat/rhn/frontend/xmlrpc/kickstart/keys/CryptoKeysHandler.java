@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.keys;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;

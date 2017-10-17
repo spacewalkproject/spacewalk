@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.server.Server;
