@@ -70,8 +70,6 @@ public class ActivationKeyDto extends BaseDto {
         else {
             this.keyDisabled = true;
         }
-
-        return;
     }
 
     /**
