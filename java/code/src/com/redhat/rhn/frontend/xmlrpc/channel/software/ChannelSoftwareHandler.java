@@ -2165,7 +2165,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
                     loggedInUser.getOrg());
 
             for (Errata erratum : sourceErrata) {
-                if (erratum.getAdvisoryName() == toMerge.getAdvisoryName()) {
+                if (erratum.getAdvisoryName().equals(toMerge.getAdvisoryName())) {
                     errataToMerge.add(toMerge);
                     break;
                 }

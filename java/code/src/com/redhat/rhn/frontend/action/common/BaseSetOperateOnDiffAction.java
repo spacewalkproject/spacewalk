@@ -126,7 +126,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
 
         while (mapIter.hasNext()) {
             RhnSetElement elem = mapIter.next();
-            if (diffmap.get(elem) == "original") {
+            if (diffmap.get(elem).equals("original")) {
                 removed.add(elem);
             }
         }

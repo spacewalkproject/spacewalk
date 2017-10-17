@@ -95,7 +95,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
             for (Iterator it = cmd.getRequiredOptions().iterator(); it.hasNext();) {
                 KickstartCommandName cn = (KickstartCommandName) it.next();
                 if ((request.getParameter(cn.getName()) == null) ||
-                        (request.getParameter(cn.getName().concat("_txt")) == "")) {
+                        (request.getParameter(cn.getName().concat("_txt")).equals(""))) {
                     messages.add(ActionMessages.GLOBAL_MESSAGE,
                             new ActionMessage("errors.required", cn.getName()));
                 }
