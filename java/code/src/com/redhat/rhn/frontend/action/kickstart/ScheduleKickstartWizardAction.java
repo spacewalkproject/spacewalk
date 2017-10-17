@@ -900,11 +900,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
 
         String diskOption = form.getString(DESTROY_DISKS);
-        if (!containsClearpartCommand || (diskOption != null &&
-            diskOption.equals("true"))) {
-             return false;
-        }
-        return true;
+        return containsClearpartCommand && (diskOption == null || !diskOption.equals("true"));
     }
 
     private void checkForKickstart(DynaActionForm form,

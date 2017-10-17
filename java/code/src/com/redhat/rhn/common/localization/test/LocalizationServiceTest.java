@@ -286,11 +286,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     * check to see if the fetched message is valid or not
     */
     private boolean isMessageValid(String value) {
-        if (value.startsWith("**") &&
-               value.endsWith("**")) {
-            return false;
-        }
-        return true;
+        return !value.startsWith("**") || !value.endsWith("**");
     }
 
     public void testPlainText() {

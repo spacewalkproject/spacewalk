@@ -153,11 +153,7 @@ public class KickstartOptionValue implements Comparable<KickstartOptionValue> {
         if (enabled != null ? !enabled.equals(that.enabled) : that.enabled != null) {
             return false;
         }
-        if (name != null ? !name.equals(that.name) : that.name != null) {
-            return false;
-        }
-
-        return true;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     /** {@inheritDoc} */

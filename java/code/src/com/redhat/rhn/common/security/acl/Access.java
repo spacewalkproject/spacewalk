@@ -361,9 +361,6 @@ public class Access extends BaseHandler {
         Map map = (Map)ctx;
         Long eid = getAsLong(map.get("eid"));
         Errata e = ErrataFactory.lookupById(eid);
-        if (e == null || e.getOrg() == null) {
-            return false;
-        }
-        return true;
+        return e != null && e.getOrg() != null;
     }
 }

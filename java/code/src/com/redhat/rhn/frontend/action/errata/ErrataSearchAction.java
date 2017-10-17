@@ -534,14 +534,9 @@ public class ErrataSearchAction extends BaseSearchAction {
             return (Boolean) dateSrch;
         }
         else if (dateSrch instanceof String) {
-            if ("on".equals(dateSrch)) {
-                return true;
-            }
-            return false;
+            return "on".equals(dateSrch);
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
 }
