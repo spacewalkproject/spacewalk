@@ -255,8 +255,7 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
-Requires: pygtk2 pygtk2-libglade
-Requires: usermode-gtk
+Requires: python3-gobject-base gtk3
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 5
 Requires: liberation-sans-fonts
