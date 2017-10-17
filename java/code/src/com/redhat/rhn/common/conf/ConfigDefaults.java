@@ -476,10 +476,7 @@ public class ConfigDefaults {
      * @return true or false
      */
     public boolean useDBRepodata() {
-        if (Config.get().getString(USE_DB_REPODATA) == null) {
-            return true;
-        }
-        return Config.get().getBoolean(USE_DB_REPODATA);
+        return Config.get().getString(USE_DB_REPODATA) == null || Config.get().getBoolean(USE_DB_REPODATA);
     }
 
     /**
