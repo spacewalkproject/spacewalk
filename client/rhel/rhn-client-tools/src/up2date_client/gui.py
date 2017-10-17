@@ -15,11 +15,6 @@ import gtk.glade
 
 gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 
-# We have to import gnome.ui before using glade for our GnomeUi widgets.
-# ie the druid. Get rid of these widgets, and we won't need this import.
-# see http://www.async.com.br/faq/pygtk/index.py?req=show&file=faq22.005.htp
-import gnome.ui
-
 import signal
 
 try: # python2

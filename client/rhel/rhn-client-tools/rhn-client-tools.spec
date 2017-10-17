@@ -228,11 +228,10 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
-Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
+Requires: pygtk2 pygtk2-libglade
 Requires: usermode-gtk
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 5
-Requires: gnome-python2-gnome gnome-python2-bonobo
 Requires: liberation-sans-fonts
 %endif
 
@@ -247,11 +246,10 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
-Requires: pygtk2 pygtk2-libglade gnome-python2 gnome-python2-canvas
+Requires: pygtk2 pygtk2-libglade
 Requires: usermode-gtk
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 5
-Requires: gnome-python2-gnome gnome-python2-bonobo
 Requires: liberation-sans-fonts
 %endif
 
