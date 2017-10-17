@@ -97,7 +97,7 @@ public class SystemPendingEventsAction extends RhnAction {
         TagHelper.bindElaboratorTo(RequestContext.PAGE_LIST,
                 result.getElaborator(), request);
 
-        params.put("isLocked", server.getLock() == null ? false : true);
+        params.put("isLocked", server.getLock() != null);
         request.setAttribute(RequestContext.PAGE_LIST, result);
 
         return StrutsDelegate.getInstance().forwardParams(

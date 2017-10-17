@@ -57,7 +57,7 @@ public abstract class UserEditActionHelper extends RhnAction {
                     new ActionMessage("error.password_mismatch"));
         }
 
-        Boolean readOnly = form.get("readonly") != null ? true : false;
+        Boolean readOnly = (form.get("readonly") != null);
         if (!targetUser.isReadOnly()) {
             if (readOnly && targetUser.hasRole(RoleFactory.ORG_ADMIN) &&
                     targetUser.getOrg().numActiveOrgAdmins() < 2) {

@@ -54,7 +54,7 @@ public class SystemHistoryAction extends RhnAction implements Listable<SystemEve
         Map<String, Object> params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
         params.put("pendingActions", SystemManager.countPendingActions(sid));
-        params.put("isLocked", server.getLock() == null ? false : true);
+        params.put("isLocked", server.getLock() != null);
 
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);
