@@ -83,8 +83,7 @@ public class ConfigFileForm extends ScrubbingDynaActionForm {
     // Here to deal with form-size-limits
     public static final long   MAX_EDITABLE_SIZE;
     static {
-        MAX_EDITABLE_SIZE = new Long(new Config().getInt(
-                ConfigDefaults.CONFIG_FILE_EDIT_SIZE) * 1024);
+        MAX_EDITABLE_SIZE = new Long(ConfigDefaults.get().getConfigFileEditSize() * 1024);
     }
 
     /**

@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.action;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -796,7 +795,7 @@ public class ActionManager extends BaseManager {
         if (pc != null) {
             return makeDataResult(params, params, pc, m);
         }
-        Integer limit = new Config().getInt(ConfigDefaults.ACTIONS_DISPLAY_LIMIT);
+        int limit = ConfigDefaults.get().getActionsDisplayLimit();
         if (limit > 0) {
             m.setMaxRows(limit);
         }
