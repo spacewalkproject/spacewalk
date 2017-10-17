@@ -56,7 +56,7 @@ public class Validator {
     /**
      * <p>
      * This constructor is private so that the class cannot be instantiated
-     * directly, but instead only through <code>{@link #getInstance()}</code>.
+     * directly, but instead only through <code>{@link #getInstance(URL schemaURL)}</code>.
      * </p>
      *
      * @param schemaURLIn <code>URL</code> to parse the schema at.
