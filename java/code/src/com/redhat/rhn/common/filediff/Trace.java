@@ -86,10 +86,7 @@ public class Trace {
      * @return whether this trace has terminated.
      */
     public boolean isDone() {
-        if (currentLineOld == -1 && currentLineNew == -1) {
-            return true;
-        }
-        return false;
+        return currentLineOld == -1 && currentLineNew == -1;
     }
 
     /**

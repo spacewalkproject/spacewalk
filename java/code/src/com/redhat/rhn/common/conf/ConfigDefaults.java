@@ -468,10 +468,7 @@ public class ConfigDefaults {
      * @return true is this is a Spacewalk instance.
      */
     public boolean isSpacewalk() {
-        if (Config.get().getString(PRODUCT_NAME).equals(SPACEWALK)) {
-            return true;
-        }
-        return false;
+        return Config.get().getString(PRODUCT_NAME).equals(SPACEWALK);
     }
 
     /**

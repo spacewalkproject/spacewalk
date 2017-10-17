@@ -40,11 +40,7 @@ public class DepthGuard implements RenderGuard {
      * @return true if we are allowed to render at the given depth.
      */
     public boolean canRender(int depth) {
-        if (depth < minDepth || depth > maxDepth) {
-            return false;
-        }
-
-        return true;
+        return depth >= minDepth && depth <= maxDepth;
     }
 
     /** {@inheritDoc} */

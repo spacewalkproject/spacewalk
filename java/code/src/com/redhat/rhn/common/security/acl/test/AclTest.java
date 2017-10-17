@@ -361,11 +361,7 @@ public class AclTest extends RhnBaseTestCase {
                return false;
            }
 
-           if (params[0].equals("true")) {
-               return true;
-           }
-
-           return false;
+           return params[0].equals("true");
 
        }
 

@@ -962,10 +962,7 @@ public class ErrataManager extends BaseManager {
         }
         //If the errata we found is the same as the one we are checking for,
         //then we don't care. return false.
-        if (e.getId().equals(eid)) {
-            return true;
-        }
-        return false;
+        return e.getId().equals(eid);
     }
 
     /**

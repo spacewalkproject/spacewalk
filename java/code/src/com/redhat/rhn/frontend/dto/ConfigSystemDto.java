@@ -144,12 +144,7 @@ public class ConfigSystemDto extends BaseDto {
      * @param rhnToolsIn The rhnTools to set.
      */
     public void setRhnTools(String rhnToolsIn) {
-        if (rhnToolsIn.equalsIgnoreCase("Y")) {
-            rhnTools = true;
-        }
-        else {
-            rhnTools = false;
-        }
+        this.rhnTools = rhnToolsIn.equalsIgnoreCase("Y");
     }
 
 
@@ -202,12 +197,7 @@ public class ConfigSystemDto extends BaseDto {
      * @param capableIn The capable to set. Y if true, N if false.
      */
     public void setCapable(String capableIn) {
-        if (capableIn.equalsIgnoreCase("Y")) {
-            capable = true;
-        }
-        else {
-            capable = false;
-        }
+        this.capable = capableIn.equalsIgnoreCase("Y");
     }
 
     /**
@@ -352,11 +342,7 @@ public class ConfigSystemDto extends BaseDto {
      * @return Whether enabling was a success.
      */
     public boolean isSuccess() {
-        if (errorCode == null ||
-                errorCode.intValue() != ConfigurationManager.ENABLE_SUCCESS) {
-            return false;
-        }
-        return true;
+        return errorCode == null || errorCode.intValue() != ConfigurationManager.ENABLE_SUCCESS;
     }
 
     /**

@@ -701,11 +701,7 @@ public class ColumnTag extends TagSupport {
             return false;
         }
 
-        if (renderUrl != c.isRenderUrl()) {
-            return false;
-        }
-
-        return true;
+        return renderUrl == c.isRenderUrl();
     }
 
     /**

@@ -412,17 +412,11 @@ public class SelectableColumnTag extends TagSupport {
     }
 
     private boolean isDisabled() {
-        if (disabledExpr != null && disabledExpr.equalsIgnoreCase("true")) {
-            return true;
-        }
-        return false;
+        return disabledExpr != null && disabledExpr.equalsIgnoreCase("true");
     }
 
     private boolean isHideDisabled() {
-        if (hideDisabled != null && hideDisabled.equalsIgnoreCase("true")) {
-            return true;
-        }
-        return false;
+        return hideDisabled != null && hideDisabled.equalsIgnoreCase("true");
     }
 
     protected void writeStartingTd() throws JspException {

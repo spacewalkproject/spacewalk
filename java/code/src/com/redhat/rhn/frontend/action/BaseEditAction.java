@@ -89,10 +89,7 @@ public abstract class BaseEditAction extends RhnAction {
      */
     private boolean isRefresh(RequestContext rctx) {
         String refresh = rctx.getParam(REFRESH, false);
-        if (refresh != null && refresh.equals("true")) {
-            return true;
-        }
-        return false;
+        return refresh != null && refresh.equals("true");
     }
 
     protected abstract String getSuccessKey();

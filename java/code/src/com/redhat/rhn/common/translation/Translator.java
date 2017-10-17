@@ -179,12 +179,7 @@ public class Translator extends Translations {
         // need to check the possible true values
         // tried to use BooleanUtils, but that didn't
         // get the job done for an integer as a String.
-        if (str.equals("1") || str.equalsIgnoreCase("y") ||
-                str.equalsIgnoreCase("true")) {
-            return true;
-        }
-
-        return false;
+        return str.equals("1") || str.equalsIgnoreCase("y") || str.equalsIgnoreCase("true");
     }
 
     /**

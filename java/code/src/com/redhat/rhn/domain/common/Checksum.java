@@ -80,11 +80,7 @@ public class Checksum extends BaseDomainHelper {
 
         Checksum other = (Checksum) o;
 
-        if (id != null ? !id.equals(other.id) : other.id != null) {
-            return false;
-        }
-
-        return true;
+        return id != null ? id.equals(other.id) : other.id == null;
     }
 
     /** {@inheritDoc} */

@@ -692,11 +692,7 @@ public class Channel extends BaseDomainHelper implements Comparable<Channel> {
      * @return true if the access provided is valid
      */
     public boolean isValidAccess(String acc) {
-        if (acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) ||
-                acc.equals(Channel.PROTECTED)) {
-            return true;
-        }
-        return false;
+        return acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) || acc.equals(Channel.PROTECTED);
     }
 
     /**

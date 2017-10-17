@@ -186,12 +186,8 @@ public class SystemListHelper {
         Long threshold = new Long(Config.get().getInt(
                 ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
 
-        if (systemData.getLastCheckinDaysAgo() != null &&
-            systemData.getLastCheckinDaysAgo().compareTo(threshold) > 0) {
-            return true;
-        }
-
-        return false;
+        return systemData.getLastCheckinDaysAgo() != null &&
+                systemData.getLastCheckinDaysAgo().compareTo(threshold) > 0;
     }
 
 }

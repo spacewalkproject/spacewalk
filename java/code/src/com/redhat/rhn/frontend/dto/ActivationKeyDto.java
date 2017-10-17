@@ -64,12 +64,7 @@ public class ActivationKeyDto extends BaseDto {
      * @param value 1 if the key is disabled
      */
     public void setKeyDisabled(Integer value) {
-        if (value == null || (!value.equals(new Integer(1)))) {
-            this.keyDisabled = false;
-        }
-        else {
-            this.keyDisabled = true;
-        }
+        this.keyDisabled = value != null && (value.equals(new Integer(1)));
     }
 
     /**

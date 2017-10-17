@@ -79,11 +79,7 @@ public class CredentialsType extends BaseDomainHelper {
 
         CredentialsType credsType = (CredentialsType) o;
 
-        if (id != null ? !id.equals(credsType.id) : credsType.id != null) {
-            return false;
-        }
-
-        return true;
+        return id != null ? id.equals(credsType.id) : credsType.id == null;
     }
 
     /** {@inheritDoc} */

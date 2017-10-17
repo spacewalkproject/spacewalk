@@ -54,10 +54,7 @@ public class AsyncErrataCloneCounter {
      */
     public boolean channelHasPendingJobs(Long cid) {
         Integer n = count.get(cid);
-        if (n == null || n == 0) {
-            return false;
-        }
-        return true;
+        return n != null && n != 0;
     }
 
     /**

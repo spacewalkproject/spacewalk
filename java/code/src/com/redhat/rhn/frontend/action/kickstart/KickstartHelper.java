@@ -366,18 +366,11 @@ public class KickstartHelper {
         }
         //I tried to make this readable while still maintaining all the boolean
         //shortcutting. Here is the one liner boolean:
-        if (hasUpdates(ksdata) && hasFresh(ksdata) &&
-                (!checkAutoKickstart || hasKickstartPackage(ksdata, user))) {
-            return true;
-        }
-        return false;
+        return hasUpdates(ksdata) && hasFresh(ksdata) && (!checkAutoKickstart || hasKickstartPackage(ksdata, user));
     }
 
     private boolean hasUpdates(KickstartData ksdata) {
-        if (ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2()) {
-            return hasPackages(ksdata.getChannel(), KickstartFormatter.UPDATE_PKG_NAMES);
-        }
-        return true;
+        return ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2();
     }
 
     private boolean hasFresh(KickstartData ksdata) {

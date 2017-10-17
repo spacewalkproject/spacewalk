@@ -168,11 +168,8 @@ public class SetTag extends ColumnTag {
      */
     private boolean checkboxChecked() {
         RhnSet set = getSet();
-        if (set != null && set.contains(element, elementTwo)) {
-            return true;
-        }
+        return set != null && set.contains(element, elementTwo);
 
-        return false;
     }
 
     /**
