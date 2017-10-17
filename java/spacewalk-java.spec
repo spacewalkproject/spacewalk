@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.28
+Version: 2.8.29
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,29 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Oct 17 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.29-1
+- remove no longer needed imports
+- use inline variables when possible
+- return as last statement in void function is pointless
+- continue doesn't make sense as last command in loop
+- don't use ternary operator where it's not necessary
+- .equals already returns boolean value
+- simplify if (true) { return true; } else { return false; } expressions
+- use .equals instead of ==
+- get rid of empty if blocks
+- fix javadoc comment with correct method signature
+- call methods from ConfigDefaults to ensure default value is used instead of 0
+- ConfigDefaults - simplify return statement
+- ConfigDefaults - make publically not used attributes private
+- Config - use foreach loop where it makes sense
+- Config - make publically not used attributes private
+- ClientCertificate - use foreach loop
+- ClientCertificate - make not publically used methods/attributes private
+- super() class exception is already thrown
+- simplify if (true) { return true; } else { return false; } expressions
+- return is not needed in void functions
+- expression can be written without ternary operator
+
 * Mon Oct 16 2017 Jan Dobes 2.8.28-1
 - do not forcibly include @ Base pkg group into package list
 - remove unused variable
