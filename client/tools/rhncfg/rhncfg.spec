@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.115
+Version: 5.10.116
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -249,6 +249,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 18 2017 Jan Dobes 5.10.116-1
+- rhncfg - unused string import
+
 * Thu Oct 12 2017 Eric Herget <eherget@redhat.com> 5.10.115-1
 - 1474872 - rhncfg-manager download-channel failed during download utf8
 
