@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.7
+Version: 2.8.8
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -620,6 +620,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Oct 18 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.8-1
+- expanded tabs to spaces
+- 1502695 - remove dependency on libgnome
+
 * Tue Oct 17 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.7-1
 - 1502695 - removed dependency on libgnome
 - fixed typo introduced in 8ed741dfaf76b37dc88724692f90240aed7a85a5
