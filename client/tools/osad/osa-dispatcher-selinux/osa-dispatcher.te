@@ -12,6 +12,8 @@ require {
 type osa_dispatcher_t;
 type osa_dispatcher_exec_t;
 init_daemon_domain(osa_dispatcher_t,osa_dispatcher_exec_t)
+allow init_t osa_dispatcher_exec_t:lnk_file read;
+allow osa_dispatcher_t osa_dispatcher_exec_t:lnk_file { getattr read };
 
 type osa_dispatcher_log_t;
 logging_log_file(osa_dispatcher_log_t)
