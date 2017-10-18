@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed Oct 18 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- 1410737 - remove duplicate record in rhnPackageEVR table
+- 1410737 - compound indexes containg NULL behave differently on PostgreSQL
+
 * Wed Oct 11 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
 - create spacewalk-schema-sanity package providing sanity check script for
   external usage
