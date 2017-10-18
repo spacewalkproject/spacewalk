@@ -10,10 +10,6 @@
 import os
 import sys
 
-import gtk
-import gtk.glade
-
-gtk.glade.bindtextdomain("rhn-client-tools", "/usr/share/locale")
 
 import signal
 
@@ -35,6 +31,7 @@ from up2date_client import rhnreg
 from up2date_client import messageWindow
 
 from up2date_client import rhnregGui
+from up2date_client.gtk_compat import gtk
 
 
 

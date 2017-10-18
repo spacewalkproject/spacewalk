@@ -44,12 +44,6 @@ wrapper just to present the firstboot style api's. (Each "page" in firstboot is
 a module with a class that inherits FirstBootGuiWindow.)
 """
 
-import gtk
-# Need to import gtk.glade to make this file work alone even though we always
-# access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff
-# going on?
-import gtk.glade
-import gobject
 import sys
 import os
 import gettext
@@ -58,7 +52,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
-gtk.glade.bindtextdomain("rhn-client-tools")
 
 from up2date_client import rhnreg
 from up2date_client.rhnreg import ActivationResult
@@ -76,6 +69,7 @@ from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
 from up2date_client import rhnreg_constants
 from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+from up2date_client.gtk_compat import gtk, gobject
 
 try: # python2
     import urlparse

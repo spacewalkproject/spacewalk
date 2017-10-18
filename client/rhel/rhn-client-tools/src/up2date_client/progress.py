@@ -4,8 +4,7 @@
 #
 # Author: Preston Brown <pbrown@redhat.com>
 
-import gtk
-gtk.glade.bindtextdomain("rhn-client-tools")
+from up2date_client.gtk_compat import gtk
 
 class Progress:
     def __init__(self):
