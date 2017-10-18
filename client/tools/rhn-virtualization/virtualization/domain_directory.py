@@ -16,7 +16,6 @@
 import binascii
 import os
 import sys
-import string
 
 try:
     import libvirt
@@ -210,7 +209,7 @@ class DomainDirectory:
     def __write_xml_file(self, uuid, xml):
         cfg_pathname = self.get_config_path(uuid)
         cfg_file = open(cfg_pathname, "w")
-        cfg_file.write(string.strip(xml))
+        cfg_file.write(xml.strip())
         cfg_file.close()
 
         return cfg_pathname

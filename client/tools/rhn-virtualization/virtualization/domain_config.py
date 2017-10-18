@@ -14,7 +14,6 @@
 #
 
 from xml.dom.minidom import parse
-import string
 import os
 import sys
 
@@ -67,7 +66,7 @@ class DomainConfig:
 
     def __init__(self, config_path, uuid):
         # Prepare the file name and parse the XML file.
-        if string.find(uuid, ".xml") > 1 and os.path.exists(uuid):
+        if uuid.find(".xml") > 1 and os.path.exists(uuid):
             self.__file_name = uuid
         else:
             self.__file_name = "%s/%s.xml" % (config_path, uuid)
