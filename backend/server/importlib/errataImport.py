@@ -18,6 +18,7 @@
 
 from spacewalk.common.rhnException import rhnFault
 from importLib import GenericPackageImport
+from spacewalk.satellite_tools.syncLib import log
 
 
 class ErrataImport(GenericPackageImport):
@@ -37,15 +38,21 @@ class ErrataImport(GenericPackageImport):
 
         # We use this to avoid having the same erratum pushed multiple times
         advisories = {}
+        errata_hash = {}
 
         for errata in self.batch:
             advisory = errata['advisory_name']
             release = errata['advisory_rel']
+            errata_hash[advisory + release] = errata
             if advisory in advisories:
                 if release < advisories[advisory]:
                     # Seen a newer one already
                     errata.ignored = 1
                     continue
+                else:
+                    # if this release is higher
+                    # we have to ignore the older one!
+                    errata_hash[advisory + advisories[advisory]].ignored = 1
             advisories[advisory] = release
             self._preprocessErratum(errata)
             self._preprocessErratumCVE(errata)
@@ -132,8 +139,17 @@ class ErrataImport(GenericPackageImport):
 
         self.backend.lookupPackages(list(self.packages.values()), self.checksums, self.ignoreMissing)
         for erratum in self.batch:
+            if erratum.ignored:
+                # Skip it
+                continue
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
+
+        # remove erratas that have been ignored
+        ignored_erratas = list(filter(lambda x: x.ignored, self.batch))
+        if len(ignored_erratas) > 0:
+            log(0, "Ignoring %d old, superseded erratas" % len(ignored_erratas))
+            self.batch = list(filter(lambda x: not x.ignored, self.batch))
 
     def _fixCVE(self):
         # Look up and insert the missing CVE's
