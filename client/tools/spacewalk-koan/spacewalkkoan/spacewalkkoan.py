@@ -17,7 +17,6 @@
 
 import traceback
 import stat
-import string
 import shutil
 import sys
 import os
@@ -39,10 +38,10 @@ def execute(cmd):
     data = open(tmp).readlines()
     ret = []
     for l in data:
-        ret.append(string.strip(l))
+        ret.append(l.strip())
     if status == 0:
         return ret
-    raise Exception('Error executing command:\n %s\noutput:\n%s' % (cmd, string.join(ret, '\n')))
+    raise Exception('Error executing command:\n %s\noutput:\n%s' % (cmd, '\n'.join(ret)))
 
 def find_host_name():
     return execute("hostname")[0]
@@ -186,8 +185,8 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         except:
             print(xa)
             print(xb)
-            print(string.join(traceback.format_list(traceback.extract_tb(tb))))
-            error_messages['koan'] = string.join(traceback.format_list(traceback.extract_tb(tb)))
+            print(" ".join(traceback.format_list(traceback.extract_tb(tb))))
+            error_messages['koan'] = " ".join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Kickstart failed. Koan error.", error_messages)
 
     # Now process preserve_files if there are any
@@ -279,8 +278,8 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         else:
             print(xa)
             print(xb)
-            print(string.join(traceback.format_list(traceback.extract_tb(tb))))
-            error_messages['koan'] = str(xb) + ' ' + string.join(traceback.format_list(traceback.extract_tb(tb)))
+            print(" ".join(traceback.format_list(traceback.extract_tb(tb))))
+            error_messages['koan'] = str(xb) + ' ' + " ".join(traceback.format_list(traceback.extract_tb(tb)))
         return (1, "Virtual kickstart failed. Koan error.", error_messages)
 
     return (0, "Virtual kickstart initiate succeeded", error_messages)
