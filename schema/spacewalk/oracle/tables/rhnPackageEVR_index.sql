@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2017 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,21 +13,6 @@
 -- in this software or its documentation.
 --
 
-
-CREATE TABLE rhnPackageEVR
-(
-    id       NUMBER NOT NULL
-                 CONSTRAINT rhn_pe_id_pk PRIMARY KEY,
-    epoch    VARCHAR2(16),
-    version  VARCHAR2(512) NOT NULL,
-    release  VARCHAR2(512) NOT NULL,
-    evr      EVR_T NOT NULL
-)
-ENABLE ROW MOVEMENT
-;
-
--- unique index definitions has been moved to
--- {oracle,postgres}/tables/rhnPackageEVR_index.sql
-
-CREATE SEQUENCE rhn_pkg_evr_seq;
-
+CREATE UNIQUE INDEX rhn_pe_v_r_e_uq
+    ON rhnPackageEVR (version, release, epoch)
+    TABLESPACE [[2m_tbs]];
