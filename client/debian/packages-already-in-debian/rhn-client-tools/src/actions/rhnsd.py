@@ -5,7 +5,6 @@
 # Author: Adrian Likins <alikins@redhat.com>
 #
 
-import string
 import os
 
 # mark this module as acceptable
@@ -21,9 +20,9 @@ def __configRhnsd(interval, cache_only=None):
     index = None
     tmplines = []
     for line in lines:
-        tmp = string.strip(line)
+        tmp = line.strip()
         tmplines.append(tmp)
-        comps = string.split(tmp, "=", 1)
+        comps = tmp.split("=", 1)
         if comps[0] == "INTERVAL":
             index = count
         count = count + 1
@@ -33,7 +32,7 @@ def __configRhnsd(interval, cache_only=None):
 
     fd.close()
     fd = open(rhnsdconfig, "w")
-    contents = string.join(tmplines, "\n")
+    contents = "\n".join(tmplines)
     fd.write(contents)
     fd.close()
 

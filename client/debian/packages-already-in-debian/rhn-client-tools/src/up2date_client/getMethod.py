@@ -44,7 +44,7 @@ def getMethod(methodName, abspath, baseClass):
     #route/label.
     #"""
     # First split the method name
-    methodNameComps = string.split(baseClass, '.') + string.split(methodName, '.')
+    methodNameComps = baseClass.split('.') + methodName.split('.')
     # Sanity checks
     sanity(methodNameComps)
     # Build the path to the file
@@ -72,7 +72,7 @@ def getMethod(methodName, abspath, baseClass):
     # The position of the file
     fIndex = index + 1
     # Now build the module name
-    modulename = string.join(methodNameComps[:fIndex], '.')
+    modulename = '.'.join(methodNameComps[:fIndex])
     # And try to import it
     try:
         actions = __import__(modulename)
@@ -89,7 +89,7 @@ def getMethod(methodName, abspath, baseClass):
             if not hasattr(className, comp):
                 # Hmmm... Not there
                 raise GetMethodException("Class %s has no attribute %s" % (
-                    string.join(methodNameComps[:index], '.'), comp))
+                    '.'.join(methodNameComps[:index]), comp))
             className = getattr(className, comp)
             #print type(className)
             continue
@@ -97,11 +97,11 @@ def getMethod(methodName, abspath, baseClass):
         # We look for the special __rhnexport__ array
         if not hasattr(className, '__rhnexport__'):
             raise GetMethodException("Class %s is not RHN-compliant" % \
-                string.join(methodNameComps[:index], '.'))
+                '.'.join(methodNameComps[:index]))
         export = getattr(className, '__rhnexport__')
         if comp not in export:
             raise GetMethodException("Class %s does not export '%s'" % (
-                string.join(methodNameComps[:index], '.'), comp))
+                '.'.join(methodNameComps[:index]), comp))
         className = getattr(className, comp)
         if type(className) is ClassType:
             # Try to instantiate it
@@ -131,7 +131,7 @@ if __name__ == '__main__':
             method = getMethod(m, '.', 'Actions')
         except GetMethodException, e:
             print "Error getting the method %s: %s" % (m,
-                string.join(map(str, e.args)))
+                ' '.join(map(str, e.args)))
         else:
             method()
 #-----------------------------------------------------------------------------

@@ -7,7 +7,6 @@
 """utility functions for up2date"""
 
 import os
-import string
 import up2dateErrors
 import config
 import gettext
@@ -73,7 +72,7 @@ def getRelease():
 def getArch():
     if os.access("/etc/rpm/platform", os.R_OK):
         fd = open("/etc/rpm/platform", "r")
-        platform = string.strip(fd.read())
+        platform = fd.read().strip()
 
         #bz 216225
         #handle some replacements..
