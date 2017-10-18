@@ -630,6 +630,26 @@ def do_softwarechannel_listerrata(self, args):
 
 ####################
 
+def help_softwarechannel_listarches(self):
+    print("softwarechannel_listarches: lists the potential software")
+    print("                            channel architectures that can be created")
+    print("usage: softwarechannel_listarches")
+    print("options:")
+    print("    -v verbose (display label and name)")
+
+def do_softwarechannel_listarches(self, args):
+    options = [Option('-v', '--verbose', action='store_true')]
+    (args, options) = parse_arguments(args, options)
+
+    arches = self.client.channel.software.listArches(self.session)
+
+    for arch in sorted(arches):
+        if (options.verbose):
+                print("%s (%s)" % (arch["label"], arch["name"]))
+        else:
+                print("%s" % arch["label"])
+
+####################
 
 def help_softwarechannel_delete(self):
     print 'softwarechannel_delete: Delete a software channel'
