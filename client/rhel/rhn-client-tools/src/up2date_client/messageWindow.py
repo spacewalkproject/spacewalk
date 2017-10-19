@@ -123,13 +123,13 @@ class BulletedOkDialog:
         self.vbox = gtk.VBox(spacing=15)
         self.vbox.set_border_width(15)
         # Put our vbox into the top part of the dialog
-        self.dialog.get_children()[0].pack_start(self.vbox, expand=False)
+        self.dialog.get_children()[0].pack_start(self.vbox, expand=False, fill=True, padding=0)
 
     def add_text(self, text):
         label = gtk.Label(text)
         label.set_alignment(0, 0)
         label.set_line_wrap(True)
-        self.vbox.pack_start(label, expand=False)
+        self.vbox.pack_start(label, expand=False, fill=True, padding=0)
 
     def add_bullet(self, text):
         label = gtk.Label(text)
@@ -138,9 +138,9 @@ class BulletedOkDialog:
         hbox = gtk.HBox(spacing=5)
         bullet = gtk.Label(u'\u2022')
         bullet.set_alignment(0, 0)
-        hbox.pack_start(bullet, expand=False)
-        hbox.pack_start(label, expand=False)
-        self.vbox.pack_start(hbox, expand=False)
+        hbox.pack_start(bullet, expand=False, fill=True, padding=0)
+        hbox.pack_start(label, expand=False, fill=True, padding=0)
+        self.vbox.pack_start(hbox, expand=False, fill=True, padding=0)
 
     def run(self):
         # addFrame(self.dialog) # Need to do this differently if we want it

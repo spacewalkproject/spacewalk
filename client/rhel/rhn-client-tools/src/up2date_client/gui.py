@@ -63,30 +63,30 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         # Pack all the pages into the empty druid screens
         contents = self.startPageVbox()
         container = self.xml.get_widget("startPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         contents = self.chooseServerPageVbox()
         container = self.xml.get_widget("chooseServerPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         contents = self.loginPageVbox()
         container = self.xml.get_widget("loginPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         contents = self.chooseChannelPageVbox()
         container = self.xml.get_widget("chooseChannelPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         self.chooseChannelPageVbox = container
         contents = self.createProfilePageVbox()
         container = self.xml.get_widget("createProfilePageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         contents = self.reviewSubscriptionPageVbox()
         container = self.xml.get_widget("reviewSubscriptionPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         contents = self.provideCertificatePageVbox()
         container = self.xml.get_widget("provideCertificatePageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
         self.provideCertificatePageVbox = container
         contents = self.finishPageVbox()
         container = self.xml.get_widget("finishPageVbox")
-        container.pack_start(contents, True)
+        container.pack_start(contents, True, True, 0)
 
         self.initProfile = False
         self.oemInfo = {}

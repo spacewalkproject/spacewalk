@@ -994,7 +994,8 @@ class FinishPage:
         self.successfulFinishVbox = \
                 self.successfulFinishXml.get_widget("successfulFinishWindowVbox")
         # Put one in now (either one) to make the prepare code simpler
-        self.finishContainerVbox.pack_start(self.failedFinishVbox)
+        self.finishContainerVbox.pack_start(self.failedFinishVbox,
+                                            expand=True, fill=True, padding=0)
 
     def finishPageVbox(self):
         return self.finishContainerVbox
@@ -1004,9 +1005,9 @@ class FinishPage:
         assert len(containerChildren) == 1
         self.finishContainerVbox.remove(containerChildren[0])
         if hasBaseChannelAndUpdates():
-            self.finishContainerVbox.pack_start(self.successfulFinishVbox)
+            self.finishContainerVbox.pack_start(self.successfulFinishVbox, True, True, 0)
         else:
-            self.finishContainerVbox.pack_start(self.failedFinishVbox)
+            self.finishContainerVbox.pack_start(self.failedFinishVbox, True, True, 0)
 
 
 class AlreadyRegisteredDialog:
