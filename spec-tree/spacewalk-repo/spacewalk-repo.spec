@@ -9,9 +9,9 @@ Group: System Environment/Base
 # git clone https://github.com/spacewalkproject/spacewalk.git
 # cd spec-tree/spacewalk-repo
 # make test-srpm
+Source0:   %{name}-%{version}.tar.gz
 URL:          https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
-
 %description
 This package contains the Spacewalk repository configuration for yum.
 
@@ -23,7 +23,7 @@ Group: System Environment/Base
 This package contains the Spacewalk repository configuration for yum.
 
 %prep
-mkdir -p $RPM_BUILD_ROOT
+%setup -q
 
 %build
 
@@ -102,6 +102,12 @@ REPO
 
 %endif
 
+# install gpg keys
+install -d 755 $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
+grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
+    | while read i ; do 
+        install -m 755 $(basename "$i") $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/
+    done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
