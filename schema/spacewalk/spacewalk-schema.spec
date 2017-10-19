@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.3
+Version:        2.8.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Thu Oct 19 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
+- move deletion to the inner loop to delete all duplicates
+
 * Wed Oct 18 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - 1410737 - remove duplicate record in rhnPackageEVR table
 - 1410737 - compound indexes containg NULL behave differently on PostgreSQL
