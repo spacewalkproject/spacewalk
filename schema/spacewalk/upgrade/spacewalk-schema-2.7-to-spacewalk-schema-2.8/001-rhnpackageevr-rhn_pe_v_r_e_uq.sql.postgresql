@@ -42,8 +42,8 @@ begin
       update rhntransactionpackage set evr_id = original.id where evr_id = duplicate.id;
       update rhnversioninfo set evr_id = original.id where evr_id = duplicate.id;
       update rhnserverpackage set evr_id = original.id where evr_id = duplicate.id;
+      delete from rhnpackageevr where id = duplicate.id;
     end loop;
-  delete from rhnpackageevr where id = duplicate.id;
   end loop;
 end;
 $$ language plpgsql;
