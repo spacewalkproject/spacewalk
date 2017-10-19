@@ -5,6 +5,13 @@
 %endif
 %global rhnroot %{_datadir}/rhn
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
@@ -15,14 +22,10 @@ URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 Requires: openssl rpm-build
-Requires: rhn-client-tools
 Requires: tar
-Requires: spacewalk-backend-libs >= 0.8.28
 Requires: /usr/bin/sudo
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-hashlib
-%endif
 BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
@@ -34,6 +37,30 @@ Provides:  rhns-certs-tools = 5.3.0
 %description
 This package contains tools to generate the SSL certificates required by 
 Spacewalk.
+
+%package -n python2-%{name}
+Summary: Spacewalk SSL Key/Cert Tool
+Requires: %{name} = %{version}-%{release}
+Requires: python2-rhn-client-tools
+Requires: spacewalk-backend-libs >= 0.8.28
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
+
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Spacewalk SSL Key/Cert Tool
+Requires: %{name} = %{version}-%{release}
+Requires: python3-rhn-client-tools
+Requires: python3-spacewalk-backend-libs
+BuildRequires: python3-rpm-macros
+
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
@@ -60,8 +87,6 @@ chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%dir %{rhnroot}/certs
-%{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
 %attr(755,root,root) %{rhnroot}/certs/update-ca-cert-trust.sh
@@ -76,6 +101,18 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{rhnroot}
 %dir /srv/www/htdocs/pub
 %dir %{pub_bootstrap_dir}
+%endif
+
+%files -n python2-%{name}
+%{python_sitelib}/certs
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python_version}
+%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python_version}
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/certs
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python3_version}
+%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python3_version}
 %endif
 
 %changelog
