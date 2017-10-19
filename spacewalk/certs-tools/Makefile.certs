@@ -19,7 +19,7 @@
 SUBDIR	=   certs
 FILES	=   __init__ rhn_ssl_tool sslToolCli sslToolConfig sslToolLib \
             timeLib rhn_bootstrap rhn_bootstrap_strings client_config_update
-INSTALL_FILES   = gen-rpm.sh sign.sh update-ca-cert-trust.sh
+INSTALL_ROOT_FILES   = gen-rpm.sh sign.sh update-ca-cert-trust.sh
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
@@ -37,19 +37,19 @@ EXTRA_DIRS = $(MANDIR)/man$(MANSECT) $(BINDIR) $(PUB_BOOTSTRAP_DIR)
 # now include some Macros
 include Makefile.defs
 
-BINFILES = rhn-sudo-ssl-tool rhn-ssl-tool rhn-bootstrap
+BINFILES = rhn-sudo-ssl-tool
+PYBINFILES = rhn-ssl-tool rhn-bootstrap
 
-install :: $(addsuffix .inst,$(BINFILES)) $(MANS) $(PREFIX)/$(MANDIR)
+install :: $(BINFILES) $(PYBINFILES) $(MANS) $(PREFIX)/$(MANDIR)
 	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man$(MANSECT)
+	$(foreach f,$(BINFILES), \
+		$(INSTALL_BIN) $(f) $(PREFIX)$(BINDIR)/$(f) ; )
+	$(foreach f,$(PYBINFILES), \
+		$(INSTALL_BIN) $(f) $(PREFIX)$(BINDIR)/$(f)-$(PYTHONVERSION) ; )
 
 install :: instClientScript
-
-%.inst : % %.new $(PREFIX)/$(BINDIR)
-	$(INSTALL_BIN) $*.new $(PREFIX)$(BINDIR)/$*
-	rm -f $*.new
-
-%.new : %
-	sed -e 's|@@ROOT@@|$(ROOT)|g' <$* >$@
+	@$(foreach f,$(INSTALL_ROOT_FILES), \
+		$(INSTALL_DATA) $(f) $(PREFIX)$(ROOT)/$(SUBDIR)/$(f) ; )
 
 # note: this file is in two places. One in the RPM and one in pub/bootstrap/
 instClientScript: $(PUB_BOOTSTRAP_DIR)/client_config_update.py

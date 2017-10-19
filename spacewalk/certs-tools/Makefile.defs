@@ -43,7 +43,7 @@ PYFILES		= $(addsuffix .py,$(FILES))
 
 # what do we need to install and where
 INSTALL_FILES	+= $(PYFILES)
-INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
+INSTALL_DEST	?= $(PYTHONPATH)/$(SUBDIR)
 
 DIRS		+= $(addprefix $(PREFIX), \
 			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))

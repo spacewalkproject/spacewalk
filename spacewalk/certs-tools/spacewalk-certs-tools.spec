@@ -80,8 +80,18 @@ sed -i 's|etc/httpd/conf|etc/apache2|g' ssl-howto.txt
 rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+    PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
-chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update.py,rhn_bootstrap.py}
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhn-ssl-tool rhn-bootstrap
+make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+    PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version} \
+    MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
+%endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s rhn-ssl-tool%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-ssl-tool
+ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 
 %clean
 rm -rf $RPM_BUILD_ROOT
