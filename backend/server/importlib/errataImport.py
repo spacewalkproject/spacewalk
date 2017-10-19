@@ -132,6 +132,9 @@ class ErrataImport(GenericPackageImport):
 
         self.backend.lookupPackages(list(self.packages.values()), self.checksums, self.ignoreMissing)
         for erratum in self.batch:
+            if erratum.ignored:
+                # Skip it
+                continue
             self._fix_erratum_packages(erratum)
             self._fix_erratum_file_channels(erratum)
 
