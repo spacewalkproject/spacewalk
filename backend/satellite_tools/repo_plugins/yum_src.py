@@ -337,7 +337,9 @@ class ContentSource(object):
 
         for filter_item in filters:
             sense, pkg_list = filter_item
-            if sense == '+' and not exclude_only:
+            if sense == '+':
+                if exclude_only:
+                    continue
                 # include
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
                     excluded, pkg_list)
@@ -356,7 +358,7 @@ class ContentSource(object):
                         selected.remove(pkg)
                 excluded = yum.misc.unique(excluded + allmatched)
             else:
-                raise UpdateNoticeException
+                raise UpdateNoticeException("Invalid filter sense: '%s'" % sense)
         return selected
 
     def _get_package_dependencies(self, sack, packages):
