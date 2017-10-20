@@ -2,7 +2,7 @@ Name: spacewalk-reports
 Summary: Script based reporting
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Oct 20 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- Revert "use SQL bind parameter"
+
 * Wed Oct 18 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
 - use SQL bind parameter
 
