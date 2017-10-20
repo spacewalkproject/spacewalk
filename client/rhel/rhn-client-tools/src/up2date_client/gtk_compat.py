@@ -34,3 +34,10 @@ if GTK3:
 
     gtk.glade = GladeBuilder()
     gtk.RESPONSE_NONE = gtk.ResponseType.NONE
+
+    def getWidgetName(widget):
+        return gtk.Buildable.get_name(widget)
+
+else:
+    def getWidgetName(widget):
+        return widget.name
