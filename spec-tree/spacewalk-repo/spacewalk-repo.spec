@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2
 Group: System Environment/Base
 # This src.rpm is cannonical upstream
@@ -132,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-nightly-client
 
 %changelog
+* Fri Oct 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-9
+- epel6-addons key is only on RHEL6
+
 * Thu Oct 19 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-8
 - added gpg keys
 - distribute gpg keys with repo definitions
