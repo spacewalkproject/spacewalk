@@ -645,9 +645,9 @@ def do_softwarechannel_listarches(self, args):
 
     for arch in sorted(arches):
         if (options.verbose):
-                print("%s (%s)" % (arch["label"], arch["name"]))
+            print("%s (%s)" % (arch["label"], arch["name"]))
         else:
-                print("%s" % arch["label"])
+            print("%s" % arch["label"])
 
 ####################
 
