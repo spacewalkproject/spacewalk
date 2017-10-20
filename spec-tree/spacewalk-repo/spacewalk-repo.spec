@@ -120,7 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?rhel}
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-java.repo
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-java-packages
+%if 0%{?rhel} == 6
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-epel6-addons
+%endif
 %endif
 
 %files -n spacewalk-client-repo
