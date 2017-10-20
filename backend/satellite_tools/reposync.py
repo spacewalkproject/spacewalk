@@ -183,7 +183,7 @@ def set_filter_opt(option, opt_str, value, parser):
         f_type = '+'
     else:
         f_type = '-'
-    parser.values.filters.append((f_type, re.split(r'[,\s]+', value)))
+    parser.values.filters.append((f_type, [v.strip() for v in value.split(',') if v.strip()]))
 
 
 def getChannelRepo():
@@ -822,7 +822,7 @@ class RepoSync(object):
                      order by sort_order """)
             h.execute(source_id=source_id)
             filter_data = h.fetchall_dict() or []
-            filters = [(row['flag'], re.split(r'[,\s]+', row['filter']))
+            filters = [(row['flag'], [v.strip() for v in row['filter'].split(',') if v.strip()])
                        for row in filter_data]
         else:
             filters = self.filters
