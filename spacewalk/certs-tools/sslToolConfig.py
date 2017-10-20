@@ -19,6 +19,7 @@
 ## FIXME: the logic here is *WAY* too complicated. Need to simplify -taw
 
 ## language imports
+from __future__ import print_function
 import os
 import sys
 import copy
@@ -500,11 +501,11 @@ def figureSerial(caCertFilename, serialFilename, indexFilename):
     # create the serial file if it doesn't exist
     # write the digits to this file
     open(serialFilename, 'w').write(serial+'\n')
-    os.chmod(serialFilename, 0600)
+    os.chmod(serialFilename, int('0600',8))
 
     # truncate the index.txt file. Less likely to have unneccessary clashes.
     open(indexFilename, 'w')
-    os.chmod(indexFilename, 0600)
+    os.chmod(indexFilename, int('0600',8))
     return serial
 
 
@@ -626,14 +627,14 @@ serial                  = $dir/serial
         try:
             rotated = rotateFile(filepath=self.filename, verbosity=verbosity)
             if verbosity>=0 and rotated:
-                print "Rotated: %s --> %s" % (os.path.basename(self.filename),
-                                              os.path.basename(rotated))
+                print("Rotated: %s --> %s" % (os.path.basename(self.filename),
+                                              os.path.basename(rotated)))
         except ValueError:
             pass
         fo = open(self.filename, 'w')
         fo.write(newfile)
         fo.close()
-        os.chmod(self.filename, 0600)
+        os.chmod(self.filename, int('0600',8))
 
         return dirSetYN
 
@@ -680,14 +681,14 @@ serial                  = $dir/serial
         try:
             rotated = rotateFile(filepath=self.filename, verbosity=verbosity)
             if verbosity>=0 and rotated:
-                print "Rotated: %s --> %s" % (os.path.basename(self.filename),
-                                              os.path.basename(rotated))
+                print("Rotated: %s --> %s" % (os.path.basename(self.filename),
+                                              os.path.basename(rotated)))
         except ValueError:
             pass
         fo = open(self.filename, 'w')
         fo.write(newfile)
         fo.close()
-        os.chmod(self.filename, 0600)
+        os.chmod(self.filename, int('0600',8))
 
     def save(self, d, caYN=0, verbosity=0):
         """ d == commandline dictionary """
@@ -721,14 +722,14 @@ serial                  = $dir/serial
         try:
             rotated = rotateFile(filepath=self.filename,verbosity=verbosity)
             if verbosity>=0 and rotated:
-                print "Rotated: %s --> %s" % (os.path.basename(self.filename),
-                                              os.path.basename(rotated))
+                print("Rotated: %s --> %s" % (os.path.basename(self.filename),
+                                              os.path.basename(rotated)))
         except ValueError:
             pass
         fo = open(self.filename, 'w')
         fo.write(openssl_cnf)
         fo.close()
-        os.chmod(self.filename, 0600)
+        os.chmod(self.filename, int('0600',8))
         return openssl_cnf
 
 

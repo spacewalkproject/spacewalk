@@ -91,7 +91,7 @@ def secsTil18Jan2038():
     """ (int) secs til 1 day before the great 32-bit overflow
         We are making it 1 day just to be safe.
     """
-    return int(2L**31 - 1) - now() - DAY
+    return 2147483647 - now() - DAY
 
 def daysTil18Jan2038():
     "(float) days til 1 day before the great 32-bit overflow"
@@ -106,9 +106,9 @@ def gendir(directory):
     "makedirs, but only if it doesn't exist first"
     if not os.path.exists(directory):
         try:
-            os.makedirs(directory, 0700)
-        except OSError, e:
-            print "Error: %s" % (e, )
+            os.makedirs(directory, int('0700',8))
+        except OSError as e:
+            print("Error: %s" % (e, ))
             sys.exit(1)
 
 def chdir(newdir):

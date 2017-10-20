@@ -21,6 +21,7 @@
 #
 
 ## language imports
+from __future__ import print_function
 import os
 import sys
 import glob
@@ -456,7 +457,7 @@ def writeClientConfigOverrides(options):
     _bootstrapDir = cleanupAbsPath(os.path.join(options.pub_tree, 'bootstrap'))
 
     if not os.path.exists(_bootstrapDir):
-        print "* creating '%s'" % _bootstrapDir
+        print("* creating '%s'" % _bootstrapDir)
         os.makedirs(_bootstrapDir) # permissions should be fine
 
     d = {}
@@ -512,15 +513,15 @@ def writeClientConfigOverrides(options):
             # only back it up if different
             backup = rotateFile(_overrides, depth=5, verbosity=options.verbose)
             if backup and options.verbose>=0:
-                print """\
+                print("""\
 * WARNING: if there were hand edits to the rotated (backed up) file,
-           some settings may need to be migrated."""
+           some settings may need to be migrated.""")
         else:
             # exactly the same... no need to write
             writeYN = 0
-            print """\
+            print("""\
 * client configuration overrides (old and new are identical; not written):
-  '%s'\n""" % _overrides
+  '%s'\n""" % _overrides)
 
     if writeYN:
         fout = open(_overrides, 'wb')
@@ -545,13 +546,13 @@ def writeClientConfigOverrides(options):
             if d[key] is not None:
                 fout.write("%s=%s\n" % (key, d[key]))
         fout.close()
-        print """\
+        print("""\
 * bootstrap overrides (written):
-  '%s'\n""" % _overrides
+  '%s'\n""" % _overrides)
         if options.verbose>=0:
-            print "Values written:"
+            print("Values written:")
             for k, v in d.items():
-                print k + ' '*(25-len(k)) + repr(v)
+                print(k + ' '*(25-len(k)) + repr(v))
 
 
 def generateBootstrapScript(options):
@@ -604,20 +605,20 @@ def generateBootstrapScript(options):
         elif os.path.exists(_script):
             backup = rotateFile(_script, depth=5, verbosity=options.verbose)
             if backup and options.verbose>=0:
-                print "* rotating %s --> %s" % (_script, backup)
+                print("* rotating %s --> %s" % (_script, backup))
         del oldScript
 
     if writeYN:
         fout = open(_script, 'wb')
         fout.write(newScript)
         fout.close()
-        print """\
+        print("""\
 * bootstrap script (written):
-    '%s'\n""" % _script
+    '%s'\n""" % _script)
     else:
-        print """\
+        print("""\
 * boostrap script (old and new scripts identical; not written):
-    '%s'\n""" % _script
+    '%s'\n""" % _script)
 
 
 def main():
@@ -659,7 +660,7 @@ if __name__ == "__main__":
         raise
     except KeyboardInterrupt:
         sys.exit(errnoSuccess)
-    except ValueError, e:
+    except ValueError as e:
         raise # should exit with a 1 (errnoGeneral)
     except Exception:
         sys.stderr.write('Unhandled ERROR occurred.\n')

@@ -61,6 +61,7 @@ mapped as well:
 """
 
 
+from __future__ import print_function
 import os
 import sys
 import string
@@ -153,7 +154,7 @@ def mapNewSettings(configFile, dnew):
         fout = open(configFile, 'wb')
         fo.seek(0)
         fout.write(fo.read())
-        print '*', configFile, 'written'
+        print('*', configFile, 'written')
 
 
 def parseCommandline():
@@ -164,7 +165,7 @@ def parseCommandline():
 
     # USAGE & HELP!
     if '--usage' in sys.argv or '-h' in sys.argv or '--help' in sys.argv:
-        print """\
+        print("""\
 usage: python %s CONFIG_FILENAME NEW_MAPPINGS [options]
 arguments:
   CONFIG_FILENAME       config file to alter
@@ -179,7 +180,7 @@ examples:
   python %s %s %s
 """ % (sys.argv[0],
        sys.argv[0], RHN_REGISTER, DEFAULT_CLIENT_CONFIG_OVERRIDES,
-       sys.argv[0], UP2DATE, DEFAULT_CLIENT_CONFIG_OVERRIDES)
+       sys.argv[0], UP2DATE, DEFAULT_CLIENT_CONFIG_OVERRIDES))
 
         sys.exit(0)
 

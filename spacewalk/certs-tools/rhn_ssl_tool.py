@@ -32,6 +32,7 @@
 
 
 ## language imports
+from __future__ import print_function
 import os
 import sys
 import glob
@@ -208,11 +209,11 @@ WARNING: %s
             rotateFile(filepath=fileto, verbosity=0)
         shutil.copy2(filename, fileto)
         os.unlink(filename)
-        print """\
+        print("""\
 Moved (legacy tree cleanup):
     %s
     ...moved to...
-    %s""" % (filename, fileto)
+    %s""" % (filename, fileto))
 
 
 _workDirObj = None
@@ -233,7 +234,7 @@ def getCAPassword(options, confirmYN=1):
             while not _pw:
                 _pw = getpass.getpass("CA password confirmation: ")
             if pw != _pw:
-                print "Passwords do not match.\n"
+                print("Passwords do not match.\n")
                 pw = None
         DEFS['--password'] = options.password = pw
     return options.password
@@ -257,14 +258,14 @@ ERROR: a CA private key already exists:
             % ('%s', CRYPTO, repr(cleanupAbsPath(ca_key))))
 
     if verbosity >= 0:
-        print "Generating private CA key: %s" % ca_key
+        print("Generating private CA key: %s" % ca_key)
         if verbosity > 1:
-            print "Commandline:", args % "PASSWORD"
+            print("Commandline:", args % "PASSWORD")
     try:
         rotated = rotateFile(filepath=ca_key, verbosity=verbosity)
         if verbosity>=0 and rotated:
-            print "Rotated: %s --> %s" \
-                  % (d['--ca-key'], os.path.basename(rotated))
+            print("Rotated: %s --> %s" \
+                  % (d['--ca-key'], os.path.basename(rotated)))
     except ValueError:
         pass
 
@@ -282,12 +283,12 @@ ERROR: a CA private key already exists:
                                        % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     # permissions:
-    os.chmod(ca_key, 0600)
+    os.chmod(ca_key, int('0600',8))
 
 
 def genPublicCaCert_dependencies(password, d, forceYN=0):
@@ -335,19 +336,19 @@ def genPublicCaCert(password, d, verbosity=0, forceYN=0):
                repr(cleanupAbsPath(ca_cert))))
 
     if verbosity >= 0:
-        print "\nGenerating public CA certificate: %s" % ca_cert
-        print "Using distinguishing variables:"
+        print("\nGenerating public CA certificate: %s" % ca_cert)
+        print("Using distinguishing variables:")
         for k in ('--set-country', '--set-state', '--set-city', '--set-org',
                   '--set-org-unit', '--set-common-name', '--set-email'):
-            print '    %s%s = "%s"' % (k, ' '*(18-len(k)), d[k])
+            print('    %s%s = "%s"' % (k, ' '*(18-len(k)), d[k]))
         if verbosity > 1:
-            print "Commandline:", args % "PASSWORD"
+            print("Commandline:", args % "PASSWORD")
 
     try:
         rotated = rotateFile(filepath=ca_cert, verbosity=verbosity)
         if verbosity>=0 and rotated:
-            print "Rotated: %s --> %s" \
-                  % (d['--ca-cert'], os.path.basename(rotated))
+            print("Rotated: %s --> %s" \
+                  % (d['--ca-cert'], os.path.basename(rotated)))
     except ValueError:
         pass
 
@@ -365,9 +366,9 @@ def genPublicCaCert(password, d, verbosity=0, forceYN=0):
                                    "%s" % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     latest_txt = os.path.join(d['--dir'], 'latest.txt')
     fo = open(latest_txt, 'wb')
@@ -375,8 +376,8 @@ def genPublicCaCert(password, d, verbosity=0, forceYN=0):
     fo.close()
 
     # permissions:
-    os.chmod(ca_cert, 0644)
-    os.chmod(latest_txt, 0644)
+    os.chmod(ca_cert, int('0644',8))
+    os.chmod(latest_txt, int('0644',8))
 
 def genServerKey(d, verbosity=0):
     """ private server key generation """
@@ -393,15 +394,15 @@ def genServerKey(d, verbosity=0):
 
     # generate the server key
     if verbosity >= 0:
-        print "\nGenerating the web server's SSL private key: %s" % server_key
+        print("\nGenerating the web server's SSL private key: %s" % server_key)
         if verbosity > 1:
-            print "Commandline:", args
+            print("Commandline:", args)
 
     try:
         rotated = rotateFile(filepath=server_key, verbosity=verbosity)
         if verbosity>=0 and rotated:
-            print "Rotated: %s --> %s" % (d['--server-key'],
-                                          os.path.basename(rotated))
+            print("Rotated: %s --> %s" % (d['--server-key'],
+                                          os.path.basename(rotated)))
     except ValueError:
         pass
 
@@ -418,12 +419,12 @@ def genServerKey(d, verbosity=0):
                                 % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     # permissions:
-    os.chmod(server_key, 0600)
+    os.chmod(server_key, int('0600',8))
 
 
 def genServerCertReq_dependencies(d):
@@ -466,19 +467,19 @@ def genServerCertReq(d, verbosity=0):
                repr(cleanupAbsPath(server_cert_req))))
 
     if verbosity >= 0:
-        print "\nGenerating web server's SSL certificate request: %s" % server_cert_req
-        print "Using distinguished names:"
+        print("\nGenerating web server's SSL certificate request: %s" % server_cert_req)
+        print("Using distinguished names:")
         for k in ('--set-country', '--set-state', '--set-city', '--set-org',
                   '--set-org-unit', '--set-hostname', '--set-email'):
-            print '    %s%s = "%s"' % (k, ' '*(18-len(k)), d[k])
+            print('    %s%s = "%s"' % (k, ' '*(18-len(k)), d[k]))
         if verbosity > 1:
-            print "Commandline:", args
+            print("Commandline:", args)
 
     try:
         rotated = rotateFile(filepath=server_cert_req, verbosity=verbosity)
         if verbosity>=0 and rotated:
-            print "Rotated: %s --> %s" % (d['--server-cert-req'],
-                                          os.path.basename(rotated))
+            print("Rotated: %s --> %s" % (d['--server-cert-req'],
+                                          os.path.basename(rotated)))
     except ValueError:
         pass
 
@@ -496,12 +497,12 @@ def genServerCertReq(d, verbosity=0):
                 "failed:\n%s\n%s" % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     # permissions:
-    os.chmod(server_cert_req, 0600)
+    os.chmod(server_cert_req, int('0600',8))
 
 
 def genServerCert_dependencies(password, d):
@@ -572,14 +573,14 @@ def genServerCert(password, d, verbosity=0):
                repr(cleanupAbsPath(server_cert))))
 
     if verbosity >= 0:
-        print "\nGenerating/signing web server's SSL certificate: %s" % d['--server-cert']
+        print("\nGenerating/signing web server's SSL certificate: %s" % d['--server-cert'])
         if verbosity > 1:
-            print "Commandline:", args % 'PASSWORD'
+            print("Commandline:", args % 'PASSWORD')
     try:
         rotated = rotateFile(filepath=server_cert, verbosity=verbosity)
         if verbosity>=0 and rotated:
-            print "Rotated: %s --> %s" % (d['--server-cert'],
-                                          os.path.basename(rotated))
+            print("Rotated: %s --> %s" % (d['--server-cert'],
+                                          os.path.basename(rotated)))
     except ValueError:
         pass
 
@@ -607,12 +608,12 @@ def genServerCert(password, d, verbosity=0):
 
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     # permissions:
-    os.chmod(server_cert, 0644)
+    os.chmod(server_cert, int('0644',8))
 
     # cleanup duplicate XX.pem file:
     pemFilename = os.path.basename(string.upper(ser)+'.pem')
@@ -733,12 +734,12 @@ def genCaRpm(d, verbosity=0):
                repr(ca_cert_name), repr(cleanupAbsPath(ca_cert))))
     clientRpmName = '%s-%s-%s' % (ca_cert_rpm, ver, rel)
     if verbosity >= 0:
-        print """
+        print("""
 Generating CA public certificate RPM:
     %s.src.rpm
-    %s.noarch.rpm""" % (clientRpmName, clientRpmName)
+    %s.noarch.rpm""" % (clientRpmName, clientRpmName))
         if verbosity > 1:
-            print "Commandline:", args
+            print("Commandline:", args)
 
     _disableRpmMacros()
     cwd = chdir(d['--dir'])
@@ -759,10 +760,10 @@ Generating CA public certificate RPM:
                                 "failed:\n%s\n%s" % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
-    os.chmod('%s.noarch.rpm' % clientRpmName, 0644)
+            print("STDERR:", err)
+    os.chmod('%s.noarch.rpm' % clientRpmName, int('0644',8))
 
     # write-out latest.txt information
     latest_txt = os.path.join(d['--dir'], 'latest.txt')
@@ -771,15 +772,15 @@ Generating CA public certificate RPM:
     fo.write('%s.noarch.rpm\n' % os.path.basename(clientRpmName))
     fo.write('%s.src.rpm\n' % os.path.basename(clientRpmName))
     fo.close()
-    os.chmod(latest_txt, 0644)
+    os.chmod(latest_txt, int('0644',8))
 
     if verbosity >= 0:
-        print """
+        print("""
 Make the public CA certficate publically available:
     (NOTE: the Red Hat Satellite or Proxy installers may do this step for you.)
     The "noarch" RPM and raw CA certificate can be made publically accessible
     by copying it to the /var/www/html/pub directory of your Red Hat Satellite or
-    Proxy server."""
+    Proxy server.""")
 
 
     return '%s.noarch.rpm' % clientRpmName
@@ -870,19 +871,19 @@ def genProxyServerTarball(d, version='1.0', release='1', verbosity=0):
     tarballFilepath2 = pathJoin(serverKeySetDir, tarballFilepath)
 
     if verbosity >= 0:
-        print """
+        print("""
 The most current Spacewalk Proxy Server installation process against RHN hosted
 requires the upload of an SSL tar archive that contains the CA SSL public
 certificate and the web server's key set.
 
 Generating the web server's SSL key set and CA SSL public certificate archive:
-    %s""" % tarballFilepath2
+    %s""" % tarballFilepath2)
 
     cwd = chdir(d['--dir'])
     try:
         if verbosity > 1:
-            print "Current working directory:", os.getcwd()
-            print "Commandline:", args
+            print("Current working directory:", os.getcwd())
+            print("Commandline:", args)
         ret, out_stream, err_stream = rhn_popen(args)
     finally:
         chdir(cwd)
@@ -896,22 +897,22 @@ Generating the web server's SSL key set and CA SSL public certificate archive:
           "generation failed:\n%s\n%s" % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
     # root baby!
-    os.chmod(tarballFilepath, 0600)
+    os.chmod(tarballFilepath, int('0600',8))
 
     # copy tarball into machine build dir
     shutil.copy2(tarballFilepath, tarballFilepath2)
     os.unlink(tarballFilepath)
     if verbosity > 1:
-        print """\
+        print("""\
 Moved to final home:
     %s
     ...moved to...
-    %s""" % (tarballFilepath, tarballFilepath2)
+    %s""" % (tarballFilepath, tarballFilepath2))
 
     return tarballFilepath2
 
@@ -1027,7 +1028,7 @@ server with this hostname: %s
             # user doesn't exist, try the next
             pass
     if jabberd_user is None:
-        print ("WARNING: No jabber/jabberd user on system, skipping " +
+        print("WARNING: No jabber/jabberd user on system, skipping " +
                 "jabberd.pem generation.")
 
     jabberd_cert_string = ""
@@ -1057,16 +1058,16 @@ server with this hostname: %s
     serverRpmName = "%s-%s-%s" % (server_rpm, ver, rel)
 
     if verbosity >= 0:
-        print """
+        print("""
 Generating web server's SSL key pair/set RPM:
     %s.src.rpm
-    %s.noarch.rpm""" % (serverRpmName, serverRpmName)
+    %s.noarch.rpm""" % (serverRpmName, serverRpmName))
         if verbosity > 1:
-            print "Commandline:", args
+            print("Commandline:", args)
 
     if verbosity >= 4:
-        print 'Current working directory:', os.getcwd()
-        print "Writing postun_scriptlet:", postun_scriptlet
+        print('Current working directory:', os.getcwd())
+        print("Writing postun_scriptlet:", postun_scriptlet)
     open(postun_scriptlet, 'w').write(POST_UNINSTALL_SCRIPT)
 
     _disableRpmMacros()
@@ -1086,11 +1087,11 @@ Generating web server's SSL key pair/set RPM:
                                     "failed:\n%s\n%s" % (out, err))
     if verbosity > 2:
         if out:
-            print "STDOUT:", out
+            print("STDOUT:", out)
         if err:
-            print "STDERR:", err
+            print("STDERR:", err)
 
-    os.chmod('%s.noarch.rpm' % serverRpmName, 0600)
+    os.chmod('%s.noarch.rpm' % serverRpmName, int('0600',8))
 
     # generic the tarball necessary for Spacewalk Proxy against hosted installations
     tarballFilepath = genProxyServerTarball(d, version=ver, release=rel,
@@ -1103,15 +1104,15 @@ Generating web server's SSL key pair/set RPM:
     fo.write('%s.src.rpm\n' % os.path.basename(serverRpmName))
     fo.write('%s\n' % os.path.basename(tarballFilepath))
     fo.close()
-    os.chmod(latest_txt, 0600)
+    os.chmod(latest_txt, int('0600',8))
 
     if verbosity >= 0:
-        print """
+        print("""
 Deploy the server's SSL key pair/set RPM:
     (NOTE: the Red Hat Satellite or Proxy installers may do this step for you.)
     The "noarch" RPM needs to be deployed to the machine working as a
     web server, or Red Hat Satellite, or Spacewalk Proxy.
-    Presumably %s.""" % repr(d['--set-hostname'])
+    Presumably %s.""" % repr(d['--set-hostname']))
 
     return "%s.noarch.rpm" % serverRpmName
 
@@ -1227,39 +1228,39 @@ def main():
     try:
         ret = _main() or 0
     # CA key set errors
-    except GenPrivateCaKeyException, e:
+    except GenPrivateCaKeyException as e:
         writeError(e)
         ret = 10
-    except GenPublicCaCertException, e:
+    except GenPublicCaCertException as e:
         writeError(e)
         ret = 11
-    except GenCaCertRpmException, e:
+    except GenCaCertRpmException as e:
         writeError(e)
         ret = 12
     # server key set errors
-    except GenServerKeyException, e:
+    except GenServerKeyException as e:
         writeError(e)
         ret = 20
-    except GenServerCertReqException, e:
+    except GenServerCertReqException as e:
         writeError(e)
         ret = 21
-    except GenServerCertException, e:
+    except GenServerCertException as e:
         writeError(e)
         ret = 22
-    except GenServerRpmException, e:
+    except GenServerRpmException as e:
         writeError(e)
         ret = 23
     # other errors
-    except CertExpTooShortException, e:
+    except CertExpTooShortException as e:
         writeError(e)
         ret = 30
-    except CertExpTooLongException, e:
+    except CertExpTooLongException as e:
         writeError(e)
         ret = 31
-    except InvalidCountryCodeException, e:
+    except InvalidCountryCodeException as e:
         writeError(e)
         ret = 32
-    except FailedFileDependencyException, e:
+    except FailedFileDependencyException as e:
         # already wrote a nice error message
         msg = """\
 can't find a file that should have been created during an earlier step:
@@ -1268,7 +1269,7 @@ can't find a file that should have been created during an earlier step:
        %s --help""" % (e, os.path.basename(sys.argv[0]))
         writeError(msg)
         ret = 33
-    except RhnSslToolException, e:
+    except RhnSslToolException as e:
         writeError(e)
         ret = 100
 
