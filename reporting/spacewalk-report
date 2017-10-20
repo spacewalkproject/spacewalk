@@ -233,10 +233,10 @@ if __name__ == '__main__':
                 the_sql = the_sql.replace('-- where placeholder', 'where %s' % ' and '.join(the_sql_where))
 
             if CFG.DB_BACKEND == 'oracle':
-                tz = rhnSQL.prepare('alter session set time_zone = :tz')
+                rhnSQL.execute('alter session set time_zone = \'%s\'' % options.timezone)
             else:
                 tz = rhnSQL.prepare('set session timezone to :tz')
-            tz.execute(tz=options.timezone)
+                tz.execute(tz=options.timezone)
 
             h = rhnSQL.prepare(the_sql)
             h.execute(**dict(report.params.items() + the_dict_where.items()))
