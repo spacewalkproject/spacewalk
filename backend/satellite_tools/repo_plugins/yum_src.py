@@ -336,16 +336,15 @@ class ContentSource(object):
 
         for filter_item in filters:
             sense, pkg_list = filter_item
-            if sense == '+':
-                if not exclude_only:
-                    # include
-                    exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                        excluded, pkg_list)
-                    allmatched = yum.misc.unique(exactmatch + matched)
-                    selected = yum.misc.unique(selected + allmatched)
-                    for pkg in allmatched:
-                        if pkg in excluded:
-                            excluded.remove(pkg)
+            if sense == '+' and not exclude_only:
+                # include
+                exactmatch, matched, _unmatched = yum.packages.parsePackages(
+                    excluded, pkg_list)
+                allmatched = yum.misc.unique(exactmatch + matched)
+                selected = yum.misc.unique(selected + allmatched)
+                for pkg in allmatched:
+                    if pkg in excluded:
+                        excluded.remove(pkg)
             elif sense == '-':
                 # exclude
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
