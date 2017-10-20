@@ -225,6 +225,9 @@ make -f Makefile.osad all PYTHONPATH=%{python_sitelib}
 %if 0%{?fedora} || 0%{?rhel} >= 7
 cat osa-dispatcher-selinux/%{modulename}.te.fedora17 >> osa-dispatcher-selinux/%{modulename}.te
 %endif
+%if 0%{?fedora} >= 26
+cat osa-dispatcher-selinux/%{modulename}.te.fedora26 >> osa-dispatcher-selinux/%{modulename}.te
+%endif
 for selinuxvariant in %{selinux_variants}
 do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
