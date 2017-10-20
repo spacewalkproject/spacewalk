@@ -279,6 +279,7 @@ class ContentSource(object):
 
         if not filters:
             # if there's no include/exclude filter on command line or in database
+            # check repository config file
             for p in self.repo.includepkgs:
                 filters.append(('+', [p]))
             for p in self.repo.exclude:
