@@ -73,12 +73,17 @@ Requires: pygobject2
 Requires: libgudev
 Requires: python-hwdata
 %else
-%if 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%if 0%{?suse_version} >= 1140
+Requires: python-pyudev
+Requires: python-hwdata
+%else
+%if 0%{?rhel} > 5
 Requires: python-gudev
 Requires: python-hwdata
 %else
 Requires: hal >= 0.5.8.1-52
-%endif # 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
+%endif # 0%{?rhel} > 5
+%endif # 0%{?suse_version} >= 1140
 %endif # 0%{?fedora}
 
 %if 0%{?rhel} == 5 
@@ -111,9 +116,13 @@ Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Requires: %{name} = %{version}-%{release}
 Requires: python3-dbus
 Requires: python3-rpm
-Requires: libgudev
 Requires: newt-python3
+%if 0%{?suse_version} >= 1140
+Requires: python3-pyudev
+%else
+Requires: libgudev
 Requires: python3-gobject-base
+%endif
 Requires: python3-dmidecode
 Requires: python3-netifaces
 Requires: python3-hwdata
@@ -292,6 +301,7 @@ install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_hal.*
 %else
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_gudev.*
+rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_udev.*
 %endif
 
 %if 0%{?rhel} == 5
