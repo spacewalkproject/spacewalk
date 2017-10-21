@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -68,6 +68,14 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{python3_sitelib}
 %endif
 
+%if 0%{?suse_version}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -84,11 +92,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python2-%{name}
 %{python_sitelib}/rhn/actions/scap.*
+%if 0%{?suse_version}
+%dir %{python_sitelib}/rhn/actions
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
 %{python3_sitelib}/rhn/actions/scap.*
 %{python3_sitelib}/rhn/actions/__pycache__/scap.*
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn/actions
+%dir %{python3_sitelib}/rhn/actions/__pycache__
+%endif
 %endif
 
 %changelog
