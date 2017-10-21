@@ -48,19 +48,19 @@ def get_devices():
         if result_item['driver'] is None:
             result_item['driver'] = 'unknown'
         if subsystem == 'block':
-            if device.properties.get('ID_BUS'):
-                result_item['bus'] = device.properties.get('ID_BUS')
+            if _get_device_property(device, 'ID_BUS'):
+                result_item['bus'] = _get_device_property(device, 'ID_BUS')
             result_item['device'] = device.sys_name
             if device.device_type == 'partition':
                 # do not report partitions, just whole disks
                 continue
-            if device.properties.get('DM_NAME'):
+            if _get_device_property(device, 'DM_NAME'):
                 # LVM device
                 continue
-            if device.properties.get('MAJOR') == '1':
+            if _get_device_property(device, 'MAJOR') == '1':
                 # ram device
                 continue
-            if device.properties.get('MAJOR') == '7':
+            if _get_device_property(device, 'MAJOR') == '7':
                 # character devices for virtual console terminals
                 continue
             # This is interpreted as Physical. But what to do with it?
@@ -68,24 +68,24 @@ def get_devices():
             # This is interpreted as Logical. But what to do with it?
             # result_item['prop2'] = ''
         elif subsystem == 'pci':
-            pci_class = device.properties.get('PCI_ID')
+            pci_class = _get_device_property(device, 'PCI_ID')
             if pci_class:
                 (result_item['prop1'], result_item['prop2']) = pci_class.split(':')
-            pci_subsys = device.properties.get('PCI_SUBSYS_ID')
+            pci_subsys = _get_device_property(device, 'PCI_SUBSYS_ID')
             if pci_subsys:
                 (result_item['prop3'], result_item['prop4']) = pci_subsys.split(':')
         elif subsystem == 'usb':
-           if device.properties.get('ID_VENDOR_ID'):
-                result_item['prop1'] = device.properties.get('ID_VENDOR_ID')
-           if device.properties.get('ID_MODEL_ID'):
-                result_item['prop2'] = device.properties.get('ID_MODEL_ID')
-        if device.properties.get('ID_BUS') and device.properties.get('ID_BUS') == 'scsi':
-            if device.properties.get('ID_PATH') or device.properties.get('DEVPATH'):
-                if device.properties.get('ID_PATH'):
-                    path = device.properties.get('ID_PATH')
+           if _get_device_property(device, 'ID_VENDOR_ID'):
+                result_item['prop1'] = _get_device_property(device, 'ID_VENDOR_ID')
+           if _get_device_property(device, 'ID_MODEL_ID'):
+                result_item['prop2'] = _get_device_property(device, 'ID_MODEL_ID')
+        if _get_device_property(device, 'ID_BUS') and _get_device_property(device, 'ID_BUS') == 'scsi':
+            if _get_device_property(device, 'ID_PATH') or _get_device_property(device, 'DEVPATH'):
+                if _get_device_property(device, 'ID_PATH'):
+                    path = _get_device_property(device, 'ID_PATH')
                     m = re.search('.*scsi-(\d+):(\d+):(\d+):(\d+)', path)
                 else: # device.has_property('DEVPATH')
-                    path = device.properties.get('DEVPATH')
+                    path = _get_device_property(device, 'DEVPATH')
                     m = re.search('.*/(\d+):(\d+):(\d+):(\d+)/block/', path)
                 if m: # do not fail, if regexp did not match
                     result_item['prop1'] = m.group(1) # DEV_HOST
@@ -182,13 +182,20 @@ def _clasify_pci_type(subsystem):
     else:
         return '-1'
 
+def _get_device_property(device, prop):
+    """ return the property of the given device independent of the implementation version """
+    try:
+        return device.properties.get(prop)
+    except AttributeError:
+        return device.get(prop)
+
 def _clasify_class(device):
     """ Clasify type of device. Returned value is one of following string:
         NETWORK, KEYBOARD, MOUSE, VIDEO, USB, IDE, SCSI, RAID, MODEM, SCANNER
         CAPTURE, AUDIO, FIREWIRE, SOCKET, CDROM, HD, FLOPPY, TAPE, PRINTER, OTHER
         or None if it is neither PCI nor USB device.
     """
-    (base_class, sub_class) = _parse_pci_class(device.properties.get('PCI_CLASS'))
+    (base_class, sub_class) = _parse_pci_class(_get_device_property(device, 'PCI_CLASS'))
     subsystem = device.subsystem
 
     # network devices
@@ -203,7 +210,7 @@ def _clasify_class(device):
         elif sub_class == PCI_CLASS_INPUT_MOUSE:
             return 'MOUSE'
     # usb
-    id_serial = device.properties.get('ID_SERIAL')
+    id_serial = _get_device_property(device, 'ID_SERIAL')
     if id_serial:
         id_serial = id_serial.lower()
         # KEYBOARD <-- do this before mouse, some keyboards have built-in mice
@@ -244,8 +251,8 @@ def _clasify_class(device):
             return 'SOCKET'
 
     if subsystem == 'block':
-        if device.properties.get('ID_CDROM') or (
-            device.properties.get('ID_TYPE') and device.properties.get('ID_TYPE') == 'cd'):
+        if _get_device_property(device, 'ID_CDROM') or (
+            _get_device_property(device, 'ID_TYPE') and _get_device_property(device, 'ID_TYPE') == 'cd'):
             return 'CDROM'
         else:
             return 'HD'
@@ -284,14 +291,14 @@ def _get_device_desc(device):
     command = None
     result = None
     if subsystem == 'pci':
-        (vendor_id, device_id) = device.properties.get('PCI_ID').split(':')
+        (vendor_id, device_id) = _get_device_property(device, 'PCI_ID').split(':')
         pci = PCI()
         result = "%s|%s" % (pci.get_vendor(vendor_id), pci.get_device(vendor_id, device_id))
     elif subsystem == 'usb':
-        vendor_id = device.properties.get('ID_VENDOR_ID')
+        vendor_id = _get_device_property(device, 'ID_VENDOR_ID')
         usb = USB()
         if vendor_id:
-            result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, device.properties.get('ID_MODEL_ID')))
+            result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, _get_device_property(device, 'ID_MODEL_ID')))
         elif device.device_type == 'usb_interface':
             if device.driver == 'usbhid':
                 result = 'USB HID Interface'
@@ -299,14 +306,14 @@ def _get_device_desc(device):
                 result = 'USB Hub Interface'
             else:
                 result = 'USB Interface'
-        elif device.device_type == 'usb_device' and device.properties.get('PRODUCT'):
-            (vendor_id, model_id) = device.properties.get('PRODUCT').split('/')[:2]
+        elif device.device_type == 'usb_device' and _get_device_property(device, 'PRODUCT'):
+            (vendor_id, model_id) = _get_device_property(device, 'PRODUCT').split('/')[:2]
             # left pad it with 0 to 4 digits
             vendor_id = '%.4x' % int(vendor_id, 16)
             model_id = '%.4x' % int(model_id, 16)
             result = "%s|%s" % (usb.get_vendor(vendor_id), usb.get_device(vendor_id, model_id))
     elif subsystem == 'block':
-        result = device.properties.get('ID_MODEL')
+        result = _get_device_property(device, 'ID_MODEL')
     if result:
         return result
     else:
