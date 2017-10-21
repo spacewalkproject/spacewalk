@@ -5,6 +5,7 @@
 
 FILES		:= config gui hardware progress \
 		   haltree hardware_hal hardware_gudev \
+		   hardware_udev \
 		   up2dateUtils getMethod tui \
 		   up2dateLog rpmUtils rhnreg transaction \
 		   up2dateErrors rpcServer up2dateAuth \
