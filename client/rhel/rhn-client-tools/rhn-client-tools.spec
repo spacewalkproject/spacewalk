@@ -1,9 +1,10 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
 %global default_py3 1
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+%{!?python2_sitelib: %global python2_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
@@ -351,6 +352,13 @@ for i in \
     ln -s $(basename "$i")%{default_suffix} "$RPM_BUILD_ROOT$i"
 done
 
+%if 0%{?suse_version}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
 %post
 rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
 
@@ -487,6 +495,7 @@ make -f Makefile.rhn-client-tools test
 
 %files -n python2-rhn-check
 %{_sbindir}/rhn_check-%{python_version}
+%dir %{python_sitelib}/rhn
 %dir %{python_sitelib}/rhn/actions/
 %{python_sitelib}/up2date_client/getMethod.*
 # actions for rhn_check to run
@@ -500,6 +509,7 @@ make -f Makefile.rhn-client-tools test
 %if 0%{?build_py3}
 %files -n python3-rhn-check
 %{_sbindir}/rhn_check-%{python3_version}
+%dir %{python3_sitelib}/rhn
 %dir %{python3_sitelib}/rhn/actions/
 %{python3_sitelib}/up2date_client/getMethod.*
 %{python3_sitelib}/rhn/actions/__init__.*
@@ -594,9 +604,7 @@ make -f Makefile.rhn-client-tools test
 %dir %{_datadir}/icons/hicolor/32x32/apps
 %dir %{_datadir}/icons/hicolor/48x48
 %dir %{_datadir}/icons/hicolor/48x48/apps
-%dir %{_datadir}/rhn/up2date_client/firstboot
-%dir %{_datadir}/firstboot
-%dir %{_datadir}/firstboot/modules
+%dir %{_datadir}/rhn/up2date_client
 %endif
 
 %files -n python2-rhn-setup-gnome
