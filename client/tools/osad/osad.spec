@@ -475,6 +475,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %ghost %attr(640,%{apache_user},root) %{_var}/log/rhn/osa-dispatcher.log
 %if 0%{?suse_version}
 %attr(750,root,%{apache_group}) %dir %{_sysconfdir}/rhn
+%dir %{rhnroot}
 %attr(755,root,%{apache_group}) %dir %{rhnroot}/config-defaults
 %dir %{_var}/log/rhn
 %endif
