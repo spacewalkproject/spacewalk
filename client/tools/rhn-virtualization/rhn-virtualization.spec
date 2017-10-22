@@ -2,7 +2,7 @@
 %define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
 %define cron_dir %{_sysconfdir}/cron.d
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -126,9 +126,17 @@ make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir
                 $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
 %endif
 
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5) || 0%{?suse_version}
 find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
 %endif
+
+%if 0%{?suse_version}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -167,6 +175,9 @@ fi
 %{python_sitelib}/virtualization/notification.py*
 %{python_sitelib}/virtualization/util.py*
 %doc LICENSE
+%if 0%{?suse_version}
+%dir %{python_sitelib}/virtualization
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}-common
@@ -184,6 +195,9 @@ fi
 %{python3_sitelib}/virtualization/__pycache__/errors.*
 %{python3_sitelib}/virtualization/__pycache__/notification.*
 %{python3_sitelib}/virtualization/__pycache__/util.*
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/virtualization
+%endif
 %endif
 
 %files host
@@ -212,8 +226,12 @@ fi
 %{python_sitelib}/virtualization/support.py*
 %{python_sitelib}/rhn/actions/virt.py*
 %{python_sitelib}/rhn/actions/image.py*
-%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
+%if (0%{?rhel} && 0%{?rhel} < 6)
 %{python_sitelib}/virtualization/localvdsm.py*
+%endif
+%if 0%{?suse_version}
+%dir %{python_sitelib}/rhn
+%dir %{python_sitelib}/rhn/actions
 %endif
 
 %if 0%{?build_py3}
@@ -244,6 +262,11 @@ fi
 %{python3_sitelib}/virtualization/__pycache__/support.*
 %{python3_sitelib}/rhn/actions/__pycache__/virt.*
 %{python3_sitelib}/rhn/actions/__pycache__/image.*
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn
+%dir %{python3_sitelib}/rhn/actions
+%dir %{python3_sitelib}/rhn/actions/__pycache__
+%endif
 %endif
 
 %changelog
