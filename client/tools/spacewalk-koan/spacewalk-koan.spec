@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -66,6 +66,14 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
     MANDIR=%{_mandir}
 %endif
 
+%if 0%{?suse_version}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -76,11 +84,17 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python2-%{name}
 %{python_sitelib}/spacewalkkoan/
 %{python_sitelib}/rhn/actions/
+%if 0%{?suse_version}
+%dir %{python_sitelib}/rhn
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
 %{python3_sitelib}/spacewalkkoan/
 %{python3_sitelib}/rhn/actions/
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn
+%endif
 %endif
 
 %changelog
