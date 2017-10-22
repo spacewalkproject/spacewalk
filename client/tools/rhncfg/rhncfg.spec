@@ -2,7 +2,7 @@
 %global rhnconf %{_sysconfdir}/sysconfig/rhn
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -175,6 +175,13 @@ for i in \
     ln -s $(basename "$i")%{default_suffix} "$RPM_BUILD_ROOT$i"
 done
 
+%if 0%{?suse_version}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -241,11 +248,17 @@ fi
 %files -n python2-%{name}-actions
 %{python_sitelib}/rhn/actions
 %{_bindir}/rhn-actions-control-%{python_version}
+%if 0%{?suse_version}
+%dir %{python_sitelib}/rhn
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}-actions
 %{python3_sitelib}/rhn/actions
 %{_bindir}/rhn-actions-control-%{python3_version}
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn
+%endif
 %endif
 
 %changelog
