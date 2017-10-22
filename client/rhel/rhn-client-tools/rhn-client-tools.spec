@@ -115,15 +115,17 @@ Python 2 specific files of %{name}.
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python3-%{name}}
 Requires: %{name} = %{version}-%{release}
-Requires: python3-dbus
-Requires: python3-rpm
-Requires: newt-python3
 %if 0%{?suse_version} >= 1140
+Requires: python3-dbus-python
+Requires: python3-newt
 Requires: python3-pyudev
 %else
 Requires: libgudev
+Requires: python3-dbus
+Requires: newt-python3
 Requires: python3-gobject-base
 %endif
+Requires: python3-rpm
 Requires: python3-dmidecode
 Requires: python3-netifaces
 Requires: python3-hwdata
