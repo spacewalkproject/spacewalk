@@ -1,14 +1,16 @@
 %global rhnroot %{_prefix}/share/rhn
 %global rhnconfigdefaults %{rhnroot}/config-defaults
 %global rhnconf %{_sysconfdir}/rhn
+%global m2crypto m2crypto
 
 %if 0%{?rhel} && 0%{?rhel} < 6
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora} >= 23 || 0%{?suse_version} > 1320
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %global python3rhnroot %{python3_sitelib}/spacewalk
+%global build_py3 1
 %endif
 
 %if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
@@ -23,11 +25,12 @@
 %endif
 
 %if 0%{?suse_version}
-%{!?pylint_check: %global pylint_check 1}
+%{!?pylint_check: %global pylint_check 0}
 %global apacheconfd %{_sysconfdir}/apache2/conf.d
 %global apache_user wwwrun
 %global apache_group www
 %global apache_pkg apache2
+%global m2crypto python-m2crypto
 %endif
 
 %global pythonrhnroot %{python_sitelib}/spacewalk
@@ -67,7 +70,7 @@ BuildRequires: python-crypto
 BuildRequires: python-debian
 BuildRequires: python2-gzipstream
 BuildRequires: yum
-BuildRequires: m2crypto
+BuildRequires: %{m2crypto}
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
@@ -239,7 +242,7 @@ Requires: spacewalk-usix
 %description libs
 Libraries required by both Spacewalk server and Spacewalk client tools.
 
-%if 0%{?fedora} >= 23
+%if 0%{?build_py3}
 
 %package -n python3-%{name}-libs
 Summary: Spacewalk client tools libraries for Fedora 23
@@ -247,7 +250,11 @@ Group: Applications/Internet
 BuildRequires: python2-devel
 BuildRequires: python3-devel
 Conflicts: %{name} < 1.7.0
+%if 0%{?suse_version}
+Requires:       python3-base
+%else
 Requires: python3-libs
+%endif
 Requires: python3-spacewalk-usix
 
 %description -n python3-%{name}-libs
@@ -319,7 +326,7 @@ Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: spacewalk-usix
 Requires: python-requests
-Requires: m2crypto
+Requires: %{m2crypto}
 %if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: python-requests
 %endif
@@ -348,7 +355,7 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Requires: subscription-manager
-Requires: m2crypto
+Requires: %{m2crypto}
 Requires: python-argparse
 
 %description cdn
@@ -367,7 +374,7 @@ install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
     MANDIR=%{_mandir} APACHECONFDIR=%{apacheconfd}
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?build_py3}
 install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py \
     $RPM_BUILD_ROOT%{python3rhnroot}/
@@ -390,6 +397,10 @@ sed -i 's/#DOCUMENTROOT#/\/srv\/www\/htdocs/' $RPM_BUILD_ROOT%{rhnconfigdefaults
 pushd $RPM_BUILD_ROOT
 find -name '*.py' -print0 | xargs -0 python %py_libdir/py_compile.py
 popd
+
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3rhnroot}
+%endif
 %endif
 
 %clean
@@ -645,7 +656,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/__init__.py*
 %{pythonrhnroot}/common/__init__.py*
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?build_py3}
 %files -n python3-%{name}-libs
 %doc LICENSE
 %{python3rhnroot}/common/checksum.py
@@ -660,7 +671,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{python3rhnroot}/__init__.py
 %{python3rhnroot}/common/__init__.py
 %{python3rhnroot}/__pycache__/__init__.*
-%{python3rhnroot}/common/__pycache__/*
+%{python3rhnroot}/common/__pycache__
+%if 0%{?suse_version}
+%dir %{python3rhnroot}
+%dir %{python3rhnroot}/common
+%dir %{python3rhnroot}/__pycache__
+%endif
 %endif
 
 %files config-files-common
@@ -788,6 +804,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,%{apache_group}) %dir %{_var}/log/rhn/cdnsync
 %config(noreplace) %{_sysconfdir}/logrotate.d/spacewalk-backend-cdn
 %{_mandir}/man8/cdn-sync.8*
+%if 0%{?suse_version}
+%dir %{pythonrhnroot}/cdn_tools
+%endif
 
 %changelog
 * Mon Oct 16 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.15-1
