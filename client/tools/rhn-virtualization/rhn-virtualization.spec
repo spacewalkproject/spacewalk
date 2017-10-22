@@ -102,9 +102,6 @@ Python 3 files for %{name}-host.
 
 %prep
 %setup -q
-%if 0%{?suse_version}
-cp scripts/rhn-virtualization-host.SUSE scripts/rhn-virtualization-host
-%endif
 
 %build
 make -f Makefile.rhn-virtualization
@@ -131,6 +128,7 @@ find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
 %endif
 
 %if 0%{?suse_version}
+rm -f $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host
 %py_compile -O %{buildroot}/%{python_sitelib}
 %if 0%{?build_py3}
 %py3_compile -O %{buildroot}/%{python3_sitelib}
@@ -141,14 +139,19 @@ find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%if 0%{?suse_version}
+%post host
+if [ -d /proc/xen ]; then
+    # xen kernel is running
+    # change the default template to the xen version
+    sed -i 's@^IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-kvm-template.xml@IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-xen-template.xml@' /etc/sysconfig/rhn/image.cfg
+fi
+
+%else
 
 %post host
 /sbin/chkconfig --add rhn-virtualization-host
-%if 0%{?suse_version}
-/sbin/service cron try-restart ||:
-%else
 /sbin/service crond condrestart
-%endif
 if [ -d /proc/xen ]; then
     # xen kernel is running
     # change the default template to the xen version
@@ -161,9 +164,6 @@ if [ $1 = 0 ]; then
 fi
 
 %postun host
-%if 0%{?suse_version}
-/sbin/service cron try-restart ||:
-%else
 /sbin/service crond condrestart
 %endif
 
@@ -203,10 +203,11 @@ fi
 %files host
 %if 0%{?suse_version}
 %dir %{rhn_conf_dir}
+%else
+%{_initrddir}/rhn-virtualization-host
 %endif
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
-%{_initrddir}/rhn-virtualization-host
 %config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
 %{rhn_conf_dir}/studio-*-template.xml
 %config(noreplace) %{rhn_conf_dir}/image.cfg
