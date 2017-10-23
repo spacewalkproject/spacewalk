@@ -6,7 +6,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.3
+Version:	2.8.4
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -107,6 +107,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- spacewalk-oscap: add missing directories to filelist and enable py3 build for
+  Tumbleweed
+
 * Fri Sep 29 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - require new version of rhn-client-tools and rhnlib
 - move client actions to rhn namespace
