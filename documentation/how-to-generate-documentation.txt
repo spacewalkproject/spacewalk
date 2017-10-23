@@ -20,7 +20,9 @@ To generate the docs, one needs to:
 Setup
 =====
     * Have available a SW-nightly/OracleXE machine, we'll call it 'SW-ORA'.  This
-      is only needed for the generation of the schema docs
+      is only needed for the generation of the schema docs.  I have tested the
+      schema generation on rhel6, rhel7 and fedora26.  All appear to work correctly.
+      The current schema docs were generated on rhel6.
     * Checkout docs from the spacewalkproject.github.io.git repo
     * export DOCS_GIT=<wherever you spacewalkproject.github.io.git checkout is>
     * export SW_GIT=<wherever your spacewalk.github checkout is>
@@ -61,11 +63,12 @@ Python
 ======
     # Note: in last version of epydoc (epydoc-3.0.1-15) is missing fix introduced in upstream r1728,
     # if it's not applied next step will probably end up with exception where epydoc run
-    # fails to run to completion.
+    # fails to run to completion.  Mine stopped around 66% completion.
     # NOTE: I ended up running an old version found on rpmfind - 3.0.1-14 and then I applied the
     #   patch attached to bug 364 manually (https://sourceforge.net/p/epydoc/bugs/364/)
     # NOTE: There were lots of ImportErrors reported, but this should be ok - each says the source
-    # was still processed
+    # was still processed - just make sure it runs to 100% completion
+    # NOTE: I was not able to run this on F26 with the latest epydoc package - epydoc-3.0.1.20090203svn-5.fc26.src.rpm, even after manually updating dotgraph.py with the patch mentioned above.  I suspect, but have been unable to prove there is something in our py files or setup where we run epydoc that is causing this issue.
     # Build
     cd $SW_GIT/documentation; make python
     # Move to DOCS_GIT repo
@@ -113,7 +116,8 @@ schema-docs
     git clone https://github.com/spacewalkproject/spacewalk.git
     cd spacewalk/documentation
     git checkout SPACEWALK-$VERS
-    # Get schema-vsiualization tools
+    # Get schema-vsiualization tools - 0.31 is the latest version as of
+    # 2017-10-19.
     wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download -O oraschemadoc-0.31.tar.gz
     tar xvzf oraschemadoc-0.31.tar.gz
     chmod a+x oraschemadoc-0.31/oraschemadoc.py
