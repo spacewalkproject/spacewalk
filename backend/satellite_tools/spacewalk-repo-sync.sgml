@@ -140,6 +140,12 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>-s, --show-packages</term>
+        <listitem>
+            <para>List all packages in a specified channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-g <replaceable>CONFIG</replaceable>, --config=<replaceable>CONFIG</replaceable></term>
         <listitem>
             <para>Configuration file where more than one channel can be specified for synchronization. See section Examples.</para>

@@ -258,14 +258,33 @@ class ContentSource(object):
                 pass
         return len(self.repo.getPackageSack().returnPackages())
 
-    def raw_list_packages(self):
+    def raw_list_packages(self, filters=None):
         for dummy_index in range(3):
             try:
                 self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return self.repo.getPackageSack().returnPackages()
+
+        rawpkglist = self.repo.getPackageSack().returnPackages()
+
+        if not filters:
+            filters = []
+            # if there's no include/exclude filter on command line or in database
+            for p in self.repo.includepkgs:
+                filters.append(('+', [p]))
+            for p in self.repo.exclude:
+                filters.append(('-', [p]))
+
+        if filters:
+            rawpkglist = self._filter_packages(rawpkglist, filters)
+            rawpkglist = self._get_package_dependencies(self.repo.getPackageSack(), rawpkglist)
+
+            # do not pull in dependencies if they're explicitly excluded
+            rawpkglist = self._filter_packages(rawpkglist, filters, True)
+            self.num_excluded = self.num_packages - len(rawpkglist)
+
+        return rawpkglist
 
     def list_packages(self, filters, latest):
         """ list packages"""

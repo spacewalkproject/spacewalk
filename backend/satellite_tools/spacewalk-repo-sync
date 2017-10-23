@@ -72,6 +72,8 @@ def main():
     parser = OptionParser()
     parser.add_option('-l', '--list', action='store_true', dest='list',
                       help='List the custom channels with the assosiated repositories.')
+    parser.add_option('-s', '--show-packages', action='store_true', dest='show_packages',
+                      help='List all packages in a specified channel.')
     parser.add_option('-u', '--url', action='append', dest='url',
                       default=[], help='The url of the repository. Can be used multiple times.')
     parser.add_option('-c', '--channel', action='append',
@@ -239,7 +241,7 @@ def main():
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest,
                       log_level=options.verbose,
-                      force_all_errata=options.force_all_errata)
+                      force_all_errata=options.force_all_errata, show_packages_only=options.show_packages)
         if options.batch_size:
             sync.set_import_batch_size(options.batch_size)
         elapsed_time, channel_ret_code = sync.sync()
