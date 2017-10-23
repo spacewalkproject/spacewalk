@@ -7,7 +7,7 @@
 
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 Group: System Environment/Kernel
 License: GPLv2
@@ -98,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- spacewalk-koan: add missing directories to filelist on SUSE and build py3 on
+  Tumbleweed
+
 * Wed Oct 18 2017 Jan Dobes 2.8.4-1
 - spacewalk-koan - removing usage of string module not available in Python 3
 
