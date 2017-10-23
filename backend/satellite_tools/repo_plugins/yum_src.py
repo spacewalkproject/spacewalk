@@ -440,10 +440,19 @@ class ContentSource(object):
 
     def _get_package_dependencies(self, sack, packages):
         self.yumbase.pkgSack = sack
+        known_deps = set()
         resolved_deps = self.yumbase.findDeps(packages)
-        for (_pkg, deps) in resolved_deps.items():
-            for (_dep, dep_packages) in deps.items():
-                packages.extend(dep_packages)
+        while resolved_deps:
+            next_level_deps = []
+            for deps in resolved_deps.values():
+                for _dep, dep_packages in deps.items():
+                    if _dep not in known_deps:
+                        next_level_deps.extend(dep_packages)
+                        packages.extend(dep_packages)
+                        known_deps.add(_dep)
+
+            resolved_deps = self.yumbase.findDeps(next_level_deps)
+
         return yum.misc.unique(packages)
 
     def get_package(self, package, metadata_only=False):
