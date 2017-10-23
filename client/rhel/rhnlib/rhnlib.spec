@@ -6,7 +6,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -92,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- rhnlib: enable py3 build for Tumbleweed
+
 * Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - 1494389 - Revert "[1260527] RHEL7 reboot loop"
 - 1494389 - Revert "fix except in rhnlib to make it compatible with Python 2.4"
