@@ -24,7 +24,7 @@ Name: osad
 Summary: Open Source Architecture Daemon
 Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.97
+Version: 5.11.98
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -523,6 +523,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.98-1
+- osad: add missing directory to filelist
+
 * Fri Oct 20 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.97-1
 - use sssd macros only on Fedora 26
 
