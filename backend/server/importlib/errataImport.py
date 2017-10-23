@@ -45,7 +45,7 @@ class ErrataImport(GenericPackageImport):
             release = errata['advisory_rel']
             errata_hash[advisory + release] = errata
             if advisory in advisories:
-                if release < advisories[advisory]:
+                if long(release) < long(advisories[advisory]):
                     # Seen a newer one already
                     errata.ignored = 1
                     continue
