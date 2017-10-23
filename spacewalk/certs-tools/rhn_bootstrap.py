@@ -25,7 +25,6 @@ from __future__ import print_function
 import os
 import sys
 import glob
-import string
 import socket
 import shutil
 import urlparse
@@ -36,11 +35,11 @@ from optparse import Option, OptionParser
 ## local imports
 from spacewalk.common import rhn_rpm
 from client_config_update import readConfigFile
-from rhn_bootstrap_strings import \
+from certs.rhn_bootstrap_strings import \
     getHeader, getConfigFilesSh, getUp2dateScriptsSh, getGPGKeyImportSh, \
     getCorpCACertSh, getRegistrationSh, getUp2dateTheBoxSh, \
     getAllowConfigManagement, getAllowRemoteCommands
-from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
+from certs.sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
 from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
 
@@ -117,7 +116,7 @@ def parseHttpProxyString(httpProxy):
     """ parse HTTP proxy string and check for validity """
 
     httpProxy = parseUrl(httpProxy)[1]
-    tup = string.split(httpProxy, ':')
+    tup = httpProxy.split(':')
     if len(tup) != 2:
         sys.stderr.write("ERROR: invalid host:port (%s)\n" % httpProxy)
         sys.exit(errnoBadHttpProxyString)
@@ -331,7 +330,7 @@ ERROR: value of --script must end in '.sh':
     options.overrides = os.path.basename(options.overrides)
     options.script = os.path.basename(options.script)
 
-    if string.find(options.pub_tree, DEFAULT_APACHE_PUB_DIRECTORY) != 0:
+    if options.pub_tree.find(DEFAULT_APACHE_PUB_DIRECTORY) != 0:
         sys.stderr.write("WARNING: it's *highly* suggested that --pub-tree is set to:\n")
         sys.stderr.write("           %s\n" % DEFAULT_APACHE_PUB_DIRECTORY)
         sys.stderr.write("         It is currently set to:\n")
@@ -346,7 +345,7 @@ ERROR: the value of --overrides and --script cannot be the same!
        '%s'\n""" % options.script)
         sys.exit(errnoScriptNameClash)
 
-    if len(string.split(options.hostname, '.')) < 3:
+    if len(options.hostname.split('.')) < 3:
         msg = ("WARNING: --hostname (%s) doesn't appear to be a FQDN.\n"
                % options.hostname)
         sys.stderr.write(msg)

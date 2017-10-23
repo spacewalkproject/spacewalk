@@ -25,12 +25,11 @@ import sys
 import copy
 import time
 import socket
-import string
 
 ## local imports
 from spacewalk.common.fileutils import cleanupNormPath, rotateFile, rhn_popen, cleanupAbsPath
-from sslToolLib import getMachineName, daysTil18Jan2038, incSerial, fixSerial
-
+from certs.sslToolLib import getMachineName, daysTil18Jan2038, incSerial, fixSerial
+from rhn.i18n import sstr
 
 # defaults where we can see them (NOTE: directory is figured at write time)
 CERT_PATH = '/usr/share/rhn/certs/'
@@ -40,7 +39,7 @@ MACHINENAME = getMachineName(HOSTNAME)
 
 CA_KEY_NAME = 'RHN-ORG-PRIVATE-SSL-KEY'
 CA_CRT_NAME = 'RHN-ORG-TRUSTED-SSL-CERT'
-CA_CRT_RPM_NAME = string.lower(CA_CRT_NAME)
+CA_CRT_RPM_NAME = CA_CRT_NAME.lower()
 
 BASE_SERVER_RPM_NAME = 'rhn-org-httpd-ssl-key-pair'
 BASE_SERVER_TAR_NAME = 'rhn-org-httpd-ssl-archive'
@@ -62,10 +61,10 @@ def getOption(options, opt):
     """ fetch the value of an options object item
         without blowing up upon obvious errors
     """
-    assert string.find(opt, '-') == -1
+    assert opt.find('-') == -1
     if not options:
         return None
-    if options.__dict__.has_key(opt):
+    if opt in options.__dict__:
         #print 'XXX opt, options.__dict__[opt]', opt, options.__dict__[opt]
         return options.__dict__[opt]
     else:
@@ -77,7 +76,7 @@ def setOption(options, opt, value):
     """
     if not options:
         return
-    if options.__dict__.has_key(opt):
+    if opt in options.__dict__:
         options.__dict__[opt] = value
 
 
@@ -207,7 +206,7 @@ def figureDEFS_CA(options):
     DEFS['--rpm-packager'] = getOption(options, 'rpm_packager')
     DEFS['--rpm-vendor'] = getOption(options, 'rpm_vendor')
 
-    if DEFS.has_key('--cert-expiration'):
+    if '--cert-expiration' in DEFS:
         # nothing under 1 day or over # days til 18Jan2038
         if DEFS['--cert-expiration'] < 1:
             DEFS['--cert-expiration'] = 1
@@ -245,7 +244,7 @@ def figureDEFS_server(options):
     DEFS['--rpm-packager'] = getOption(options, 'rpm_packager')
     DEFS['--rpm-vendor'] = getOption(options, 'rpm_vendor')
 
-    if DEFS.has_key('--cert-expiration'):
+    if '--cert-expiration' in DEFS:
         # nothing under 1 day or over # days til 18Jan2038
         if DEFS['--cert-expiration'] < 1:
             DEFS['--cert-expiration'] = 1
@@ -450,8 +449,8 @@ def gen_req_distinguished_name(d):
     s = ""
     keys = ('C', 'ST', 'L', 'O', 'OU', 'CN', 'emailAddress')
     for key in keys:
-        if d.has_key(key) and string.strip(d[key]):
-            s = s + key + (24-len(key))*' ' + '= %s\n' % string.strip(d[key])
+        if key in d and d[key].strip():
+            s = s + key + (24-len(key))*' ' + '= %s\n' % d[key].strip()
         else:
             s = s + '#' + key + (24-len(key))*' ' + '= ""\n'
 
@@ -470,12 +469,12 @@ def figureSerial(caCertFilename, serialFilename, indexFilename):
     # what serial # is the ca cert using (we need to increment from that)
     ret, outstream, errstream = rhn_popen(['/usr/bin/openssl', 'x509', '-noout',
                                            '-serial', '-in', caCertFilename])
-    out = outstream.read()
+    out = sstr(outstream.read())
     outstream.close()
     errstream.read()
     errstream.close()
     assert not ret
-    caSerial = string.split(string.strip(out), '=')
+    caSerial = out.strip().split('=')
     assert len(caSerial) > 1
     caSerial = caSerial[1]
     caSerial = eval('0x'+caSerial)
@@ -484,7 +483,7 @@ def figureSerial(caCertFilename, serialFilename, indexFilename):
     # serialFilename or 1)
     serial = 1
     if os.path.exists(serialFilename):
-        serial = string.strip(open(serialFilename, 'r').read())
+        serial = open(serialFilename, 'r').read().strip()
         if serial:
             serial = eval('0x'+serial)
         else:
@@ -537,7 +536,7 @@ class ConfigFile:
 
         line = fo.readline()
         while line:
-            if string.strip(line) == '[ req_distinguished_name ]':
+            if line.strip() == '[ req_distinguished_name ]':
                 break
             line = fo.readline()
 
@@ -549,19 +548,19 @@ class ConfigFile:
         #       ] + caKeys + genKeys
 
         for s in fo.readlines():
-            s = string.strip(s)
+            s = s.strip()
             if len(s) > 2 and s[0]=='[' and s[-1]==']':
                 break
-            split = string.split(s)
+            split = s.split()
             if not split or len(split) < 3:
                 continue
             if split[0] not in keys:
                 continue
-            split = string.split(s, '=')
+            split = s.split('=')
             if len(split) != 2:
                 continue
             for i in range(len(split)):
-                split[i] = string.strip(split[i])
+                split[i] = split[i].strip()
             d[split[0]] = split[1]
 
         return d
@@ -588,7 +587,7 @@ class ConfigFile:
 
         line = fo.readline()
         while line:
-            cleanLine = string.strip(line)
+            cleanLine = line.strip()
 
             # is this a label?
             isLabelYN = 0
@@ -603,9 +602,9 @@ class ConfigFile:
                 in_CA_defaultYN = 0 # hit another label
 
             if in_CA_defaultYN:
-                vector = string.split(line, '=')
+                vector = line.split('=')
                 if len(vector) == 2:
-                    key = string.strip(vector[0])
+                    key = vector[0].strip()
                     if key == 'dir':
                         # we should be OK - short-circuit
                         return
@@ -660,15 +659,15 @@ serial                  = $dir/serial
 
         line = fo.readline()
         while line:
-            if string.strip(line) == '[ CA_default ]':
+            if line.strip() == '[ CA_default ]':
                 # we don't care much until we hit this label
                 hit_CA_defaultYN = 1
             if hit_CA_defaultYN:
-                vector = string.split(line, '=')
+                vector = line.split('=')
                 if len(vector) == 2:
                     key, value = vector
-                    if string.strip(key) == 'dir':
-                        value = string.strip(value)
+                    if key.strip() == 'dir':
+                        value = value.strip()
                         olddir = value
                         line = '%s= %s\n' % (key, newdir)
                         hit_CA_defaultYN = 0
@@ -706,8 +705,8 @@ serial                  = $dir/serial
 
         rdn = {}
         for k in d.keys():
-            if mapping.has_key(k):
-                rdn[mapping[k]] = string.strip(d[k])
+            if k in mapping:
+                rdn[mapping[k]] = d[k].strip()
 
         openssl_cnf = ''
         if caYN:

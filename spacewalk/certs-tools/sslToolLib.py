@@ -19,10 +19,9 @@
 ## language imports
 import os
 import sys
-import string
 import shutil
 import tempfile
-from timeLib import DAY, now, secs2days, secs2years
+from certs.timeLib import DAY, now, secs2days, secs2years
 
 class RhnSslToolException(Exception):
     """ general exception class for the tool """
@@ -37,14 +36,14 @@ def fixSerial(serial):
     if not serial:
         serial = '00'
 
-    if string.find(serial, '0x') == -1:
+    if serial.find('0x') == -1:
         serial = '0x'+serial
 
     # strip the '0x' if present
-    serial = string.split(serial, 'x')[-1]
+    serial = serial.split('x')[-1]
 
     # the string might have a trailing L
-    serial = string.replace(serial, 'L', '')
+    serial = serial.replace('L', '')
 
     # make sure the padding is correct
     # if odd number of digits, pad with a 0
@@ -61,13 +60,13 @@ def incSerial(serial):
     if not serial:
         serial = '00'
 
-    if string.find(serial, '0x') == -1:
+    if serial.find('0x') == -1:
         serial = '0x'+serial
 
     serial = eval(serial) + 1
     serial = hex(serial)
 
-    serial = string.split(serial, 'x')[-1]
+    serial = serial.split('x')[-1]
     return fixSerial(serial)
 
 
@@ -78,10 +77,10 @@ def getMachineName(hostname):
         xxx             --> xxx
         *.yyy.zzz.com   --> _star_.yyy
     """
-    hn = string.split(hostname.replace('*', '_star_'), '.')
+    hn = hostname.replace('*', '_star_').split('.')
     if len(hn) < 3:
         return hostname
-    return string.join(hn[:-2], '.')
+    return '.'.join(hn[:-2])
 
 #
 # NOTE: the Unix epoch overflows at: 2038-01-19 03:14:07 (2^31 seconds)
@@ -127,7 +126,7 @@ class TempDir:
     def __init__(self, suffix='-rhn-ssl-tool'):
         "create a temporary directory in /tmp"
 
-        if string.find(suffix, '/') != -1:
+        if suffix.find('/') != -1:
             raise ValueError("suffix cannot be a path, only a name")
 
         # add some quick and dirty randomness to the tempfilename

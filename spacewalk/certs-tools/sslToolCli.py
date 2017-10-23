@@ -26,11 +26,11 @@ import sys
 from optparse import Option, OptionParser, make_option
 
 ## local imports
-from sslToolLib import daysTil18Jan2038, yearsTil18Jan2038, \
+from certs.sslToolLib import daysTil18Jan2038, yearsTil18Jan2038, \
                        RhnSslToolException, errnoGeneralError
-from sslToolConfig import figureDEFS_dirs, figureDEFS_CA, figureDEFS_server
-from sslToolConfig import figureDEFS_distinguishing
-from sslToolConfig import DEFS, getOption, reInitDEFS
+from certs.sslToolConfig import figureDEFS_dirs, figureDEFS_CA, figureDEFS_server
+from certs.sslToolConfig import figureDEFS_distinguishing
+from certs.sslToolConfig import DEFS, getOption, reInitDEFS
 
 
 #
@@ -236,8 +236,7 @@ def setIntersection(*sets):
         return unique(sets[0])
 
     setA = unique(sets[0])
-    #setB = setIntersection(*sets[1:]) # a python 2.* -ism
-    setB = apply(setIntersection, sets[1:], {})
+    setB = setIntersection(*sets[1:])
 
     inter = []
     for item in setA:
@@ -279,7 +278,7 @@ def _getOptionList(defs):
     optionsList = []
     usage = OTHER_USAGE
 
-    argIntersection = setIntersection(sys.argv, optionsTree.keys())
+    argIntersection = setIntersection(sys.argv, list(optionsTree.keys()))
 
     if len(argIntersection) == 1:
         optionsList = optionsTree[argIntersection[0]]

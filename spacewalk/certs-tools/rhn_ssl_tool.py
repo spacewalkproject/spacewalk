@@ -38,15 +38,14 @@ import sys
 import glob
 import pwd
 import time
-import string
 import shutil
 import getpass
 
 ## local imports
-from sslToolCli import processCommandline, CertExpTooShortException, \
+from certs.sslToolCli import processCommandline, CertExpTooShortException, \
         CertExpTooLongException, InvalidCountryCodeException
 
-from sslToolLib import RhnSslToolException, \
+from certs.sslToolLib import RhnSslToolException, \
         gendir, chdir, getMachineName, fixSerial, TempDir, \
         errnoGeneralError, errnoSuccess
 
@@ -55,11 +54,12 @@ from spacewalk.common.fileutils import rotateFile, rhn_popen, cleanupAbsPath
 from spacewalk.common.rhn_rpm import hdrLabelCompare, sortRPMs, get_package_header, \
         getInstalledHeader
 
-from sslToolConfig import ConfigFile, figureSerial, getOption, CERT_PATH, \
+from certs.sslToolConfig import ConfigFile, figureSerial, getOption, CERT_PATH, \
         DEFS, MD, CRYPTO, LEGACY_SERVER_RPM_NAME1, LEGACY_SERVER_RPM_NAME2, \
         CA_OPENSSL_CNF_NAME, SERVER_OPENSSL_CNF_NAME, POST_UNINSTALL_SCRIPT, \
         SERVER_RPM_SUMMARY, CA_CERT_RPM_SUMMARY
 
+from rhn.i18n import bstr, sstr
 
 class GenPrivateCaKeyException(RhnSslToolException):
     """ private CA key generation error """
@@ -118,7 +118,7 @@ WARNING: %s
     unknown = os.path.join(topdir, 'unknown')
     server_rpm_name = os.path.basename(d.get('--server-rpm', ''))
     serverKeyPairDir = None
-    if d.has_key('--set-hostname'):
+    if '--set-hostname' in d:
         serverKeyPairDir = os.path.join(d['--dir'],
                                         getMachineName(d['--set-hostname']))
 
@@ -201,7 +201,7 @@ WARNING: %s
     for filename in filenames:
         # note: assuming version-rel is of that form.
         machinename = filename[len(rootFilename):]
-        machinename = string.join(string.split(machinename, '-')[:-2], '-')
+        machinename = '-'.join(machinename.split('-')[:-2])
         serverKeySetDir = pathJoin(topdir, machinename)
         gendir(serverKeySetDir)
         fileto = pathJoin(serverKeySetDir, filename)
@@ -324,7 +324,7 @@ def genPublicCaCert(password, d, verbosity=0, forceYN=0):
     genPublicCaCert_dependencies(password, d, forceYN)
 
     configFile = ConfigFile(ca_openssl_cnf)
-    if d.has_key('--set-hostname'):
+    if '--set-hostname' in d:
         del d['--set-hostname']
     configFile.save(d, caYN=1, verbosity=verbosity)
 
@@ -372,7 +372,7 @@ def genPublicCaCert(password, d, verbosity=0, forceYN=0):
 
     latest_txt = os.path.join(d['--dir'], 'latest.txt')
     fo = open(latest_txt, 'wb')
-    fo.write('%s\n' % ca_cert_name)
+    fo.write(bstr('%s\n' % ca_cert_name))
     fo.close()
 
     # permissions:
@@ -456,7 +456,7 @@ def genServerCertReq(d, verbosity=0):
     # XXX: hmm.. should private_key, etc. be set for this before the write?
     #      either that you pull the key/certs from the files all together?
     configFile = ConfigFile(server_openssl_cnf)
-    if d.has_key('--set-common-name'):
+    if '--set-common-name' in d:
         del d['--set-common-name']
     configFile.save(d, caYN=0, verbosity=verbosity)
 
@@ -590,14 +590,14 @@ def genServerCert(password, d, verbosity=0):
     finally:
         chdir(cwd)
 
-    out = out_stream.read(); out_stream.close()
-    err = err_stream.read(); err_stream.close()
+    out = sstr(out_stream.read()); out_stream.close()
+    err = sstr(err_stream.read()); err_stream.close()
 
     if ret:
         # signature for a mistyped CA password
-        if string.find(err, "unable to load CA private key") != -1 \
-          and string.find(err, "error:0906A065:PEM routines:PEM_do_header:bad decrypt:pem_lib.c") != -1 \
-          and string.find(err, "error:06065064:digital envelope routines:EVP_DecryptFinal:bad decrypt:evp_enc.c") != -1:
+        if err.find("unable to load CA private key") != -1 \
+          and err.find("error:0906A065:PEM routines:PEM_do_header:bad decrypt:pem_lib.c") != -1 \
+          and err.find("error:06065064:digital envelope routines:EVP_DecryptFinal:bad decrypt:evp_enc.c") != -1:
             raise GenServerCertException(
                     "web server's SSL certificate generation/signing "
                     "failed:\nDid you mistype your CA password?")
@@ -616,7 +616,7 @@ def genServerCert(password, d, verbosity=0):
     os.chmod(server_cert, int('0644',8))
 
     # cleanup duplicate XX.pem file:
-    pemFilename = os.path.basename(string.upper(ser)+'.pem')
+    pemFilename = os.path.basename(ser.upper()+'.pem')
     if pemFilename != server_cert and os.path.exists(pemFilename):
         os.unlink(pemFilename)
 
@@ -768,9 +768,9 @@ Generating CA public certificate RPM:
     # write-out latest.txt information
     latest_txt = os.path.join(d['--dir'], 'latest.txt')
     fo = open(latest_txt, 'wb')
-    fo.write('%s\n' % ca_cert_name)
-    fo.write('%s.noarch.rpm\n' % os.path.basename(clientRpmName))
-    fo.write('%s.src.rpm\n' % os.path.basename(clientRpmName))
+    fo.write(bstr('%s\n' % ca_cert_name))
+    fo.write(bstr('%s.noarch.rpm\n' % os.path.basename(clientRpmName)))
+    fo.write(bstr('%s.src.rpm\n' % os.path.basename(clientRpmName)))
     fo.close()
     os.chmod(latest_txt, int('0644',8))
 
@@ -819,7 +819,7 @@ def getTarballFilename(d, version='1.0', release='1'):
     filenames = glob.glob("%s-%s-*.tar" % (server_tar_name, version))
     filenames.sort() # tested to be reliable
 
-    versions = map(lambda x, n=len(server_tar_name): x[n+1:-4], filenames)
+    versions = list(map(lambda x, n=len(server_tar_name): x[n+1:-4], filenames))
     versions.sort()
 
     current = None
@@ -828,17 +828,17 @@ def getTarballFilename(d, version='1.0', release='1'):
 
     next = "%s-%s-1.tar" % (server_tar_name, version)
     if current:
-        v = string.split(versions[-1], '-')
+        v = versions[-1].split('-')
         v[-1] = str(int(v[-1])+1)
-        next = "%s-%s.tar" % (server_tar_name, string.join(v, '-'))
+        next = "%s-%s.tar" % (server_tar_name, '-'.join(v))
         current = os.path.basename(current)
 
     # incoming release (usually coming from RPM version) is factored in
     # ...if RPM version-release is greater then that is used.
     v = next[len(server_tar_name)+1:-4]
-    v = string.split(v, '-')
+    v = v.split('-')
     v[-1] = str(max(int(v[-1]), int(release)))
-    next = "%s-%s.tar" % (server_tar_name, string.join(v, '-'))
+    next = "%s-%s.tar" % (server_tar_name, '-'.join(v))
     next = os.path.basename(next)
 
     return current, next
@@ -1100,9 +1100,9 @@ Generating web server's SSL key pair/set RPM:
     # write-out latest.txt information
     latest_txt = os.path.join(serverKeyPairDir, 'latest.txt')
     fo = open(latest_txt, 'wb')
-    fo.write('%s.noarch.rpm\n' % os.path.basename(serverRpmName))
-    fo.write('%s.src.rpm\n' % os.path.basename(serverRpmName))
-    fo.write('%s\n' % os.path.basename(tarballFilepath))
+    fo.write(bstr('%s.noarch.rpm\n' % os.path.basename(serverRpmName)))
+    fo.write(bstr('%s.src.rpm\n' % os.path.basename(serverRpmName)))
+    fo.write(bstr('%s\n' % os.path.basename(tarballFilepath)))
     fo.close()
     os.chmod(latest_txt, int('0600',8))
 
@@ -1125,7 +1125,7 @@ def _copy_file_to_fd(filename, fd):
         buf = f.read(buffer_size)
         if not buf:
             break
-        os.write(fd, buf)
+        os.write(fd, bstr(buf))
         count = count + len(buf)
     return count
 
@@ -1222,7 +1222,7 @@ def main():
     """
 
     def writeError(e):
-        sys.stderr.write('\nERROR: %s\n' % e)
+        sys.stderr.write(bstr('\nERROR: %s\n' % e))
 
     ret = 0
     try:

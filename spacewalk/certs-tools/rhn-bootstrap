@@ -22,16 +22,15 @@
 ## language imports
 import sys
 import os
-import string
 
 
-mod_name = string.replace(os.path.basename(sys.argv[0]), '-', '_')
+mod_name = os.path.basename(sys.argv[0]).replace('-', '_')
 try:
     mod = __import__("certs." + mod_name)
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)
-except ImportError, e:
+except ImportError as e:
     sys.stderr.write("Unable to load module %s\n" % mod_name)
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)
