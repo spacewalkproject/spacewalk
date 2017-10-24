@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.17
+Version: 2.8.18
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -809,6 +809,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Oct 24 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.18-1
+- add new spacewalk-repo-sync command line option to synopsis of man-page
+
 * Tue Oct 24 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.17-1
 - add new parameter '--show-packages' for spacewalk-repo-sync.
 
