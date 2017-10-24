@@ -67,9 +67,9 @@ def getFileChecksum(hashtype, filename=None, fd=None, file_obj=None, buffer_size
     if file_obj:
         f = file_obj
     elif fd is not None:
-        f = os.fdopen(os.dup(fd), "r")
+        f = os.fdopen(os.dup(fd), "rb")
     else:
-        f = open(filename, "r")
+        f = open(filename, "rb")
     # Rewind it
     f.seek(0, 0)
     m = getHashlibInstance(hashtype, used_for_security)
