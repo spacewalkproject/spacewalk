@@ -31,6 +31,11 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <cmdsynopsis>
         <arg>-l</arg>
 	<arg>--list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-s</arg>
+        <arg>--show-packages</arg>
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-u <replaceable>URL</replaceable></arg>
 	<arg>--url=<replaceable>URL</replaceable></arg>
