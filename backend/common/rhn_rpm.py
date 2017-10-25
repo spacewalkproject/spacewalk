@@ -83,10 +83,10 @@ class RPM_Header:
         self._extract_signatures()
 
     def __getitem__(self, name):
-        val = self.hdr[name]
-        if val is not None:
-            val = sstr(val)
-        return val
+        item = self.hdr[name]
+        if item is not None:
+            item = sstr(item)
+        return item
 
     def __setitem__(self, name, item):
         self.hdr[name] = item
@@ -95,10 +95,10 @@ class RPM_Header:
         del self.hdr[name]
 
     def __getattr__(self, name):
-        val = getattr(self.hdr, name)
-        if val is not None:
-            val = sstr(val)
-        return val
+        item = getattr(self.hdr, name)
+        if item is not None:
+            item = sstr(item)
+        return item
 
     def __len__(self):
         return len(self.hdr)
