@@ -16,7 +16,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -126,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Oct 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- python3 compatibility fixes
+
 * Fri Oct 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - made code python3 compatible
 - install files into python_sitelib/python3_sitelib
