@@ -183,13 +183,13 @@ Syncs the content from yum repos into Spacewalk or Satellite channels.
     <varlistentry>
         <term>-i <replaceable>FILTERS</replaceable>, --include <replaceable>FILTERS</replaceable></term>
         <listitem>
-            <para>Comma or space separated list of included packages.</para>
+            <para>Comma or space separated list of included packages or package groups.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
         <term>-e <replaceable>FILTERS</replaceable>, --exclude <replaceable>FILTERS</replaceable></term>
         <listitem>
-            <para>Comma or space separated list of excluded packages.</para>
+            <para>Comma or space separated list of excluded packages or package groups.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
