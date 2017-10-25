@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.9
+Version: 2.8.10
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -630,6 +630,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Oct 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.10-1
+- device.sys_path is attribute not function
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.9-1
 - make getting device properties compatible with older versions of pyudev
 - use new pyudev module on SUSE to get udev information
