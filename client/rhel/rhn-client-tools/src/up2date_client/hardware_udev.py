@@ -334,7 +334,7 @@ def _parse_pci_class(pci_class):
 def _get_scsi_dev_type(device):
     """ Return SCSI type of device in raw format as presented in /sys/...devpath../type """
     try:
-        f = open("%s/type" % device.sys_path(), 'r')
+        f = open("%s/type" % device.sys_path, 'r')
     except IOError:
         return -1
     result = f.readline()
