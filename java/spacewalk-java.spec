@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.29
+Version: 2.8.30
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Oct 26 2017 Jan Dobes <jdobes@redhat.com> 2.8.30-1
+- 1492572 - display action without prerequisites first
+- 1492572 - hide select box when it's disabled
+- 1492572 - action is selectable if it's without prerequisites
+
 * Tue Oct 17 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.29-1
 - remove no longer needed imports
 - use inline variables when possible
