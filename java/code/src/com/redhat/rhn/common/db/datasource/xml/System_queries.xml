@@ -2075,7 +2075,7 @@ select SA.action_id as ID,
            and AType.id = A.action_type
            and AStat.id = SA.status
            and AStat.id = 0
-order by scheduled_for desc, id desc
+order by scheduled_for desc, prereq_aid nulls first
   </query>
 </mode>
 
@@ -2105,7 +2105,7 @@ select SA.action_id as ID,
            and AStat.id = SA.status
            and AStat.id = 0
            and exists (select 1 from rhnset where user_id = :user_id and label = :set_label and element = SA.action_id)
-order by scheduled_for desc, id desc
+order by scheduled_for desc, prereq_aid nulls first
   </query>
 </mode>
 
