@@ -32,7 +32,6 @@ public class SystemPendingEventDto extends SystemEventDto implements Serializabl
     private Date scheduledFor;
     private Long prereqAid;
     private String actionName;
-    private boolean selectable;
 
     /**
      * @return Returns date of creation
@@ -97,33 +96,12 @@ public class SystemPendingEventDto extends SystemEventDto implements Serializabl
        return String.valueOf(getId());
    }
 
-   /**
-    * For compatibility reasons with PostgreSQL we accept also Integer.
-    *
-    * @param selectableIn Whether a server is selectable one if selectable,
-    * null if not selectable
-    */
-   public void setSelectable(Integer selectableIn) {
-       selectable = (selectableIn != null);
-   }
-
-   /**
-    * @param selectableIn Whether a server is selectable one if selectable,
-    * null if not selectable
-    */
-   public void setSelectable(Long selectableIn) {
-       selectable = (selectableIn != null);
-   }
-
-   /**
-    * Tells whether a system is selectable for the SSM
-    * All management and provisioning entitled servers are true
-    * They are false otherwise
-    * @return whether the current system is UI selectable
-    */
+    /**
+     * @return True if this entry should be selectable in the UI.
+     */
    @Override
    public boolean isSelectable() {
-       return selectable;
+       return prereqAid == null;
    }
 
 }

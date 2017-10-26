@@ -2063,8 +2063,7 @@ select SA.action_id as ID,
                AType.label as history_type,
                AType.name as history_type_name,
                A.prerequisite as prereq_aid,
-               A.name as action_name,
-               1 as selectable
+               A.name as action_name
           from rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A left outer join
@@ -2093,8 +2092,7 @@ select SA.action_id as ID,
                AType.label as history_type,
                AType.name as history_type_name,
                A.prerequisite as prereq_aid,
-               A.name as action_name,
-               1 as selectable
+               A.name as action_name
           from rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A left outer join
