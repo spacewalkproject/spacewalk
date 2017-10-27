@@ -57,6 +57,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: python3-rhn-client-tools
 Requires: python3-spacewalk-backend-libs
 BuildRequires: python3-rpm-macros
+BuildRequires: python3
 
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
