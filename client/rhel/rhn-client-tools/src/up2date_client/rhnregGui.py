@@ -527,13 +527,16 @@ class ChooseChannelPage:
 
         self.chooseChannelList.connect('changed', self.channel_changed_cb)
 
-        self.chooseChannelList.remove_text(0)
+        if hasattr(self.chooseChannelList, 'remove_text'):
+            self.chooseChannelList.remove_text(0)
+        else:
+            self.chooseChannelList.remove(0)
 
         for label, name in self.channels.items():
             if label in self.receiving_updates:
                 self.channels[label] = name + ' *'
 
-        channel_values = self.channels.values()
+        channel_values = list(self.channels.values())
         channel_values.sort()
         for name in channel_values:
             self.chooseChannelList.append_text(name)
