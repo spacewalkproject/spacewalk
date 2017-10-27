@@ -1066,7 +1066,7 @@ class AlreadyRegisteredSubscriptionManagerDialog:
         self.dialog.destroy()
 
 class ConfirmQuitDialog:
-    def __init__(self):
+    def __init__(self, parent):
         """Returns when dialog closes. Dialog.rc will be set to 0 if the user
         clicked "take me back" or closed the dialog, or 1 if they clicked "i'll
         register later". I've they clicked I'll register later, the remind file
@@ -1076,7 +1076,7 @@ class ConfirmQuitDialog:
         self.xml = gtk.glade.XML(gladefile, "confirmQuitDialog",
                                  domain="rhn-client-tools")
         self.dialog = self.xml.get_widget("confirmQuitDialog")
-
+        self.dialog.set_transient_for(parent)
         self.rc = self.dialog.run()
         if self.rc == gtk.RESPONSE_NONE:
             self.rc = 0

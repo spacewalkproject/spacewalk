@@ -118,7 +118,7 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
 
 
     def onMainWinCancel(self, mainWin):
-        dialog = rhnregGui.ConfirmQuitDialog()
+        dialog = rhnregGui.ConfirmQuitDialog(mainWin)
         if dialog.rc == 1:
             self.mainWin.set_current_page(self.pages['finishPageVbox'])
         else:
