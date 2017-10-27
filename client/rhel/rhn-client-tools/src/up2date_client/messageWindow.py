@@ -52,7 +52,7 @@ class MessageWindow:
     def hide(self):
         self.dialog.hide()
         self.dialog.destroy()
-        gtk.main_iteration()
+        gtk.main_iteration_do(True)
 
     def __init__ (self, title, text, type="ok", default=None, parent=None):
         self.rc = None
@@ -158,7 +158,7 @@ class BulletedOkDialog:
             or rc == gtk.RESPONSE_CLOSE):
             self.rc = 0
         self.dialog.destroy()
-        gtk.main_iteration()
+        gtk.main_iteration_do(True)
 
     def getrc (self):
         return self.rc

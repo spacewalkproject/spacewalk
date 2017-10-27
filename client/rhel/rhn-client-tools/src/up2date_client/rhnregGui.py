@@ -798,7 +798,7 @@ class CreateProfilePage:
             if cfg['supportsExtendedPackageProfile']:
                 getArch = 1
             packageList = pkgUtils.getInstalledPackageList(progressCallback = lambda amount,
-                                                           total: gtk.main_iteration(False),
+                                                           total: gtk.main_iteration_do(False),
                                                            getArch=getArch)
 ##            selection = []
             # FIXME

@@ -22,7 +22,7 @@ class Progress:
     def hide(self):
         self.progressWindow.hide()
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
         del self
 
@@ -30,7 +30,7 @@ class Progress:
         label = self.xml.get_widget("progressLabel")
         label.set_text(text)
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
     # the xmlrpc callbacks only use the first three
     # the GET style use all 4, so pass em but dont use them
@@ -49,17 +49,17 @@ class Progress:
                 i = 0
 #            gtk.gdk_flush()
             while gtk.events_pending():
-                gtk.main_iteration(False)
+                gtk.main_iteration_do(False)
             self.lastProgress = i
 
     def setStatusLabel(self, text):
         self.xml.get_widget("statusLabel").set_text(text)
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
     def destroy(self):
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
         self.progressWindow.destroy()
 
