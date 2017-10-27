@@ -31,7 +31,7 @@ from up2date_client import rhnreg
 from up2date_client import messageWindow
 
 from up2date_client import rhnregGui
-from up2date_client.gtk_compat import gtk, getWidgetName
+from up2date_client.gtk_compat import gtk, setCursor, getWidgetName
 
 
 
@@ -106,15 +106,9 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         # classes like this could be called a hack, but I think it's the best
         # we can do with the current overall setup and isn't too bad.
         def mySetBusyCursor():
-            cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-            self.mainWin.window.set_cursor(cursor)
-            while gtk.events_pending():
-                gtk.main_iteration(False)
+            setCursor(self.mainWin, gtk.CURSOR_WATCH)
         def mySetArrowCursor():
-            cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
-            self.mainWin.window.set_cursor(cursor)
-            while gtk.events_pending():
-                gtk.main_iteration(False)
+            setCursor(self.mainWin, gtk.CURSOR_LEFT_PTR)
         rhnregGui.setBusyCursor = mySetBusyCursor
         rhnregGui.setArrowCursor = mySetArrowCursor
 

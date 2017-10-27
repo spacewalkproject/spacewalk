@@ -4,7 +4,7 @@
 #
 # Author: Preston Brown <pbrown@redhat.com>
 
-from up2date_client.gtk_compat import gtk
+from up2date_client.gtk_compat import gtk, setCursor
 
 class Progress:
     def __init__(self):
@@ -15,10 +15,7 @@ class Progress:
         self.progressWindow = self.xml.get_widget("progressWindow")
         self.progressWindow.connect("delete-event", self.progressWindow.hide)
         #self.progressWindow.connect("hide", self.progressWindow.hide)
-        cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-        self.progressWindow.window.set_cursor(cursor)
-        while gtk.events_pending():
-            gtk.main_iteration(False)
+        setCursor(self.progressWindow, gtk.CURSOR_WATCH)
 
         self.lastProgress = 0.0
 

@@ -14,6 +14,7 @@ except ImportError: # python3 /gtk3 / gi
     import gi
     gi.require_version("Gtk", "3.0")
     from gi.repository import Gtk as gtk
+    from gi.repository import Gdk as gdk
     from gi.repository import GObject as gobject
     GTK3 = True
 
@@ -35,9 +36,26 @@ if GTK3:
     gtk.glade = GladeBuilder()
     gtk.RESPONSE_NONE = gtk.ResponseType.NONE
 
+    def setCursor(widget, ctype):
+        cursor = gdk.Cursor(ctype)
+        widget.get_root_window().set_cursor(cursor)
+        while gtk.events_pending():
+            gtk.main_iteration_do(False)
+    gtk.CURSOR_WATCH = gdk.CursorType.WATCH
+    gtk.CURSOR_LEFT_PTR = gdk.CursorType.LEFT_PTR
+
     def getWidgetName(widget):
         return gtk.Buildable.get_name(widget)
 
 else:
+    def setCursor(widget, ctype):
+        cursor = gtk.gdk.Cursor(ctype)
+        widget.window.set_cursor(cursor)
+        while gtk.events_pending():
+            gtk.main_iteration_do(False)
+
+    gtk.CURSOR_WATCH = gtk.gdk.WATCH
+    gtk.CURSOR_LEFT_PTR = gtk.gdk.LEFT_PTR
+
     def getWidgetName(widget):
         return widget.name
