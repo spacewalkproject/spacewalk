@@ -1,4 +1,5 @@
 
+
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 # Python 3 translations don't have a ugettext method
@@ -6,7 +7,12 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-from up2date_client.gtk_compat import gtk
+from up2date_client.gtk_compat import gtk, GTK3
+
+if GTK3:
+    DIALOG_LABEL = 0
+else:
+    DIALOG_LABEL = 1
 
 # wrap a long line...
 def wrap_line(line, max_line_size = 100):
@@ -72,7 +78,7 @@ class MessageWindow:
         self.dialog = gtk.MessageDialog(parent, 0, style, buttons)
         # Work around for bug #602609
         try:
-            self.dialog.vbox.get_children()[0].get_children()[1].\
+            self.dialog.vbox.get_children()[0].get_children()[DIALOG_LABEL].\
                 get_children()[0].set_line_wrap(False)
         except:
             self.dialog.label.set_line_wrap(False)
