@@ -35,6 +35,21 @@ if GTK3:
 
     gtk.glade = GladeBuilder()
     gtk.RESPONSE_NONE = gtk.ResponseType.NONE
+    gtk.RESPONSE_OK = gtk.ResponseType.OK
+    gtk.RESPONSE_YES = gtk.ResponseType.YES
+    gtk.RESPONSE_CANCEL = gtk.ResponseType.CANCEL
+    gtk.RESPONSE_NO = gtk.ResponseType.NO
+    gtk.RESPONSE_CLOSE = gtk.ResponseType.CLOSE
+    gtk.BUTTONS_OK = gtk.ButtonsType.OK
+    gtk.BUTTONS_OK_CANCEL = gtk.ButtonsType.OK_CANCEL
+    gtk.BUTTONS_YES_NO = gtk.ButtonsType.YES_NO
+    gtk.MESSAGE_INFO = gtk.MessageType.INFO
+    gtk.MESSAGE_WARNING = gtk.MessageType.WARNING
+    gtk.MESSAGE_QUESTION = gtk.MessageType.QUESTION
+    gtk.MESSAGE_ERROR = gtk.MessageType.ERROR
+    gtk.WIN_POS_CENTER = gtk.WindowPosition.CENTER
+    gtk.SORT_ASCENDING = gtk.SortType.ASCENDING
+    gtk.SHADOW_OUT = gtk.ShadowType.OUT
 
     def setCursor(widget, ctype):
         cursor = gdk.Cursor(ctype)
