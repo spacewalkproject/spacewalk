@@ -370,7 +370,10 @@ public class KickstartHelper {
     }
 
     private boolean hasUpdates(KickstartData ksdata) {
-        return ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2();
+        if (ksdata.isRhel4() || ksdata.isRhel3() || ksdata.isRhel2()) {
+            return hasPackages(ksdata.getChannel(), KickstartFormatter.UPDATE_PKG_NAMES);
+        }
+        return true;
     }
 
     private boolean hasFresh(KickstartData ksdata) {
