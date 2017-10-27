@@ -1039,7 +1039,7 @@ class AlreadyRegisteredDialog:
             pass
 
         self.xml.get_widget('serverUrlLabel').set_label(server)
-        self.xml.get_widget('usernameLabel').set_label(oldUsername)
+        self.xml.get_widget('usernameLabel2').set_label(oldUsername)
         self.xml.get_widget('systemIdLabel').set_label(systemId)
 
         self.rc = self.dialog.run()
@@ -1182,7 +1182,7 @@ class PackageDialog:
             "packageDialog", domain="rhn-client-tools")
         self.dlg = self.swXml.get_widget("packageDialog")
 
-        self.swXml.get_widget("okButton").connect("clicked", self.finish)
+        self.swXml.get_widget("okButton2").connect("clicked", self.finish)
 
         callAndFilterExceptions(
                 self.populateDialog,

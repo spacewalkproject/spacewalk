@@ -1149,7 +1149,7 @@ To keep your system updated, secure, and supported, please register this system 
 	  <property name="spacing">10</property>
 
 	  <child>
-	    <widget class="GtkButton" id="okButton">
+	    <widget class="GtkButton" id="okButton2">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -4749,7 +4749,7 @@ Are you sure you would like to continue?</property>
 	      </child>
 
 	      <child>
-		<widget class="GtkLabel" id="usernameLabel">
+		<widget class="GtkLabel" id="usernameLabel2">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="label" translatable="yes">label</property>
