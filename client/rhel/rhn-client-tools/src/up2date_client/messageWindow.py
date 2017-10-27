@@ -123,7 +123,8 @@ class BulletedOkDialog:
     def __init__ (self, title=None, parent=None):
         self.rc = None
         self.dialog = gtk.Dialog(title, parent, 0, ("Close", 1))
-        self.dialog.set_has_separator(False)
+        if hasattr(self.dialog, 'set_has_separator'):
+            self.dialog.set_has_separator(False)
         # Vbox to contain just the stuff that will be add to the dialog with
         # addtext
         self.vbox = gtk.VBox(spacing=15)
