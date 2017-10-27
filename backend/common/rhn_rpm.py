@@ -84,7 +84,7 @@ class RPM_Header:
 
     def __getitem__(self, name):
         item = self.hdr[name]
-        if item is not None:
+        if isinstance(item, bytes):
             item = sstr(item)
         return item
 
@@ -96,7 +96,7 @@ class RPM_Header:
 
     def __getattr__(self, name):
         item = getattr(self.hdr, name)
-        if item is not None:
+        if isinstance(item, bytes):
             item = sstr(item)
         return item
 
