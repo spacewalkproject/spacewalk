@@ -2,6 +2,10 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
+%if 0%{?fedora} || 0%{?suse_version} > 1320
+%global build_py3   1
+%endif
+
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
 Version: 2.8.3
@@ -27,14 +31,36 @@ Summary: %summary
 
 %description -n python2-gzipstream %_description
 
+%if 0%{?build_py3}
+%package -n python3-gzipstream
+Summary:        %summary
+Group:          Development/Languages/Python
+BuildRequires:  python3-devel
+
+%description -n python3-gzipstream %_description
+
+%endif
+
 %prep
 %setup -q
+mkdir ../py3
+cp -a . ../py3
 
 %build
 %{__python} setup.py build
+%if 0%{?build_py3}
+cd ../py3
+%{__python3} setup.py build
+
+%endif
 
 %install
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%if 0%{?build_py3}
+cd ../py3
+%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix %{_usr}
+
+%endif
 
 %clean
 
@@ -42,6 +68,14 @@ Summary: %summary
 %{python_sitelib}/*
 %doc html
 %license LICENSE
+
+%if 0%{?build_py3}
+%files -n python3-gzipstream
+%defattr(-,root,root)
+%{python3_sitelib}/*
+%doc html LICENSE
+
+%endif
 
 %changelog
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
