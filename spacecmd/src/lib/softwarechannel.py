@@ -471,7 +471,7 @@ def do_softwarechannel_setdetails(self, args):
         try:
             details = self.client.channel.software.getDetails(self.session,
                                                               channel)
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             logging.error('Could not get details for %s' % channel)
             logging.error(e)
             return
@@ -483,7 +483,7 @@ def do_softwarechannel_setdetails(self, args):
                                                     channel_id,
                                                     new_details)
             num_changed += 1
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             logging.error('Error while setting details for %s' % channel)
             logging.error(e)
             return
