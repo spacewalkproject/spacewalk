@@ -504,7 +504,7 @@ def do_system_runscript(self, args):
 
                 logging.info('Action ID: %i' % action_id)
                 scheduled += 1
-            except xmlrpclib.Fault, detail:
+            except xmlrpclib.Fault as detail:
                 logging.debug(detail)
                 logging.error('Failed to schedule %s' % system)
 

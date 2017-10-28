@@ -653,7 +653,7 @@ def json_dump_to_file(obj, filename):
         fd = open(filename, 'w')
         fd.write(json_data)
         fd.close()
-    except IOError, E:
+    except IOError as E:
         logging.error("Could not open file %s for writing, permissions?",
                       filename)
         print(E.strerror)
