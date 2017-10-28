@@ -7,6 +7,11 @@
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
+%if 0%{?fedora} || 0%{?suse_version} > 1320
+%global build_py3   1
+%global python_sitelib %{python3_sitelib}
+%endif
+
 Name:        spacecmd
 Version:     2.8.16
 Release:     1%{?dist}
@@ -20,10 +25,23 @@ BuildArch:   noarch
 %if 0%{?pylint_check}
 BuildRequires: spacewalk-pylint
 %endif
+%if 0%{?build_py3}
+BuildRequires: python3
+BuildRequires: python3-devel
+BuildRequires: python3-simplejson
+BuildRequires: python3-rpm
+Requires:      python3
+%else
 BuildRequires: python
 BuildRequires: python-devel
 BuildRequires: python-simplejson
 BuildRequires: rpm-python
+Requires:      python
+%if 0%{?suse_version}
+BuildRequires: python-xml
+Requires:      python-xml
+%endif
+%endif
 %if 0%{?rhel} == 5
 BuildRequires: python-json
 %endif
@@ -31,14 +49,8 @@ BuildRequires: python-json
 %if 0%{?rhel} == 5
 Requires:    python-simplejson
 %endif
-Requires:    python
 Requires:    file
 
-%if 0%{?suse_version}
-BuildRequires: python-xml
-Requires:      python-xml
-Requires:      python-simplejson
-%endif
 
 %description
 spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
@@ -53,6 +65,10 @@ spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
 %{__rm} -rf %{buildroot}
 
 %{__mkdir_p} %{buildroot}/%{_bindir}
+
+%if 0%{?build_py3}
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./src/bin/spacecmd
+%endif
 %{__install} -p -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
 %{__mkdir_p} %{buildroot}/%{_sysconfdir}
@@ -69,6 +85,12 @@ touch %{buildroot}/%{_sysconfdir}/spacecmd.conf
 
 touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %{__chmod} 0644 %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
+
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python_sitelib}
+%else
+%py_compile -O %{buildroot}/%{python_sitelib}
+%endif
 
 %clean
 %{__rm} -rf %{buildroot}
