@@ -38,8 +38,8 @@ from spacecmd.utils import *
 
 
 def help_user_create(self):
-    print 'user_create: Create an user'
-    print '''usage: user_create [options]
+    print('user_create: Create an user')
+    print('''usage: user_create [options])
 
 options:
   -u USERNAME
@@ -47,7 +47,7 @@ options:
   -l LAST_NAME
   -e EMAIL
   -p PASSWORD
-  --pam enable PAM authentication'''
+  --pam enable PAM authentication''')
 
 
 def do_user_create(self, args):
@@ -124,8 +124,8 @@ def do_user_create(self, args):
 
 
 def help_user_delete(self):
-    print 'user_delete: Delete an user'
-    print 'usage: user_delete NAME'
+    print('user_delete: Delete an user')
+    print('usage: user_delete NAME')
 
 
 def complete_user_delete(self, text, line, beg, end):
@@ -148,8 +148,8 @@ def do_user_delete(self, args):
 
 
 def help_user_disable(self):
-    print 'user_disable: Disable an user account'
-    print 'usage: user_disable NAME'
+    print('user_disable: Disable an user account')
+    print('usage: user_disable NAME')
 
 
 def complete_user_disable(self, text, line, beg, end):
@@ -171,8 +171,8 @@ def do_user_disable(self, args):
 
 
 def help_user_enable(self):
-    print 'user_enable: Enable an user account'
-    print 'usage: user_enable NAME'
+    print('user_enable: Enable an user account')
+    print('usage: user_enable NAME')
 
 
 def complete_user_enable(self, text, line, beg, end):
@@ -194,8 +194,8 @@ def do_user_enable(self, args):
 
 
 def help_user_list(self):
-    print 'user_list: List all users'
-    print 'usage: user_list'
+    print('user_list: List all users')
+    print('usage: user_list')
 
 
 def do_user_list(self, args, doreturn=False):
@@ -206,14 +206,14 @@ def do_user_list(self, args, doreturn=False):
         return users
     else:
         if users:
-            print '\n'.join(sorted(users))
+            print('\n'.join(sorted(users)))
 
 ####################
 
 
 def help_user_listavailableroles(self):
-    print 'user_listavailableroles: List all available roles for users'
-    print 'usage: user_listavailableroles'
+    print('user_listavailableroles: List all available roles for users')
+    print('usage: user_listavailableroles')
 
 
 def do_user_listavailableroles(self, args, doreturn=False):
@@ -223,14 +223,14 @@ def do_user_listavailableroles(self, args, doreturn=False):
         return roles
     else:
         if roles:
-            print '\n'.join(sorted(roles))
+            print('\n'.join(sorted(roles)))
 
 ####################
 
 
 def help_user_addrole(self):
-    print 'user_addrole: Add a role to an user account'
-    print 'usage: user_addrole USER ROLE'
+    print('user_addrole: Add a role to an user account')
+    print('usage: user_addrole USER ROLE')
 
 
 def complete_user_addrole(self, text, line, beg, end):
@@ -259,8 +259,8 @@ def do_user_addrole(self, args):
 
 
 def help_user_removerole(self):
-    print 'user_removerole: Remove a role from an user account'
-    print 'usage: user_removerole USER ROLE'
+    print('user_removerole: Remove a role from an user account')
+    print('usage: user_removerole USER ROLE')
 
 
 def complete_user_removerole(self, text, line, beg, end):
@@ -290,8 +290,8 @@ def do_user_removerole(self, args):
 
 
 def help_user_details(self):
-    print 'user_details: Show the details of an user'
-    print 'usage: user_details USER ...'
+    print('user_details: Show the details of an user')
+    print('usage: user_details USER ...')
 
 
 def complete_user_details(self, text, line, beg, end):
@@ -329,42 +329,42 @@ def do_user_details(self, args):
         organization = org_details.get('name')
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Username:      %s' % user
-        print 'First Name:    %s' % details.get('first_name')
-        print 'Last Name:     %s' % details.get('last_name')
-        print 'Email Address: %s' % details.get('email')
-        print 'Organization:  %s' % organization
-        print 'Last Login:    %s' % details.get('last_login_date')
-        print 'Created:       %s' % details.get('created_date')
-        print 'Enabled:       %s' % details.get('enabled')
+        print('Username:      %s' % user)
+        print('First Name:    %s' % details.get('first_name'))
+        print('Last Name:     %s' % details.get('last_name'))
+        print('Email Address: %s' % details.get('email'))
+        print('Organization:  %s' % organization)
+        print('Last Login:    %s' % details.get('last_login_date'))
+        print('Created:       %s' % details.get('created_date'))
+        print('Enabled:       %s' % details.get('enabled'))
 
         if roles:
-            print
-            print 'Roles'
-            print '-----'
-            print '\n'.join(sorted(roles))
+            print()
+            print('Roles')
+            print('-----')
+            print('\n'.join(sorted(roles)))
 
         if groups:
-            print
-            print 'Assigned Groups'
-            print '---------------'
-            print '\n'.join(sorted([g.get('name') for g in groups]))
+            print()
+            print('Assigned Groups')
+            print('---------------')
+            print('\n'.join(sorted([g.get('name') for g in groups])))
 
         if default_groups:
-            print
-            print 'Default Groups'
-            print '--------------'
-            print '\n'.join(sorted([g.get('name') for g in default_groups]))
+            print()
+            print('Default Groups')
+            print('--------------')
+            print('\n'.join(sorted([g.get('name') for g in default_groups])))
 
 ####################
 
 
 def help_user_addgroup(self):
-    print 'user_addgroup: Add a group to an user account'
-    print 'usage: user_addgroup USER <GROUP ...>'
+    print('user_addgroup: Add a group to an user account')
+    print('usage: user_addgroup USER <GROUP ...>')
 
 
 def complete_user_addgroup(self, text, line, beg, end):
@@ -397,8 +397,8 @@ def do_user_addgroup(self, args):
 
 
 def help_user_adddefaultgroup(self):
-    print 'user_adddefaultgroup: Add a default group to an user account'
-    print 'usage: user_adddefaultgroup USER <GROUP ...>'
+    print('user_adddefaultgroup: Add a default group to an user account')
+    print('usage: user_adddefaultgroup USER <GROUP ...>')
 
 
 def complete_user_adddefaultgroup(self, text, line, beg, end):
@@ -430,8 +430,8 @@ def do_user_adddefaultgroup(self, args):
 
 
 def help_user_removegroup(self):
-    print 'user_removegroup: Remove a group to an user account'
-    print 'usage: user_removegroup USER <GROUP ...>'
+    print('user_removegroup: Remove a group to an user account')
+    print('usage: user_removegroup USER <GROUP ...>')
 
 
 def complete_user_removegroup(self, text, line, beg, end):
@@ -467,9 +467,9 @@ def do_user_removegroup(self, args):
 
 
 def help_user_removedefaultgroup(self):
-    print 'user_removedefaultgroup: Remove a default group from an ' + \
-          'user account'
-    print 'usage: user_removedefaultgroup USER <GROUP ...>'
+    print('user_removedefaultgroup: Remove a default group from an ' +
+          'user account')
+    print('usage: user_removedefaultgroup USER <GROUP ...>')
 
 
 def complete_user_removedefaultgroup(self, text, line, beg, end):
@@ -504,8 +504,8 @@ def do_user_removedefaultgroup(self, args):
 
 
 def help_user_setfirstname(self):
-    print 'user_setfirstname: Set an user accounts first name field'
-    print 'usage: user_setfirstname USER FIRST_NAME'
+    print('user_setfirstname: Set an user accounts first name field')
+    print('usage: user_setfirstname USER FIRST_NAME')
 
 
 def complete_user_setfirstname(self, text, line, beg, end):
@@ -535,8 +535,8 @@ def do_user_setfirstname(self, args):
 
 
 def help_user_setlastname(self):
-    print 'user_setlastname: Set an user accounts last name field'
-    print 'usage: user_setlastname USER LAST_NAME'
+    print('user_setlastname: Set an user accounts last name field')
+    print('usage: user_setlastname USER LAST_NAME')
 
 
 def complete_user_setlastname(self, text, line, beg, end):
@@ -566,8 +566,8 @@ def do_user_setlastname(self, args):
 
 
 def help_user_setemail(self):
-    print 'user_setemail: Set an user accounts email field'
-    print 'usage: user_setemail USER EMAIL'
+    print('user_setemail: Set an user accounts email field')
+    print('usage: user_setemail USER EMAIL')
 
 
 def complete_user_setemail(self, text, line, beg, end):
@@ -597,8 +597,8 @@ def do_user_setemail(self, args):
 
 
 def help_user_setprefix(self):
-    print 'user_setprefix: Set an user accounts name prefix field'
-    print 'usage: user_setprefix USER PREFIX'
+    print('user_setprefix: Set an user accounts name prefix field')
+    print('usage: user_setprefix USER PREFIX')
 
 
 def complete_user_setprefix(self, text, line, beg, end):
@@ -635,8 +635,8 @@ def do_user_setprefix(self, args):
 
 
 def help_user_setpassword(self):
-    print 'user_setpassword: Set an user accounts name prefix field'
-    print 'usage: user_setpassword USER PASSWORD'
+    print('user_setpassword: Set an user accounts name prefix field')
+    print('usage: user_setpassword USER PASSWORD')
 
 
 def complete_user_setpassword(self, text, line, beg, end):

@@ -91,18 +91,18 @@ SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
 
 
 def help_systems(self):
-    print HELP_SYSTEM_OPTS
+    print(HELP_SYSTEM_OPTS)
 
 
 def help_time(self):
-    print HELP_TIME_OPTS
+    print(HELP_TIME_OPTS)
 
 ####################
 
 
 def help_clear(self):
-    print 'clear: clear the screen'
-    print 'usage: clear'
+    print('clear: clear the screen')
+    print('usage: clear')
 
 
 def do_clear(self, args):
@@ -112,9 +112,8 @@ def do_clear(self, args):
 
 
 def help_clear_caches(self):
-    print 'clear_caches: Clear the internal caches kept for systems' + \
-          ' and packages'
-    print 'usage: clear_caches'
+    print('clear_caches: Clear the internal caches kept for systems and packages')
+    print('usage: clear_caches')
 
 
 def do_clear_caches(self, args):
@@ -126,60 +125,60 @@ def do_clear_caches(self, args):
 
 
 def help_get_apiversion(self):
-    print 'get_apiversion: Display the API version of the server'
-    print 'usage: get_apiversion'
+    print('get_apiversion: Display the API version of the server')
+    print('usage: get_apiversion')
 
 
 def do_get_apiversion(self, args):
-    print self.client.api.getVersion()
+    print(self.client.api.getVersion())
 
 ####################
 
 
 def help_get_serverversion(self):
-    print 'get_serverversion: Display the version of the server'
-    print 'usage: get_serverversion'
+    print('get_serverversion: Display the version of the server')
+    print('usage: get_serverversion')
 
 
 def do_get_serverversion(self, args):
-    print self.client.api.systemVersion()
+    print(self.client.api.systemVersion())
 
 ####################
 
 
 def help_get_certificateexpiration(self):
-    print 'get_certificateexpiration: Print the expiration date of the'
-    print "                           server's entitlement certificate"
-    print 'usage: get_certificateexpiration'
+    print('get_certificateexpiration: Print the expiration date of the')
+    print("                           server's entitlement certificate")
+    print('usage: get_certificateexpiration')
 
 
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
-    print date
+    print(date)
 
 ####################
 
 
 def help_list_proxies(self):
-    print 'list_proxies: List the proxies wihtin the user\'s organization '
-    print 'usage: list_proxies'
+    print('list_proxies: List the proxies wihtin the user\'s organization ')
+    print('usage: list_proxies')
 
 
 def do_list_proxies(self, args):
     proxies = self.client.satellite.listProxies(self.session)
-    print proxies
+    print(proxies)
 
 ####################
 
 
 def help_get_session(self):
-    print 'get_session: Show the current session string'
-    print 'usage: get_session'
+    print('get_session: Show the current session string')
+    print('usage: get_session')
 
 
 def do_get_session(self, args):
     if self.session:
-        print self.session
+        print(self.session)
     else:
         logging.error('No session found')
 
@@ -187,33 +186,33 @@ def do_get_session(self, args):
 
 
 def help_help(self):
-    print 'help: Show help for the given command'
-    print 'usage: help COMMAND'
+    print('help: Show help for the given command')
+    print('usage: help COMMAND')
 
 ####################
 
 
 def help_history(self):
-    print 'history: List your command history'
-    print 'usage: history'
+    print('history: List your command history')
+    print('usage: history')
 
 
 def do_history(self, args):
     for i in range(1, readline.get_current_history_length()):
-        print '%s  %s' % (str(i).rjust(4), readline.get_history_item(i))
+        print('%s  %s' % (str(i).rjust(4), readline.get_history_item(i)))
 
 ####################
 
 
 def help_toggle_confirmations(self):
-    print 'toggle_confirmations: Toggle confirmation messages on/off'
-    print 'usage: toggle_confirmations'
+    print('toggle_confirmations: Toggle confirmation messages on/off')
+    print('usage: toggle_confirmations')
 
 
 def do_toggle_confirmations(self, args):
     if self.options.yes:
         self.options.yes = False
-        print 'Confirmation messages are enabled'
+        print('Confirmation messages are enabled')
     else:
         self.options.yes = True
         logging.warning('Confirmation messages are DISABLED!')
@@ -222,8 +221,8 @@ def do_toggle_confirmations(self, args):
 
 
 def help_login(self):
-    print 'login: Connect to a Spacewalk server'
-    print 'usage: login [USERNAME] [SERVER]'
+    print('login: Connect to a Spacewalk server')
+    print('usage: login [USERNAME] [SERVER]')
 
 
 def do_login(self, args):
@@ -397,8 +396,8 @@ def do_login(self, args):
 
 
 def help_logout(self):
-    print 'logout: Disconnect from the server'
-    print 'usage: logout'
+    print('logout: Disconnect from the server')
+    print('usage: logout')
 
 
 def do_logout(self, args):
@@ -414,13 +413,13 @@ def do_logout(self, args):
 
 
 def help_whoami(self):
-    print 'whoami: Print the name of the currently logged in user'
-    print 'usage: whoami'
+    print('whoami: Print the name of the currently logged in user')
+    print('usage: whoami')
 
 
 def do_whoami(self, args):
     if self.current_user:
-        print self.current_user
+        print(self.current_user)
     else:
         logging.warning("You are not logged in")
 
@@ -428,13 +427,13 @@ def do_whoami(self, args):
 
 
 def help_whoamitalkingto(self):
-    print 'whoamitalkingto: Print the name of the server'
-    print 'usage: whoamitalkingto'
+    print('whoamitalkingto: Print the name of the server')
+    print('usage: whoamitalkingto')
 
 
 def do_whoamitalkingto(self, args):
     if self.server:
-        print self.server
+        print(self.server)
     else:
         logging.warning('Yourself')
 
@@ -954,7 +953,7 @@ def replace_line_buffer(self, msg=None):
     if not msg:
         msg = readline.get_line_buffer()
 
-    # don't print a prompt if there wasn't one to begin with
+    # don't print(a prompt if there wasn't one to begin with)
     if readline.get_line_buffer():
         new_line = '%s%s' % (self.prompt, msg)
     else:
