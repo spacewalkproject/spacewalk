@@ -369,7 +369,7 @@ def do_login(self, args):
             conf_dir = os.path.join(self.conf_dir, server)
 
             if not os.path.isdir(conf_dir):
-                os.mkdir(conf_dir, 0700)
+                os.mkdir(conf_dir, int('0700', 8))
 
             # add the new cache to the file
             line = '%s:%s\n' % (username, self.session)
@@ -686,7 +686,7 @@ def load_caches(self, server, username):
 
     try:
         if not os.path.isdir(conf_dir):
-            os.mkdir(conf_dir, 0700)
+            os.mkdir(conf_dir, int('0700', 8))
     except OSError:
         logging.error('Could not create directory %s', conf_dir)
         return
