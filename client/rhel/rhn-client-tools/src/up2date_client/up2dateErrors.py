@@ -36,22 +36,22 @@ from up2date_client.pkgplatform import getPlatform
 import sys
 sys.path = sys.path[1:] + sys.path[:1]
 
-if getPlatform() == 'deb' or dist()[0] == 'SuSE':
-    class PmBaseError(Exception):
-        def __init__(self, errmsg):
-            self.value = errmsg
-        def __getattr__(self, name):
-            raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
-        def __setattr__(self, name, value):
-            if name in ['errmsg', 'value']:
-                self.__dict__['value'] = value
-            else:
-                self.__dict__[name] = value
-else:
+try:
+    from yum.Errors import YumBaseError as PmBaseError
+except ImportError:
     try:
-        from yum.Errors import YumBaseError as PmBaseError
-    except ImportError:
         from dnf.exceptions import Error as PmBaseError
+    except ImportError:
+        class PmBaseError(Exception):
+            def __init__(self, errmsg):
+                self.value = errmsg
+            def __getattr__(self, name):
+                raise AttributeError(_("class %s has no attribute '%s'") % (self.__class__.__name__, name))
+            def __setattr__(self, name, value):
+                if name in ['errmsg', 'value']:
+                    self.__dict__['value'] = value
+                else:
+                    self.__dict__[name] = value
 
 
 class Error(PmBaseError):
@@ -95,13 +95,14 @@ class Error(PmBaseError):
 class DebAndSuseRepoError(Error):
    pass
 
-if getPlatform() == 'deb' or dist()[0] == 'SuSE':
-    RepoError = DebAndSuseRepoError
-else:
+try:
+    from yum.Errors import RepoError
+except ImportError:
     try:
-        from yum.Errors import RepoError
-    except ImportError:
         from dnf.exceptions import RepoError
+    except ImportError:
+        RepoError = DebAndSuseRepoError
+
 
 class RpmError(Error):
     """rpm itself raised an error condition"""
