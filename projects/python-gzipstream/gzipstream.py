@@ -125,7 +125,7 @@ class GzipStream(gzip.GzipFile):
             mode = _mode
 
         if mode[0] not in _modes:
-            raise ValueError, 'Mode %s not supported' % mode
+            raise ValueError('Mode %s not supported' % mode)
         return mode
 
     def _read(self, size=1024):
@@ -134,7 +134,7 @@ class GzipStream(gzip.GzipFile):
         # file, just do a seek(pos+1) if the same then we are at the
         # end of the file.
         if self.stream is None:
-            raise EOFError, "Reached EOF"
+            raise EOFError("Reached EOF")
 
         if self._new_member:
             # If the _new_member flag is set, we have to
@@ -147,7 +147,7 @@ class GzipStream(gzip.GzipFile):
             if pos == self.stream.tell():
                 self.stream.close()
                 self.stream = None
-                return EOFError, "Reached EOF"
+                return EOFError("Reached EOF")
             else:
                 self.stream.seek( pos ) # Return to original position
 
@@ -168,7 +168,7 @@ class GzipStream(gzip.GzipFile):
             self.stream.close()
             self.stream = None
             self._add_read_data( uncompress )
-            raise EOFError, 'Reached EOF'
+            raise EOFError('Reached EOF')
 
         uncompress = self.decompress.decompress(buf)
         self._add_read_data( uncompress )
@@ -187,7 +187,7 @@ class GzipStream(gzip.GzipFile):
             self._new_member = 1
 
     def seek(self, offset):
-        raise IOError, 'Random access not allowed in gzip streams'
+        raise IOError('Random access not allowed in gzip streams')
 
     def __repr__(self):
         ret = ''
@@ -251,14 +251,14 @@ if _SYS_VERSION == 1:
             """Make size long in order to support very large files.
             """
             GzipStream._init_write(self, filename)
-            self.size = 0L
+            self.size = 0
 
 
         def _init_read(self):
             """Make size a long in order to support very large files.
             """
             GzipStream._init_read(self)
-            self.size = 0L
+            self.size = 0
 
 
 class _StreamBuf:
@@ -306,7 +306,7 @@ class _StreamBuf:
         # Can only read or write, not both and really the 'b' is meaningless.
         if not mode or (type(mode) == type("") \
         and (mode[0] not in 'rw' or (len(mode) > 1 and mode[1] != 'b'))):
-            raise IOError, (22, "Invalid argument: mode=%s" % repr(mode))
+            raise IOError(22, "Invalid argument: mode=%s" % repr(mode))
 
         if mode[0] == 'r':
             self._readableYN = 1
@@ -340,16 +340,16 @@ class _StreamBuf:
 
     def isatty(self):
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         return 0
 
     def _read(self, size):
         """A buffered read --- refactored.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if not self._readableYN:
-            raise IOError, (9, "Can't read from a write only object")
+            raise IOError(9, "Can't read from a write only object")
         tell = self._bufIO.tell()
         bufIO = self._bufIO.read(size)
         lbufIO = len(bufIO)
@@ -382,9 +382,9 @@ class _StreamBuf:
         """A buffered read.
         """
         if size and size < 0:
-            raise IOError, (22, "Invalid argument")
+            raise IOError(22, "Invalid argument")
         if not self._readableYN:
-            raise IOError, (9, "Can't read from a write only object")
+            raise IOError(9, "Can't read from a write only object")
         fetchSize = _StreamBuf.__MAX_BUFIO_SIZE
         if size:
             fetchSize = min(fetchSize, size)
@@ -405,9 +405,9 @@ class _StreamBuf:
         """Return one line of text: a string ending in a '\n' or EOF.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if not self._readableYN:
-            raise IOError, (9, "Can't read from a write only object")
+            raise IOError(9, "Can't read from a write only object")
         line = ''
         buf = self.read(_StreamBuf.__MIN_READ_SIZE)
         while buf:
@@ -426,9 +426,9 @@ class _StreamBuf:
         """Read entire file into memory! And return a list of lines of text.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if not self._readableYN:
-            raise IOError, (9, "Can't read from a write only object")
+            raise IOError(9, "Can't read from a write only object")
         lines = []
         line = self.readline()
         while line:
@@ -477,9 +477,9 @@ class _StreamBuf:
         """Write string to stream.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if not self._writableYN:
-            raise IOError, (9, "Can't write to a read only object")
+            raise IOError(9, "Can't write to a read only object")
         self._bufIO.write(s)
         if _StreamBuf.VERSION == 1:
             self._currFoPos = self.__checkInt(self._currFoPos)
@@ -493,9 +493,9 @@ class _StreamBuf:
         """Given list, concatenate and write.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if not self._writableYN:
-            raise IOError, (9, "Can't write to a read only object")
+            raise IOError(9, "Can't write to a read only object")
         for s in l:
             self.write(s)
 
@@ -503,7 +503,7 @@ class _StreamBuf:
         """A limited seek method. See class __doc__ for more details.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
 
         tell = self._bufIO.tell()
         beginBuf = self._currFoPos - tell
@@ -521,7 +521,7 @@ class _StreamBuf:
         elif where == 2:
             if self._readableYN:
                 if offset < 0 and offset < _StreamBuf.__ABS_MAX_BUFIO_SIZE:
-                    raise IOError, (22, "Invalid argument; can't determine %s "
+                    raise IOError(22, "Invalid argument; can't determine %s "
                                "position due to unknown stream length" % offset)
                 # Could be ugly if, for example, a socket stream "never ends" ;)
                 while self.read(_StreamBuf.__MAX_BUFIO_SIZE):
@@ -532,19 +532,19 @@ class _StreamBuf:
             elif self._writableYN:
                 offset = endBuf + offset
         else:
-            raise IOError, (22, "Invalid argument")
+            raise IOError(22, "Invalid argument")
         if self._writableYN and offset > endBuf:
             offset = endBuf
         #
         # Offset reflects "from beginning of file" now.
         #
         if offset < 0:
-            raise IOError, (22, "Invalid argument")
+            raise IOError(22, "Invalid argument")
         delta = offset - self._currFoPos
         # Before beginning of buffer -- can't do it sensibly -- data gone.
         if offset < beginBuf:
-            raise IOError, (22, "Invalid argument; attempted seek before "
-                                "beginning of buffer")
+            raise IOError(22, "Invalid argument; attempted seek before "
+                              "beginning of buffer")
         # After end of buffer.
         elif offset > endBuf:
             if self._readableYN:
@@ -576,7 +576,7 @@ class _StreamBuf:
         """Flush the buffer.
         """
         if self._closedYN:
-            raise ValueError, "I/O operation on closed _StreamBuf object"
+            raise ValueError("I/O operation on closed _StreamBuf object")
         if self._readableYN:
             pass
         if self._writableYN:
