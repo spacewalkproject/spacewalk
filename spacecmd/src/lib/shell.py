@@ -58,7 +58,7 @@ class SpacewalkShell(Cmd):
 
     # a SyntaxError is thrown if we don't wrap this in an 'exec'
     for module in __module_list:
-        exec 'from %s import *' % module
+        exec('from %s import *' % module)
 
     # maximum length of history file
     HISTORY_LENGTH = 1024
