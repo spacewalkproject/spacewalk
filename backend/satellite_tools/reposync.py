@@ -480,9 +480,9 @@ class RepoSync(object):
                         plugin.clear_cache()
 
                     if not self.no_packages:
+                        self.import_groups(plugin)
                         ret = self.import_packages(plugin, repo_id, url)
                         failed_packages += ret
-                        self.import_groups(plugin)
 
                     if not self.no_errata:
                         self.import_updates(plugin)
@@ -600,6 +600,7 @@ class RepoSync(object):
             shutil.copyfileobj(src, dst)
             dst.close()
             src.close()
+            plug.groupsfile = abspath
             # update or insert
             hu = rhnSQL.prepare("""update rhnChannelComps
                                       set relative_filename = :relpath,

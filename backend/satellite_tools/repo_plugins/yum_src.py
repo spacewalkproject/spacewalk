@@ -187,6 +187,7 @@ class ContentSource(object):
             if '?' not in url:
                 real_urls.append(url)
         self.repo.urls = real_urls
+        self.groupsfile = None
 
     def __del__(self):
         # close log files for yum plugin
@@ -382,11 +383,10 @@ class ContentSource(object):
         return new_filters
 
     def _expand_package_groups(self, filters):
-        groups_file = self.get_groups()
-        if not groups_file:
+        if not self.groupsfile:
             return filters
         comps = Comps()
-        comps.add(groups_file)
+        comps.add(self.groupsfile)
         groups = comps.get_groups()
 
         if hasattr(comps, 'get_environments'):
