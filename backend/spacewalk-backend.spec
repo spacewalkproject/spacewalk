@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.22
+Version: 2.8.23
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -809,6 +809,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Oct 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.23-1
+- process comps file before package import
+- yum on RHEL6 has no idea about environments
+
 * Fri Oct 27 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.22-1
 - convert only bytes
 
