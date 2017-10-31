@@ -388,9 +388,13 @@ class ContentSource(object):
         comps = Comps()
         comps.add(groups_file)
         groups = comps.get_groups()
-        environments = comps.get_environments()
-        # First expand environment groups, then regular groups
-        filters = self._expand_comps_type("environment", environments, groups, filters)
+
+        if hasattr(comps, 'get_environments'):
+            # First expand environment groups, then regular groups
+            environments = comps.get_environments()
+            filters = self._expand_comps_type("environment", environments, groups, filters)
+        else:
+            environments = []
         filters = self._expand_comps_type("group", environments, groups, filters)
         return filters
 
