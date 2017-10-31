@@ -9,6 +9,7 @@ java/build
 java/lib
 java/*.log
 java/*.log.*
+java/bin/*
 java/buildconf/builder/config/local
 java/buildconf/tempjars/*
 java/.checkstyle
