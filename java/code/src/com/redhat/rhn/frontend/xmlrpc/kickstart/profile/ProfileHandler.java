@@ -263,6 +263,7 @@ public class ProfileHandler extends BaseHandler {
         urlC.setArguments("--url " + tree.getDefaultDownloadLocation());
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
+        KickstartFactory.saveKickstartData(ksdata);
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
                 loggedInUser);
         cpec.store();
