@@ -269,6 +269,7 @@ class ContentSource(object):
                 pass
 
         rawpkglist = self.repo.getPackageSack().returnPackages()
+        self.num_packages = len(rawpkglist)
 
         if not filters:
             filters = []
