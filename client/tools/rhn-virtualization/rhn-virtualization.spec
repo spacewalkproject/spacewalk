@@ -11,7 +11,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.65
+Version:        5.4.66
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -271,6 +271,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 02 2017 Jan Dobes 5.4.66-1
+- fixing a bytes-like object is required, not 'str'
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.65-1
 - rhn-virtualization: do not install sys-v init script on SUSE
 - rhn-virtualization: add missing dirs to filelist for SUSE and enable build
