@@ -256,6 +256,8 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 Requires: python-gnome python-gtk
 %else
 Requires: python3-gobject-base gtk3
+# gtk-builder-convert
+BuildRequires: gtk2-devel
 %endif
 %if 0%{?fedora} || 0%{?rhel} > 5
 Requires: liberation-sans-fonts
@@ -280,6 +282,16 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
 %if 0%{?build_py3}
 sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
 make -f Makefile.rhn-client-tools
+for g in data/*.glade ; do
+        mv $g $g.old
+        gtk-builder-convert $g.old $g
+done
+sed -i 's/GTK_PROGRESS_LEFT_TO_RIGHT/horizontal/' data/progress.glade
+sed -i 's/GtkComboBox/GtkComboBoxText/; /property name="has_separator"/ d;' data/rh_register.glade
+sed -i '/class="GtkVBox"/ {
+                s/GtkVBox/GtkBox/;
+                a \ \ \ \ \ \ \ \ <property name="orientation">vertical</property\>
+                }' data/gui.glade
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
         PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
