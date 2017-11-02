@@ -24,6 +24,8 @@ except ImportError:
     # who import us can exit gracefully.
     libvirt = None
 
+from rhn.i18n import sstr
+
 from virtualization.domain_config import DomainConfig
 from virtualization.errors        import VirtualizationException
 from virtualization.util          import dehyphenize_uuid, \
@@ -112,6 +114,7 @@ class DomainDirectory:
 
         for uuid in domain_uuids:
 
+            uuid = sstr(uuid)
             # If we already have a config for this uuid, skip it.  Also, don't
             # try to figure out a config for a host UUID.
             if not is_host_uuid(uuid) and not self.is_known_config(uuid):
