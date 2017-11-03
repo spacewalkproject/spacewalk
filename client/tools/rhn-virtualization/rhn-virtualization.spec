@@ -11,7 +11,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.67
+Version:        5.4.68
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -271,6 +271,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 03 2017 Jan Dobes 5.4.68-1
+- open cache file in binary mode
+
 * Fri Nov 03 2017 Jan Dobes 5.4.67-1
 - fixing traceback from poller.py on Python 3
 
