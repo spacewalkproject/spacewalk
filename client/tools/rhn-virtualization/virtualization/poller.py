@@ -21,6 +21,9 @@ import binascii
 import traceback
 import gettext
 t = gettext.translation('rhn-virtualization', fallback=True)
+# Python 3 translations don't have a ugettext method
+if not hasattr(t, 'ugettext'):
+    t.ugettext = t.gettext
 _ = t.ugettext
 
 from up2date_client import rhncli
