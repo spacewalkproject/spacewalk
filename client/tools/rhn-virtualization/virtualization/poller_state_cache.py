@@ -119,7 +119,7 @@ class PollerStateCache:
         # Attempt to open up the cache file.
         cache_file = None
         try:
-            cache_file = open(CACHE_DATA_PATH, 'r')
+            cache_file = open(CACHE_DATA_PATH, 'rb')
         except IOError:
             ioe = sys.exc_info()[1]
             # Couldn't open the cache file.  That's ok, there might not be one.
