@@ -284,12 +284,9 @@ if __name__ == "__main__":
     try:
         from virtualization import localvdsm
 
-        if sys.version_info[0] == 3:
-            status, msg = subprocess.getstatusoutput("/etc/init.d/vdsmd status")
-        else:
-            import commands
-            status, msg = commands.getstatusoutput("/etc/init.d/vdsmd status")
-
+        status = subprocess.call(['/sbin/service','vdsmd','status'],
+                                 stdout=open(os.devnull, 'wb'),
+                                 stderr=subprocess.STDOUT)
         if status == 0:
             server = localvdsm.connect()
             vdsm_enabled = True
