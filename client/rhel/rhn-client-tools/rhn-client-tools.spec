@@ -602,6 +602,7 @@ make -f Makefile.rhn-client-tools test
 %files -n python2-rhn-setup-gnome
 %{python_sitelib}/up2date_client/messageWindow.*
 %{python_sitelib}/up2date_client/rhnregGui.*
+%{python_sitelib}/up2date_client/gtk_compat.*
 %{python_sitelib}/up2date_client/gui.*
 %{python_sitelib}/up2date_client/progress.*
 %if 0%{?rhel} == 5
@@ -632,10 +633,12 @@ make -f Makefile.rhn-client-tools test
 %files -n python3-rhn-setup-gnome
 %{python3_sitelib}/up2date_client/messageWindow.*
 %{python3_sitelib}/up2date_client/rhnregGui.*
+%{python3_sitelib}/up2date_client/gtk_compat.*
 %{python3_sitelib}/up2date_client/gui.*
 %{python3_sitelib}/up2date_client/progress.*
 %{python3_sitelib}/up2date_client/__pycache__/messageWindow.*
 %{python3_sitelib}/up2date_client/__pycache__/rhnregGui.*
+%{python3_sitelib}/up2date_client/__pycache__/gtk_compat.*
 %{python3_sitelib}/up2date_client/__pycache__/gui.*
 %{python3_sitelib}/up2date_client/__pycache__/progress.*
 %endif
