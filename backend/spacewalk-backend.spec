@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.25
+Version: 2.8.26
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -809,6 +809,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Nov 06 2017 Jan Dobes 2.8.26-1
+- fix joining strings
+
 * Fri Nov 03 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.25-1
 - yum ContentSource() should set number of packages during raw listing.
 
