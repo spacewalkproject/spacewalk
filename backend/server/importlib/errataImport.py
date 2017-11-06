@@ -43,7 +43,7 @@ class ErrataImport(GenericPackageImport):
         for errata in self.batch:
             advisory = errata['advisory_name']
             release = errata['advisory_rel']
-            errata_hash[advisory + release] = errata
+            errata_hash["%s%s" % (advisory, release)] = errata
             if advisory in advisories:
                 if long(release) < long(advisories[advisory]):
                     # Seen a newer one already
@@ -52,7 +52,7 @@ class ErrataImport(GenericPackageImport):
                 else:
                     # if this release is higher
                     # we have to ignore the older one!
-                    errata_hash[advisory + advisories[advisory]].ignored = 1
+                    errata_hash["%s%s" % (advisory, advisories[advisory])].ignored = 1
             advisories[advisory] = release
             self._preprocessErratum(errata)
             self._preprocessErratumCVE(errata)
