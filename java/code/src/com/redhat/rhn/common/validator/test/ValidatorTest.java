@@ -66,29 +66,29 @@ public class ValidatorTest extends TestCase {
 
     public void testNullValue() throws Exception {
         TestObject to = new TestObject();
-        assertNotNull(validator.isValid("stringField", to));
+        assertNotNull(validator.validate("stringField", to));
     }
 
     public void testStringLength() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("short");
-        assertNull(validator.isValid("stringField", to));
+        assertNull(validator.validate("stringField", to));
         to.setStringField("somethingthatistoolongandshouldfail");
-        assertNotNull(validator.isValid("stringField", to));
+        assertNotNull(validator.validate("stringField", to));
         to.setStringField("");
-        assertNotNull(validator.isValid("stringField", to));
+        assertNotNull(validator.validate("stringField", to));
         to.setStringField("    ");
-        assertNotNull(validator.isValid("stringField", to));
+        assertNotNull(validator.validate("stringField", to));
         to.setTwoCharField("it");
-        assertNull(validator.isValid("twoCharField", to));
+        assertNull(validator.validate("twoCharField", to));
     }
 
     public void testASCIIString() throws Exception {
         TestObject to = new TestObject();
         to.setAsciiString("shughes_login");
-        assertNull(validator.isValid("asciiString", to));
+        assertNull(validator.validate("asciiString", to));
         to.setAsciiString("機能拡張を");
-        assertNotNull(validator.isValid("asciiString", to));
+        assertNotNull(validator.validate("asciiString", to));
     }
 
     public void testUserNameString() throws Exception {
@@ -96,49 +96,49 @@ public class ValidatorTest extends TestCase {
 
         // bad user names
         to.setUsernameString("foo&user");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("joe+page");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("joe user");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("10%users");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("joe'suser");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("`eval`");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("joe=page");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("foo#user");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("joe\"user");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("機能拡張を");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("shughes login");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString("shughes%login");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
         to.setUsernameString(" shughes");
-        assertNotNull(validator.isValid("usernameString", to));
+        assertNotNull(validator.validate("usernameString", to));
 
         // good user names
         to.setUsernameString("john.cusack@foobar.com");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("a$user");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("!@$^*()-_{}[]|\\:;?");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("/usr/bin");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("shughes_login");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("shughes@redhat.com");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("/shughes_login");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
         to.setUsernameString("/\\/\\ark");
-        assertNull(validator.isValid("usernameString", to));
+        assertNull(validator.validate("usernameString", to));
 
     }
 
@@ -147,88 +147,88 @@ public class ValidatorTest extends TestCase {
 
         // valid user names
         to.setPosixString("ab");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("AB");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("09");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("aA0");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("_-.");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("a_B-0.Z");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
         to.setPosixString("shughes_login");
-        assertNull(validator.isValid("posixString", to));
+        assertNull(validator.validate("posixString", to));
 
         // Should fail
         to.setPosixString("-ab");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
 
         to.setPosixString("john.cusack@foobar.com");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("a$user");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("!@$^*()-_{}[]|\\:;?");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("/usr/bin");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("shughes@redhat.com");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("/shughes_login");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("/\\/\\ark");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
 
         to.setPosixString("foo&user");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("joe+page");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("joe user");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("10%users");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("joe'suser");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("`eval`");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("joe=page");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("foo#user");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("joe\"user");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("機能拡張を");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("shughes login");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString("shughes%login");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
         to.setPosixString(" shughes");
-        assertNotNull(validator.isValid("posixString", to));
+        assertNotNull(validator.validate("posixString", to));
     }
 
     public void testDateField() throws Exception {
         TestObject to = new TestObject();
         to.setDateField(new Date());
-        assertNull(validator.isValid("dateField", to));
+        assertNull(validator.validate("dateField", to));
     }
 
     public void testLongField() throws Exception {
 
         TestObject to = new TestObject();
         to.setLongField(new Long(10));
-        assertNull(validator.isValid("longField", to));
+        assertNull(validator.validate("longField", to));
         to.setLongField(new Long(100));
-        assertNotNull(validator.isValid("longField", to));
+        assertNotNull(validator.validate("longField", to));
 
-        assertNotNull(validator.isValid("numberString", to));
+        assertNotNull(validator.validate("numberString", to));
         to.setNumberString("0.5");
-        assertNotNull(validator.isValid("numberString", to));
+        assertNotNull(validator.validate("numberString", to));
         to.setNumberString(".5");
-        assertNotNull(validator.isValid("numberString", to));
+        assertNotNull(validator.validate("numberString", to));
         to.setNumberString("1");
-        assertNull(validator.isValid("numberString", to));
+        assertNull(validator.validate("numberString", to));
     }
 
     /* TODO: Implement the multi-value fields */
@@ -236,18 +236,18 @@ public class ValidatorTest extends TestCase {
         TestObject to = new TestObject();
         to.setStringField("ZZZ");
         to.setCompoundField("something");
-        assertNull(validator.isValid("compoundField", to));
+        assertNull(validator.validate("compoundField", to));
         to.setStringField("XXX");
-        assertNull(validator.isValid("compoundField", to));
+        assertNull(validator.validate("compoundField", to));
         to.setStringField("INVALID");
-        assertNull(validator.isValid("compoundField", to));
+        assertNull(validator.validate("compoundField", to));
         to.setCompoundField(null);
-        assertNull(validator.isValid("compoundField", to));
+        assertNull(validator.validate("compoundField", to));
         to.setStringField("XXX");
-        assertNotNull(validator.isValid("compoundField", to));
+        assertNotNull(validator.validate("compoundField", to));
         // Check that the length constraints work too
         to.setCompoundField("somethingmorethan20characterslong");
-        assertNotNull(validator.isValid("compoundField", to));
+        assertNotNull(validator.validate("compoundField", to));
     }
 
     public void testRequiredIfConstraint() {
@@ -257,23 +257,23 @@ public class ValidatorTest extends TestCase {
         to.setSecondStringField("");
 
         // Make sure that when both are null/empty, everything is ok
-        assertNull(validator.isValid("secondStringField", to));
+        assertNull(validator.validate("secondStringField", to));
 
         // If the secondStringField is required if stringField is not null
         to.setStringField("foo");
-        assertNotNull(validator.isValid("secondStringField", to));
+        assertNotNull(validator.validate("secondStringField", to));
 
         // Set both to something and it should be valid
         to.setSecondStringField("bar");
-        assertNull(validator.isValid("secondStringField", to));
+        assertNull(validator.validate("secondStringField", to));
 
         // Since stringField isn't ZZZ or XXX this should
         // be OK
-        assertNull(validator.isValid("secondLongField", to));
+        assertNull(validator.validate("secondLongField", to));
 
         to.setStringField("ZZZ");
         // Now it should fail
-        assertNotNull(validator.isValid("secondLongField", to));
+        assertNotNull(validator.validate("secondLongField", to));
     }
 }
 

@@ -107,7 +107,7 @@ public class ValidatorService {
                     continue;
                 }
             }
-            ValidatorError error = validatorIn.isValid(c.getIdentifier(), validateIn);
+            ValidatorError error = validatorIn.validate(c.getIdentifier(), validateIn);
             if (error != null) {
                 result.addError(error);
             }
