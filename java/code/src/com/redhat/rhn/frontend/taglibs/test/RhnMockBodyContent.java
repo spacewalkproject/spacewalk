@@ -29,7 +29,7 @@ public class RhnMockBodyContent extends MockBodyContent {
     /**
      * Constructor - takes a string object to
      * set the text to.
-     * @param textIn
+     * @param textIn text
      */
     public RhnMockBodyContent(String textIn) {
         setString(textIn);
@@ -45,7 +45,7 @@ public class RhnMockBodyContent extends MockBodyContent {
     /**
      * Convienience method to allow you to
      * set the text.
-     * @param textIn
+     * @param textIn text
      */
     public void setString(String textIn) {
         this.text = textIn;

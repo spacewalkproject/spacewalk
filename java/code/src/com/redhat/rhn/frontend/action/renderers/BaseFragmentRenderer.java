@@ -75,6 +75,7 @@ public abstract class BaseFragmentRenderer implements FragmentRenderer {
 
     /**
      * Util method to return the page size in a accessible way.
+     * @param end end of message range
      * @param totalSize the total size of page
      * @param descriptionKey the message key for description
      * @return the appropriate pagination message.

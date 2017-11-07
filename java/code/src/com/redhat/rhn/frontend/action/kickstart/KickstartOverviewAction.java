@@ -144,7 +144,7 @@ public class KickstartOverviewAction extends RhnAction {
 
     /**
      * This renders an empty list view using our CSS defs for full tables.
-     * @param tableHeaderKey the String that goes between "<th></th>" tags
+     * @param tableHeaderKey the String that goes between {@literal "<th></th>"} tags
      * @param tableMessageKey the message inside the table
      * @return String representation of rendered table
      */
@@ -157,7 +157,7 @@ public class KickstartOverviewAction extends RhnAction {
 
     /**
      * This renders an empty list view using our CSS defs for half tables.
-     * @param tableHeaderKey the String that goes between "<th></th>" tags
+     * @param tableHeaderKey the String that goes between {@literal "<th></th>"} tags
      * @param tableMessageKey the message inside the table
      * @return String representation of rendered table
      */

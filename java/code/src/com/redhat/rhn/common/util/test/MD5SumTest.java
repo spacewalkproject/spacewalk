@@ -42,15 +42,15 @@ public class MD5SumTest extends TestCase {
      * With a previous implementation of MD5Sum.getFileMD5Sum() this would
      * cause an OOME with a max-heap size in junit of 256m.  This is configured in:
      * spacewalk/buildconf/build-utils.xml:
-     *
+     * <pre>{@literal
      *       <junit forkmode="once" fork="yes" printsummary="off" showoutput="yes"
      *        haltonfailure="${halt-tests-on-failure}"
      *        failureproperty="junit_test_failure" maxmemory="256m">
-     *
+     * }</pre>
      * The new implementation uses less memory and thus passes the test below when ran
      * from Junit CLI.
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testOOMEMD5Sum() throws Exception {
         File large = new File("/tmp/large-file.dat");

@@ -56,7 +56,7 @@ public class LocalizedSubmitTag extends SubmitTag {
     }
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     public int doStartTag() throws JspException {
         this.setValue(LocalizationService.getInstance().getMessage(getValueKey()));

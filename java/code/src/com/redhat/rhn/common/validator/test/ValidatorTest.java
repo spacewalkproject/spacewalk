@@ -231,7 +231,7 @@ public class ValidatorTest extends TestCase {
         assertNull(validator.isValid("numberString", to));
     }
 
-    /** TODO: Implement the multi-value fields */
+    /* TODO: Implement the multi-value fields */
     public void testMultiValueField() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("ZZZ");

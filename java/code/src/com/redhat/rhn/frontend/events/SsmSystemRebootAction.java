@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 
 /**
  * System Reboot action in the SSM/Miscellaneous.
- * @author Bo Maryniuk <bo@suse.de>
+ * @author Bo Maryniuk {@literal <bo@suse.de>}
  */
 public class SsmSystemRebootAction extends AbstractDatabaseAction {
     private static Logger log = Logger.getLogger(SsmSystemRebootAction.class);

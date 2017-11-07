@@ -37,7 +37,6 @@ import java.util.Iterator;
 
 /**
  * PreservationListConfirmDeleteActionTest
- * @version
  */
 public class PreservationListConfirmDeleteActionTest extends RhnBaseTestCase {
     private Action action = null;

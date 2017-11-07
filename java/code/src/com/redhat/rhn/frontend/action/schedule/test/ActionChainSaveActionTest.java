@@ -38,7 +38,7 @@ import java.util.Set;
 
 /**
  * Tests for ActionChainSaveAction.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainSaveActionTest extends BaseTestCaseWithUser {
     /**

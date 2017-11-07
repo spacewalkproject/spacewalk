@@ -50,6 +50,10 @@ public class UnitTestHandler extends BaseHandler {
 
     /**
      * Add two numbers together.
+     * @param a a number
+     * @param b another number
+     * @return the sum of a and b
+     * @throws Exception something bad happened
      */
     public Integer add(Integer a, Integer b)
         throws Exception {
@@ -62,6 +66,7 @@ public class UnitTestHandler extends BaseHandler {
 
     /**
      * Throw a fault exception
+     * @throws Exception this method always throws InvalidUserNameException
      */
     public void throwFault()
         throws Exception {

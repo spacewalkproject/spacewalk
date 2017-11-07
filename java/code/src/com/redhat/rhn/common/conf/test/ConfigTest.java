@@ -91,6 +91,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf,
      * overridden without prefix in rhn.conf,
      * Accessed fully qualified.
+     * @throws Exception something bad happened
      */
     public void testOverride() throws Exception {
         assertEquals("keep", c.getString("web.to_override"));
@@ -100,6 +101,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf,
      * overridden without prefix in rhn.conf,
      * Accessed by property name only.
+     * @throws Exception something bad happened
      */
     public void testOverride1() throws Exception {
         assertEquals("keep", c.getString("to_override"));
@@ -109,6 +111,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf
      * overridden fully qualfied in rhn.conf.
      * Accessed fully qualified.
+     * @throws Exception something bad happened
      */
     public void testOverride2() throws Exception {
         assertEquals("1", c.getString("web.fq_to_override"));
@@ -118,6 +121,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf
      * overridden fully qualfied in rhn.conf.
      * Accessed by property name only.
+     * @throws Exception something bad happened
      */
     public void testOverride3() throws Exception {
         assertEquals("1", c.getString("fq_to_override"));
@@ -181,6 +185,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define a boolean value in rhn_prefix.conf, call getBoolean.
      * Test true, false, 1, 0, y, n, foo, 10
+     * @throws Exception something bad happened
      */
     public void testGetBoolean() throws Exception {
         boolean b = c.getBoolean("prefix.boolean_true");
@@ -221,6 +226,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define an integer value in rhN_prefix.conf, call getInt.
      * Test -10, 0, 100, y
+     * @throws Exception something bad happened
      */
     public void testGetInt() throws Exception {
         int i = c.getInt("prefix.int_minus10");
@@ -259,6 +265,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define comma separated value in rhn_prefix.conf,
      * call using StringArrayElem, verify all values are in array.
+     * @throws Exception something bad happened
      */
     public void testGetStringArrayMultElem() throws Exception {
         String[] elems = c.getStringArray("prefix.comma_separated");

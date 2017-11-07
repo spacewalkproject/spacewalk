@@ -209,6 +209,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
 
     /** This test makes sure we can call "execute" multiple times
      * and re-use the existing internal transaction within the CommitableMode
+     * @throws Exception something bad happened
      */
     public void testUpdateMultiple() throws Exception {
         insert("update_multi_test", 5);

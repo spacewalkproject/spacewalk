@@ -64,8 +64,8 @@ public class TaskScheduler {
 
     /**
      * This method inserts/updates tasks by the channels in an errata. This method
-     * corresponds to ChannelEditor.pm -> schedule_errata_cache_update method in the
-     * perl codebase.
+     * corresponds to {@literal ChannelEditor.pm -> schedule_errata_cache_update}
+     * method in the perl codebase.
      */
     public void updateByChannels() {
         //Get the channels for this errata

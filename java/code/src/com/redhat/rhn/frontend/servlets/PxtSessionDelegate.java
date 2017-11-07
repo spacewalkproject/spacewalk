@@ -22,19 +22,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * PxtSessionDelegate provides an API with operations for retrieving, creating, and
  * updating the pxt session and pxt cookie.
- *
- * <br/><br/>
- *
+ * <p>
  * Similiar operations can be found in RequestContext. Even though a similiar API already
  * exists in RequestContext, this API is provided to server those client who need only these
  * operations and not the full API of RequestContext. Therefore, it is reccomended that you
  * use PxtSessionDelegate instead of RequestContext if this API provides all of the
  * operations that you need.
- *
- * <br/><br/>
- *
+ * <p>
  * You obtain instances of PxtSessionDelegate from PxtSessionDelegateFactory. Below is an
- * example of how you might retrieve a PxtSessionDelegate:
+ * example of how you might retrieve a PxtSessionDelegate: <br>
  *
  * <pre>
  *  HttpServletRequest request = // Get the current request...

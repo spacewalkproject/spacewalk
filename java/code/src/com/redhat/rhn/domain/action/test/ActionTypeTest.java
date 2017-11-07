@@ -28,7 +28,7 @@ public class ActionTypeTest extends RhnBaseTestCase {
 
     /**
      * Test Equals
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testEquals() throws Exception {
         ActionType r1 = new ActionType();
@@ -48,7 +48,7 @@ public class ActionTypeTest extends RhnBaseTestCase {
      * second level cache in hibernate. Turn on sql output
      * in the hibernate.properties file and make sure that
      * we're not going to the db twice
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testFindByLabel() throws Exception {
         ActionType r1 = lookupByLabel("errata.update");
@@ -59,9 +59,9 @@ public class ActionTypeTest extends RhnBaseTestCase {
 
     /**
      * Helper method to get a ActionType by label
-     * @param label
+     * @param label the label
      * @return Returns the ActionType corresponding to label
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     private ActionType lookupByLabel(String label) throws Exception {
         Session session = HibernateFactory.getSession();

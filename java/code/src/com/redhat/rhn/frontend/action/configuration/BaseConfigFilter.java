@@ -27,8 +27,8 @@ import java.util.Map;
 /**
  * Allows us to filter config lists.  All the concrete class needs to do is provide a list
  * of bean-ready field names (ie, if getFoo() exists in the Dto, "foo" is the field name),
- * and an I18N msg of the form "configfilter.method.<field>", and the base class will
- * do the rest.
+ * and an I18N msg of the form {@literal "configfilter.method.<field>"}, and the base
+ * class will do the rest.
  *
  * ConfigFileFilter
  * @version $Rev$

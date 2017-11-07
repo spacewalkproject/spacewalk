@@ -132,6 +132,7 @@ public abstract class BaseKickstartEditAction extends RhnAction {
     /**
      * Process the values from the form. This is called when the form is
      * submitted.  This is the 'submit' side of the action.
+     * @param request the HttpServletRequest
      * @param form to process
      * @param cmd to execute
      * @return ValidatorError if something failed.
@@ -146,9 +147,9 @@ public abstract class BaseKickstartEditAction extends RhnAction {
      * Setup the form values and other attributes necessary for the
      * action to render.  This is where you pre-populate the form values
      * on the 'setup' side of the action.
-     * @param ctx
-     * @param form
-     * @param cmd
+     * @param ctx the RequestContext
+     * @param form the DynaActionForm to process
+     * @param cmd the command to execute
      */
     protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseKickstartCommand cmd);

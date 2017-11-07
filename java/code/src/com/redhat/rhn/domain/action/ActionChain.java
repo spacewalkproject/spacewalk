@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  * POJO for a rhnActionChain row.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  * @version $Rev$
  */
 public class ActionChain extends BaseDomainHelper {

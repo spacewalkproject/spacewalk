@@ -28,9 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * <a href="http://wiki.rhndev.redhat.com/wiki/SSO#What_is_the_pxt_cookie.3F">
  *   What is the pxt cookie?
  * </a>
- *
- * <br/><br/>
- *
+ * <p>
  * This class is thread-safe.
  *
  * @version $Rev$

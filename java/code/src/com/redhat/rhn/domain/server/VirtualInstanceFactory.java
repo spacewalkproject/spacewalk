@@ -109,7 +109,7 @@ public class VirtualInstanceFactory extends HibernateFactory {
      * Retrieves the virtual instance with the specified ID.
      *
      * @param id The primary key
-     * @return The virtual instance with the specified ID or <code>null</none> if no match
+     * @return The virtual instance with the specified ID or <code>null</code> if no match
      * is found.
      */
     public VirtualInstance lookupById(final Long id) {

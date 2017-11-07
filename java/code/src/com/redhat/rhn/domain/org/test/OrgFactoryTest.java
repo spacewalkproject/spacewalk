@@ -151,6 +151,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test to see if the Org returns list of UserGroup IDs
+     * @throws Exception something bad happened
      */
     public void testGetRoles() throws Exception {
         Org org1 = UserTestUtils.findNewOrg("testOrg" + this.getClass().getSimpleName());

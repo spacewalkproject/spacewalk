@@ -63,7 +63,7 @@ public class UserPaneTest extends BaseTestCaseWithUser {
     }
 
     /**
-     * Tests the Add & Remove of Panes to the user.
+     * Tests the Add and Remove of Panes to the user.
      *
      */
     public void testAddRemovePane() {

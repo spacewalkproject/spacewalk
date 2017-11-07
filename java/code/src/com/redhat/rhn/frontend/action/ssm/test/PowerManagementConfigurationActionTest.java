@@ -32,7 +32,7 @@ import java.util.List;
 
 /**
  * Tests PowerManagementConfigurationAction
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class PowerManagementConfigurationActionTest extends RhnMockStrutsTestCase {
     private CobblerConnection connection;

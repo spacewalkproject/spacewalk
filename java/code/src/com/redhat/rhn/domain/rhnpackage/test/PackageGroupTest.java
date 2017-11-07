@@ -29,7 +29,7 @@ public class PackageGroupTest extends RhnBaseTestCase {
     /**
      * Simple test to make sure we can create PackageGroups
      * and write them to the db.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testPackageGroup() throws Exception {
         PackageGroup p = createTestPackageGroup();
@@ -41,7 +41,7 @@ public class PackageGroupTest extends RhnBaseTestCase {
     /**
      * Create a test PackageGroup
      * @return Returns a commited PackageGroup object
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static PackageGroup createTestPackageGroup() throws Exception {
         String name = TestUtils.randomString();

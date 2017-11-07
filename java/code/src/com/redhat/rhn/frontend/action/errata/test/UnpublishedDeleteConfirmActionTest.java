@@ -27,7 +27,7 @@ public class UnpublishedDeleteConfirmActionTest extends BaseDeleteErrataActionAb
 
     /**
      * {@inheritDoc}
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public Errata createAnErrata(User user) throws Exception {
         return ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());

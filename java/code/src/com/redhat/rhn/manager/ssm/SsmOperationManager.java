@@ -130,14 +130,14 @@ public class SsmOperationManager extends BaseManager {
 
     /**
      * Creates a new operation, defaulting the status to "in progress".
-     * <p/>
+     * <p>
      * For efficiency, this call assumes the following:
      * <ul>
      * <li>The set of servers that are taking place in the operation are already in the
      * database as an RhnSet (the name of set is passed into this call).</li>
      * <li>The server ID is stored in the first element (i.e. "element" in the set table).
      * </ul>
-     * <p/>
+     * <p>
      * This should be a safe assumption since, at very least, if all servers are taking
      * place in the operation they are already in the SSM RhnSet. If only a subset
      * is needed, a nested select can be used to drop them into a new set, preventing

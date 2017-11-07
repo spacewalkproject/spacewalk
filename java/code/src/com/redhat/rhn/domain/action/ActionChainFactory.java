@@ -36,7 +36,7 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 
 /**
  * Creates Action Chain related objects.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainFactory extends HibernateFactory {
 

@@ -65,7 +65,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookup() throws Exception {
 
@@ -81,7 +81,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupLastCompletedAction() throws Exception {
         final User user = UserTestUtils.createUser("testUser",
@@ -111,7 +111,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching an Action with the logged in User
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupWithLoggedInUser() throws Exception {
 
@@ -129,7 +129,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ScriptAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupScriptAction() throws Exception {
         Action newA = createAction(UserTestUtils.createUser("testUser", UserTestUtils
@@ -148,7 +148,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ScriptAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testSchedulerUser() throws Exception {
         User user1 = UserTestUtils.findNewUser("testUser",
@@ -162,7 +162,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ConfigRevisionAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupErrataAction() throws Exception {
         Action newA = createAction(UserTestUtils.createUser("testUser", UserTestUtils
@@ -177,7 +177,7 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a DaemonConfigDetails
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupDaemonConfig() throws Exception {
         Action newA = createAction(UserTestUtils.createUser("testUser", UserTestUtils
@@ -488,10 +488,10 @@ public class ActionFactoryTest extends RhnBaseTestCase {
 
     /**
      * Create a new ServerAction
-     * @param newS
-     * @param newA
+     * @param newS new system
+     * @param newA new action
      * @return ServerAction created
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static ServerAction createServerAction(Server newS, Action newA)
         throws Exception {

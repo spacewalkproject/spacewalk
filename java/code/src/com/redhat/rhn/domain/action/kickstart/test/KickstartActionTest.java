@@ -37,7 +37,7 @@ public class KickstartActionTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a KickstartAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupKickstartAction() throws Exception {
         Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",

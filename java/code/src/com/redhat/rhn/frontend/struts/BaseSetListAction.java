@@ -99,6 +99,8 @@ public abstract class BaseSetListAction extends BaseListAction {
      * So the items returned here will get automatically selected in
      * the rhn set. So when the table renders the items here will be
      * checked.
+     * @param ctx the request context
+     * @param form the ActionForm
      * @return A Iterator iterating over items of type
      *                              "com.redhat.rhn.domain.Identifiable"
      *         EMPTY_LIST.iterator() is prefered by default

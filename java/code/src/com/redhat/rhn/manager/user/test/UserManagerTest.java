@@ -229,7 +229,7 @@ public class UserManagerTest extends RhnBaseTestCase {
     /**
     * Test to ensure functionality of translating
     * usergroup ids to Roles
-     * @throws Exception
+     * @throws Exception something bad happened
     */
     public void aTestUpdateUserRolesFromRoleLabels() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",

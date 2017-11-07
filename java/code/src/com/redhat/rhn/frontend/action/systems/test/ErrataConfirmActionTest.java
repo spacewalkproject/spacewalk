@@ -44,7 +44,7 @@ public class ErrataConfirmActionTest extends RhnPostMockStrutsTestCase {
     /**
      * Tests a good/clean operation, errata are present.
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testExecuteConfirmed() throws Exception {
         Context ctx = Context.getCurrentContext();
@@ -88,7 +88,7 @@ public class ErrataConfirmActionTest extends RhnPostMockStrutsTestCase {
 
     /**
      * Tests when an incomplete set of errata is passed into the action.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testExecuteIncomplete() throws Exception {
 

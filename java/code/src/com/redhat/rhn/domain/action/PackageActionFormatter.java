@@ -26,7 +26,7 @@ import java.util.Set;
 
 /**
  * Formatter for PackageActions.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class PackageActionFormatter extends ActionFormatter {
 

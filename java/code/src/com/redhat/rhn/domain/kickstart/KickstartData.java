@@ -1074,7 +1074,7 @@ public class KickstartData {
 
     /**
      * Convenience method to get the Channel associated with this profile
-     * KickstartData -> KickstartDefault -> KickstartTree -> Channel
+     * {@literal KickstartData -> KickstartDefault -> KickstartTree -> Channel}
      * @return Channel object associated with this KickstartData
      */
     public Channel getChannel() {

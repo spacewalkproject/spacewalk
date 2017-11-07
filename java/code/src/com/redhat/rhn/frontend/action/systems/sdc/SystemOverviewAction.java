@@ -155,6 +155,9 @@ public class SystemOverviewAction extends RhnAction {
     }
 
     /**
+     * @param user The user
+     * @param s The server
+     * @param rctx The request context
      * @return true if the server was unlocked, false otherwise
      */
     protected boolean processLock(User user, Server s, RequestContext rctx) {

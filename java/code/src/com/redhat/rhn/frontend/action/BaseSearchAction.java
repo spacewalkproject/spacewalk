@@ -185,8 +185,8 @@ public abstract class BaseSearchAction extends RhnAction {
      * @param mapping action mapping
      * @param form associated form
      * @return expected destination from doExecute
-     * @throws MalformedURLException
-     * @throws XmlRpcFault
+     * @throws MalformedURLException malformed URL exception
+     * @throws XmlRpcFault XMLrpc fault
      */
     protected ActionForward executeBody(HttpServletRequest request, ActionMapping mapping,
                         DynaActionForm form)
@@ -202,8 +202,8 @@ public abstract class BaseSearchAction extends RhnAction {
      * @param mapping incoming action-mapping
      * @param form form associated with this mapping
      * @return the desired desitination based on your processing
-     * @throws MalformedURLException
-     * @throws XmlRpcFault
+     * @throws MalformedURLException malformed URL exception
+     * @throws XmlRpcFault XMLrpc fault
      */
     protected abstract ActionForward doExecute(HttpServletRequest request,
                     ActionMapping mapping,

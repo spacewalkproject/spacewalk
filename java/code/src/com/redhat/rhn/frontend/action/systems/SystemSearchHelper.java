@@ -460,7 +460,10 @@ public class SystemSearchHelper {
      * We did a normal package search and got back a List of results for
      * the package name(s), now we correlate that to what systems have those
      * installed, or need them to be updated.
-     *
+     * @param user The User object
+     * @param searchResults The list of results to process
+     * @param viewMode the view mode
+     * @return server map
      * TODO:  Look into a quicker/more efficient implementation.  This appears to
      * work....but I think it can be become quicker.
      */

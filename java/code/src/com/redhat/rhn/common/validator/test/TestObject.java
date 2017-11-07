@@ -154,7 +154,7 @@ public class TestObject {
 
     /**
      * returns the posixString
-     * @return
+     * @return the posix string
      */
     public String getPosixString() {
         return posixString;
@@ -162,7 +162,7 @@ public class TestObject {
 
     /**
      * The posixString to set
-     * @param posixString
+     * @param posixIn posix string
      */
     public void setPosixString(String posixIn) {
         posixString = posixIn;

@@ -27,7 +27,7 @@ import java.util.Hashtable;
  * persistent. That is why I implemented the counter as a singeton
  * class instead of a database table or some other such implementation.
  *
- * @author Stephen Herr <sherr@redhat.com>
+ * @author Stephen Herr {@literal <sherr@redhat.com>}
  *
  */
 public class AsyncErrataCloneCounter {

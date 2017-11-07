@@ -33,18 +33,19 @@ import java.util.Vector;
 /**
  * Class that extends the java.util.ResourceBundle class that stores
  * the strings in an XML format similar to a property file.
+ * <p>
  * The format is as follows:
- *
+ * <pre>{@literal
  * <messages>
  *   <msg id="getMessage">Get this</msg>
  *   <msg id="oneArg">one arg: {0}</msg>
  *   <msg id="twoArg">two arg: {0} {1}</msg>
  *   <msg id="threeArg">three arg: {0} {1} {2}</msg>
  * </messages>
- *
+ * }</pre>
  * Where the bundle gets built with the keys being the "id" attribute
  * of the XML tag and the values being contained within the value of the
- * <msg> tag itself.   Message substitution is supported.
+ * {@literal <msg>} tag itself.   Message substitution is supported.
  *
  * @version $Rev$
  */

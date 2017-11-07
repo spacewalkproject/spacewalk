@@ -27,19 +27,13 @@ import javax.servlet.http.HttpServletResponse;
  * HelpDocServlet is a basic servlet that takes a request URI for documentation and
  * redirects it to the appropriate URI defined in the rhn.conf for that document.
  * For example,
- *
- * <br/><br/>
- *
+ * <p>
  * Request URL:
  * <code>https://somehost/rhn/help/dispatcher/reference_guide</code>
- *
- * <br/><br/>
- *
+ * <p>
  * Redirect URL:
  * <code>https://shomehost/rhn/help/reference/index.jsp</code>
- *
- * <br/><br/>
- *
+ * <p>
  * Where rhn.conf contains:
  * <code>docs.reference_guide=/rhn/help/reference/index.jsp</code>
  *

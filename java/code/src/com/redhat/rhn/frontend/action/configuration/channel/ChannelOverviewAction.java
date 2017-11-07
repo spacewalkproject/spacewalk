@@ -119,6 +119,7 @@ public class ChannelOverviewAction extends RhnAction {
      * @param request the incoming request
      * @param cc the channel to be affected
      * @param form the form to be filled in
+     * @param params the params to use
      */
     protected void setupForm(HttpServletRequest request, ConfigChannel cc,
             DynaActionForm form, Map params) {
@@ -159,6 +160,7 @@ public class ChannelOverviewAction extends RhnAction {
      * initial "fill in the blanks" request and can return "null" for channel.
      * @param form incoming channelOverviewForm
      * @param request incoming request
+     * @param helper the ConfigChannelCreationHelper
      * @return existing channel, or a new (empty) channel on submit, or null if
      * we're asking the user for new-channel info for the first time
      */

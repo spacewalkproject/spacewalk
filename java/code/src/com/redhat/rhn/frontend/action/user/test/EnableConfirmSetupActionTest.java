@@ -41,7 +41,7 @@ public class EnableConfirmSetupActionTest extends RhnBaseTestCase {
     /**
      * Setting "dispatch" to a non-null value.
      * Expecting to return a "enabled" ActionForward.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testExecute() throws Exception {
         EnableConfirmSetupAction action = new EnableConfirmSetupAction();

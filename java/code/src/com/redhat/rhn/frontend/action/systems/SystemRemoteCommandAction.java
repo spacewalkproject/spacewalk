@@ -51,7 +51,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 /**
  * Action for the single system remote command scheduling.
  *
- * @author Bo Maryniuk <bo@suse.de>
+ * @author Bo Maryniuk {@literal <bo@suse.de>}
  */
 public class SystemRemoteCommandAction extends RhnAction {
     /**

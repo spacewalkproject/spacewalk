@@ -627,8 +627,10 @@ public class RequestContext {
      * with the i18n'ed value of the key passed in.
      * This is useful for example in the following
      * scenario.. Lets say you have the following html input
+     * {@literal
      * <input type = "submit" name="dispatch"
      *      value="rhn:localize('copy.to.local')"/>
+     * }
      * Lets suppose 'copy.to.local' was the message key
      * you'd pass to localizationService if i18n'ing...
      * Lets suppose the en_US value of copy.to.local = Copy To Local
@@ -661,7 +663,7 @@ public class RequestContext {
      * This needs to be used in conjuction with rhn noscript
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:noscript/>
+     * {@literal <rhn:noscript/>}
      * @return true if java script is enabled, false other wise.
      */
     public boolean isJavaScriptEnabled() {
@@ -673,7 +675,7 @@ public class RequestContext {
      * This needs to be used in conjuction with rhn submitted
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:submitted/>
+     * {@literal <rhn:submitted/>}
      * @return true if the form was submitted, false other wise
      */
     public boolean isSubmitted() {

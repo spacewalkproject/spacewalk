@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainHelperTest extends BaseTestCaseWithUser {
 

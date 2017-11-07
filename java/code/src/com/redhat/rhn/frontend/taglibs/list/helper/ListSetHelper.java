@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
  * Basically this guy serves as abstract base class to
  * List Tags that use sets (sessionset or rhnset), i.e.
  * selectable columns
- * <code>
+ * <pre>{@literal
  * JSP side->
  *  <rl:list ....>
  *   ....
@@ -78,7 +78,7 @@ import javax.servlet.http.HttpServletRequest;
  *          return  fooList;
  *      }
  *   }
- * </code>
+ * }</pre>
  * @author paji
  * @version $Rev$
  */
@@ -217,8 +217,8 @@ abstract class ListSetHelper extends ListHelper {
     /**
      * Returns the name of the selections key.
      * @param listName the name of the list
-     * i.e. the value specifidied in <rl:list name=>
-     * @return
+     * i.e. the value specifided in {@literal <rl:list name=>}
+     * @return name of the selections key
      */
     public static String makeSelectionsName(String listName) {
         return listName + "Selections";
@@ -317,7 +317,7 @@ abstract class ListSetHelper extends ListHelper {
     /**
      * If set to true the associated set will be cleared when setting up the page
      * For something like SystemSetManager we don't want this, so set this to false.
-     * @param willClearSet the willClearSet to set
+     * @param willClearSetIn the willClearSet to set
      */
     public void setWillClearSet(boolean willClearSetIn) {
         this.willClearSet = willClearSetIn;

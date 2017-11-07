@@ -701,10 +701,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param archLabel Architecture label
      * @param parentLabel Parent Channel label (may be null)
      * @param checksumType checksum type for this channel
-     * @param gpgKey a map consisting of
-     *      <li>string url</li>
-     *      <li>string id</li>
-     *      <li>string fingerprint</li>
+     * @param gpgKey a map consisting of string url, string id, string fingerprint
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have

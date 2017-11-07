@@ -174,6 +174,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
 
     /**
     * Test formatDate
+    * @throws Exception something bad happened
     */
     public void testFormatDate() throws Exception {
         String date = ls.formatDate(new Date(), Locale.GERMAN);

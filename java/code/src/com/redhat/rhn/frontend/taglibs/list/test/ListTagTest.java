@@ -80,7 +80,7 @@ public class ListTagTest extends MockObjectTestCase {
 
     /**
      * Tests normal conditions for ListTag.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testRegularRun() throws Exception {
         context().checking(new Expectations() { {

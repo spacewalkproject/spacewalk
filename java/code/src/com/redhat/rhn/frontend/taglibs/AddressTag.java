@@ -26,13 +26,14 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * <strong>AddressTag</strong>
+ * <strong>AddressTag</strong><br>
  * Displays a User's address information.
  * <pre>
  *     &lt;rhn:address type=MAILING&gt;
  * </pre>
+ * <p>
  * This outputs a table row tag containing a Header column, address info
- * and a link to edit the address.<br />
+ * and a link to edit the address.
  * <pre>
  *      Mailing:   444 Castro
  *                 Mountain View, CA 94043
@@ -147,7 +148,7 @@ public class AddressTag extends TagSupport {
     }
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException jsp exception
      */
     public int doStartTag() throws JspException {
 

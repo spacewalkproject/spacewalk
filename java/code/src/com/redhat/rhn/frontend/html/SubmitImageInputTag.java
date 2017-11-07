@@ -18,9 +18,11 @@ package com.redhat.rhn.frontend.html;
 
 /**
  * SubmitImageInputTag a simple class to render a text input tag
- *
+ * <p>
+ * {@literal
  * <input alt="txt" name="test" src="/img/button-go.gif" type="image" />
- *
+ * }
+ * 
  * @version $Rev$
  */
 

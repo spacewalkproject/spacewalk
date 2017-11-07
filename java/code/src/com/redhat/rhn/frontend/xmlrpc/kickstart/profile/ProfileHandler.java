@@ -1454,7 +1454,7 @@ public class ProfileHandler extends BaseHandler {
      * @param ksLabel ksLabel identifies the kickstart profile
      * @param reposIn OS repositories to set
      * @return int - 1 on success, exception thrown otherwise
-     * @xmrpc.doc Associates OS repository to a kickstart profile.
+     * @xmlrpc.doc Associates OS repository to a kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.param #array_single("string", "repositoryLabel")

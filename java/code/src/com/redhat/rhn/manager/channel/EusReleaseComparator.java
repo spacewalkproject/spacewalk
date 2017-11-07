@@ -24,19 +24,22 @@ import java.util.Comparator;
 
 /**
  * EusReleaseComparator
- *
+ * <p>
  * Compare two RHEL releases, where the behavior can differ depending on which version
  * of RHEL we're dealing with. (RHEL 4 in particular needs special attention.)
- *
+ * <p>
  * "Release" in this context ends up appearing more like what we'd call a version,
- * i.e. 5.3.0.3. Thus a simple string comparison will not suffice. (5.10 > 5.9)
- *
+ * i.e. 5.3.0.3. Thus a simple string comparison will not suffice.
+ * {@literal (5.10 > 5.9)}
+ * <p>
  * Additionally, for all versions of RHEL, we may need to trim pieces of the version
  * off to do the comparison.
- *
- * Sample releases:
+ * <p>
+ * Sample releases:<br>
+ * <pre>
  *   RHEL 4: 7.6, 8, 9
  *   RHEL 5: 5.1.0.1, 5.2.0.2, 5.3.0.3
+ * </pre>
  */
 public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
     private final String rhelVersion;
@@ -55,7 +58,8 @@ public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
      *
      * @param chan1 First channel.
      * @param chan2 Second channel.
-     * @return 1 if first is > second, 0 if they are equal, -1 is first is < second.
+     * @return 1 if {@literal first is > second}, 0 if they are equal,
+     * -1 if {@literal first is < second}.
      */
     public int compare(EssentialChannelDto chan1, EssentialChannelDto chan2) {
         return compare(chan1.getRelease(), chan2.getRelease());
@@ -66,7 +70,8 @@ public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
      *
      * @param rhelRelease1 First channel release.
      * @param rhelRelease2 Second channel release.
-     * @return 1 if first is > second, 0 if they are equal, -1 is first is < second.
+     * @return 1 if {@literal first is > second}, 0 if they are equal,
+     * -1 if {@literal first is < second}.
      */
     public int compare(String rhelRelease1, String rhelRelease2) {
         // Here we normalize the release to drop extra parts of the version:

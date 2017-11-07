@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Used in creating web session backed actions that tie into the "new" list tag (i.e. in the
  * http://rhn.redhat.com/tags/list taglib namespace).
- * <p/>
+ * <p>
  * If the user selected items need to be more persistant than simply the session, use
  * {@link ListRhnSetHelper} instead.
  *
@@ -59,7 +59,7 @@ public class ListSessionSetHelper extends ListSetHelper {
     /**
      * Creates a new <code>ListSessionSetHelper</code> that will use the given prefix
      * as the uniqueness indicator for tracking the set data.
-     * <p/>
+     * <p>
      * It is important that if the value chosen for the prefix is unique across all actions
      * to prevent a conflict in storing user selected values.
      *
@@ -77,7 +77,7 @@ public class ListSessionSetHelper extends ListSetHelper {
     /**
      * Creates a new <code>ListSessionSetHelper</code> that will attempt to generate
      * its own unique name for the set combined with the values of the request parameters.
-     * <p/>
+     * <p>
      * Using a combination of a standard prefix (determined by the <code>Listable</code>
      * parameter value) and parameters helps to scope this instance for a dynamic page.
      * For instance, if the page is scoped to a particular channel, having the channel ID

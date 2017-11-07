@@ -142,7 +142,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      * Verify that the attribute "pageList" is setup properly:
      *
      * 1) not null
-     * 2) size > 0
+     * 2) size greater than 0
      * 3) first item in list is instance of classIn
      * @param attribName name of list in Request attributes
      * @param classIn to check first item against.
@@ -159,7 +159,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      * Verify that the attribute "pageList" is setup properly:
      *
      * 1) not null
-     * 2) size > 0
+     * 2) size greater than 0
      * 3) first item in list is instance of classIn
      * @param classIn to check first item against.
      */
@@ -172,7 +172,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      * Verify that the attribute "pageList" is setup properly:
      *
      * 1) not null
-     * 2) size > 0
+     * 2) size greater than 0
      * 3) first item in list is instance of classIn
      * @param attribName name of list in Request attributes
      * @param classIn to check first item against.
@@ -223,7 +223,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
      * PLEASE Refrain from using this unless you really have to.
      *
      * Try clearSession() instead
-     * @throws HibernateException
+     * @throws HibernateException Hibernate exception
      */
     protected void commitAndCloseSession() throws HibernateException {
         HibernateFactory.commitTransaction();

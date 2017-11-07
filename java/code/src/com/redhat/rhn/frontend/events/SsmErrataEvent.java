@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * SSM Errata Event object.
  *
- * @author Bo Maryniuk <bo@suse.de>
+ * @author Bo Maryniuk {@literal <bo@suse.de>}
  */
 public class SsmErrataEvent implements EventDatabaseMessage {
     private final Long userId;

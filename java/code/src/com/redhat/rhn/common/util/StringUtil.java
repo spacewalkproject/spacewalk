@@ -143,7 +143,7 @@ public class StringUtil {
     /**
      * Convert the passed in bean style string to a underscore separated string.
      *
-     * For example: someFieldName -> some_field_name
+     * For example: {@literal someFieldName -> some_field_name}
      *
      * @param strIn The string to convert
      * @return The converted string
@@ -226,7 +226,7 @@ public class StringUtil {
     /**
      * given a string and a map, all instances of {key} will be replaced with
      * the value of 'key' in the map. so for example, "this is a {noun}" with a
-     * Map that has ("noun" => "fish") would produce "this is a fish"
+     * Map that has {@literal ("noun" => "fish")} would produce "this is a fish"
      * @param source the source string to be replaced
      * @param params the parameters to fill out the source string with
      * @return String Replaced String
@@ -540,7 +540,7 @@ public class StringUtil {
      * @return I18N string in "x [maxUnits] y [units] ... z [minUnits] [ago:from
      * now] format
      * @throws IllegalArgumentException if maxUnit or minUnit not recognized, or
-     * if maxUnit < minUnit
+     * if {@literal maxUnit < minUnit}
      */
     public static String categorizeTime(long target, int maxUnit, int minUnit) {
         checkUnits(maxUnit, minUnit);
@@ -723,12 +723,12 @@ public class StringUtil {
      * <pre>
      * &lt;p&gt;You donot have enough entitlements for &lt;strong&gt;
      *                   xyz system &lt;/strong&gt;&lt;/p&gt;
+     * </pre>
      * will get converted to
      * You donot have enough entitlements for xyz system
      * It just returns the original snippet back in the case
      * of an xml error (however it throws a warning)...
-     * &#064;param html the html/xml String resources snippet to convert
-     * @param html html input
+     * @param html html the html/xml String resources snippet to convert
      * @return the plain text version.
      */
     public static String toPlainText(String html) {

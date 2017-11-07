@@ -346,7 +346,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * subscribes a channel to a system at the given position
      * @param cc the channel to subscribe
      * @param position the positon/ranking of the channel in the system list,
-     *                  must be > 0
+     *                  must be {@literal > 0}
      */
     public void subscribeAt(ConfigChannel cc, int position) {
         configListProc.add(getConfigChannels(), cc, position);

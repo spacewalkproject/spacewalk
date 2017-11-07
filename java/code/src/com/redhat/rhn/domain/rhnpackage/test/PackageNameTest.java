@@ -26,7 +26,7 @@ public class PackageNameTest extends RhnBaseTestCase {
     /**
      * Simple test to make sure we can create
      * PackageNames and write them to the db.
-     * @throws Exception Exception
+     * @throws Exception something bad happened
      */
     public void testPackageName() throws Exception {
         PackageName p = createTestPackageName();
@@ -37,8 +37,9 @@ public class PackageNameTest extends RhnBaseTestCase {
 
     /**
      * Create a test PackageName
+     * @param name the name
      * @return a test PackageName object.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static PackageName createTestPackageName(String name) throws Exception {
         PackageName p = new PackageName();
@@ -50,7 +51,7 @@ public class PackageNameTest extends RhnBaseTestCase {
     /**
      * Create a test PackageName
      * @return a test PackageName object.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static PackageName createTestPackageName() throws Exception {
         return createTestPackageName("00JavaTest" + TestUtils.randomString());

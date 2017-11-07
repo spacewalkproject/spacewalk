@@ -44,7 +44,7 @@ public class ProfileTest extends RhnBaseTestCase {
 
     /**
      * Test the Equals method of Profile
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testProfileEquals() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
@@ -69,7 +69,7 @@ public class ProfileTest extends RhnBaseTestCase {
      * @param id The profile id
      * @param org The org for this profile.
      * @return Returns the Profile corresponding to id
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Profile lookupByIdAndOrg(Long id, Org org) throws Exception {
         Session session = HibernateFactory.getSession();
@@ -81,8 +81,10 @@ public class ProfileTest extends RhnBaseTestCase {
 
     /**
      * Helper method to create a Profile for testing purposes
+     * @param user the user
+     * @param channel the channel
      * @return Returns a fresh Profile
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Profile createTestProfile(User user, Channel channel)
         throws Exception {

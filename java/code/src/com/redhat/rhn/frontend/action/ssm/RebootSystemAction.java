@@ -39,7 +39,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 /**
  * Reboot Systems in the SSM miscellaneous actions.
  *
- * @author Bo Maryniuk <bo@suse.de>
+ * @author Bo Maryniuk {@literal <bo@suse.de>}
  */
 public class RebootSystemAction
         extends RhnListAction

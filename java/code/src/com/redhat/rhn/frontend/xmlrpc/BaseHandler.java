@@ -418,9 +418,10 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     /**
      * Take an attributeName and value, and apply them to an Object.
      * Takes advantage of introspection and bean-stds to decide what call to make
-     * @param attrName Attribute to set - assumes entity.set<Attrname>(value) exists
+     * @param attrName Attribute to set - assumes {@literal entity.set<Attrname>(value)}
+     *  exists
      * @param entity The Object we are updating
-     * @param value The new value to pass to set<AttrName>
+     * @param value The new value to pass to {@literal set<AttrName>}
      */
     protected void setEntityAttribute(String attrName, Object entity, Object value) {
         String methodName = StringUtil.beanify("set_" + attrName);

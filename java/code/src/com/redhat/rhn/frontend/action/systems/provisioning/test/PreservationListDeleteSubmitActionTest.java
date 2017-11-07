@@ -32,7 +32,6 @@ import java.util.List;
 
 /**
  * PreservationListDeleteSubmitActionTest
- * @version
  */
 public class PreservationListDeleteSubmitActionTest extends RhnBaseTestCase {
     private Action action = null;
