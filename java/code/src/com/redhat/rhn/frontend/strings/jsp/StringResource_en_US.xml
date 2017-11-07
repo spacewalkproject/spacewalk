@@ -20427,7 +20427,7 @@ given channel.</source>
         <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
       </trans-unit>
       <trans-unit id="debuginfo.unavailable">
-        <source>If available, an appropriate debuginfo package can be downloaded from the Red Hat Customer Portal or by running the satellite-sync command from the respective debuginfo child channel. Note: Not all packages have published debuginfo packages.</source>
+        <source>If available, an appropriate debuginfo package can be synced from the respective debug channel or repository. Note: Not all packages have published debuginfo packages.</source>
       </trans-unit>
       <trans-unit id="debugsource.unavailable">
         <source>If available, an appropriate debugsource package can be synced from the respective debug channel or repository. Note: Not all packages have published debugsource packages.</source>
