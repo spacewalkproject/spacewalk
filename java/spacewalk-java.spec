@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.34
+Version: 2.8.35
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Nov 07 2017 Jan Dobes 2.8.35-1
+- 1510511 - update debuginfo unavailable message
+- 1510511 - display known debugsource package
+
 * Wed Nov 01 2017 Jan Dobes 2.8.34-1
 - 1457226 - remove link to third party page
 
