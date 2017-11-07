@@ -1467,6 +1467,17 @@ public class PackageManager extends BaseManager {
         return m.execute(params);
     }
 
+    private static Package findDebugPackage(User user, Package pack, String type) {
+        PackageEvr evr = pack.getPackageEvr();
+        String name = pack.getPackageName().getName() + "-" + type;
+        List<Package> list =  PackageFactory.lookupByNevra(user.getOrg(),
+                name, evr.getVersion(), evr.getRelease(), null, pack.getPackageArch());
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
     /**
      * Find a debuginfo package for a given package
      * @param user The User doing the search
@@ -1474,14 +1485,17 @@ public class PackageManager extends BaseManager {
      * @return The Package object that is debug info, or null if not found
      */
     public static Package findDebugInfo(User user, Package pack) {
-        PackageEvr evr = pack.getPackageEvr();
-        String name = pack.getPackageName().getName() + "-debuginfo";
-        List<Package> list =  PackageFactory.lookupByNevra(user.getOrg(),
-                name, evr.getVersion(), evr.getRelease(), null, pack.getPackageArch());
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
+        return findDebugPackage(user, pack, "debuginfo");
+    }
+
+    /**
+     * Find a debugsource package for a given package
+     * @param user The User doing the search
+     * @param pack the package we need a debug source for
+     * @return The Package object that is debug source, or null if not found
+     */
+    public static Package findDebugSource(User user, Package pack) {
+        return findDebugPackage(user, pack, "debugsource");
     }
 
 
