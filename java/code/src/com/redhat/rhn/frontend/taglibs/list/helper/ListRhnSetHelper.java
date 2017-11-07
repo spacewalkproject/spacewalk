@@ -34,13 +34,13 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Used in creating rhnSet backed actions that tie into the "new" list tag (i.e. in the
  * http://rhn.redhat.com/tags/list taglib namespace).
- * <p/>
+ * <p>
  * It is important to note that the exact set specified at instantiation may not be where
  * the items selected in the page are stored. For more information, see
  * {@link #setup(RhnSetDecl)} and
  * <a href="https://github.com/spacewalkproject/spacewalk/wiki/ListTag">
  * the Spacewalk wiki.</a>
- * <p/>
+ * <p>
  * If the user selected items should be stored in a session rather than the database,
  * use {@link ListSessionSetHelper} instead.
  *
@@ -72,7 +72,7 @@ public class ListRhnSetHelper extends ListSetHelper {
      * Creates a new <code>ListRhnSetHelper</code> that will store its selected items
      * in a custom <code>RhnSet</code> determined by the given <code>RhnSetDecl</code>
      * plus the parameters in <code>params</code>
-     * <p/>
+     * <p>
      * Using a combination of the <code>RhnSetDecl</code> and parameters helps to scope
      * this instance for a dynamic page. For instance, if the page is scoped to a particular
      * channel, having the channel ID in this parameter map will allow the user to work

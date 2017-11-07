@@ -41,7 +41,6 @@ import com.redhat.rhn.domain.user.User;
  * entries.
  *
  * @author ggainey
- * @Rev:
  *
  */
 public class ResetPasswordFactory extends HibernateFactory {

@@ -34,7 +34,7 @@ public class NetworkDto implements Identifiable {
     private Long inactive;
 
     /**
-     * Returns >0 if inactive
+     * Returns {@literal >0} if inactive
      * @return if it is inactive
      */
     public Long getInactive() {

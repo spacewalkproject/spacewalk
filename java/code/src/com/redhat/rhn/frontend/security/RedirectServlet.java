@@ -27,18 +27,12 @@ import javax.servlet.http.HttpServletResponse;
  * consist of the full URL including the query string, except that the <code>/rhn/Redirect
  * </code> portion of the URI will be stripped out. This is best illustrated with an
  * example:
- *
- * <br/><br/>
- *
+ * <p>
  * Request URL:
  * <code>https://somehost.redhat.com/rhn/Redirect/rhn/systems/Overview.do</code>
- *
- * <br/><br/>
- *
+ * <p>
  * Redirect URL: <code>https://somehost.redhat.com/rhn/systems/Overview.do</code>
- *
- * <br/><br/>
- *
+ * <p>
  * The use case for RedirectServlet is for supporting perl in a hosted environment when
  * SSO authentication is enabled. The SSO authentication logic has not and will not be
  * ported to the perl code base; consequently, perl will continue to rely solely on the PXT

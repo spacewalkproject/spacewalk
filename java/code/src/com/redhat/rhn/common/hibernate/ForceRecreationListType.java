@@ -32,7 +32,8 @@ import java.util.Map;
  * one wants to force the recreation of a list
  * on a Many-Many mapping table. The example case where
  * we are using this
- *
+ * <p>
+ * {@literal
  * Domain Model ->  Many  Servers (s) - Many Config Channels(cc)
  * rhnServer (s) 1 <-* rhnServerConfigChannel (scc)* -> 1 rhnConfigChannel(cc)
  * s -> (id),  scc ->(server_id, config_channel_id, position ), cc->(id)
@@ -51,11 +52,14 @@ import java.util.Map;
  * step b fails (since 2,2,1 still exists).. So we have to force hibernate
  * to do the following a) remove (2,*,*) b) insert(2,2,0) and c)insert(2,3,1)
  * This list type will help us achieve that.
- *
+ * }
+ * <p>
+ * {@literal
  * When you use a list in hbm.xml , to use this collection
  * you must specify <list name="...."
  * collection-type="com.redhat.rhn.common.hibernate.ForceRecreationListType">
- *
+ * }
+ * <p>
  * Note in the above example if (sid, ccid, position) combination as
  * a whole was unique we wouldn't have had to deal with this......
  * but positions can be null twice for the same server, so we

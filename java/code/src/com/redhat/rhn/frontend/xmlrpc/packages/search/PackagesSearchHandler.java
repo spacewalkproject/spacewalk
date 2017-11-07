@@ -140,12 +140,12 @@ public class PackagesSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
-     * in Lucene Query Parser syntax.<br/>
+     * in Lucene Query Parser syntax.<br>
      * Lucene Query Parser syntax is defined at
      * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
-     * lucene.apache.org</a>.<br/>
+     * lucene.apache.org</a>.<br>
      * Fields searchable for Packages:
-     * name, epoch, version, release, arch, description, summary<br/>
+     * name, epoch, version, release, arch, description, summary<br>
      * Lucene Query Example: "name:kernel AND version:2.6.18 AND -description:devel"
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "luceneQuery",
@@ -166,11 +166,11 @@ public class PackagesSearchHandler extends BaseHandler {
     /**
      * Advanced method to search lucene indexes with a passed in query written in Lucene
      * Query Parser syntax, additionally this method will limit results to those which are
-     * in the passed in channel label.<br/>
+     * in the passed in channel label.<br>
      * Lucene Query Parser syntax is defined at lucene.apache.org:
      * http://lucene.apache.org/java/3_5_0/queryparsersyntax.html
      * Fields searchable for Packages:
-     * name, epoch, version, release, arch, description, summary<br/>
+     * name, epoch, version, release, arch, description, summary<br>
      * Lucene Query Example: "name:kernel AND version:2.6.18 AND -description:devel"
      *
      * @param sessionKey The sessionKey for the logged in used
@@ -181,12 +181,12 @@ public class PackagesSearchHandler extends BaseHandler {
      *
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax, additionally this method will limit results to those
-     * which are in the passed in channel label.<br/>
+     * which are in the passed in channel label.<br>
      * Lucene Query Parser syntax is defined at
      * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
-     * lucene.apache.org</a>.<br/>
+     * lucene.apache.org</a>.<br>
      * Fields searchable for Packages:
-     * name, epoch, version, release, arch, description, summary<br/>
+     * name, epoch, version, release, arch, description, summary<br>
      * Lucene Query Example: "name:kernel AND version:2.6.18 AND -description:devel"
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "luceneQuery",
@@ -245,12 +245,12 @@ public class PackagesSearchHandler extends BaseHandler {
      *
      * @xmlrpc.doc Advanced method to search lucene indexes with a passed in query written
      * in Lucene Query Parser syntax, additionally this method will limit results to those
-     * which are associated with a given activation key.<br/>
+     * which are associated with a given activation key.<br>
      * Lucene Query Parser syntax is defined at
      * <a href="http://lucene.apache.org/java/3_5_0/queryparsersyntax.html" target="_blank">
-     * lucene.apache.org</a>.<br/>
+     * lucene.apache.org</a>.<br>
      * Fields searchable for Packages:
-     * name, epoch, version, release, arch, description, summary<br/>
+     * name, epoch, version, release, arch, description, summary<br>
      * Lucene Query Example: "name:kernel AND version:2.6.18 AND -description:devel"
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "luceneQuery",

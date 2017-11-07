@@ -249,7 +249,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
      * Create an Errata for testing and commit it to the DB.
      * @param orgId the Org who owns this Errata
      * @return Errata created
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Errata createTestErrata(Long orgId) throws Exception {
         Errata e = ErrataFactory.createPublishedErrata();

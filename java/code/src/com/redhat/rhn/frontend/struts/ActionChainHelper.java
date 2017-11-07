@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletRequest;
  * Provides helper methods to deal with Action Chains. See also
  * schedule-options.jspf.
  *
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainHelper {
 

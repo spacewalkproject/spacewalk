@@ -74,7 +74,7 @@ public class ConfigRevisionActionTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ConfigRevisionAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupConfigRevision() throws Exception {
         User user = UserTestUtils.createUser("testUser", UserTestUtils

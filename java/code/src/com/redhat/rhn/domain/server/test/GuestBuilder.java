@@ -98,8 +98,6 @@ public class GuestBuilder {
      * system associated with it. Note that a host must be specified for the
      * unregistered guest under construction prior to calling {@link #build()}.
      *
-     * @param host A physical, host system
-     *
      * @return This builder
      */
     public GuestBuilder createUnregisteredGuest() {

@@ -30,16 +30,14 @@ public class ServletTestUtils extends Assert {
 
     /**
      * Asserts that two query strings are equal. Order of parameters is not checked. A query
-     * string should look like <code>param1=value1&param2=value2</code>. Note that because
+     * string should look like <code>{@literal param1=value1&param2=value2}</code>. Note that because
      * the parameters in a query string are basically an unordered collection of name/value
-     * pairs, the following two query strings would be considered equal:
-     *
-     * <br/><br/>
-     *
-     * <code>param1=value1&param2=value2</code><br/>
-     * <code>param2=value2&param1=value1</code>
-     *
-     * @param expected The expcected query string.
+     * pairs, the following two query strings would be considered equal:<br>
+     * <pre>
+     * <code>{@literal param1=value1&param2=value2}</code>
+     * <code>{@literal param2=value2&param1=value1}</code>
+     * </pre>
+     * @param expected The expected query string.
      *
      * @param actual The actual query string.
      */

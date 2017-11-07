@@ -21,7 +21,8 @@ import javax.servlet.WriteListener;
 /**
  * Wrapper class implementing new methods introduced in Servlet API 3.1 in Tomcat 8.
  * This is intended for async write support but we don't use it currently.
- * Since we need javax.servlet.WriteListener interface not present in Servlet API < 3.1,
+ * Since we need javax.servlet.WriteListener interface not present in
+ * {@literal Servlet API < 3.1},
  * we create dummy version this interface in our code.
  * So we are able to compile with older Servlet API too.
  *

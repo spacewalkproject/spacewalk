@@ -39,7 +39,7 @@ public class ActionFormatterTest extends RhnBaseTestCase {
     }
     /**
      * Test formatting an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testActionFormatter() throws Exception {
         Action a = ActionFactoryTest.createAction(user,
@@ -58,7 +58,7 @@ public class ActionFormatterTest extends RhnBaseTestCase {
 
     /**
      * Test formatting an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testActionLinks() throws Exception {
         // We know that TYPE_REBOOT has ServerActions associated with it
@@ -84,7 +84,7 @@ public class ActionFormatterTest extends RhnBaseTestCase {
 
     /**
      * Test formatting an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testErrataFormatter() throws Exception {
 
@@ -102,7 +102,7 @@ public class ActionFormatterTest extends RhnBaseTestCase {
 
     /**;
      * Test formatting an Action
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testScriptFormatter() throws Exception {
 

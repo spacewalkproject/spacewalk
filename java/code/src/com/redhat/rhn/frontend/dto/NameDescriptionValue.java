@@ -16,14 +16,16 @@ package com.redhat.rhn.frontend.dto;
 
 /**
  * NameDescriptionValue - Simple class that can hold a name, a description and a
- * value for a field.  Can be used in <forms> that have a dynamic set of <input> values
- * where the description field is the header text that is localized.
- *
- * For example:
+ * value for a field.  Can be used in {@literal <forms>} that have a dynamic set
+ * of {@literal <input>} values where the description field is the header text that
+ * is localized.
+ * <p>
+ * For example:<br>
+ * <pre>{@literal
  * Login: <input name="login" value="mmccune" type="text"></input>
  *   |                  |             |
  * description         name          value
- *
+ * }</pre>
  * @version $Rev: 50942 $
  */
 public class NameDescriptionValue {

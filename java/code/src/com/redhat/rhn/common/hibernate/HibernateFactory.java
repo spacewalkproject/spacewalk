@@ -552,7 +552,7 @@ public abstract class HibernateFactory {
      * Convert a byte[] array to a Blob object.  Guards against
      * null arrays and 0 length arrays.
      * @param data array to convert to a Blob
-     * @return Blob if data[] is non-null and length > 0, null otherwise
+     * @return Blob if data[] is non-null and {@literal length > 0}, null otherwise
      */
     public static Blob byteArrayToBlob(byte[] data) {
         if (data == null) {
@@ -569,7 +569,7 @@ public abstract class HibernateFactory {
      * Convert a String to a byte[] object.  Guards against
      * null arrays and 0 length arrays.
      * @param data string to convert to a Blob
-     * @return Blob if data[] is non-null and length > 0, null otherwise
+     * @return Blob if data[] is non-null and {@literal length > 0}, null otherwise
      */
     public static byte[] stringToByteArray(String data) {
         if (StringUtils.isEmpty(data)) {

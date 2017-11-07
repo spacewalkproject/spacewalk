@@ -18,8 +18,10 @@ package com.redhat.rhn.frontend.html;
 
 /**
  * HiddenInputTag a simple class to render a hidden input tag
- *
+ * <p>
+ * {@literal
  * <input name="prev_filter_value" type="hidden" value="908238940"/>
+ * }
  *
  * @version $Rev$
  */

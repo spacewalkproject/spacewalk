@@ -63,7 +63,7 @@ public class MapBuilder {
      * Where ^ = intersection
      * However there is on catch ...
      * If "includes" is empty, it includes everything..
-     * ie... includes  = empty ==> Master List - excludes
+     * ie... {@literal includes  = empty ==> Master List - excludes}
      *
      * @param bean the bean object to be mapified
      * @return a map containing the debeanified values.

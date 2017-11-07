@@ -445,7 +445,7 @@ public class PackageFactory extends HibernateFactory {
      * statement mess in package_type_capable of Package.pm). This should really
      * be in the DB, but it's not :{ and it needs to be ported from perl.
      *
-     * @return the map of arch label -> set of capabilities
+     * @return the map of {@literal arch label -> set of capabilities}
      */
     public static Map<String, Set<String>> getPackageCapabilityMap() {
         Map<String, Set<String>> map = new HashMap<String, Set<String>>();

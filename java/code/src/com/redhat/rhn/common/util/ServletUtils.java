@@ -140,9 +140,7 @@ public class ServletUtils {
      * request is a GET, then the returned query string will simply consist of the query
      * string from the request. If the request is a POST, the returned query string will
      * consist of the form variables.
-     *
-     * <br/><br/>
-     *
+     * <p>
      * <strong>Note</strong>: This method does not support multi-value parameters.
      *
      * @param request The request for which the query string will be generated.

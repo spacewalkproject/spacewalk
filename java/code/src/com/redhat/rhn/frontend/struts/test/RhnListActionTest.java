@@ -39,6 +39,7 @@ public class RhnListActionTest extends RhnBaseTestCase {
 
     /**
      * Test to make sure we check for the right filter value string
+     * @throws Exception something bad happened
      */
     public void testFilterValue() throws Exception {
         TestListAction tla = new TestListAction();

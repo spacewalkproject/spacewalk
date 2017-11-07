@@ -1433,7 +1433,7 @@ public class SystemManager extends BaseManager {
      * @param server The server to be unsubscribed
      * @param channel The channel to unsubscribe from
      * @param flush flushes the hibernate session. Make sure you
-     *              reload the server & channel after  method call
+     *              reload the server and channel after  method call
      *              if you set this to true..
      */
     public static void unsubscribeServerFromChannel(User user, Server server,
@@ -1477,7 +1477,7 @@ public class SystemManager extends BaseManager {
      * @param server server to be unsubscribed
      * @param channel the channel to unsubscribe from
      * @param flush flushes the hibernate session. Make sure you
-     *              reload the server & channel after  method call
+     *              reload the server and channel after  method call
      *              if you set this to true..
      * @return the modified server if there were
      *           any changes modifications made

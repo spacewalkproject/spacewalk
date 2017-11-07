@@ -26,7 +26,7 @@ public class FormatDateTagTest extends RhnBaseTestCase {
 
     /**
      * Test tag output
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception something bad happened
      */
     public void testTagOutput() throws Exception {
 

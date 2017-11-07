@@ -75,8 +75,9 @@ import java.util.TreeSet;
  *      <li>words can have all caps (Example: aclCheckURL() is referenced
  *      in an ACL expression as check_url)
  *  </ul>
- *  More examples:
+ *
  * <table>
+ * <caption>More examples:</caption>
  * <tr>
  *   <td>Method Name</td>     <td>ACL Handler Name</td>
  * </tr>

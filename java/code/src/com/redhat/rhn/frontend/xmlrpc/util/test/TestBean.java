@@ -35,7 +35,7 @@ public class TestBean {
     }
 
     /**
-     * @param fieldA the fieldA to set
+     * @param val the fieldA to set
      */
     public void setFieldA(String val) {
         this.fieldA = val;
@@ -49,7 +49,7 @@ public class TestBean {
     }
 
     /**
-     * @param fieldB the fieldB to set
+     * @param val the fieldB to set
      */
     public void setFieldB(String val) {
         this.fieldB = val;
@@ -63,7 +63,7 @@ public class TestBean {
     }
 
     /**
-     * @param fieldC the fieldC to set
+     * @param val the fieldC to set
      */
     public void setFieldC(String val) {
         this.fieldC = val;
@@ -77,7 +77,7 @@ public class TestBean {
     }
 
     /**
-     * @param fieldD the fieldD to set
+     * @param val the fieldD to set
      */
     public void setFieldD(String val) {
         this.fieldD = val;
@@ -93,7 +93,7 @@ public class TestBean {
 
 
     /**
-     * @param fieldWierdo the fieldWierdo to set
+     * @param val the fieldWierdo to set
      */
     public void setFieldWierdo(String val) {
         this.fieldWierdo = val;

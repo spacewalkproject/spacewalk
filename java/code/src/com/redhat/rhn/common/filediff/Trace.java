@@ -112,7 +112,7 @@ public class Trace {
      * it keeps finding matching lines. This is because finding matching lines makes
      * this trace much more possibly optimal. This behaviour is what Myers called
      * the &quot;furthest reaching D-path&quot;
-     * <br/>
+     * <p>
      * This step method steps backward through the files. This is for the simple reason
      * that when creating hunks, we want to create them in forward order, but we have to
      * visit the edits backwards from how we diffed them.  Two backwards make a forward,

@@ -361,7 +361,7 @@ public abstract class ConfigFileData {
      * Basically returns a map equating ConfigFileForm's form fieldnames
      * to values from config file data.. This is needed by the RHnValidationHelper
      * while matching values against xsds..
-     * @return a map with key = ConfigFIleForms keys, & value = ConfigFIleData values..
+     * @return a map with key = ConfigFIleForms keys, and value = ConfigFIleData values..
      */
     protected Map makeValidationMap() {
         Map map = new HashMap();

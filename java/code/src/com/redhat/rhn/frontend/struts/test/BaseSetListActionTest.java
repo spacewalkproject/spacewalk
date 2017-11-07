@@ -49,6 +49,7 @@ public class BaseSetListActionTest extends RhnBaseTestCase {
 
     /**
      * Test to make sure we check for the right filter value string
+     * @throws Exception something bad happened
      */
     public void testExecute() throws Exception {
         sah.executeAction();
@@ -60,6 +61,7 @@ public class BaseSetListActionTest extends RhnBaseTestCase {
 
     /**
      * Test to make sure we check for the right filter value string
+     * @throws Exception something bad happened
      */
     public void testExport() throws Exception {
         // Need to fetch the 0 value one and put the 1 back in.

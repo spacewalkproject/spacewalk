@@ -78,7 +78,7 @@ public class ErrataTest extends BaseTestCaseWithUser {
     /**
      * Test the bugs set in the Errata class. Make sure we can
      * add and store bugs.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testBugs() throws Exception {
         Errata errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
@@ -110,7 +110,7 @@ public class ErrataTest extends BaseTestCaseWithUser {
 
     /**
      * Test unpublished bugs
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testBugsUnpublished() throws Exception {
         Errata errata = ErrataFactoryTest
@@ -143,7 +143,7 @@ public class ErrataTest extends BaseTestCaseWithUser {
     /**
      * Test the keywords set in the Errata class. Make sure we
      * can add and store keywords.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     //published
     public void testPublishedKeywords() throws Exception {
@@ -178,7 +178,7 @@ public class ErrataTest extends BaseTestCaseWithUser {
 
     /**
      * Test the packages set in
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     //published
     public void testPublishedPackage() throws Exception {
@@ -265,6 +265,7 @@ public class ErrataTest extends BaseTestCaseWithUser {
 
     /**
      * Test bean methods of Errata class
+     * @throws Exception something bad happened
      */
     //published
     public void testBeanMethodsPublished() throws Exception {

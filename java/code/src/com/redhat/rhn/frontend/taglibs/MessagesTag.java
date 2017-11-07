@@ -37,7 +37,7 @@ public class MessagesTag extends TagSupport {
     private HtmlTag baseTag;
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     public int doStartTag() throws JspException {
         JspWriter out = null;

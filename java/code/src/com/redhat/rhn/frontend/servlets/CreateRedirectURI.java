@@ -30,19 +30,13 @@ import javax.servlet.http.HttpServletRequest;
  * HttpServletRequest object. The URI consists of the original request URI along with
  * any query string parameters and values (from a GET request) or any form parameters and
  * values (from a POST request) added to the new query string.
- *
- * <br/><br/>
- *
+ * <p>
  * If the length exceeds <code>MAX_URL_LENGTH</code>, then the redirect URI will default
  * to a value of {@link LoginAction#DEFAULT_URL_BOUNCE};
- *
- * <br/><br/>
- *
+ * <p>
  * <strong>Note:</strong> This implementation does not support multi-value parameters.
- *
- * <br/><br/>
- *
- * <strong>Note:</strong> This clas may/should get generalized and wind up implementing a
+ * <p>
+ * <strong>Note:</strong> This class may/should get generalized and wind up implementing a
  * "functor" interface or extending from some base class if other request-related functor
  * classes are added to the code base.
  *

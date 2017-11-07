@@ -35,14 +35,10 @@ import java.util.Date;
  *
  * Examples of these types of tables include <code>rhnServerGroupType</code> and <code>
  * rhnVirtualInstanceType</code>. Additional columns can be mapped in subclasses.
- *
- * <br/><br/>
- *
+ * <p>
  * {@link AbstractLabelNameHelper} is conceptually the same as this class; however, it is
  * not implemented as an immutable like this class.
- *
- * <br/><br/>
- *
+ * <p>
  * For an example of how to implement a Label, take a look at VirtualInstanceType and
  * VirtualInstanceTypeFactory.
  *

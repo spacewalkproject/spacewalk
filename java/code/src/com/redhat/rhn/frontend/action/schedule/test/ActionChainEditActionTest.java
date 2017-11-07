@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Tests for ActionChainEditActionTest.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainEditActionTest extends RhnPostMockStrutsTestCase {
 

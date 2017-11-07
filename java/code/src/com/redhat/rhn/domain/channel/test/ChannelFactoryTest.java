@@ -154,7 +154,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
 
     /**
      * TODO: need to fix this test when we put errata management back in.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testChannelsWithClonableErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
@@ -298,6 +298,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
      * original's package list like a real clone would. It is only useful for
      * testing purposes.
      * @param original Channel to be cloned
+     * @param user the user
      * @return a test cloned channel
      */
     public static Channel createTestClonedChannel(Channel original, User user) {

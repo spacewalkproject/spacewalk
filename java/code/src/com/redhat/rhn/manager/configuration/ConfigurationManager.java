@@ -2127,7 +2127,7 @@ public class ConfigurationManager extends BaseManager {
      * @param fileIds Revisions to be deployed
      * @param systemIds Systems to deploy to
      * @param datePicked Date to schedule the deploy for
-     * @return Map<String,Long> describing "success"|"override"|"failure"
+     * @return {@literal Map<String,Long> describing "success"|"override"|"failure"}
      */
     public Map deployFiles(User usr, Set fileIds, Set systemIds, Date datePicked) {
         return deployFiles(usr, fileIds, systemIds, datePicked, null);
@@ -2142,7 +2142,7 @@ public class ConfigurationManager extends BaseManager {
      * @param systemIds Systems to deploy to
      * @param datePicked Date to schedule the deploy for
      * @param actionChain the action chain to add the action to or null
-     * @return Map<String,Long> describing "success"|"override"|"failure"
+     * @return {@literal Map<String,Long> describing "success"|"override"|"failure"}
      */
     public Map deployFiles(User usr, Set fileIds, Set systemIds, Date datePicked,
         ActionChain actionChain) {

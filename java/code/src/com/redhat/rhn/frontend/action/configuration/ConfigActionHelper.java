@@ -254,7 +254,7 @@ public abstract class ConfigActionHelper {
      *          that stores info on the number of files and directories
      * @param url the url to wrap the messages if so desired
      * @param includeAddUrlForEmpty include "Add" section for empty
-     * @return the properly formatted File & Directories helper messages ..
+     * @return the properly formatted File and Directories helper messages ..
      */
     public static String makeFileCountsMessage(ConfigFileCount count,
                                                String url,
@@ -281,7 +281,7 @@ public abstract class ConfigActionHelper {
      *                         else
      *                              return "1 directory"
      * @param includeAddUrlForEmpty include "Add" section for empty
-     * @return the properly formatted File & Directories helper messages ..
+     * @return the properly formatted File and Directories helper messages ..
      */
     public static String makeFileCountsMessage(ConfigFileCount count,
                                                String url,

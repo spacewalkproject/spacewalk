@@ -27,13 +27,13 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * ConfigChannelTag
+ * <p>
+ * {@literal <cfg:channel id="" value="" type="" size="large|small" nolink="">}
+ *
  * @version $Rev$
  */
 public class ConfigChannelTag extends TagSupport {
 
-    /**
-    * <cfg:channel id="" value="" type="" size="large|small" nolink="">
-    */
     private String name;
     private String type;
     private boolean nolink;
@@ -43,7 +43,7 @@ public class ConfigChannelTag extends TagSupport {
 
     /**
      *
-     * Comment for <code>serialVersionUID</code>
+     * Comment for {@literal <code>serialVersionUID</code>}
      */
     private static final long serialVersionUID = -8093937572650589326L;
 

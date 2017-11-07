@@ -604,7 +604,8 @@ public class PackageManager extends BaseManager {
      * @param epoch2 Epoch 2
      * @param version2 Version 2
      * @param release2 Release 2
-     * @return Returns 1 if EVR1 > EVR2, -1 if EVR1 < EVR2, and 0 if EVR1 == EVR2.
+     * @return {@literal Returns 1 if EVR1 > EVR2, -1 if EVR1 < EVR2,
+     *  and 0 if EVR1 == EVR2.}
      */
     public static int verCmp(String epoch1, String version1, String release1,
                              String epoch2, String version2, String release2) {
@@ -1668,7 +1669,7 @@ public class PackageManager extends BaseManager {
      * pretty much a line for line port of the perl code.
      * @param sense A number whose number can tell us what kind of modifier is needed
      * @param version The version of the dependency we're investigating
-     * @return Returns a string in the form of something like '>= 4.1-3'
+     * @return Returns a string in the form of something like {@literal '>= 4.1-3'}
      */
     public static String getDependencyModifier(Long sense, String version) {
         StringBuilder depmod = new StringBuilder();

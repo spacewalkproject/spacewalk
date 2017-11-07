@@ -36,7 +36,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
     public static final String TEST_MAC = "AA:AA:BB:BB:CC:CC";
     /**
      * Test the equals method for NetworkInterface.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testEquals() throws Exception {
         NetworkInterface netint1 = createTestNetworkInterface();
@@ -57,7 +57,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
     /**
      * Creates a test NetworkInterface object
      * @return Returns a new NetworkInterface object all filled out for testing purposes.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static NetworkInterface createTestNetworkInterface() throws Exception {
         User user = UserTestUtils.findNewUser("testuser", "testorg");
@@ -69,7 +69,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
      * Creates a test NetworkInterface object
      * @param server The server to associate with this network interface
      * @return Returns a new NetworkInterface object all filled out for testing purposes.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static NetworkInterface createTestNetworkInterface(Server server)
     throws Exception {
@@ -80,8 +80,11 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
     /**
      * Creates a test NetworkInterface object
      * @param server The server to associate with this network interface
+     * @param networkName the network name
+     * @param ipAddress the ip address
+     * @param macAddress the MAC address
      * @return Returns a new NetworkInterface object all filled out for testing purposes.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static NetworkInterface createTestNetworkInterface(Server server,
             String networkName, String ipAddress, String macAddress)

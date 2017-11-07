@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Handles display and update of Kickstart -> System Details
+ * Handles display and update of {@literal Kickstart -> System Details}
  *
  * @version $Rev $
  */

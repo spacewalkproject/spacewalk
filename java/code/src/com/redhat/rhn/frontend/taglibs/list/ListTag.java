@@ -53,7 +53,8 @@ import com.redhat.rhn.frontend.taglibs.list.row.RowRenderer;
  * Bottom pagination and reflinks g into the panel-footer
  * The table goes as is, for seamless display into the panel
  *
- * @see http://getbootstrap.com/components/#panels
+ * @see <a href="http://getbootstrap.com/components/#panels">
+ * http://getbootstrap.com/components/#panels</a>
  *
  * @version $Rev $
  */
@@ -1162,7 +1163,7 @@ public class ListTag extends BodyTagSupport {
 
     /**
      *
-     * @return CSS ID for <table>
+     * @return CSS ID for {@literal <table>}
      */
     public String getStyleId() {
         if (StringUtils.isBlank(styleId)) {

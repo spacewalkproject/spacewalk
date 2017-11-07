@@ -23,10 +23,12 @@ package com.redhat.rhn.frontend.html;
 public class XmlTag extends BaseTag {
     /**
      * Standard xml header with utf-8 encoding.
-     * Example usage:<br />
+     * <p>
+     * Example usage:
+     * <p>
      * <code>
-     * StringBuffer buf = new StringBuffer();
-     * buf.append(XmlTag.XML_HDR_UTF8);
+     * StringBuffer buf = new StringBuffer(); <br>
+     * buf.append(XmlTag.XML_HDR_UTF8); <br>
      * buf.append(new XmlTag("foo").render());
      * </code>
      */
@@ -34,10 +36,12 @@ public class XmlTag extends BaseTag {
 
     /**
      * Standard xml header with no encoding.
-     * Example usage:<br />
+     * <p>
+     * Example usage:
+     * <p>
      * <code>
-     * StringBuffer buf = new StringBuffer();
-     * buf.append(XmlTag.XML_HDR);
+     * StringBuffer buf = new StringBuffer(); <br>
+     * buf.append(XmlTag.XML_HDR); <br>
      * buf.append(new XmlTag("foo").render());
      * </code>
      */
@@ -54,7 +58,8 @@ public class XmlTag extends BaseTag {
     /**
      * Constructs an XmlTag.  The <code>spaceBefore</code> attribute controls
      * whether a space is inserted before the closing tag of a single line
-     * element.<br />
+     * element.
+     * <p>
      * For example, a true value for spaceBefore and a tagIn of "foo" will
      * render &lt;foo /&gt;.  A spaceBefore value of false would've rendered
      * &lt;foo/&gt;.

@@ -48,7 +48,7 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
      * on the system search page. This test is expecting multiple systems to be found
      * and the user to be forwarded to the system search page with a list of systems
      * shown.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void skipTestQueryWithResults() throws Exception {
        /**
@@ -78,7 +78,7 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
     /**
      * This test is the case where only one system is found. It verfies
      * that the user is redirected to that system's SDC page.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void skipTestQueryWithOneResult() throws Exception {
         /**
@@ -108,7 +108,7 @@ public class SystemSearchActionTest extends RhnMockStrutsTestCase {
      * the system search handles and catches any underlying exceptions
      * that might be caused by this, instead of allowing the exception to escalate
      * beyond the SystemSearchAction.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testQueryWithBadParameter() throws Exception {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());

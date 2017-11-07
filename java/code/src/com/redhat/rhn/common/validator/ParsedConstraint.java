@@ -47,7 +47,7 @@ public class ParsedConstraint implements Constraint {
 
     /**
      * <p>
-     *  This will create a new <code></code> with the specified
+     *  This will create a new {@literal <code></code>} with the specified
      *    identifier as the "name".
      * </p>
      *

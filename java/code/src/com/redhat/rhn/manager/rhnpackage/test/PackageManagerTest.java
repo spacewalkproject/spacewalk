@@ -260,9 +260,11 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     /**
      * Add a new Package to the specified Channel and associate the system
      * with it.
-     * @param s
-     * @param c
-     * @throws Exception
+     * @param packageName the name of the package to add
+     * @param s the system to associate with the package
+     * @param c The channel to which to add the package
+     * @throws Exception something bad happened
+     * @return the new package
      */
     public static Package addPackageToSystemAndChannel(String packageName,
             Server s, Channel c) throws Exception {
@@ -277,7 +279,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * @param packageName The name of the package to create.
      * @param c The channel to which to add the package
      * @return The package with that name in the channel.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Package addPackageToChannel(String packageName, Channel c)
             throws Exception {
@@ -414,12 +416,12 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * Add the up2date package to a system and a channel.  Version
      * should be specified such as "2.9.0"
      *
-     * @param userIn
-     * @param s
-     * @param version
-     * @param c
-     * @return
-     * @throws Exception
+     * @param userIn the user
+     * @param s the system
+     * @param version the version
+     * @param c the channel
+     * @return the updated or added package
+     * @throws Exception something bad happened
      */
     public static Package addUp2dateToSystemAndChannel(User userIn, Server s,
             String version, Channel c) throws Exception {
@@ -468,9 +470,9 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
 
     /**
      * Add a kickstart package with the given name to the given channel.
-     * @param packageName
-     * @param channel
-     * @throws Exception
+     * @param packageName the name of the package to add
+     * @param channel the channel to add the package to
+     * @throws Exception something bad happened
      */
     public static void addKickstartPackageToChannel(String packageName, Channel channel)
     throws Exception {

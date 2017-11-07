@@ -186,7 +186,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
     }
 
     /**
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public final void testRedirectToLoginSetsURLBounceRequestAttribute() throws Exception {
         setupPxtDelegate(true, false, 1234L);

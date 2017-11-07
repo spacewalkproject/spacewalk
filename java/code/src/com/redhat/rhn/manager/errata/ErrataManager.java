@@ -1259,7 +1259,7 @@ public class ErrataManager extends BaseManager {
      * Finds the errata ids issued between start and end dates.
      * @param start String start date
      * @param end String end date
-     * @return errata ids issued between start -> end
+     * @return errata ids issued between {@literal start -> end}
      */
     public static List<Long> listErrataIdsIssuedBetween(String start, String end) {
         String mode = "issued_between";

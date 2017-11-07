@@ -43,7 +43,7 @@ public class ContentSource extends BaseDomainHelper implements Identifiable {
 
     /**
      * Copy Constructor
-     * @param cs @param cs content source template
+     * @param cs content source template
      */
     public ContentSource(ContentSource cs) {
         org = cs.getOrg();

@@ -344,6 +344,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     /**
      * Creates KickstartPreserveFileList for testing purposes.
      * @return Returns a committed KickstartPreserveFileList
+     * @throws Exception something bad happened
      */
     public static KickstartPreserveFileList createTestFileList() throws Exception {
         FileList f = new FileList();
@@ -363,7 +364,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     /**
      * Creates KickstartDefaults for testing purposes.
+     * @param data kickstart data
+     * @param owner the owner (User object)
      * @return Returns a committed KickstartDefaults
+     * @throws Exception something bad happened
      */
     public static KickstartDefaults createDefaults(KickstartData data, User owner)
             throws Exception {
@@ -405,7 +409,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     /**
      * Creates KickstartDefaults for testing purposes.
+     * @param data kickstart data
+     * @param c channel
      * @return Returns a committed KickstartDefaults
+     * @throws Exception something bad happened
      */
     public static KickstartDefaults createDefaults(KickstartData data,
             Channel c) throws Exception {
@@ -427,9 +434,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     /**
      * Creates KickstartData for testing purposes.
-     * @param orgIn
+     * @param orgIn the org
      * @return Returns a committed KickstartData
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static KickstartData createTestKickstartData(Org orgIn) throws Exception {
         String label = "KS Data: " + TestUtils.randomString();

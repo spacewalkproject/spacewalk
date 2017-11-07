@@ -83,7 +83,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      * PLEASE Refrain from using this unless you really have to.
      *
      * Try clearSession() instead
-     * @throws HibernateException
+     * @throws HibernateException hibernate exception
      */
     protected void commitAndCloseSession() throws HibernateException {
         HibernateFactory.commitTransaction();

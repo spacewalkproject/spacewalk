@@ -24,7 +24,9 @@ import org.apache.struts.taglib.html.HiddenTag;
 
 /**
  * HiddenTag
- * Renders < />
+ * <p>
+ * Renders {@literal < />}
+ *
  * @version $Rev$
  */
 public class CsrfTag extends HiddenTag {

@@ -96,7 +96,7 @@ public class CSVTagTest extends MockObjectTestCase {
      * Requires a list of columns set under "exportColumns"
      * as well as a parameter "lde=1" to be present on the
      * requesting URL.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testExport() throws Exception {
         context().checking(new Expectations() { {

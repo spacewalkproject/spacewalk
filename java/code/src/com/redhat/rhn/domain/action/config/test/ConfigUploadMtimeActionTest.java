@@ -39,7 +39,7 @@ public class ConfigUploadMtimeActionTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ConfigUploadAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupConfigUploadAction() throws Exception {
         Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",

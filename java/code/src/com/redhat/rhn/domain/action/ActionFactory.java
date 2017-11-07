@@ -473,7 +473,6 @@ public class ActionFactory extends HibernateFactory {
      * Helper method to get a ActionType by label
      * @param label the Action to lookup
      * @return Returns the ActionType corresponding to label
-     * @throws Exception
      */
     public static ActionType lookupActionTypeByLabel(String label) {
         Map<String, String> params = new HashMap<String, String>();
@@ -486,7 +485,6 @@ public class ActionFactory extends HibernateFactory {
      * Helper method to get a ActionType by name
      * @param name the Action to lookup
      * @return Returns the ActionType corresponding to name
-     * @throws Exception
      */
     public static ActionType lookupActionTypeByName(String name) {
         Map<String, String> params = new HashMap<String, String>();

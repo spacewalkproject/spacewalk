@@ -223,15 +223,21 @@ public class AclTest extends RhnBaseTestCase {
      *  names.
      *  Tests the following:
      *  <table>
+     *  <caption>things to test</caption>
      *  <tr>
      *      <td>method name</td><td>acl handler name</td>
+     *  </tr>
+     *  <tr>
      *      <td>aclTheQuickBrownFoxJumpedOverTheLazyDog</td>
      *      <td>the_quick_brown_fox_jumped_over_the_lazy_dog</td>
      *  </tr>
      *  <tr>
-     *      <td>method name</td><td>acl handler name</td>
      *      <td>aclTestXMLFile</td><td>test_xml_file</td>
+     *  </tr>
+     *  <tr>
      *      <td>aclTestX</td><td>test_x</td>
+     *  </tr>
+     *  <tr>
      *      <td>aclTestXML</td><td>test_xml</td>
      *  </tr>
      *  </table>
@@ -332,9 +338,13 @@ public class AclTest extends RhnBaseTestCase {
                exp.setFailOnVerify();
            }
        }
-       /** Set the parameters expected to be given a handler upon
+       /**
+        * Set the parameters expected to be given a handler upon
         * a call to evalAcl. These get reset with {@link #verify}
-        * is called. */
+        * is called.
+        * @param handlerName the handler name
+        * @param params the params
+        */
        public void setExpected(String handlerName, String[] params) {
            if (params != null) {
                ExpectationValue exp =

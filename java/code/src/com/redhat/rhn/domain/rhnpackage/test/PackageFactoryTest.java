@@ -45,7 +45,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
 
     /**
      * Test fetching a Package with the logged in User
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupWithUser() throws Exception {
         Package pkg = PackageTest.createTestPackage(user.getOrg());

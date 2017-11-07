@@ -36,11 +36,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CobblerAction extends RhnAction {
     /** {@inheritDoc}
-     * @param mapping
-     * @param formIn
-     * @param request
-     * @param response
-     * @return  */
+     * @param mapping the ActionMapping
+     * @param formIn the ActionForm
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
+     * @return the ActionForward
+     */
     @Override
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,

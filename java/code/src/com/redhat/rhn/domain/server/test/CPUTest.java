@@ -57,7 +57,7 @@ public class CPUTest extends RhnBaseTestCase {
     /**
      * Helper method to create a test CPU object
      * @return Returns test CPU object
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static CPU createTestCpu() throws Exception {
         CPU cpu = new CPU();

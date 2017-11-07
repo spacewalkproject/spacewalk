@@ -180,7 +180,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
      * This test should ensure that if the associate method is called with two sets
      * that may both contain one or more of the same server, only one entry is made
      * for the server.
-     * <p/>
+     * <p>
      * The driving use case behind this is the scenario where a server is subscribed to
      * one channel and unsubscribed from another in the same SSM batch task.
      *
@@ -227,7 +227,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
      * This test should ensure that only one association is created a single set references
      * the same server more than once (this could occur if the second element in the set
      * differs).
-     * <p/>
+     * <p>
      * The driving use case behind this is the scenario where a server is subscribed to
      * two different channels in the same SSM batch task.
      *

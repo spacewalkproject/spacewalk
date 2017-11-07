@@ -272,8 +272,7 @@ public class ScapManager extends BaseManager {
      * Checks if the user has permission to see the XCCDF scan.
      * @param user User being checked.
      * @param testResultId ID of the XCCDF scan being checked.
-     * @return true - when available
-     * @retutn true if the user can access the TestResult, false otherwise.
+     * @return true if the user can access the TestResult, false otherwise.
      */
     public static boolean isAvailableToUser(User user, Long testResultId) {
         SelectMode m = ModeFactory.getMode("scap_queries",

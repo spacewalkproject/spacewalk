@@ -166,7 +166,6 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * @return Boolean value that determines whether
      * or not the checkbox associated with erroronfail
      * should be checked.
-     * @return
      */
     public Boolean getErrorOnFail() {
         return this.script.getErrorOnFail();

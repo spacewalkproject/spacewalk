@@ -28,7 +28,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Handles display and update of Kickstart -> System Details -> Locale
+ * Handles display and update of
+ * {@literal Kickstart -> System Details -> Locale}
  *
  * @version $Rev$
  */
@@ -114,8 +115,9 @@ public class KickstartLocaleEditAction extends BaseKickstartEditAction {
 
     /**
      * Is the timezone valid (ie, in the list of valid timezones)
-     *
-     * return Boolean valid, or not
+     * @param validTimezones list of timezones
+     * @param timezone the timezone to check for validity
+     * @return Boolean valid, or not
      */
     protected Boolean isTimezoneValid(ArrayList validTimezones, String timezone) {
         Iterator iter = validTimezones.iterator();

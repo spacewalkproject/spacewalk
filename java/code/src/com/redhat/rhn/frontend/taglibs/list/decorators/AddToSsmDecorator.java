@@ -25,7 +25,7 @@ import javax.servlet.jsp.JspException;
 /**
  * Decorator to tie into ListTag 3.0 to provide an easy means to add te selected servers
  * in a table to the SSM.
- * <p/>
+ * <p>
  * This decorator must be used in conjunction with the {@link SelectableDecorator}.
  *
  * @version $Revision$

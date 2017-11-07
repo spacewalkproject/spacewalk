@@ -35,7 +35,7 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
     private User user;
 
     /**
-     * @param name
+     * @param name the name
      */
     public ServerFactoryVirtualizationTest(String name) {
         super(name);

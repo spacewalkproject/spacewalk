@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Tag system shapshots so that you can roll back to them later
- * @author Stephen Herr <sherr@redhat.com>
+ * @author Stephen Herr {@literal <sherr@redhat.com>}
  */
 public class TagSystemsAction extends RhnAction implements Listable<SystemOverview> {
     protected static final String TAG = "tag";

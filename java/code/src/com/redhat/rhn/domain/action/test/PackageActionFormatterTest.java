@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * Tests for PackageActionFormatter.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class PackageActionFormatterTest extends BaseTestCaseWithUser {
 

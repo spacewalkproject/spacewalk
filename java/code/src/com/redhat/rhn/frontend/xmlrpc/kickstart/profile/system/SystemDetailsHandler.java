@@ -326,7 +326,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @param ksLabel A kickstart profile label.
      * @param scheme The partitioning scheme.
      * @return 1 on success
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Set the partitioning scheme for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
@@ -362,7 +362,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @param ksLabel A kickstart profile label
      * @return The profile's partitioning scheme. This is a list of commands
      * used to setup the partitions, logical volumes and volume groups.
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Get the partitioning scheme for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
