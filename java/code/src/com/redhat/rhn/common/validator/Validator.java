@@ -108,9 +108,8 @@ public class Validator {
      * data against.
      * @param objToValidate <code>String</code> data to validate.
      * @return ValidatorError whether the data is valid or not.
-     * TODO: rename this method to something other than isValid()
      */
-    public ValidatorError isValid(String constraintName, Object objToValidate) {
+    public ValidatorError validate(String constraintName, Object objToValidate) {
         // Validate against the correct constraint
         Object o = constraints.get(constraintName);
 
