@@ -172,22 +172,54 @@ public class SchemaParser {
         Element child;
 
         if (schemaType.equals("long") || schemaType.equals("int")) {
-            NumericConstraint nc = new NumericConstraint(name);
-            nc.setOptional(parseOptional(simpleType));
+            LongConstraint lc = new LongConstraint(name);
+            lc.setOptional(parseOptional(simpleType));
 
-            processRequiredIfConstraint(simpleType, nc);
+            processRequiredIfConstraint(simpleType, lc);
+            // Handle ranges
+            child = simpleType.getChild("minInclusive", schemaNamespace);
+            if (child != null) {
+                Long value = new Long(child.getAttributeValue("value"));
+                lc.setMinInclusive(value);
+            }
+            else if (schemaType.equals("int")) {
+                    lc.setMinInclusive((long) Integer.MIN_VALUE);
+            }
+            child = simpleType.getChild("maxInclusive", schemaNamespace);
+            if (child != null) {
+                Long value = new Long(child.getAttributeValue("value"));
+                lc.setMaxInclusive(value);
+            }
+            else if (schemaType.equals("int")) {
+                    lc.setMaxInclusive((long) Integer.MAX_VALUE);
+            }
+            constraint = lc;
+        }
+        else if (schemaType.equals("double") || schemaType.equals("float")) {
+            DoubleConstraint dc = new DoubleConstraint(name);
+            dc.setOptional(parseOptional(simpleType));
+
+            processRequiredIfConstraint(simpleType, dc);
             // Handle ranges
             child = simpleType.getChild("minInclusive", schemaNamespace);
             if (child != null) {
                 Double value = new Double(child.getAttributeValue("value"));
-                nc.setMinInclusive(value);
+                dc.setMinInclusive(value);
+            }
+            else if (schemaType.equals("float")) {
+                Double value = new Double(Float.MIN_VALUE);
+                dc.setMinInclusive(value);
             }
             child = simpleType.getChild("maxInclusive", schemaNamespace);
             if (child != null) {
                 Double value = new Double(child.getAttributeValue("value"));
-                nc.setMaxInclusive(value);
+                dc.setMaxInclusive(value);
             }
-            constraint = nc;
+            else if (schemaType.equals("float")) {
+                Double value = new Double(Float.MAX_VALUE);
+                dc.setMaxInclusive(value);
+            }
+            constraint = dc;
         }
         else if (schemaType.equals("string")) {
             StringConstraint lc = new StringConstraint(name);

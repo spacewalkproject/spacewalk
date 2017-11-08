@@ -25,10 +25,10 @@ import org.apache.log4j.Logger;
  * </p>
  * @version $Rev$
  */
-public class NumericConstraint extends RequiredIfConstraint {
+public class DoubleConstraint extends RequiredIfConstraint {
 
     /** Logger instance */
-    private static Logger log = Logger.getLogger(NumericConstraint.class);
+    private static Logger log = Logger.getLogger(DoubleConstraint.class);
 
     /** Minimum inclusive value allowed */
     private Double minInclusive;
@@ -44,8 +44,10 @@ public class NumericConstraint extends RequiredIfConstraint {
      *
      * @param identifierIn <code>String</code> identifier for <code>Constraint</code>.
      */
-    public NumericConstraint(String identifierIn) {
+    public DoubleConstraint(String identifierIn) {
         super(identifierIn);
+        this.minInclusive = Double.MIN_VALUE;
+        this.maxInclusive = Double.MAX_VALUE;
     }
 
 
@@ -71,23 +73,19 @@ public class NumericConstraint extends RequiredIfConstraint {
                 return new ValidatorError("errors.decimalvalue", args);
             }
 
-            if (hasMinInclusive()) {
-                if (doubleValue < getMinInclusive().doubleValue()) {
-                    log.debug("Under min size ...");
-                    Object[] args = new Object[2];
-                    args[0] = localizedIdentifier;
-                    args[1] = getMinInclusive();
-                    return new ValidatorError("errors.minsize", args);
-                }
+            if (doubleValue < getMinInclusive().doubleValue()) {
+                log.debug("Decimal too small ...");
+                Object[] args = new Object[2];
+                args[0] = localizedIdentifier;
+                args[1] = getMinInclusive();
+                return new ValidatorError("errors.minsize", args);
             }
-            if (hasMaxInclusive()) {
-                if (doubleValue > getMaxInclusive().doubleValue()) {
-                    log.debug("Over max size 2 ...");
-                    Object[] args = new Object[2];
-                    args[0] = localizedIdentifier;
-                    args[1] = getMaxInclusive();
-                    return new ValidatorError("errors.maxsize", args);
-                }
+            if (doubleValue > getMaxInclusive().doubleValue()) {
+                log.debug("Decimal too big ...");
+                Object[] args = new Object[2];
+                args[0] = localizedIdentifier;
+                args[1] = getMaxInclusive();
+                return new ValidatorError("errors.maxsize", args);
             }
         }
         catch (NumberFormatException e) {
@@ -125,19 +123,6 @@ public class NumericConstraint extends RequiredIfConstraint {
         return minInclusive;
     }
 
-    /**
-     * <p>
-     *  This will return <code>true</code> if a minimum value (inclusive) constraint
-     *    exists.
-     * </p>
-     *
-     * @return <code>boolean</code> - whether there is a constraint for the
-     *         minimum value (inclusive)
-     */
-    public boolean hasMinInclusive() {
-        return minInclusive != null;
-    }
-
 
     /**
      * <p>
@@ -159,19 +144,6 @@ public class NumericConstraint extends RequiredIfConstraint {
      */
     public Double getMaxInclusive() {
         return maxInclusive;
-    }
-
-    /**
-     * <p>
-     *  This will return <code>true</code> if a maximum value (inclusive) constraint
-     *    exists.
-     * </p>
-     *
-     * @return <code>boolean</code> - whether there is a constraint for the
-     *         maximum value (inclusive)
-     */
-    public boolean hasMaxInclusive() {
-        return maxInclusive != null;
     }
 
 }
