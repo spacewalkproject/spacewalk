@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.26
+Version: 2.8.27
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -809,6 +809,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Nov 08 2017 Jan Dobes 2.8.27-1
+- Change the virtualization backend not to duplicate data in case host and
+  guests are in different organizations
+
 * Mon Nov 06 2017 Jan Dobes 2.8.26-1
 - fix joining strings
 
