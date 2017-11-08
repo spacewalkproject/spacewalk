@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.36
+Version: 2.8.37
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,15 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 08 2017 Jan Dobes 2.8.37-1
+- there is no virtEntitlement required
+- don't display info about guests on virtual host if it's not accessible (in
+  different org)
+- System_queries: virtual_servers query formatted for clarity
+- Virtual Systems list: if a host is in a different Org, only list its name (no
+  link)
+- Virtual Systems list: show virtual hosts from different Orgs
+
 * Wed Nov 08 2017 Jan Dobes 2.8.36-1
 - Revert "1461705 - enable checkboxes for systems are in SSM"
 
