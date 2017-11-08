@@ -12,34 +12,58 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-
 package com.redhat.rhn.frontend.action.systems;
-
-import java.util.HashMap;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.VirtualSystemOverview;
-import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * VirtualSystemSetupAction
+ * VirtualSystemsListSetupAction
  * @version $Rev$
  */
-public class VirtualSystemSetupAction extends BaseSystemsAction {
+public class VirtualSystemSetupAction extends RhnAction
+        implements Listable<VirtualSystemOverview> {
 
-    protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
-            ActionForm formIn) {
-        DataResult<SystemOverview> systems = SystemManager.systemList(user, pc);
-        HashMap<Long, SystemOverview> systemMap = new HashMap<>();
-        for (SystemOverview sys: systems) {
-            systemMap.put(sys.getId(), sys);
-        }
+    /** {@inheritDoc} */
+    @Override
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        ListRhnSetHelper helper =
+                new ListRhnSetHelper(this, request, RhnSetDecl.SYSTEMS);
+        helper.setDataSetName(RequestContext.PAGE_LIST);
+        helper.setListName("virtSystemList");
+        helper.execute();
+
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+
+    @Override
+    public List<VirtualSystemOverview> getResult(RequestContext context) {
+        User user = context.getCurrentUser();
+
         DataResult<VirtualSystemOverview> dr = SystemManager.virtualSystemsList(user, null);
+
         for (VirtualSystemOverview current : dr) {
             if (current.isFakeNode()) {
                 continue;
@@ -54,13 +78,11 @@ public class VirtualSystemSetupAction extends BaseSystemsAction {
             if (current.getServerName() != null) {
                 current.setName(current.getServerName());
             }
+        }
 
-        }
-        systems.clear();
-        for (VirtualSystemOverview current : dr) {
-            systems.add(systemMap.get(current.getSystemId()));
-        }
-        return systems;
+        VirtualSystemOverview.processList(dr);
+
+        return dr;
     }
-}
 
+}
