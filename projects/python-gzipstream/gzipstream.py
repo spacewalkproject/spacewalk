@@ -147,7 +147,7 @@ class GzipStream(gzip.GzipFile):
             if pos == self.stream.tell():
                 self.stream.close()
                 self.stream = None
-                return EOFError("Reached EOF")
+                raise EOFError("Reached EOF")
             else:
                 self.stream.seek( pos ) # Return to original position
 
