@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.35
+Version: 2.8.36
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Nov 08 2017 Jan Dobes 2.8.36-1
+- Revert "1461705 - enable checkboxes for systems are in SSM"
+
 * Tue Nov 07 2017 Jan Dobes 2.8.35-1
 - 1510511 - update debuginfo unavailable message
 - 1510511 - display known debugsource package
