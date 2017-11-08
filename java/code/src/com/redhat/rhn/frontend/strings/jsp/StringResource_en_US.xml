@@ -271,31 +271,31 @@
         </context-group>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errors.unexpected">

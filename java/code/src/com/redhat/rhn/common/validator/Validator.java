@@ -208,15 +208,35 @@ public class Validator {
                 Integer.parseInt(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.integer", identifier);
+                if (constraint instanceof LongConstraint) {
+                    LongConstraint longConstraint = (LongConstraint) constraint;
+                    Long minInclusive = longConstraint.getMinInclusive();
+                    Long maxInclusive = longConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.integer.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.integer", identifier);
+                }
             }
         }
-        else if ((dataType.equals("long")) || (dataType.equals("java.lang.Long"))) {
+        else if (dataType.equals("long") || dataType.equals("java.lang.Long")) {
             try {
                 Long.parseLong(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.long", identifier);
+                if (constraint instanceof LongConstraint) {
+                    LongConstraint longConstraint = (LongConstraint) constraint;
+                    Long minInclusive = longConstraint.getMinInclusive();
+                    Long maxInclusive = longConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.integer.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.integer", identifier);
+                }
             }
         }
         else if ((dataType.equals("float")) || (dataType.equals("java.lang.Float"))) {
@@ -224,7 +244,16 @@ public class Validator {
                 Float.parseFloat(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.float", identifier);
+                if (constraint instanceof DoubleConstraint) {
+                    DoubleConstraint doubleConstraint = (DoubleConstraint) constraint;
+                    Double minInclusive = doubleConstraint.getMinInclusive();
+                    Double maxInclusive = doubleConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.float.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage = new ValidatorError("errors.float", identifier);
+                }
             }
         }
         else if ((dataType.equals("double")) || (dataType.equals("java.lang.Double"))) {
@@ -232,7 +261,17 @@ public class Validator {
                 Double.parseDouble(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.double", identifier);
+                if (constraint instanceof DoubleConstraint) {
+                    DoubleConstraint doubleConstraint = (DoubleConstraint) constraint;
+                    Double minInclusive = doubleConstraint.getMinInclusive();
+                    Double maxInclusive = doubleConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.float.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.float", identifier);
+                }
             }
         }
 
