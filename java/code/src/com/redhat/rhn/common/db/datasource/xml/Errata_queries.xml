@@ -991,16 +991,7 @@ ORDER BY update_date DESC, E.id
   <query params="org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-         COALESCE(((SELECT 1
-                                FROM rhnErrata E2, rhnErrataCloned EC
-                               WHERE E2.org_id = :org_id
-                                 AND EC.id = E2.id
-                                 AND EC.original_id = E.id)
-                  UNION (SELECT 1
-                                FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
-                               WHERE ET.org_id = :org_id
-                                 AND EC2.id = ET.id
-                                 AND EC2.original_id = E.id)), 0) AS ALREADY_CLONED
+         0 AS ALREADY_CLONED
     FROM rhnErrata E, rhnChannelErrata CE
    WHERE CE.errata_id = E.id
      AND exists (SELECT 1
@@ -1008,17 +999,15 @@ ORDER BY update_date DESC, E.id
                         rhnChannel C
                   WHERE C.org_id = :org_id
                     AND CC.id = C.id
-                    AND CC.original_id = CE.channel_id
-                    AND                            COALESCE(((SELECT 1
-                                FROM rhnErrata E2, rhnErrataCloned EC
-                               WHERE E2.org_id = :org_id
-                                 AND EC.id = E2.id
-                                 AND EC.original_id = E.id)
-                  UNION (SELECT 1
-                                FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
-                               WHERE ET.org_id = :org_id
-                                 AND EC2.id = ET.id
-                                 AND EC2.original_id = E.id)), 0) = 0)
+                    AND CC.original_id = CE.channel_id)
+     AND E.id NOT IN (SELECT EC.original_id
+                       FROM rhnErrata E2, rhnErrataCloned EC
+                       WHERE E2.org_id = :org_id
+                       AND EC.id = E2.id
+                     UNION SELECT EC2.original_id
+                       FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
+                       WHERE ET.org_id = :org_id
+                       AND EC2.id = ET.id)
 ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
@@ -1056,35 +1045,24 @@ ORDER BY update_date DESC, E.id
   <query params="channel_id, org_id">
   SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
-                  COALESCE(((SELECT 1
-                                FROM rhnErrata E2, rhnErrataCloned EC
-                               WHERE E2.org_id = :org_id
-                                 AND EC.id = E2.id
-                                 AND EC.original_id = E.id)
-                  UNION (SELECT 1
-                                FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
-                               WHERE ET.org_id = :org_id
-                                 AND EC2.id = ET.id
-                                 AND EC2.original_id = E.id)), 0) AS ALREADY_CLONED
+         0 AS ALREADY_CLONED
     FROM rhnErrata E, rhnChannelErrata CE
    WHERE (E.org_id IS NULL OR E.org_id = :org_id)
      AND CE.errata_id = E.id
      AND exists (SELECT 1
                    FROM rhnChannelCloned CC,
                         rhnChannel C
-                  WHERE C.id = :channel_id
-                    AND CC.id = C.id
-                    AND CC.original_id = CE.channel_id
-                    AND                            COALESCE(((SELECT 1
-                                FROM rhnErrata E2, rhnErrataCloned EC
-                               WHERE E2.org_id = :org_id
-                                 AND EC.id = E2.id
-                                 AND EC.original_id = E.id)
-                  UNION (SELECT 1
-                                FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
-                               WHERE ET.org_id = :org_id
-                                 AND EC2.id = ET.id
-                                 AND EC2.original_id = E.id)), 0) = 0)
+                   WHERE C.id = :channel_id
+                   AND CC.id = C.id
+                   AND CC.original_id = CE.channel_id)
+     AND E.id NOT IN (SELECT EC.original_id
+                         FROM rhnErrata E2, rhnErrataCloned EC
+                         WHERE E2.org_id = :org_id
+		                 AND EC.id = E2.id
+                      UNION SELECT EC2.original_id
+                         FROM rhnErrataTmp ET, rhnErrataClonedTmp EC2
+                         WHERE ET.org_id = :org_id
+                         AND EC2.id = ET.id)
 ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
