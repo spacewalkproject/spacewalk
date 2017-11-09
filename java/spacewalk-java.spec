@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.37
+Version: 2.8.38
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 09 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.38-1
+- 1511347 - improve SQL query for selecting uncloned Errata.
+
 * Wed Nov 08 2017 Jan Dobes 2.8.37-1
 - there is no virtEntitlement required
 - don't display info about guests on virtual host if it's not accessible (in
