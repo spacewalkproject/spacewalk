@@ -18915,7 +18915,7 @@ given channel.</source>
         <source>Compare Packages</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.comparemessage">
-        <source>You can compare the packages in this channel with another channel. Select the channel which you would like to compare from the list below, and click 'View Packages'.</source>
+        <source>Compare packages in the current channel with packages from another channel. Only the latest version of packages will be compared. Choose a channel from the list below then select 'View Packages'.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.compareto">
         <source>Compare to</source>
