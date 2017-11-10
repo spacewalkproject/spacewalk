@@ -1,25 +1,22 @@
 #!/bin/bash
-
-if [ "$1" == "--help" ]; then
+function help {
     echo "Simple script for setting up remote debugging for Tomcat (port 8000) and Taskomatic (port 8001)"
     echo "Usage:"
-    echo "Without parameters: setup Tomcat and Taskomatic"
-    echo "--setup-tomcat -- sets up Tomcat"
-    echo "--setup-taskomatic -- sets up Taskomatic"
-    echo "--help -- shows this help"
+    echo "-u -- Username"
+    echo "-s -- Server"
+    echo "-h -- shows this help"
     exit
-fi
-
-OK="\e[32m[[ \e[37mOK \e[32m]]\e[m"
+}
 
 function setup_taskomatic {
+OK="\e[32m[[ \e[37mOK \e[32m]]\e[m"
 TASKOMATIC_TEMPLATE=/usr/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
 cat $TASKOMATIC_TEMPLATE | grep "^wrapper.java.detect_debug_jvm=TRUE" > /dev/null
 if [ $? -ne 0 ]; then
     echo "wrapper.java.additional.5=-Xdebug" >> $TASKOMATIC_TEMPLATE
     echo "wrapper.java.additional.6=-Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=n" >> $TASKOMATIC_TEMPLATE
     echo "wrapper.java.detect_debug_jvm=TRUE" >> $TASKOMATIC_TEMPLATE
-    echo -e "$OK Taskomatic debugging has been set successfully"
+    echo -e "$OK Taskomatic debugging has been set successfully on port 8001"
 else
     echo "Taskomatic debugging seems to be already set. Skipping ..."
 fi
@@ -27,6 +24,7 @@ fi
 
 
 function setup_tomcat {
+OK="\e[32m[[ \e[37mOK \e[32m]]\e[m"
 TOMCAT_TEMPLATE=/etc/tomcat*/tomcat*.conf
 TOMCAT_DEBUG_EL5='JAVA_OPTS="$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"'
 TOMCAT_DEBUG_OTHER='CATALINA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"'
@@ -53,25 +51,26 @@ if [ -f $TOMCAT_TEMPLATE ]; then
         echo "Tomcat debugging seems to be already set. Skipping ..."
     else
         echo $TOMCAT_DEBUG >> $TOMCAT_TEMPLATE
-        echo -e "$OK Tomcat remote debugging has been set successfully"
+        echo -e "$OK Tomcat remote debugging has been set successfully on port 8000"
     fi
 else
     echo "Tomcat configuration file not found by $TOMCAT_TEMPLATE"
 fi
 }
 
-if [ "$#" == "0" ]; then
-    setup_tomcat
-    setup_taskomatic
+while getopts "h?u:s:" opt; do
+    case "$opt" in
+    h|\?)
+        help
+        ;;
+    u)  USER_REMOTE=$OPTARG
+        ;;
+    s)  SERVER=$OPTARG
+        ;;
+    esac
+done
+if [ -z "$USER_REMOTE" ] || [ -z "$SERVER" ]; then
+      help
 else
-    while [ "$#" != "0" ]; do
-        if [ "$1" == "--setup-tomcat" ]; then
-            setup_tomcat
-        elif [ "$1" == "--setup-taskomatic" ]; then
-            setup_taskomatic
-        else
-            echo "Unknown parameter $1"
-        fi
-        shift
-    done
+      ssh $USER_REMOTE@$SERVER "$(typeset -f); setup_tomcat;setup_taskomatic";
 fi
