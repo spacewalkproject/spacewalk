@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 Group:   Applications/Internet
 License: GPLv2
@@ -371,6 +371,10 @@ fi
 
 
 %changelog
+* Mon Nov 13 2017 Jan Dobes 2.8.2-1
+- proxy isn't Python 3 yet, still require Python 2 rhnpush
+- removing useless condition
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - use standard brp-python-bytecompile
