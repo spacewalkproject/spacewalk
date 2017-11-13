@@ -181,7 +181,7 @@ def main(arglist):
 
 def sizeStrToInt(s):
     # Converts s to an int
-    if s is None or s is "":
+    if s is None or s == "":
         # Don't know how to interpret it
         return 0
 
