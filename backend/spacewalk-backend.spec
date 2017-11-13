@@ -13,7 +13,7 @@
 %global build_py3 1
 %endif
 
-%if (0%{?fedora} && 0%{?fedora} < 26) || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
