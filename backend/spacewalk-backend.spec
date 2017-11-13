@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.28
+Version: 2.8.29
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Nov 13 2017 Jan Dobes 2.8.29-1
+- copy usix before tests are executed
+
 * Mon Nov 13 2017 Jan Dobes 2.8.28-1
 - disable unsupported-assignment-operation in this block, this seems to be
   false-positive error
