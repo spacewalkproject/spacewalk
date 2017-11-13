@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.27
+Version: 2.8.28
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -809,6 +809,17 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Nov 13 2017 Jan Dobes 2.8.28-1
+- disable unsupported-assignment-operation in this block, this seems to be
+  false-positive error
+- rename variables to match method headers of parent classes (pylint arguments-
+  differ)
+- compare value instead of identity
+- move to setup_repo method and execute only when no_mirrors is False
+- these arguments differ intentionally
+- fixing len-as-condition pylint rule
+- re-enable pylint on Fedora
+
 * Wed Nov 08 2017 Jan Dobes 2.8.27-1
 - Change the virtualization backend not to duplicate data in case host and
   guests are in different organizations
