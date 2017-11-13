@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.8.2
+Version:	2.8.3
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Nov 13 2017 Jan Dobes 2.8.3-1
+- disable no-else-return check
+
 * Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed unnecessary BuildRoot tag
 
