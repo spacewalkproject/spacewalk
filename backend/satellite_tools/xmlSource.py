@@ -204,30 +204,30 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     # def endDocument(self):
 
-    def startElement(self, element, attrs):
-        log_debug(6, element)
+    def startElement(self, name, attrs):
+        log_debug(6, name)
         utf8_attrs = _dict_to_utf8(attrs)
         if self.rootAttributes is None:
             # First time around
-            if self.rootElement != element:
+            if self.rootElement != name:
                 raise Exception("Mismatching elements; root='%s', "
-                                "received='%s'" % (self.rootElement, element))
+                                "received='%s'" % (self.rootElement, name))
             self.rootAttributes = utf8_attrs
             self._check_version()
             return
 
         if self.__container is None:
             # This means it's parsing a container element
-            self.__container = self.get_container(element)
+            self.__container = self.get_container(name)
 
-        self.__container.startElement(element, utf8_attrs)
+        self.__container.startElement(name, utf8_attrs)
 
-    def characters(self, data):
+    def characters(self, content):
         if self.__container:
-            self.__container.characters(_stringify(data))
+            self.__container.characters(_stringify(content))
 
-    def endElement(self, element):
-        log_debug(6, element)
+    def endElement(self, name):
+        log_debug(6, name)
         if self.__container is None:
             # End of the root attribute
             # We know now the tag stack is empty
@@ -235,32 +235,32 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             return
 
         try:
-            self.__container.endElement(element)
+            self.__container.endElement(name)
         except _EndContainerEvent:
             self.__container = None
 
     #___Error handling methods___
 
     # pylint: disable=W0212,W0710
-    def error(self, e):
+    def error(self, exception):
         """Handle a recoverable error.
         """
         log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
-        raise RecoverableParseException(e._msg, e, e._locator)
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
+        raise RecoverableParseException(exception._msg, exception, exception._locator)
 
-    def fatalError(self, e):
+    def fatalError(self, exception):
         """Handle a non-recoverable error.
         """
         log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
-        raise FatalParseException(e._msg, e, e._locator)
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
+        raise FatalParseException(exception._msg, exception, exception._locator)
 
-    def warning(self, e):
+    def warning(self, exception):
         """Handle a warning.
         """
         log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
 
     # To be overridden in subclasses
     def _check_version(self):
