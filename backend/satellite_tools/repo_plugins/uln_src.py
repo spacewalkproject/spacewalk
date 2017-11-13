@@ -70,6 +70,7 @@ class ContentSource(yum_ContentSource):
         s.addServerList(slist)
         self.key = s.auth.login(self.uln_user, self.uln_pass)
 
+    # pylint: disable=arguments-differ
     def setup_repo(self, repo, *args, **kwargs):
         repo.http_headers = {'X-ULN-Api-User-Key': self.key}
         yum_ContentSource.setup_repo(self, repo, *args, **kwargs)
