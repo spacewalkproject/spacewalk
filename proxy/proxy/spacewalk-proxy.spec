@@ -18,6 +18,8 @@ Requires: httpd
 BuildRequires: spacewalk-pylint
 %endif
 BuildRequires: rhnpush >= 5.5.74
+# proxy isn't Python 3 yet
+BuildRequires: python2-rhnpush
 BuildRequires: spacewalk-backend-libs >= 1.7.24
 BuildRequires: spacewalk-backend >= 1.7.24
 
@@ -150,6 +152,8 @@ Requires: spacewalk-backend >= 1.7.24
 Requires: rhnlib >= 2.5.56
 Requires: python
 Requires: rhnpush >= 5.5.74
+# proxy isn't Python 3 yet
+Requires: python2-rhnpush
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: python-devel
 Obsoletes: rhn_package_manager < 5.3.0
