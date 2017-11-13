@@ -396,7 +396,7 @@ def _delete_rpms(packageIds):
                      finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
-    while len(toDel) > 0:
+    while toDel:
         _delete_rpm_group(toDel[:group])
         del toDel[:group]
         pb.addTo(group)

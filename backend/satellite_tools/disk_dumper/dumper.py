@@ -232,7 +232,7 @@ class XML_Dumper:
         return 0
 
     def set_exportable_orgs(self, org_list):
-        if not org_list or len(org_list) == 0:
+        if not org_list:
             self.exportable_orgs = 'null'
         elif isinstance(org_list, type('')):
             self.exportable_orgs = org_list

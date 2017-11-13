@@ -739,7 +739,7 @@ class CdnSync(object):
         # print information about child channels
         for channel in sorted(channel_tree):
             # Print only if there are any child channels
-            if len(channel_tree[channel]) > 0:
+            if channel_tree[channel]:
                 log(0, "%s:" % channel)
                 for child in sorted(channel_tree[channel]):
                     log(0, "%s" % self._channel_line_format(child, longest_label))

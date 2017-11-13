@@ -748,7 +748,7 @@ class RepoSync(object):
         e['cve'] = []
         if notice['references']:
             bzs = [r for r in notice['references'] if r['type'] == 'bugzilla']
-            if len(bzs):
+            if bzs:
                 tmp = {}
                 for bz in bzs:
                     try:
@@ -764,14 +764,14 @@ class RepoSync(object):
                         e['bugs'].append(bug)
                         tmp[bz_id] = None
             cves = [r for r in notice['references'] if r['type'] == 'cve']
-            if len(cves):
+            if cves:
                 tmp = {}
                 for cve in cves:
                     if cve['id'] not in tmp:
                         e['cve'].append(cve['id'])
                         tmp[cve['id']] = None
             others = [r for r in notice['references'] if not r['type'] == 'bugzilla' and not r['type'] == 'cve']
-            if len(others):
+            if others:
                 refers_to = ""
                 for other in others:
                     if refers_to:
@@ -994,8 +994,8 @@ class RepoSync(object):
                     to_process[index] = (pack, True, False)
 
                 # importing packages by batch or if the current packages is the last
-                if len(mpm_bin_batch) > 0 and (import_count == to_download_count
-                                               or len(mpm_bin_batch) % self.import_batch_size == 0):
+                if mpm_bin_batch and (import_count == to_download_count
+                                      or len(mpm_bin_batch) % self.import_batch_size == 0):
                     importer = packageImport.PackageImport(mpm_bin_batch, backend, caller=upload_caller)
                     importer.setUploadForce(1)
                     importer.run()
@@ -1005,8 +1005,8 @@ class RepoSync(object):
                     del mpm_bin_batch
                     mpm_bin_batch = importLib.Collection()
 
-                if len(mpm_src_batch) > 0 and (import_count == to_download_count
-                                               or len(mpm_src_batch) % self.import_batch_size == 0):
+                if mpm_src_batch and (import_count == to_download_count
+                                      or len(mpm_src_batch) % self.import_batch_size == 0):
                     src_importer = packageImport.SourcePackageImport(mpm_src_batch, backend, caller=upload_caller)
                     src_importer.setUploadForce(1)
                     src_importer.run()
@@ -1362,7 +1362,7 @@ class RepoSync(object):
         # Downloading/Updating content of KS Tree
         dirs_queue = ['']
         log(0, "    Gathering all files in kickstart repository...")
-        while len(dirs_queue) > 0:
+        while dirs_queue:
             cur_dir_name = dirs_queue.pop(0)
             cur_dir_html = plug.get_file(cur_dir_name)
             if cur_dir_html is None:

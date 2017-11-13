@@ -1318,7 +1318,7 @@ class ExporterMain:
 
     @staticmethod
     def print_orgs(orgs):
-        if orgs and len(orgs) > 0:
+        if orgs:
             print("Orgs available for export:")
             for org in orgs:
                 print("Id: %s, Name: \'%s\'" % (org['id'], org['name']))

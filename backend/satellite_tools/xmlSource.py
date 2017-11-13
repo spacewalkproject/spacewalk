@@ -931,7 +931,7 @@ class ContainerHandler:
 
     def startElement(self, element, attrs):
         # log_debug(6, element) --duplicate logging.
-        if len(self.tagStack) == 0 and element != self.container_name:
+        if not self.tagStack and element != self.container_name:
             # Strange; this element is called to parse stuff when it's not
             # supposed to
             raise Exception('This object should not have been used')
@@ -945,7 +945,7 @@ class ContainerHandler:
             return
         # If the thing in front is a string, append to it
         lastObj = self.objStack[-1]
-        if len(lastObj) and _is_string(lastObj[-1]):
+        if lastObj and _is_string(lastObj[-1]):
             lastObj[-1] = '%s%s' % (lastObj[-1], data)
         else:
             lastObj.append(data)
@@ -968,7 +968,7 @@ class ContainerHandler:
         # Remove the subelements from the stack
         del self.objStack[-1]
 
-        if len(self.objStack) == 0:
+        if not self.objStack:
             # End element for this container
             self.endContainerCallback()
             raise _EndContainerEvent(tagobj)

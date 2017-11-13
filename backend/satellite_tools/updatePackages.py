@@ -238,7 +238,7 @@ def process_package_data():
     sys.stderr.write("Transaction Committed! \n")
     if verbose:
         print(" Skipping %s packages, paths not found" % len(skip_list))
-    if len(new_ok_list) > 0 and verbose:
+    if new_ok_list and verbose:
         print(" There were %s packages found in the correct location" % len(new_ok_list))
     return
 
