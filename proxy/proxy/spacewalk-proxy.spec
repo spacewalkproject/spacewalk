@@ -17,11 +17,9 @@ Requires: httpd
 %if 0%{?pylint_check}
 BuildRequires: spacewalk-pylint
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires: rhnpush >= 5.5.74
 BuildRequires: spacewalk-backend-libs >= 1.7.24
 BuildRequires: spacewalk-backend >= 1.7.24
-%endif
 
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
