@@ -177,16 +177,6 @@ class ContentSource(object):
         self.setup_repo(repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file)
         self.num_packages = 0
         self.num_excluded = 0
-
-        # if self.url is metalink it will be expanded into
-        # real urls in self.repo.urls and also save this metalink
-        # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
-        # Remove it from the list, we don't need it to download content of repo
-        real_urls = []
-        for url in self.repo.urls:
-            if '?' not in url:
-                real_urls.append(url)
-        self.repo.urls = real_urls
         self.groupsfile = None
 
     def __del__(self):
@@ -248,6 +238,11 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
+            # if self.url is metalink it will be expanded into
+            # real urls in repo.urls and also save this metalink
+            # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
+            # Remove it from the list, we don't need it to download content of repo
+            repo.urls = [url for url in repo.urls if '?' not in url]
         repo.interrupt_callback = self.interrupt_callback
         repo.setup(0)
 
