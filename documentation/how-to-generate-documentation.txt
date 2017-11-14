@@ -39,15 +39,18 @@ Javadoc
     cd $SW_GIT/documentation;
     # Check the Makefile to make sure the JAVA_DOC_SRC_VERSION is set
     # to the version of java we're currently using.  Update if not.
-    # Then run `make java`.  There will likely be lots of errors and
-    # warnings, including non-Redhat package does not exist, cannot
-    # find symbol, malformed HTML (from email addresses in author tags,
-    # bad use of '>' in comments, etc.  If all the errors and warnings
-    # look harmless, all should be ok.  Because of these errors, the
-    # make command will report it failed "Error 1", however, the javadoc
-    # was generated.  Check with a web browser against the generated
-    # files to be sure.
+    # Then run `make java`.
     make java
+    # If there are any errors during the javadoc generation, fix the errors.  The
+    # master branch was cleaned up on 2017-11-14, following the 2.7 release, such that
+    # no errors were reported.  Fix any errors, then `make java` again, and repeat until
+    # there are no errors.  Most fixes required surround things that look like html with
+    # {@literal ...}.  Other errors are fixed by replacing <br/> with <br>, <p/> with <p>.
+    # formatted code snippets should be done like this:
+    # <pre>{@literal
+    #   ... formatted code, multiple lines ...
+    # }</pre>
+    #
     # Move to DOCS_GIT repo
     rm -rf $DOCS_GIT/documentation/javadoc; cp -r $SW_GIT/documentation/javadoc $DOCS_GIT/documentation
     # Check your work
