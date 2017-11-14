@@ -860,7 +860,7 @@ def base_eus_channel_for_ver_rel_arch(version, release, server_arch,
             parts = 2
 
         server_rel = '.'.join(release.split('-')[0].split('.')[:parts])
-        channel_rel = '.'.join(db_release.split('.')[:parts])
+        channel_rel = '.'.join(db_release.split('-')[0].split('.')[:parts])
 
         # XXX we're no longer using the is_default column from the db
         if rpm.labelCompare(('0', server_rel, '0'),
