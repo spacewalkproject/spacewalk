@@ -21,7 +21,7 @@ BuildRequires: update-desktop-files
 
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: gnupg
-Requires: sh-utils
+Requires: coreutils
 Requires: %{pythonX}-%{name} = %{version}-%{release}
 
 %if 0%{?suse_version}
