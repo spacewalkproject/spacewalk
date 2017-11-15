@@ -12,7 +12,7 @@ Requires: spacewalk-base
 Requires: perl(MIME::Base64)
 Requires: lsof
 BuildRequires: /usr/bin/pod2man
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?rhel} >= 7 || 0%{?fedora} || 0%{?suse_version} >= 1210
 BuildRequires: systemd
 %endif
 Obsoletes: satellite-utils < 5.3.0
@@ -35,7 +35,7 @@ Various utility scripts and data files for Spacewalk and Red Hat Satellite insta
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?rhel} >= 7 || 0%{?fedora} || 0%{?suse_version} >= 1210
 mv -f spacewalk-service.systemd spacewalk-service
 make -f Makefile.admin install_systemd PREFIX=$RPM_BUILD_ROOT
 %if 0%{?suse_version} >= 1210
@@ -82,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-deploy-ca-cert.pl.8*
 %{_mandir}/man8/rhn-install-ssl-cert.pl.8*
 %config(noreplace) %{_sysconfdir}/rhn/service-list
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?rhel} >= 7 || 0%{?fedora} || 0%{?suse_version} >= 1210
 %{_unitdir}/spacewalk.target
 %{_unitdir}/spacewalk-wait-for-tomcat.service
 %{_unitdir}/spacewalk-wait-for-jabberd.service
