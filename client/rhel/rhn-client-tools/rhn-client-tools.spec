@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.10
+Version: 2.8.11
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -630,6 +630,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Nov 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.11-1
+- sh-utils provide has been removed from coreutils
+
 * Wed Oct 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.10-1
 - device.sys_path is attribute not function
 
