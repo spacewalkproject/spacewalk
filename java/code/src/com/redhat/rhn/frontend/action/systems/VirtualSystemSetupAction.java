@@ -52,6 +52,7 @@ public class VirtualSystemSetupAction extends RhnAction
                 new ListRhnSetHelper(this, request, RhnSetDecl.SYSTEMS);
         helper.setDataSetName(RequestContext.PAGE_LIST);
         helper.setListName("virtSystemList");
+        helper.setWillClearSet(false);
         helper.execute();
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
