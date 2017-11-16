@@ -139,7 +139,7 @@ if __name__ == '__main__':
             command = args[0]
 
             if len(args) > 1:
-                command += ' %s' % ' '.join('%s' % s if not ' ' in s else "'%s'" % s for s in args[1:])
+                command += ' %s' % ' '.join('%s' % s if not True in [ c.isspace() for c in s ] else "'%s'" % s for s in args[1:])
 
             # run the command
             precmd = shell.precmd(command)
