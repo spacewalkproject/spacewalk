@@ -221,6 +221,10 @@ public class ValidatorTest extends TestCase {
         assertNull(validator.validate("longField", to));
         to.setLongField(new Long(100));
         assertNotNull(validator.validate("longField", to));
+        to.setThirdLongField(Long.MAX_VALUE);
+        assertNull(validator.validate("thirdLongFiled", to));
+        to.setThirdLongField(Long.MIN_VALUE);
+        assertNull(validator.validate("thirdLongFiled", to));
 
         assertNotNull(validator.validate("numberString", to));
         to.setNumberString("0.5");
