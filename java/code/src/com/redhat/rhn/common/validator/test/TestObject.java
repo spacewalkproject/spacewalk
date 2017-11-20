@@ -26,6 +26,7 @@ public class TestObject {
 
     private String stringField;
     private Long longField;
+    private Long thirdLongField;
     private Date dateField;
     private String compoundField;
     private String secondStringField;
@@ -74,6 +75,14 @@ public class TestObject {
 
     public Long getLongField() {
         return longField;
+    }
+
+    public void setThirdLongField(Long lin) {
+        thirdLongField = lin;
+    }
+
+    public Long getThirdLongField() {
+        return thirdLongField;
     }
 
 

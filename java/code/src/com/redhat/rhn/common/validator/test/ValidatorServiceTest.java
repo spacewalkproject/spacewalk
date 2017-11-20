@@ -39,6 +39,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         to.setStringField("somevalue");
         to.setDateField(new Date());
         to.setLongField(new Long(10));
+        to.setThirdLongField(new Long(65168651651435L));
         to.setSecondStringField("someothervalue");
         to.setNumberString("1");
         to.setAsciiString("asciivalue");
@@ -60,6 +61,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         to.setStringField("somevalue");
         to.setDateField(new Date());
         to.setLongField(new Long(10));
+        to.setThirdLongField(new Long(65168651651435L));
         to.setSecondStringField("someothervalue");
         to.setNumberString("1");
         to.setAsciiString("asciivalue");
