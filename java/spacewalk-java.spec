@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.39
+Version: 2.8.40
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Nov 20 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.40-1
+- 1461705 - do not clear SSM during VirtualSystems loading.
+
 * Tue Nov 14 2017 Eric Herget <eherget@redhat.com> 2.8.39-1
 - Fix javadoc generation errors
 
