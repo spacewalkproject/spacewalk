@@ -64,7 +64,6 @@ public class RequiredIfConstraint extends ParsedConstraint {
     */
     public boolean isRequired(Object value, Object objectToCheck) {
 
-        String strValue = (String) value;
         Iterator i = fieldValueList.iterator();
         // Default to true, the
         boolean required = true;
