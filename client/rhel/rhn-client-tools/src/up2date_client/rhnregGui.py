@@ -629,6 +629,7 @@ class CreateProfilePage:
                 profileName = None
                 hostname = None
                 ipaddr = None
+                ip6addr = None
                 if self.hardware:
                     for hw in self.hardware:
                         if 'class' in hw:
