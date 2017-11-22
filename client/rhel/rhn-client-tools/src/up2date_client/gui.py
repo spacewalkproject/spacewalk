@@ -190,7 +190,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             if ret: # something went wrong
                 self.nextPage('chooseServerPageVbox')
                 return
-            self.provideCertificatePageVbox.set_visible(False)
+            if hasattr(self.provideCertificatePageVbox, 'set_visible'):
+                self.provideCertificatePageVbox.set_visible(False)
             self.nextPage('loginPageVbox')
         except (up2dateErrors.SSLCertificateVerifyFailedError,\
                 up2dateErrors.SSLCertificateFileNotFound):
@@ -222,7 +223,10 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
         need to have any knowledge of the screen mechanism or order.
         """
         if not rhnregGui.ChooseChannelPage.chooseChannelShouldBeShown(self):
-            self.chooseChannelPageVbox.set_visible(False)
+            if hasattr(self.chooseChannelPageVbox, 'set_visible'):
+                self.chooseChannelPageVbox.set_visible(False)
+            else:
+                self.nextPage('createProfilePageVbox')
 
     def onChooseChannelPageNext(self, page, dummy):
         self.chooseChannelPageApply()
