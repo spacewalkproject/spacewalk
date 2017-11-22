@@ -7,7 +7,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.11
+Version: 2.8.12
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -644,6 +644,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Nov 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
+- update rhn-setup-gnome to work on python3 based systems
+
 * Wed Nov 15 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.11-1
 - sh-utils provide has been removed from coreutils
 
