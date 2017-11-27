@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 Group:          Applications/System
@@ -66,6 +66,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Mon Nov 27 2017 Jan Dobes <jdobes@redhat.com> 2.8.2-1
+- sqlite is not installed by default on Fedora
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
