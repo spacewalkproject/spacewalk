@@ -21,6 +21,7 @@ Requires:       perl
 %endif
 Requires:       libxslt
 Requires:       jabberd
+Requires:       sqlite
 Requires:       %{_datadir}/spacewalk
 
 %description
