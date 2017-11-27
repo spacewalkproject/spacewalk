@@ -179,14 +179,18 @@ class Spacewalk(dnf.Plugin):
                 content = channels_file.read()
                 channels = json.loads(content)
                 return channels
-        except IOError as e:
+        except (FileNotFoundError, IOError) as e:
             if e.errno != errno.ENOENT:
                 raise
         return {}
 
     def _write_channels_file(self, var):
-        with open(self.stored_channels_path, "w") as channels_file:
-            json.dump(var, channels_file, indent=4)
+        try:
+            with open(self.stored_channels_path, "w") as channels_file:
+                json.dump(var, channels_file, indent=4)
+        except (FileNotFoundError, IOError) as e:
+            if e.errno != errno.ENOENT:
+                raise
 
     def _make_package_delta(self):
         delta = {'added'  : [(p.name, p.version, p. release, p.epoch, p.arch)
