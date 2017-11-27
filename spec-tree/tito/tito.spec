@@ -8,7 +8,7 @@ Summary: A tool for managing rpm based git projects
 Group: Development/Tools
 License: GPLv2
 URL: http://rm-rf.ca/tito
-Source0: http://rm-rf.ca/files/tito/tito-%{version}.tar.gz
+Source0: http://pkgs.fedoraproject.org/repo/pkgs/tito/tito-0.4.18.tar.gz/318e6f546c9b331317c94ea5d178876a/tito-0.4.18.tar.gz
 Patch0:  0001-support-local-releasers.conf-overwrite.patch
 Patch1:  0001-fixed-building-third-party-packages.patch
 Patch2:  0001-fixed-changelog-formating.patch
