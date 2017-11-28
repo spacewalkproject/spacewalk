@@ -45,7 +45,7 @@ class BaseMain:
     config_section = None
 
     def usage(self, exit_code):
-        print("Usage: %s MODE [ --server-name name ] [ params ]" % sys.argv[0])
+        print("Usage: %s MODE [ --config config_file ] [ --server-name name ] [ params ]" % sys.argv[0])
         print("Valid modes are:")
         for mode in self.modes:
             print("\t%s" % mode)
@@ -58,7 +58,7 @@ class BaseMain:
         debug_level = 3
         mode = None
 
-        dict_name_opt={'--server-name': None,'--password': None,'--username': None,}
+        dict_name_opt={'--server-name': None,'--password': None,'--username': None, '--config': None,}
         for index in range(1,len(sys.argv)):
             arg=sys.argv[index]
             param = [x for x in dict_name_opt.items() if x[1] == 0]
@@ -115,6 +115,10 @@ class BaseMain:
         server_name = dict_name_opt['--server-name']
         password = dict_name_opt['--password']
         username = dict_name_opt['--username']
+        config_file_override = dict_name_opt['--config']
+
+        if config_file_override and not os.path.isfile(config_file_override):
+            rhn_log.die(1, "Config file %s does not exist.", config_file_override)
 
         rhn_log.set_debug_level(debug_level)
 
@@ -148,9 +152,9 @@ class BaseMain:
         up2date_cfg = dict(cfg.items())
 
         if server_name:
-            local_config.init(self.config_section, defaults=up2date_cfg, server_url="https://" + server_name)
+            local_config.init(self.config_section, defaults=up2date_cfg, config_file_override=config_file_override, server_url="https://" + server_name)
         else:
-            local_config.init(self.config_section, defaults=up2date_cfg)
+            local_config.init(self.config_section, defaults=up2date_cfg, config_file_override=config_file_override)
 
             try:
                 server_name = local_config.get('server_url')
@@ -165,7 +169,7 @@ class BaseMain:
                     else:
                         up2date_cfg['server_list'] = [urlsplit(x)[1] for x in server_name]
                     server_name = (up2date_cfg['server_list'])[0]
-                    local_config.init(self.config_section, defaults=up2date_cfg, server_name=server_name)
+                    local_config.init(self.config_section, defaults=up2date_cfg, config_file_override=config_file_override,  server_name=server_name)
 
         print("Using server name %s" % server_name)
 
