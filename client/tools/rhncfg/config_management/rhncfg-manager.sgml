@@ -24,6 +24,7 @@
     <cmdsynopsis>
         <command>&RHNCFGM;</command>
         <arg>MODE</arg>
+        <arg>--config <replaceable>config_file</replaceable></arg>
         <arg>--server-name <replaceable>name</replaceable></arg>
         <arg>--username <replaceable>user</replaceable></arg>
         <arg>--password <replaceable>pass</replaceable></arg>
@@ -46,14 +47,19 @@
     This tool is intended for use by the Config Administrator and therefore
     requires an &RHN; username and password that has the appropriate permission
     set. (The username and password may be specified in
-    <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in the [rhncfg-manager] section
-    of <filename>~/.rhncfgrc</filename>).
+    <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in
+    the [rhncfg-manager] section of <filename>~/.rhncfgrc</filename>
+    or the config file specified
+    by <term>--config=<replaceable>config_file</replaceable></term>).
 </para>
 <para>
     Note that when run as root, &RHNCFGM; attempts to pull in needed
     configuration values from the Red Hat Update Agent (up2date). When run as
     something other than root, configuration changes may be needed within the
-    <filename>~/.rhncfgrc</filename> file. The session file is cached in
+    <filename>~/.rhncfgrc</filename> file, or the config file
+    specified
+    by <term>--config=<replaceable>config_file</replaceable></term>. The
+    session file is cached in
     <filename>~/.rhncfg-manager-session</filename> to prevent logging in for
     every command.
 </para>
@@ -61,7 +67,10 @@
     The <filename>~/.rhncfgrc</filename> file overrides the values set in
     <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> which, by
     default, uses the values set in
-    <filename>/etc/sysconfig/rhn/up2date</filename>. Please review
+    <filename>/etc/sysconfig/rhn/up2date</filename>. The <filename>~/.rhncfgrc</filename>
+    file may itself be overridden by the command line
+    option <term>--config=<replaceable>config_file</replaceable></term>
+    Please review
     <filename>rhncfg-manager.conf</filename> for further details.
 </para>
 <para>
