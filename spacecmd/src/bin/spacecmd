@@ -49,6 +49,8 @@ if __name__ == '__main__':
         sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
     optionsTable = [
+        Option('-c', '--config', action='store',
+               help='config file to use [default: ~/.spacecmd/config]'),
         Option('-u', '--username', action='store',
                help='use this username to connect to the server'),
         Option('-p', '--password', action='store',
@@ -107,24 +109,33 @@ if __name__ == '__main__':
     else:
         shell.config['server'] = gethostname()
 
+    # don't automatically create config files passed via --config
+    if shell.options.config:
+        if not os.path.isfile(shell.options.config):
+            logging.error('Config file %s does not exist.', shell.options.config)
+            sys.exit(1)
+    else:
     # create an empty configuration file if one's not present
-    if not os.path.isfile(user_conf_file):
-        try:
-            # create ~/.spacecmd
-            if not os.path.isdir(conf_dir):
-                logging.debug('Creating %s', conf_dir)
-                os.mkdir(conf_dir, 0700)
+        if not os.path.isfile(user_conf_file):
+            try:
+                # create ~/.spacecmd
+                if not os.path.isdir(conf_dir):
+                    logging.debug('Creating %s', conf_dir)
+                    os.mkdir(conf_dir, 0700)
 
-            # create a template configuration file
-            logging.debug('Creating configuration file: %s', user_conf_file)
-            handle = open(user_conf_file, 'w')
-            handle.write('[spacecmd]\n')
-            handle.close()
-        except IOError:
-            logging.error('Could not create %s', user_conf_file)
+                # create a template configuration file
+                logging.debug('Creating configuration file: %s', user_conf_file)
+                handle = open(user_conf_file, 'w')
+                handle.write('[spacecmd]\n')
+                handle.close()
+            except IOError:
+                logging.error('Could not create %s', user_conf_file)
 
     # load options from configuration files
-    files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file])
+    if shell.options.config:
+        files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file, shell.options.config])
+    else:
+        files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file])
 
     for item in files_read:
         logging.debug('Read configuration from %s', item)
