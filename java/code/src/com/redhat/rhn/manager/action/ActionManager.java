@@ -278,7 +278,8 @@ public class ActionManager extends BaseManager {
 
         // Can only top level actions:
         if (action.getPrerequisite() != null) {
-            throw new ActionIsChildException();
+            throw new ActionIsChildException("It's allowed to cancel only top level " +
+                    "actions.");
         }
 
         Set actionsToDelete = new HashSet();
