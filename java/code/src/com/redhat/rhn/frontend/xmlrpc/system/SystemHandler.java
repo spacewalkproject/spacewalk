@@ -1978,10 +1978,11 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List system events of the specified type for given server.
+     * @xmlrpc.doc List system actions of the specified type that were *scheduled* against the given server.
      * "actionType" should be exactly the string returned in the action_type field
      * from the listSystemEvents(sessionKey, serverId) method. For example,
      * 'Package Install' or 'Initiate a kickstart for a virtual guest.'
+     * Note: see also system.getEventHistory method which returns a history of all events.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
@@ -2246,9 +2247,10 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List all system events for given server. This includes *all* events
-     * for the server since it was registered.  This may require the caller to
-     * filter the results to fetch the specific events they are looking for.
+     * @xmlrpc.doc List all system actions that were *scheduled* against the given server.
+     * This may require the caller to filter the result to fetch actions with a specific action type or
+     * to use the overloaded system.listSystemEvents method with actionType as a parameter.
+     * Note: see also system.getEventHistory method which returns a history of all events.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
