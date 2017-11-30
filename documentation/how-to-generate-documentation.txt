@@ -29,9 +29,14 @@ Setup
     * export VERS=2.7 # SW-version you're generating docs for
     * export PREV_VERS=2.6 # SW-version prior to $VERS
     * yum install epydoc graphviz # for python
-    * javadoc needs to be installed, it needs java-1.x.0-openjdk-devel # for java
-          NOTE: the original instructions said it needed java-1.6.0, but I used
-	        the default 1.8.0 already installed on my RHEL 6 system.
+    * java-1.8.0-openjdk-devel needs to be installed
+    * apidoc requires first steps of Full Dev Workstation to be done
+      * https://github.com/spacewalkproject/spacewalk/wiki/DevelopmentWorkstationSetup#full-dev-workstation
+        * install spacewalk runtime environment (the version being released, likely in nightly)
+        * install packages: apache-ivy ant-contrib junit ant-junit java-1.8.0-openjdk-devel postgresql-jdbc jmock jmock-junit3 jmock-legacy checkstyle
+        * cd $SW_GIT/java
+        * ant init-install compile   (should compile with no errors)
+
 
 Javadoc
 =======
@@ -91,15 +96,6 @@ Python
 
 API docs
 ========
-  * The following, unless you're already on a dev-workstation setup:
-    # remove apache-ivy :-(
-    # install ivy from http://mirrors.dotsrc.org/jpackage/5.0/generic/free/
-    # install ant and ant-junit
-    # NOTE: (2017-08-30) I did this on a rhel6 system and did use apache-ivy.
-    #       I also followed the first few steps of setting up a full spacewalk
-    #       dev system.  Finally, I had to copy xalan-j2.jar from build/run-lib
-    #       to build/build-lib, to get everything to work.
-  * Then:
     # Build
     cd $SW_GIT/java; ant apidoc-html
     # Move to DOCS_GIT repo

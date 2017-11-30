@@ -140,7 +140,7 @@
 
   <property name="install.build.jar.dependencies"
       value="ant ant/ant-junit ${ant-contrib.path} antlr ${jasper-jars} ${test.build.jar.dependencies}
-      ${install.common.jar.dependencies} tanukiwrapper" />
+      ${install.common.jar.dependencies} tanukiwrapper xalan-j2" />
 
   <property name="install.run.jar.dependencies"
       value="antlr objectweb-asm/asm ${cglib} c3p0 mchange-commons commons-discovery dom4j dwr jta
