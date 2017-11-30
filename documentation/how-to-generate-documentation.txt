@@ -41,15 +41,19 @@ Javadoc
     # to the version of java we're currently using.  Update if not.
     # Then run `make java`.
     make java
-    # If there are any errors during the javadoc generation, fix the errors.  The
-    # master branch was cleaned up on 2017-11-14, following the 2.7 release, such that
-    # no errors were reported.  Fix any errors, then `make java` again, and repeat until
-    # there are no errors.  Most fixes required surround things that look like html with
-    # {@literal ...}.  Other errors are fixed by replacing <br/> with <br>, <p/> with <p>.
-    # formatted code snippets should be done like this:
+    # If there are any errors during the javadoc generation, fix
+    # the errors.  The master branch was cleaned up on 2017-11-14,
+    # following the 2.7 release, such that no errors were reported.
+    # Fix any errors, then `make java` again, and repeat until
+    # there are no errors.  Most fixes required surround things
+    # that look like html with {@literal ...}.  Other errors are
+    # fixed by replacing <br/> with <br>, <p/> with <p>.
+    # Formatted code snippets should be done like this:
     # <pre>{@literal
     #   ... formatted code, multiple lines ...
     # }</pre>
+    # Have a look at commit 1299868891ddfaaf8fe5a255484fd9bf4cdcb6b1
+    # to see how numerous types of issues/errors were addressed.
     #
     # Move to DOCS_GIT repo
     rm -rf $DOCS_GIT/documentation/javadoc; cp -r $SW_GIT/documentation/javadoc $DOCS_GIT/documentation
