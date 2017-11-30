@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.43
+Version: 2.8.44
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 30 2017 Eric Herget <eherget@redhat.com> 2.8.44-1
+- Update ant setup to add xalan-j2 to build-lib.  Also update apidoc generation
+  steps.
+
 * Wed Nov 29 2017 Jiri Dostal <jdostal@redhat.com> 2.8.43-1
 - 1514020 - Unhandled internal exception when trying to cancel child scheduled
   event
