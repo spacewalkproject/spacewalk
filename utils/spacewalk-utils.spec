@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.7
+Version:	2.8.8
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,12 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.8-1
+- add nightly-server repository for Fedora 27
+- add nightly-client repository for Fedora 27
+- add Fedora 27 repositories
+- remove Fedora 24 as it is EOL now
+
 * Mon Oct 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
 - Fix to promote a child channel as child channel
 
