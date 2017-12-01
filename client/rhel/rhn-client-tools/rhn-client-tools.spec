@@ -8,7 +8,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.12
+Version: 2.8.13
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -654,6 +654,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.13-1
+- dist cannot detect the distribution anymore
+- fix rpm names in SUSE
+- rhn-client-tools: fix filelist for SUSE and enable py3 build for Tumbleweed
+
 * Wed Nov 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
 - update rhn-setup-gnome to work on python3 based systems
 
