@@ -1810,7 +1810,7 @@ public class ChannelManager extends BaseManager {
         EusReleaseComparator comparator = new EusReleaseComparator(version);
         for (EssentialChannelDto dto : dr) {
             log.debug(dto.getId());
-            if (comparator.compare(dto.getRelease(), pevr.toString()) >= 0) {
+            if (comparator.compare(dto, pevr) >= 0) {
                 result.add(dto);
             }
         }

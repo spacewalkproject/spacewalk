@@ -16,6 +16,7 @@
 package com.redhat.rhn.manager.channel;
 
 import com.redhat.rhn.common.util.RpmVersionComparator;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 
 import org.apache.commons.lang.StringUtils;
@@ -82,5 +83,29 @@ public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
 
         RpmVersionComparator cmp = new RpmVersionComparator();
         return cmp.compare(StringUtils.defaultString(rhelRelease1), StringUtils.defaultString(rhelRelease2));
+    }
+
+    /**
+     * Compare a PackageEvr (specifically, a redhat-release PEVR) to the
+     * release/version of a specific EUS channel - specifically, "how does
+     * a system with redhat-release 'pever' compare to a particular EUS
+     * channel?" If the answer is "PEVR is same or greater", then the system
+     * with that redhat-release is allowed to subscribe to the specified
+     * channel.
+     *
+     * @param dto Channel-info we might want to subscribe to
+     * @param pevr PackageEvr of the redhat-release RPM that is installed
+     * on the system of interest
+     * @return 1 if channel-eus-release > pevr.release, 0 is the same, or
+     * -1 if the package is for an 'older' EUS release
+     */
+    public int compare(EssentialChannelDto dto, PackageEvr pevr) {
+        String pevrRelease = pevr.getRelease();
+        // RHEL7 EVR changed what version/release are. As a result,
+        // the 'obvious' comparison to channel-release is wrong.
+        if (ChannelManager.RHEL7_EUS_VERSION.equals(rhelVersion)) {
+            pevrRelease = pevr.toString();
+        }
+        return compare(dto.getRelease(), pevrRelease);
     }
 }
