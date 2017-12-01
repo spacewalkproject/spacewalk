@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.30
+Version: 2.8.31
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.31-1
+- Update manpage for satelite-sync.
+- Add --ignore-proxy option to satelite-sync.
+- try to find whole dependency tree, not only direct dependencies
+
 * Tue Nov 14 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.30-1
 - 1494575 - use only version in channel release
 
