@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.45
+Version: 2.8.46
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Dec 01 2017 Grant Gainey 2.8.46-1
+- 1466006 - Previous fix breaks RHEL6-EUS logic :(
+- 1466006 - more RHEL7EUS version heuristics
+
 * Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.45-1
 - Unify heading for "Recently Registered Systems"
 - Use correct header string for system groups
