@@ -355,4 +355,12 @@ public class VirtualSystemOverview extends SystemOverview
         return (FAKENODE_LABEL.equals(this.getServerName()) &&
                 ((new Long(0)).equals(this.getHostSystemId())));
     }
+
+    /**
+    *
+    * {@inheritDoc}
+    */
+   public String getSelectionKey() {
+       return String.valueOf(getSystemId());
+   }
 }
