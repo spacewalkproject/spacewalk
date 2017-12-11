@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * PxtAuthenticationServiceTest
- * @version $Rev$
  */
 // TODO Review Test classes in package to factor out common code
 public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractTestCase {

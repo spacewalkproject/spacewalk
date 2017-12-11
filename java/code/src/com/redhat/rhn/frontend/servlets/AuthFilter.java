@@ -46,8 +46,6 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * AuthFilter - a servlet filter to ensure authenticated user info is put at
  * request scope properly
- *
- * @version $Rev$
  */
 public class AuthFilter implements Filter {
 
@@ -105,6 +103,8 @@ public class AuthFilter implements Filter {
                 LoggingFactory.setLogAuth(user.getId());
             }
             chain.doFilter(request, response);
+            authenticationService.refresh((HttpServletRequest) request,
+                    (HttpServletResponse) response);
         }
         else {
             authenticationService.redirectToLogin((HttpServletRequest)request,
