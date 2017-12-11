@@ -199,7 +199,8 @@ class DownloadThread(Thread):
         opts = URLGrabberOptions(ssl_ca_cert=params['ssl_ca_cert'], ssl_cert=params['ssl_client_cert'],
                                  ssl_key=params['ssl_client_key'], range=params['bytes_range'],
                                  proxy=params['proxy'], username=params['proxy_username'],
-                                 password=params['proxy_password'], proxies=params['proxies'])
+                                 password=params['proxy_password'], proxies=params['proxies'],
+                                 http_headers=tuple(params['http_headers'].items()))
         mirrors = len(params['urls'])
         for retry in range(max(self.parent.retries, mirrors)):
             fo = None

@@ -556,6 +556,7 @@ class ContentSource(object):
         params['proxy'] = self.repo.proxy
         params['proxy_username'] = self.repo.proxy_username
         params['proxy_password'] = self.repo.proxy_password
+        params['http_headers'] = self.repo.http_headers
         # Older urlgrabber compatibility
         params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
 
