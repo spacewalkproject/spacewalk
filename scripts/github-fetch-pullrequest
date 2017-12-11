@@ -112,7 +112,7 @@ def prepare_repo(repo, req_num, master, ignore_dirty):
     print ("\nIn branch '%s'." % ("master" if master else remote_name))
 
 if __name__ == "__main__":
-    repo = git.Repo('.')
+    repo = git.Repo(search_parent_directories=True)
     USER, REPO = guess_USER_REPO()
     master = False
     req_num = None
