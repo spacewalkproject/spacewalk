@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.117
+Version: 5.10.118
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -262,6 +262,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 12 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.118-1
+- 1498813 - add better handling of interrupted system calls
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.117-1
 - rhncfg: add missing dirs to filelist for SUSE and enable py3 build on
   Tumbleweed
