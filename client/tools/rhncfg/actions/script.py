@@ -242,8 +242,10 @@ def run(action_id, params, cache_only=None):
 
             select_wait = timeout - elapsed
 
-        # XXX try-except here for interrupted system calls
-        input_fds, output_fds, error_fds = select.select([pipe_read], [], [], select_wait)
+        try:
+            input_fds, output_fds, error_fds = select.select([pipe_read], [], [], select_wait)
+        except select.error:
+            return 255, "Termination signal occurred during execution.", {}
 
         if error_fds:
             # when would this happen?
