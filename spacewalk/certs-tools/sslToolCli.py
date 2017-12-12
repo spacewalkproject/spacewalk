@@ -140,9 +140,17 @@ def _getOptionsTree(defs):
         _optCertExp,
         ]
 
+    # SSL key check options
+    _checkOptions = [_optCAKeyPassword]
+
+    # SSL cert check options
+    # = nothing
+
     # the base options
     _optGenCa = make_option('--gen-ca', action='store_true', help='generate a Certificate Authority (CA) key pair and public RPM. Review "--gen-ca --help" for more information.')
     _optGenServer = make_option("--gen-server", action='store_true', help="""generate the web server's SSL key set, RPM and tar archive. Review "--gen-server --help" for more information.""")
+    _optCheckKey = make_option("--check-key", action='store_true', help="""Check SSL CA private key's validity and password. Review "--check-key --help" for more information.""")
+    _optCheckCert = make_option("--check-cert", action='store_true', help="""Check SSL CA cert's validity. Review "--check-cert --help" for more information.""")
 
 
     # CA build option tree set possibilities
@@ -171,9 +179,17 @@ def _getOptionsTree(defs):
     _serverRpmOnlySet = [_optGenServer, _optServerKey, _optServerCertReq, _optServerCert, _optSetHostname, _optSetCname ] \
       + _buildRpmOptions + [_optServerRpm, _optServerTar] + _genOptions
 
+    # CA key check set possibilities
+    _checkKeySet = [_optCheckKey] + _checkOptions + _genOptions
+
+    # CA cert check set possibilities
+    _checkCertSet = [_optCheckCert] + _genOptions
+
     optionsTree = {
         '--gen-ca' : _caSet,
         '--gen-server' : _serverSet,
+        '--check-key' : _checkKeySet,
+        '--check-cert' : _checkCertSet,
         }
 
     # quick check about the --*-only options
@@ -203,7 +219,7 @@ ERROR: cannot use these options in combination:
         optionsTree['--gen-ca'] = _caRpmOnlySet
         optionsTree['--gen-server'] = _serverRpmOnlySet
 
-    baseOptions = [_optGenCa, _optGenServer]
+    baseOptions = [_optGenCa, _optGenServer, _optCheckKey, _optCheckCert]
     return optionsTree, baseOptions
 
 
@@ -250,17 +266,21 @@ _progName = os.path.basename(sys.argv[0])
 BASE_USAGE = """\
 %s [options]
 
+ step a %s --check-key [sub-options]
+
+ step b %s --check-cert
+
  step 1 %s --gen-ca [sub-options]
 
  step 2 %s --gen-server [sub-options]
 
-The two options listed above are "base options". For more help about
+The four options listed above are "base options". For more help about
 a particular option, just add --help to either one, such as:
 %s --gen-ca --help
 
 If confused, please refer to the man page or other documentation
 for sample usage.\
-""" % tuple([_progName]*4)
+""" % tuple([_progName]*6)
 OTHER_USAGE = """\
 %s [options]
 
@@ -315,7 +335,7 @@ def optionParse():
 
     # force certain "first options". Not beautiful but it works.
     if len(sys.argv) > 1:
-        if sys.argv[1] not in ('-h', '--help', '--gen-ca', '--gen-server'):
+        if sys.argv[1] not in ('-h', '--help', '--gen-ca', '--gen-server', '--check-key', '--check-cert'):
             # first option was not something we understand. Force a base --help
             del(sys.argv[1:])
             sys.argv.append('--help')
