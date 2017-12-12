@@ -465,7 +465,7 @@ sub setup_ssl_certs {
     return;
   }
 
-  my ($password, $password_1, $password_2);
+  my ($password_1, $password_2);
 
   unless ($answers->{"ssl-password"}) {
     unless ($opts{"skip-ssl-ca-generation"})
@@ -490,15 +490,15 @@ sub setup_ssl_certs {
       } until (passwords_match($password_1, $password_2));
     } else{
       do{
-	$password = undef;
+	$password_1 = undef;
         Spacewalk::Setup::ask(
           -noninteractive => $opts{"non-interactive"},
           -question => "CA certificate password",
             -test => \&valid_ssl_cert_password,
-            -answer => \$password,
+            -answer => \$password_1,
             -password => 1,
            );
-      } until (check_ca_key($password)==0);
+      } until (check_ca_key($password_1)==0);
     }
     $answers->{"ssl-password"} ||= $password_1;
   };

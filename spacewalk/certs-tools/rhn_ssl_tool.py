@@ -1154,9 +1154,9 @@ def checkCaKey(password, d, verbosity=0):
             % (repr(cleanupAbsPath(cleanupAbsPath(ca_key))), "%s"))
 
     if verbosity >= 0:
-        print "\nChecking private CA key's password: %s" % ca_key
+        print("\nChecking private CA key's password: %s" % ca_key)
     if verbosity > 1:
-        print "Commandline:", args % "PASSWORD"
+        print("Commandline:", args % "PASSWORD")
 
     ret, out_stream, err_stream = rhn_popen(args % repr(password))
 
@@ -1177,9 +1177,9 @@ def checkCaCert(d, verbosity=0):
             % (repr(cleanupAbsPath(cleanupAbsPath(ca_cert)))))
 
     if verbosity >= 0:
-        print "\nChecking CA cert's validity: %s" % ca_cert
+        print("\nChecking CA cert's validity: %s" % ca_cert)
     if verbosity > 1:
-        print "Commandline:", args
+        print("Commandline:", args)
 
     ret, out_stream, err_stream = rhn_popen(args)
 
