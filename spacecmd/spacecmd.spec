@@ -86,10 +86,12 @@ touch %{buildroot}/%{_sysconfdir}/spacecmd.conf
 touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %{__chmod} 0644 %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 
+%if 0%{?suse_version}
 %if 0%{?build_py3}
 %py3_compile -O %{buildroot}/%{python_sitelib}
 %else
 %py_compile -O %{buildroot}/%{python_sitelib}
+%endif
 %endif
 
 %clean
