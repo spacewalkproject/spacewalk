@@ -203,9 +203,9 @@ def do_report_ipaddresses(self, args):
 
         for system in sorted(report):
             print('%s  %s  %s' %
-                (system.ljust(system_max_size),
-                 report[system]['hostname'].ljust(hostname_max_size),
-                 report[system]['ip'].ljust(15)))
+                  (system.ljust(system_max_size),
+                   report[system]['hostname'].ljust(hostname_max_size),
+                   report[system]['ip'].ljust(15)))
 
 ####################
 
