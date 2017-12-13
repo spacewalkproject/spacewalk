@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -118,6 +118,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Dec 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- tomcat on RHEL 7.5 is confined even more
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - fixed selinux error messages during package install, see related BZ#1446487
