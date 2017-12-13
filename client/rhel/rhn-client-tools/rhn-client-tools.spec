@@ -8,7 +8,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.14
+Version: 2.8.15
 Release: 1%{?dist}
 License: GPLv2
 Group: System Environment/Base
@@ -654,6 +654,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Dec 13 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
+- 1417185 - do chmod an the new file, not the old one which will be deleted
+- 1417185 - change permissions to default provided by rhn-client-tools rpm
+
 * Fri Dec 08 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.14-1
 - fix warning: numeric expression expected (got ")
 
