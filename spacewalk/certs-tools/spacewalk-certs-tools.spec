@@ -16,7 +16,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -127,6 +127,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Dec 14 2017 Eric Herget <eherget@redhat.com> 2.8.5-1
+- 1456471 - PR570 - Using own certificates for installer
+- 1456471 - PR570 - [RFE] Using own certifications for installer (CA, private
+  key)
+
 * Fri Oct 27 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - python3 is missing in buildroot on Fedora 25
 
