@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Dec 15 2017 Jan Dobes <jdobes@redhat.com> 2.8.3-1
+- 1524221 - ship systemd target on RHEL 7 too
+
 * Mon Nov 13 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
 - don't use systemctl pager for output as we have "| less"
 
