@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.48
+Version: 2.8.49
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Dec 18 2017 Jiri Dostal <jdostal@redhat.com> 2.8.49-1
+- 1020318 - creation of custom info key with long key label fails with ISE
+
 * Thu Dec 07 2017 Jiri Dostal <jdostal@redhat.com> 2.8.48-1
 - 1520664 - Internal server error changing kickstart script order
 
