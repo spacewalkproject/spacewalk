@@ -101,6 +101,7 @@ public class CreateCustomKeyAction extends RhnAction {
          III.  Description is at least 2 characters long
           IV.  Label only contains valid characters (these need to match what is allowed
                in a macro argument)
+           V.  Label is shorter/equal than 64
          */
 
         String error = null;
@@ -116,6 +117,10 @@ public class CreateCustomKeyAction extends RhnAction {
         // IV
         else if (!label.trim().matches("[\\w-]*")) {
             error = "system.customkey.error.invalid";
+        }
+        // V
+        else if (label.length() > 64) {
+            error = "system.customkey.error.toolong";
         }
 
         return error;
