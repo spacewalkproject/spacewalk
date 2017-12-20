@@ -53,6 +53,14 @@ my $product_name = $answers{'product_name'} || 'Spacewalk';
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
+if (not $opts{"skip-fqdn-test"} and
+    not (lc($answers{hostname}) eq $answers{hostname})) {
+    print Spacewalk::Setup::loc(
+    "ERROR: Hostname '$answers{hostname}' of this server contains uppercase letters.
+    It can cause Spacewalk Proxy communications (through jabberd) to fail.\n");
+    exit 4;
+}
+
 if (not defined $opts{"clear-db"} and defined $answers{"clear-db"} and
     $answers{"clear-db"} =~ /Y/i){
     $opts{'clear-db'} = 1;
