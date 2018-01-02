@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.33
+Version: 2.8.34
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Jan 02 2018 Jan Dobes <jdobes@redhat.com> 2.8.34-1
+- 1525858 - display expired EOL status if available
+
 * Mon Dec 11 2017 Jan Dobes <jdobes@redhat.com> 2.8.33-1
 - 1509955 - pass http headers to downloader
 
