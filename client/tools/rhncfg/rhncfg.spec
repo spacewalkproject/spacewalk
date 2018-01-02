@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.118
+Version: 5.10.119
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 Group:   Applications/System
@@ -262,6 +262,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 02 2018 Jiri Dostal <jdostal@redhat.com> 5.10.119-1
+- 1528252 - Add --config option to rhncfg-manager and rhncfg-client.
+
 * Tue Dec 12 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.118-1
 - 1498813 - add better handling of interrupted system calls
 
