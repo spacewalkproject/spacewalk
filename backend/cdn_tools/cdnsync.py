@@ -676,10 +676,14 @@ class CdnSync(object):
                                         "Please, check /var/log/rhn/cdnsync.log for details")
 
     def _channel_line_format(self, channel, longest_label):
-        if channel in self.synced_channels:
-            status = 'p'
+        if self._is_channel_eol(channel):
+            eol_status = "EOL"
         else:
-            status = '.'
+            eol_status = ""
+        if channel in self.synced_channels:
+            sync_status = 'p'
+        else:
+            sync_status = '.'
         try:
             packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
         # pylint: disable=W0703
@@ -698,7 +702,15 @@ class CdnSync(object):
         offset = longest_label - len(channel)
         space += " " * offset
 
-        return "    %s %s%s%6s packages %9s" % (status, channel, space, packages_number, packages_size)
+        return "%3s %s %s%s%6s packages %9s" % (eol_status, sync_status, channel, space,
+                                                packages_number, packages_size)
+
+    def _is_channel_eol(self, channel):
+        if channel in self.channel_metadata:
+            if 'eol' in self.channel_metadata[channel] and self.channel_metadata[channel]['eol']:
+                if datetime.now() > datetime.strptime(self.channel_metadata[channel]['eol'], "%Y-%m-%d %H:%M:%S"):
+                    return True
+        return False
 
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._tree_available_channels()
@@ -721,6 +733,7 @@ class CdnSync(object):
         log(0, "p = previously imported/synced channel")
         log(0, ". = channel not yet imported/synced")
         log(0, "? = package count not available (try to run cdn-sync --count-packages)")
+        log(0, "EOL = channel after end of life")
 
         log(0, "Entitled base channels:")
         if not available_base_channels:
