@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -92,6 +93,8 @@ public class SoftwareHandler extends BaseHandler {
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         packages.clear();
         KickstartFactory.saveKickstartData(ksdata);
+        //We need to flush session to make the change cascade into DB
+        HibernateFactory.getSession().flush();
         Long pos = new Long(packages.size()); // position package in list
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
