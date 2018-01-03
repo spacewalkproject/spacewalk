@@ -57,7 +57,7 @@ function clickNewestTree() {
 
     <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do">
       <rhn:csrf />
-      <table class="details">
+      <table class="details table-framed">
           <tr>
             <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
@@ -66,7 +66,7 @@ function clickNewestTree() {
                     property="value"
                     labelProperty="label" />
               </html:select>
-                <br /><span class="small-text"><bean:message key="softwareedit.jsp.tip" /></span><br />
+                <hr><span class="small-text"><bean:message key="softwareedit.jsp.tip" /></span><br />
             </td>
           </tr>
           <tr>
@@ -86,7 +86,7 @@ function clickNewestTree() {
                       <br /><b><bean:message key="softwareedit.jsp.nochildchannels" /></b><br />
                     </c:otherwise>
                   </c:choose>
-                  <br /><span class="small-text"><bean:message key="softwareedit.jsp.warning" arg0="${ksdata.id}"/></span><br />
+                  <hr><span class="small-text"><bean:message key="softwareedit.jsp.warning" arg0="${ksdata.id}"/></span><br />
               </td>
           </tr>
           <tr>
@@ -117,7 +117,7 @@ function clickNewestTree() {
                               <c:if test="${usingNewestRH == true}">checked=1</c:if> />
                           <bean:message key="kickstart.jsp.create.wizard.kstree.always_new_RH"/>
                       </c:if>
-                      <br />
+                      <hr>
                       <input type="checkbox" name="useNewestTree" value="0"
                           onclick="toggleKSTree(this); clickNewestTree()"
                           <c:if test="${usingNewest == true}">checked=1</c:if> />
