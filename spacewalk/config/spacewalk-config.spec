@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.8.2
+Version: 2.8.3
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -145,6 +145,10 @@ sysconf_addword /etc/sysconfig/apache2 APACHE_SERVER_FLAGS ISSUSE
 %endif
 
 %changelog
+* Thu Jan 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- Updated man page for rhn.conf file to include information on setting
+  Satellite's SMTP server
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - purged changelog entries for Spacewalk 2.0 and older
 
