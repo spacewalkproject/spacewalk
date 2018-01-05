@@ -377,6 +377,12 @@ class CdnSync(object):
         log(0, "======================================")
         log(0, "| Channel: %s" % channel)
         log(0, "======================================")
+
+        # Print note if channel is already EOL
+        if self._is_channel_eol(channel):
+            log(0, "NOTE: This channel reached end-of-life on %s." %
+                datetime.strptime(self.channel_metadata[channel]['eol'], "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d"))
+
         log(0, "Sync of channel started.")
         log2disk(0, "Please check 'cdnsync/%s.log' for sync log of this channel." % channel, notimeYN=True)
         sync = reposync.RepoSync(channel,
