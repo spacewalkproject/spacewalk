@@ -34,7 +34,6 @@ import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -1484,31 +1483,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
 
     /**
-     * Removes the virtual instance guest from this server. If the guest is registered,
-     * then the guest server will be deleted from the virtual instance.
-     *
-     * @param guest The virtual instance to delete
-     *
-     * @return <code>true</code> if the guest is deleted, <code>false</code> otherwise.
-     */
-    public boolean deleteGuest(VirtualInstance guest) {
-        if (canDeleteGuest(guest)) {
-            guest.deleteGuestSystem();
-            return removeGuest(guest);
-        }
-        return false;
-    }
-
-    private boolean canDeleteGuest(VirtualInstance guest) {
-        for (VirtualInstance g : getGuests()) {
-            if (g.getId().equals(guest.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Remove the association between a guest and this server, but do not delete the
      * guest server.
      *
@@ -1520,8 +1494,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
         for (Iterator<VirtualInstance> it = guests.iterator(); it.hasNext();) {
             VirtualInstance g = it.next();
             if (g.getId().equals(guest.getId())) {
-                guest.setHostSystem(null);
-
                 it.remove();
                 deleted = true;
                 break;

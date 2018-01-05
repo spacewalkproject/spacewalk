@@ -14,14 +14,12 @@
  */
 package com.redhat.rhn.domain.server.test;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
-
 import org.apache.commons.collections.CollectionUtils;
 
 
@@ -63,41 +61,6 @@ public class ServerFactoryVirtualizationTest extends RhnBaseTestCase {
         VirtualInstance retInstance = retrievedHost.getGuests().iterator().next();
 
         assertEquals(retInstance.getHostSystem(), retrievedHost);
-    }
-
-    public void testDeleteGuestFromHostAndSaveHost() throws Exception {
-        VirtualInstance guest =
-                virtualInstanceFactory.newRegisteredGuestWithHost();
-        Long guestId = guest.getGuestSystem().getId();
-        Server host = guest.getHostSystem();
-        ServerFactory.save(host);
-        Long hostId = host.getId();
-
-        HibernateFactory.getSession().save(guest);
-        HibernateFactory.getSession().clear();
-
-        Server retrievedHost = ServerFactory.lookupById(hostId);
-        assertFalse(retrievedHost.getGuests().isEmpty());
-
-        assertTrue(retrievedHost.deleteGuest(guest));
-
-        HibernateFactory.getSession().clear();
-        Server serverWithoutGuest = ServerFactory.lookupById(hostId);
-        Server deletedGuest = ServerFactory.lookupById(guestId);
-
-        assertFalse(serverWithoutGuest.getGuests().contains(deletedGuest));
-        assertNull("guest system was not deleted", deletedGuest);
-    }
-
-    public void testDeleteGuestNotBelongingToHost() throws Exception {
-        VirtualInstance virtualInstance =
-                virtualInstanceFactory.newRegisteredGuestWithHost();
-
-        Server otherHost = ServerFactory.createServer();
-
-        assertFalse(otherHost.deleteGuest(virtualInstance));
-        assertNotNull("guest system should not have been deleted",
-                virtualInstance.getGuestSystem());
     }
 
     public void testUpdateGuestAndSaveHost() throws Exception {

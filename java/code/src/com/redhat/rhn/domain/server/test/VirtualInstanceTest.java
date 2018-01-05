@@ -14,19 +14,20 @@
  */
 package com.redhat.rhn.domain.server.test;
 
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
+import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.Sequence;
+import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
-
-import junit.framework.TestCase;
 
 
 /**
  * VirtualInstanceTest
  * @version $Rev$
  */
-public class VirtualInstanceTest extends TestCase {
+public class VirtualInstanceTest extends RhnBaseTestCase {
 
     private class GuestStub extends VirtualInstance {
         GuestStub(Long id) {
@@ -37,6 +38,7 @@ public class VirtualInstanceTest extends TestCase {
     private Sequence idSequence;
 
     protected void setUp() throws Exception {
+        super.setUp();
         idSequence = new Sequence();
     }
 
@@ -51,15 +53,24 @@ public class VirtualInstanceTest extends TestCase {
         assertFalse(new VirtualInstance().isRegisteredGuest());
     }
 
+    public void testEqualsAndHashCode() throws Exception {
+        Server host = ServerTestUtils.createTestSystem();
+        Server guest = ServerTestUtils.createTestSystem();
+        String uuid1 = TestUtils.randomString();
+        String uuid2 = TestUtils.randomString();
 
-    public void testEqualsAndHashCode() {
-        VirtualInstance guestA = new GuestStub(idSequence.nextLong());
-        VirtualInstance guestB = new GuestStub(guestA.getId());
-        VirtualInstance guestC = new GuestStub(idSequence.nextLong());
+        VirtualInstance refGuest = createVirtualInstance(host, guest, uuid1);
 
-        assertEquals(true, TestUtils.equalTest(guestA, guestB));
-        assertEquals(false, TestUtils.equalTest(guestA, guestC));
-        assertEquals(false, TestUtils.equalTest(guestA, new Object()));
+        assertEquals(refGuest, createVirtualInstance(host, guest, uuid1));
+        assertFalse(refGuest.equals(createVirtualInstance(host, guest, uuid2)));
+    }
+
+    private VirtualInstance createVirtualInstance(Server host, Server guest, String uuid) {
+        VirtualInstance virtualInstance = new VirtualInstance();
+        virtualInstance.setHostSystem(host);
+        virtualInstance.setGuestSystem(guest);
+        virtualInstance.setUuid(uuid);
+        return virtualInstance;
     }
 
     public void testGetNullInfo() {
