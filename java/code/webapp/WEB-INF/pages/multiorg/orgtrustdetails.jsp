@@ -13,7 +13,7 @@
                     definition="/WEB-INF/nav/org_trust.xml"
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
     <h2><bean:message key="orgtrustdetails.jsp.header1"/></h2>
-    <table class="details">
+    <table class="details table-framed">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.created"/></th>
         <td>${created}</td>
@@ -24,7 +24,7 @@
       </tr>
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header2"/></h2>
-    <table class="details">
+    <table class="details table-framed">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsprovided"/></th>
         <c:choose>
@@ -49,7 +49,7 @@
       </tr>
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header3"/></h2>
-    <table class="details">
+    <table class="details table-framed">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.sysmigratedto"/></th>
         <td>${migrationsto}</td>
