@@ -733,7 +733,7 @@ class CdnSync(object):
         log(0, "p = previously imported/synced channel")
         log(0, ". = channel not yet imported/synced")
         log(0, "? = package count not available (try to run cdn-sync --count-packages)")
-        log(0, "EOL = channel after end of life")
+        log(0, "EOL = channel reached end-of-life")
 
         log(0, "Entitled base channels:")
         if not available_base_channels:
