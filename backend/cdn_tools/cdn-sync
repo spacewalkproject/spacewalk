@@ -64,6 +64,8 @@ def process_commandline():
     parser.add_argument("-v", "--verbose", action='count', help="Verbose output. Possible to accumulate: -vvv")
     parser.add_argument("--cdn-certs", action="store_true",
                         help="Print details about currently used SSL certificates for accessing CDN.")
+    parser.add_argument("--list-eol", action="store_true",
+                        help="List end-of-life info about (some) channels available to sync.")
 
     cmd_args = parser.parse_args()
 
@@ -157,6 +159,8 @@ if __name__ == '__main__':
             cdnsync.clear_cache()
         elif args.cdn_certs:
             cdnsync.print_cdn_certificates_info(repos=args.show_repos)
+        elif args.list_eol:
+            cdnsync.print_eol_channel_list()
         elif args.add_repo or args.delete_repo:
             error_messages = cdnsync.setup_repos_and_sync(channels=args.channel, add_repos=args.add_repo,
                                                           delete_repos=args.delete_repo)

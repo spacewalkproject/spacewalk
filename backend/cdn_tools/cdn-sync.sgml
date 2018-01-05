@@ -102,6 +102,9 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
     <cmdsynopsis>
         <arg>--cdn-certs</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-eol</arg>
+    </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
@@ -313,6 +316,12 @@ Incrementally synchronize an Red Hat Satellite's RPM repository with Red Hat's C
         <term>--cdn-certs</term>
         <listitem>
             <para>Print details about currently used SSL certificates for accessing CDN.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-eol</term>
+        <listitem>
+            <para>List end-of-life info about (some) channels available to sync.</para>
         </listitem>
     </varlistentry>
 </variablelist>
