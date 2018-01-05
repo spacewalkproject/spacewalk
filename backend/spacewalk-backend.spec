@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.35
+Version: 2.8.36
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Jan 05 2018 Jan Dobes <jdobes@redhat.com> 2.8.36-1
+- still can print custom channels with CDN repos without mappings
+- 1525858 - add --list-eol option to show more info about channel's end-of-life
+  dates
+
 * Fri Jan 05 2018 Jan Dobes <jdobes@redhat.com> 2.8.35-1
 - 1525858 - print note that channel reached EOL already
 - 1525858 - improve wording
