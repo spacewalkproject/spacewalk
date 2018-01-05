@@ -728,8 +728,7 @@ class CdnSync(object):
                        "Is %s package installed?" % constants.MAPPINGS_RPM_NAME)
             else:
                 log(0, "\n".join(error_messages))
-            sys.exit(1)
-
+                sys.exit(1)
 
         available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
         custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
