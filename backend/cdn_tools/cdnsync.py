@@ -250,7 +250,7 @@ class CdnSync(object):
                 return False
         else:
             if label not in self.channel_metadata:
-                log2(0, 0, "ERROR: Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                log2(1, 1, "WARNING: Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
                 return False
             elif label not in self.channel_to_family:
                 log2(0, 0, "ERROR: Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
