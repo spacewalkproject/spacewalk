@@ -718,6 +718,14 @@ class CdnSync(object):
                     return True
         return False
 
+    def _print_unmapped_channels(self):
+        unmapped_channels = [ch for ch in self.synced_channels if not self.synced_channels[ch]
+                             and ch not in self.channel_metadata]
+        if unmapped_channels:
+            log(0, "Previously synced channels not available to update from CDN:")
+            for channel in sorted(unmapped_channels):
+                log(0, "    p %s" % channel)
+
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._tree_available_channels()
 
@@ -777,6 +785,9 @@ class CdnSync(object):
                 paths = self.cdn_repository_manager.list_associated_repos(channel)
                 for path in sorted(paths):
                     log(0, "        %s" % path)
+
+        # Previously synced null-org channels not available in cdn-sync-mappings
+        self._print_unmapped_channels()
 
     def clear_cache(self):
         # Clear packages outside channels from DB and disk
@@ -891,6 +902,9 @@ class CdnSync(object):
             log(0, "      NONE")
         for channel in sorted(notyet_eol_channels, key=lambda channel: eol_channels[channel]):
             print_channel_line(channel)
+
+        # Previously synced null-org channels not available in cdn-sync-mappings
+        self._print_unmapped_channels()
 
     def _msg_array_if_not_activated(self):
         error_messages = []
