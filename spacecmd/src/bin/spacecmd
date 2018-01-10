@@ -116,7 +116,7 @@ if __name__ == '__main__':
     if shell.options.server:
         shell.config['server'] = shell.options.server
     else:
-        shell.config['server'] = gethostname()
+        shell.config['server'] = getfqdn()
 
     # don't automatically create config files passed via --config
     if shell.options.config:
