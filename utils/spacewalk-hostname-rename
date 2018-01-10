@@ -147,6 +147,15 @@ function initial_system_hostname_check {
         return 1
     fi
 
+    # We should attempt to get the FQDN otherwise SSL verification will likely fail
+    FQDN=$(hostname --fqdn)
+    if [ ! -z "$FQDN" -a "$FQDN" != " " ]
+    then
+	HOSTNAME=$FQDN
+    else
+	echo_err "Warning: The host's FQDN could not be determined. A FQDN is needed for correct SSL configuration. Falling back to short hostname."
+    fi
+
     return 0
 }
 
@@ -401,6 +410,7 @@ done
 
 echo "=============================================" | tee -a $LOG
 echo "hostname: $HOSTNAME" | tee -a $LOG
+echo "FQDN: $(hostname --fqdn)" | tee -a $LOG
 echo "ip: $IP" | tee -a $LOG
 echo "=============================================" | tee -a $LOG
 
