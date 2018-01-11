@@ -14,35 +14,42 @@
  */
 package com.redhat.rhn.frontend.action.groups;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SSMGroupManageAction
  * @version $Rev$
  */
-public class SSMGroupManageAction extends RhnAction {
+public class SSMGroupManageAction extends RhnAction
+    implements Listable<SystemGroupOverview> {
+
     public static final Long ADD = 1L;
     public static final Long REMOVE = 0L;
+    public static final Long NO_CHANGE = -1L;
 
     /**
      * {@inheritDoc}
@@ -55,25 +62,27 @@ public class SSMGroupManageAction extends RhnAction {
 
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getCurrentUser();
-        DynaActionForm daForm = (DynaActionForm)form;
 
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        helper.ignoreEmptySelection();
+        helper.execute();
 
-        List<SystemGroupOverview> groups = SystemManager.groupList(user, null);
+        Map<Long, Long> addRmvSet = processList(user, request);
 
-        // If submitted, save the user's choices for the confirm page
-        if (isSubmitted(daForm)) {
-            processList(user, request);
-            return mapping.findForward("confirm");
+        if (helper.isDispatched()) {
+            return mapping.findForward(RhnHelper.CONFIRM_FORWARD);
+        }
+        else {
+            request.setAttribute("actions_set", addRmvSet);
         }
 
-        request.setAttribute(RequestContext.PAGE_LIST, groups);
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    private int processList(User user, HttpServletRequest request) {
+    private Map<Long, Long> processList(User user, HttpServletRequest request) {
         List<Long> addList = new ArrayList<Long>();
         List<Long> removeList = new ArrayList<Long>();
+        List<Long> noChangeList = new ArrayList<Long>();
 
         Enumeration<String> names = request.getParameterNames();
         while (names.hasMoreElements()) {
@@ -93,20 +102,37 @@ public class SSMGroupManageAction extends RhnAction {
             else if ("remove".equals(aValue)) {
                 removeList.add(aId);
             }
+            else {
+                noChangeList.add(aId);
+            }
         }
 
-        if (addList.size() + removeList.size() > 0) {
-            RhnSet cset = RhnSetDecl.SSM_GROUP_LIST.get(user);
-            cset.clear();
-            for (Long id : addList) {
-                cset.addElement(id, ADD);
-            }
-            for (Long id : removeList) {
-                cset.addElement(id, REMOVE);
-            }
-            RhnSetManager.store(cset);
+        RhnSet cset = RhnSetDecl.SSM_GROUP_LIST.get(user);
+        for (Long id : addList) {
+            cset.removeElement(id);
+            cset.addElement(id, ADD);
         }
-        return addList.size() + removeList.size();
+        for (Long id : removeList) {
+            cset.removeElement(id);
+            cset.addElement(id, REMOVE);
+        }
+        for (Long id : noChangeList) {
+            cset.removeElement(id);
+            cset.addElement(id, NO_CHANGE);
+        }
+        RhnSetManager.store(cset);
+
+        Map<Long, Long> currentChoices = new HashMap<Long, Long>();
+        for (RhnSetElement elt : cset.getElements()) {
+            currentChoices.put(elt.getElement(), elt.getElementTwo());
+        }
+        return currentChoices;
+    }
+
+    @Override
+    public List<SystemGroupOverview> getResult(RequestContext context) {
+        User user = context.getCurrentUser();
+        return SystemManager.groupList(user, null);
     }
 }
 
