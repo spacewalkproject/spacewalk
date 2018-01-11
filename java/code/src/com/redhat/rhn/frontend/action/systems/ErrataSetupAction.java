@@ -67,26 +67,21 @@ public class ErrataSetupAction extends RhnAction implements Listable {
 
     public static final String SELECTOR = "type";
 
-
-
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request, HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         RhnSet set = getSetDecl(sid).get(user);
 
-
-
         ListRhnSetHelper help = new ListRhnSetHelper(this, request, getSetDecl(sid));
         help.setListName(LIST_NAME);
         String parentURL = request.getRequestURI() + "?sid=" + sid;
         help.setParentUrl(parentURL);
-
+        help.setWillClearSet(false);
         help.execute();
 
         if (help.isDispatched()) {
@@ -95,17 +90,11 @@ public class ErrataSetupAction extends RhnAction implements Listable {
             }
         }
 
-
         String showButton = "true";
         // Show the "Apply Errata" button only when unapplied errata exist:
         if (!SystemManager.hasUnscheduledErrata(user, sid)) {
            showButton = "false";
         }
-
-
-
-
-
 
         Map params =  new HashMap();
         Set keys = request.getParameterMap().keySet();
@@ -133,36 +122,31 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      * @return the map for the combo
      */
     protected List<Map<String, Object>> getComboList(HttpServletRequest request) {
-
         String selected = request.getParameter(SELECTOR);
-
-        List<Map<String, Object>> combo = new ArrayList<Map<String, Object>>();
-
+        List<Map<String, Object>> combo = new ArrayList<>();
         LocalizationService ls = LocalizationService.getInstance();
 
-
-        Map<String, Object> tmp = new HashMap<String, Object>();
+        Map<String, Object> tmp = new HashMap<>();
         tmp.put("name", ALL);
         tmp.put("id", ALL);
         tmp.put("default", ls.getMessage(ALL).equals(selected));
 
-        Map<String, Object> tmp1 = new HashMap<String, Object>();
+        Map<String, Object> tmp1 = new HashMap<>();
         tmp1.put("name", NON_CRITICAL);
         tmp1.put("id", NON_CRITICAL);
         tmp1.put("default",  ls.getMessage(NON_CRITICAL).equals(selected));
 
-
-        Map<String, Object> tmp2 = new HashMap<String, Object>();
+        Map<String, Object> tmp2 = new HashMap<>();
         tmp2.put("name", BUGFIX);
         tmp2.put("id", BUGFIX);
         tmp2.put("default",  ls.getMessage(BUGFIX).equals(selected));
 
-        Map<String, Object> tmp3 = new HashMap<String, Object>();
+        Map<String, Object> tmp3 = new HashMap<>();
         tmp3.put("name", ENHANCE);
         tmp3.put("id", ENHANCE);
         tmp3.put("default",  ls.getMessage(ENHANCE).equals(selected));
 
-        Map<String, Object> tmp4 = new HashMap<String, Object>();
+        Map<String, Object> tmp4 = new HashMap<>();
         tmp4.put("name", SECUR);
         tmp4.put("id", SECUR);
         tmp4.put("default",  ls.getMessage(SECUR).equals(selected));
@@ -173,7 +157,6 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         combo.add(tmp3);
         combo.add(tmp4);
         return combo;
-
     }
 
 
@@ -185,18 +168,14 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      * @param response ServletResponse
      * @return The ActionForward to go to next.
      */
-    public ActionForward applyErrata(ActionMapping mapping,
-                                     ActionForm formIn,
-                                     HttpServletRequest request,
-                                     HttpServletResponse response) {
+    public ActionForward applyErrata(ActionMapping mapping, ActionForm formIn,
+            HttpServletRequest request, HttpServletResponse response) {
 
-        Map<String, Object> params = new HashMap<String, Object>();
-
+        Map<String, Object> params = new HashMap<>();
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         //if they chose errata, send them to the confirmation page
         Long sid = requestContext.getParamAsLong("sid");
-
         User user = requestContext.getCurrentUser();
         RhnSet set = getSetDecl(sid).get(user);
 
@@ -235,7 +214,6 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      * TODO: was private
      */
     protected Map makeParamMap(ActionForm form, HttpServletRequest request) {
-
         RequestContext rctx = new RequestContext(request);
         Map params = rctx.makeParamMapWithPagination();
         Long sid = new RequestContext(request).getParamAsLong("sid");
@@ -251,7 +229,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      * @return a list of types to get
      */
     protected List<String> getTypes(String type) {
-        List<String> typeList = new ArrayList<String>();
+        List<String> typeList = new ArrayList<>();
         LocalizationService ls = LocalizationService.getInstance();
 
         if (ls.getMessage(BUGFIX).equals(type)) {
@@ -280,6 +258,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
      *
      * {@inheritDoc}
      */
+    @Override
     public List getResult(RequestContext context) {
          User user = context.getCurrentUser();
          Long sid = context.getRequiredParam("sid");
@@ -319,5 +298,4 @@ public class ErrataSetupAction extends RhnAction implements Listable {
         List<String> typeList = getTypes(type);
         return SystemManager.relevantErrata(user, sid, typeList);
     }
-
 }
