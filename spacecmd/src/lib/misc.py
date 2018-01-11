@@ -740,7 +740,7 @@ def get_system_names_ids(self):
 
 # check for duplicate system names and return the system ID
 def get_system_id(self, name):
-    name = str(name)
+    name = "%s" % name
     self.generate_system_cache()
     systems = []
 
@@ -860,7 +860,7 @@ def expand_systems(self, args):
 
     matches = filter_results(self.get_system_names(), systems)
 
-    return [str(x) for x in list(set(matches + system_ids))]
+    return ["%s" % x for x in list(set(matches + system_ids))]
 
 
 def list_base_channels(self):
