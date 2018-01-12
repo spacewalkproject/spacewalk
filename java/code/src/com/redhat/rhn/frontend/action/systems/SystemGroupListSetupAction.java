@@ -14,7 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
@@ -23,33 +37,19 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SystemGroupListSetupAction
  * @version $Rev$
  */
-public class SystemGroupListSetupAction extends RhnAction {
+public class SystemGroupListSetupAction extends RhnAction
+    implements Listable<SystemGroupOverview> {
+
     private static final Logger LOG = Logger.getLogger(SystemGroupListSetupAction.class);
 
     /** {@inheritDoc} */
@@ -58,44 +58,35 @@ public class SystemGroupListSetupAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getCurrentUser();
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl());
+        helper.execute();
 
+        Map m = helper.getParamMap();
+        Map m1 = request.getParameterMap();
 
-        DataResult<SystemGroupOverview> result = SystemManager.groupList(user, null);
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute(RequestContext.PAGE_LIST, result);
-        ListTagHelper.bindSetDeclTo("groupList", getSetDecl(), request);
-        TagHelper.bindElaboratorTo("groupList", result.getElaborator(), request);
+        if (helper.isDispatched()) {
+            LocalizationService l18nSvc = LocalizationService.getInstance();
+            String buttonVal = request.getParameter("dispatch");
 
-        RhnSet set =  getSetDecl().get(user);
-        if (!requestContext.isSubmitted()) {
-            set.clear();
-            RhnSetManager.store(set);
-        }
-
-        RhnListSetHelper helper = new RhnListSetHelper(request);
-        if (ListTagHelper.getListAction("groupList", request) != null) {
-            helper.execute(set, "groupList", result);
-        }
-        else {
-
-            if (request.getParameter("union") != null) {
-                helper.updateSet(set, "groupList");
-                return union(mapping, formIn, request, response, set);
+            if (l18nSvc.getMessage("grouplist.jsp.union").equals(buttonVal)) {
+                union(mapping, formIn, request, response);
+                clearSet(helper);
+                return mapping.findForward("ssm-list-systems");
             }
-            else if (request.getParameter("intersection") != null) {
-                helper.updateSet(set, "groupList");
-                return intersection(mapping, formIn, request, response, set);
+            else if (l18nSvc.getMessage("grouplist.jsp.intersection").equals(buttonVal)) {
+                intersection(mapping, formIn, request, response);
+                clearSet(helper);
+                return mapping.findForward("ssm-list-systems");
             }
-        }
-
-        if (!set.isEmpty()) {
-            helper.syncSelections(set, result);
-            ListTagHelper.setSelectedAmount("result", set.size(), request);
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private void clearSet(ListRhnSetHelper helper) {
+        RhnSet set =  helper.getSet();
+        set.clear();
+        RhnSetManager.store(set);
     }
 
     protected RhnSetDecl getSetDecl() {
@@ -109,27 +100,16 @@ public class SystemGroupListSetupAction extends RhnAction {
      * @param formIn ActionForm
      * @param request HttpServletRequest
      * @param response HttpServletResponse
-     * @param groupSet the set of groups to intersect
-     * @return the ActionForward that uses the intersection of the
-     *         chosen groups in the SSM
      */
-    public ActionForward intersection(ActionMapping mapping,
+    public void intersection(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
-            HttpServletResponse response, RhnSet groupSet) {
+            HttpServletResponse response) {
 
         User user = new RequestContext(request).getCurrentUser();
         RhnSet systemSet = RhnSetDecl.SYSTEMS.create(user);
+        RhnSet groupSet = getSetDecl().get(user);
 
-        if (groupSet.isEmpty()) {
-            ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("systemgroups.none"));
-            getStrutsDelegate().saveMessages(request, msg);
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-        }
-
-       // Iterator groups = groupSet.getElements().iterator();
         List<Long> firstList = new ArrayList<Long>();
         List<Long> secondList = new ArrayList<Long>();
 
@@ -160,23 +140,9 @@ public class SystemGroupListSetupAction extends RhnAction {
             systemSet.addElement(i);
         }
         RhnSetManager.store(systemSet);
-
-        /*
-         * Until SSM stuff is done in java, we have to redirect because struts
-         * doesn't easily go outside of the /rhn context
-         * TODO: make this an ActionForward
-         */
-        try {
-            response.sendRedirect("/rhn/systems/ssm/ListSystems.do");
-        }
-        catch (IOException exc) {
-            // This really shouldn't happen, but just in case, log and
-            // return.
-            LOG.error("IOException when trying to redirect to " +
-                    "/rhn/systems/ssm/ListSystems.do", exc);
-        }
-
-        return null;
+        RhnSet set =  getSetDecl().get(user);
+        set.clear();
+        RhnSetManager.store(set);
     }
 
 
@@ -199,24 +165,14 @@ public class SystemGroupListSetupAction extends RhnAction {
      * @param formIn ActionForm
      * @param request HttpServletRequest
      * @param response HttpServletResponse
-     * @param groupSet the set of groups to union
-     * @return the ActionForward that uses the union of the
-     *         chosen groups in the SSM
      */
-    public ActionForward union(ActionMapping mapping,
+    public void union(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
-            HttpServletResponse response, RhnSet groupSet) {
+            HttpServletResponse response) {
         User user = new RequestContext(request).getCurrentUser();
         RhnSet systemSet = RhnSetDecl.SYSTEMS.create(user);
-
-        if (groupSet.isEmpty()) {
-            ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("systemgroups.none"));
-            getStrutsDelegate().saveMessages(request, msg);
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-        }
+        RhnSet groupSet = getSetDecl().get(user);
 
         Iterator<RhnSetElement> groups = groupSet.getElements().iterator();
         while (groups.hasNext()) { //for every group
@@ -233,22 +189,13 @@ public class SystemGroupListSetupAction extends RhnAction {
         }
 
         RhnSetManager.store(systemSet);
+    }
 
-        /*
-         * Until SSM stuff is done in java, we have to redirect because struts
-         * doesn't easily go outside of the /rhn context
-         * TODO: make this an ActionForward
-         */
-        try {
-            response.sendRedirect("/rhn/systems/ssm/ListSystems.do");
-        }
-        catch (IOException exc) {
-            // This really shouldn't happen, but just in case, log and
-            // return.
-            LOG.error("IOException when trying to redirect to " +
-                    "/rhn/systems/ssm/ListSystems.do", exc);
-        }
-
-        return null;
+    @Override
+    public List<SystemGroupOverview> getResult(RequestContext context) {
+        User user = context.getCurrentUser();
+        DataResult<SystemGroupOverview> dr =
+                        SystemManager.groupListWithServerCount(user, null);
+        return dr;
     }
 }

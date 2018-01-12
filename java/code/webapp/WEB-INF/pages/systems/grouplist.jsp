@@ -4,7 +4,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
-
 <html>
 <head>
 </head>
@@ -17,10 +16,9 @@
   <bean:message key="grouplist.jsp.header"/>
 </rhn:toolbar>
 
-<rl:listset name="groupSet" legend="system-group">
-  <rhn:csrf />
-  <rhn:submitted />
-  <%@ include file="/WEB-INF/pages/common/fragments/systems/group_listdisplay.jspf" %>
+<rl:listset  name="groups" legend="system-group">
+<rhn:csrf />
+ <%@ include file="/WEB-INF/pages/common/fragments/systems/group_listdisplay.jspf" %>
 </rl:listset>
 
 </body>

@@ -14,26 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.systems;
 
-import com.redhat.rhn.domain.rhnset.SetCleanup;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.user.UserManager;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.user.UserManager;
 
 /**
  * OverviewAction
@@ -42,8 +40,8 @@ public class OverviewAction extends RhnListAction {
 
     private static Logger log = Logger.getLogger(OverviewAction.class);
 
-    // redirect_url can send us to the Java side or the Perl side, and *nowhere else*
-    private static final String[] ALLOWED_REDIRECTS = { "/rhn/", "/network/" };
+    // redirect_url can send us to the Java side and *nowhere else*
+    private static final String[] ALLOWED_REDIRECTS = { "/rhn/" };
 
     //
     // Only follow redirects if they're "inside" the app (close open-redirecting)
@@ -85,6 +83,9 @@ public class OverviewAction extends RhnListAction {
          * todo is this: we should stop using this page as a passthrough, decide
          * whether we like how the clear button works, and determine if we should stop
          * using simply defaults on the java side.
+         *
+         * TODO: Perl is gone. Half of the above comment is probably no longer
+         * necessary. Come back some day and clean this...suboptimal bit of code.
          */
         String emptySet = request.getParameter("empty_set");
         String setLabel = request.getParameter("set_label");
@@ -96,7 +97,7 @@ public class OverviewAction extends RhnListAction {
             }
 
             //empty the specified set
-            RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP).clear(user);
+            RhnSetDecl.find(setLabel).clear(user);
 
             if (returnUrl == null) {
                 return mapping.findForward("YourRhn");
@@ -113,29 +114,40 @@ public class OverviewAction extends RhnListAction {
             return null;
         }
 
-        //If they specified systems or groups, use that and save it.
+        // If they specified systems or groups, use that and save it.
+        // If showgroups is NOT specified (because we're actually coming here after
+        // running one of the sub-page execute() calls below, who know nothing
+        // of this contract...), then read the user's current setting from the
+        // database.
         String showGroups = request.getParameter("showgroups");
-        if (showGroups != null) {
-            if (showGroups.equals("true")) {
+        Boolean choseGroups = Boolean.FALSE;
+
+        if (showGroups == null) {
+            choseGroups = user.getShowSystemGroupList().equals("Y");
+        }
+        else {
+            // "true" == Boolean.TRUE, null or anything-else == Boolean.FALSE
+            choseGroups = new Boolean(showGroups);
+            if (choseGroups) {
                 user.setShowSystemGroupList("Y");
             }
-            else if (showGroups.equals("false")) {
+            else {
                 user.setShowSystemGroupList("N");
             }
             UserManager.storeUser(user);
         }
 
-        //Get the user preference from the database (groups or systems)
-        Boolean groups = user.getShowSystemGroupList().equals("Y");
-        request.setAttribute("groups", groups.toString());
+        request.setAttribute("groups", choseGroups.toString());
 
+        // Two possible submit-actions depending on whether the user cares
+        // about Systems, or SystemGroups.
+        //
+        // This is so weird :(
         ActionForward forward;
-
-        //These are the submit actions.  Does hurt to call them every time
-        //because they both have unspecified methods.
         try {
-            if (!groups.booleanValue()) {
-                SystemListAction action = new SystemListAction();
+            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+            if (!choseGroups) {
+                SystemListSetupAction action = new SystemListSetupAction();
                 action.setServlet(getServlet());
                 forward = action.execute(mapping, formIn, request, response);
             }
@@ -144,29 +156,11 @@ public class OverviewAction extends RhnListAction {
                 action.setServlet(getServlet());
                 forward = action.execute(mapping, formIn, request, response);
             }
+            return forward;
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        //This is for the actions in SystemGroupListAction
-        //SystemGroupListAction currently redirects to a perl page for its
-        //two real actions.  To avoid the IllegalStateException we need to
-        //refrain from redirecting and forwarding.
-        if (forward == null ||
-                mapping.findForward(RhnHelper.DEFAULT_FORWARD).equals(forward)) {
-            return forward;
-        }
-
-        //These are the setup actions
-        if (!groups.booleanValue()) {
-            new SystemListSetupAction().execute(mapping, formIn, request, response);
-        }
-        else {
-            new SystemGroupListSetupAction().execute(mapping, formIn, request, response);
-        }
-
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 }
 

@@ -14,6 +14,26 @@
  */
 package com.redhat.rhn.manager.system;
 
+import java.net.IDN;
+import java.sql.Date;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.Config;
@@ -79,26 +99,6 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemRemoveCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
-import java.net.IDN;
-import java.sql.Date;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * SystemManager
@@ -827,6 +827,25 @@ public class SystemManager extends BaseManager {
         elabParams.put("org_id", user.getOrg().getId());
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m, SystemGroupOverview.class);
+    }
+
+    /**
+     * Returns list of system groups visible to user, with system-counts.
+     * This is marginally faster than the work done when elaborating in
+     * groupList(), to allow sorting-by-syscount without having to pay the
+     * full overhead of groupList()'s elaborator.
+     *
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemGroupOverviews.
+     */
+    public static DataResult<SystemGroupOverview> groupListWithServerCount(
+                    User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries",
+                        "visible_to_user_and_counts");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        return makeDataResult(params, null, pc, m, SystemGroupOverview.class);
     }
 
     /**
