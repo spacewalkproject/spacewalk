@@ -32,9 +32,11 @@
 
  <rl:listset name="groups">
   <rhn:csrf />
-  <rl:list emptykey="systems.groups.jsp.noGroups.nonadmin">
+  <rl:list emptykey="systems.groups.jsp.noGroups.nonadmin"
+   alphabarcolumn="name"
+   filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemGroupFilter">
    <rl:decorator name="PageSizeDecorator" />
-   <rl:column headerkey="systems.groups.jsp.title">
+   <rl:column headerkey="systems.groups.jsp.title" sortable="true" bound="false" sortattr="name">
     <p>
      <a href="/rhn/groups/GroupDetail.do?sgid=${current.id}">
        <c:out value="${current.name}" />

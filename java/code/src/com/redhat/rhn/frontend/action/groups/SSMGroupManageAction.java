@@ -34,7 +34,7 @@ import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -63,7 +63,8 @@ public class SSMGroupManageAction extends RhnAction
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getCurrentUser();
 
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        ListRhnSetHelper helper =
+                        new ListRhnSetHelper(this, request, RhnSetDecl.SSM_GROUP_LIST);
         helper.ignoreEmptySelection();
         helper.execute();
 
