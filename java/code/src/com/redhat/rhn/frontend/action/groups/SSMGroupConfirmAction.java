@@ -14,6 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.groups;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
@@ -25,31 +40,24 @@ import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * SSMGroupManageAction
  * @version $Rev$
  */
-public class SSMGroupConfirmAction extends RhnAction {
+public class SSMGroupConfirmAction extends RhnAction implements Listable {
+
+    // must match rl:list dataset and name tags!!
+    private String ADD_DATA = "addSet";
+    private String ADD_LIST = "addList";
+    private String RMV_DATA = "removeSet";
+    private String RMV_LIST = "removeList";
 
     /**
      * {@inheritDoc}
@@ -69,7 +77,17 @@ public class SSMGroupConfirmAction extends RhnAction {
             return mapping.findForward("success");
         }
 
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        ListSessionSetHelper addedHelper = new ListSessionSetHelper(this, request);
+        addedHelper.setDataSetName(ADD_DATA);
+        addedHelper.setListName(ADD_LIST);
+        addedHelper.ignoreEmptySelection();
+        addedHelper.execute();
+
+        ListSessionSetHelper removedHelper = new ListSessionSetHelper(this, request);
+        removedHelper.setDataSetName(RMV_DATA);
+        removedHelper.setListName(RMV_LIST);
+        removedHelper.ignoreEmptySelection();
+        removedHelper.execute();
 
         List<SystemGroupOverview> addList = new ArrayList<SystemGroupOverview>();
         List<SystemGroupOverview> removeList = new ArrayList<SystemGroupOverview>();
@@ -96,7 +114,7 @@ public class SSMGroupConfirmAction extends RhnAction {
                 .getLabel());
 
         // If submitted, actually do the add / remove
-        if (isSubmitted(daForm)) {
+        if (addedHelper.isDispatched()) {
             Set<Server> servers = new HashSet<Server>();
             for (SystemOverview system : systems) {
                 servers.add(ServerFactory.lookupById(system.getId()));
@@ -115,13 +133,22 @@ public class SSMGroupConfirmAction extends RhnAction {
                 manager.removeServers(msg, intersection, user);
             }
             createSuccessMessage(request, "ssm.groups.changed", null);
+            groupSet.clear();
+            RhnSetManager.store(groupSet);
+
             return mapping.findForward("success");
         }
 
-        request.setAttribute("addList", addList);
-        request.setAttribute("removeList", removeList);
+        request.setAttribute(ADD_DATA, addList);
+        request.setAttribute(RMV_DATA, removeList);
         request.setAttribute("numServers", systems.size());
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    @Override
+    public List getResult(RequestContext context) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
 
