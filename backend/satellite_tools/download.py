@@ -205,6 +205,8 @@ class DownloadThread(Thread):
         for retry in range(max(self.parent.retries, mirrors)):
             fo = None
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
+            if params['authtoken']:
+                url = "{0}?{1}".format(url, params['authtoken'])
             try:
                 try:
                     fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl, self.parent)
