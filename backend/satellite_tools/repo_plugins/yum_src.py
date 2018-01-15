@@ -38,6 +38,12 @@ except ImportError:
         import cElementTree
     iterparse = cElementTree.iterparse
 from urlgrabber.grabber import URLGrabError
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
 
 from spacewalk.common import fileutils, checksum
 from spacewalk.satellite_tools.download import get_proxies
@@ -126,10 +132,16 @@ class ContentSource(object):
         self.proxy_addr = None
         self.proxy_user = None
         self.proxy_pass = None
+        self.authtoken = None
 
         # read the proxy configuration
         # /etc/rhn/rhn.conf has more priority than yum.conf
         initCFG('server.satellite')
+
+        # keep authtokens for mirroring
+        (_scheme, _netloc, _path, query, _fragid) = urlparse.urlsplit(url)
+        if query:
+            self.authtoken = query
 
         if CFG.http_proxy:
             self.proxy_addr = CFG.http_proxy
@@ -546,6 +558,7 @@ class ContentSource(object):
 
         params['urls'] = self.repo.urls
         params['relative_path'] = relative_path
+        params['authtoken'] = self.authtoken
         params['target_file'] = target_file
         params['ssl_ca_cert'] = self.repo.sslcacert
         params['ssl_client_cert'] = self.repo.sslclientcert
