@@ -840,7 +840,7 @@ def expand_systems(self, args):
             results = self.do_system_search(query, True)
 
             if results:
-                systems.extend([re.escape(r) for r in results])
+                system_ids.extend(results)
         elif re.match('channel:', item):
             item = re.sub('channel:', '', item)
             members = self.do_softwarechannel_listsystems(item, True)

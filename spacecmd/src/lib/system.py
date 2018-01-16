@@ -308,10 +308,10 @@ def do_system_search(self, args, doreturn=False):
             if len(s.get('name')) > max_size:
                 max_size = len(s.get('name'))
 
-            systems.append((s.get('name'), s.get(key)))
+            systems.append((s.get('name'), s.get(key), s.get('id')))
 
     if doreturn:
-        return [s[0] for s in systems]
+        return [s[2] for s in systems]
     else:
         if systems:
             for s in sorted(systems):
