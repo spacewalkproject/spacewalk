@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.37
+Version: 2.8.38
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Jan 17 2018 Jiri Dostal <jdostal@redhat.com> 2.8.38-1
+- Keep the authtoken appended to the URL when downloading repo content
+
 * Mon Jan 08 2018 Jan Dobes <jdobes@redhat.com> 2.8.37-1
 - 1507553 - include unmapped channels in channel list and EOL channel list
 - 1507553 - change message to warning and don't display with default verbose
