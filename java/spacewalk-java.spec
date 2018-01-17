@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.56
+Version: 2.8.57
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 17 2018 Jiri Dostal <jdostal@redhat.com> 2.8.57-1
+- 1052292 - Task that is already picked up by the client can be cancelled via
+  API
+
 * Fri Jan 12 2018 Grant Gainey 2.8.56-1
 - 1534021 - Fix sorting on systems/SystemGroupList; clean up systems/Overview
 
