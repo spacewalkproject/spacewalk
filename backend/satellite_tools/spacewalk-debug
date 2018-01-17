@@ -103,6 +103,7 @@ elif [ -d /etc/apache2 ]; then
     cp -fapRd /etc/apache2/vhosts* $DIR/conf/httpd
 fi
 cp -fapRd /etc/rhn $DIR/conf/rhn
+sed -i 's/db_password.*/db_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf
 cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
 if [ -f /etc/tnsnames.ora ] ; then
     cp -fad /etc/tnsnames.ora $DIR/conf
