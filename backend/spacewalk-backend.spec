@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.38
+Version: 2.8.39
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Jan 17 2018 Jan Dobes <jdobes@redhat.com> 2.8.39-1
+- 1534417 - hide plaintext password in spacewalk-debug archive
+
 * Wed Jan 17 2018 Jiri Dostal <jdostal@redhat.com> 2.8.38-1
 - Keep the authtoken appended to the URL when downloading repo content
 
