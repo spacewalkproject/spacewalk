@@ -18,9 +18,12 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.action.ActionIsChildException;
+import com.redhat.rhn.manager.action.ActionIsPickedUpException;
 import com.redhat.rhn.manager.action.ActionManager;
 
 import java.util.ArrayList;
@@ -55,6 +58,12 @@ public class ScheduleHandler extends BaseHandler {
         List actions = new ArrayList<Action>();
         for (Integer actionId : actionIds) {
             Action action = ActionManager.lookupAction(loggedInUser, new Long(actionId));
+            for (ServerAction sa : action.getServerActions()) {
+                if (ActionFactory.STATUS_PICKEDUP.equals(sa.getStatus())) {
+                    throw new ActionIsPickedUpException("Cannot cancel actions in " +
+                            "PICKED UP state, aborting...");
+                }
+            }
             if (action != null) {
                 actions.add(action);
             }
