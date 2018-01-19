@@ -200,7 +200,7 @@ def help_history(self):
 
 def do_history(self, args):
     for i in range(1, readline.get_current_history_length()):
-        print '%s  %s' % (str(i).rjust(4), readline.get_history_item(i))
+        print '%4s  %s' % (i, readline.get_history_item(i))
 
 ####################
 

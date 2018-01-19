@@ -89,13 +89,13 @@ def print_schedule_summary(self, action_type, args):
                 continue
 
         if self.check_api_version('10.11'):
-            print '%s  %s   %s  %s  %s    %s' % \
-                  (str(action.get('id')).ljust(6),
+            print '%-6s  %s   %s  %-3s  %3s    %3s' % \
+                  (action.get('id'),
                    action.get('earliest'),
-                   str(action.get('completedSystems')).rjust(3),
-                   str(action.get('failedSystems')).rjust(3),
-                   str(action.get('inProgressSystems')).rjust(3),
-                   action.get('name'))
+                   action.get('completedSystems'),
+                   action.get('failedSystems'),
+                   action.get('inProgressSystems'),
+                   action.get('name')))
         else:
             # Satellite 5.3 compatibility
             in_progress = \
@@ -110,13 +110,13 @@ def print_schedule_summary(self, action_type, args):
                 self.client.schedule.listFailedSystems(self.session,
                                                        action.get('id'))
 
-            print '%s  %s   %s  %s  %s    %s' % \
-                  (str(action.get('id')).ljust(6),
+            print '%-6s  %s   %3s  %3s  %3s    %s' % \
+                  (action.get('id'),
                    action.get('earliest'),
-                   str(len(completed)).rjust(3),
-                   str(len(failed)).rjust(3),
-                   str(len(in_progress)).rjust(3),
-                   action.get('name'))
+                   len(completed),
+                   len(failed),
+                   len(in_progress),
+                   action.get('name')))
 
 ####################
 
@@ -271,9 +271,9 @@ def do_schedule_details(self, args):
     print 'User:      %s' % action.get('scheduler')
     print 'Date:      %s' % action.get('earliest')
     print
-    print 'Completed: %s' % str(len(completed)).rjust(3)
-    print 'Failed:    %s' % str(len(failed)).rjust(3)
-    print 'Pending:   %s' % str(len(pending)).rjust(3)
+    print 'Completed: %3s' % len(completed)
+    print 'Failed:    %3s' % len(failed)
+    print 'Pending:   %3s' % len(pending)
 
     if completed:
         print

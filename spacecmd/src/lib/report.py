@@ -92,8 +92,8 @@ def do_report_outofdatesystems(self, args):
         print ('-' * max_size) + '  --------'
 
         for system in sorted(report):
-            print '%s       %s' % \
-                  (system.ljust(max_size), str(report[system]).rjust(3))
+            print '%s       %3s' % \
+                  (system.ljust(max_size), report[system])
 
 ####################
 
@@ -149,8 +149,8 @@ def do_report_errata(self, args):
         print '%s  # Systems' % ('Errata'.ljust(max_size))
         print '%s  ---------' % ('------'.ljust(max_size))
         for erratum in sorted(report):
-            print '%s        %s' % \
-                  (erratum.ljust(max_size), str(report[erratum]).rjust(3))
+            print '%s        %3s' % \
+                  (erratum.ljust(max_size), report[erratum])
 
 ####################
 
@@ -202,10 +202,10 @@ def do_report_ipaddresses(self, args):
                               '--------'.ljust(hostname_max_size))
 
         for system in sorted(report):
-            print '%s  %s  %s' % \
+            print '%s  %s  %-15s' % \
                 (system.ljust(system_max_size),
                  report[system]['hostname'].ljust(hostname_max_size),
-                 report[system]['ip'].ljust(15))
+                 report[system]['ip'])
 
 ####################
 

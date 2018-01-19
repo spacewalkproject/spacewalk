@@ -133,8 +133,8 @@ def do_errata_apply(self, args, only_systems=None):
 
         # make a summary list to show the user
         if erratum in to_apply_by_name:
-            summary.append('%s        %s' % (erratum.ljust(15),
-                                             str(len(to_apply_by_name[erratum])).rjust(3)))
+            summary.append('%-15s        %3s' % (erratum,
+                                             len(to_apply_by_name[erratum])))
         else:
             logging.debug('%s does not affect any systems' % erratum)
 
@@ -449,7 +449,7 @@ def do_errata_delete(self, args):
     # tell the user how many channels each erratum affects
     for erratum in sorted(errata):
         channels = self.client.errata.applicableToChannels(self.session, erratum)
-        print '%s    %s' % (erratum.ljust(20), str(len(channels)).rjust(3))
+        print '%-20s    %3s' % (erratum, len(channels))
 
     if not self.user_confirm('Delete these errata [y/N]:'):
         return

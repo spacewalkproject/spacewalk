@@ -1276,8 +1276,8 @@ def do_softwarechannel_removeerrata(self, args):
     print '\n'.join(sorted([self.get_package_name(p) for p in package_ids]))
 
     print
-    print 'Total Errata:   %s' % str(len(errata)).rjust(3)
-    print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
+    print 'Total Errata:   %3s' % len(errata)
+    print 'Total Packages: %3s' % len(package_ids)
 
     if not self.user_confirm('Remove these errata [y/N]:'):
         return
@@ -1592,10 +1592,10 @@ def do_softwarechannel_adderrata(self, args):
             sorted([self.get_package_name(p) for p in package_ids]))
 
         print
-    print 'Total Errata:   %s' % str(len(errata)).rjust(3)
+    print 'Total Errata:   %3s' % len(errata)
 
     if not options.quick:
-        print 'Total Packages: %s' % str(len(package_ids)).rjust(3)
+        print 'Total Packages: %3s' % len(package_ids)
 
     if not self.user_confirm('Add these errata [y/N]:'):
         return
@@ -1923,8 +1923,8 @@ def dump_softwarechannel_errata(self, name):
     errata = self.client.channel.software.listErrata(self.session, name)
     result = []
     for erratum in errata:
-        result.append('%s %s' % (
-            erratum.get('advisory_name').ljust(14),
+        result.append('%-14s %s' % (
+            erratum.get('advisory_name'),
             wrap(erratum.get('advisory_synopsis'), 50)[0]))
     result.sort()
     return result
@@ -2080,13 +2080,11 @@ def do_softwarechannel_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len(source_ids)).rjust(5), "packages"
-        print "  " + target_channel + ": " + str(len(target_ids)).rjust(5), "packages"
-        print "    add   ", str(
-            len(source_only)).rjust(5), "packages to  ", target_channel
-        print "    remove", str(
-            len(target_only)).rjust(5), "packages from", target_channel
-        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
+        print "  %s: %5i packages" % (source_channel, len(source_ids))
+        print "  %s: %5i packages" % (target_channel, len(target_ids))
+        print "    add   %5i packages to %s" %  (len(source_only), target_channel)
+        print "    remove %5i packages from %s" % (len(target_only), target_channel)
+        if not self.user_confirm('Perform these changes to channel %s [y/N]:' % target_channel):
             return
 
         self.client.channel.software.addPackages(self.session,
@@ -2192,14 +2190,12 @@ def do_softwarechannel_errata_sync(self, args):
 
     if source_only or target_only:
         print "summary:"
-        print "  " + source_channel + ": " + str(len(source_ids)).rjust(5), "errata"
-        print "  " + target_channel + ": " + str(len(target_ids)).rjust(5), "errata"
-        print "    add   ", str(
-            len(source_only)).rjust(5), "errata to  ", target_channel
-        print "    remove", str(
-            len(target_only)).rjust(5), "errata from", target_channel
+        print "  %s: %5i errata" % (source_channel, len(source_ids))
+        print "  %s: %5i errata" % (target_channel, len(target_ids))
+        print "    add   %5i errata to %s" % (len(source_only), target_channel)
+        print "    remove %5i errata from %s" % (len(target_only), target_channel)
 
-        if not self.user_confirm('Perform these changes to channel ' + target_channel + ' [y/N]:'):
+        if not self.user_confirm('Perform these changes to channel %s [y/N]:' % target_channel):
             return
 
         for erratum in source_only:
