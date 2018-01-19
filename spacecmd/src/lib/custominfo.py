@@ -30,8 +30,8 @@ from spacecmd.utils import *
 
 
 def help_custominfo_createkey(self):
-    print 'custominfo_createkey: Create a custom key'
-    print 'usage: custominfo_createkey [NAME] [DESCRIPTION]'
+    print('custominfo_createkey: Create a custom key')
+    print('usage: custominfo_createkey [NAME] [DESCRIPTION]')
 
 
 def do_custominfo_createkey(self, args):
@@ -60,8 +60,8 @@ def do_custominfo_createkey(self, args):
 
 
 def help_custominfo_deletekey(self):
-    print 'custominfo_deletekey: Delete a custom key'
-    print 'usage: custominfo_deletekey KEY ...'
+    print('custominfo_deletekey: Delete a custom key')
+    print('usage: custominfo_deletekey KEY ...')
 
 
 def complete_custominfo_deletekey(self, text, line, beg, end):
@@ -85,7 +85,7 @@ def do_custominfo_deletekey(self, args):
         return
 
     # Print the keys prior to the confirmation
-    print '\n'.join(sorted(keys))
+    print('\n'.join(sorted(keys)))
 
     if not self.user_confirm('Delete these keys [y/N]:'):
         return
@@ -97,8 +97,8 @@ def do_custominfo_deletekey(self, args):
 
 
 def help_custominfo_listkeys(self):
-    print 'custominfo_listkeys: List all custom keys'
-    print 'usage: custominfo_listkeys'
+    print('custominfo_listkeys: List all custom keys')
+    print('usage: custominfo_listkeys')
 
 
 def do_custominfo_listkeys(self, args, doreturn=False):
@@ -109,14 +109,14 @@ def do_custominfo_listkeys(self, args, doreturn=False):
         return keys
     else:
         if keys:
-            print '\n'.join(sorted(keys))
+            print('\n'.join(sorted(keys)))
 
 ####################
 
 
 def help_custominfo_details(self):
-    print 'custominfo_details: Show the details of a custom key'
-    print 'usage: custominfo_details KEY ...'
+    print('custominfo_details: Show the details of a custom key')
+    print('usage: custominfo_details KEY ...')
 
 
 def complete_custominfo_details(self, text, line, beg, end):
@@ -149,20 +149,20 @@ def do_custominfo_details(self, args):
                 details = k
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Label:        %s' % details.get('label')
-        print 'Description:  %s' % details.get('description')
-        print 'Modified:     %s' % details.get('last_modified')
-        print 'System Count: %i' % details.get('system_count')
+        print('Label:        %s' % details.get('label'))
+        print('Description:  %s' % details.get('description'))
+        print('Modified:     %s' % details.get('last_modified'))
+        print('System Count: %i' % details.get('system_count'))
 
 ####################
 
 
 def help_custominfo_updatekey(self):
-    print 'custominfo_updatekey: Update a custom key'
-    print 'usage: custominfo_updatekey [NAME] [DESCRIPTION]'
+    print('custominfo_updatekey: Update a custom key')
+    print('usage: custominfo_updatekey [NAME] [DESCRIPTION]')
 
 
 def do_custominfo_updatekey(self, args):
