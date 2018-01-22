@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.8.2
+Version:    2.8.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -124,6 +124,12 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Mon Jan 22 2018 Jiri Dostal <jdostal@redhat.com> 2.8.4-1
+- Unify icons/style with other services
+
+* Mon Jan 22 2018 Jiri Dostal <jdostal@redhat.com>
+- Unify icons/style with other services
+
 * Wed Jan 03 2018 Jiri Dostal <jdostal@redhat.com> 2.8.2-1
 - Add another table style, some tables are hard to read
 
