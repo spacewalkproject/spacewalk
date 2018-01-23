@@ -1,0 +1,258 @@
+#!/usr/bin/python
+#
+# Utility for purging old snapshots
+#
+# Copyright (c) 2018 Red Hat, Inc.
+#
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+"""spacewalk-manage-snapshots - a tool allowing the Spacewalk Admin to clean old entries out of the snapshot tables in the SW database"""
+
+import os
+import sys
+import time
+
+from optparse import OptionParser
+from datetime import datetime
+
+try:
+    from spacewalk.common import rhnLog
+    from spacewalk.common.rhnConfig import CFG, initCFG
+    from spacewalk.common.rhnLog import log_clean
+    from spacewalk.server import rhnSQL
+except ImportError:
+    # pylint: disable=F0401
+    _LIBPATH = '/usr/share/rhn'
+    if _LIBPATH not in sys.path:
+        sys.path.append(_LIBPATH)
+    from server import rhnSQL
+    from common import rhnLog
+    from common.rhnLog import log_clean
+    from common.rhnConfig import CFG, initCFG
+
+LOG_LOCATION = '/var/log/rhn/spacewalk-manage-snapshots.log'
+
+SQL_PIECES = {'oracle': {
+    'COUNT': 'select count(*) from %(table)s',
+    'BUCKETS': """
+select case
+  when ss.created >= (current_timestamp - numtodsinterval(:interval,'day')) then '1'
+  when ss.created < (current_timestamp - numtodsinterval(:interval,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*2,'day')) then '2'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*2,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*3,'day')) then '3'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*3,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*4,'day')) then '4'
+  else '5'
+end as AGE,
+count(ss.id) as SNAPSHOTS,
+count(distinct ss.server_id) as SERVERS_AFFECTED
+  from rhnsnapshot ss
+ group by case
+  when ss.created >= (current_timestamp - numtodsinterval(:interval,'day')) then '1'
+  when ss.created < (current_timestamp - numtodsinterval(:interval,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*2,'day')) then '2'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*2,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*3,'day')) then '3'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*3,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*4,'day')) then '4'
+  else '5'
+end
+ order by AGE
+    """,
+    'FIND_TABLE': "select table_name from user_tables where table_name like 'RHNSNAPSHOT%' escape '|' order by table_name",
+    'PURGE_DATA': "delete from rhnsnapshot ss where ROWNUM <= :batchsize and ss.created < current_timestamp - numtodsinterval(:num_days,'day')",
+    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < current_timestamp - numtodsinterval(:num_days,'day')",
+    'LOCK_GROUPS': "lock table rhnSnapshotServerGroup in row exclusive mode"
+},
+    'postgresql': {
+    'COUNT': 'select count(*) from %(table)s;',
+    'BUCKETS': """
+select case
+  when ss.created >= (current_timestamp - numtodsinterval(:interval,'day'))
+    then '1'
+  when ss.created < (current_timestamp - numtodsinterval(:interval,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*2,'day'))
+    then '2'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*2,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*3,'day'))
+    then '3'
+  when ss.created < (current_timestamp - numtodsinterval(:interval*3,'day'))
+   and ss.created >= (current_timestamp - numtodsinterval(:interval*4,'day'))
+    then '4'
+  else '5'
+end as AGE,
+count(ss.id) as SNAPSHOTS,
+count(distinct ss.server_id) as SERVERS_AFFECTED
+  from rhnsnapshot ss
+ group by AGE
+ order by AGE
+    """,
+    'FIND_TABLE': "select table_name from information_schema.tables where table_name like 'rhnsnapshot%' escape '!' order by table_name",
+    'PURGE_DATA': "delete from rhnsnapshot ss where ss.id = any (array(select id from rhnsnapshot where ss.created < current_timestamp - numtodsinterval(:num_days, 'day') limit :batchsize))",
+    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < current_timestamp - numtodsinterval(:num_days, 'day')",
+    'LOCK_GROUPS': "lock table rhnSnapshotServerGroup in access exclusive mode"
+}
+}
+
+
+def setup_options():
+    usage = 'usage: %prog [--reports [--interval <INTERVAL>] | --delete-older-than <DAYS>]'
+    parser = OptionParser(usage=usage)
+
+    parser.add_option('-b', '--batch-size', action='store', dest='batch_size',
+                      metavar='ROWS-PER-COMMIT', type='int', default=1000,
+                      help='Number of rows to delete per commit (default is 1000)')
+    parser.add_option('-d', '--delete-older-than', action='store', dest='num_days', metavar='DAYS', type='int',
+                      help='Snapshots DAYS old or older will be purged from the database')
+    parser.add_option('-i', '--interval-older-than', action='store', dest='report_interval',
+                      metavar='INTERVAL', type='int', default='90',
+                      help='INTERVAL-in-days period to use for --reports (default is 90 days)')
+    parser.add_option('-r', '--reports', action='store_true', dest='reports',
+                      help='Report current table-sizes (in rows) for all snapshot-related tables and report on the last four --interval periods for snapshots')
+    return parser
+
+
+def validate_options():
+    parser = setup_options()
+    (options, args) = parser.parse_args()
+
+    # You have to ask for a report or a delete
+    if not (options.reports or (options.num_days is not None)):
+        parser.error("Either --reports or --delete-older-than is required")
+
+    return (options, args)
+
+
+def _log(stmt):
+    logger = os.getenv("SUDO_USER")
+    if logger == None:
+        logger = 'root'
+    log_clean(0, '{0}|{1}|{2}'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), logger, stmt))
+
+
+def _get_sql(key):
+    return SQL_PIECES.get(CFG.DB_BACKEND).get(key)
+
+
+def tables():
+    """What are the tables whose names fit the pattern rhnsnapshot*?"""
+    stmt = rhnSQL.execute(_get_sql('FIND_TABLE'))
+    table_names = stmt.fetchall() or []
+    rc = []
+    for name in table_names:
+        rc.append(name[0])
+    return rc
+
+
+def count(tbl):
+    """How many rows are in table <tbl>?"""
+    tbl_str = _get_sql('COUNT') % {"table": tbl}
+    stmt = rhnSQL.execute(tbl_str)
+    num_rows = stmt.fetchone()
+    return num_rows[0]
+
+
+def purge_count(tbl, opt):
+    """How many rows are we planning to remove from <tbl>?"""
+    tbl_str = _get_sql('PURGE_COUNT') % {"table": tbl}
+    stmt = rhnSQL.execute(tbl_str, num_days=opt.num_days )
+    num_rows = stmt.fetchone()
+    return num_rows[0]
+
+
+def _generate_age_string(val, opt):
+    """age is returned as a bucket-number, 1-5. Convert it to days-old based on report_interval"""
+    bucket = int(val)
+    if bucket == 5:
+        return '>{0}'.format((bucket-1)*opt.report_interval)
+    else:
+        return '{0:4d}-{1:<4d}'.format(((bucket-1)*opt.report_interval)+1, bucket*opt.report_interval)
+
+def buckets(opt):
+    """Show number of snapshots per-interval"""
+    tbl_str = _get_sql('BUCKETS')
+    stmt = rhnSQL.execute(tbl_str, interval=opt.report_interval)
+    rs = stmt.fetchall_dict() or []
+    # strip the chars we use to force ordering
+    for row in rs:
+      row['age'] = _generate_age_string(row['age'], opt)
+    return rs
+
+def report(opt):
+    """List size of all rhnsnapshot* tables found"""
+    names = tables()
+    print
+    print '{0:>26} : {1:>12}'.format('Table name', 'rows')
+    for name in names:
+        print '{0:>26} : {1:>12d}'.format(name, count(name))
+    by_quarter = buckets(opt)
+    if by_quarter:
+        print
+        print ': {0:^36} :'.format('Snapshot info, ' + str(opt.report_interval) + '-day interval')
+        print ': {0:^9} : {1:>9} : {2:>12} :'.format('age(days)', 'systems', 'snapshots')
+        for a_row in by_quarter:
+            print ': {age:^9} : {servers_affected:9d} : {snapshots:12d} :'.format(**a_row)
+    else:
+        print 'No snapshots remain.'
+
+
+def purge(opt):
+    """Remove from the rhnsnapshot* tables anything that happened more than <num_days> old"""
+    print 'Deleting snapshots older than ' + str(opt.num_days) + ' days'
+    _log('Deleting snapshots older than ' + str(opt.num_days) + ' days')
+
+    name = 'rhnsnapshot'
+
+    print '{0:12d} snapshots currently'.format(count(name))
+    _log('{0:12d} snapshots currently'.format(count(name)))
+
+    to_be_purged = purge_count(name, opt)
+    print '{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size)
+
+    lock_str = _get_sql('LOCK_GROUPS')
+    del_str = _get_sql('PURGE_DATA')
+    while to_be_purged > 0:
+        print '...{0:12d} snapshots left to purge'.format(to_be_purged)
+        _log('...{0:12d} snapshots left to purge'.format(to_be_purged))
+        # Commit after each batch - if something blows us up, we don't want to lose the
+        # work that's already been done.
+        # Also limits size of redo-log and friends
+        rhnSQL.transaction('PURGE_BATCH')
+        stmt = rhnSQL.execute(lock_str)
+        stmt = rhnSQL.execute(del_str, batchsize=opt.batch_size, num_days=opt.num_days)
+        rhnSQL.commit()
+        to_be_purged = purge_count(name, opt)
+
+    print '{0:12d} snapshots remain'.format(count(name))
+    _log('{0:12d} snapshots remain'.format(count(name)))
+    return
+
+if __name__ == '__main__':
+    (options, args) = validate_options()
+    initCFG('server')
+    rhnSQL.initDB()
+
+    if options.reports:
+        report(options)
+        sys.exit(0)
+
+    rhnLog.initLOG(LOG_LOCATION)
+    if rhnLog.LOG.real == 0:
+        print 'Failed to access logfile ' + LOG_LOCATION + ' - exiting...'
+        print '(Try running as sudo)'
+        sys.exit(1)
+
+    if options.num_days is not None:
+        purge(options)
