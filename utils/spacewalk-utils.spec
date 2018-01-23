@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.8
+Version:	2.8.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,10 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Jan 23 2018 Grant Gainey 2.8.9-1
+- 1537766 - Add spacewalk-manage-snapshots, to give sw-admin a snapshot-mgt
+  tool
+
 * Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.8-1
 - add nightly-server repository for Fedora 27
 - add nightly-client repository for Fedora 27
