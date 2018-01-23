@@ -1073,6 +1073,7 @@ class _ErratumDumper(BaseRowDumper):
             ('rhn-erratum-refers-to', 'refers_to', 4000),
             ('rhn-erratum-notes', 'notes', 4000),
             ('rhn-erratum-errata-from', 'errata_from', 127),
+            ('rhn-erratum-severity', 'severity', 127)
         ]
         for k, v, b in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))
