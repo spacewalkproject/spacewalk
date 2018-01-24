@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.39
+Version: 2.8.40
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Jan 24 2018 Jiri Dostal <jdostal@redhat.com> 2.8.40-1
+- 1538096 - Security erratum severity is not being synced using synchronization
+  tools
+
 * Wed Jan 17 2018 Jan Dobes <jdobes@redhat.com> 2.8.39-1
 - 1534417 - hide plaintext password in spacewalk-debug archive
 
