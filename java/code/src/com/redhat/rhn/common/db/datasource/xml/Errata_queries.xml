@@ -90,7 +90,7 @@ SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYN
 SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS
   FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
         rhnChannelFamilyMembers CFM,
-        rhnOrgChannelFamilyPermissions OCF
+        rhnOrgChannelFamilyPermissions OCF, E.severity_id AS severityId
  WHERE  CE.errata_id = E.id
    AND  CE.channel_id = C.id
    AND  C.id = CFM.channel_id
@@ -169,7 +169,8 @@ SELECT DISTINCT E.id, E.update_date,
                         E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
             E.advisory_type AS ADVISORY_TYPE,
-                        :sid as ASSOCIATED_SYSTEM
+                        :sid as ASSOCIATED_SYSTEM,
+                        E.severity_id AS severityId
   FROM rhnErrata E,
        rhnServerNeededErrataCache SNEC
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
@@ -230,7 +231,8 @@ SELECT DISTINCT E.id, E.update_date,
                         E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
             E.advisory_type AS ADVISORY_TYPE,
-                        :sid as ASSOCIATED_SYSTEM
+                        :sid as ASSOCIATED_SYSTEM,
+                        E.severity_id AS severityId
   FROM rhnErrata E,
        rhnServerNeededErrataCache SNEC
  WHERE EXISTS (SELECT server_id FROM rhnUserServerPerms USP
@@ -820,7 +822,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory_name,
 </mode>
 
 <query name="in_set" params="user_id, set_label">
-SELECT DISTINCT E.id, E.update_date
+SELECT DISTINCT E.id, E.update_date, E.severity_id AS severityId
   FROM rhnErrata E,
        rhnSet ST
  WHERE ST.user_id = :user_id
@@ -845,7 +847,8 @@ ORDER BY E.update_date, E.id
                                 E.update_date,
                                 E.advisory,
                                 E.advisory_type,
-                                E.last_modified
+                                E.last_modified,
+                                E.severity_id AS severityId
           FROM rhnErrata E,
                rhnSet ST
          WHERE ST.user_id = :user_id
@@ -890,7 +893,8 @@ SELECT DISTINCT E.id,
        E.update_date,
        E.created,
        E.locally_modified,
-       1 AS PUBLISHED
+       1 AS PUBLISHED,
+       E.severity_id AS severityId
   FROM rhnErrata E,
        rhnSet ST
  WHERE ST.user_id = :user_id
@@ -920,7 +924,8 @@ order by e.created
          E.update_date,
          E.created,
          E.locally_modified,
-         1 AS PUBLISHED
+         1 AS PUBLISHED,
+         E.severity_id AS severityId
     FROM rhnErrata E
    WHERE E.org_id = :org_id
 ORDER BY  E.update_date DESC, E.id
@@ -1181,7 +1186,7 @@ ORDER BY  E.update_date DESC, E.id
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type,
         E.synopsis AS advisory_synopsis,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS advisory_last_updated,
-        COUNT(DISTINCT S.id) AS affected_system_count
+        COUNT(DISTINCT S.id) AS affected_system_count, E.severity_id AS severityId
   FROM  rhnErrata E, rhnSet ST, rhnServerNeededErrataCache SNEC, rhnServer S, rhnUserServerPerms USP
  WHERE  USP.user_id = :user_id
    AND  USP.server_id = S.ID
@@ -1191,7 +1196,7 @@ SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type,
    AND  USP.user_id = ST.user_id
    AND  ST.label = 'system_list'
    AND  S.id = ST.element
-GROUP BY  E.id, E.advisory_name, E.advisory, E.advisory_type, E.synopsis, E.update_date
+GROUP BY  E.id, E.advisory_name, E.advisory, E.advisory_type, E.synopsis, E.update_date, E.severity_id
 ORDER BY  E.update_date DESC
 </query>
 
@@ -1368,7 +1373,8 @@ SELECT  1
                                 E.advisory_name AS advisory,
                 E.update_date AS update_date,
                 E.synopsis as advisory_synopsis,
-                E.advisory_type as advisory_type
+                E.advisory_type as advisory_type,
+                E.severity_id AS severityId
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid

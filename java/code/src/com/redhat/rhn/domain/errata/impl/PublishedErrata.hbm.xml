@@ -154,7 +154,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <sql-query name="PublishedErrata.searchById">
         <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName,
                     e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
-                    e.update_date as updateDate, e.issue_date as issueDate
+                    e.update_date as updateDate, e.issue_date as issueDate,
+                    e.severity_id AS severityId
                 from rhnErrata e, rhnChannelErrata CE
                 where e.id IN (:eids)
                   and CE.errata_id = e.id
@@ -169,6 +170,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar column="advisorySynopsis" type="string" />
         <return-scalar column="updateDate" type="timestamp" />
         <return-scalar column="issueDate" type="timestamp" />
+        <return-scalar column="severityId" type="integer" />
     </sql-query>
 
     <sql-query name="PublishedErrata.searchByPackageIds">

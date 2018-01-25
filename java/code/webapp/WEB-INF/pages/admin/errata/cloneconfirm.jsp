@@ -16,9 +16,30 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="erratalist.jsp.noerrata">
   <rhn:listdisplay button="deleteconfirm.jsp.confirm">
     <rhn:column header="erratalist.jsp.type">
-        <c:if test="${current.securityAdvisory}">
-            <rhn:icon type="errata-security" />
-        </c:if>
+    <c:if test="${current.securityAdvisory}">
+    <c:choose>
+    <c:when test="${current.severityid=='0'}">
+        <rhn:icon type="errata-security-critical"
+                  title="erratalist.jsp.securityadvisory"/>
+    </c:when>
+    <c:when test="${current.severityid=='1'}">
+        <rhn:icon type="errata-security-important"
+                  title="erratalist.jsp.securityadvisory"/>
+    </c:when>
+    <c:when test="${current.severityid=='2'}">
+        <rhn:icon type="errata-security-moderate"
+                  title="erratalist.jsp.securityadvisory"/>
+    </c:when>
+    <c:when test="${current.severityid=='3'}">
+        <rhn:icon type="errata-security-low"
+                  title="erratalist.jsp.securityadvisory"/>
+    </c:when>
+    <c:otherwise>
+        <rhn:icon type="errata-security"
+                  title="erratalist.jsp.securityadvisory"/>
+    </c:otherwise>
+    </c:choose>
+    </c:if>
         <c:if test="${current.bugFix}">
             <rhn:icon type="errata-bugfix" />
         </c:if>

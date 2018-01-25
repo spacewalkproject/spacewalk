@@ -1033,6 +1033,7 @@ public class ErrataFactory extends HibernateFactory {
             eo.setAdvisorySynopsis((String)values[4]);
             eo.setUpdateDate((Date)values[5]);
             eo.setIssueDate((Date)values[6]);
+            eo.setSeverityid((Integer)values[7]);
             errata.add(eo);
         }
 
