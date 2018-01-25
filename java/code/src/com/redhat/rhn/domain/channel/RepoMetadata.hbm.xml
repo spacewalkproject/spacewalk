@@ -4,9 +4,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.channel.Comps"
+    <class name="com.redhat.rhn.domain.channel.RepoMetadata"
            mutable="false"
-           table="rhnChannelComps">
+           table="rhnChannelComps"
+           discriminator-value="-1">
 
         <id name="id" type="long" column="id">
           <meta attribute="scope-set">protected</meta>
@@ -14,7 +15,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <param name="sequence">rhn_channelcomps_id_seq</param>
           </generator>
         </id>
-
+        <discriminator column="comps_type_id" type="java.lang.Integer" insert="false"/>
         <property name="relativeFilename" type="string" column="relative_filename" not-null="true"/>
 
         <many-to-one name="channel"
@@ -25,6 +26,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      unique="true"
                      lazy="false"
                      fetch="select"/>
+
+        <subclass
+                     name="com.redhat.rhn.domain.channel.Comps"
+                     discriminator-value="1" lazy="true">
+        </subclass>
+
+        <subclass
+                     name="com.redhat.rhn.domain.channel.Modules"
+                     discriminator-value="2" lazy="true">
+        </subclass>
+
 
     </class>
 </hibernate-mapping>
