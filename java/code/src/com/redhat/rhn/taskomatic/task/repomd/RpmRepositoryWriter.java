@@ -22,6 +22,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.RepoMetadata;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -35,6 +36,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
@@ -54,6 +57,9 @@ public class RpmRepositoryWriter extends RepositoryWriter {
     private static final String REPOMD_FILE = "repomd.xml.new";
     private static final String UPDATEINFO_FILE = "updateinfo.xml.gz.new";
     private static final String NOREPO_FILE = "noyumrepo.txt";
+
+    private static final String GROUP = "groups";
+    private static final String MODULES = "modules";
 
     private String checksumtype;
 
@@ -233,7 +239,8 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         RepomdIndexData updateinfoData = generateUpdateinfo(channel,
                 prefix, checksumAlgo);
 
-        RepomdIndexData groupsData = loadCompsFile(channel, checksumAlgo);
+        RepomdIndexData groupsData = loadRepoMetadataFile(channel, checksumAlgo, GROUP);
+        RepomdIndexData modulesData = loadRepoMetadataFile(channel, checksumAlgo, MODULES);
 
         // Set the type so yum can read and perform checksum
         primaryData.setType(checksumLabel);
@@ -246,6 +253,9 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         if (groupsData != null) {
             groupsData.setType(checksumLabel);
         }
+        if (modulesData != null) {
+            modulesData.setType(checksumLabel);
+        }
 
         FileWriter indexFile;
 
@@ -257,7 +267,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         }
 
         RepomdIndexWriter index = new RepomdIndexWriter(indexFile, primaryData,
-                filelistsData, otherData, updateinfoData, groupsData);
+                filelistsData, otherData, updateinfoData, groupsData, modulesData);
 
         index.writeRepomdIndex();
 
@@ -296,18 +306,39 @@ public class RpmRepositoryWriter extends RepositoryWriter {
         return;
     }
 
-    private String getCompsRelativeFilename(Channel channel) {
-        if (channel.getComps() != null) {
-            return channel.getComps().getRelativeFilename();
+    private String getRepoMetadataRelativeFilename(Channel channel, String metadataType) {
+        Method method = null;
+        try {
+            if (metadataType.equals(GROUP)) {
+                method = channel.getClass().getMethod("getComps");
+            }
+            else if (metadataType.equals(MODULES)) {
+                method = channel.getClass().getMethod("getModules");
+            }
+            else {
+                return null;
+            }
         }
-        // if we didn't find anything, let's check channel's original
+        catch (NoSuchMethodException e) {
+            return null;
+        }
+
+        try {
+            RepoMetadata rmd = (RepoMetadata)method.invoke(channel);
+            if (rmd.getRelativeFilename() != null) {
+                return rmd.getRelativeFilename();
+            }
+        }
+        catch (IllegalAccessException | InvocationTargetException e) {
+            return null;
+        }
+
         if (channel.isCloned()) {
             // use a hack not to use ClonedChannel and it's getOriginal() method
             Long originalChannelId = ChannelManager.lookupOriginalId(channel);
             Channel originalChannel = ChannelFactory.lookupById(originalChannelId);
-            return getCompsRelativeFilename(originalChannel);
+            return getRepoMetadataRelativeFilename(originalChannel, metadataType);
         }
-
         return null;
     }
 
@@ -315,20 +346,21 @@ public class RpmRepositoryWriter extends RepositoryWriter {
      *
      * @param channel channel indo
      * @param checksumAlgo checksum algorithm
+     * @param metadataType rype of repo metadata file ("groups", "modules")
      * @return repomd index for given channel
      */
-    private RepomdIndexData loadCompsFile(Channel channel, String checksumAlgo) {
-        String compsMount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
-        String relativeFilename = getCompsRelativeFilename(channel);
+    private RepomdIndexData loadRepoMetadataFile(Channel channel, String checksumAlgo, String metadataType) {
+        String mount = Config.get().getString(ConfigDefaults.MOUNT_POINT);
+        String relativeFilename = getRepoMetadataRelativeFilename(channel, metadataType);
 
         if (relativeFilename == null) {
             return null;
         }
 
-        File compsFile = new File(compsMount + File.separator + relativeFilename);
+        File metadataFile = new File(mount + File.separator + relativeFilename);
         FileInputStream stream;
         try {
-            stream = new FileInputStream(compsFile);
+            stream = new FileInputStream(metadataFile);
         }
         catch (FileNotFoundException e) {
             return null;
@@ -353,7 +385,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
             return null;
         }
 
-        Date timeStamp = new Date(compsFile.lastModified());
+        Date timeStamp = new Date(metadataFile.lastModified());
 
         return new RepomdIndexData(StringUtil.getHexString(digestStream
                 .getMessageDigest().digest()), null, timeStamp);
@@ -363,7 +395,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
      * Generates update info for given channel
      * @param channel channel info
      * @param prefix repodata file prefix
-     * @param checksumtype checksum type
+     * @param checksumtypeIn checksum type
      * @return repodata index
      */
     private RepomdIndexData generateUpdateinfo(Channel channel, String prefix,
