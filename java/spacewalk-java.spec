@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.58
+Version: 2.8.59
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -768,6 +768,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Jan 25 2018 Jiri Dostal <jdostal@redhat.com> 2.8.59-1
+- 1537108 - Colorful icons for differet errata severities
+- Automatic commit of package [spacewalk-java] release [2.8.58-1].
+
 * Mon Jan 22 2018 Jiri Dostal <jdostal@redhat.com> 2.8.58-1
 - Unify icons/style with other services
 
