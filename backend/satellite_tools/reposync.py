@@ -632,6 +632,7 @@ class RepoSync(object):
         e['synopsis'] = notice['title'] or notice['update_id']
         if notice['type'] == 'security' and 'severity' in notice:
             e['security_impact'] = notice['severity']
+        if notice['type'] == 'security' and not e['synopsis'].startswith(notice['severity'] + ': '):
             e['synopsis'] = notice['severity'] + ': ' + e['synopsis']
         if 'summary' in notice and not notice['summary'] is None:
             e['topic'] = notice['summary']
