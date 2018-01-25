@@ -23,7 +23,7 @@ ORDER BY E.advisory_name
 
 <mode name="relevant_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id">
-SELECT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS
+SELECT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS, E.severity_id AS severityId
   FROM rhnErrata E,
        (SELECT SNEC.errata_id
           FROM rhnServerNeededCache SNEC
@@ -71,7 +71,7 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="all_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id">
-SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS
+SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS, E.severity_id AS severityId
   FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
         rhnChannelFamilyMembers CFM,
         rhnOrgChannelFamilyPermissions OCF
@@ -104,7 +104,7 @@ SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYN
 
 <mode name="all_errata_by_type_with_cves" class="com.redhat.rhn.frontend.dto.SecurityErrataOverview">
   <query params="org_id, type">
-SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis as advisory_synopsis
+SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis as advisory_synopsis, E.severity_id AS severityId
   FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
         rhnChannelFamilyMembers CFM,
         rhnOrgChannelFamilyPermissions OCF
