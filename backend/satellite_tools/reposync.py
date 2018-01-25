@@ -49,6 +49,7 @@ _ = translation.ugettext
 
 default_log_location = '/var/log/rhn/'
 relative_comps_dir = 'rhn/comps'
+relative_modules_dir = 'rhn/modules'
 checksum_cache_filename = 'reposync/checksum_cache'
 default_import_batch_size = 10
 
@@ -481,6 +482,8 @@ class RepoSync(object):
 
                     if not self.no_packages:
                         self.import_groups(plugin)
+                        if repo_type == "yum":
+                            self.import_modules(plugin)
                         ret = self.import_packages(plugin, repo_id, url)
                         failed_packages += ret
 
@@ -579,44 +582,56 @@ class RepoSync(object):
         if notices:
             self.upload_updates(notices)
 
+    def copy_metadata_file(self, filename, comps_type, relative_dir):
+        basename = os.path.basename(filename)
+        log(0, '')
+        log(0, "  Importing %s file %s." % (comps_type, basename))
+        relativedir = os.path.join(relative_dir, self.channel_label)
+        absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
+        if not os.path.exists(absdir):
+            os.makedirs(absdir)
+        relativepath = os.path.join(relativedir, basename)
+        abspath = os.path.join(absdir, basename)
+        for suffix in ['.gz', '.bz', '.xz']:
+            if basename.endswith(suffix):
+                abspath = abspath.rstrip(suffix)
+                relativepath = relativepath.rstrip(suffix)
+        src = fileutils.decompress_open(filename)
+        dst = open(abspath, "w")
+        shutil.copyfileobj(src, dst)
+        dst.close()
+        src.close()
+        # update or insert
+        hu = rhnSQL.prepare("""update rhnChannelComps
+                                  set relative_filename = :relpath,
+                                      modified = current_timestamp
+                                where channel_id = :cid
+                                  and comps_type_id = (select id from rhnCompsType where label = :ctype)""")
+        hu.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type)
+
+        hi = rhnSQL.prepare("""insert into rhnChannelComps
+                              (id, channel_id, relative_filename, comps_type_id)
+                              (select sequence_nextval('rhn_channelcomps_id_seq'),
+                                      :cid,
+                                      :relpath,
+                              (select id from rhnCompsType where label = :ctype)
+                                 from dual
+                                where not exists (select 1 from rhnChannelComps
+                                                   where channel_id = :cid
+                                                     and comps_type_id = (select id from rhnCompsType where label = :ctype)))""")
+        hi.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type)
+        return abspath
+
     def import_groups(self, plug):
         groupsfile = plug.get_groups()
         if groupsfile:
-            basename = os.path.basename(groupsfile)
-            log(0, '')
-            log(0, "  Importing groups from comps file %s." % basename)
-            relativedir = os.path.join(relative_comps_dir, self.channel_label)
-            absdir = os.path.join(CFG.MOUNT_POINT, relativedir)
-            if not os.path.exists(absdir):
-                os.makedirs(absdir)
-            relativepath = os.path.join(relativedir, basename)
-            abspath = os.path.join(absdir, basename)
-            for suffix in ['.gz', '.bz', '.xz']:
-                if basename.endswith(suffix):
-                    abspath = abspath.rstrip(suffix)
-                    relativepath = relativepath.rstrip(suffix)
-            src = fileutils.decompress_open(groupsfile)
-            dst = open(abspath, "w")
-            shutil.copyfileobj(src, dst)
-            dst.close()
-            src.close()
+            abspath = self.copy_metadata_file(groupsfile, 'comps', relative_comps_dir)
             plug.groupsfile = abspath
-            # update or insert
-            hu = rhnSQL.prepare("""update rhnChannelComps
-                                      set relative_filename = :relpath,
-                                          modified = current_timestamp
-                                    where channel_id = :cid""")
-            hu.execute(cid=self.channel['id'], relpath=relativepath)
 
-            hi = rhnSQL.prepare("""insert into rhnChannelComps
-                                  (id, channel_id, relative_filename)
-                                  (select sequence_nextval('rhn_channelcomps_id_seq'),
-                                          :cid,
-                                          :relpath
-                                     from dual
-                                    where not exists (select 1 from rhnChannelComps
-                                                       where channel_id = :cid))""")
-            hi.execute(cid=self.channel['id'], relpath=relativepath)
+    def import_modules(self, plug):
+        modulesfile = plug.get_modules()
+        if modulesfile:
+            self.copy_metadata_file(modulesfile, 'modules', relative_modules_dir)
 
     def _populate_erratum(self, notice):
         advisory = notice['update_id'] + '-' + notice['version']
