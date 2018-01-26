@@ -1,0 +1,16 @@
+-- oracle equivalent source sha1 957b14d5ff293c434eb1ae055707616fbf2c370f
+-- 
+-- Red Hat trademarks are not licensed under GPLv2. No permission is
+-- granted to use or replicate Red Hat trademarks that are incorporated
+-- in this software or its documentation. 
+--
+--
+-- $Id$
+--
+
+ALTER TABLE rhnErrataTmp
+ ADD severity_id INT;
+
+ALTER TABLE rhnErrataTmp
+ ADD CONSTRAINT rhn_errata_sevid_fk
+ FOREIGN KEY (severity_id) REFERENCES rhnErrataSeverity(id);

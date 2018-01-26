@@ -938,7 +938,8 @@ ORDER BY  E.update_date DESC, E.id
          E.update_date,
          E.created,
          E.locally_modified,
-         0 AS PUBLISHED
+         0 AS PUBLISHED,
+         severity_id AS severityId
     FROM rhnErrataTmp E
    WHERE E.org_id = :org_id
 ORDER BY  E.update_date DESC, E.id
