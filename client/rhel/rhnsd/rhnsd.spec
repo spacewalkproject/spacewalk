@@ -9,7 +9,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
-%if 0%{?suse_version} >= 1210
+%if 0%{?suse_version} >= 1210 || 0%{?fedora}
 BuildRequires: systemd
 %{?systemd_requires}
 %endif
@@ -23,9 +23,6 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
 Requires(preun): systemd-sysv
-Requires(post): systemd-units
-Requires(preun): systemd-units
-BuildRequires: systemd-units
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
