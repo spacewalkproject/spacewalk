@@ -35,10 +35,10 @@ class ChannelMapper:
 
     """ Data Mapper for Channels to the RHN db. """
 
-    def __init__(self, pkg_mapper, erratum_mapper, comps_mapper):
+    def __init__(self, pkg_mapper, erratum_mapper, repomd_mapper):
         self.pkg_mapper = pkg_mapper
         self.erratum_mapper = erratum_mapper
-        self.comps_mapper = comps_mapper
+        self.repomd_mapper = repomd_mapper
 
         self.channel_details_sql = rhnSQL.prepare("""
         select
@@ -87,6 +87,18 @@ class ChannelMapper:
             rhnChannelComps
         where
             channel_id = :channel_id
+            and comps_type_id = 1
+        order by id desc
+        """)
+
+        self.modules_id_sql = rhnSQL.prepare("""
+        select
+            id
+        from
+            rhnChannelComps
+        where
+            channel_id = :channel_id
+            and comps_type_id = 2
         order by id desc
         """)
 
@@ -126,9 +138,13 @@ class ChannelMapper:
 
         self.comps_id_sql.execute(channel_id=channel_id)
         comps_id = self.comps_id_sql.fetchone()
+        self.modules_id_sql.execute(channel_id=channel_id)
+        modules_id = self.modules_id_sql.fetchone()
 
         if comps_id:
-            channel.comps = self.comps_mapper.get_comps(comps_id[0])
+            channel.comps = self.repomd_mapper.get_repomd(comps_id[0])
+        if modules_id:
+            channel.modules = self.repomd_mapper.get_repomd(modules_id[0])
 
         self.cloned_from_id_sql.execute(channel_id=channel_id)
         cloned_row = self.cloned_from_id_sql.fetchone()
@@ -710,31 +726,31 @@ class SqlErratumMapper:
             erratum.package_ids.append(pkg[0])
 
 
-class SqlCompsMapper:
+class SqlRepoMDMapper:
 
     def __init__(self):
-        self.comps_sql = rhnSQL.prepare("""
+        self.repomd_sql = rhnSQL.prepare("""
         select
             relative_filename
         from
             rhnChannelComps
         where
-            id = :comps_id
+            id = :repomd_id
         """)
 
-    def get_comps(self, comps_id):
-        self.comps_sql.execute(comps_id=comps_id)
-        comps_row = self.comps_sql.fetchone()
-        filename = os.path.join(CFG.mount_point, comps_row[0])
-        return domain.Comps(comps_id, filename)
+    def get_repomd(self, repomd_id):
+        self.repomd_sql.execute(repomd_id=repomd_id)
+        repomd_row = self.repomd_sql.fetchone()
+        filename = os.path.join(CFG.mount_point, repomd_row[0])
+        return domain.RepoMD(repomd_id, filename)
 
 
 def get_channel_mapper():
     """ Factory Method-ish function to load a Channel Mapper. """
     package_mapper = get_package_mapper()
     erratum_mapper = get_erratum_mapper(package_mapper)
-    comps_mapper = SqlCompsMapper()
-    channel_mapper = ChannelMapper(package_mapper, erratum_mapper, comps_mapper)
+    repomd_mapper = SqlRepoMDMapper()
+    channel_mapper = ChannelMapper(package_mapper, erratum_mapper, repomd_mapper)
 
     return channel_mapper
 
