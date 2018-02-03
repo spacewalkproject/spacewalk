@@ -131,7 +131,7 @@ class SpacewalkShell(Cmd):
 
         # terminate the shell
         if re.match('quit|exit|eof', line, re.I):
-            print
+            print()
             sys.exit(0)
 
         # don't attempt to login for some commands
@@ -215,7 +215,7 @@ class SpacewalkShell(Cmd):
                     line += " '%s'" % arg
 
             readline.add_history(line)
-            print line
+            print(line)
             return line
         else:
             logging.warning('%s: event not found', command)
@@ -227,10 +227,10 @@ class SpacewalkShell(Cmd):
         if cmd:
             try:
                 if type(cmdresult).__name__ == 'str':
-                    print cmdresult
+                    print(cmdresult)
                 else:
                     for i in cmdresult:
-                        print i
+                        print(i)
             except TypeError:
                 pass
 
