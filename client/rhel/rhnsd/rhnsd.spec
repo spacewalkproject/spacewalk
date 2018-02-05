@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.34
+Version: 5.0.35
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -129,6 +129,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Feb 05 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.35-1
+- remove systemd-units
+- remove obsoleted things from spec file
+
 * Thu Nov 16 2017 Tomas Kasparek <tkasparek@redhat.com> 5.0.34-1
 - removed settings for old RH build system
 
