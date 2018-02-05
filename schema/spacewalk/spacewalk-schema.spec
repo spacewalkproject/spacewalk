@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.4
+Version:        2.8.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Mon Feb 05 2018 Jiri Dostal <jdostal@redhat.com> 2.8.5-1
+- 1541955 - Clone of an erratum doesn't have original erratum's severity
+
 * Thu Oct 19 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - move deletion to the inner loop to delete all duplicates
 
