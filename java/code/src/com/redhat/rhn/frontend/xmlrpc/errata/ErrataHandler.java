@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.errata.CveFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -256,6 +257,7 @@ public class ErrataHandler extends BaseHandler {
                 StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type",
                 StringUtils.defaultString(errata.getAdvisoryType()));
+        errataMap.put("severity_id", errata.getSeverity().getId());
 
 
         return errataMap;
@@ -337,6 +339,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("solution");
         validKeys.add("bugs");
         validKeys.add("keywords");
+        validKeys.add("severity_id");
         if (errata.isPublished()) {
             validKeys.add("cves");
         }
@@ -432,6 +435,10 @@ public class ErrataHandler extends BaseHandler {
         }
         if (details.containsKey("notes")) {
             errata.setNotes((String)details.get("notes"));
+        }
+        if (details.containsKey("severity_id")) {
+            Integer sevId = (Integer)details.get("severity_id");
+            errata.setSeverity(Severity.getById(sevId));
         }
         if (details.containsKey("bugs")) {
 
@@ -1196,6 +1203,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("references");
         validKeys.add("notes");
         validKeys.add("solution");
+        validKeys.add("severity_id");
         validateMap(validKeys, errataInfo);
 
         validKeys.clear();
@@ -1228,6 +1236,7 @@ public class ErrataHandler extends BaseHandler {
         String solution = (String) getRequiredAttribute(errataInfo, "solution");
         String references = (String) errataInfo.get("references");
         String notes = (String) errataInfo.get("notes");
+        Integer severityId = (Integer) errataInfo.get("severity_id");
 
         Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName,
                 loggedInUser.getOrg());
@@ -1264,6 +1273,7 @@ public class ErrataHandler extends BaseHandler {
         newErrata.setErrataFrom(errataFrom);
         newErrata.setRefersTo(references);
         newErrata.setNotes(notes);
+        newErrata.setSeverity(Severity.getById(severityId));
 
         for (Iterator<Map<String, Object>> itr = bugs.iterator(); itr.hasNext();) {
             Map<String, Object> bugMap = itr.next();

@@ -16,6 +16,9 @@ package com.redhat.rhn.domain.errata;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * Errata Severity
  *
@@ -101,5 +104,26 @@ public class Severity {
     public String toString() {
         return "Id: " + getId() + ", Rank: " + getRank() + ", Label: " + getLabel() +
             ", Localized label: " + getLocalizedLabel();
+    }
+
+    /**
+     * Looks up corresponding Severity object by given id
+     * @return Severity object
+     * @param id severity_id
+     */
+    public static Severity getById(Integer id) {
+        Map<Integer, String> severityMap = new HashMap<Integer, String>();
+        Severity newSeverity = new Severity();
+        severityMap.put(0, CRITICAL_LABEL);
+        severityMap.put(1, IMPORTANT_LABEL);
+        severityMap.put(2, MODERATE_LABEL);
+        severityMap.put(3, LOW_LABEL);
+        if (severityMap.get(id) == null) {
+            return null;
+        }
+        newSeverity.setId(id);
+        newSeverity.setLabel(severityMap.get(id));
+        newSeverity.setRank(id);
+        return newSeverity;
     }
 }
