@@ -39,7 +39,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.41
+Version: 2.8.42
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Feb 05 2018 Grant Gainey 2.8.42-1
+- 1537098 - Teach packageImport to ignore flags RPM doesn't know
+
 * Thu Jan 25 2018 Jiri Dostal <jdostal@redhat.com> 2.8.41-1
 - Fix syncing severity
 
