@@ -16,6 +16,7 @@
 # Package import process
 #
 
+import rpm
 import sys
 import os.path
 from importLib import GenericPackageImport, IncompletePackage, \
@@ -215,6 +216,11 @@ class PackageImport(ChannelPackageSubscription):
         self.sourceRPMs = {}
         self.changelog_data = {}
 
+    def _rpm_knows(self, tag):
+        # See if the installed version of RPM understands a given tag
+        # Assumed attr-format in RPM is 'RPMTAG_<UPPERCASETAG>'
+        return hasattr(rpm, 'RPMTAG_'+tag.upper())
+
     def _processPackage(self, package):
         ChannelPackageSubscription._processPackage(self, package)
 
@@ -230,8 +236,9 @@ class PackageImport(ChannelPackageSubscription):
         package['copyright'] = self._fix_encoding(package['license'])
 
         for tag in ('recommends', 'suggests', 'supplements', 'enhances', 'breaks', 'predepends'):
-            if tag not in package or type(package[tag]) != type([]):
+            if not self._rpm_knows(tag) or tag not in package or type(package[tag]) != type([]):
                 # older spacewalk server do not export weak deps.
+                # and older RPM doesn't know about them either
                 # lets create an empty list
                 package[tag] = []
 
