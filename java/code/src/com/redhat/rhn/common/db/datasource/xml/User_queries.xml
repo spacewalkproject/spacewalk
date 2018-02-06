@@ -37,6 +37,22 @@ SELECT wupi.email
     </query>
 </mode>
 
+<mode name="all_sat_admins">
+  <query params="">
+SELECT ugm.user_id
+     FROM rhnUserGroupMembers ugm
+    WHERE ugm.user_group_id IN (SELECT id
+                                 FROM rhnUserGroup
+                                WHERE group_type = (SELECT id FROM
+          rhnUserGroupType WHERE label = 'satellite_admin'))
+      AND exists (select wc.id
+                    from web_contact wc
+                   where wc.id = ugm.user_id
+                     and read_only = 'N')
+ ORDER BY ugm.user_id
+    </query>
+</mode>
+
 <mode name="active_sat_admins">
     <query params="">
 SELECT ugm.user_id

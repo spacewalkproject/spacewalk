@@ -540,8 +540,9 @@ public class UserManager extends BaseManager {
 
         // Do not allow deletion of the last Satellite Administrator:
         User toDelete = UserFactory.lookupById(loggedInUser, targetUid);
-        if (!toDelete.isDisabled() && toDelete.hasRole(RoleFactory.SAT_ADMIN)) {
-            if (SatManager.getActiveSatAdmins().size() == 1) {
+        // 1542556 - Check all remaining SW admins, not just active.
+        if (toDelete.hasRole(RoleFactory.SAT_ADMIN)) {
+            if (SatManager.getAllSatAdmins().size() == 1) {
                 log.warn("Cannot delete the last Satellite Administrator");
                 throw new DeleteSatAdminException(toDelete);
             }
