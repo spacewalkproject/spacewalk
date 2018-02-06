@@ -27,10 +27,15 @@ import java.util.HashMap;
 public class Severity {
 
     // WARNING: These must stay in sync with the values in rhnErrataSeverity
+    // there's no need to keep 'unspecified' in db, it equals to null...
     public static final String LOW_LABEL = "errata.sev.label.low";
     public static final String MODERATE_LABEL = "errata.sev.label.moderate";
     public static final String IMPORTANT_LABEL = "errata.sev.label.important";
     public static final String CRITICAL_LABEL = "errata.sev.label.critical";
+    public static final String UNSPECIFIED_LABEL = "errata.sev.label.unspecified";
+
+    //dummy rank for webui selects
+    public static final Integer UNSPECIFIED_RANK = 4;
 
     private long id;
     private int rank;

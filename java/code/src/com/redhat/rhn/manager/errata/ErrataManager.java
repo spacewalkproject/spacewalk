@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -928,6 +929,36 @@ public class ErrataManager extends BaseManager {
         advTypeLabels.add(ls.getMessage("errata.create.productenhancementadvisory"));
         advTypeLabels.add(ls.getMessage("errata.create.securityadvisory"));
         return advTypeLabels;
+    }
+
+    /**
+     * Returns a list of l10n-ed advisory severity types available for an errata
+     * @return l10n-ed advisory severity labels
+     */
+    public static List<String> advisorySeverityLabels() {
+        List<String> advSeverityLabels = new ArrayList<String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        advSeverityLabels.add(ls.getMessage(Severity.CRITICAL_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.IMPORTANT_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.MODERATE_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.LOW_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.UNSPECIFIED_LABEL));
+        return advSeverityLabels;
+    }
+
+    /**
+     * Returns a list of advisory severity ranks available for an errata
+     * @return advisory severity ranks
+     */
+    public static List<Integer> advisorySeverityRanks() {
+        List<Integer> advSeverityRankss = new ArrayList<Integer>();
+        // get ranks for all of 4 severities we define, plus 'unspecified' for null value
+        advSeverityRankss.add(Severity.getById(0).getRank());
+        advSeverityRankss.add(Severity.getById(1).getRank());
+        advSeverityRankss.add(Severity.getById(2).getRank());
+        advSeverityRankss.add(Severity.getById(3).getRank());
+        advSeverityRankss.add(Severity.UNSPECIFIED_RANK); // dummy rank for 'unspecified'
+        return advSeverityRankss;
     }
 
     /**

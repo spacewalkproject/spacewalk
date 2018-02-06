@@ -19,6 +19,8 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -102,6 +104,10 @@ public class CreateAction extends RhnAction {
         e.setTopic(form.getString("topic"));
         e.setDescription(form.getString("description"));
         e.setSolution(form.getString("solution"));
+        if (ErrataFactory.ERRATA_TYPE_SECURITY.equals(e.getAdvisoryType())) {
+            e.setSeverity(Severity.getById((Integer)form.get("advisorySeverity")));
+        }
+
 
         //add keywords... split on commas and add separately to list
         String keywordsField = form.getString("keywords");

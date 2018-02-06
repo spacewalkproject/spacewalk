@@ -3,6 +3,16 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
+<script>
+    function greyOut() {
+        var type = document.getElementById('errata_type').getElementsByTagName('select');
+        var severity = document.getElementById('errata_severity')
+                .getElementsByTagName('select');
+        var disabled = (type[0].value != "Security Advisory");
+        severity[0].disabled = disabled;
+    }
+</script>
+
 
 <html>
     <head>
@@ -81,13 +91,26 @@
                     <html:text property="advisoryRelease" size="4" maxlength="4" styleClass="form-control"/>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="errata_type">
                 <label class="col-lg-3 control-label">
                     <bean:message key="errata.create.jsp.advisorytype"/>
                 </label>
                 <div class="col-lg-6">
-                    <html:select property="advisoryType" styleClass="form-control">
+                    <html:select property="advisoryType" styleClass="form-control"
+                                 onchange="greyOut()">
                         <html:options name="advisoryTypes" labelProperty="advisoryTypeLabels"/>
+                    </html:select>
+                </div>
+            </div>
+            <div class="form-group" id="errata_severity">
+                <label class="col-lg-3 control-label">
+                    <bean:message key="errata.create.jsp.advisoryseverity"/>
+                </label>
+                <div class="col-lg-6">
+                    <html:select property="advisorySeverity" styleClass="form-control"
+                                 disabled="${severityDisabled}">
+                        <html:options name="advisorySeverity"
+                                      labelProperty="advisorySeverityLabels"/>
                     </html:select>
                 </div>
             </div>
