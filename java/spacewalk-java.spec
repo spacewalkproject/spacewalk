@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.61
+Version: 2.8.62
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -767,6 +767,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.62-1
+- removed unused dependency on dojo
+
 * Mon Feb 05 2018 Jiri Dostal <jdostal@redhat.com> 2.8.61-1
 - 1541955 - Clone of an erratum doesn't have original erratum's severity
 
