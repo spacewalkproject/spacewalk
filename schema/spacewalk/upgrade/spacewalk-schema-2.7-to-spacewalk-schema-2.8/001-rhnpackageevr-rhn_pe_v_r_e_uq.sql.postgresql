@@ -29,8 +29,6 @@ begin
                 from rhnpackagenevra
                where evr_id = duplicate.id loop
         update rhnsnapshotpackage set nevra_id = nevra_orig.id where nevra_id = nevra_dup.id;
-        update rhnsolarispatchedpackage set package_nevra_id = nevra_orig.id where package_nevra_id = nevra_dup.id;
-        update rhnsolarispatchpackages set package_nevra_id = nevra_orig.id where package_nevra_id = nevra_dup.id;
       end loop;
       delete from rhnpackagenevra where evr_id = duplicate.id;
       update rhnproxyinfo set proxy_evr_id = original.id where proxy_evr_id = duplicate.id;
