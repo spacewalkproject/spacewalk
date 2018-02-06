@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.5
+Version:        2.8.6
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Feb 06 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- 1542287 - we don't have solaris table anymore
+
 * Mon Feb 05 2018 Jiri Dostal <jdostal@redhat.com> 2.8.5-1
 - 1541955 - Clone of an erratum doesn't have original erratum's severity
 
