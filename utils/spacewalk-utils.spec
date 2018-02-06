@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.9
+Version:	2.8.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -99,6 +99,9 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 06 2018 Grant Gainey 2.8.10-1
+- 1537766 - Fix broken DELETE in postgresql
+
 * Tue Jan 23 2018 Grant Gainey 2.8.9-1
 - 1537766 - Add spacewalk-manage-snapshots, to give sw-admin a snapshot-mgt
   tool
