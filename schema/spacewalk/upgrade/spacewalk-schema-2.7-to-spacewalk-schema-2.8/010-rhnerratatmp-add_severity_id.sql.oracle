@@ -11,7 +11,7 @@ ALTER TABLE rhnErrataTmp
  ADD severity_id NUMBER;
 
 ALTER TABLE rhnErrataTmp
- ADD CONSTRAINT rhn_errata_sevid_fk
+ ADD CONSTRAINT rhn_erratatmp_sevid_fk
  FOREIGN KEY (severity_id) REFERENCES rhnErrataSeverity(id);
 
 show errors
