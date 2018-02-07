@@ -9,7 +9,7 @@
 --
 
 ALTER TABLE rhnErrataTmp
- ADD severity_id INT;
+ ADD severity_id NUMERIC;
 
 ALTER TABLE rhnErrataTmp
  ADD CONSTRAINT rhn_erratatmp_sevid_fk
