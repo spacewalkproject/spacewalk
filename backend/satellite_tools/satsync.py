@@ -591,7 +591,8 @@ class Syncer:
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
         self._write_repomd(comps_path, self.xmlDataServer.getComps, \
-                           xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getCompsFileStream, label, timestamp)
+            xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getCompsFileStream, \
+            label, timestamp)
         data = {label: None}
         backend.lookupChannels(data)
         rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, 1, timestamp)
@@ -601,7 +602,8 @@ class Syncer:
     def _process_modules(self, backend, label, timestamp):
         modules_path = 'rhn/modules/%s/modules-%s.yaml' % (label, timestamp)
         self._write_repomd(modules_path, self.xmlDataServer.getModules, \
-                           xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getModulesFilesStram, label, timestamp)
+            xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getModulesFilesStram, \
+            label, timestamp)
         data = {label: None}
         backend.lookupChannels(data)
         rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], modules_path, 2, timestamp)
@@ -653,7 +655,8 @@ class Syncer:
                 if ch.has_key('comps_last_modified') and ch['comps_last_modified'] is not None:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
                 if ch.has_key('modules_last_modified') and ch['modules_last_modified'] is not None:
-                    self._process_modules(importer.backend, label, sync_handlers._to_timestamp(ch['modules_last_modified']))
+                    self._process_modules(importer.backend, label, \
+                        sync_handlers._to_timestamp(ch['modules_last_modified']))
 
         except InvalidChannelFamilyError:
             usix.raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %

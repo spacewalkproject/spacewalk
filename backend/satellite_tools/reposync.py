@@ -617,8 +617,8 @@ class RepoSync(object):
                               (select id from rhnCompsType where label = :ctype)
                                  from dual
                                 where not exists (select 1 from rhnChannelComps
-                                                   where channel_id = :cid
-                                                     and comps_type_id = (select id from rhnCompsType where label = :ctype)))""")
+                                    where channel_id = :cid
+                                    and comps_type_id = (select id from rhnCompsType where label = :ctype)))""")
         hi.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type)
         return abspath
 
