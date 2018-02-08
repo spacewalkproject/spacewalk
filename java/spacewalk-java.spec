@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 License: GPLv2
-Version: 2.8.62
+Version: 2.8.63
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -767,6 +767,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.63-1
+- write modules information during repodata generation
+- support downloading of modules.yaml files via java stack
+- make module information part of channel just like comps
+- provide a way how to handle different repo metadata files in Java
+
 * Tue Feb 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.62-1
 - removed unused dependency on dojo
 
