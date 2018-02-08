@@ -578,20 +578,34 @@ class Syncer:
         except Exception:
             pass
 
-    def _process_comps(self, backend, label, timestamp):
-        comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
-        full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
+    def _write_repomd(self, repomd_path, getRepomdFunc, repomdFileStreamFunc, label, timestamp):
+        full_path = os.path.join(CFG.MOUNT_POINT, repomd_path)
         if not os.path.exists(full_path):
             if self.mountpoint or CFG.ISS_PARENT:
-                stream = self.xmlDataServer.getComps(label)
+                stream = getRepomdFunc(label)
             else:
-                rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
-                stream = rpmServer.getCompsFileStream(label)
-            f = FileManip(comps_path, timestamp, None)
+                stream = repomdFileStreamFunc(label)
+            f = FileManip(repomd_path, timestamp, None)
             f.write_file(stream)
+
+    def _process_comps(self, backend, label, timestamp):
+        comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
+        self._write_repomd(comps_path, self.xmlDataServer.getComps, \
+                           xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getCompsFileStream, label, timestamp)
         data = {label: None}
         backend.lookupChannels(data)
-        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, timestamp)
+        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, 1, timestamp)
+
+
+
+    def _process_modules(self, backend, label, timestamp):
+        modules_path = 'rhn/modules/%s/modules-%s.yaml' % (label, timestamp)
+        self._write_repomd(modules_path, self.xmlDataServer.getModules, \
+                           xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getModulesFilesStram, label, timestamp)
+        data = {label: None}
+        backend.lookupChannels(data)
+        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], modules_path, 2, timestamp)
+
 
     def process_channels(self):
         """ push channels, channel-family and dist. map information
@@ -638,6 +652,8 @@ class Syncer:
                 ch = self._channel_collection.get_channel(label, timestamp)
                 if ch.has_key('comps_last_modified') and ch['comps_last_modified'] is not None:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
+                if ch.has_key('modules_last_modified') and ch['modules_last_modified'] is not None:
+                    self._process_modules(importer.backend, label, sync_handlers._to_timestamp(ch['modules_last_modified']))
 
         except InvalidChannelFamilyError:
             usix.raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %

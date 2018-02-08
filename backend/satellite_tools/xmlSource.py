@@ -500,6 +500,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates': 'receiving_updates',
         'rhn-channel-checksum-type': 'checksum_type',
         'rhn-channel-comps-last-modified': 'comps_last_modified',
+        'rhn-channel-modules-last-modified': 'modules_last_modified',
         'sharing': 'channel_access',
         'rhn-channel-trusted-orgs': 'trust_list',
     }

@@ -356,9 +356,13 @@ class _ChannelDumper(BaseRowDumper):
                                 channel_product_details[2]))
 
         comp_last_modified = self._channel_comps_last_modified()
+        modules_last_modified = self._channel_modules_last_modified()
         if comp_last_modified is not None:
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
                                     _dbtime2timestamp(comp_last_modified[0])))
+        if modules_last_modified is not None:
+            arr.append(SimpleDumper(self._writer, 'rhn-channel-modules-last-modified',
+                                    _dbtime2timestamp(modules_last_modified[0])))
 
         h = rhnSQL.prepare(self._query_get_channel_trusts)
         h.execute(channel_id=channel_id)
@@ -577,12 +581,27 @@ class _ChannelDumper(BaseRowDumper):
         select to_char(last_modified, 'YYYYMMDDHH24MISS') as comps_last_modified
         from rhnChannelComps
         where channel_id = :channel_id
+        and comps_type_id = 1
         order by id desc
     """)
 
     def _channel_comps_last_modified(self):
         channel_id = self._row['id']
         h = rhnSQL.prepare(self._query_channel_comps_last_modified)
+        h.execute(channel_id=channel_id)
+        return h.fetchone()
+
+    _query_channel_modules_last_modified = rhnSQL.Statement("""
+        select to_char(last_modified, 'YYYYMMDDHH24MISS') as modules_last_modified
+        from rhnChannelComps
+        where channel_id = :channel_id
+        and comps_type_id = 2
+        order by id desc
+    """)
+
+    def _channel_modules_last_modified(self):
+        channel_id = self._row['id']
+        h = rhnSQL.prepare(self._query_channel_modules_last_modified)
         h.execute(channel_id=channel_id)
         return h.fetchone()
 

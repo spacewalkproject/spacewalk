@@ -279,6 +279,10 @@ class MetadataWireSource(BaseWireSource):
         return self._openSocketStream("dump.get_comps",
                                       (self.systemid, channel))
 
+    def getModules(self, channel):
+        return self._openSocketStream("dump.get_modules",
+                                      (self.systemid, channel))
+
     def getRpm(self, nvrea, channel):
         release = nvrea[2]
         epoch = nvrea[3]
@@ -448,3 +452,6 @@ class RPCGetWireSource(BaseWireSource):
 
     def getCompsFileStream(self, channel):
         return self._rpc_call("repodata", (channel, 'comps.xml'))
+
+    def getModulesFilesStram(self, channel):
+        return self._rpc_call("repodata", (channel, 'modules.yaml'))

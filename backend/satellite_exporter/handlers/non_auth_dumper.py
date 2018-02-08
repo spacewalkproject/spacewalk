@@ -74,6 +74,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
             'channel_families',
             'channels',
             'get_comps',
+            'get_modules',
             'channel_packages_short',
             'packages_short',
             'packages',
@@ -313,7 +314,10 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return self.dump_channels(channel_labels=channel_labels)
 
     def get_comps(self, channel):
-        return self.get_comps_file(channel)
+        return self.get_repomd_file(channel, 1)
+
+    def get_modules(self, channel):
+        return self.get_repomd_file(channel, 2)
 
     def channel_packages_short(self, channel_label, last_modified):
         self.set_channel_family_query(channel_labels=[channel_label])
@@ -346,7 +350,7 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         log_debug(1, package, channel)
         return self._send_package_stream(package, channel)
 
-    def get_comps_file(self, channel):
+    def get_repomd_file(self, channel, comps_type_id):
         comps_query = """
             select relative_filename
             from rhnChannelComps
@@ -354,18 +358,19 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
                 select id
                 from rhnChannel
                 where label = :channel_label
+                and comps_type_id = :ctype_id
             )
             order by id desc
         """
         channel_comps_sth = rhnSQL.prepare(comps_query)
-        channel_comps_sth.execute(channel_label=channel)
+        channel_comps_sth.execute(channel_label=channel, ctype_id=comps_type_id)
         row = channel_comps_sth.fetchone_dict()
         if not row:
-            raise rhnFault(3015, "No comps file for channel [%s]" % channel)
+            raise rhnFault(3015, "No comps/modules file for channel [%s]" % channel)
         path = os.path.join(CFG.MOUNT_POINT, row['relative_filename'])
         if not os.path.exists(path):
-            log_error("Missing comps file [%s] for channel [%s]" % (path, channel))
-            raise rhnFault(3016, "Unable to retrieve comps file for channel [%s]" % channel)
+            log_error("Missing comps/modules file [%s] for channel [%s]" % (path, channel))
+            raise rhnFault(3016, "Unable to retrieve comps/modules file for channel [%s]" % channel)
         return self._send_stream(path)
 
     def get_ks_file(self, ks_label, relative_path):
