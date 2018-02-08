@@ -455,4 +455,3 @@ class RPCGetWireSource(BaseWireSource):
 
     def getModulesFilesStram(self, channel):
         return self._rpc_call("repodata", (channel, 'modules.yaml'))
-
