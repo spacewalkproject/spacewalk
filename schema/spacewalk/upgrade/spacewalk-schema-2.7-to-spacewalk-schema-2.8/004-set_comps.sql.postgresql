@@ -1,4 +1,4 @@
--- oracle 
+-- oracle equivalent source sha1 01a9e4f88a95b109865aa67714afddcef59f0598
 
 drop function rhn_channel.set_comps(channel_id_in in numeric, path_in in varchar, timestamp_in in varchar);
 
