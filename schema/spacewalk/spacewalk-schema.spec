@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.8
+Version:        2.8.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.9-1
+- update set_comps stored procedure for usage with modules
+- use rhnCompsType table for different types of repo metadata (comps) files
+- create table for different metadata file types
+
 * Wed Feb 07 2018 Jiri Dostal <jdostal@redhat.com> 2.8.8-1
 - fix different schema creation vs. upgrade
 
