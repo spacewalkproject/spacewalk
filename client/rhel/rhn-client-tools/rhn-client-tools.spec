@@ -8,7 +8,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.15
+Version: 2.8.16
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -647,6 +647,11 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.16-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Dec 13 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
 - 1417185 - do chmod an the new file, not the old one which will be deleted
 - 1417185 - change permissions to default provided by rhn-client-tools rpm
