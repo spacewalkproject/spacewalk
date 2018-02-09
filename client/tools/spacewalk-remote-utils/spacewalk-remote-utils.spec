@@ -3,7 +3,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.8.3
+Version:     2.8.4
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -62,6 +62,9 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- removed Group from specfile
+
 * Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - make python2/3 defs consistent with other specs
 
