@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.65
+Version: 2.8.66
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 09 2018 Grant Gainey 2.8.66-1
+- 1481329 - Lost an <rhn-tab-directory> tab in previous commit for this BZ
+
 * Fri Feb 09 2018 Jiri Dostal <jdostal@redhat.com> 2.8.65-1
 - Add proper errata severity editing/creating to WebUI
 - Add severity handling to API calls
