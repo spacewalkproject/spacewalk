@@ -199,13 +199,11 @@ rm -rf %{buildroot}
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog LICENSE
 %{_bindir}/d8
 %{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*.h
 %dir %{_includedir}/v8/
 %{_includedir}/v8/extensions/

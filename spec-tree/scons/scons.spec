@@ -46,7 +46,6 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/* $RPM_BUILD_ROOT%{_mandir}
 
 
 %files
-%defattr(-,root,root,-)
 %doc CHANGES.txt LICENSE.txt README.txt RELEASE.txt
 %{_bindir}/*
 %{_prefix}/lib/scons

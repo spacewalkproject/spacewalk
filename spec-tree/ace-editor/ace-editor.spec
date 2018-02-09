@@ -63,7 +63,6 @@ cp -r src-min %{buildroot}%{_datadir}/ace-editor/src-min-noconflict
 %endif
 
 %files
-%defattr(-,root,root)
 %doc LICENSE ChangeLog.txt README.md
 %{_datadir}/ace-editor
 %config(noreplace) %{_sysconfdir}/%{httpd}/conf.d/*.conf

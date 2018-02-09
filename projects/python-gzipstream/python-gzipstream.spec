@@ -70,7 +70,6 @@ cd ../py3
 
 %if 0%{?build_py3}
 %files -n python3-gzipstream
-%defattr(-,root,root)
 %{python3_sitelib}/*
 %doc html LICENSE
 

@@ -36,7 +36,6 @@ rm -rf %{buildroot}
 %postun
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript
 
 %changelog

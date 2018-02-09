@@ -61,7 +61,6 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 %files
-%defattr(-,root,root)
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/DBD/
 %{_mandir}/man3/*

@@ -39,7 +39,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 
 
 %files
-%defattr(644,root,root,755)
 %{_prefix}/share/nutch/*
 %attr(755,root,root) %{_prefix}/share/nutch/bin/*
 %{_var}/log/rhn/search

@@ -44,7 +44,6 @@ echo "post"
 %clean
 
 %files
-%defattr(644,root,root,755)
 %dir %{loaders_root}
 %{loaders_root}/*
 

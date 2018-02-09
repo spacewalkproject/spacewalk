@@ -85,14 +85,12 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{_libdir}/libhttp_parser.so.*
 %{_libdir}/libhttp_parser_strict.so.*
 %doc AUTHORS CONTRIBUTIONS LICENSE-MIT README.md
 
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/libhttp_parser.so
 %{_libdir}/libhttp_parser_strict.so

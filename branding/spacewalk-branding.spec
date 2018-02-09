@@ -117,7 +117,6 @@ rm -rf %{buildroot}
 %endif
 
 %files devel
-%defattr(-,root,root)
 %{wwwdocroot}/css/*.less
 
 %changelog

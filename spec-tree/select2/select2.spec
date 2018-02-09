@@ -36,7 +36,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript/select2
 %if 0%{?suse_version}
 %dir %{apachedocroot}/javascript

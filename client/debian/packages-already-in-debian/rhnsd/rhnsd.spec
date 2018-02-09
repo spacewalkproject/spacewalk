@@ -62,7 +62,6 @@ rm -fr $RPM_BUILD_ROOT
 
 
 %files -f %{name}.lang 
-%defattr(-,root,root)
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd

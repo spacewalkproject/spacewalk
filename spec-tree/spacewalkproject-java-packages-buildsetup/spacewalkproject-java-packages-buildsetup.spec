@@ -40,7 +40,6 @@ Provides:       apache-commons-beanutils = 1.7.0
 %{summary}
 
 %files -n jakarta-commons-beanutils-mvn
-%defattr(644, root, root)
 %{_javadir}/apache-commons-beanutils.jar
 
 %package -n jakarta-commons-beanutils19
@@ -86,7 +85,6 @@ Provides:       apache-commons-collections = 3.2.1
 %{summary}
 
 %files -n jakarta-commons-collections-mvn
-%defattr(644, root, root)
 %{_javadir}/apache-commons-collections.jar
 
 %package -n jakarta-commons-digester-mvn
@@ -133,7 +131,6 @@ Provides:       apache-commons-logging = 1.0.4
 %{summary}
 
 %files -n jakarta-commons-logging-mvn
-%defattr(644, root, root)
 %{_javadir}/apache-commons-logging.jar
 
 %package -n jakarta-commons-net-mvn
@@ -259,7 +256,6 @@ for i in apache-commons-beanutils \
 done
 
 %files
-%defattr(644, root, root)
 %{_prefix}/lib/rpm/macros.d/macros.zz-dist-override
 %{_sysconfdir}/rpm/macros.zz-dist-override
 

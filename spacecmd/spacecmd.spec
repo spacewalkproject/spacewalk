@@ -80,7 +80,6 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %endif
 
 %files
-%defattr(-,root,root)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf

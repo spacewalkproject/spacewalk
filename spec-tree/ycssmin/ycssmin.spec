@@ -38,7 +38,6 @@ ln -sf ../lib/node_modules/%{name}/bin/cssmin %{buildroot}%{_bindir}/cssmin
 #istanbul cover --print both -- vows --spec ./tests/*.js
 
 %files
-%defattr(-,root,root,-)
 %{nodejs_sitelib}/%{name}
 %{_bindir}/cssmin
 %doc README.md LICENSE

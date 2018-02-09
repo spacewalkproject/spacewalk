@@ -210,7 +210,6 @@ export MAVEN_OPTS=
 %{__rm} -rf %{buildroot}
 
 %files -n sitemesh
-%defattr(0644,root,root,0755)
 %doc CHANGES.txt LICENSE.txt README.txt docs
 %{_javadir}/sitemesh-%{namedversion}.jar
 %{_javadir}/sitemesh.jar
@@ -223,12 +222,10 @@ export MAVEN_OPTS=
 %{_mavenpomdir}/JPP-sitemesh.pom
 
 %files -n sitemesh-javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/sitemesh-%{namedversion}
 %{_javadocdir}/sitemesh
 
 %files -n sitemesh-site
-%defattr(0644,root,root,0755)
 %{_docdir}/sitemesh
 
 %changelog

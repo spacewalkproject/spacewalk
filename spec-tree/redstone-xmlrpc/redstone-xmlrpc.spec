@@ -49,7 +49,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %clean
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}
 
 %changelog

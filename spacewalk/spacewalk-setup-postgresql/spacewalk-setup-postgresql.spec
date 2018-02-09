@@ -49,7 +49,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE
 %attr(755,root,root) %{_bindir}/spacewalk-setup-postgresql
 #%{_mandir}/man1/*

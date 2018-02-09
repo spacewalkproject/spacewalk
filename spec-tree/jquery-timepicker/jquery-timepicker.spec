@@ -35,7 +35,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/css/*
 %{apachedocroot}/javascript/*
 %if 0%{?suse_version}

@@ -199,7 +199,6 @@ fi
 %endif
 
 %files
-%defattr(-,root,root,-)
 %doc doc/license.txt
 %{_sbindir}/%{name}
 %{_libdir}/libwrapper.so
@@ -211,12 +210,10 @@ fi
 
 %if %{build_subpackages}
 %files javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 %ghost %doc %{_javadocdir}/%{name}
 
 %files manual
-%defattr(0644,root,root,0755)
 %doc doc/*
 %endif
 

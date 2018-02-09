@@ -32,7 +32,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript/select2/select2-bootstrap.css
 %if 0%{?suse_version}
 %dir %{apachedocroot}/javascript

@@ -54,12 +54,10 @@ cp -p %{name}-oracle-%{version}.jar \
 %clean
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}/%{name}.jar
 %{_javadir}/%{name}-%{version}.jar
 
 %files oracle
-%defattr(0644,root,root,0755)
 %{_javadir}/%{name}-oracle.jar
 %{_javadir}/%{name}-oracle-%{version}.jar
 
