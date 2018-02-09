@@ -74,7 +74,6 @@ BuildRequires:	xml-commons-apis
 BuildRequires:	%{__perl}
 BuildRequires:	java-javadoc
 Obsoletes:	%{name}-demo < 0:3.1.2-2jpp
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if %{gcj_support}
 BuildRequires:		java-gcj-compat-devel

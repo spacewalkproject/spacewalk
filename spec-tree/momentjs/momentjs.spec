@@ -22,7 +22,6 @@ Source3:        httpd-momentjs.conf
 %if 0%{?suse_version}
 Requires(pre):  apache2
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

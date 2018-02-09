@@ -11,7 +11,6 @@ License:        GPLv2
 # make srpm
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
 %define debug_package %{nil}
 

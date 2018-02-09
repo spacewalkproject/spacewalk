@@ -8,7 +8,6 @@ URL:            https://fedoraproject.org/wiki/Node.js/Packagers
 Source0:        https://fedorahosted.org/released/%{name}/%{name}-el6-%{version}.tar.xz
 ExclusiveArch:  %{ix86} x86_64 %{arm} noarch
 Group:          Unknown
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Patch0:         nodejs-packaging-python24.patch
 
 %global _rpmconfigdir /usr/lib/rpm

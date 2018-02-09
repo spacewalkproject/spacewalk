@@ -6,7 +6,6 @@ URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
 Version: 1.8.9
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
 BuildRequires: update-desktop-files

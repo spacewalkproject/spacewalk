@@ -10,7 +10,6 @@ Source: http://dsommers.fedorapeople.org/python-ethtool/%{name}-%{version}.tar.b
 License: GPLv2
 Group: System Environment/Libraries
 BuildRequires: python-devel libnl-devel
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Python bindings for the ethtool kernel interface, that allows querying and

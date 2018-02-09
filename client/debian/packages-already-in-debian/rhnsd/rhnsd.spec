@@ -6,7 +6,6 @@ URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhnsd
 Version: 4.9.15
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: gettext
 

@@ -32,7 +32,6 @@ Group:		System Environment/Libraries
 License:	BSD
 URL:		http://code.google.com/p/v8
 Source0:	http://commondatastorage.googleapis.com/chromium-browser-official/v8-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExclusiveArch:	%{ix86} x86_64 %{arm}
 BuildRequires:	scons, readline-devel, libicu-devel
 

@@ -9,7 +9,6 @@ Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 Patch2: escaping_string_serialization.path
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 BuildRequires: jboss-servlet-2.5-api

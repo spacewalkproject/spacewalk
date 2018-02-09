@@ -30,7 +30,6 @@ Group:          Development/Libraries
 %endif
 Url:            http://simple.sourceforge.net
 Source0:        http://downloads.sourceforge.net/simple/%{name}-%{version}.zip
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 %if 0%{?suse_version}
 BuildRequires:  bea-stax

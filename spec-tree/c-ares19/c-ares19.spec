@@ -19,7 +19,6 @@ BuildRequires: libtool
 Patch0003: 0001-Rename-output-to-libcares19.patch
 Patch0004: 0002-Don-t-build-manpages-on-EPEL6.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 c-ares is a C library that performs DNS requests and name resolves 

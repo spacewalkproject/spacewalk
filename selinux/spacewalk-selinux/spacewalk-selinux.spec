@@ -18,7 +18,6 @@ License:        GPLv2+
 #      git clone https://github.com/spacewalkproject/spacewalk.git
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:  perl-interpreter

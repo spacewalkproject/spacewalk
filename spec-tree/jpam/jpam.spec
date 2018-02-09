@@ -12,7 +12,6 @@ Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
 Release: 34%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc

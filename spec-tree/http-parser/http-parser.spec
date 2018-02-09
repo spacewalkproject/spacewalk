@@ -16,7 +16,6 @@ License:        MIT
 URL:            https://github.com/joyent/http-parser
 # download from https://github.com/joyent/http-parser/tarball/%%{version}
 Source0:        joyent-http-parser-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream

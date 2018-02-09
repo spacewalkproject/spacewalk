@@ -16,7 +16,6 @@ Patch3:  0002-fixed-no-source-spec-issue.patch
 Patch4:  git-quick-build.patch
 Patch5:  fixing-unescaped-left-brace-in-newer-perl.patch
 Patch6:  dont-generate-renames-rhel-6-workaround.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
 BuildRequires: python-devel

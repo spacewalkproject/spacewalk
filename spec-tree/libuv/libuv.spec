@@ -17,7 +17,6 @@ Source2: libuv.pc.in
 Patch0:  libuv-python24.patch
 
 BuildRequires: gyp
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 

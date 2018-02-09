@@ -6,7 +6,6 @@ Group:	 	Development/Libraries
 License:	GNU
 URL:	 	http://www.simpleframework.org	
 Source0:	simple-core-%{version}.tar.gz	
-BuildRoot:	%{_tmppath}/%{origname}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 BuildRequires:  ant

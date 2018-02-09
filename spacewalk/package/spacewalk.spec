@@ -7,7 +7,6 @@ Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
 Group:          Applications/Internet
 License:        GPLv2
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %description

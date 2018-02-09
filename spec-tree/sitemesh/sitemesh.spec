@@ -94,7 +94,6 @@ BuildRequires:  maven-source-plugin
 BuildRequires:  xmvn
 %endif
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/sitemesh-%{namedversion}-%{release}-root
 
 %description 
 SiteMesh is a web-page layout and decoration framework and web-application

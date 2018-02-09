@@ -13,7 +13,6 @@ Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://ivaynberg.github.io/select2/
 Source0:        https://github.com/ivaynberg/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

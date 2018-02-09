@@ -22,7 +22,6 @@ BuildRequires:  nodejs-devel
 BuildRequires:  python-simplejson
 Requires:       nodejs
 ExclusiveArch:  %{ix86} %{arm} x86_64 noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %global _rpmconfigdir /usr/lib/rpm
 

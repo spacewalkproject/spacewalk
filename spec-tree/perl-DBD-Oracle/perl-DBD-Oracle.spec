@@ -7,7 +7,6 @@ Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
 Url: http://www.cpan.org
-BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: oracle-instantclient11.2-devel

@@ -16,7 +16,6 @@ Source0:        http://developer.android.com/downloads/design/roboto-1.3.tar.gz
 %if 0%{?suse_version}
 BuildRequires:  unzip
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

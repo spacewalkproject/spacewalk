@@ -13,7 +13,6 @@ Group:          Applications/Internet
 License:        MIT
 URL:            http://fk.github.io/select2-bootstrap-css/
 Source0:        https://github.com/t0m/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

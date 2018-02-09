@@ -25,7 +25,6 @@ Patch2: nodejs-python24.patch
 %global v8_lt 1:3.15
 %global v8_abi 3.14
 
-BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %global _rpmconfigdir /usr/lib/rpm
 
 BuildRequires: v8-devel >= %{v8_ge}

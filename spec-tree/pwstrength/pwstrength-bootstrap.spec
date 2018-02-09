@@ -14,7 +14,6 @@ Group:          Applications/Internet
 Source0:        https://github.com/ablanco/jquery.pwstrength.bootstrap/archive/%{version}.tar.gz
 Patch1:         pwstrength-bootstrap-%{version}.patch
 BuildArch:      noarch
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 %description
 The jQuery Password Strength Meter is a plugin for Twitter Bootstrap that provides rulesets for visualy displaying the quality of a users typed in password.

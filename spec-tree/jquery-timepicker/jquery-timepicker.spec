@@ -13,7 +13,6 @@ Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://jonthornton.github.io/jquery-timepicker/
 Source0:        https://github.com/jonthornton/jquery-timepicker/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

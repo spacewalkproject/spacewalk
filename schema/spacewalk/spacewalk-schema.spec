@@ -11,7 +11,6 @@ Source0:        %{name}-%{version}.tar.gz
 License:        GPLv2
 Url:            https://github.com/spacewalkproject/spacewalk/
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  python

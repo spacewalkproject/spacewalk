@@ -7,7 +7,6 @@ License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
 Group:          Development/Libraries/Java
 Source0:        %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 Requires: java-headless >= 1:1.8.0

@@ -13,7 +13,6 @@ Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            https://github.com/eternicode/bootstrap-datepicker/
 Source0:        https://github.com/eternicode/bootstrap-datepicker/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description

@@ -18,7 +18,6 @@ URL:		https://github.com/patternfly/patternfly
 Source:		patternfly-1.0.5.tar.gz
 Patch0:   fix_paths.patch
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
 %description

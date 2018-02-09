@@ -17,7 +17,6 @@ Patch0:     dwr-no-noncla-no-junit.patch
 Patch1:     dwr-r3974-merged.patch
 Patch2:     dwr-r3975.patch
 BuildArch:  noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires:        java-headless >= 1:1.8.0
 BuildRequires:   java-1.8.0-openjdk-devel

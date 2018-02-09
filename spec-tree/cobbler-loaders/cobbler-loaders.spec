@@ -16,7 +16,6 @@ Requires: cobbler2
 Requires: syslinux > 4.00
 Provides: cobbler-loaders = %{version}-%{release}
 Obsoletes: cobbler-loaders < %{version}-%{release}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 %description
