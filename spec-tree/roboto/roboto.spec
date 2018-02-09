@@ -6,7 +6,7 @@
 
 Name:           roboto
 Version:        1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Roboto font
 
 License:        Apache Software License v2
@@ -70,6 +70,11 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3-2
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Jan 20 2017 Grant Gainey 1.3-1
 - 1208421 - Update Roboto fonts
 
