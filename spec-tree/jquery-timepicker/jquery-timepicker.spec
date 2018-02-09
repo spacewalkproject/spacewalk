@@ -6,7 +6,7 @@
 
 Name:           jquery-timepicker
 Version:        1.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar.
 
 License:        Apache Software License v2
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3.3-3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.3.3-2
 - jquery-timepicker: build on openSUSE
 
