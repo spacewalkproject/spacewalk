@@ -8,7 +8,7 @@
 
 Name:           bootstrap
 Version:        3.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 License:        Apache Software License v2
@@ -78,6 +78,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.0.0-7
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 3.0.0-6
 - 
 
