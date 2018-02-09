@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Dec 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - tomcat on RHEL 7.5 is confined even more
 
