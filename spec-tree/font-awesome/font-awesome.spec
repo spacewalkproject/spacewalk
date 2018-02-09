@@ -6,7 +6,7 @@
 
 Name:           font-awesome
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The iconic font designed for Bootstrap
 
 License:        OFL 1.1 and MIT
@@ -68,6 +68,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 4.0.3-3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 4.0.3-2
 - font-awesome: build on openSUSE
 
