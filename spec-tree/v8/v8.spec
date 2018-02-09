@@ -25,7 +25,7 @@
 
 Name:		v8
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	2.2%{?dist}
+Release:	2.3%{?dist}
 Epoch:		1
 Summary:	JavaScript Engine
 License:	BSD
@@ -211,6 +211,11 @@ rm -rf %{buildroot}
 %{python_sitelib}/j*.py*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.14.5.10-2.3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 3.14.5.10-2.2
 - spec file polish
 
