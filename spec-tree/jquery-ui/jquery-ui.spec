@@ -6,7 +6,7 @@
 
 Name:           jquery-ui
 Version:        1.10.4.custom
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        jQuery UI is a curated set of user interface elements built on top of the jQuery JavaScript Library.
 
 License:        MIT
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.10.4.custom-4
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.10.4.custom-3
 - jquery-ui: build on openSUSE
 
