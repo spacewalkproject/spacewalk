@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -66,6 +66,11 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Thu Nov 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - removed settings for old RH build system
 
