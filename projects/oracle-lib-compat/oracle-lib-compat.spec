@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.15
+Version:        11.2.0.16
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 License:        GPLv2
@@ -103,6 +103,11 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.16-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 11.2.0.15-1
 - purged changelog entries for Spacewalk 2.0 and older
 
