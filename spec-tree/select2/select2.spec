@@ -6,7 +6,7 @@
 
 Name:           select2
 Version:        3.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Select2 is a jQuery based replacement for select boxes.
 
 License:        Apache Software License v2
@@ -42,6 +42,11 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.4.5-4
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 3.4.5-3
 - select2: build on openSUSE
 
