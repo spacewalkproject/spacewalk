@@ -6,7 +6,7 @@
 
 Name:           select2-bootstrap-css
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CSS to make Select2 fit in with Bootstrap 3.
 
 License:        MIT
@@ -39,6 +39,11 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3.0-6
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.3.0-5
 - select2-bootstrap-css: build on openSUSE
 
