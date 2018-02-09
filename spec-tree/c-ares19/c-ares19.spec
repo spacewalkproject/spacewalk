@@ -1,7 +1,7 @@
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares19
 Version: 1.9.1
-Release: 4%{?dist}.3.1
+Release: 4%{?dist}.3.2
 License: MIT
 URL: http://c-ares.haxx.se/
 Source0: http://c-ares.haxx.se/download/c-ares-%{version}.tar.gz
@@ -77,6 +77,13 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares19.la
 %{_libdir}/pkgconfig/libcares19.pc
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.9.1-4.3.2
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Thu Apr 11 2013 Stephen Gallagher <sgallagh@redhat.com> - 1.9.1-4.3
 - Fix changelog dates
 
