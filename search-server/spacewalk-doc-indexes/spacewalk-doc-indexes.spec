@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -44,6 +44,11 @@ cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/inde
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 27 2017 Eric Herget <eherget@redhat.com> 2.8.3-1
 - fix urls, filters and conf for doc indexing
 - fixing crawler filter, 5.8 doc is using lower case url
