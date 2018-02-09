@@ -1,6 +1,6 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 License:	GNU
 URL:	 	http://www.simpleframework.org	
@@ -59,6 +59,12 @@ cp -pr doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 %{_javadocdir}/*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.1.3-10
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.1.3-9
 - recompile all packages with the same (latest) version of java
 
