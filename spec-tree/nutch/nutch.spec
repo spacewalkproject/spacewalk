@@ -1,6 +1,6 @@
 Name: nutch
 Version: 1.0
-Release: 0.18.20081201040121nightly%{?dist}
+Release: 0.19.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
 License: ASL 2.0
@@ -45,6 +45,12 @@ install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0-0.19.20081201040121nightly
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 1.0-0.18.20081201040121nightly
 - 1483503 - move hadoop logs to /var/log
 
