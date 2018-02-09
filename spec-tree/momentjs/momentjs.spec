@@ -6,7 +6,7 @@
 
 Name:           momentjs
 Version:        2.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
 License:        MIT
@@ -52,6 +52,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.6.0-5
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 2.6.0-4
 - momentjs: build on openSUSE
 
