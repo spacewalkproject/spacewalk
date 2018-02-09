@@ -1,5 +1,5 @@
 Name:		spacewalk-pylint
-Version:	2.8.3
+Version:	2.8.4
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- removed Group from specfile
+
 * Mon Nov 13 2017 Jan Dobes 2.8.3-1
 - disable no-else-return check
 
