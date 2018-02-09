@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.63
+Version: 2.8.64
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.64-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.63-1
 - write modules information during repodata generation
 - support downloading of modules.yaml files via java stack
