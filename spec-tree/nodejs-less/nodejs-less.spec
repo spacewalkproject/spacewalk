@@ -2,7 +2,7 @@
 
 Name:           nodejs-less
 Version:        1.4.1
-Release:        1.3%{?dist}
+Release:        1.4%{?dist}
 Summary:        Less.js The dynamic stylesheet language
 Group  :        Unspecified
 
@@ -70,6 +70,10 @@ ln -s %{nodejs_sitelib}/less/bin/lessc \
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1.4
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1.3
 - simplejson has to be available in build time
 
