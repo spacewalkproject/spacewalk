@@ -1,6 +1,6 @@
 Name: spacewalk-ssl-cert-check
 Epoch:	 1
-Version: 2.7
+Version: 2.8
 Release: 1%{?dist}
 Summary: Check ssl certs for impending expiration
 License: GPLv2
@@ -35,6 +35,11 @@ install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-s
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.7-1
 - purged changelog entries for Spacewalk 2.0 and older
 
