@@ -2,7 +2,7 @@
 
 Name:		scons
 Version:	2.0.1
-Release:	1%{?posttag}.1%{?dist}
+Release:	1%{?posttag}.2%{?dist}
 Summary:	An Open Source software construction tool
 License:	MIT
 URL:		http://www.scons.org
@@ -52,6 +52,13 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/* $RPM_BUILD_ROOT%{_mandir}
 %{_mandir}/man*/*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.1-1.2
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Mon Aug 23 2010 Chen Lei <supercyper@163.com> - 2.0.1-1
 - New release 2.0.1 (#595107)
 
