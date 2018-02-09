@@ -56,7 +56,6 @@ a2x -d manpage -f manpage tito.props.5.asciidoc
 a2x -d manpage -f manpage releasers.conf.5.asciidoc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{python_sitelib}/*egg-info/requires.txt
 # manpages
@@ -69,7 +68,6 @@ rm -f $RPM_BUILD_ROOT%{python_sitelib}/*egg-info/requires.txt
 %{__gzip} -c build.py.props.5 > %{buildroot}/%{_mandir}/man5/build.py.props.5.gz
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

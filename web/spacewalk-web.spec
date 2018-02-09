@@ -97,7 +97,6 @@ database.
 make -f Makefile.spacewalk-web PERLARGS="INSTALLDIRS=vendor" %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -C modules install DESTDIR=$RPM_BUILD_ROOT PERLARGS="INSTALLDIRS=vendor" %{?_smp_mflags}
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
@@ -116,7 +115,6 @@ install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_RO
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-base
 %dir %{perl_vendorlib}/RHN

@@ -54,10 +54,8 @@ perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.4.0
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`

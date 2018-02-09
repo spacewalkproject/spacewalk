@@ -48,13 +48,11 @@ done
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 %{__python} setup.py install --root $RPM_BUILD_ROOT --skip-build
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

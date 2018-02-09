@@ -20,7 +20,6 @@ Script based reporting to retrieve data from Spacewalk server in CSV format.
 /usr/bin/docbook2man *.sgml
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_bindir}
 install -d $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk
 install -d $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports/data
@@ -31,7 +30,6 @@ install -m 644 reports/data/* $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports
 install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(755,root,root) %{_bindir}/spacewalk-report

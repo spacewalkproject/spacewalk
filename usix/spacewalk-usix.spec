@@ -47,7 +47,6 @@ Library for writing code that runs on Python 2 and 3
 %define debug_package %{nil}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{pythonrhnroot}/common
 install -m 0644 __init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py
 install -m 0644 common/__init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py
@@ -61,7 +60,6 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroo
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %dir %{pythonrhnroot}

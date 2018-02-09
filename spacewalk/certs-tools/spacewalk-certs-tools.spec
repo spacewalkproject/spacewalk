@@ -76,7 +76,6 @@ sed -i 's|etc/httpd/conf|etc/apache2|g' ssl-howto.txt
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
@@ -93,7 +92,6 @@ ln -s rhn-ssl-tool%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-ssl-tool
 ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(755,root,root) %{rhnroot}/certs/sign.sh

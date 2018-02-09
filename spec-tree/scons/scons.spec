@@ -37,14 +37,12 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES --install-lib=%{_prefix}/lib/scons --install-scripts=%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 mv $RPM_BUILD_ROOT%{_prefix}/man/* $RPM_BUILD_ROOT%{_mandir}
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

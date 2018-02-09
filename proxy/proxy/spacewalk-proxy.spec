@@ -168,7 +168,6 @@ an Spacewalk Proxy Server's custom channel.
 make -f Makefile.proxy
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 install -d -m 750 $RPM_BUILD_ROOT/%{_datadir}/spacewalk
@@ -183,7 +182,6 @@ rm -rf $RPM_BUILD_ROOT/etc/httpd
 touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}

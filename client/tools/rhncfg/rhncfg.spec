@@ -145,7 +145,6 @@ Python 3 specific files for python2-%{name}-actions.
 make -f Makefile.rhncfg all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{python_sitelib}
 make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir} PYTHONVERSION=%{python_version}
@@ -178,7 +177,6 @@ done
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ -f %{_localstatedir}/log/rhncfg-actions ]

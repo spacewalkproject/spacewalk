@@ -44,7 +44,6 @@ This package include Satcon perl module and supporting applications.
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
@@ -57,7 +56,6 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 make test
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc README LICENSE 

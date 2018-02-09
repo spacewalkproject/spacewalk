@@ -231,7 +231,6 @@ done
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version}
@@ -284,7 +283,6 @@ install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildro
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
 %{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} >/dev/null 2>&1 || : ; fi; }

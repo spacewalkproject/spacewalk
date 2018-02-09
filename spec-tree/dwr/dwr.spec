@@ -39,7 +39,6 @@ export JAVA_TOOL_OPTIONS=-Dfile.encoding=ISO-8859-1
 LC_CTYPE=en_US.iso-8859-1 ant jar
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 (cd $RPM_BUILD_ROOT%{_javadir} && ln -sf %{name}-%{version}.jar %{name}.jar)

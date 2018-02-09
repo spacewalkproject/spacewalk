@@ -67,7 +67,6 @@ make -f Makefile.rhnlib
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 %if 0%{?build_py3}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
@@ -75,7 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

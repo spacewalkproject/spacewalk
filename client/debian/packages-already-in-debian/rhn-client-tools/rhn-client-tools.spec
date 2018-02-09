@@ -131,7 +131,6 @@ registering a system with a Red Hat Network or Spacewalk server.
 make -f Makefile.rhn-client-tools
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
@@ -175,7 +174,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?fedora}
 %check

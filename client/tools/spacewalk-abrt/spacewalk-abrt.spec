@@ -48,7 +48,6 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-abrt
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
                 PYTHON_PATH=%{python_sitelib} PYTHON_VERSION=%{python_version}
 %if 0%{?build_py3}
@@ -63,7 +62,6 @@ ln -s spacewalk-abrt%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/spacewalk-abrt
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 service abrtd restart

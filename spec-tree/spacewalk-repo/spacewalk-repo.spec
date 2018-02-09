@@ -26,7 +26,6 @@ This package contains the Spacewalk repository configuration for yum.
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
 %define reposubdir      epel-%{rhel}
@@ -108,7 +107,6 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
     done
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk.repo

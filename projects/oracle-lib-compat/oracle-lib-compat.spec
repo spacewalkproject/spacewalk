@@ -54,7 +54,6 @@ Compatibility package so that perl-DBD-Oracle will install.
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
@@ -82,7 +81,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_javadir}
 ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc6.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %ifarch x86_64 s390x

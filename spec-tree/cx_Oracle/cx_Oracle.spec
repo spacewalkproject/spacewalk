@@ -52,7 +52,6 @@ export ORACLE_HOME=%{oracle_home}
 %{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
 %doc LICENSE.txt README.txt BUILD.txt samples test

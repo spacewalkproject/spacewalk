@@ -32,7 +32,6 @@ export JAVA_HOME=%{java_home}
 %ant
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
 
 # jars and supporting kxml lib
@@ -48,7 +47,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644,root,root,0755)

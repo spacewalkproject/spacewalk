@@ -481,7 +481,6 @@ if java -version 2>&1 | grep -q IBM ; then
 fi
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -597,7 +596,6 @@ echo "#### SYMLINKS END ####"
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %pre
 rm -f %{realcobsnippetsdir}/spacewalk

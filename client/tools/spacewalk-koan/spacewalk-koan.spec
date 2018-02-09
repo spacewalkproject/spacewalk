@@ -55,7 +55,6 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-koan all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir}
 
@@ -73,7 +72,6 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart

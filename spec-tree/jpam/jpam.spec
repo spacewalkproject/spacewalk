@@ -80,7 +80,6 @@ export JAVA_HOME=%{java_home}
 %ant shared-object dist-jar javadoc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # jar
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
@@ -100,7 +99,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr site/documentation/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
 rm -f %{_javadocdir}/%{name}

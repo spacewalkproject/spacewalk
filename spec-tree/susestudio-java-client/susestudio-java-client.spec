@@ -49,7 +49,6 @@ install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644,root,root,0755)

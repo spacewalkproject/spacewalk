@@ -24,7 +24,6 @@ rm -fr ./lib/native/Linux-i386-32
 sed -i 's|^hadoop.log.dir=.*$|hadoop.log.dir=/var/log/rhn/search|' conf/log4j.properties
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/nutch
 install -m 644 nutch-2008-12-01_04-01-21.jar $RPM_BUILD_ROOT%{_prefix}/share/nutch
 install -m 644 default.properties $RPM_BUILD_ROOT%{_prefix}/share/nutch
@@ -37,7 +36,6 @@ ln -s %{_prefix}/share/nutch/nutch-2008-12-01_04-01-21.jar $RPM_BUILD_ROOT%{_pre
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

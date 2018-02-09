@@ -33,13 +33,11 @@ make -f Makefile.spacewalk-client-cert
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %global pypath %{?build_py3:%{python3_sitelib}}%{!?build_py3:%{python_sitelib}}
 make -f Makefile.spacewalk-client-cert install PREFIX=$RPM_BUILD_ROOT \
         PYTHONPATH=%{pypath}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files

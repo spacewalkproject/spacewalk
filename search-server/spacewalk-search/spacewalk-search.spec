@@ -139,7 +139,6 @@ sed -i 's/nutch-2008-12-01_04-01-21.jar/apache-nutch-1.9.jar/' $RPM_BUILD_ROOT%{
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 %if 0%{?suse_version} >= 1210

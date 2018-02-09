@@ -44,7 +44,6 @@ make -f Makefile.rhn-custom-info all
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
 %global pypath %{?build_py3:%{python3_sitelib}}%{!?build_py3:%{python_sitelib}}
 make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT ROOT=%{pypath}
@@ -52,7 +51,6 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 rhn-custom-info.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %{_bindir}/rhn-custom-info

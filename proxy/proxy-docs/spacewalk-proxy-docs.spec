@@ -22,11 +22,9 @@ and Enterprise User Reference guides.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc *.pdf

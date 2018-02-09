@@ -33,13 +33,11 @@ software updates.
 make -f Makefile.yum-rhn-plugin
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} PYTHONPATH=%{python_sitelib}
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %pre
 # 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered

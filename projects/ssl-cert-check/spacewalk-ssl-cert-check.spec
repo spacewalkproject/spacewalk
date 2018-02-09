@@ -23,14 +23,12 @@ administrator.
 # Nothing to do
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/cron.daily
 
 install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check

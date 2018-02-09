@@ -38,7 +38,6 @@ SELinux support for Oracle Instant Client sqlplus.
 %define used_libs libocci.so.11.1 libclntsh.so.11.1 libnnz11.so libociei.so libocijdbc11.so
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 install -d %{buildroot}%{_sbindir}
 
@@ -63,7 +62,6 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 EOS
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 if /usr/sbin/selinuxenabled ; then

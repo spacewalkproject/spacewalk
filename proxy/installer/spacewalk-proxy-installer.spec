@@ -66,7 +66,6 @@ Run configure-proxy.sh after installation to configure proxy.
 /usr/bin/gzip configure-proxy.sh.8
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
@@ -88,7 +87,6 @@ sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhn-proxy-activate.py
 install -m 755 rhn-proxy-activate.py $RPM_BUILD_ROOT%{_bindir}/rhn-proxy-activate
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}

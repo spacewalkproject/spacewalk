@@ -30,7 +30,6 @@ a simple json reader/writer library for java
 ant -f src/build.xml dist-json
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
 install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
@@ -38,7 +37,6 @@ install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{
 install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644,root,root,0755)

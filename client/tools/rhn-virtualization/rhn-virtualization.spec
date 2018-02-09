@@ -105,7 +105,6 @@ make -f Makefile.rhn-virtualization
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} install
 sed -i 's,@PYTHON@,python,; s,@PYTHONPATH@,%{python_sitelib},;' \
@@ -134,7 +133,6 @@ rm -f $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?suse_version}
 %post host

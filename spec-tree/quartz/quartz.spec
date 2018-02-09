@@ -40,7 +40,6 @@ Oracle driver delegate for %{name}
 %setup -q
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
 # main quartz
@@ -53,7 +52,6 @@ cp -p %{name}-oracle-%{version}.jar \
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644,root,root,0755)

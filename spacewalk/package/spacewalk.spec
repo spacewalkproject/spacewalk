@@ -141,7 +141,6 @@ Version for PostgreSQL database backend.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 SW_REL=$(echo %{version} | awk -F. '{print $1"."$2}')
 echo "Spacewalk release $SW_REL (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release

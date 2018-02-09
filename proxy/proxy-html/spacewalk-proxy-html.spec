@@ -27,13 +27,11 @@ displays, if you navigate to it using your browser.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy
 install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %dir %{htmldir}/_rhn_proxy

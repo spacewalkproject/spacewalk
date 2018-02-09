@@ -273,7 +273,6 @@ Python 3 specific files for rhn-setup-gnome.
 make -f Makefile.rhn-client-tools
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
@@ -373,7 +372,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?fedora}
 %check

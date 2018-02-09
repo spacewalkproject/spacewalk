@@ -49,7 +49,6 @@ pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 pod2man spacewalk-sql spacewalk-sql.1
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0755 -d $RPM_BUILD_ROOT%{oracle}
 install -m 0755 -d $RPM_BUILD_ROOT%{postgres}
@@ -73,7 +72,6 @@ cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-source-sanity-check.pl
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %{oracle}

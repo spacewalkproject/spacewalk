@@ -38,10 +38,8 @@ make
 make test
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 %install
 
-rm -rf $RPM_BUILD_ROOT
 eval `perl '-V:installarchlib'`
 mkdir -p $RPM_BUILD_ROOT/$installarchlib
 %if "%{perlgen}" == "5.8"
