@@ -1,5 +1,5 @@
 Name:           spacewalkproject-java-packages-buildsetup
-Version:        2.7.12
+Version:        2.7.13
 Release:        1%{?dist}
 Summary:        Dist override for spacewalkproject/java-packages copr buildroot.
 
@@ -261,6 +261,10 @@ done
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.7.13-1
+- removed %%%%defattr from specfile
+- removed Group from specfile
+
 * Fri Jun 30 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.12-1
 - tomcat in EPEL has been updated
 
