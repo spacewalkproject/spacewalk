@@ -4,7 +4,7 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.7%{?dist}
+Release:        2.8%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
@@ -229,6 +229,11 @@ export MAVEN_OPTS=
 %{_docdir}/sitemesh
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.8
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.7
 - recompile all packages with the same (latest) version of java
 
