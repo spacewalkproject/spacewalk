@@ -8,7 +8,6 @@ Version: 0.10.18
 Release: 1.1%{?dist}
 Summary: Platform layer for node.js
 
-Group: Development/Tools
 # the licensing breakdown is described in detail in the LICENSE file
 License: MIT and BSD and ISC
 URL: http://nodejs.org/
@@ -27,7 +26,6 @@ differences in this library.
 
 %package devel
 Summary: Development libraries for libuv
-Group: Development/Tools
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig
 Requires(post): /sbin/ldconfig

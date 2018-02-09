@@ -13,7 +13,6 @@ Name: rhncfg
 Version: 5.10.119
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
-Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -64,7 +63,6 @@ Python 3 specific files for %{name}.
 
 %package client
 Summary: Spacewalk Configuration Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-client = %{version}-%{release}
 
@@ -91,7 +89,6 @@ Python 3 specific files for %{name}-client.
 
 %package management
 Summary: Spacewalk Configuration Management Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-management = %{version}-%{release}
 
@@ -117,7 +114,6 @@ Python 2 specific files for python3-%{name}-management.
 
 %package actions
 Summary: Spacewalk Configuration Client Actions
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-actions = %{version}-%{release}
 

@@ -5,7 +5,6 @@ Release:        10%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
-Group:          Development/Libraries/Java
 Source0:        %{name}-%{version}.tar.gz
 BuildArch: noarch
 
@@ -29,7 +28,6 @@ Java components or EJBs.
 
 %package oracle
 Summary: Oracle JDBC driver delegate for %{name}
-Group:   Development/Libraries/Java
 Requires: %{name}
 Requires: slf4j > 1.6
 Requires: ojdbc14

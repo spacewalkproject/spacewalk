@@ -21,7 +21,6 @@ Version:    2.8.4
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
-Group:      Applications/Internet
 License:    GPLv2
 URL:        https://github.com/spacewalkproject/spacewalk/
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -52,7 +51,6 @@ Spacewalk specific branding, CSS, and images.
 %package devel
 Requires:       %{name} = %{version}-%{release}
 Summary:        Spacewalk LESS source files for development use
-Group:          Applications/Internet
 
 %description devel
 This package contains LESS source files corresponding to Spacewalk's

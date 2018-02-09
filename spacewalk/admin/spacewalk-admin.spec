@@ -6,7 +6,6 @@ Version: 2.8.3
 Release: 1%{?dist}
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
-Group: Applications/Internet
 Requires: spacewalk-base
 Requires: perl(MIME::Base64)
 Requires: lsof

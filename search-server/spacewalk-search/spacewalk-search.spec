@@ -2,7 +2,6 @@
 
 Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
-Group: Applications/Internet
 License: GPLv2
 Version: 2.8.2
 Release: 1%{?dist}

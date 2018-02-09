@@ -3,7 +3,6 @@ Version: 0.10.22
 Release: 1.3%{?dist}
 Summary: JavaScript runtime
 License: MIT and ASL 2.0 and ISC and BSD
-Group: Development/Languages
 URL: http://nodejs.org/
 
 # Exclusive archs must match v8
@@ -65,7 +64,6 @@ real-time applications that run across distributed devices.
 
 %package devel
 Summary: JavaScript runtime - development headers
-Group: Development/Languages
 Requires: %{name}%{?_isa} == %{version}-%{release}
 Requires: libuv-devel%{?_isa} http-parser-devel%{?_isa} v8-devel%{?_isa}
 Requires: openssl-devel%{?_isa} c-ares19-devel%{?_isa} zlib-devel%{?_isa}
@@ -76,7 +74,6 @@ Development headers for the Node.js JavaScript runtime.
 
 %package docs
 Summary: Node.js API documentation
-Group: Documentation
 
 %description docs
 The API documentation for the Node.js JavaScript runtime.

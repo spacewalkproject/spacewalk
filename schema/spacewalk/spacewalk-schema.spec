@@ -1,7 +1,6 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-schema
-Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
 Version:        2.8.11
@@ -31,7 +30,6 @@ spacewalk-schema is the SQL schema for the Spacewalk server.
 
 %package sanity
 Summary:  Schema source sanity check for Spacewalk database scripts.
-Group:    Applications/Internet
 
 Requires:  perl(Digest::SHA)
 

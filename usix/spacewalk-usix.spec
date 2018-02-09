@@ -14,7 +14,6 @@ Version:	2.8.0
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 
-Group:		Applications/Internet
 License:	GPLv2
 URL:		  https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -31,7 +30,6 @@ Library for writing code that runs on Python 2 and 3
 
 %package -n python3-%{name}
 Summary: Spacewalk client micro six library
-Group: Applications/Internet
 Provides: python3-spacewalk-backend-usix = %{version}-%{release}
 Obsoletes: python3-spacewalk-backend-usix < 2.8
 BuildRequires: python3-devel

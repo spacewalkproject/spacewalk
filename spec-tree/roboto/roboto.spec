@@ -9,7 +9,6 @@ Version:        1.3
 Release:        1%{?dist}
 Summary:        Roboto font
 
-Group:          Application/Internet
 License:        Apache Software License v2
 URL:            http://developer.android.com/design/style/typography.html
 Source0:        http://developer.android.com/downloads/design/roboto-1.3.tar.gz
@@ -30,7 +29,6 @@ and the Roboto Slab family.
 
 %package condensed
 Summary:        Roboto Condensed font
-Group:          Application/Internet
 
 %description condensed
 Roboto has a dual nature. It has a mechanical skeleton and the forms are largely

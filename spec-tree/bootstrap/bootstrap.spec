@@ -11,7 +11,6 @@ Version:        3.0.0
 Release:        6%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://getbootstrap.com/
 Source0:        https://github.com/twbs/bootstrap/archive/bootstrap-3.0.0.tar.gz
@@ -29,7 +28,6 @@ of the most popular front-end frameworks and open source projects in the world.
 
 %package less
 Summary:        .less files for bootstrap framework customization.
-Group:          Applications/Internet
 Requires: %{name} = %{version}-%{release}
 
 %description less

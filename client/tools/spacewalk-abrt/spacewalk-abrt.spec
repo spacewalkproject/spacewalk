@@ -10,7 +10,6 @@ Version:        2.8.2
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
-Group:	        Applications/System
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

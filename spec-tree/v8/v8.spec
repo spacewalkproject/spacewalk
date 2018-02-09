@@ -28,7 +28,6 @@ Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
 Release:	2.2%{?dist}
 Epoch:		1
 Summary:	JavaScript Engine
-Group:		System Environment/Libraries
 License:	BSD
 URL:		http://code.google.com/p/v8
 Source0:	http://commondatastorage.googleapis.com/chromium-browser-official/v8-%{version}.tar.bz2
@@ -47,7 +46,6 @@ in Google Chrome, the open source browser from Google. V8 implements ECMAScript
 as specified in ECMA-262, 3rd edition.
 
 %package devel
-Group:		Development/Libraries
 Summary:	Development headers and libraries for v8
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 

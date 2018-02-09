@@ -5,7 +5,6 @@ Summary:        Framework for configuration files
 Version:        2.8.1
 Release:        1%{?dist}
 License:        GPLv2
-Group:          Applications/System
 URL:            https://github.com/spacewalkproject/spacewalk
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

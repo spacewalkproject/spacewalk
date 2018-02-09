@@ -15,7 +15,6 @@ Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
-Group: Applications/System
 Buildarch: noarch
 Requires: perl(Satcon)
 Obsoletes: rhn-satellite-config < 5.3.0

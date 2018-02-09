@@ -34,7 +34,6 @@ Summary: %summary
 %if 0%{?build_py3}
 %package -n python3-gzipstream
 Summary:        %summary
-Group:          Development/Languages/Python
 BuildRequires:  python3-devel
 
 %description -n python3-gzipstream %_description

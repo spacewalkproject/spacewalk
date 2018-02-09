@@ -11,7 +11,6 @@
 
 Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
-Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
 Version:       5.5.108

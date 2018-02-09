@@ -6,7 +6,6 @@ Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
 Version: 5.4.41
 Release: 1%{?dist}
-Group: Applications/System
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk

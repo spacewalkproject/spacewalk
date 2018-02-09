@@ -23,10 +23,8 @@ Version:        2.6.7
 Release:        5%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
-Group:          Development/Libraries/Java
 %else
 License:        ASL 2.0
-Group:          Development/Libraries
 %endif
 Url:            http://simple.sourceforge.net
 Source0:        http://downloads.sourceforge.net/simple/%{name}-%{version}.zip
@@ -54,10 +52,8 @@ of XML configuration and communication systems.
 %package        javadoc
 %if 0%{?suse_version}
 License:        Apache-2.0
-Group:          Development/Languages/Java
 %else
 License:        ASL 2.0
-Group:          Documentation
 %endif
 Summary:        Javadocs for Simple XML Serialization Framework
 

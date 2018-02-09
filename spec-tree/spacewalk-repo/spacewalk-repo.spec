@@ -3,7 +3,6 @@ Name: spacewalk-repo
 Version: 2.8
 Release: 9%{?dist}
 License: GPLv2
-Group: System Environment/Base
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone https://github.com/spacewalkproject/spacewalk.git
@@ -17,7 +16,6 @@ This package contains the Spacewalk repository configuration for yum.
 
 %package -n spacewalk-client-repo
 Summary: Spacewalk client packages yum repository configuration
-Group: System Environment/Base
 
 %description -n spacewalk-client-repo
 This package contains the Spacewalk repository configuration for yum.

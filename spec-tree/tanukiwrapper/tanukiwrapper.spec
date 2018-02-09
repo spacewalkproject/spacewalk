@@ -56,7 +56,6 @@ Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Patch8:         %{name}-Makefile-linux-arm-32.patch
 Patch9:         %{name}-gcc711.patch
-Group:		Development/Java
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
@@ -96,7 +95,6 @@ common to many Java applications:
 %if %{build_subpackages}
 %package javadoc
 Summary:        Javadoc for %{name}
-Group:          Development/Documentation
 # For /bin/rm and /bin/ln
 Requires(post): coreutils
 Requires(postun): coreutils
@@ -106,7 +104,6 @@ Requires(postun): coreutils
 
 %package manual
 Summary:        Documents for %{name}
-Group:          Development/Documentation
 
 %description manual
 %{summary}.

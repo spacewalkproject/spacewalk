@@ -8,7 +8,6 @@
 
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
-Group:   Applications/Internet
 License: GPLv2
 Version: 2.8.4
 Release: 1%{?dist}

@@ -27,7 +27,6 @@ Release:        3%{?dist}
 License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
-Group:          Development/Libraries/Other
 Source0:        https://github.com/ajaxorg/ace-builds/archive/v%{version}.tar.gz#/ace-builds-%{version}.tar.gz
 Source1:        ace-editor.conf
 %if 0%{?suse_version}

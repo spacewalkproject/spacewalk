@@ -9,7 +9,6 @@ Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
 Version: 2.8.5
 Release: 1%{?dist}
-Group: System Environment/Kernel
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:            https://github.com/spacewalkproject/spacewalk

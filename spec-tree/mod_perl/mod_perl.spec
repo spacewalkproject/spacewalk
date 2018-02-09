@@ -10,7 +10,6 @@ Version:        2.0.7
 Release:        11.3%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 
-Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://perl.apache.org/
 Source0:        http://perl.apache.org/dist/mod_perl-%{version}.tar.gz
@@ -65,7 +64,6 @@ like for it to directly incorporate a Perl interpreter.
 
 %package devel
 Summary:        Files needed for building XS modules that use mod_perl
-Group:          Development/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}, httpd-devel%{?_isa}
 
 %description devel 

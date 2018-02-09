@@ -3,7 +3,6 @@ Version: 2.8.3
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
-Group: Applications/Internet
 License: GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands

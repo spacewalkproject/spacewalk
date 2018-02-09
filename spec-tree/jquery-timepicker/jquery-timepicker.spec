@@ -9,7 +9,6 @@ Version:        1.3.3
 Release:        2%{?dist}
 Summary:        A lightweight, customizable jQuery timepicker plugin inspired by Google Calendar.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://jonthornton.github.io/jquery-timepicker/
 Source0:        https://github.com/jonthornton/jquery-timepicker/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz

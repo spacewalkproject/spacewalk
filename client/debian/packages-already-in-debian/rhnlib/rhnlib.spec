@@ -7,7 +7,6 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 Version: 2.8.0
 Release: 1%{?dist}
 
-Group: Development/Libraries
 License: GPLv2
 
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}

@@ -18,7 +18,6 @@
 
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
-Group: Applications/Internet
 License: GPLv2
 Version: 2.8.63
 Release: 1%{?dist}
@@ -265,7 +264,6 @@ This package contains the code for the Java version of the Spacewalk Web Site.
 
 %package config
 Summary: Configuration files for Spacewalk Java
-Group: Applications/Internet
 Obsoletes: rhn-java-config < 5.3.0
 Obsoletes: rhn-java-config-sat < 5.3.0
 Provides: rhn-java-config = %{version}-%{release}
@@ -277,7 +275,6 @@ application and taskomatic process.
 
 %package lib
 Summary: Jar files for Spacewalk Java
-Group: Applications/Internet
 Obsoletes: rhn-java-lib < 5.3.0
 Obsoletes: rhn-java-lib-sat < 5.3.0
 Provides: rhn-java-lib = %{version}-%{release}
@@ -290,7 +287,6 @@ and taskomatic process.
 
 %package oracle
 Summary: Oracle database backend support files for Spacewalk Java
-Group: Applications/Internet
 Requires: ojdbc14
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
@@ -304,7 +300,6 @@ This package contains Oracle database backend files for the Spacewalk Java.
 
 %package postgresql
 Summary: PostgreSQL database backend support files for Spacewalk Java
-Group: Applications/Internet
 Requires: postgresql-jdbc
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires: tomcat >= 7
@@ -320,7 +315,6 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 %if ! 0%{?omit_tests} > 0
 %package tests
 Summary: Test Classes for testing spacewalk-java
-Group:  Applications/Internet
 
 BuildRequires:  jmock > 2.6
 BuildRequires:  mvn(org.jmock:jmock-junit3) > 2.6
@@ -345,7 +339,6 @@ This package contains testing files of spacewalk-java.
 
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
-Group: Applications/Internet
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1

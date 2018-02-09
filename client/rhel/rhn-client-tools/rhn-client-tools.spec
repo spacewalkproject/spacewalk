@@ -11,7 +11,6 @@ Name: rhn-client-tools
 Version: 2.8.15
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
@@ -143,7 +142,6 @@ Python 3 specific files of %{name}.
 
 %package -n rhn-check
 Summary: Check for RHN actions
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-rhn-check = %{version}-%{release}
 %if 0%{?suse_version}
@@ -181,7 +179,6 @@ Python 3 specific files for rhn-check.
 
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
-Group: System Environment/Base
 Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
@@ -221,7 +218,6 @@ Python 3 specific files for rhn-setup.
 
 %package -n rhn-setup-gnome
 Summary: A GUI interface for RHN/Spacewalk Registration
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 Requires: %{pythonX}-rhn-setup-gnome = %{version}-%{release}

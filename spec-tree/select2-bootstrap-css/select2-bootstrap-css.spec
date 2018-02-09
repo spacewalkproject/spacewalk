@@ -9,7 +9,6 @@ Version:        1.3.0
 Release:        5%{?dist}
 Summary:        CSS to make Select2 fit in with Bootstrap 3.
 
-Group:          Applications/Internet
 License:        MIT
 URL:            http://fk.github.io/select2-bootstrap-css/
 Source0:        https://github.com/t0m/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz

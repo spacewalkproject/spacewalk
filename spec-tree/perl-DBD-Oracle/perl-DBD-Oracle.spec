@@ -3,7 +3,6 @@ Name: perl-DBD-Oracle
 Version: 1.62
 Release: 5%{?dist}
 License:  GPL+ or Artistic
-Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
 Url: http://www.cpan.org

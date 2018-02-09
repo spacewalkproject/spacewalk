@@ -4,7 +4,6 @@ Version: 0.3
 Release: 14%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
-Group: Development/Libraries
 URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddress
 Buildarch: noarch
 %if 0%{?fedora} && 0%{?fedora} > 26

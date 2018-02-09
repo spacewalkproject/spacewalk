@@ -10,7 +10,6 @@ Version:	2.8.4
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
-Group:		Applications/System
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

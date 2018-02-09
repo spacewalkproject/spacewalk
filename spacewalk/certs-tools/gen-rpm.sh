@@ -289,7 +289,6 @@ Name: $NAME
 $(if [ -n "$EPOCH" ]; then echo "Epoch: $EPOCH"; fi)
 Version: $VERSION
 Release: $RELEASE
-Group: $GROUP
 License: GPL
 BuildArch: $ARCH
 Source: %{name}-%{version}.tar.gz

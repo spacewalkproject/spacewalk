@@ -14,7 +14,6 @@ Summary:        RHN/Spacewalk action support for virtualization
 Version:        5.4.69
 Release:        1%{?dist}
 
-Group:          System Environment/Base
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -63,7 +62,6 @@ package.
 
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
-Group: System Environment/Base
 Requires: %{pythonX}-%{name}-host = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: cron

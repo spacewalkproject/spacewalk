@@ -9,7 +9,6 @@ Version:        2.6.0
 Release:        4%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
-Group:          Development/Libraries
 License:        MIT
 URL:            http://momentjs.com/
 

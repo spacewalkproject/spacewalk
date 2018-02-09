@@ -3,7 +3,6 @@ Version:	2.8.3
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
-Group:		Development/Debuggers
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

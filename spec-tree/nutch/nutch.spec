@@ -3,7 +3,6 @@ Version: 1.0
 Release: 0.18.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
-Group: Development/Tools
 License: ASL 2.0
 URL: http://lucene.apache.org/nutch/index.html
 Source0: http://hudson.zones.apache.org/hudson/job/Nutch-trunk/647/artifact/trunk/build/nutch-2008-12-01_04-01-21.tar.gz

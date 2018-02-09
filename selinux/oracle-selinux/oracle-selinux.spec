@@ -23,7 +23,6 @@ Name:            oracle-selinux
 Version:         0.1.23.41
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
-Group:           System Environment/Base
 License:         GPLv2+
 URL:             http://www.stl.gtri.gatech.edu/rmyers/oracle-selinux/
 Source0:         https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -47,7 +46,6 @@ SELinux policy module supporting Oracle.
 
 %package -n oracle-nofcontext-selinux
 Summary:         SELinux policy module supporting Oracle, without file contexts
-Group:           System Environment/Base
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif

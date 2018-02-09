@@ -9,7 +9,6 @@ Version:        1.3.0
 Release:        3%{?dist}
 Summary:        Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            https://github.com/eternicode/bootstrap-datepicker/
 Source0:        https://github.com/eternicode/bootstrap-datepicker/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz

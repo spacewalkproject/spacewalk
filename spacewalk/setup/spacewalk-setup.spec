@@ -5,7 +5,6 @@ Version:        2.8.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
-Group:          Applications/System
 License:        GPLv2
 URL:            http://www.spacewalkproject.org/
 Source0:        %{name}-%{version}.tar.gz

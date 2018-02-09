@@ -4,7 +4,6 @@ Name: stringtree-json
 Version: 2.0.9
 Release: 12%{?dist}
 License: LGPL
-Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
 Source0: %{base_package}-%{version}-src.zip
 Patch0: stringtree-2.0.9-build-xml.patch

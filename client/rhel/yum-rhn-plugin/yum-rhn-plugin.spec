@@ -3,7 +3,6 @@ Name: yum-rhn-plugin
 Version: 2.8.4
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}

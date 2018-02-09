@@ -3,7 +3,6 @@ Name: c-ares19
 Version: 1.9.1
 Release: 4%{?dist}.3.1
 License: MIT
-Group: System Environment/Libraries
 URL: http://c-ares.haxx.se/
 Source0: http://c-ares.haxx.se/download/c-ares-%{version}.tar.gz
 # The license can be obtained at http://c-ares.haxx.se/license.html
@@ -27,7 +26,6 @@ by Greg Hudson at MIT.
 
 %package devel
 Summary: Development files for c-ares
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 

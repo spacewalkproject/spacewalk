@@ -1,7 +1,6 @@
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
 License: Apache Software License, v. 1.1
-Group: Application/Development
 URL: http://jpam.sourceforge.net/
 Source0: %{name}-%{version}-src.zip
 Patch0: bug219916_expired_password_hang.patch
@@ -60,7 +59,6 @@ Java, and wraps it in a JAAS LoginModule
 
 %package javadoc
 Summary:       Javadoc for %{name}
-Group:         Development/Documentation
 
 %description javadoc
 Javadoc for %{name}.

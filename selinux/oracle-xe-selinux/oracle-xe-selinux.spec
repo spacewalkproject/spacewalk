@@ -9,7 +9,6 @@ Name:            oracle-xe-selinux
 Version:         10.2.0.46
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
-Group:           System Environment/Base
 License:         GPLv2+
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands

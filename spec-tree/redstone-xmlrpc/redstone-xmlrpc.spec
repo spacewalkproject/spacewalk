@@ -3,7 +3,6 @@ Name: redstone-xmlrpc
 Version: 1.1_20071120 
 Release: 18%{?dist}
 License: LGPL
-Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
 Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch

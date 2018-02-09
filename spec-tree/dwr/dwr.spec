@@ -2,7 +2,6 @@ Name:       dwr
 Version:    3.0rc2
 Release:    8%{?dist}
 Summary:    Direct Web Remoting
-Group:      Development/Libraries/Java
 License:    Apache Software License v2
 URL:        http://directwebremoting.org
 # The Source0 is an svn checkout with some purged content

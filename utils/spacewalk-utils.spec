@@ -8,7 +8,6 @@ Version:	2.8.10
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
-Group:		Applications/Internet
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

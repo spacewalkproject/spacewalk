@@ -8,7 +8,6 @@ Release:        2.7%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
-Group:          Development/Java
 URL:            http://www.sitemesh.org/
 %if 0
 /bin/rm -rf sitemesh-2.4.2.tar.xz sitemesh-2.4.2/ .gitignore
@@ -102,7 +101,6 @@ for which a consistent look/feel, navigation and layout scheme is required.
 
 %package -n sitemesh-javadoc
 Summary:        Javadoc for sitemesh
-Group:          Development/Documentation
 Requires:       jpackage-utils
 BuildRequires:  jpackage-utils
 
@@ -111,7 +109,6 @@ BuildRequires:  jpackage-utils
 
 %package -n sitemesh-site
 Summary:        Site for sitemesh
-Group:          Development/Documentation
 Requires:       jpackage-utils
 BuildRequires:  jpackage-utils
 Requires:       sitemesh-javadoc = %{epoch}:%{version}-%{release}

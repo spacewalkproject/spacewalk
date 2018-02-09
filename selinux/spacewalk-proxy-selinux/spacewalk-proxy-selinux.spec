@@ -12,7 +12,6 @@ Version:        2.8.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
-Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
 #      git clone https://github.com/spacewalkproject/spacewalk.git

@@ -13,7 +13,6 @@ Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
 Release:	8%{?release_suffix}%{?dist}
 License:	ASL 2.0
-Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
 Source:		patternfly-1.0.5.tar.gz
 Patch0:   fix_paths.patch

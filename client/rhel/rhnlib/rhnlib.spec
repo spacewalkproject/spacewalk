@@ -11,7 +11,6 @@ Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 
-Group: Development/Libraries
 License: GPLv2
 
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
@@ -37,7 +36,6 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 %if 0%{?build_py3}
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
-Group: Development/Libraries
 BuildRequires: python3-devel
 Requires: python3-pyOpenSSL
 %{?python_provide:%python_provide python3-rhnlib}

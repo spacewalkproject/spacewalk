@@ -9,7 +9,6 @@ Version:        3.4.5
 Release:        3%{?dist}
 Summary:        Select2 is a jQuery based replacement for select boxes.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://ivaynberg.github.io/select2/
 Source0:        https://github.com/ivaynberg/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz

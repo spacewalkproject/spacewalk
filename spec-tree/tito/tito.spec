@@ -5,7 +5,6 @@ Version: 0.4.18
 Release: 1.10%{?dist}
 Summary: A tool for managing rpm based git projects
 
-Group: Development/Tools
 License: GPLv2
 URL: http://rm-rf.ca/tito
 Source0: http://pkgs.fedoraproject.org/repo/pkgs/tito/tito-0.4.18.tar.gz/318e6f546c9b331317c94ea5d178876a/tito-0.4.18.tar.gz
