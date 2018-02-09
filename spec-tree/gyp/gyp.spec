@@ -6,7 +6,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.6%{?revision:.%{revision}svn}.2%{?dist}
+Release:	0.6%{?revision:.%{revision}svn}.3%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD
@@ -62,6 +62,12 @@ done
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1-0.6.1010svn.3
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 0.1-0.6.1010svn.2
 - spec file polish
 
