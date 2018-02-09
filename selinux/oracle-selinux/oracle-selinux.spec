@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.41
+Version:         0.1.23.42
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 License:         GPLv2+
@@ -212,6 +212,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1.23.42-1
+- removed Group from specfile
+
 * Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.41-1
 - removed unnecessary BuildRoot tag
 
