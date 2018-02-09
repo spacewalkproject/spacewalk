@@ -6,7 +6,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.4
+Version:	2.8.5
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -103,6 +103,11 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - spacewalk-oscap: add missing directories to filelist and enable py3 build for
   Tumbleweed
