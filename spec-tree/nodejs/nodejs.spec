@@ -1,6 +1,6 @@
 Name: nodejs
 Version: 0.10.22
-Release: 1.3%{?dist}
+Release: 1.4%{?dist}
 Summary: JavaScript runtime
 License: MIT and ASL 2.0 and ISC and BSD
 URL: http://nodejs.org/
@@ -165,6 +165,11 @@ cp -p common.gypi %{buildroot}%{_datadir}/node
 %{_defaultdocdir}/%{name}-docs-%{version}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.10.22-1.4
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 0.10.22-1.3
 - simplejson has to be available in build time
 
