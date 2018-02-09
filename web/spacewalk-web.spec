@@ -3,7 +3,7 @@
 Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 License: GPLv2
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -146,6 +146,11 @@ install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_RO
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - 1360841 - extend dobby logging to see whether action completed or not
 
