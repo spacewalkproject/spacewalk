@@ -7,7 +7,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -102,6 +102,9 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- removed Group from specfile
+
 * Mon Nov 27 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - 1512582 - don't fail on empty installroot
 
