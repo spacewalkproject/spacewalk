@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:		oracle-instantclient-selinux
-Version:	11.2.0.3
+Version:	11.2.0.4
 Release:	1%{?dist}
 Summary:	SELinux support for Oracle Instant Client 11g
 License:	GPLv2+
@@ -108,6 +108,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Jul 17 2017 Jan Dobes 11.2.0.3-1
 - Remove more fedorahosted links
 - Use HTTPS in all Github links
