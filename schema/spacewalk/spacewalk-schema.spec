@@ -4,7 +4,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.10
+Version:        2.8.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Fri Feb 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.11-1
+- postgresql requires numeric datatype not number
+
 * Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.10-1
 - fix oracle equivalent shource sha1 sums
 
