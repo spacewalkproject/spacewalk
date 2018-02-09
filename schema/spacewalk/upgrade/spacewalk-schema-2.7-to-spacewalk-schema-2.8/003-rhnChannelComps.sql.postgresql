@@ -1,6 +1,6 @@
 -- oracle equivalent source sha1 151f368f5a90a647548de560a98a46f6501dcd84
 
-alter table rhnChannelComps add column comps_type_id number not null default 1 constraint rhn_channelcomps_comps_type_fk references rhnCompsType(id);
+alter table rhnChannelComps add column comps_type_id numeric not null default 1 constraint rhn_channelcomps_comps_type_fk references rhnCompsType(id);
 
 update rhnChannelComps set comps_type_id = (select id from rhnCompsType where label = 'comps');
 
