@@ -1,6 +1,6 @@
 Name:       dwr
 Version:    3.0rc2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Direct Web Remoting
 License:    Apache Software License v2
 URL:        http://directwebremoting.org
@@ -49,6 +49,11 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-9
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-8
 - recompile all packages with the same (latest) version of java
 
