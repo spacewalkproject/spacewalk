@@ -6,7 +6,7 @@
 
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -44,6 +44,11 @@ install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.
