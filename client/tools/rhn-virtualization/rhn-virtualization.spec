@@ -11,7 +11,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.69
+Version:        5.4.70
 Release:        1%{?dist}
 
 License:        GPLv2
@@ -266,6 +266,11 @@ fi
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.70-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Nov 03 2017 Jan Dobes 5.4.69-1
 - simplify status check
 
