@@ -7,7 +7,7 @@
 
 Name:           mod_perl
 Version:        2.0.7
-Release:        11.3%{?dist}
+Release:        11.4%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 
 License:        ASL 2.0
@@ -184,6 +184,11 @@ find "$RPM_BUILD_ROOT" -type f -name *.orig -exec rm -f {} \;
 %{_mandir}/man3/Apache::Test*.3pm*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.7-11.4
+- removed Group from specfile
+- fixed tito build warning
+- replace legacy name of Tagger with new one
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.7-11.3
 - fixed builder definition
 
