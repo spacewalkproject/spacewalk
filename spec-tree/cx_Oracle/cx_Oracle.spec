@@ -18,7 +18,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Prefix: %{_prefix}
@@ -57,6 +57,11 @@ export ORACLE_HOME=%{oracle_home}
 %doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-2
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Jun 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.3-1
 - rebased to latest stable version
 
