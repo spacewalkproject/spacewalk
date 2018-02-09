@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.8.4
+Version:        2.8.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -123,6 +123,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Dec 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - warn when fqdn is not in lowercase
 
