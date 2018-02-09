@@ -1,7 +1,7 @@
 Name: spacewalk-reports
 Summary: Script based reporting
 License: GPLv2
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -42,6 +42,11 @@ install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Oct 20 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - Revert "use SQL bind parameter"
 
