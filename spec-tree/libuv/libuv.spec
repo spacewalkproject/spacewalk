@@ -5,7 +5,7 @@
 Name: libuv
 Epoch:   1
 Version: 0.10.18
-Release: 1.1%{?dist}
+Release: 1.2%{?dist}
 Summary: Platform layer for node.js
 
 # the licensing breakdown is described in detail in the LICENSE file
@@ -98,6 +98,11 @@ sed -e "s#@prefix@#%{_prefix}#g" \
 %{_includedir}/uv-private
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.10.18-1.2
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Fri Oct 18 2013 T.C. Hollingsworth <tchollingsworth@gmail.com> - 1:0.10.18-1
 - new upstream release 0.10.18
   https://github.com/joyent/libuv/blob/v0.10.18/ChangeLog
