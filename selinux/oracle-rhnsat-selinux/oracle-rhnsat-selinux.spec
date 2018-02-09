@@ -5,7 +5,7 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.26
+Version:         10.2.0.27
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
 License:         GPLv2+
@@ -104,6 +104,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 10.2.0.27-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 10.2.0.26-1
 - fixed selinux error messages during package install, see related BZ#1446487
 
