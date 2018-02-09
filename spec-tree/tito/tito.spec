@@ -2,7 +2,7 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.10%{?dist}
+Release: 1.11%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPLv2
@@ -87,6 +87,12 @@ rm -f $RPM_BUILD_ROOT%{python_sitelib}/*egg-info/requires.txt
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4.18-1.11
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Nov 27 2017 Jiri Dostal <jdostal@redhat.com> 0.4.18-1.10
 - Update tito.spec - repair outdated URL, Fedora 27 rebuild
 
