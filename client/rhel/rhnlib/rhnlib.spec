@@ -6,7 +6,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.5
+Version: 2.8.6
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -87,6 +87,11 @@ make -f Makefile.rhnlib
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - rhnlib: enable py3 build for Tumbleweed
 
