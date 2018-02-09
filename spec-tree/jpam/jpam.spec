@@ -10,7 +10,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc
@@ -120,6 +120,11 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4-35
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-34
 - recompile all packages with the same (latest) version of java
 
