@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -218,6 +218,11 @@ fi
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-20
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Jun 09 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-19
 - preserve trailing spaces in patch
 
