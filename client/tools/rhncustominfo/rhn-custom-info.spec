@@ -4,7 +4,7 @@
 
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.41
+Version: 5.4.42
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -59,6 +59,10 @@ install -m 644 rhn-custom-info.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.42-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+
 * Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.41-1
 - extra path is not needed anymore
 
