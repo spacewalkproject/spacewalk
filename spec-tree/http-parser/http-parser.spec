@@ -8,7 +8,7 @@
 
 Name:           http-parser
 Version:        %{somajor}.%{sominor}
-Release:        4.%{git_date}git%{git_commit_hash}.2%{?dist}
+Release:        4.%{git_date}git%{git_commit_hash}.3%{?dist}
 Summary:        HTTP request/response parser for C
 
 License:        MIT
@@ -97,6 +97,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0-4.20121128gitcd01361.3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Jul 17 2017 Jan Dobes 2.0-4.20121128gitcd01361.2
 - Use HTTPS in all Github links
 - fixed tito build warning
