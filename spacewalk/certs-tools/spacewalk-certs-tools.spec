@@ -15,7 +15,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 License: GPLv2
-Version: 2.8.5
+Version: 2.8.6
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -123,6 +123,12 @@ ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Thu Dec 14 2017 Eric Herget <eherget@redhat.com> 2.8.5-1
 - 1456471 - PR570 - Using own certificates for installer
 - 1456471 - PR570 - [RFE] Using own certifications for installer (CA, private
