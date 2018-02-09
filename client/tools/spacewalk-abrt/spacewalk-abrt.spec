@@ -6,7 +6,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -83,6 +83,11 @@ service abrtd restart
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - use standard rpmbuild bytecompile
 - modules are now in standard sitelib path
