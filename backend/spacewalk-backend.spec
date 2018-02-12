@@ -54,7 +54,7 @@ Requires: %{name}-libs >= 1.1.16-1
 Requires: pyliblzma
 %endif
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint >= 2.2
+BuildRequires: spacewalk-python2-pylint
 %endif
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
@@ -391,12 +391,12 @@ make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
 
 rm -f $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py*

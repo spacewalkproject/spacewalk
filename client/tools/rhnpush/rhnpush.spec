@@ -20,7 +20,7 @@ BuildArch:     noarch
 Requires:      %{pythonX}-%{name} = %{version}-%{release}
 BuildRequires: docbook-utils, gettext
 %if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 0.6
+BuildRequires:  spacewalk-python2-pylint
 %endif
 
 %description
@@ -90,7 +90,7 @@ ln -s rhnpush%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhnpush
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
-spacewalk-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
 %endif
 
 %files

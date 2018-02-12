@@ -13,7 +13,7 @@ BuildRequires: python
 BuildArch: noarch
 Requires: httpd
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+BuildRequires: spacewalk-python2-pylint
 %endif
 BuildRequires: rhnpush >= 5.5.74
 # proxy isn't Python 3 yet
@@ -159,7 +159,7 @@ Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
 
 This package contains the Command rhn_package_manager, which  manages
-an Spacewalk Proxy Server's custom channel.
+an Spacewalk Proxy Server\'s custom channel.
 
 %prep
 %setup -q
@@ -187,7 +187,7 @@ touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
+spacewalk-python2-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %endif
 
 %post broker

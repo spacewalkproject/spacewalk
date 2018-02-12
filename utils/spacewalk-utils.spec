@@ -14,7 +14,7 @@ Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 BuildArch:      noarch
 
 %if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 2.2
+BuildRequires:  spacewalk-python2-pylint
 %endif
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
@@ -79,7 +79,7 @@ make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 %check
 %if 0%{?pylint_check}
 # check coding style
-spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
 %files
