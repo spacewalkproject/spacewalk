@@ -325,7 +325,7 @@ public class RpmRepositoryWriter extends RepositoryWriter {
 
         try {
             RepoMetadata rmd = (RepoMetadata)method.invoke(channel);
-            if (rmd.getRelativeFilename() != null) {
+            if (rmd != null && rmd.getRelativeFilename() != null) {
                 return rmd.getRelativeFilename();
             }
         }
