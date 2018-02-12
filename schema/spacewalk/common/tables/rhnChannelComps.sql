@@ -32,7 +32,6 @@ CREATE TABLE rhnChannelComps
     comps_type_id      NUMBER NOT NULL
                           CONSTRAINT rhn_channelcomps_comps_type_fk
                                REFERENCES rhnCompsType(id)
-
 )
 ENABLE ROW MOVEMENT
 ;
