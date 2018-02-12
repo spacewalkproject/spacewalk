@@ -6,4 +6,4 @@ alter table rhnChannelComps modify comps_type_id default null;
 
 alter table rhnChannelComps drop constraint rhn_channelcomps_cid_uq;
 
-alter table rhnChannelComps add constraint rhn_channelcomps_cid_ctype_uq unique (channel_id, comps_type_id);
+create unique index rhn_channelcomps_cid_ctype_uq on rhnChannelComps (channel_id, comps_type_id) tablespace [[2m_tbs]];
