@@ -14,7 +14,11 @@ URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-g
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
 License: GPLv2
 BuildArch: noarch
+%if (0%{?fedora} > 27 || 0%{?rhel} > 7)
+BuildRequires: python2-devel
+%else
 BuildRequires: python-devel
+%endif
 
 
 %global _description\
