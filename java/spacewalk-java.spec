@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.66
+Version: 2.8.67
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.67-1
+- there might not be repo metadata we're looking for
+
 * Fri Feb 09 2018 Grant Gainey 2.8.66-1
 - 1481329 - Lost an <rhn-tab-directory> tab in previous commit for this BZ
 
