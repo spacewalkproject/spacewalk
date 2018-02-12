@@ -9,7 +9,8 @@ pushd `dirname $0`/.. >/dev/null
 build_in_koji() {
           local tags=$1
           local releaser=$2
-          local package_dir=$3
+          local package=$3
+          local package_dir=$4
           (
             cd $package_dir && \
             ONLY_TAGS="$tags" ${TITO_PATH}tito release $releaser </dev/tty
@@ -19,8 +20,11 @@ build_in_koji() {
 build_in_copr() {
           local tags=$1
           local releaser=$2
-          local package_dir=$3
-          copr-cli buildtito "$tags" --nowait --git-url "$GIT_URL" --git-dir "$package_dir" ${GIT_BRANCH:+ --git-branch "$GIT_BRANCH"}
+          local package=$3
+          local package_dir=$4
+          for t in $tags ; do
+              copr-cli build-package "$t" --nowait --name "$package"
+          done
 }
 
 case "$TITO_RELEASER" in
@@ -44,12 +48,12 @@ echo 'Gathering data ...'
 for tag in $TAGS; do
   rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_ARG --no-extra $tag | \
     perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
-    | xargs -I replacestring awk "{print \$2 \" $tag\"}" rel-eng/packages/replacestring
+    | xargs -I replacestring awk "{print \$2 \" replacestring $tag\"}" rel-eng/packages/replacestring
 done \
-    | perl -lane '$X{$F[0]} .= " $F[1]"; END { for (sort keys %X) { print "$_$X{$_}" } }' \
-    | while read package_dir tags ; do
-      echo Building package in path $package_dir for $tags
-      $BUILD_FUNC "$tags" "$TITO_RELEASER" "$package_dir"
+    | perl -lane '$X{"$F[0] $F[1]"} .= " $F[2]"; END { for (sort keys %X) { print "$_$X{$_}" } }' \
+    | while read package_dir package tags ; do
+      echo Building $package in path $package_dir for $tags
+      $BUILD_FUNC "$tags" "$TITO_RELEASER" "$package" "$package_dir"
     if [ "0$FEDORA_UPLOAD" -eq 1 ] ; then
       (
       echo Uploading tgz for path $package_dir
