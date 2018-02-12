@@ -46,9 +46,9 @@ export PYTHONUNBUFFERED=1
 
 echo 'Gathering data ...'
 for tag in $TAGS; do
-  rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_ARG --no-extra $tag | \
-    perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
-    | xargs -I replacestring awk "{print \$2 \" replacestring $tag\"}" rel-eng/packages/replacestring
+  rel-eng/koji-missing-builds.py $KOJI_MISSING_BUILD_ARG --no-extra $tag \
+    | perl -lne '/^\s+(.+)-.+-.+$/ and print $1' \
+    | xargs -I {} awk "{print \$2 \" {} $tag\"}" rel-eng/packages/{}
 done \
     | perl -lane '$X{"$F[0] $F[1]"} .= " $F[2]"; END { for (sort keys %X) { print "$_$X{$_}" } }' \
     | while read package_dir package tags ; do
