@@ -65,8 +65,6 @@ cd ../py3
 
 %endif
 
-%clean
-
 %files -n python2-gzipstream
 %{python_sitelib}/*
 %doc html
