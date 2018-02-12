@@ -1,5 +1,5 @@
 Name:		spacewalk-python2-pylint
-Version:	2.8.5
+Version:	2.8.6
 Release:	1%{?dist}
 Summary:	Pylint configuration for python2 spacewalk python packages
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Feb 12 2018 Eric Herget <eherget@redhat.com> 2.8.6-1
+- fix manpage
+
 * Mon Feb 12 2018 Eric Herget <eherget@redhat.com> 2.8.5-1
 - Split spacewalk-pylint into spacewalk-python2-pylint and spacewalk-python3-pylint.  Original changelog maintained in spacewalk-python2-pylint package.
 
