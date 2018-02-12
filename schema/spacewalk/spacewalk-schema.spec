@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.12
+Version:        2.8.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,10 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.13-1
+- create indexes instead of constraints during upgrade
+- extra newline is causing troubles on Oracle DBs
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
