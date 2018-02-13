@@ -39,9 +39,22 @@ DATADIR="/var/lib/pgsql/data/"
 if rpm -q postgresql92-postgresql-server > /dev/null; then
    DATADIR="/opt/rh/postgresql92/root/var/lib/pgsql/data/"
 fi
-if [ ! -z "$(grep pg_version /usr/share/rhn/config-defaults/rhn_pgversion.conf | sed 's/.*=\s*//')" ]; then
-   DATADIR="$(grep pg_home /usr/share/rhn/config-defaults/rhn_pgversion.conf | sed 's/.*=\s*//')"
+
+if rpm -q rh-postgresql95-postgresql > /dev/null; then
+    DATADIR="/var/opt/rh/rh-postgresql95/lib/pgsql/data"
 fi
+
+if [ -f /usr/share/rhn/config-defaults/rhn_pgversion.conf ]; then
+   if [ ! -z "$(grep pg_version /usr/share/rhn/config-defaults/rhn_pgversion.conf | sed 's/.*=\s*//')" ]; then
+      DATADIR="$(grep pg_home /usr/share/rhn/config-defaults/rhn_pgversion.conf | sed 's/.*=\s*//')"
+   fi
+fi
+
+# check if DATADIR is a directory
+if [ ! -d $DATADIR ]; then
+    exit 1
+fi
+
 REPORTUSAGE=$(df -hP $DATADIR)
 NUMBERS=$(echo "$REPORTUSAGE" | awk '{if (FNR > 1) {sub("%",""); print $5}}')
 
