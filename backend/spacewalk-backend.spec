@@ -38,7 +38,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.46
+Version: 2.8.47
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -788,6 +788,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Feb 13 2018 Grant Gainey 2.8.47-1
+- 1540981 - Clarify error-reporting when checksum_cache is bad
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.46-1
 - clean up specfile
 
