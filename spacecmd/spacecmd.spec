@@ -3,7 +3,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
@@ -23,7 +23,11 @@ Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{ver
 BuildArch:   noarch
 
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+%if 0%{?build_py3}
+BuildRequires: spacewalk-python3-pylint
+%else
+BuildRequires: spacewalk-python2-pylint
+%endif
 %endif
 %if 0%{?build_py3}
 BuildRequires: python3
@@ -99,8 +103,13 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 
 %check
 %if 0%{?pylint_check}
+%if 0%{?build_py3}
 PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
-	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+	  spacewalk-python3-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+%else
+PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
+	  spacewalk-python2-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+%endif
 %endif
 
 %files
