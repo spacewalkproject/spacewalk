@@ -114,7 +114,7 @@ IS
 
     PROCEDURE update_needed_cache(channel_id_in in number);
 
-    procedure set_comps(channel_id_in in number, path_in in varchar2, timestamp_in in varchar2);
+    procedure set_comps(channel_id_in in number, path_in in varchar2, comps_type_id_in in number, timestamp_in in varchar2)
 
 END rhn_channel;
 /
