@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.15
+Version:        2.8.16
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,10 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Feb 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.16-1
+- 1542287 - purge records that would be violating unique constraint during
+  fixup
+
 * Tue Feb 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
 - fix sha1sums
 
