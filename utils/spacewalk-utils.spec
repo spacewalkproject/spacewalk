@@ -1,5 +1,5 @@
 %define rhnroot %{_prefix}/share/rhn
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
