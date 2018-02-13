@@ -28,6 +28,7 @@ begin
       for nevra_dup in select id
                 from rhnpackagenevra
                where evr_id = duplicate.id loop
+        delete from rhnsnapshotpackage where nevra_id = nevra_dup.id and snapshot_id in (select snapshot_id from rhnsnapshotpackage where nevra_id = nevra_orig.id intersect select snapshot_id from rhnsnapshotpackage where nevra_id = nevra_dup.id);
         update rhnsnapshotpackage set nevra_id = nevra_orig.id where nevra_id = nevra_dup.id;
       end loop;
       delete from rhnpackagenevra where evr_id = duplicate.id;
