@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -362,6 +362,9 @@ fi
 
 
 %changelog
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.4-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
