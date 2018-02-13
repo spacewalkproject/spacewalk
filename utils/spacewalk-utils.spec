@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.11
+Version:	2.8.12
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.12-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.11-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
