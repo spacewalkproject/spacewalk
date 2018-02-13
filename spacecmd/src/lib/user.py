@@ -32,7 +32,6 @@
 
 import shlex
 from getpass import getpass
-from optparse import Option
 try:
     from xmlrpc import client as xmlrpclib
 except ImportError:
@@ -54,14 +53,15 @@ options:
 
 
 def do_user_create(self, args):
-    options = [Option('-u', '--username', action='store'),
-               Option('-f', '--first-name', action='store'),
-               Option('-l', '--last-name', action='store'),
-               Option('-e', '--email', action='store'),
-               Option('-p', '--password', action='store'),
-               Option('', '--pam', action='store_true')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-u', '--username')
+    arg_parser.add_argument('-f', '--first-name')
+    arg_parser.add_argument('-l', '--last-name')
+    arg_parser.add_argument('-e', '--email')
+    arg_parser.add_argument('-p', '--password')
+    arg_parser.add_argument('--pam', action='store_true')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.username = prompt_user('Username:', noblank=True)
@@ -136,7 +136,9 @@ def complete_user_delete(self, text, line, beg, end):
 
 
 def do_user_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 1:
         self.help_user_delete()
@@ -160,7 +162,9 @@ def complete_user_disable(self, text, line, beg, end):
 
 
 def do_user_disable(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 1:
         self.help_user_disable()
@@ -183,7 +187,9 @@ def complete_user_enable(self, text, line, beg, end):
 
 
 def do_user_enable(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 1:
         self.help_user_enable()
@@ -247,7 +253,9 @@ def complete_user_addrole(self, text, line, beg, end):
 
 
 def do_user_addrole(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_addrole()
@@ -278,7 +286,9 @@ def complete_user_removerole(self, text, line, beg, end):
 
 
 def do_user_removerole(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_removerole()
@@ -302,7 +312,9 @@ def complete_user_details(self, text, line, beg, end):
 
 
 def do_user_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_user_details()
@@ -345,19 +357,19 @@ def do_user_details(self, args):
         print('Enabled:       %s' % details.get('enabled'))
 
         if roles:
-            print()
+            print('')
             print('Roles')
             print('-----')
             print('\n'.join(sorted(roles)))
 
         if groups:
-            print()
+            print('')
             print('Assigned Groups')
             print('---------------')
             print('\n'.join(sorted([g.get('name') for g in groups])))
 
         if default_groups:
-            print()
+            print('')
             print('Default Groups')
             print('--------------')
             print('\n'.join(sorted([g.get('name') for g in default_groups])))
@@ -382,7 +394,9 @@ def complete_user_addgroup(self, text, line, beg, end):
 
 
 def do_user_addgroup(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 2:
         self.help_user_addgroup()
@@ -416,7 +430,9 @@ def complete_user_adddefaultgroup(self, text, line, beg, end):
 
 
 def do_user_adddefaultgroup(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 2:
         self.help_user_adddefaultgroup()
@@ -452,7 +468,9 @@ def complete_user_removegroup(self, text, line, beg, end):
 
 
 def do_user_removegroup(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 2:
         self.help_user_removegroup()
@@ -490,7 +508,9 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
 
 
 def do_user_removedefaultgroup(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 2:
         self.help_user_removedefaultgroup()
@@ -523,7 +543,9 @@ def complete_user_setfirstname(self, text, line, beg, end):
 
 
 def do_user_setfirstname(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_setfirstname()
@@ -554,7 +576,9 @@ def complete_user_setlastname(self, text, line, beg, end):
 
 
 def do_user_setlastname(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_setlastname()
@@ -585,7 +609,9 @@ def complete_user_setemail(self, text, line, beg, end):
 
 
 def do_user_setemail(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_setemail()
@@ -616,7 +642,9 @@ def complete_user_setprefix(self, text, line, beg, end):
 
 
 def do_user_setprefix(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) > 2:
         self.help_user_setprefix()
@@ -654,7 +682,9 @@ def complete_user_setpassword(self, text, line, beg, end):
 
 
 def do_user_setpassword(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_user_setpassword()

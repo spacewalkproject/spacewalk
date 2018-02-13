@@ -35,7 +35,6 @@ try:
     from xmlrpc import client as xmlrpclib
 except ImportError:
     import xmlrpclib
-from optparse import Option
 
 from spacecmd.utils import *
 
@@ -77,7 +76,7 @@ def help_errata_apply(self):
 
 options:
   -s START_TIME''')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
@@ -86,8 +85,10 @@ def complete_errata_apply(self, text, line, beg, end):
 
 
 def do_errata_apply(self, args, only_systems=None):
-    options = [Option('-s', '--start-time', action='store')]
-    (args, options) = parse_arguments(args, options)
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-s', '--start-time')
+
+    (args, options) = parse_command_arguments(args, arg_parser)
     only_systems = only_systems or []
 
     if not args:
@@ -154,7 +155,7 @@ def do_errata_apply(self, args, only_systems=None):
     print('Errata             Systems')
     print('--------------     -------')
     print('\n'.join(sorted(summary)))
-    print()
+    print('')
     print('Start Time: %s' % options.start_time)
 
     if not self.user_confirm('Apply these errata [y/N]:'):
@@ -235,7 +236,9 @@ def complete_errata_listaffectedsystems(self, text, line, beg, end):
 
 
 def do_errata_listaffectedsystems(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_listaffectedsystems()
@@ -270,7 +273,9 @@ def complete_errata_listcves(self, text, line, beg, end):
 
 
 def do_errata_listcves(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_listcves()
@@ -307,7 +312,9 @@ def complete_errata_findbycve(self, text, line, beg, end):
 
 
 def do_errata_findbycve(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_findbycve()
@@ -344,7 +351,9 @@ def complete_errata_details(self, text, line, beg, end):
 
 
 def do_errata_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_details()
@@ -380,42 +389,42 @@ def do_errata_details(self, args):
         print('Product:    %s' % details.get('product'))
         print('Type:       %s' % details.get('type'))
         print('Issue Date: %s' % details.get('issue_date'))
-        print()
+        print('')
         print('Topic')
         print('-----')
         print('\n'.join(wrap(details.get('topic'))))
-        print()
+        print('')
         print('Description')
         print('-----------')
         print('\n'.join(wrap(details.get('description'))))
 
         if details.get('notes'):
-            print()
+            print('')
             print('Notes')
             print('-----')
             print('\n'.join(wrap(details.get('notes'))))
 
-        print()
+        print('')
         print('CVEs')
         print('----')
         print('\n'.join(sorted(cves)))
-        print()
+        print('')
         print('Solution')
         print('--------')
         print('\n'.join(wrap(details.get('solution'))))
-        print()
+        print('')
         print('References')
         print('----------')
         print('\n'.join(wrap(details.get('references'))))
-        print()
+        print('')
         print('Affected Channels')
         print('-----------------')
         print('\n'.join(sorted([c.get('label') for c in channels])))
-        print()
+        print('')
         print('Affected Systems')
         print('----------------')
         print(str(len(systems)))
-        print()
+        print('')
         print('Affected Packages')
         print('-----------------')
         print('\n'.join(sorted(build_package_names(packages))))
@@ -433,7 +442,9 @@ def complete_errata_delete(self, text, line, beg, end):
 
 
 def do_errata_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_delete()
@@ -482,7 +493,9 @@ def complete_errata_publish(self, text, line, beg, end):
 
 
 def do_errata_publish(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 2:
         self.help_errata_publish()
@@ -511,7 +524,7 @@ def do_errata_publish(self, args):
 def help_errata_search(self):
     print('errata_search: List errata that meet the given criteria')
     print('usage: errata_search CVE|RHSA|RHBA|RHEA|CLA ...')
-    print()
+    print('')
     print('Example:')
     print('> errata_search CVE-2009:1674')
     print('> errata_search RHSA-2009:1674')
@@ -522,7 +535,9 @@ def complete_errata_search(self, text, line, beg, end):
 
 
 def do_errata_search(self, args, doreturn=False):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_errata_search()

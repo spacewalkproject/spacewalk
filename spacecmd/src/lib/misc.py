@@ -233,7 +233,9 @@ def help_login(self):
 
 
 def do_login(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     # logout before logging in again
     if self.session:

@@ -28,8 +28,8 @@ import sys
 import xmlrpclib
 import codecs
 import locale
+import argparse
 from ConfigParser import SafeConfigParser
-from optparse import Option, OptionParser
 from socket import gethostname
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
@@ -48,31 +48,34 @@ if __name__ == '__main__':
     if not sys.stdout.isatty():
         sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
-    optionsTable = [
-        Option('-c', '--config', action='store',
-               help='config file to use [default: ~/.spacecmd/config]'),
-        Option('-u', '--username', action='store',
-               help='use this username to connect to the server'),
-        Option('-p', '--password', action='store',
-               help='use this password to connect to the server'),
-        Option('-s', '--server', action='store',
-               help='connect to this server [default: local hostname]'),
-        Option('--nossl', action='store_true',
-               help='use HTTP instead of HTTPS'),
-        Option('--nohistory', action='store_true',
-               help='do not store command history'),
-        Option('-y', '--yes', action='store_true',
-               help='answer yes for all questions'),
-        Option('-q', '--quiet', action='store_true',
-               help='print only error messages'),
-        Option('-d', '--debug', action='count',
-               help='print debug messages (can be passed multiple times)'),
-    ]
+    usage = '%(prog)s [options] [command]'
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument('-c', '--config',
+                         help='config file to use [default: ~/.spacecmd/config]')
+    parser.add_argument('-u', '--username',
+                        help='use this username to connect to the server')
+    parser.add_argument('-p', '--password',
+                        help='use this password to connect to the server')
+    parser.add_argument('-s', '--server',
+                        help='connect to this server [default: local hostname]')
+    parser.add_argument('--nossl', action='store_true',
+                        help='use HTTP instead of HTTPS')
+    parser.add_argument('--nohistory', action='store_true',
+                        help='do not store command history')
+    parser.add_argument('-y', '--yes', action='store_true',
+                        help='answer yes for all questions')
+    parser.add_argument('-q', '--quiet', action='store_true',
+                        help='print only error messages')
+    parser.add_argument('-d', '--debug', action='count',
+                        help='print debug messages (can be passed multiple times)')
+    parser.add_argument('command', nargs='*',
+                        help=argparse.SUPPRESS)
 
-    usage = 'usage: %prog [options] [command]'
-
-    parser = OptionParser(option_list=optionsTable, usage=usage)
-    (options, args) = parser.parse_args()
+    options = parser.parse_args()
+    if options.command:
+        args = options.command
+    else:
+        args = []
 
     # determine the logging level
     if options.debug:

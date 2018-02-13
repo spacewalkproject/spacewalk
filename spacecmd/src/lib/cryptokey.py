@@ -30,7 +30,6 @@ try:
     from xmlrpc import client as xmlrpclib
 except ImportError:
     import xmlrpclib
-from optparse import Option
 from spacecmd.utils import *
 
 
@@ -45,11 +44,12 @@ options:
 
 
 def do_cryptokey_create(self, args):
-    options = [Option('-t', '--type', action='store'),
-               Option('-d', '--description', action='store'),
-               Option('-f', '--file', action='store')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-t', '--type')
+    arg_parser.add_argument('-d', '--description')
+    arg_parser.add_argument('-f', '--file')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.type = prompt_user('GPG or SSL [G/S]:')
@@ -109,7 +109,9 @@ def complete_cryptokey_delete(self, text, line, beg, end):
 
 
 def do_cryptokey_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_cryptokey_delete()
@@ -162,7 +164,9 @@ def complete_cryptokey_details(self, text, line, beg, end):
 
 
 def do_cryptokey_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_cryptokey_details()
@@ -194,5 +198,5 @@ def do_cryptokey_details(self, args):
         print('Description: %s' % details.get('description'))
         print('Type:        %s' % details.get('type'))
 
-        print()
+        print('')
         print(details.get('content'))

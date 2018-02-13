@@ -32,7 +32,6 @@
 import shlex
 from getpass import getpass
 from operator import itemgetter
-from optparse import Option
 from spacecmd.utils import *
 
 _PREFIXES = ['Dr.', 'Mr.', 'Miss', 'Mrs.', 'Ms.']
@@ -54,16 +53,17 @@ options:
 
 
 def do_org_create(self, args):
-    options = [Option('-n', '--org-name', action='store'),
-               Option('-u', '--username', action='store'),
-               Option('-P', '--prefix', action='store'),
-               Option('-f', '--first-name', action='store'),
-               Option('-l', '--last-name', action='store'),
-               Option('-e', '--email', action='store'),
-               Option('-p', '--password', action='store'),
-               Option('', '--pam', action='store_true')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--org-name')
+    arg_parser.add_argument('-u', '--username')
+    arg_parser.add_argument('-P', '--prefix')
+    arg_parser.add_argument('-f', '--first-name')
+    arg_parser.add_argument('-l', '--last-name')
+    arg_parser.add_argument('-e', '--email')
+    arg_parser.add_argument('-p', '--password')
+    arg_parser.add_argument('--pam', action='store_true')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.org_name = prompt_user('Organization Name:', noblank=True)
@@ -146,7 +146,9 @@ def complete_org_delete(self, text, line, beg, end):
 
 
 def do_org_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 1:
         self.help_org_delete()
@@ -171,7 +173,9 @@ def complete_org_rename(self, text, line, beg, end):
 
 
 def do_org_rename(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_rename()
@@ -195,7 +199,9 @@ def complete_org_addtrust(self, text, line, beg, end):
 
 
 def do_org_addtrust(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_addtrust()
@@ -219,7 +225,9 @@ def complete_org_removetrust(self, text, line, beg, end):
 
 
 def do_org_removetrust(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_removetrust()
@@ -260,7 +268,9 @@ def complete_org_trustdetails(self, text, line, beg, end):
 
 
 def do_org_trustdetails(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_trustdetails()
@@ -277,13 +287,13 @@ def do_org_trustdetails(self, args):
     print('Trusted Since:          %s' % details.get('trusted_since'))
     print('Systems Migrated From:  %i' % details.get('systems_migrated_from'))
     print('Systems Migrated To:    %i' % details.get('systems_migrated_to'))
-    print()
+    print('')
     print('Channels Consumed')
     print('-----------------')
     if consumed:
         print('\n'.join(sorted([c.get('name') for c in consumed])))
 
-    print()
+    print('')
 
     print('Channels Provided')
     print('-----------------')
@@ -321,7 +331,9 @@ def complete_org_listtrusts(self, text, line, beg, end):
 
 
 def do_org_listtrusts(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_listtrusts()
@@ -348,7 +360,9 @@ def complete_org_listusers(self, text, line, beg, end):
 
 
 def do_org_listusers(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_listusers()
@@ -373,7 +387,9 @@ def complete_org_details(self, text, line, beg, end):
 
 
 def do_org_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_details()
@@ -416,7 +432,9 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 
 
 def do_org_setsystementitlements(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_setsystementitlements()

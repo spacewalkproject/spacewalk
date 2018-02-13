@@ -29,7 +29,6 @@
 # invalid function name
 # pylint: disable=C0103
 
-from optparse import Option
 from spacecmd.utils import *
 
 
@@ -62,7 +61,9 @@ def complete_snippet_details(self, text, line, beg, end):
 
 
 def do_snippet_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_snippet_details()
@@ -91,7 +92,7 @@ def do_snippet_details(self, args):
         print('Macro:  %s' % snippet.get('fragment'))
         print('File:   %s' % snippet.get('file'))
 
-        print()
+        print('')
         print(snippet.get('contents'))
 
 ####################
@@ -107,10 +108,11 @@ options:
 
 
 def do_snippet_create(self, args, update_name=''):
-    options = [Option('-n', '--name', action='store'),
-               Option('-f', '--file', action='store')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--name')
+    arg_parser.add_argument('-f', '--file')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     contents = ''
 
@@ -146,7 +148,7 @@ def do_snippet_create(self, args, update_name=''):
     if options.file:
         contents = read_file(options.file)
 
-    print()
+    print('')
     print('Snippet: %s' % options.name)
     print('Contents')
     print('--------')
@@ -170,7 +172,9 @@ def complete_snippet_update(self, text, line, beg, end):
 
 
 def do_snippet_update(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_snippet_update()
@@ -191,7 +195,9 @@ def complete_snippet_delete(self, text, line, beg, end):
 
 
 def do_snippet_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_snippet_delete()

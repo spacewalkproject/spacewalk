@@ -43,7 +43,9 @@ def complete_system_scap_listxccdfscans(self, text, line, beg, end):
 
 
 def do_scap_listxccdfscans(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_scap_listxccdfscans()
@@ -64,7 +66,7 @@ def do_scap_listxccdfscans(self, args):
 
         if len(systems) > 1:
             print('System: %s' % system)
-            print()
+            print('')
 
         system_id = self.get_system_id(system)
         if not system_id:
@@ -84,7 +86,9 @@ def help_scap_getxccdfscanruleresults(self):
 
 
 def do_scap_getxccdfscanruleresults(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_scap_getxccdfscanruleresults()
@@ -99,7 +103,7 @@ def do_scap_getxccdfscanruleresults(self, args):
 
         if len(args) > 1:
             print('XID: %s' % xid)
-            print()
+            print('')
 
         xid = int(xid)
         scan_results = self.client.system.scap.getXccdfScanRuleResults(self.session, xid)
@@ -116,7 +120,9 @@ def help_scap_getxccdfscandetails(self):
 
 
 def do_scap_getxccdfscandetails(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_scap_getxccdfscandetails()
@@ -131,7 +137,7 @@ def do_scap_getxccdfscandetails(self, args):
 
         if len(args) > 1:
             print('XID: %s' % xid)
-            print()
+            print('')
 
         xid = int(xid)
         scan_details = self.client.system.scap.getXccdfScanDetails(self.session, xid)
@@ -152,14 +158,16 @@ def do_scap_getxccdfscandetails(self, args):
 def help_scap_schedulexccdfscan(self):
     print('scap_schedulexccdfscan: Schedule Scap XCCDF scan')
     print('usage: scap_schedulexccdfscan PATH_TO_XCCDF_FILE XCCDF_OPTIONS SYSTEMS')
-    print()
+    print('')
     print('Example:')
     print('> scap_schedulexccdfscan \'/usr/share/openscap/scap-security-xccdf.xml\'' +
           ' \'profile Web-Default\' system-scap.example.com')
 
 
 def do_scap_schedulexccdfscan(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) < 3:
         self.help_scap_schedulexccdfscan()

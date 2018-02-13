@@ -29,7 +29,6 @@
 # invalid function name
 # pylint: disable=C0103
 
-from optparse import Option
 import shlex
 try:
     from xmlrpc import client as xmlrpclib
@@ -67,7 +66,9 @@ def complete_repo_details(self, text, line, beg, end):
 
 
 def do_repo_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_repo_details()
@@ -106,7 +107,9 @@ def complete_repo_listfilters(self, text, line, beg, end):
 
 
 def do_repo_listfilters(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_repo_listfilters()
@@ -239,7 +242,9 @@ def complete_repo_clearfilters(self, text, line, beg, end):
 
 
 def do_repo_clearfilters(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_repo_clearfilters()
@@ -261,7 +266,9 @@ def complete_repo_delete(self, text, line, beg, end):
 
 
 def do_repo_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_repo_delete()
@@ -299,14 +306,15 @@ options:
 
 
 def do_repo_create(self, args):
-    options = [Option('-n', '--name', action='store'),
-               Option('-u', '--url', action='store'),
-               Option('-t', '--type', action='store'),
-               Option('--ca', default='', action='store'),
-               Option('--cert', default='', action='store'),
-               Option('--key', default='', action='store')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--name')
+    arg_parser.add_argument('-u', '--url')
+    arg_parser.add_argument('-t', '--type')
+    arg_parser.add_argument('--ca', default='')
+    arg_parser.add_argument('--cert', default='')
+    arg_parser.add_argument('--key', default='')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank=True)
@@ -350,7 +358,9 @@ def complete_repo_rename(self, text, line, beg, end):
 
 
 def do_repo_rename(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_repo_rename()
@@ -382,7 +392,9 @@ def complete_repo_updateurl(self, text, line, beg, end):
 
 
 def do_repo_updateurl(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_repo_updateurl()
@@ -404,12 +416,13 @@ options:
 
 
 def do_repo_updatessl(self, args):
-    options = [Option('-n', '--name', action='store'),
-               Option('--ca', default='', action='store'),
-               Option('--cert', default='', action='store'),
-               Option('--key', default='', action='store')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--name')
+    arg_parser.add_argument('--ca', default='')
+    arg_parser.add_argument('--cert', default='')
+    arg_parser.add_argument('--key', default='')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.name = prompt_user('Name:', noblank=True)

@@ -24,7 +24,6 @@
 # unused argument
 # pylint: disable=W0613
 
-from optparse import Option
 import logging
 import sys
 try:
@@ -53,11 +52,12 @@ examples:
 
 
 def do_api(self, args):
-    options = [Option('-A', '--args', default=''),
-               Option('-F', '--format', default=''),
-               Option('-o', '--output', default='')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-A', '--args', default='')
+    arg_parser.add_argument('-F', '--format', default='')
+    arg_parser.add_argument('-o', '--output', default='')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_api()

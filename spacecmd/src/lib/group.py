@@ -42,7 +42,7 @@ from spacecmd.utils import *
 def help_group_addsystems(self):
     print('group_addsystems: Add systems to a group')
     print('usage: group_addsystems GROUP <SYSTEMS>')
-    print()
+    print('')
     print(self.HELP_SYSTEM_OPTS)
 
 
@@ -58,7 +58,9 @@ def complete_group_addsystems(self, text, line, beg, end):
 
 
 def do_group_addsystems(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_addsystems()
@@ -90,7 +92,7 @@ def do_group_addsystems(self, args):
 def help_group_removesystems(self):
     print('group_removesystems: Remove systems from a group')
     print('usage: group_removesystems GROUP <SYSTEMS>')
-    print()
+    print('')
     print(self.HELP_SYSTEM_OPTS)
 
 
@@ -106,7 +108,9 @@ def complete_group_removesystems(self, text, line, beg, end):
 
 
 def do_group_removesystems(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_removesystems()
@@ -148,7 +152,9 @@ def help_group_create(self):
 
 
 def do_group_create(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if args:
         name = args[0]
@@ -175,7 +181,9 @@ def complete_group_delete(self, text, line, beg, end):
 
 
 def do_group_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_delete()
@@ -208,7 +216,9 @@ def complete_group_backup(self, text, line, beg, end):
 
 
 def do_group_backup(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_backup()
@@ -264,7 +274,9 @@ def complete_group_restore(self, text, line, beg, end):
 
 
 def do_group_restore(self, args):
-    (args, options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     inputdir = os.getcwd()
     groups = []
@@ -369,7 +381,9 @@ def complete_group_listsystems(self, text, line, beg, end):
 
 
 def do_group_listsystems(self, args, doreturn=False):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_listsystems()
@@ -403,7 +417,9 @@ def complete_group_details(self, text, line, beg, end):
 
 
 def do_group_details(self, args, short=False):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_group_details()
@@ -433,7 +449,7 @@ def do_group_details(self, args, short=False):
         print('Number of Systems: %i' % details.get('system_count'))
 
         if not short:
-            print()
+            print('')
             print('Members')
             print('-------')
             print('\n'.join(sorted(systems)))

@@ -58,7 +58,9 @@ def help_filepreservation_create(self):
 
 
 def do_filepreservation_create(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if args:
         name = args[0]
@@ -74,7 +76,7 @@ def do_filepreservation_create(self, args):
             print('File List')
             print('---------')
             print('\n'.join(sorted(files)))
-            print()
+            print('')
 
             userinput = prompt_user('File [blank to finish]:')
 
@@ -84,7 +86,7 @@ def do_filepreservation_create(self, args):
                 if userinput not in files:
                     files.append(userinput)
 
-    print()
+    print('')
     print('File List')
     print('---------')
     print('\n'.join(sorted(files)))
@@ -109,7 +111,9 @@ def complete_filepreservation_delete(self, text, line, beg, end):
 
 
 def do_filepreservation_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_filepreservation_delete()
@@ -136,7 +140,9 @@ def complete_filepreservation_details(self, text, line, beg, end):
 
 
 def do_filepreservation_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_filepreservation_details()

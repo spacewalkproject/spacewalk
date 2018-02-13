@@ -46,7 +46,9 @@ def complete_package_details(self, text, line, beg, end):
 
 
 def do_package_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_details()
@@ -87,22 +89,22 @@ def do_package_details(self, args):
             print('Release: %s' % details.get('release'))
             print('Epoch:   %s' % details.get('epoch'))
             print('Arch:    %s' % details.get('arch_label'))
-            print()
+            print('')
             print('File:    %s' % details.get('file'))
             print('Path:    %s' % details.get('path'))
             print('Size:    %s' % details.get('size'))
             print('MD5:     %s' % details.get('md5sum'))
-            print()
+            print('')
             print('Installed Systems: %i' % len(installed_systems))
-            print()
+            print('')
             print('Description')
             print('-----------')
             print('\n'.join(wrap(details.get('description'))))
-            print()
+            print('')
             print('Available From Channels')
             print('-----------------------')
             print('\n'.join(sorted([c.get('label') for c in channels])))
-            print()
+            print('')
 
 ####################
 
@@ -110,9 +112,9 @@ def do_package_details(self, args):
 def help_package_search(self):
     print('package_search: Find packages that meet the given criteria')
     print('usage: package_search NAME|QUERY')
-    print()
+    print('')
     print('Example: package_search kernel')
-    print()
+    print('')
     print('Advanced Search:')
     print('Available Fields: name, epoch, version, release, arch, description, summary')
     print('Example: name:kernel AND version:2.6.18 AND -description:devel')
@@ -164,7 +166,9 @@ def complete_package_remove(self, text, line, beg, end):
 
 
 def do_package_remove(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_remove()
@@ -256,7 +260,9 @@ def complete_package_listinstalledsystems(self, text, line, beg, end):
 
 
 def do_package_listinstalledsystems(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listinstalledsystems()
@@ -301,7 +307,9 @@ def complete_package_listerrata(self, text, line, beg, end):
 
 
 def do_package_listerrata(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listerrata()
@@ -341,7 +349,9 @@ def help_package_listdependencies(self):
 
 
 def do_package_listdependencies(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listdependencies()

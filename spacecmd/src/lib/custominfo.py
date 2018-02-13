@@ -35,7 +35,9 @@ def help_custominfo_createkey(self):
 
 
 def do_custominfo_createkey(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if args:
         key = args[0]
@@ -69,7 +71,9 @@ def complete_custominfo_deletekey(self, text, line, beg, end):
 
 
 def do_custominfo_deletekey(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_custominfo_deletekey()
@@ -124,7 +128,9 @@ def complete_custominfo_details(self, text, line, beg, end):
 
 
 def do_custominfo_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_custominfo_details()
@@ -166,7 +172,9 @@ def help_custominfo_updatekey(self):
 
 
 def do_custominfo_updatekey(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if args:
         key = args[0]

@@ -38,6 +38,8 @@ import readline
 import shlex
 import sys
 import time
+import argparse
+
 try:
     from xmlrpc import client as xmlrpclib
 except ImportError:
@@ -56,24 +58,29 @@ except ImportError:
 
 import rpm
 
-from spacecmd.optionparser import SpacecmdOptionParser
-
+from spacecmd.argumentparser import SpacecmdArgumentParser
 
 __EDITORS = ['vim', 'vi', 'nano', 'emacs']
 
 
-def parse_arguments(args, options=None, glob=True):
-    options = options or []
+def get_argument_parser():
+    return SpacecmdArgumentParser()
+
+def parse_command_arguments(command_args, argument_parser, glob=True):
     try:
-        parts = shlex.split(args)
+        parts = shlex.split(command_args)
 
         # allow simple globbing
         if glob:
             parts = [re.sub(r'\*', '.*', a) for a in parts]
 
-        parser = SpacecmdOptionParser(option_list=options)
-        (opts, leftovers) = parser.parse_args(args=parts)
-
+        argument_parser.add_argument('leftovers', nargs='*',
+                                     help=argparse.SUPPRESS)
+        opts = argument_parser.parse_args(args=parts)
+        if opts.leftovers:
+            leftovers = opts.leftovers
+        else:
+            leftovers = []
         return leftovers, opts
     except IndexError:
         return None, None

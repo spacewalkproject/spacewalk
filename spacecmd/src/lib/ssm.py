@@ -35,17 +35,17 @@ from spacecmd.utils import *
 def help_ssm(self):
     print('The System Set Manager (SSM) is a group of systems that you ')
     print('can perform tasks on as a whole.')
-    print()
+    print('')
     print('Adding Systems:')
     print('> ssm_add group:rhel5-x86_64')
     print('> ssm_add channel:rhel-x86_64-server-5')
     print('> ssm_add search:device:vmware')
     print('> ssm_add host.example.com')
-    print()
+    print('')
     print('Intersections:')
     print('> ssm_add group:rhel5-x86_64')
     print('> ssm_intersect group:web-servers')
-    print()
+    print('')
     print('Using the SSM:')
     print('> system_installpackage ssm zsh')
     print('> system_runscript ssm')
@@ -56,9 +56,9 @@ def help_ssm(self):
 def help_ssm_add(self):
     print('ssm_add: Add systems to the SSM')
     print('usage: ssm_add <SYSTEMS>')
-    print()
+    print('')
     print("see 'help ssm' for more details")
-    print()
+    print('')
     print(self.HELP_SYSTEM_OPTS)
 
 
@@ -67,7 +67,9 @@ def complete_ssm_add(self, text, line, beg, end):
 
 
 def do_ssm_add(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_ssm_add()
@@ -101,9 +103,9 @@ def help_ssm_intersect(self):
     print('               of the current list of systems and the list of')
     print('               systems passed as arguments')
     print('usage: ssm_intersect <SYSTEMS>')
-    print()
+    print('')
     print("see 'help ssm' for more details")
-    print()
+    print('')
     print(self.HELP_SYSTEM_OPTS)
 
 
@@ -112,7 +114,9 @@ def complete_ssm_intersect(self, text, line, beg, end):
 
 
 def do_ssm_intersect(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_ssm_intersect()
@@ -144,9 +148,9 @@ def do_ssm_intersect(self, args):
 def help_ssm_remove(self):
     print('ssm_remove: Remove systems from the SSM')
     print('usage: ssm_remove <SYSTEMS>')
-    print()
+    print('')
     print("see 'help ssm' for more details")
-    print()
+    print('')
     print(self.HELP_SYSTEM_OPTS)
 
 
@@ -155,7 +159,9 @@ def complete_ssm_remove(self, text, line, beg, end):
 
 
 def do_ssm_remove(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_ssm_remove()
@@ -184,7 +190,7 @@ def do_ssm_remove(self, args):
 def help_ssm_list(self):
     print('ssm_list: List the systems currently in the SSM')
     print('usage: ssm_list')
-    print()
+    print('')
     print("see 'help ssm' for more details")
 
 

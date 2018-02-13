@@ -138,7 +138,9 @@ def complete_schedule_cancel(self, text, line, beg, end):
 
 
 def do_schedule_cancel(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_schedule_cancel()
@@ -187,7 +189,9 @@ def complete_schedule_reschedule(self, text, line, beg, end):
 
 
 def do_schedule_reschedule(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_schedule_reschedule()
@@ -234,7 +238,9 @@ def help_schedule_details(self):
 
 
 def do_schedule_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_schedule_details()
@@ -273,27 +279,27 @@ def do_schedule_details(self, args):
     print('Action:    %s' % action.get('name'))
     print('User:      %s' % action.get('scheduler'))
     print('Date:      %s' % action.get('earliest'))
-    print()
+    print('')
     print('Completed: %s' % str(len(completed)).rjust(3))
     print('Failed:    %s' % str(len(failed)).rjust(3))
     print('Pending:   %s' % str(len(pending)).rjust(3))
 
     if completed:
-        print()
+        print('')
         print('Completed Systems')
         print('-----------------')
         for s in completed:
             print(s.get('server_name'))
 
     if failed:
-        print()
+        print('')
         print('Failed Systems')
         print('--------------')
         for s in failed:
             print(s.get('server_name'))
 
     if pending:
-        print()
+        print('')
         print('Pending Systems')
         print('---------------')
         for s in pending:
@@ -308,7 +314,9 @@ def help_schedule_getoutput(self):
 
 
 def do_schedule_getoutput(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_schedule_getoutput()
@@ -344,7 +352,7 @@ def do_schedule_getoutput(self, args):
             print('Start Time:  %s' % r.get('startDate'))
             print('Stop Time:   %s' % r.get('stopDate'))
             print('Return Code: %i' % r.get('returnCode'))
-            print()
+            print('')
             print('Output')
             print('------')
             if r.get('output_enc64'):
@@ -368,7 +376,7 @@ def do_schedule_getoutput(self, args):
 
             print('System:    %s' % action.get('server_name'))
             print('Completed: %s' % action.get('timestamp'))
-            print()
+            print('')
             print('Output')
             print('------')
             print(action.get('message'))
@@ -379,7 +387,7 @@ def do_schedule_getoutput(self, args):
 def help_schedule_listpending(self):
     print('schedule_listpending: List pending actions')
     print('usage: schedule_listpending [BEGINDATE] [ENDDATE]')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
@@ -392,7 +400,7 @@ def do_schedule_listpending(self, args):
 def help_schedule_listcompleted(self):
     print('schedule_listcompleted: List completed actions')
     print('usage: schedule_listcompleted [BEGINDATE] [ENDDATE]')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
@@ -405,7 +413,7 @@ def do_schedule_listcompleted(self, args):
 def help_schedule_listfailed(self):
     print('schedule_listfailed: List failed actions')
     print('usage: schedule_listfailed [BEGINDATE] [ENDDATE]')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
@@ -418,7 +426,7 @@ def do_schedule_listfailed(self, args):
 def help_schedule_listarchived(self):
     print('schedule_listarchived: List archived actions')
     print('usage: schedule_listarchived [BEGINDATE] [ENDDATE]')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
@@ -431,7 +439,7 @@ def do_schedule_listarchived(self, args):
 def help_schedule_list(self):
     print('schedule_list: List all actions')
     print('usage: schedule_list [BEGINDATE] [ENDDATE]')
-    print()
+    print('')
     print(self.HELP_TIME_OPTS)
 
 
