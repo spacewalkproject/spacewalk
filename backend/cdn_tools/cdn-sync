@@ -215,6 +215,12 @@ if __name__ == '__main__':
         if LOCK:
             LOCK.release()
         system_exit(20, "ERROR: Problem occurred during package counting: %s" % str(e))
+    except EOFError:
+        e = sys.exc_info()[0]
+        if LOCK:
+            LOCK.release()
+        system_exit(40, "SYNC ERROR: Perhaps checksum_cache is corrupted? Remove /var/cache/rhn/reposync/checksum_cache and retry.\n%s" % str(e))
+
     except Exception:
         e = sys.exc_info()[1]
         if LOCK:
