@@ -31,7 +31,10 @@
 # pylint: disable=C0103
 
 from operator import itemgetter
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from optparse import Option
 
 from spacecmd.utils import *

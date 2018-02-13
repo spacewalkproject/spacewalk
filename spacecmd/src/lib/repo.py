@@ -31,7 +31,10 @@
 
 from optparse import Option
 import shlex
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 

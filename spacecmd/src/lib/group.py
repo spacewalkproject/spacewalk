@@ -32,7 +32,10 @@
 import os
 import re
 import shlex
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 
@@ -297,7 +300,7 @@ def do_group_restore(self, args):
         groups = files.keys()
     elif groups:
         for group in groups:
-            if files.has_key(group):
+            if group in files:
                 groups.append(group)
             else:
                 logging.error("Group %s was not found in backup" % (group))
@@ -313,11 +316,11 @@ def do_group_restore(self, args):
         fh.close()
         details = details.rstrip('\n')
 
-        if current.has_key(groupname) and current[groupname] == details:
+        if groupname in current and current[groupname] == details:
             logging.debug("Already have %s" % groupname)
             continue
 
-        elif current.has_key(groupname):
+        elif groupname in current:
             logging.debug("Already have %s but the description has changed" % groupname)
 
             if is_interactive(options):

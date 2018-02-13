@@ -29,7 +29,10 @@
 # invalid function name
 # pylint: disable=C0103
 
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 

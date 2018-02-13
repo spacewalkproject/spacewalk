@@ -33,7 +33,10 @@
 from optparse import Option
 from datetime import datetime
 import base64
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 

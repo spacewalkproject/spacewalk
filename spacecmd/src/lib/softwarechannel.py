@@ -31,8 +31,18 @@
 # pylint: disable=C0103
 
 from optparse import Option
-import urllib
-import xmlrpclib
+try:
+    from urllib import ContentTooShortError
+except ImportError:
+    from urllib.error import ContentTooShortError
+try:
+    from urllib import urlretrieve
+except ImportError:
+    from urllib.request import urlretrieve
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 
@@ -1589,7 +1599,7 @@ def do_softwarechannel_adderrata(self, args):
         print('\n'.join(
             sorted([self.get_package_name(p) for p in package_ids])))
 
-        print
+        print()
     print('Total Errata:   %s' % str(len(errata)).rjust(3))
 
     if not options.quick:
@@ -2342,7 +2352,7 @@ def do_softwarechannel_listsyncschedule(self, args):
     print(csched_fmt.format('-----', '---------------------', '---------------'))
 
     # Sort and print(the channel names and associated repo-sync schedule (if any))
-    for key,value in sorted(chan_name.iteritems(), key=lambda k,v: (v,k)):
+    for key,value in sorted(chan_name.items(), key=lambda k,v: (v,k)):
         print(csched_fmt.format(str(key), value, chan_sched[int(key)]))
 
 ####################
@@ -2472,8 +2482,8 @@ def do_softwarechannel_mirrorpackages(self, args):
         else:
             print("Fetching package", package_file)
             try:
-                urllib.urlretrieve(package_url, package_file)
-            except urllib.ContentTooShortError:
+                urlretrieve(package_url, package_file)
+            except ContentTooShortError:
                 logging.error(
                     "Received package %s from channel %s is broken. Content is too short",
                     package_file, channel)

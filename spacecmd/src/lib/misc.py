@@ -34,9 +34,16 @@ import logging
 import readline
 import shlex
 from getpass import getpass
-from ConfigParser import NoOptionError
+try: # python 3
+    from configparser import NoOptionError
+except ImportError: # python 2
+    from ConfigParser import NoOptionError
+
 from time import sleep
-import xmlrpclib
+try: # python 3
+    from xmlrpc import client as xmlrpclib
+except ImportError: # python2
+    import xmlrpclib
 from spacecmd.utils import *
 
 # list of system selection options for the help output

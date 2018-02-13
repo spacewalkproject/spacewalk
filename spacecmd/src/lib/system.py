@@ -31,7 +31,10 @@
 # pylint: disable=C0103
 
 import shlex
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from operator import itemgetter
 from optparse import Option
 from xml.parsers.expat import ExpatError
@@ -3256,7 +3259,7 @@ def filter_latest_packages(pkglist, version_key='version',
             logging.error("Failed to filter package list, package %s" % p
                           + "found with no arch or arch_label")
             return None
-        if not latest.has_key(tuplekey):
+        if not tuplekey in latest:
             latest[tuplekey] = p
         else:
             # Already have this package, is p newer?
@@ -3426,7 +3429,7 @@ def do_system_comparewithchannel(self, args):
         # Get the latest packages in each channel
         latestpkgs = {}
         for c in channels:
-            if not channel_latest.has_key(c):
+            if not c in channel_latest:
                 logging.debug("Getting packages for channel %s" % c)
                 pkgs = self.client.channel.software.listAllPackages(
                     self.session, c)
@@ -3440,7 +3443,7 @@ def do_system_comparewithchannel(self, args):
             # We do this for every channel of every system, since the mix of
             # subscribed channels may be different
             for key in channel_latest[c].keys():
-                if not latestpkgs.has_key(key):
+                if not key in latestpkgs:
                     latestpkgs[key] = channel_latest[c][key]
                 else:
                     p_newest = latest_pkg(channel_latest[c][key], latestpkgs[key])
@@ -3455,7 +3458,7 @@ def do_system_comparewithchannel(self, args):
         channelmissing = []
         for key in packages:
             syspkg = packages.get(key)
-            if latestpkgs.has_key(key):
+            if key in latestpkgs:
                 chpkg = latestpkgs.get(key)
                 newest = latest_pkg(syspkg, chpkg)
                 if syspkg == newest:

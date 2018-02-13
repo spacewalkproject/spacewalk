@@ -31,7 +31,10 @@
 
 import base64
 from operator import itemgetter
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 

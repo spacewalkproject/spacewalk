@@ -38,7 +38,10 @@ import readline
 import shlex
 import sys
 import time
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from collections import deque
 from datetime import datetime, timedelta
 from difflib import unified_diff
@@ -229,7 +232,15 @@ def prompt_user(prompt, noblank=False, multiline=False):
                 print(prompt)
                 userinput = sys.stdin.read()
             else:
-                userinput = raw_input('%s ' % prompt)
+                try:
+                    # python 2 must call raw_input() because input()
+                    # also evaluates the user input and that causes
+                    # problems.
+                    userinput = raw_input('%s ' % prompt)
+                except NameError:
+                    # python 3 replaced raw_input() with input()...
+                    # it no longer evaulates the user input.
+                    userinput = input('%s ' % prompt)
             if noblank:
                 if userinput != '':
                     break

@@ -27,7 +27,10 @@
 from optparse import Option
 import logging
 import sys
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 
@@ -67,7 +70,7 @@ def do_api(self, args):
         try:
             output = open(options.output, "w")
         except IOError:
-            logging.warn("Could not open to write: " + options.output)
+            logging.warning("Could not open to write: " + options.output)
             logging.info("Fallback output to stdout")
 
             output = sys.stdout
@@ -77,7 +80,7 @@ def do_api(self, args):
     api = getattr(self.client, api_name, None)
 
     if not callable(api):
-        logging.warn("No such API: " + api_name)
+        logging.warning("No such API: " + api_name)
         return
 
     try:

@@ -33,9 +33,16 @@
 from getpass import getpass
 from operator import itemgetter
 from optparse import Option
-from urllib2 import urlopen, HTTPError
+try:
+    from urllib2 import urlopen, HTTPError
+except ImportError:
+    from urllib.request import urlopen
+    from urllib.error import HTTPError
 import re
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 KICKSTART_OPTIONS = ['autostep', 'interactive', 'install', 'upgrade',
