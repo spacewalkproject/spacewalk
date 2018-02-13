@@ -566,10 +566,10 @@ def findHostByRoute():
             vals = info.split('=')
             if len(vals) <= 1:
                 continue
-            strippedstring = vals[0].strip()
-            vals[0] = strippedstring
-            if vals[0] == "HOSTNAME":
-                hostname = ''.join(vals[1:]).strip()
+            if vals[0].strip() == "HOSTNAME":
+                # /etc/sysconfig/network is of shell syntax,
+                # so values can be quoted
+                hostname = ''.join(vals[1:]).strip('"\' \t\n')
                 break
 
     if hostname == None or hostname == 'localhost.localdomain':
