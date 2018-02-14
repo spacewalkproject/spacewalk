@@ -3,7 +3,7 @@
 Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 License: GPLv2
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -146,6 +146,12 @@ install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_RO
 %doc LICENSE
 
 %changelog
+* Wed Feb 14 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.5-1
+- Enhances the check-database-space-usage.sh to include the PostgreSQL 9.5
+  directory and make sure the /usr/share/rhn/config-defaults/rhn_pgversion.conf
+  exists
+- allow software collection versions of Postgres to be used
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
