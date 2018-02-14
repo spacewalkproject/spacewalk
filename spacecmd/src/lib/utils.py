@@ -226,7 +226,7 @@ def prompt_user(prompt, noblank=False, multiline=False):
     try:
         while True:
             if multiline:
-                print prompt
+                print(prompt)
                 userinput = sys.stdin.read()
             else:
                 userinput = raw_input('%s ' % prompt)
@@ -236,7 +236,7 @@ def prompt_user(prompt, noblank=False, multiline=False):
             else:
                 break
     except EOFError:
-        print
+        print()
         return ''
 
     if userinput != '':
@@ -396,10 +396,10 @@ def print_errata_summary(erratum):
     if len(date_parts) > 1:
         erratum['date'] = date_parts[0]
 
-    print '%s  %s  %s' % (
+    print('%s  %s  %s' % (
         erratum.get('advisory_name').ljust(14),
         wrap(erratum.get('advisory_synopsis'), 50)[0].ljust(50),
-        erratum.get('date').rjust(8))
+        erratum.get('date').rjust(8)))
 
 
 def print_errata_list(errata):
@@ -423,26 +423,26 @@ def print_errata_list(errata):
         return
 
     if rhsa:
-        print 'Security Errata'
-        print '---------------'
+        print('Security Errata')
+        print('---------------')
         for erratum in rhsa:
             print_errata_summary(erratum)
 
     if rhba:
         if rhsa:
-            print
+            print()
 
-        print 'Bug Fix Errata'
-        print '--------------'
+        print('Bug Fix Errata')
+        print('--------------')
         for erratum in rhba:
             print_errata_summary(erratum)
 
     if rhea:
         if rhsa or rhba:
-            print
+            print()
 
-        print 'Enhancement Errata'
-        print '------------------'
+        print('Enhancement Errata')
+        print('------------------')
         for erratum in rhea:
             print_errata_summary(erratum)
 
@@ -451,22 +451,22 @@ def config_channel_order(all_channels=None, new_channels=None):
     all_channels = all_channels or []
     new_channels = new_channels or []
     while True:
-        print 'Current Selections'
-        print '------------------'
+        print('Current Selections')
+        print('------------------')
         for i, new_channel in enumerate(new_channels, 1):
-            print '%i. %s' % (i, new_channel)
+            print('%i. %s' % (i, new_channel))
 
-        print
+        print()
         action = prompt_user('a[dd], r[emove], c[lear], d[one]:')
 
         if re.match('a', action, re.I):
-            print
-            print 'Available Configuration Channels'
-            print '--------------------------------'
+            print()
+            print('Available Configuration Channels')
+            print('--------------------------------')
             for c in sorted(all_channels):
-                print c
+                print(c)
 
-            print
+            print()
             channel = prompt_user('Channel:')
 
             if channel not in all_channels:
@@ -495,13 +495,13 @@ def config_channel_order(all_channels=None, new_channels=None):
 
             new_channels.remove(channel)
         elif re.match('c', action, re.I):
-            print 'Clearing current selections'
+            print('Clearing current selections')
             new_channels = []
             continue
         elif re.match('d', action, re.I):
             break
 
-        print
+        print()
 
     return new_channels
 
@@ -653,10 +653,10 @@ def json_dump_to_file(obj, filename):
         fd = open(filename, 'w')
         fd.write(json_data)
         fd.close()
-    except IOError, E:
+    except IOError as E:
         logging.error("Could not open file %s for writing, permissions?",
                       filename)
-        print E.strerror
+        print(E.strerror)
         return False
 
     return True
@@ -669,9 +669,9 @@ def json_read_from_file(filename):
             jsondata = json.loads(data)
             return jsondata
         except ValueError:
-            print "could not read in data from %s" % filename
+            print("could not read in data from %s" % filename)
     except IOError:
-        print "could not open file %s for reading, check permissions?" % filename
+        print("could not open file %s for reading, check permissions?" % filename)
         return None
 
 

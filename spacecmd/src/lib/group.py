@@ -37,10 +37,10 @@ from spacecmd.utils import *
 
 
 def help_group_addsystems(self):
-    print 'group_addsystems: Add systems to a group'
-    print 'usage: group_addsystems GROUP <SYSTEMS>'
-    print
-    print self.HELP_SYSTEM_OPTS
+    print('group_addsystems: Add systems to a group')
+    print('usage: group_addsystems GROUP <SYSTEMS>')
+    print()
+    print(self.HELP_SYSTEM_OPTS)
 
 
 def complete_group_addsystems(self, text, line, beg, end):
@@ -85,10 +85,10 @@ def do_group_addsystems(self, args):
 
 
 def help_group_removesystems(self):
-    print 'group_removesystems: Remove systems from a group'
-    print 'usage: group_removesystems GROUP <SYSTEMS>'
-    print
-    print self.HELP_SYSTEM_OPTS
+    print('group_removesystems: Remove systems from a group')
+    print('usage: group_removesystems GROUP <SYSTEMS>')
+    print()
+    print(self.HELP_SYSTEM_OPTS)
 
 
 def complete_group_removesystems(self, text, line, beg, end):
@@ -124,9 +124,9 @@ def do_group_removesystems(self, args):
             continue
         system_ids.append(system_id)
 
-    print 'Systems'
-    print '-------'
-    print '\n'.join(sorted(systems))
+    print('Systems')
+    print('-------')
+    print('\n'.join(sorted(systems)))
 
     if not self.user_confirm('Remove these systems [y/N]:'):
         return
@@ -140,8 +140,8 @@ def do_group_removesystems(self, args):
 
 
 def help_group_create(self):
-    print 'group_create: Create a system group'
-    print 'usage: group_create [NAME] [DESCRIPTION]'
+    print('group_create: Create a system group')
+    print('usage: group_create [NAME] [DESCRIPTION]')
 
 
 def do_group_create(self, args):
@@ -163,8 +163,8 @@ def do_group_create(self, args):
 
 
 def help_group_delete(self):
-    print 'group_delete: Delete a system group'
-    print 'usage: group_delete NAME ...'
+    print('group_delete: Delete a system group')
+    print('usage: group_delete NAME ...')
 
 
 def complete_group_delete(self, text, line, beg, end):
@@ -191,11 +191,11 @@ def do_group_delete(self, args):
 
 
 def help_group_backup(self):
-    print 'group_backup: backup a system group'
-    print '''usage: group_backup NAME [OUTDIR]
+    print('group_backup: backup a system group')
+    print('''usage: group_backup NAME [OUTDIR])
 
 OUTDIR defaults to $HOME/spacecmd-backup/group/YYYY-MM-DD/NAME
-'''
+''')
 
 
 def complete_group_backup(self, text, line, beg, end):
@@ -235,10 +235,10 @@ def do_group_backup(self, args):
         return
 
     for group in groups:
-        print "Backup Group: %s" % group
+        print("Backup Group: %s" % group)
         details = self.client.systemgroup.getDetails(self.session, group)
         outputpath = outputpath_base + "/" + group
-        print "Output File: %s" % outputpath
+        print("Output File: %s" % outputpath)
         fh = open(outputpath, 'w')
         fh.write(details['description'])
         fh.close()
@@ -247,8 +247,8 @@ def do_group_backup(self, args):
 
 
 def help_group_restore(self):
-    print 'group_restore: restore a system group'
-    print 'usage: group_restore INPUTDIR [NAME] ...'
+    print('group_restore: restore a system group')
+    print('usage: group_restore INPUTDIR [NAME] ...')
 
 
 def complete_group_restore(self, text, line, beg, end):
@@ -321,8 +321,8 @@ def do_group_restore(self, args):
             logging.debug("Already have %s but the description has changed" % groupname)
 
             if is_interactive(options):
-                print "Changing description from:"
-                print "\n\"%s\"\nto\n\"%s\"\n" % (current[groupname], details)
+                print("Changing description from:")
+                print("\n\"%s\"\nto\n\"%s\"\n" % (current[groupname], details))
                 userinput = prompt_user('Continue [y/N]:')
 
                 if re.match('y', userinput, re.I):
@@ -339,8 +339,8 @@ def do_group_restore(self, args):
 
 
 def help_group_list(self):
-    print 'group_list: List available system groups'
-    print 'usage: group_list'
+    print('group_list: List available system groups')
+    print('usage: group_list')
 
 
 def do_group_list(self, args, doreturn=False):
@@ -351,14 +351,14 @@ def do_group_list(self, args, doreturn=False):
         return groups
     else:
         if groups:
-            print '\n'.join(sorted(groups))
+            print('\n'.join(sorted(groups)))
 
 ####################
 
 
 def help_group_listsystems(self):
-    print 'group_listsystems: List the members of a group'
-    print 'usage: group_listsystems GROUP'
+    print('group_listsystems: List the members of a group')
+    print('usage: group_listsystems GROUP')
 
 
 def complete_group_listsystems(self, text, line, beg, end):
@@ -385,14 +385,14 @@ def do_group_listsystems(self, args, doreturn=False):
         return systems
     else:
         if systems:
-            print '\n'.join(sorted(systems))
+            print('\n'.join(sorted(systems)))
 
 ####################
 
 
 def help_group_details(self):
-    print 'group_details: Show the details of a system group'
-    print 'usage: group_details GROUP ...'
+    print('group_details: Show the details of a system group')
+    print('usage: group_details GROUP ...')
 
 
 def complete_group_details(self, text, line, beg, end):
@@ -422,15 +422,15 @@ def do_group_details(self, args, short=False):
             return
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Name               %s' % details.get('name')
-        print 'Description:       %s' % details.get('description')
-        print 'Number of Systems: %i' % details.get('system_count')
+        print('Name               %s' % details.get('name'))
+        print('Description:       %s' % details.get('description'))
+        print('Number of Systems: %i' % details.get('system_count'))
 
         if not short:
-            print
-            print 'Members'
-            print '-------'
-            print '\n'.join(sorted(systems))
+            print()
+            print('Members')
+            print('-------')
+            print('\n'.join(sorted(systems)))

@@ -33,8 +33,8 @@ from spacecmd.utils import *
 
 
 def help_filepreservation_list(self):
-    print 'filepreservation_list: List all file preservations'
-    print 'usage: filepreservation_list'
+    print('filepreservation_list: List all file preservations')
+    print('usage: filepreservation_list')
 
 
 def do_filepreservation_list(self, args, doreturn=False):
@@ -47,14 +47,14 @@ def do_filepreservation_list(self, args, doreturn=False):
         return lists
     else:
         if lists:
-            print '\n'.join(sorted(lists))
+            print('\n'.join(sorted(lists)))
 
 ####################
 
 
 def help_filepreservation_create(self):
-    print 'filepreservation_create: Create a file preservation list'
-    print 'usage: filepreservation_create [NAME] [FILE ...]'
+    print('filepreservation_create: Create a file preservation list')
+    print('usage: filepreservation_create [NAME] [FILE ...]')
 
 
 def do_filepreservation_create(self, args):
@@ -71,10 +71,10 @@ def do_filepreservation_create(self, args):
         files = []
 
         while True:
-            print 'File List'
-            print '---------'
-            print '\n'.join(sorted(files))
-            print
+            print('File List')
+            print('---------')
+            print('\n'.join(sorted(files)))
+            print()
 
             userinput = prompt_user('File [blank to finish]:')
 
@@ -84,10 +84,10 @@ def do_filepreservation_create(self, args):
                 if userinput not in files:
                     files.append(userinput)
 
-    print
-    print 'File List'
-    print '---------'
-    print '\n'.join(sorted(files))
+    print()
+    print('File List')
+    print('---------')
+    print('\n'.join(sorted(files)))
 
     if not self.user_confirm():
         return
@@ -100,8 +100,8 @@ def do_filepreservation_create(self, args):
 
 
 def help_filepreservation_delete(self):
-    print 'filepreservation_delete: Delete a file preservation list'
-    print 'usage: filepreservation_delete NAME'
+    print('filepreservation_delete: Delete a file preservation list')
+    print('usage: filepreservation_delete NAME')
 
 
 def complete_filepreservation_delete(self, text, line, beg, end):
@@ -126,9 +126,9 @@ def do_filepreservation_delete(self, args):
 
 
 def help_filepreservation_details(self):
-    print 'filepreservation_details: Show the details of a file ' + \
-          'preservation list'
-    print 'usage: filepreservation_details NAME'
+    print('''filepreservation_details: Show the details of a file
+'preservation list''')
+    print('usage: filepreservation_details NAME')
 
 
 def complete_filepreservation_details(self, text, line, beg, end):
@@ -148,4 +148,4 @@ def do_filepreservation_details(self, args):
         self.client.kickstart.filepreservation.getDetails(self.session,
                                                           name)
 
-    print '\n'.join(sorted(details.get('file_names')))
+    print('\n'.join(sorted(details.get('file_names'))))

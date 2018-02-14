@@ -32,13 +32,13 @@ from spacecmd.utils import *
 
 
 def help_cryptokey_create(self):
-    print 'cryptokey_create: Create a cryptographic key'
-    print '''usage: cryptokey_create [options]
+    print('cryptokey_create: Create a cryptographic key')
+    print('''usage: cryptokey_create [options])
 
 options:
   -t GPG or SSL
   -d DESCRIPTION
-  -f KEY_FILE'''
+  -f KEY_FILE''')
 
 
 def do_cryptokey_create(self, args):
@@ -95,8 +95,8 @@ def do_cryptokey_create(self, args):
 
 
 def help_cryptokey_delete(self):
-    print 'cryptokey_delete: Delete a cryptographic key'
-    print 'usage: cryptokey_delete NAME'
+    print('cryptokey_delete: Delete a cryptographic key')
+    print('usage: cryptokey_delete NAME')
 
 
 def complete_cryptokey_delete(self, text, line, beg, end):
@@ -122,7 +122,7 @@ def do_cryptokey_delete(self, args):
         return
 
     # Print the keys prior to the confirmation
-    print '\n'.join(sorted(keys))
+    print('\n'.join(sorted(keys)))
 
     if self.user_confirm('Delete key(s) [y/N]:'):
         for key in keys:
@@ -132,8 +132,8 @@ def do_cryptokey_delete(self, args):
 
 
 def help_cryptokey_list(self):
-    print 'cryptokey_list: List all cryptographic keys (SSL, GPG)'
-    print 'usage: cryptokey_list'
+    print('cryptokey_list: List all cryptographic keys (SSL, GPG)')
+    print('usage: cryptokey_list')
 
 
 def do_cryptokey_list(self, args, doreturn=False):
@@ -144,14 +144,14 @@ def do_cryptokey_list(self, args, doreturn=False):
         return keys
     else:
         if keys:
-            print '\n'.join(sorted(keys))
+            print('\n'.join(sorted(keys)))
 
 ####################
 
 
 def help_cryptokey_details(self):
-    print 'cryptokey_details: Show the contents of a cryptographic key'
-    print 'usage: cryptokey_details KEY ...'
+    print('cryptokey_details: Show the contents of a cryptographic key')
+    print('usage: cryptokey_details KEY ...')
 
 
 def complete_cryptokey_details(self, text, line, beg, end):
@@ -185,11 +185,11 @@ def do_cryptokey_details(self, args):
             return
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Description: %s' % details.get('description')
-        print 'Type:        %s' % details.get('type')
+        print('Description: %s' % details.get('description'))
+        print('Type:        %s' % details.get('type'))
 
-        print
-        print details.get('content')
+        print()
+        print(details.get('content'))

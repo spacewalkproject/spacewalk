@@ -32,8 +32,8 @@ from spacecmd.utils import *
 
 
 def help_api(self):
-    print 'api: call RHN API with arguements directly'
-    print '''usage: api [options] API_STRING
+    print('api: call RHN API with arguements directly')
+    print('''usage: api [options] API_STRING)
 
 options:
   -A, --args  Arguments for the API other than session id in comma separated
@@ -46,7 +46,7 @@ examples:
   api --args "sysgroup_A" systemgroup.listSystems
   api -A "rhel-i386-server-5,2011-04-01,2011-05-01" -F "%(name)s" \\
       channel.software.listAllPackages
-'''
+''')
 
 
 def do_api(self, args):

@@ -37,8 +37,8 @@ from spacecmd.utils import *
 
 
 def help_repo_list(self):
-    print 'repo_list: List all available user repos'
-    print 'usage: repo_list'
+    print('repo_list: List all available user repos')
+    print('usage: repo_list')
 
 
 def do_repo_list(self, args, doreturn=False):
@@ -49,14 +49,14 @@ def do_repo_list(self, args, doreturn=False):
         return repos
     else:
         if repos:
-            print '\n'.join(sorted(repos))
+            print('\n'.join(sorted(repos)))
 
 ####################
 
 
 def help_repo_details(self):
-    print 'repo_details: Show the details of a user repo'
-    print 'usage: repo_details <repo ...>'
+    print('repo_details: Show the details of a user repo')
+    print('usage: repo_details <repo ...>')
 
 
 def complete_repo_details(self, text, line, beg, end):
@@ -80,22 +80,22 @@ def do_repo_details(self, args):
             self.session, repo)
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Repository Label:                  %s' % details.get('label')
-        print 'Repository URL:                    %s' % details.get('sourceUrl')
-        print 'Repository Type:                   %s' % details.get('type')
-        print 'Repository SSL Ca Certificate:     %s' % (details.get('sslCaDesc') or "None")
-        print 'Repository SSL Client Certificate: %s' % (details.get('sslCertDesc') or "None")
-        print 'Repository SSL Client Key:         %s' % (details.get('sslKeyDesc') or "None")
+        print('Repository Label:                  %s' % details.get('label'))
+        print('Repository URL:                    %s' % details.get('sourceUrl'))
+        print('Repository Type:                   %s' % details.get('type'))
+        print('Repository SSL Ca Certificate:     %s' % (details.get('sslCaDesc') or "None"))
+        print('Repository SSL Client Certificate: %s' % (details.get('sslCertDesc') or "None"))
+        print('Repository SSL Client Key:         %s' % (details.get('sslKeyDesc') or "None"))
 
 ####################
 
 
 def help_repo_listfilters(self):
-    print 'repo_listfilters: Show the filters for a user repo'
-    print 'usage: repo_listfilters repo'
+    print('repo_listfilters: Show the filters for a user repo')
+    print('usage: repo_listfilters repo')
 
 
 def complete_repo_listfilters(self, text, line, beg, end):
@@ -113,14 +113,14 @@ def do_repo_listfilters(self, args):
         self.client.channel.software.listRepoFilters(self.session, args[0])
 
     for f in filters:
-        print "%s%s" % (f.get('flag'), f.get('filter'))
+        print("%s%s" % (f.get('flag'), f.get('filter')))
 
 ####################
 
 
 def help_repo_addfilters(self):
-    print 'repo_addfilters: Add filters for a user repo'
-    print 'usage: repo_addfilters repo <filter ...>'
+    print('repo_addfilters: Add filters for a user repo')
+    print('usage: repo_addfilters repo <filter ...>')
 
 
 def complete_repo_addfilters(self, text, line, beg, end):
@@ -156,8 +156,8 @@ def do_repo_addfilters(self, args):
 
 
 def help_repo_removefilters(self):
-    print 'repo_removefilters: Remove filters from a user repo'
-    print 'usage: repo_removefilters repo <filter ...>'
+    print('repo_removefilters: Remove filters from a user repo')
+    print('usage: repo_removefilters repo <filter ...>')
 
 
 def complete_repo_removefilters(self, text, line, beg, end):
@@ -191,8 +191,8 @@ def do_repo_removefilters(self, args):
 
 
 def help_repo_setfilters(self):
-    print 'repo_setfilters: Set the filters for a user repo'
-    print 'usage: repo_setfilters repo <filter ...>'
+    print('repo_setfilters: Set the filters for a user repo')
+    print('usage: repo_setfilters repo <filter ...>')
 
 
 def complete_repo_setfilters(self, text, line, beg, end):
@@ -227,8 +227,8 @@ def do_repo_setfilters(self, args):
 
 
 def help_repo_clearfilters(self):
-    print 'repo_clearfilters: Clears the filters for a user repo'
-    print 'usage: repo_clearfilters repo'
+    print('repo_clearfilters: Clears the filters for a user repo')
+    print('usage: repo_clearfilters repo')
 
 
 def complete_repo_clearfilters(self, text, line, beg, end):
@@ -249,8 +249,8 @@ def do_repo_clearfilters(self, args):
 
 
 def help_repo_delete(self):
-    print 'repo_delete: Delete a user repo'
-    print 'usage: repo_delete <repo ...>'
+    print('repo_delete: Delete a user repo')
+    print('usage: repo_delete <repo ...>')
 
 
 def complete_repo_delete(self, text, line, beg, end):
@@ -267,9 +267,9 @@ def do_repo_delete(self, args):
     # allow globbing of repo names
     repos = filter_results(self.do_repo_list('', True), args)
 
-    print 'Repos'
-    print '-----'
-    print '\n'.join(sorted(repos))
+    print('Repos')
+    print('-----')
+    print('\n'.join(sorted(repos)))
 
     if self.user_confirm('Delete these repos [y/N]:'):
         for repo in repos:
@@ -282,8 +282,8 @@ def do_repo_delete(self, args):
 
 
 def help_repo_create(self):
-    print 'repo_create: Create a user repository'
-    print '''usage: repo_create <options>
+    print('repo_create: Create a user repository')
+    print('''usage: repo_create <options>)
 
 options:
   -n, --name   name of repository
@@ -292,7 +292,7 @@ options:
 
   --ca         SSL CA certificate (not required)
   --cert       SSL Client certificate (not required)
-  --key        SSL Client key (not required)'''
+  --key        SSL Client key (not required)''')
 
 
 def do_repo_create(self, args):
@@ -336,8 +336,8 @@ def do_repo_create(self, args):
 
 
 def help_repo_rename(self):
-    print 'repo_rename: Rename a user repository'
-    print 'usage: repo_rename OLDNAME NEWNAME'
+    print('repo_rename: Rename a user repository')
+    print('usage: repo_rename OLDNAME NEWNAME')
 
 
 def complete_repo_rename(self, text, line, beg, end):
@@ -368,8 +368,8 @@ def do_repo_rename(self, args):
 
 
 def help_repo_updateurl(self):
-    print 'repo_updateurl: Change the URL of a user repository'
-    print 'usage: repo_updateurl <repo> <url>'
+    print('repo_updateurl: Change the URL of a user repository')
+    print('usage: repo_updateurl <repo> <url>')
 
 
 def complete_repo_updateurl(self, text, line, beg, end):
@@ -392,12 +392,12 @@ def do_repo_updateurl(self, args):
 
 
 def help_repo_updatessl(self):
-    print 'repo_updatessl: Change the SSL certificates of a user repository'
-    print '''usage: repo_updatessl <options>
+    print('repo_updatessl: Change the SSL certificates of a user repository')
+    print('''usage: repo_updatessl <options>)
 options:
   --ca         SSL CA certificate (not required)
   --cert       SSL Client certificate (not required)
-  --key        SSL Client key (not required)'''
+  --key        SSL Client key (not required)''')
 
 
 def do_repo_updatessl(self, args):

@@ -34,8 +34,8 @@ from spacecmd.utils import *
 
 
 def help_snippet_list(self):
-    print 'snippet_list: List the available Kickstart snippets'
-    print 'usage: snippet_list'
+    print('snippet_list: List the available Kickstart snippets')
+    print('usage: snippet_list')
 
 
 def do_snippet_list(self, args, doreturn=False):
@@ -46,14 +46,14 @@ def do_snippet_list(self, args, doreturn=False):
         return snippets
     else:
         if snippets:
-            print '\n'.join(sorted(snippets))
+            print('\n'.join(sorted(snippets)))
 
 ####################
 
 
 def help_snippet_details(self):
-    print 'snippet_details: Show the contents of a snippet'
-    print 'usage: snippet_details SNIPPET ...'
+    print('snippet_details: Show the contents of a snippet')
+    print('usage: snippet_details SNIPPET ...')
 
 
 def complete_snippet_details(self, text, line, beg, end):
@@ -84,26 +84,26 @@ def do_snippet_details(self, args):
             continue
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Name:   %s' % snippet.get('name')
-        print 'Macro:  %s' % snippet.get('fragment')
-        print 'File:   %s' % snippet.get('file')
+        print('Name:   %s' % snippet.get('name'))
+        print('Macro:  %s' % snippet.get('fragment'))
+        print('File:   %s' % snippet.get('file'))
 
-        print
-        print snippet.get('contents')
+        print()
+        print(snippet.get('contents'))
 
 ####################
 
 
 def help_snippet_create(self):
-    print 'snippet_create: Create a Kickstart snippet'
-    print '''usage: snippet_create [options]
+    print('snippet_create: Create a Kickstart snippet')
+    print('''usage: snippet_create [options])
 
 options:
   -n NAME
-  -f FILE'''
+  -f FILE''')
 
 
 def do_snippet_create(self, args, update_name=''):
@@ -146,11 +146,11 @@ def do_snippet_create(self, args, update_name=''):
     if options.file:
         contents = read_file(options.file)
 
-    print
-    print 'Snippet: %s' % options.name
-    print 'Contents'
-    print '--------'
-    print contents
+    print()
+    print('Snippet: %s' % options.name)
+    print('Contents')
+    print('--------')
+    print(contents)
 
     if self.user_confirm():
         self.client.kickstart.snippet.createOrUpdate(self.session,
@@ -161,8 +161,8 @@ def do_snippet_create(self, args, update_name=''):
 
 
 def help_snippet_update(self):
-    print 'snippet_update: Update a Kickstart snippet'
-    print 'usage: snippet_update NAME'
+    print('snippet_update: Update a Kickstart snippet')
+    print('usage: snippet_update NAME')
 
 
 def complete_snippet_update(self, text, line, beg, end):
@@ -182,8 +182,8 @@ def do_snippet_update(self, args):
 
 
 def help_snippet_delete(self):
-    print 'snippet_delete: Delete a Kickstart snippet'
-    print 'usage: snippet_delete NAME'
+    print('snippet_delete: Delete a Kickstart snippet')
+    print('usage: snippet_delete NAME')
 
 
 def complete_snippet_delete(self, text, line, beg, end):
