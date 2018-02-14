@@ -205,8 +205,11 @@ class DownloadThread(Thread):
         for retry in range(max(self.parent.retries, mirrors)):
             fo = None
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
+            ## BEWARE: This hack is introduced in order to support SUSE SCC channels
+            ## This also needs a patched urlgrabber AFAIK
             if params['authtoken']:
-                url = "{0}?{1}".format(url, params['authtoken'])
+                (scheme, netloc, path, query, frag) = urlparse.urlsplit(params['urls'][self.mirror])
+                url = "%s://%s%s/%s?%s" % (scheme,netloc,path,params['relative_path'],query.rstrip('/'))
             try:
                 try:
                     fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl, self.parent)
