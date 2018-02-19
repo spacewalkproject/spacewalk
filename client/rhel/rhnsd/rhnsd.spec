@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.35
+Version: 5.0.36
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -130,6 +130,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Feb 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.36-1
+- add BuildRequires gcc
+
 * Mon Feb 05 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.35-1
 - remove systemd-units
 - remove obsoleted things from spec file
