@@ -260,7 +260,7 @@ def do_login(self, args):
     # an argument passed to the function get precedence
     if args:
         username = args[0]
-    elif self.config.has_key('username'):
+    elif 'username' in self.config:
         # use the username from before
         username = self.config['username']
     elif self.options.username:
@@ -270,7 +270,7 @@ def do_login(self, args):
         username = ''
 
     # set the protocol
-    if self.config.has_key('nossl') and self.config['nossl']:
+    if 'nossl' in self.config and self.config['nossl']:
         proto = 'http'
     else:
         proto = 'https'
@@ -301,7 +301,7 @@ def do_login(self, args):
         return False
 
     # ensure the server is recent enough
-    if self.api_version < self.MINIMUM_API_VERSION:
+    if float(self.api_version) < self.MINIMUM_API_VERSION:
         logging.error('API (%s) is too old (>= %s required)',
                       self.api_version, self.MINIMUM_API_VERSION)
 
@@ -358,7 +358,7 @@ def do_login(self, args):
             # remove this from the options so that if 'login' is called
             # again, the user is prompted for the information
             self.options.password = None
-        elif self.config.has_key('password'):
+        elif 'password' in self.config:
             password = self.config['password']
         else:
             password = getpass('Spacewalk Password: ')
@@ -1001,19 +1001,19 @@ def load_config_section(self, section):
                 pass
 
     try:
-        if (self.config.has_key('username')
+        if ('username' in self.config
                 and self.config['username'] != self.config_parser.get(section, 'username')):
             del self.config['password']
     except NoOptionError:
         pass
 
     # handle the nossl boolean
-    if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
+    if 'nossl' in self.config and isinstance(self.config['nossl'], str):
         self.config['nossl'] = re.match('^1|y|true$', self.config['nossl'], re.I)
 
     # Obfuscate the password with asterisks
     config_debug = self.config.copy()
-    if config_debug.has_key('password'):
+    if 'password' in config_debug:
         config_debug['password'] = "*" * len(config_debug['password'])
 
     logging.debug('Current Configuration: %s', config_debug)

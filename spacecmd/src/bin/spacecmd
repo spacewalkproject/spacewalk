@@ -25,11 +25,17 @@ import logging
 import os
 import re
 import sys
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 import codecs
 import locale
 import argparse
-from ConfigParser import SafeConfigParser
+try: # python 3
+    from configparser import SafeConfigParser
+except ImportError: # python 2
+    from ConfigParser import SafeConfigParser
 from socket import gethostname
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
@@ -66,7 +72,7 @@ if __name__ == '__main__':
                         help='answer yes for all questions')
     parser.add_argument('-q', '--quiet', action='store_true',
                         help='print only error messages')
-    parser.add_argument('-d', '--debug', action='count',
+    parser.add_argument('-d', '--debug', action='count', default=0,
                         help='print debug messages (can be passed multiple times)')
     parser.add_argument('command', nargs='*',
                         help=argparse.SUPPRESS)
@@ -124,7 +130,7 @@ if __name__ == '__main__':
                 # create ~/.spacecmd
                 if not os.path.isdir(conf_dir):
                     logging.debug('Creating %s', conf_dir)
-                    os.mkdir(conf_dir, 0700)
+                    os.mkdir(conf_dir, int('0700', 8))
 
                 # create a template configuration file
                 logging.debug('Creating configuration file: %s', user_conf_file)
@@ -165,7 +171,7 @@ if __name__ == '__main__':
             print('User Interrupt')
         except UnknownCallException:
             sys.exit(1)
-        except Exception, detail:
+        except Exception as detail:
             # get the relevant part of a XML-RPC fault
             if isinstance(detail, xmlrpclib.Fault):
                 detail = detail.faultString
@@ -194,7 +200,7 @@ if __name__ == '__main__':
                 sys.exit(0)
             except UnknownCallException:
                 pass
-            except Exception, detail:
+            except Exception as detail:
                 # get the relevant part of a XML-RPC fault
                 if isinstance(detail, xmlrpclib.Fault):
                     detail = detail.faultString

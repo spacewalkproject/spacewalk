@@ -404,7 +404,7 @@ def do_org_details(self, args):
     print('Systems:                %i' % details.get('systems'))
 
     # trusts is optional, which is annoying...
-    if details.has_key('trusts'):
+    if 'trusts' in details:
         print('Trusts:                 %i' % details.get('trusts'))
     else:
         print('Trusts:                 %i' % 0)

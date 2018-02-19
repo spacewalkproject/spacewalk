@@ -3322,9 +3322,9 @@ def filter_latest_packages(pkglist, version_key='version',
     # for each arch.  This approach avoids nested loops :)
     latest = {}
     for p in pkglist:
-        if p.has_key('arch_label'):
+        if 'arch_label' in p:
             tuplekey = p['name'], p['arch_label']
-        elif p.has_key('arch'):
+        elif 'arch' in p:
             # Fixup arch==AMD64 which is returned for some reason
             p['arch'] = re.sub('AMD64', 'x86_64', p['arch'])
             tuplekey = p['name'], p['arch']
@@ -3360,7 +3360,7 @@ def print_comparison_withchannel(self, channelnewer, systemnewer,
         version_string = "%(version)s-%(release)s" % item
         tmp_system.append(version_string)
         key = item['name'], item['arch']
-        if channel_latest.has_key(key):
+        if key in channel_latest:
             version_string = "%(version)s-%(release)s" % channel_latest[key]
             tmp_channel.append(version_string)
 
@@ -3387,7 +3387,7 @@ def print_comparison_withchannel(self, channelnewer, systemnewer,
         name_string = "%(name)s.%(arch)s" % item
         version_string = "%(version)s-%(release)s" % item
         key = item['name'], item['arch']
-        if channel_latest.has_key(key):
+        if key in channel_latest:
             channel_version = "%(version)s-%(release)s" % channel_latest[key]
         else:
             channel_version = '-'
@@ -3400,7 +3400,7 @@ def print_comparison_withchannel(self, channelnewer, systemnewer,
         name_string = "%(name)s.%(arch)s" % item
         version_string = "%(version)s-%(release)s" % item
         key = item['name'], item['arch']
-        if channel_latest.has_key(key):
+        if key in channel_latest:
             channel_version = "%(version)s-%(release)s" % channel_latest[key]
         else:
             channel_version = '-'

@@ -787,7 +787,7 @@ def do_configchannel_addfile(self, args, update_path=''):
             if not self.check_api_version('10.11'):
                 del file_info['selinux_ctx']
 
-                if file_info.has_key('revision'):
+                if 'revision' in file_info:
                     del file_info['revision']
 
             if options.directory:
@@ -992,17 +992,17 @@ def export_configchannel_getdetails(self, channel):
         if f['type'] == 'symlink':
             for k in ['contents', 'owner', 'group', 'permissions',
                       'macro-start-delimiter', 'macro-end-delimiter']:
-                if f.has_key(k):
+                if k in f:
                     del f[k]
         else:
-            if f.has_key('target_path'):
+            if 'target_path' in f:
                 del f['target_path']
             f['permissions'] = str(f['permissions'])
 
             # If we're using a recent API version files exported with no contents
             # i.e binary or non-xml encodable ascii files can be exported as
             # base64 encoded
-            if not f.has_key('contents'):
+            if not 'contents' in f:
                 if f['type'] != 'directory':
                     if not self.check_api_version('11.1'):
                         logging.warning("File %s could not be exported " % f['path'] +
@@ -1143,7 +1143,7 @@ def import_configchannel_fromdetails(self, ccdetails):
             else:
                 if filedetails['type'] == 'directory':
                     isdir = True
-                    if filedetails.has_key('contents'):
+                    if 'contents' in filedetails:
                         del filedetails['contents']
                 else:
                     isdir = False
@@ -1153,7 +1153,7 @@ def import_configchannel_fromdetails(self, ccdetails):
                     # with no "contents" key (
                     # I guess the best thing to do here flag an error and
                     # import everything else
-                    if not filedetails.has_key('contents'):
+                    if not 'contents' in filedetails:
                         logging.error(
                             "Failed trying to import file %s (empty content)"
                             % path)
@@ -1168,7 +1168,7 @@ def import_configchannel_fromdetails(self, ccdetails):
 
                 logging.debug("Creating %s %s" %
                               (filedetails['type'], filedetails))
-                if filedetails.has_key('type'):
+                if 'type' in filedetails:
                     del filedetails['type']
 
                 ret = self.client.configchannel.createOrUpdatePath(

@@ -2337,7 +2337,7 @@ def import_kickstart_fromdetails(self, ksdetails):
         # kickstarts from a server with the new API call to one without it,
         # so ensure the target satellite is at least as up-to-date as the
         # satellite where the export was performed.
-        if script.has_key('template'):
+        if 'template' in script:
             ret = self.client.kickstart.profile.addScript(self.session,
                                                           ksdetails['label'], script['name'], script['contents'],
                                                           script['interpreter'], script[
@@ -2418,7 +2418,7 @@ def import_kickstart_fromdetails(self, ksdetails):
     logging.warning(" * Details->Kernel Options")
     # We can export Post kernel options (sort of, see above)
     # if they exist on import, flag a warning
-    if ksdetails.has_key('post_kopts'):
+    if 'post_kopts' in ksdetails:
         logging.warning(" * Details->Post Kernel Options : %s" %
                         ksdetails['post_kopts'])
     return True

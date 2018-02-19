@@ -107,7 +107,7 @@ def load_cache(cachefile):
 
     if os.path.isfile(cachefile):
         try:
-            inputfile = open(cachefile, 'r')
+            inputfile = open(cachefile, 'rb')
             data = pickle.load(inputfile)
             inputfile.close()
         except EOFError:
