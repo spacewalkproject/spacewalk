@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.68
+Version: 2.8.69
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Feb 19 2018 Grant Gainey 2.8.69-1
+- 1020318 - Check description for max-len when updating
+
 * Fri Feb 16 2018 Grant Gainey 2.8.68-1
 - 1020318 - Fix refactored to take more, multiple, errors into account
 
