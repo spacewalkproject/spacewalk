@@ -14,6 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.systems.customkey;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -23,18 +35,6 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles the deletion of a key.
@@ -94,10 +94,13 @@ public class UpdateCustomKeyAction extends RhnAction implements Listable {
         helper.execute();
 
         if (context.wasDispatched("system.jsp.customkey.updatebutton")) {
-
             String description = (String)form.get(DESC_PARAM);
             if (description.length() < 2) {
                 createErrorMessage(request, "system.customkey.error.tooshort", null);
+                return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            }
+            else if (description.length() > 4000) {
+                createErrorMessage(request, "system.customkey.error.descr_toolong", null);
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
