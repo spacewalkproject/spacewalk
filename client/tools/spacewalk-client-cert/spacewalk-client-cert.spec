@@ -3,7 +3,7 @@
 %endif
 
 Name:		spacewalk-client-cert
-Version:	2.8.2
+Version:	2.8.3
 Release:	1%{?dist}
 Summary:	Package allowing manipulation with Spacewalk client certificates
 
@@ -51,6 +51,9 @@ make -f Makefile.spacewalk-client-cert install PREFIX=$RPM_BUILD_ROOT \
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- use python3 on rhel8 in spacewalk-client-cert
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
