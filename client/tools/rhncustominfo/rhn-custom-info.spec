@@ -18,7 +18,7 @@ BuildRequires: python-devel
 Requires: rhnlib
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: dnf-plugin-spacewalk
 %else
 %if 0%{?suse_version}
