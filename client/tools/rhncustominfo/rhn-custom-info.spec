@@ -4,7 +4,7 @@
 
 Name: rhn-custom-info
 Summary: Set and list custom values for RHN-enabled machines
-Version: 5.4.42
+Version: 5.4.43
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -59,6 +59,10 @@ install -m 644 rhn-custom-info.8 $RPM_BUILD_ROOT%{_mandir}/man8/
 %{_mandir}/man8/rhn-custom-info.*
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.43-1
+- require dnf-plugin-spacewalk on rhel8 instead of yum
+- use python3 on rhel8 in rhncustominfo
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.42-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
