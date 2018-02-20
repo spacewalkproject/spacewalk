@@ -23,7 +23,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.99
+Version: 5.11.100
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -514,6 +514,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.100-1
+- use python3 for rhel8 in osad
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.99-1
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup
