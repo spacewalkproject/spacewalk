@@ -8,7 +8,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.17
+Version: 2.8.18
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -652,6 +652,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
+- don't require yum on rhel8
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.17-1
 - require dnf-plugin-spacewalk on rhel8
 - rhel8 utilizes python3
