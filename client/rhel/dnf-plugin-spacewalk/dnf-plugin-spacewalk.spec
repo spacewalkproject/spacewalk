@@ -15,7 +15,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
 
 Requires: %{pythonX}-%{name} = %{version}-%{release}
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 Requires: dnf >= 0.5.3
 %else
 Requires: dnf >= 2.0.0
@@ -54,7 +54,7 @@ Python 3 specific files for %{name}.
 %setup -q
 
 %build
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
 %endif
 
