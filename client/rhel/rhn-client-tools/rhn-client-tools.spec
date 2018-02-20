@@ -147,7 +147,7 @@ Requires: %{pythonX}-rhn-check = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: dnf-plugin-spacewalk >= 2.4.0
 %else
 Requires: yum-rhn-plugin >= 1.6.4-1
