@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.120
+Version: 5.10.121
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 License: GPLv2
@@ -255,6 +255,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.121-1
+- use python3 on rhel8 in rhncfg
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.120-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
