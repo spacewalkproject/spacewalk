@@ -26,7 +26,7 @@ Requires: %{pythonX}-%{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypper
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: dnf
 %else
 Requires: yum
@@ -48,9 +48,14 @@ BuildRequires: desktop-file-utils
 BuildRequires: fedora-logos
 BuildRequires: dnf
 %endif
+
 %if 0%{?rhel}
 BuildRequires: redhat-logos
+%if 0%{?rhel} >= 8
+BuildRequires: dnf
+%else
 BuildRequires: yum
+%endif
 %endif
 
 %description
