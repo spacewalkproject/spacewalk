@@ -6,7 +6,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.5
+Version:	2.8.6
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -103,6 +103,9 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- move spacewalk-oscap to tools directory as it's not rhel package
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
