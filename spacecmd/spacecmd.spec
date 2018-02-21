@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.16
+Version:     2.8.17
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -122,6 +122,20 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Feb 21 2018 Eric Herget <eherget@redhat.com> 2.8.17-1
+- PR602 - more python3 support updates
+- PR602 - Update to use newly separated spacewalk-python[2|3]-pylint packages
+- PR602 - switch to argparse from optparse
+- PR602 - fix fedora 26 build
+- PR602 - lint fixes
+- PR602 - use py_compile only on SUSE
+- PR602 - make lambda call python3 compatible
+- PR602 - make mkdir mode python3 compatible
+- PR602 - make exec python3 compatible
+- PR602 - make exceptions python3 compatible
+- PR602 - make print python3 compatible
+- PR602 - build with python3
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.16-1
 - removed %%%%defattr from specfile
 - removed Group from specfile
