@@ -38,7 +38,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.48
+Version: 2.8.49
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -788,6 +788,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Feb 23 2018 Grant Gainey 2.8.49-1
+- 1534417 - sanitize pwds in backup files and http-proxy-pwds as well
+
 * Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.48-1
 - Update to use newly separated spacewalk-python[2|3]-pylint packages
 
