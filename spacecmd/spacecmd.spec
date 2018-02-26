@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.17
+Version:     2.8.18
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -122,6 +122,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon Feb 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
+- convert to int when getting int input
+- 1445725 - display all checksum types, not just MD5
+
 * Wed Feb 21 2018 Eric Herget <eherget@redhat.com> 2.8.17-1
 - PR602 - more python3 support updates
 - PR602 - Update to use newly separated spacewalk-python[2|3]-pylint packages
