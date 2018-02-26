@@ -659,7 +659,7 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
         # only add the revision field if the user supplied it
         if options.revision:
-            file_info['revision'] = options.revision
+            file_info['revision'] = int(options.revision)
             print('Revision:        %i' % file_info['revision'])
 
         if not options.directory:
