@@ -1801,12 +1801,18 @@ def subscribe_sql(server_id, channel_id, commit=1):
         rhnSQL.commit()
     return 1
 
-_query_parent_channel_subscribed = rhnSQL.Statement("""
-select 1
+_query_channel_details = rhnSQL.Statement("""
+select c.id, c.label, c.parent_channel
   from rhnChannel c
-       join rhnServerChannel sc on c.parent_channel = sc.channel_id
-  where sc.server_id = :sid
-    and c.label = :channel
+ where c.label = :channel
+""")
+
+_query_server_parent_channel = rhnSQL.Statement("""
+select pc.id, pc.label
+  from rhnChannel c
+  join rhnServerChannel sc on c.parent_channel = sc.channel_id
+  join rhnChannel pc on c.parent_channel = pc.id
+ group by pc.id, pc.label
 """)
 
 _query_can_subscribe = rhnSQL.Statement("""
@@ -1816,38 +1822,43 @@ select rhn_channel.user_role_check(:cid, wc.id, 'subscribe') as can_subscribe
 """)
 
 # subscribe a server to a channel with authentication
-
-
 def subscribe_channel(server_id, channel, username, password):
     log_debug(3, server_id, channel, username)
     # If auth doesn't blow up we're fine
     __auth_user(server_id, username, password)
 
-    # get the channel_id
-    h = rhnSQL.prepare("select id from rhnChannel where label = :channel")
+    # get channel details
+    h = rhnSQL.prepare(_query_channel_details)
     h.execute(channel=str(channel))
-    ret = h.fetchone_dict()
-    if not ret:
+    channel_details = h.fetchone_dict()
+    if not channel_details:
         log_error("Channel %s does not exist?" % channel)
         raise rhnFault(40, "Channel %s does not exist?" % channel)
 
-    channel_id = ret['id']
+    # get server's parent channel
+    h = rhnSQL.prepare(_query_server_parent_channel)
+    h.execute(sid=server_id)
+    server_parent_channel = h.fetchone_dict()
 
-    # check if server is subscribed to the parent of the given channel
-    h = rhnSQL.prepare(_query_parent_channel_subscribed)
-    h.execute(sid=server_id, channel=str(channel))
-    ret = h.fetchone_dict()
-    if not ret:
-        log_error("Parent of channel %s is not subscribed to server" % channel)
-        raise rhnFault(32, "Parent of channel %s is not subscribed to server" % channel)
+    # Can't add more than one parent or child of parent channel to which server isn't subscibed
+    if not channel_details['parent_channel'] and server_parent_channel:
+            log_error("Cannot add parent channel %s. Server already subscribed to parent channel %s." %
+                      (channel, server_parent_channel['label']))
+            raise rhnFault(32, "Cannot add parent channel %s. Server already subscribed to parent channel %s." %
+                      (channel, server_parent_channel['label']))
+    else:
+        if ( server_parent_channel and
+             server_parent_channel['id'] != channel_details['parent_channel'] ):
+            log_error("Server is not subscribed to parent of channel %s." % channel)
+            raise rhnFault(32, "Server is not subscribed to parent of channel %s." % channel)
 
     # check specific channel subscription permissions
     h = rhnSQL.prepare(_query_can_subscribe)
-    h.execute(cid=channel_id, username=username)
+    h.execute(cid=channel_details['id'], username=username)
     ret = h.fetchone_dict()
 
     if ret and ret['can_subscribe']:
-        subscribe_sql(server_id, channel_id)
+        subscribe_sql(server_id, channel_details['id'])
         return 1
 
     raise rhnFault(71)
