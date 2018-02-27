@@ -694,6 +694,7 @@ options:
   -b path is a binary (or other file which needs base64 encoding)
   -t SYMLINK_TARGET
   -f local path to file contents
+  -y automatically proceed with file contents
 
   Note re binary/base64: Some text files, notably those containing trailing
   newlines, those containing ASCII escape characters (or other charaters not
@@ -720,6 +721,7 @@ def do_configchannel_addfile(self, args, update_path=''):
     arg_parser.add_argument('-s', '--symlink', action='store_true')
     arg_parser.add_argument('-b', '--binary', action='store_true')
     arg_parser.add_argument('-d', '--directory', action='store_true')
+    arg_parser.add_argument('-y', '--yes', action='store_true')
 
     (args, options) = parse_command_arguments(args, arg_parser)
 
@@ -776,7 +778,7 @@ def do_configchannel_addfile(self, args, update_path=''):
         self.help_configchannel_addfile()
         return
 
-    if self.user_confirm():
+    if options.yes or self.user_confirm():
         if options.symlink:
             self.client.configchannel.createOrUpdateSymlink(self.session,
                                                             options.channel,
