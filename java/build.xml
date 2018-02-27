@@ -6,7 +6,7 @@
 <project name="RHN" default="all" basedir=".">
   <property file="${user.home}/.java/java.conf"/>
   <!-- External java.lib.dir property -->
-  <condition property="java.lib.dir" value="${JAVA_LIBDIR}" else="${/usr/share/java}">
+  <condition property="java.lib.dir" value="${JAVA_LIBDIR}" else="/usr/share/java">
     <isset property="JAVA_LIBDIR"/>
   </condition>
   <property name="ivy.14.compatible" value="true"/>
