@@ -175,7 +175,7 @@ def getHeader(productName, activation_keys, org_gpg_key,
               allow_config_actions, allow_remote_commands, up2dateYN, pubname):
     # 11/22/16 options.gpg_key is now a comma-separated list of path.
     # Removing paths from options.gpg_key
-    org_gpg_key = ",".join([os.path.basename(gpg_key) for gpg_key in options.gpg_key.split(",")])
+    org_gpg_key = ",".join([os.path.basename(gpg_key) for gpg_key in org_gpg_key.split(",")])
 
     if not activation_keys:
         exit_call = "exit 1"
