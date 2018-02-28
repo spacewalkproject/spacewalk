@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.18
+Version:     2.8.19
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -122,6 +122,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.19-1
+- 1484056 - updatefile and addfile are basically same calls
+- 1484056 - make configchannel_addfile fully non-interactive
+
 * Mon Feb 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
 - convert to int when getting int input
 - 1445725 - display all checksum types, not just MD5
