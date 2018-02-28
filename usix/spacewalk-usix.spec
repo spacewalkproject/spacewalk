@@ -2,10 +2,17 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora} >= 23 || 0%{?rhel} >= 8
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %endif
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
@@ -20,14 +27,22 @@ Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version
 BuildArch: noarch
 
 Provides:	spacewalk-backend-usix = %{version}-%{release}
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 Obsoletes: spacewalk-backend-usix < 2.8
-BuildRequires: python-devel
 
 %description
 Library for writing code that runs on Python 2 and 3
 
-%if 0%{?fedora} >= 23 || 0%{?rhel} >= 8
+%package -n python2-%{name}
+Summary: Spacewalk client micro six library
+Provides: python2-spacewalk-backend-usix = %{version}-%{release}
+Obsoletes: python2-spacewalk-backend-usix < 2.8
+BuildRequires: python-devel
 
+%description -n python2-%{name}
+Library for writing code that runs on Python 2 and 3
+
+%if 0%{?build_py3}
 %package -n python3-%{name}
 Summary: Spacewalk client micro six library
 Provides: python3-spacewalk-backend-usix = %{version}-%{release}
@@ -52,7 +67,7 @@ install -m 0644 __init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py
 install -m 0644 common/__init__.py $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py
 install -m 0644 common/usix.py* $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?build_py3}
 install -d $RPM_BUILD_ROOT%{python3rhnroot}/common
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/__init__.py $RPM_BUILD_ROOT%{python3rhnroot}
 cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/__init__.py $RPM_BUILD_ROOT%{python3rhnroot}/common
@@ -61,7 +76,7 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroo
 
 %clean
 
-%files
+%files -n python2-%{name}
 %dir %{pythonrhnroot}
 %dir %{pythonrhnroot}/common
 %{pythonrhnroot}/__init__.py
@@ -72,7 +87,7 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroo
 %exclude %{pythonrhnroot}/common/__init__.pyc
 %exclude %{pythonrhnroot}/common/__init__.pyo
 
-%if 0%{?fedora} && 0%{?fedora} >= 23
+%if 0%{?build_py3}
 
 %files -n python3-%{name}
 %dir %{python3rhnroot}
