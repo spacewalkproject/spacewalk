@@ -678,8 +678,8 @@ def configfile_getinfo(self, args, options, file_info=None, interactive=False):
 
 
 def help_configchannel_addfile(self):
-    print('configchannel_addfile: Create a configuration file')
-    print('''usage: configchannel_addfile [CHANNEL] [options])
+    print('configchannel_addfile/configchannel_updatefile: Create a configuration file')
+    print('''usage: configchannel_addfile/configchannel_updatefile -c CHANNEL - p PATH -f LOCAL_FILE_PATH [OPTIONS])
 
 options:
   -c CHANNEL
@@ -806,32 +806,15 @@ def do_configchannel_addfile(self, args, update_path=''):
 
 
 def help_configchannel_updatefile(self):
-    print('configchannel_updatefile: Update a configuration file')
-    print('usage: configchannel_updatefile CHANNEL FILE')
+    self.help_configchannel_addfile()
 
 
 def complete_configchannel_updatefile(self, text, line, beg, end):
-    parts = line.split(' ')
-
-    if len(parts) == 2:
-        return tab_completer(self.do_configchannel_list('', True),
-                             text)
-    elif len(parts) > 2:
-        channel = parts[1]
-        return tab_completer(self.do_configchannel_listfiles(channel, True),
-                             text)
+    return self.complete_configchannel_addfile(text, line, beg, end)
 
 
 def do_configchannel_updatefile(self, args):
-    arg_parser = get_argument_parser()
-
-    (args, _options) = parse_command_arguments(args, arg_parser)
-
-    if len(args) != 2:
-        self.help_configchannel_updatefile()
-        return
-
-    return self.do_configchannel_addfile(args[0], update_path=args[1])
+    return self.do_configchannel_addfile(args)
 
 ####################
 
