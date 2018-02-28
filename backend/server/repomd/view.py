@@ -19,13 +19,14 @@ XML_ENCODING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 
 class RepoView:
 
-    def __init__(self, primary, filelists, other, updateinfo, groups, fileobj,
+    def __init__(self, primary, filelists, other, updateinfo, groups, modules, fileobj,
                  checksum_type):
         self.primary = primary
         self.filelists = filelists
         self.other = other
         self.updateinfo = updateinfo
         self.groups = groups
+        self.modules = modules
 
         self.fileobj = fileobj
         if checksum_type == 'sha1':
@@ -59,6 +60,19 @@ class RepoView:
 
         return output
 
+    def _get_modules_data(self):
+        output = []
+        if self.modules:
+            output.append("  <data type=\"group\">")
+            output.append("    <location href=\"repodata/modules.yaml\"/>")
+            output.append("    <checksum type=\"%s\">%s</checksum>"
+                          % (self.checksum_type, self.modules['open_checksum']))
+            output.append("    <timestamp>%d</timestamp>"
+                          % (self.groups['timestamp']))
+            output.append("  </data>")
+
+        return output
+
     def write_repomd(self):
         output = []
         output.append(XML_ENCODING)
@@ -68,6 +82,7 @@ class RepoView:
         output.extend(self._get_data('other', self.other))
         output.extend(self._get_data('updateinfo', self.updateinfo))
         output.extend(self._get_comps_data())
+        output.extend(self._get_modules_data())
         output.append("</repomd>")
         self.fileobj.write('\n'.join(output))
 
@@ -344,14 +359,14 @@ class UpdateinfoView(object):
         self.fileobj.write("\n</updates>")
 
 
-class CompsView(object):
+class RepoMDView(object):
 
-    def __init__(self, comps):
-        self.comps = comps
+    def __init__(self, repomd):
+        self.repomd = repomd
 
     def get_file(self):
-        comps_file = open(self.comps.filename)
-        return comps_file
+        repomd_file = open(self.repomd.filename)
+        return repomd_file
 
 
 def text_filter(text):

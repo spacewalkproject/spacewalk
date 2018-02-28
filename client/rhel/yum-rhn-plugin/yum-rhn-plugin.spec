@@ -1,12 +1,10 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.8.4
+Version: 2.8.5
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
@@ -35,13 +33,11 @@ software updates.
 make -f Makefile.yum-rhn-plugin
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} PYTHONPATH=%{python_sitelib}
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %pre
 # 682820 - re-enable yum-rhn-plugin after package upgrade if the system is already registered
@@ -70,6 +66,11 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Thu Nov 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - removed settings for old RH build system
 

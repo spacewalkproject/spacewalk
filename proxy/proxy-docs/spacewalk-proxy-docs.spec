@@ -1,12 +1,10 @@
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
-Group: Applications/Internet
 License: Open Publication
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-docs < 5.3.0
 Provides: rhns-proxy-docs = 5.3.0
@@ -24,11 +22,9 @@ and Enterprise User Reference guides.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc *.pdf
@@ -36,6 +32,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc squid.conf.sample
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.

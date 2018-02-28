@@ -18,13 +18,11 @@
 
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
-Group: Applications/Internet
 License: GPLv2
-Version: 2.8.57
+Version: 2.8.71
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 ExcludeArch: ia64
 
@@ -33,7 +31,6 @@ Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: cobbler20
-Requires: dojo
 Requires: dwr >= 3
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
@@ -267,7 +264,6 @@ This package contains the code for the Java version of the Spacewalk Web Site.
 
 %package config
 Summary: Configuration files for Spacewalk Java
-Group: Applications/Internet
 Obsoletes: rhn-java-config < 5.3.0
 Obsoletes: rhn-java-config-sat < 5.3.0
 Provides: rhn-java-config = %{version}-%{release}
@@ -279,7 +275,6 @@ application and taskomatic process.
 
 %package lib
 Summary: Jar files for Spacewalk Java
-Group: Applications/Internet
 Obsoletes: rhn-java-lib < 5.3.0
 Obsoletes: rhn-java-lib-sat < 5.3.0
 Provides: rhn-java-lib = %{version}-%{release}
@@ -292,7 +287,6 @@ and taskomatic process.
 
 %package oracle
 Summary: Oracle database backend support files for Spacewalk Java
-Group: Applications/Internet
 Requires: ojdbc14
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires: tomcat >= 7
@@ -306,7 +300,6 @@ This package contains Oracle database backend files for the Spacewalk Java.
 
 %package postgresql
 Summary: PostgreSQL database backend support files for Spacewalk Java
-Group: Applications/Internet
 Requires: postgresql-jdbc
 %if 0%{?fedora} || 0%{?rhel} >=7
 Requires: tomcat >= 7
@@ -322,7 +315,6 @@ This package contains PostgreSQL database backend files for the Spacewalk Java.
 %if ! 0%{?omit_tests} > 0
 %package tests
 Summary: Test Classes for testing spacewalk-java
-Group:  Applications/Internet
 
 BuildRequires:  jmock > 2.6
 BuildRequires:  mvn(org.jmock:jmock-junit3) > 2.6
@@ -347,7 +339,6 @@ This package contains testing files of spacewalk-java.
 
 %package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
-Group: Applications/Internet
 
 Requires: bcel
 Requires: c3p0 >= 0.9.1
@@ -490,7 +481,6 @@ if java -version 2>&1 | grep -q IBM ; then
 fi
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # on Fedora 19 some jars are named differently
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -606,7 +596,6 @@ echo "#### SYMLINKS END ####"
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %pre
 rm -f %{realcobsnippetsdir}/spacewalk
@@ -768,6 +757,56 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.71-1
+- Fix building java, silly mistake
+
+* Tue Feb 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.70-1
+- Allow fetching jars from different install-root
+
+* Mon Feb 19 2018 Grant Gainey 2.8.69-1
+- 1020318 - Check description for max-len when updating
+
+* Fri Feb 16 2018 Grant Gainey 2.8.68-1
+- 1020318 - Fix refactored to take more, multiple, errors into account
+
+* Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.67-1
+- there might not be repo metadata we're looking for
+
+* Fri Feb 09 2018 Grant Gainey 2.8.66-1
+- 1481329 - Lost an <rhn-tab-directory> tab in previous commit for this BZ
+
+* Fri Feb 09 2018 Jiri Dostal <jdostal@redhat.com> 2.8.65-1
+- Add proper errata severity editing/creating to WebUI
+- Add severity handling to API calls
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.64-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.63-1
+- write modules information during repodata generation
+- support downloading of modules.yaml files via java stack
+- make module information part of channel just like comps
+- provide a way how to handle different repo metadata files in Java
+
+* Tue Feb 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.62-1
+- removed unused dependency on dojo
+
+* Mon Feb 05 2018 Jiri Dostal <jdostal@redhat.com> 2.8.61-1
+- 1541955 - Clone of an erratum doesn't have original erratum's severity
+
+* Tue Jan 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.60-1
+- Adapt other errata sites to colors
+- update checkstyle license to 2018
+
+* Thu Jan 25 2018 Jiri Dostal <jdostal@redhat.com> 2.8.59-1
+- 1537108 - Colorful icons for differet errata severities
+- Automatic commit of package [spacewalk-java] release [2.8.58-1].
+
+* Mon Jan 22 2018 Jiri Dostal <jdostal@redhat.com> 2.8.58-1
+- Unify icons/style with other services
+
 * Wed Jan 17 2018 Jiri Dostal <jdostal@redhat.com> 2.8.57-1
 - 1052292 - Task that is already picked up by the client can be cancelled via
   API

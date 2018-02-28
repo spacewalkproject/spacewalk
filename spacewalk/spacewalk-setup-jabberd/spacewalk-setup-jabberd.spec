@@ -1,12 +1,10 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
-Group:          Applications/System
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:  perl-interpreter
 %else
@@ -66,6 +64,10 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Nov 27 2017 Jan Dobes <jdobes@redhat.com> 2.8.2-1
 - sqlite is not installed by default on Fedora
 

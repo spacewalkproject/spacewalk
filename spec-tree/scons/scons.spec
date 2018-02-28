@@ -2,13 +2,11 @@
 
 Name:		scons
 Version:	2.0.1
-Release:	1%{?posttag}.1%{?dist}
+Release:	1%{?posttag}.2%{?dist}
 Summary:	An Open Source software construction tool
-Group:		Development/Tools
 License:	MIT
 URL:		http://www.scons.org
 Source:		http://downloads.sourceforge.net/scons/scons-%{version}%{?posttag}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 BuildRequires:	python2-devel
 
@@ -39,24 +37,28 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES --install-lib=%{_prefix}/lib/scons --install-scripts=%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}
 mv $RPM_BUILD_ROOT%{_prefix}/man/* $RPM_BUILD_ROOT%{_mandir}
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc CHANGES.txt LICENSE.txt README.txt RELEASE.txt
 %{_bindir}/*
 %{_prefix}/lib/scons
 %{_mandir}/man*/*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.1-1.2
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Mon Aug 23 2010 Chen Lei <supercyper@163.com> - 2.0.1-1
 - New release 2.0.1 (#595107)
 

@@ -17,12 +17,10 @@
 Name:           susestudio-java-client
 Summary:        Java client library for SUSE Studio
 Version:        0.1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        MIT
-Group:          Development/Libraries/Java
 Url:            https://github.com/susestudio/susestudio-lib-java
 Source0:        https://github.com/susestudio/susestudio-lib-java/archive/v%{version}.tar.gz#/susestudio-lib-java-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 BuildRequires:  java-1.8.0-openjdk-devel
 %if 0%{?fedora} >= 20 || 0%{?rhel} >=7
@@ -51,13 +49,17 @@ install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}/*.jar
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1.4-6
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.4-5
 - recompile all packages with the same (latest) version of java
 

@@ -8,15 +8,13 @@
 
 Name:           http-parser
 Version:        %{somajor}.%{sominor}
-Release:        4.%{git_date}git%{git_commit_hash}.2%{?dist}
+Release:        4.%{git_date}git%{git_commit_hash}.3%{?dist}
 Summary:        HTTP request/response parser for C
 
-Group:          System Environment/Libraries
 License:        MIT
 URL:            https://github.com/joyent/http-parser
 # download from https://github.com/joyent/http-parser/tarball/%%{version}
 Source0:        joyent-http-parser-v%{version}-%{github_seq}-g%{git_commit_hash}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 # Build shared library with SONAME using gyp and remove -O flags so optflags take over
 # TODO: do this nicely upstream
@@ -34,7 +32,6 @@ connection).
 
 
 %package devel
-Group:          Development/Libraries
 Summary:        Development headers and libraries for http-parser
 Requires:       %{name} = %{version}-%{release}
 
@@ -88,20 +85,23 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{_libdir}/libhttp_parser.so.*
 %{_libdir}/libhttp_parser_strict.so.*
 %doc AUTHORS CONTRIBUTIONS LICENSE-MIT README.md
 
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/libhttp_parser.so
 %{_libdir}/libhttp_parser_strict.so
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0-4.20121128gitcd01361.3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Jul 17 2017 Jan Dobes 2.0-4.20121128gitcd01361.2
 - Use HTTPS in all Github links
 - fixed tito build warning

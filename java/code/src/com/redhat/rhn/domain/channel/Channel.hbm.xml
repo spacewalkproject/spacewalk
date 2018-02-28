@@ -71,6 +71,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="comps" property-ref="channel"
             class="com.redhat.rhn.domain.channel.Comps" cascade="all" lazy="proxy"/>
 
+        <one-to-one name="modules" property-ref="channel"
+            class="com.redhat.rhn.domain.channel.Modules" cascade="all" lazy="proxy"/>
+
         <set name="trustedOrgs" lazy="true" table="rhnChannelTrust"
          cascade="save-update">
             <key column="channel_id"/>

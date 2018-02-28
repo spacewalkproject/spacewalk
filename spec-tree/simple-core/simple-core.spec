@@ -1,12 +1,10 @@
 Name:		simple-core		
 Version:	3.1.3
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
-Group:	 	Development/Libraries	
 License:	GNU
 URL:	 	http://www.simpleframework.org	
 Source0:	simple-core-%{version}.tar.gz	
-BuildRoot:	%{_tmppath}/%{origname}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 BuildRequires:  ant
@@ -22,7 +20,6 @@ The core API consists of a simple.http package and various sub-packages, it also
 
 %package javadoc
 Summary:       Javadoc for %{name}
-Group:         Documentation
 
 %description javadoc
 Javadoc for %{name}.
@@ -35,7 +32,6 @@ export JAVA_HOME=%{java_home}
 %ant
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
 
 # jars and supporting kxml lib
@@ -51,10 +47,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}/%{name}-%{version}.jar
 %{_javadir}/%{name}.jar
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -65,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadocdir}/*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.1.3-10
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.1.3-9
 - recompile all packages with the same (latest) version of java
 

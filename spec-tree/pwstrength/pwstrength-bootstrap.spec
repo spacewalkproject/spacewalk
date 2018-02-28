@@ -6,15 +6,13 @@
 
 Name:           pwstrength-bootstrap
 Version:        1.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        MIT or GPLv3
 Summary:        Password quality Twitter Bootstrap Plugin
 Url:            https://github.com/ablanco/jquery.pwstrength.bootstrap
-Group:          Applications/Internet
 Source0:        https://github.com/ablanco/jquery.pwstrength.bootstrap/archive/%{version}.tar.gz
 Patch1:         pwstrength-bootstrap-%{version}.patch
 BuildArch:      noarch
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 %description
 The jQuery Password Strength Meter is a plugin for Twitter Bootstrap that provides rulesets for visualy displaying the quality of a users typed in password.
@@ -38,10 +36,14 @@ rm -rf %{buildroot}
 %postun
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.2-6
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.0.2-5
 - pwstrength-bootstrap: build on openSUSE
 

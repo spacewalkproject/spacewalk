@@ -3,13 +3,13 @@
     <condition property="tomcat-jars"
                value="tomcat tomcat-jsp-2.3-api tomcat-servlet-3.1-api tomcat-el-3.0-api"
                else="tomcat tomcat-jsp-2.2-api tomcat-servlet-3.0-api tomcat-el-2.2-api" >
-               <available file="/usr/share/java/tomcat-jsp-2.3-api.jar" />
+               <available file="${java.lib.dir}/tomcat-jsp-2.3-api.jar" />
     </condition>
     <property name="jasper-jars" value="tomcat/jasper tomcat/jasper-el tomcat/jasper-jdt" />
     <condition property="struts-jars"
                value="struts/core struts/extras struts/taglib"
                else="struts struts-extras struts-taglib">
-               <available file="/usr/share/java/struts/taglib.jar" />
+               <available file="${java.lib.dir}/struts/taglib.jar" />
     </condition>
     <property name="other-jars" value="commons-chain" />
 </project>

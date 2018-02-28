@@ -154,6 +154,13 @@ class ChannelCompsDiskSource(ChannelDiskSource):
         return "comps.xml"
 
 
+class ChannelModulesDiskSource(ChannelDiskSource):
+
+    @staticmethod
+    def _file_name():
+        return "modules.yaml"
+
+
 class ShortPackageDiskSource(DiskSource):
     subdir = "packages_short"
 
@@ -292,6 +299,11 @@ class MetadataDiskSource:
 
     def getComps(self, label):
         sourcer = ChannelCompsDiskSource(self.mountpoint)
+        sourcer.setChannel(label)
+        return sourcer.load()
+
+    def getModules(self, label):
+        sourcer = ChannelModulesDiskSource(self.mountpoint)
         sourcer.setChannel(label)
         return sourcer.load()
 

@@ -6,13 +6,11 @@
 
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
-Group:   Applications/Internet
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-html < 5.3.0
 Provides: rhns-proxy-html = 5.3.0
@@ -29,13 +27,11 @@ displays, if you navigate to it using your browser.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy
 install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %dir %{htmldir}/_rhn_proxy
@@ -48,6 +44,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.

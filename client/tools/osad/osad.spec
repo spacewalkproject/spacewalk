@@ -13,7 +13,7 @@
 %global include_selinux_package 1
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -22,13 +22,11 @@
 
 Name: osad
 Summary: Open Source Architecture Daemon
-Group:   System Environment/Daemons
 License: GPLv2
-Version: 5.11.98
+Version: 5.11.100
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?fedora} > 26
 BuildRequires: perl-interpreter
@@ -110,7 +108,6 @@ Python 3 specific files for %{name}
 
 %package -n python2-osa-common
 Summary: OSA common files
-Group:    System Environment/Daemons
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
@@ -122,7 +119,6 @@ Python 2 common files needed by osad and osa-dispatcher
 %if 0%{?build_py3}
 %package -n python3-osa-common
 Summary: OSA common files
-Group:    System Environment/Daemons
 Requires: python3-jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
@@ -134,7 +130,6 @@ Python 3 common files needed by osad and osa-dispatcher
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
-Group:    System Environment/Daemons
 Requires: spacewalk-backend-server >= 1.2.32
 Requires: python2-osa-dispatcher = %{version}-%{release}
 Requires: lsof
@@ -189,7 +184,6 @@ Python 3 specific files for osa-dispatcher.
 %global modulename osa-dispatcher
 
 Summary: SELinux policy module supporting osa-dispatcher
-Group: System Environment/Base
 BuildRequires: checkpolicy, selinux-policy-devel, hardlink
 BuildRequires: policycoreutils >= %{POLICYCOREUTILSVER}
 Requires: spacewalk-selinux
@@ -237,7 +231,6 @@ done
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version}
@@ -290,7 +283,6 @@ install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildro
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
 %{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} >/dev/null 2>&1 || : ; fi; }
@@ -456,7 +448,6 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files -n osa-dispatcher
-%defattr(0644,root,root,0755)
 %{_sbindir}/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
@@ -523,6 +514,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.100-1
+- use python3 for rhel8 in osad
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.99-1
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.11.98-1
 - osad: add missing directory to filelist
 

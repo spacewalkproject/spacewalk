@@ -8,13 +8,11 @@
 
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
-Group:   Applications/Internet
 License: GPLv2
-Version: 2.8.4
+Version: 2.8.6
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: rhncfg-client
@@ -34,7 +32,7 @@ Requires: chkconfig
 Requires: libxslt
 Requires: spacewalk-certs-tools >= 1.6.4
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+BuildRequires: spacewalk-python2-pylint
 BuildRequires: python2-rhn-client-tools
 %endif
 BuildRequires: /usr/bin/docbook2man
@@ -68,7 +66,6 @@ Run configure-proxy.sh after installation to configure proxy.
 /usr/bin/gzip configure-proxy.sh.8
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
@@ -90,12 +87,11 @@ sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhn-proxy-activate.py
 install -m 755 rhn-proxy-activate.py $RPM_BUILD_ROOT%{_bindir}/rhn-proxy-activate
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}
 # check coding style
-spacewalk-pylint .
+spacewalk-python2-pylint .
 %endif
 
 %files
@@ -113,6 +109,14 @@ spacewalk-pylint .
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.6-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Sun Oct 15 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.4-1
 - fix dependencies for spacewalk-proxy-installer
 

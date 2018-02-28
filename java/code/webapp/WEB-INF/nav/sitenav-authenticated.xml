@@ -298,6 +298,7 @@
 
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
+    <rhn-tab-directory>/rhn/help</rhn-tab-directory>
     <rhn-tab name="Installation Guide" url="/rhn/help/dispatcher/install_guide">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>

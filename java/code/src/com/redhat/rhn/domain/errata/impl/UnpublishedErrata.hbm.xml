@@ -39,6 +39,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
+        <many-to-one
+                name="severity"
+                class="com.redhat.rhn.domain.errata.Severity"
+                column="severity_id"/>
         <set name="bugs" lazy="true" inverse="true"
             cascade="all">
             <key column="errata_id"/>

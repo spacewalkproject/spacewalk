@@ -37,13 +37,11 @@
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
-Group: Applications/Internet
 License: GPLv2
-Version: 2.8.39
+Version: 2.8.49
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
@@ -56,7 +54,7 @@ Requires: %{name}-libs >= 1.1.16-1
 Requires: pyliblzma
 %endif
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint >= 2.2
+BuildRequires: spacewalk-python2-pylint
 %endif
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
@@ -90,7 +88,6 @@ This package includes the common code required by all servers/proxies.
 
 %package sql
 Summary: Core functions providing SQL connectivity for the Spacewalk backend modules
-Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
@@ -104,7 +101,6 @@ the Spacewalk backend modules.
 
 %package sql-oracle
 Summary: Oracle backend for Spacewalk
-Group: Applications/Internet
 Requires: python(:DBAPI:oracle)
 Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
@@ -115,7 +111,6 @@ modules.
 
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
-Group: Applications/Internet
 Requires: python-psycopg2 >= 2.0.14-2
 Requires: spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
@@ -126,7 +121,6 @@ backend modules.
 
 %package server
 Summary: Basic code that provides Spacewalk Server functionality
-Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
 Requires: spacewalk-usix
@@ -150,7 +144,6 @@ receivers and get them enabled automatically.
 
 %package xmlrpc
 Summary: Handler for /XMLRPC
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
 Requires: spacewalk-usix
@@ -166,7 +159,6 @@ and the up2date clients.
 
 %package applet
 Summary: Handler for /APPLET
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Obsoletes: rhns-applet < 5.3.0
@@ -178,7 +170,6 @@ provides the functions for the Spacewalk applet.
 
 %package app
 Summary: Handler for /APP
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Obsoletes: rhns-server-app < 5.3.0
@@ -198,7 +189,6 @@ Calls to /APP are used by internal maintenance tools (rhnpush).
 
 %package iss
 Summary: Handler for /SAT
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-sat < 5.3.0
 Provides: rhns-sat = 1:%{version}-%{release}
@@ -214,7 +204,6 @@ capability.
 
 %package iss-export
 Summary: Listener for the Server XML dumper
-Group: Applications/Internet
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
 Requires: spacewalk-usix
@@ -229,7 +218,6 @@ This package contains listener for the Server XML dumper.
 
 %package libs
 Summary: Spacewalk server and client tools libraries
-Group: Applications/Internet
 %if 0%{?suse_version}
 BuildRequires: python-devel
 %else
@@ -246,7 +234,6 @@ Libraries required by both Spacewalk server and Spacewalk client tools.
 
 %package -n python3-%{name}-libs
 Summary: Spacewalk client tools libraries for Fedora 23
-Group: Applications/Internet
 BuildRequires: python2-devel
 BuildRequires: python3-devel
 Conflicts: %{name} < 1.7.0
@@ -264,7 +251,6 @@ Libraries required by Spacewalk client tools on Fedora 23.
 
 %package config-files-common
 Summary: Common files for the Configuration Management project
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Obsoletes: rhns-config-files-common < 5.3.0
@@ -275,7 +261,6 @@ Common files required by the Configuration Management project
 
 %package config-files
 Summary: Handler for /CONFIG-MANAGEMENT
-Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files < 5.3.0
 Provides: rhns-config-files = 1:%{version}-%{release}
@@ -285,7 +270,6 @@ This package contains the server-side code for configuration management.
 
 %package config-files-tool
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
-Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Requires: spacewalk-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
@@ -296,7 +280,6 @@ This package contains the server-side code for configuration management tool.
 
 %package package-push-server
 Summary: Listener for rhnpush (non-XMLRPC version)
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-package-push-server < 5.3.0
 Provides: rhns-package-push-server = 1:%{version}-%{release}
@@ -306,7 +289,6 @@ Listener for rhnpush (non-XMLRPC version)
 
 %package tools
 Summary: Spacewalk Services Tools
-Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
 Requires: %{name}
@@ -340,7 +322,6 @@ Various utilities for the Spacewalk Server.
 
 %package xml-export-libs
 Summary: Spacewalk XML data exporter
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
@@ -351,7 +332,6 @@ Libraries required by various exporting tools
 
 %package cdn
 Summary: CDN tools
-Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Requires: spacewalk-usix
 Requires: subscription-manager
@@ -368,7 +348,6 @@ Tools for syncing content from Red Hat CDN
 make -f Makefile.backend all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
 install -d $RPM_BUILD_ROOT%{pythonrhnroot}
 make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT \
@@ -404,7 +383,6 @@ popd
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 cp %{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{pythonrhnroot}/common
@@ -413,12 +391,12 @@ make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
-                 $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/cdn_tools \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/upload_server \
+                         $RPM_BUILD_ROOT%{pythonrhnroot}/wsgi
 %endif
 
 rm -f $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py*
@@ -810,6 +788,41 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Feb 23 2018 Grant Gainey 2.8.49-1
+- 1534417 - sanitize pwds in backup files and http-proxy-pwds as well
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.48-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Tue Feb 13 2018 Grant Gainey 2.8.47-1
+- 1540981 - Clarify error-reporting when checksum_cache is bad
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.46-1
+- clean up specfile
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.45-1
+- fix pylint 2.0
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.44-1
+- fix pylint warnings
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.43-1
+- support syncing of modules during ISS
+- export modules in rhn-satellite-exporter
+- support downloading modules.yaml from backend
+- retrieve module metadata when syncing yum type repository
+- provide a way how to retrieve module files for yum type repositories
+
+* Mon Feb 05 2018 Grant Gainey 2.8.42-1
+- 1537098 - Teach packageImport to ignore flags RPM doesn't know
+
+* Thu Jan 25 2018 Jiri Dostal <jdostal@redhat.com> 2.8.41-1
+- Fix syncing severity
+
+* Wed Jan 24 2018 Jiri Dostal <jdostal@redhat.com> 2.8.40-1
+- 1538096 - Security erratum severity is not being synced using synchronization
+  tools
+
 * Wed Jan 17 2018 Jan Dobes <jdobes@redhat.com> 2.8.39-1
 - 1534417 - hide plaintext password in spacewalk-debug archive
 

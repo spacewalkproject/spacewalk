@@ -237,6 +237,7 @@
             <form-property name="advisoryRelease" type="java.lang.String"/>
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
+            <form-property name="advisorySeverityLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
             <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="buglistId" type="java.lang.String"/>
@@ -248,6 +249,7 @@
             <form-property name="keywords" type="java.lang.String"/>
             <form-property name="refersTo" type="java.lang.String"/>
             <form-property name="notes" type="java.lang.String"/>
+            <form-property name="advisorySeverity" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="errataEditForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -256,6 +258,7 @@
             <form-property name="advisoryRelease" type="java.lang.String"/>
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
+            <form-property name="advisorySeverityLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
             <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="topic" type="java.lang.String"/>
@@ -264,6 +267,7 @@
             <form-property name="keywords" type="java.lang.String"/>
             <form-property name="refersTo" type="java.lang.String"/>
             <form-property name="notes" type="java.lang.String"/>
+            <form-property name="advisorySeverity" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="extAuthForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

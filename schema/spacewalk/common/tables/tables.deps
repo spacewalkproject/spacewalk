@@ -42,7 +42,7 @@ rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
                                   rhnProductName rhnChecksum
 rhnChannelArch                 :: rhnArchType
-rhnChannelComps                :: rhnChannel
+rhnChannelComps                :: rhnChannel rhnCompsType
 rhnChannelCloned               :: rhnChannelComps
 rhnChannelErrata               :: rhnChannel rhnErrata
 rhnChannelFamily               :: web_customer 

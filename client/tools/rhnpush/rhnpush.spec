@@ -2,7 +2,7 @@
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -11,18 +11,16 @@
 
 Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
-Group:         Applications/System
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.108
+Version:       5.5.111
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      %{pythonX}-%{name} = %{version}-%{release}
 BuildRequires: docbook-utils, gettext
 %if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 0.6
+BuildRequires:  spacewalk-python2-pylint
 %endif
 
 %description
@@ -72,7 +70,6 @@ Python 3 specific files for rhnpush.
 make -f Makefile.rhnpush all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{python_sitelib}
 make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir} PYTHON_VERSION=%{python_version}
@@ -88,13 +85,12 @@ make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} 
 ln -s rhnpush%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhnpush
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
-spacewalk-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
 %endif
 
 %files
@@ -115,6 +111,17 @@ spacewalk-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.111-1
+- use python3 on rhel8 in rhnpush
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 5.5.110-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.109-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.108-1
 - run pylint on all Fedoras
 - simplified Makefile

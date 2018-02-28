@@ -587,6 +587,10 @@ public class DownloadFile extends DownloadAction {
                 diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + child.getComps().getRelativeFilename();
             }
+            else if (path.endsWith("/modules.yaml")) {
+                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
+                    "/" + child.getModules().getRelativeFilename();
+            }
             else {
                 String[] split = StringUtils.split(path, '/');
                 if (split[0].equals("repodata")) {

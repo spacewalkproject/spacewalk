@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -8,13 +8,11 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.15
+Version: 2.8.18
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
 BuildRequires: update-desktop-files
@@ -28,7 +26,7 @@ Requires: %{pythonX}-%{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypper
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: dnf
 %else
 Requires: yum
@@ -50,9 +48,14 @@ BuildRequires: desktop-file-utils
 BuildRequires: fedora-logos
 BuildRequires: dnf
 %endif
+
 %if 0%{?rhel}
 BuildRequires: redhat-logos
+%if 0%{?rhel} >= 8
+BuildRequires: dnf
+%else
 BuildRequires: yum
+%endif
 %endif
 
 %description
@@ -144,13 +147,12 @@ Python 3 specific files of %{name}.
 
 %package -n rhn-check
 Summary: Check for RHN actions
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-rhn-check = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: dnf-plugin-spacewalk >= 2.4.0
 %else
 Requires: yum-rhn-plugin >= 1.6.4-1
@@ -182,7 +184,6 @@ Python 3 specific files for rhn-check.
 
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
-Group: System Environment/Base
 Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
@@ -222,7 +223,6 @@ Python 3 specific files for rhn-setup.
 
 %package -n rhn-setup-gnome
 Summary: A GUI interface for RHN/Spacewalk Registration
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 Requires: %{pythonX}-rhn-setup-gnome = %{version}-%{release}
@@ -278,7 +278,6 @@ Python 3 specific files for rhn-setup-gnome.
 make -f Makefile.rhn-client-tools
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
@@ -378,7 +377,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?fedora}
 %check
@@ -654,6 +652,18 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
+- don't require yum on rhel8
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.17-1
+- require dnf-plugin-spacewalk on rhel8
+- rhel8 utilizes python3
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.16-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Dec 13 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
 - 1417185 - do chmod an the new file, not the old one which will be deleted
 - 1417185 - change permissions to default provided by rhn-client-tools rpm

@@ -8,9 +8,7 @@ Release: 1%{?dist}
 URL: http://fedorapeople.org/gitweb?p=dsommers/public_git/python-ethtool.git;a=summary
 Source: http://dsommers.fedorapeople.org/python-ethtool/%{name}-%{version}.tar.bz2
 License: GPLv2
-Group: System Environment/Libraries
 BuildRequires: python-devel libnl-devel
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 Python bindings for the ethtool kernel interface, that allows querying and
@@ -34,7 +32,6 @@ cp -p pifconfig.py %{buildroot}%{_sbindir}/pifconfig
 rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc COPYING
 %{_sbindir}/pethtool
 %{_sbindir}/pifconfig

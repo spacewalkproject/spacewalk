@@ -2,7 +2,7 @@
 %global rhnconf %{_sysconfdir}/sysconfig/rhn
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -10,14 +10,12 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.119
+Version: 5.10.121
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
-Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 Requires: %{pythonX}-%{name} = %{version}-%{release}
@@ -65,7 +63,6 @@ Python 3 specific files for %{name}.
 
 %package client
 Summary: Spacewalk Configuration Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-client = %{version}-%{release}
 
@@ -92,7 +89,6 @@ Python 3 specific files for %{name}-client.
 
 %package management
 Summary: Spacewalk Configuration Management Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-management = %{version}-%{release}
 
@@ -118,7 +114,6 @@ Python 2 specific files for python3-%{name}-management.
 
 %package actions
 Summary: Spacewalk Configuration Client Actions
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
 Requires: %{pythonX}-%{name}-actions = %{version}-%{release}
 
@@ -150,7 +145,6 @@ Python 3 specific files for python2-%{name}-actions.
 make -f Makefile.rhncfg all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{python_sitelib}
 make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir} PYTHONVERSION=%{python_version}
@@ -183,7 +177,6 @@ done
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ -f %{_localstatedir}/log/rhncfg-actions ]
@@ -262,6 +255,14 @@ fi
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.121-1
+- use python3 on rhel8 in rhncfg
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.120-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue Jan 02 2018 Jiri Dostal <jdostal@redhat.com> 5.10.119-1
 - 1528252 - Add --config option to rhncfg-manager and rhncfg-client.
 

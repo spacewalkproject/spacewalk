@@ -35,6 +35,7 @@ public class RepomdIndexWriter {
     private RepomdIndexData other;
     private RepomdIndexData updateinfo;
     private RepomdIndexData group;
+    private RepomdIndexData modules;
 
     /**
      *
@@ -44,16 +45,19 @@ public class RepomdIndexWriter {
      * @param otherIn other.xml data
      * @param updateinfoIn updateinfo.xml data
      * @param groupIn group data
+     * @param modulesIn modules data
      */
     public RepomdIndexWriter(Writer writerIn, RepomdIndexData primaryIn,
             RepomdIndexData filelistsIn, RepomdIndexData otherIn,
-            RepomdIndexData updateinfoIn, RepomdIndexData groupIn) {
+            RepomdIndexData updateinfoIn, RepomdIndexData groupIn,
+            RepomdIndexData modulesIn) {
 
         this.primary = primaryIn;
         this.filelists = filelistsIn;
         this.other = otherIn;
         this.updateinfo = updateinfoIn;
         this.group = groupIn;
+        this.modules = modulesIn;
 
         OutputFormat of = new OutputFormat();
 
@@ -92,6 +96,11 @@ public class RepomdIndexWriter {
             writeData("group", group);
         }
 
+        // likewise for modules info
+        if (modules != null) {
+            writeData("modules", modules);
+        }
+
         end();
     }
 
@@ -108,6 +117,9 @@ public class RepomdIndexWriter {
         // special case for comps file
         if (type.equals("group")) {
             location = "comps.xml";
+        }
+        if (type.equals("modules")) {
+            location = "modules.yaml";
         }
 
         try {

@@ -212,6 +212,18 @@ public interface Errata {
     void setAdvisoryRel(Long advisoryRelIn);
 
     /**
+     * Getter for severity
+     * @return Severity to get
+     */
+    Severity getSeverity();
+
+    /**
+     * Setter for severity
+     * @param severity to set
+     */
+    void setSeverity(Severity severity);
+
+    /**
      * Getter for locallyModified
      * @return boolean to get
     */

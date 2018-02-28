@@ -8,17 +8,15 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
-Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
 #      git clone https://github.com/spacewalkproject/spacewalk.git
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:  perl-interpreter
@@ -118,6 +116,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Dec 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - tomcat on RHEL 7.5 is confined even more
 

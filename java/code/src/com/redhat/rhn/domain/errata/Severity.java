@@ -16,6 +16,9 @@ package com.redhat.rhn.domain.errata;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * Errata Severity
  *
@@ -24,10 +27,15 @@ import com.redhat.rhn.common.localization.LocalizationService;
 public class Severity {
 
     // WARNING: These must stay in sync with the values in rhnErrataSeverity
+    // there's no need to keep 'unspecified' in db, it equals to null...
     public static final String LOW_LABEL = "errata.sev.label.low";
     public static final String MODERATE_LABEL = "errata.sev.label.moderate";
     public static final String IMPORTANT_LABEL = "errata.sev.label.important";
     public static final String CRITICAL_LABEL = "errata.sev.label.critical";
+    public static final String UNSPECIFIED_LABEL = "errata.sev.label.unspecified";
+
+    //dummy rank for webui selects
+    public static final Integer UNSPECIFIED_RANK = 4;
 
     private long id;
     private int rank;
@@ -101,5 +109,26 @@ public class Severity {
     public String toString() {
         return "Id: " + getId() + ", Rank: " + getRank() + ", Label: " + getLabel() +
             ", Localized label: " + getLocalizedLabel();
+    }
+
+    /**
+     * Looks up corresponding Severity object by given id
+     * @return Severity object
+     * @param id severity_id
+     */
+    public static Severity getById(Integer id) {
+        Map<Integer, String> severityMap = new HashMap<Integer, String>();
+        Severity newSeverity = new Severity();
+        severityMap.put(0, CRITICAL_LABEL);
+        severityMap.put(1, IMPORTANT_LABEL);
+        severityMap.put(2, MODERATE_LABEL);
+        severityMap.put(3, LOW_LABEL);
+        if (severityMap.get(id) == null) {
+            return null;
+        }
+        newSeverity.setId(id);
+        newSeverity.setLabel(severityMap.get(id));
+        newSeverity.setRank(id);
+        return newSeverity;
     }
 }

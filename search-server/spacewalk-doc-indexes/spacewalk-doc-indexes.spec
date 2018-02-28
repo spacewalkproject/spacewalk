@@ -1,9 +1,8 @@
 Name: spacewalk-doc-indexes
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
-Group: Applications/Internet
 License: GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -12,7 +11,6 @@ License: GPLv2
 # make test-srpm
 URL: https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: nutch
 BuildArch: noarch
 Provides: doc-indexes
@@ -29,14 +27,12 @@ documentation/help searches
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
 cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
 cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
@@ -48,6 +44,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 27 2017 Eric Herget <eherget@redhat.com> 2.8.3-1
 - fix urls, filters and conf for doc indexing
 - fixing crawler filter, 5.8 doc is using lower case url

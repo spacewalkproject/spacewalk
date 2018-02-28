@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -56,7 +56,6 @@ Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Patch8:         %{name}-Makefile-linux-arm-32.patch
 Patch9:         %{name}-gcc711.patch
-Group:		Development/Java
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
@@ -74,7 +73,6 @@ BuildRequires:	xml-commons-apis
 BuildRequires:	%{__perl}
 BuildRequires:	java-javadoc
 Obsoletes:	%{name}-demo < 0:3.1.2-2jpp
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if %{gcj_support}
 BuildRequires:		java-gcj-compat-devel
@@ -97,7 +95,6 @@ common to many Java applications:
 %if %{build_subpackages}
 %package javadoc
 Summary:        Javadoc for %{name}
-Group:          Development/Documentation
 # For /bin/rm and /bin/ln
 Requires(post): coreutils
 Requires(postun): coreutils
@@ -107,7 +104,6 @@ Requires(postun): coreutils
 
 %package manual
 Summary:        Documents for %{name}
-Group:          Development/Documentation
 
 %description manual
 %{summary}.
@@ -203,7 +199,6 @@ fi
 %endif
 
 %files
-%defattr(-,root,root,-)
 %doc doc/license.txt
 %{_sbindir}/%{name}
 %{_libdir}/libwrapper.so
@@ -215,16 +210,19 @@ fi
 
 %if %{build_subpackages}
 %files javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 %ghost %doc %{_javadocdir}/%{name}
 
 %files manual
-%defattr(0644,root,root,0755)
 %doc doc/*
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-20
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Jun 09 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-19
 - preserve trailing spaces in patch
 

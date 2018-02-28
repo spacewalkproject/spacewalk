@@ -7,9 +7,7 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 Version: 2.8.0
 Release: 1%{?dist}
 
-Group: Development/Libraries
 License: GPLv2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
@@ -46,16 +44,13 @@ make -f Makefile.rhnlib
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc ChangeLog COPYING README TODO
 
 %{python_sitelib}/*

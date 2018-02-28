@@ -2,12 +2,10 @@
 Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
-Group: Applications/Internet
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: spacewalk-base
 Requires: perl(MIME::Base64)
 Requires: lsof
@@ -33,7 +31,6 @@ Various utility scripts and data files for Spacewalk and Red Hat Satellite insta
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?rhel} >= 7 || 0%{?fedora} || 0%{?suse_version} >= 1210
 mv -f spacewalk-service.systemd spacewalk-service
@@ -58,7 +55,6 @@ chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man8/*.8*
 ln -s spacewalk-service $RPM_BUILD_ROOT%{_sbindir}/rhn-satellite
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc LICENSE
@@ -89,6 +85,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Dec 15 2017 Jan Dobes <jdobes@redhat.com> 2.8.3-1
 - 1524221 - ship systemd target on RHEL 7 too
 

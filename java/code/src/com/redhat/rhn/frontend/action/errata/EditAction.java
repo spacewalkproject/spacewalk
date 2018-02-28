@@ -24,6 +24,7 @@ import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -110,6 +111,13 @@ public class EditAction extends LookupDispatchAction {
         form.set("refersTo", errata.getRefersTo());
         form.set("notes", errata.getNotes());
         form.set("keywords", keywordDisplay);
+        form.set("advisorySeverityLabels", ErrataManager.advisorySeverityLabels());
+        if (errata.getSeverity() != null) {
+            form.set("advisorySeverity", errata.getSeverity().getRank());
+        }
+        else {
+            form.set("advisorySeverity", Severity.UNSPECIFIED_RANK);
+        }
 
         return setupPage(request, mapping, errata);
     }
@@ -137,6 +145,9 @@ public class EditAction extends LookupDispatchAction {
         request.setAttribute("advisory", errata.getAdvisory());
         //set advisoryTypes list for select drop down
         request.setAttribute("advisoryTypes", ErrataManager.advisoryTypes());
+        request.setAttribute("advisorySeverity", ErrataManager.advisorySeverityRanks());
+        request.setAttribute("severityDisabled", !errata.getAdvisoryType().equals
+                (ErrataFactory.ERRATA_TYPE_SECURITY));
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -199,7 +210,7 @@ public class EditAction extends LookupDispatchAction {
 
         //set l10n-ed advisoryTypeLabels list for select drop down
         form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
-
+        form.set("advisorySeverityLabels", ErrataManager.advisorySeverityLabels());
         if (!errors.isEmpty()) { //Something is wrong. Forward to failure mapping.
             addErrors(request, errors);
             //return to the same page with the errors
@@ -221,6 +232,9 @@ public class EditAction extends LookupDispatchAction {
         e.setSolution(form.getString("solution"));
         e.setRefersTo(form.getString("refersTo"));
         e.setNotes(form.getString("notes"));
+        if (ErrataFactory.ERRATA_TYPE_SECURITY.equals(e.getAdvisoryType())) {
+            e.setSeverity(Severity.getById((Integer)form.get("advisorySeverity")));
+        }
 
         //Clear all the keywords and bugs we have, and then add the ones on page
         if (e.getKeywords() != null) {

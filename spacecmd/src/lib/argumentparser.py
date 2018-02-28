@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2015 Red Hat, Inc.
+# Copyright (c) 2011--2018 Red Hat, Inc.
 #
 
 # wildcard import
@@ -28,14 +28,14 @@
 # invalid function name
 # pylint: disable=C0103
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 
-# optparse by default will exit when there is an error.  when spacecmd
+# argparse by default will exit when there is an error.  when spacecmd
 # is in an interactive shell, we don't want to exit.  instead, just
 # raise an exception that will printed for the user to read.
 
 
-class SpacecmdOptionParser(OptionParser):
+class SpacecmdArgumentParser(ArgumentParser):
 
-    def error(self, msg):
-        raise Exception(msg)
+    def error(self, message):
+        raise Exception(message)

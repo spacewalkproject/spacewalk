@@ -1,7 +1,6 @@
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
 License: Apache Software License, v. 1.1
-Group: Application/Development
 URL: http://jpam.sourceforge.net/
 Source0: %{name}-%{version}-src.zip
 Patch0: bug219916_expired_password_hang.patch
@@ -11,8 +10,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 34%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Release: 35%{?dist}
 
 BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc
@@ -61,7 +59,6 @@ Java, and wraps it in a JAAS LoginModule
 
 %package javadoc
 Summary:       Javadoc for %{name}
-Group:         Development/Documentation
 
 %description javadoc
 Javadoc for %{name}.
@@ -83,7 +80,6 @@ export JAVA_HOME=%{java_home}
 %ant shared-object dist-jar javadoc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # jar
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
@@ -103,7 +99,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr site/documentation/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
 rm -f %{_javadocdir}/%{name}
@@ -125,6 +120,11 @@ fi
 %{_javadocdir}/%{name}-%{version}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4-35
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-34
 - recompile all packages with the same (latest) version of java
 

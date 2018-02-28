@@ -447,6 +447,7 @@ public class ErrataFactory extends HibernateFactory {
         copy.setAdvisoryRel(original.getAdvisoryRel());
         copy.setLocallyModified(original.getLocallyModified());
         copy.setLastModified(original.getLastModified());
+        copy.setSeverity(original.getSeverity());
 
 
         /*
@@ -1033,6 +1034,7 @@ public class ErrataFactory extends HibernateFactory {
             eo.setAdvisorySynopsis((String)values[4]);
             eo.setUpdateDate((Date)values[5]);
             eo.setIssueDate((Date)values[6]);
+            eo.setSeverityid((Integer)values[7]);
             errata.add(eo);
         }
 

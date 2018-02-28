@@ -1,12 +1,10 @@
 Summary: Support programs and libraries for Red Hat Network or Spacewalk
 License: GPLv2
-Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 Name: rhn-client-tools
 Version: 1.8.9
 Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 %if 0%{?suse_version}
 BuildRequires: update-desktop-files
@@ -77,7 +75,6 @@ system to receive software updates from Red Hat Network or Spacewalk.
 
 %package -n rhn-check
 Summary: Check for RHN actions
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
@@ -91,7 +88,6 @@ scheduled actions.
 
 %package -n rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
-Group: System Environment/Base
 Requires: usermode >= 1.36
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
@@ -109,7 +105,6 @@ or Spacewalk server.
 
 %package -n rhn-setup-gnome
 Summary: A GUI interface for RHN/Spacewalk Registration
-Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
 Requires: pam >= 0.72
@@ -136,7 +131,6 @@ registering a system with a Red Hat Network or Spacewalk server.
 make -f Makefile.rhn-client-tools
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
@@ -180,7 +174,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?fedora}
 %check

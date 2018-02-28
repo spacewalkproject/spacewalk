@@ -103,8 +103,13 @@ elif [ -d /etc/apache2 ]; then
     cp -fapRd /etc/apache2/vhosts* $DIR/conf/httpd
 fi
 cp -fapRd /etc/rhn $DIR/conf/rhn
-sed -i 's/db_password.*/db_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf
+# Find any current copies of rhn.conf/rhn.conf.orig and sanitize passwords
+sed -i 's/db_password.*/db_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf*
+sed -i 's/server.satellite.http_proxy_password.*/server.satellite.http_proxy_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf*
 cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
+# Find any rhn.conf files backup up by upgrades and sanitize passwords
+find $DIR/conf/rhn/sysconfig -name rhn.conf\* -exec sed -i 's/db_password.*/db_password = ***/g' {} \;
+find $DIR/conf/rhn/sysconfig -name rhn.conf\* -exec sed -i 's/server.satellite.http_proxy_password.*/server.satellite.http_proxy_password = ***/g' {} \;
 if [ -f /etc/tnsnames.ora ] ; then
     cp -fad /etc/tnsnames.ora $DIR/conf
 fi

@@ -6,10 +6,9 @@
 
 Name:           jquery-ui
 Version:        1.10.4.custom
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        jQuery UI is a curated set of user interface elements built on top of the jQuery JavaScript Library.
 
-Group:          Applications/Internet
 License:        MIT
 URL:            http://jqueryui.com/
 # The source zip can be downloaded from the following URL:
@@ -18,7 +17,6 @@ Source0:        %{name}-%{version}.zip
 %if 0%{?suse_version}
 BuildRequires:  unzip
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -39,7 +37,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript/*
 %if 0%{?suse_version}
 %dir %{apachedocroot}/javascript
@@ -47,6 +44,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.10.4.custom-4
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.10.4.custom-3
 - jquery-ui: build on openSUSE
 

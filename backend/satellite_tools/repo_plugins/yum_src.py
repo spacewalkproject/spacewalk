@@ -513,6 +513,13 @@ class ContentSource(object):
             groups = None
         return groups
 
+    def get_modules(self):
+        try:
+            modules = self.repo.retrieveMD('modules')
+        except RepoMDError:
+            modules = None
+        return modules
+
     def get_file(self, path, local_base=None):
         try:
             try:
@@ -602,5 +609,7 @@ class ContentSource(object):
                     files['group'] = (get_location(elem), get_checksum(elem))
                 elif elem.attrib.get("type") == "group" and 'group' not in files:
                     files['group'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "modules":
+                    files['modules'] = (get_location(elem), get_checksum(elem))
         repomd.close()
         return files.values()

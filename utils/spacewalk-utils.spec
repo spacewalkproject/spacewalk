@@ -1,22 +1,20 @@
 %define rhnroot %{_prefix}/share/rhn
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.8
+Version:	2.8.13
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
-Group:		Applications/Internet
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 2.2
+BuildRequires:  spacewalk-python2-pylint
 %endif
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
@@ -71,19 +69,17 @@ Generic utilities that may be run against a Spacewalk server.
 make all %{?pod2man}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir} %{?pod2man}
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}
 # check coding style
-spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
 %files
@@ -99,6 +95,24 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.13-1
+- run pylint on rhel 7 builds
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.12-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.11-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Tue Feb 06 2018 Grant Gainey 2.8.10-1
+- 1537766 - Fix broken DELETE in postgresql
+
+* Tue Jan 23 2018 Grant Gainey 2.8.9-1
+- 1537766 - Add spacewalk-manage-snapshots, to give sw-admin a snapshot-mgt
+  tool
+
 * Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.8-1
 - add nightly-server repository for Fedora 27
 - add nightly-client repository for Fedora 27

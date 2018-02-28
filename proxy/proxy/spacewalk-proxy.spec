@@ -1,21 +1,19 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.8.2
+Version: 2.8.5
 Release: 1%{?dist}
-Group:   Applications/Internet
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python
 BuildArch: noarch
 Requires: httpd
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+BuildRequires: spacewalk-python2-pylint
 %endif
 BuildRequires: rhnpush >= 5.5.74
 # proxy isn't Python 3 yet
@@ -41,7 +39,6 @@ This package is never built.
 
 %package management
 Summary: Packages required by the SpacewalkManagement Proxy
-Group:   Applications/Internet
 Requires: squid
 Requires: spacewalk-backend >= 1.7.24
 Requires: %{name}-broker = %{version}
@@ -76,7 +73,6 @@ Provides: rhn-apache = 1:%{version}
 This package require all needed packages for Spacewalk Proxy Server.
 
 %package broker
-Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
 Requires: spacewalk-certs-tools
@@ -106,7 +102,6 @@ be sent to Squid and which should be sent directly to parent Spacewalk
 server.
 
 %package redirect
-Group:   Applications/Internet
 Summary: The SSL Redirect component for the Spacewalk Proxy Server
 Requires: spacewalk-proxy-broker = %{version}-%{release}
 Requires: httpd
@@ -123,7 +118,6 @@ and assures a fully secure SSL connection is established and maintained
 between an Spacewalk Proxy Server and parent Spacewalk server.
 
 %package common
-Group:   Applications/Internet
 Summary: Modules shared by Spacewalk Proxy components
 %if 0%{?suse_version}
 BuildRequires: apache2
@@ -147,7 +141,6 @@ Spacewalk Proxy components.
 
 %package package-manager
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
-Group:   Applications/Internet
 Requires: spacewalk-backend >= 1.7.24
 Requires: rhnlib >= 2.5.56
 Requires: python
@@ -166,7 +159,7 @@ Spacewalk Server. This service adds flexibility and economy of
 resources to package update and deployment.
 
 This package contains the Command rhn_package_manager, which  manages
-an Spacewalk Proxy Server's custom channel.
+an Spacewalk Proxy Server\'s custom channel.
 
 %prep
 %setup -q
@@ -175,7 +168,6 @@ an Spacewalk Proxy Server's custom channel.
 make -f Makefile.proxy
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 install -d -m 750 $RPM_BUILD_ROOT/%{_datadir}/spacewalk
@@ -190,13 +182,12 @@ rm -rf $RPM_BUILD_ROOT/etc/httpd
 touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT/usr/share/rhn:$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT/usr/share/rhn
+spacewalk-python2-pylint $RPM_BUILD_ROOT/usr/share/rhn
 %endif
 
 %post broker
@@ -371,6 +362,17 @@ fi
 
 
 %changelog
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.5-1
+- run pylint on rhel 7 builds
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.4-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Nov 13 2017 Jan Dobes 2.8.2-1
 - proxy isn't Python 3 yet, still require Python 2 rhnpush
 - removing useless condition

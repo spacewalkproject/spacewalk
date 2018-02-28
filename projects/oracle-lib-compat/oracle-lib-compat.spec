@@ -1,8 +1,7 @@
 Name:           oracle-lib-compat
-Version:        11.2.0.15
+Version:        11.2.0.16
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
-Group:          Applications/Multimedia
 License:        GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -11,7 +10,6 @@ License:        GPLv2
 # make srpm
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 
 %define debug_package %{nil}
 
@@ -56,7 +54,6 @@ Compatibility package so that perl-DBD-Oracle will install.
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
@@ -84,7 +81,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_javadir}
 ln -s ../../%{_lib}/oracle/%{icdir}/client/lib/ojdbc6.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %ifarch x86_64 s390x
@@ -107,6 +103,11 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.16-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 11.2.0.15-1
 - purged changelog entries for Spacewalk 2.0 and older
 

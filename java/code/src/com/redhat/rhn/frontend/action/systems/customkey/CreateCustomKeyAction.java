@@ -14,6 +14,16 @@
  */
 package com.redhat.rhn.frontend.action.systems.customkey;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -21,15 +31,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Handles the validation of custom system info key data and the creation of the keys.
@@ -52,12 +53,11 @@ public class CreateCustomKeyAction extends RhnAction {
             String label = request.getParameter(LABEL_PARAM);
             String description = request.getParameter(DESC_PARAM);
 
-            String error = validateLabelAndDescription(label, description, user);
-
-            if (error != null) {
+            ActionErrors errors = validateLabelAndDescription(label, description, user);
+            if (!errors.isEmpty()) {
                 request.setAttribute("old_label", label);
                 request.setAttribute("old_description", description);
-                bindMessage(requestContext, error);
+                addErrors(request, errors);
                 return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
 
@@ -92,8 +92,9 @@ public class CreateCustomKeyAction extends RhnAction {
      * @return message key corresponding to the validation error if one was encountered;
      *         <code>null</code> if the values are valid
      */
-    private String validateLabelAndDescription(String label, String description,
-                                               User user) {
+    private ActionErrors validateLabelAndDescription(String label,
+                    String description,
+                    User user) {
         /* Validation proceeds according to the following:
 
            I.  Key does not already exist; do not allow duplicate keys
@@ -102,28 +103,45 @@ public class CreateCustomKeyAction extends RhnAction {
           IV.  Label only contains valid characters (these need to match what is allowed
                in a macro argument)
            V.  Label is shorter/equal than 64
+          VI.  Description is shorter/equal than 4000
+
+          It is possible to fall into more than one of these states at the same time -
+          return all the errors we can at once
          */
 
-        String error = null;
+        ActionErrors errors = new ActionErrors();
 
         // I
         if (OrgFactory.lookupKeyByLabelAndOrg(label, user.getOrg()) != null) {
-            error = "system.customkey.error.alreadyexists";
-        }
-        // II, III
-        else if (label == null || label.length() < 2 || description.length() < 2) {
-            error = "system.customkey.error.tooshort";
-        }
-        // IV
-        else if (!label.trim().matches("[\\w-]*")) {
-            error = "system.customkey.error.invalid";
-        }
-        // V
-        else if (label.length() > 64) {
-            error = "system.customkey.error.toolong";
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                       new ActionMessage("system.customkey.error.alreadyexists"));
         }
 
-        return error;
+        // II, III
+        if (label == null || label.length() < 2 || description.length() < 2) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("system.customkey.error.tooshort"));
+        }
+
+        // IV
+        if (!label.trim().matches("[\\w-]*")) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("system.customkey.error.invalid"));
+        }
+
+        // V
+        if (label.length() > 64) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("system.customkey.error.toolong"));
+        }
+
+        // VI
+        if (description.length() > 4000) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("system.customkey.error.descr_toolong"));
+        }
+
+        return errors;
     }
 
 }

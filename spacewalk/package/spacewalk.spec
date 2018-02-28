@@ -1,13 +1,11 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
-Group:          Applications/Internet
 License:        GPLv2
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %description
@@ -16,7 +14,6 @@ inventory, provision, update and control your Linux machines.
 
 %package common
 Summary: Spacewalk Systems Management Application with Oracle database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 
@@ -90,7 +87,6 @@ inventory, provision, update and control your Linux machines.
 
 %package oracle
 Summary: Spacewalk Systems Management Application with Oracle database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
@@ -117,7 +113,6 @@ Version for Oracle database backend.
 
 %package postgresql
 Summary: Spacewalk Systems Management Application with PostgreSQL database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
@@ -146,7 +141,6 @@ Version for PostgreSQL database backend.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 SW_REL=$(echo %{version} | awk -F. '{print $1"."$2}')
 echo "Spacewalk release $SW_REL (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
@@ -176,6 +170,11 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - purged changelog entries for Spacewalk 2.0 and older
 - Bumping package versions for 2.8.

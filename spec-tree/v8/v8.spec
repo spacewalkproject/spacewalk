@@ -25,14 +25,12 @@
 
 Name:		v8
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	2.2%{?dist}
+Release:	2.3%{?dist}
 Epoch:		1
 Summary:	JavaScript Engine
-Group:		System Environment/Libraries
 License:	BSD
 URL:		http://code.google.com/p/v8
 Source0:	http://commondatastorage.googleapis.com/chromium-browser-official/v8-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 ExclusiveArch:	%{ix86} x86_64 %{arm}
 BuildRequires:	scons, readline-devel, libicu-devel
 
@@ -48,7 +46,6 @@ in Google Chrome, the open source browser from Google. V8 implements ECMAScript
 as specified in ECMA-262, 3rd edition.
 
 %package devel
-Group:		Development/Libraries
 Summary:	Development headers and libraries for v8
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -202,13 +199,11 @@ rm -rf %{buildroot}
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog LICENSE
 %{_bindir}/d8
 %{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*.h
 %dir %{_includedir}/v8/
 %{_includedir}/v8/extensions/
@@ -216,6 +211,11 @@ rm -rf %{buildroot}
 %{python_sitelib}/j*.py*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.14.5.10-2.3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 3.14.5.10-2.2
 - spec file polish
 

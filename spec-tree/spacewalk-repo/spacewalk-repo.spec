@@ -1,9 +1,8 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.8
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv2
-Group: System Environment/Base
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone https://github.com/spacewalkproject/spacewalk.git
@@ -17,7 +16,6 @@ This package contains the Spacewalk repository configuration for yum.
 
 %package -n spacewalk-client-repo
 Summary: Spacewalk client packages yum repository configuration
-Group: System Environment/Base
 
 %description -n spacewalk-client-repo
 This package contains the Spacewalk repository configuration for yum.
@@ -28,7 +26,6 @@ This package contains the Spacewalk repository configuration for yum.
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
 %define reposubdir      epel-%{rhel}
@@ -110,7 +107,6 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
     done
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk.repo
@@ -132,6 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-nightly-client
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8-10
+- remove install/clean section initial cleanup
+- removed Group from specfile
+
 * Fri Oct 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.8-9
 - epel6-addons key is only on RHEL6
 

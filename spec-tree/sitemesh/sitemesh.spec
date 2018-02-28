@@ -4,11 +4,10 @@
 
 Name:           sitemesh
 Version:        2.4.2
-Release:        2.7%{?dist}
+Release:        2.8%{?dist}
 Epoch:          0
 Summary:        Sitemesh
 License:        ASL 1.1
-Group:          Development/Java
 URL:            http://www.sitemesh.org/
 %if 0
 /bin/rm -rf sitemesh-2.4.2.tar.xz sitemesh-2.4.2/ .gitignore
@@ -94,7 +93,6 @@ BuildRequires:  maven-source-plugin
 BuildRequires:  xmvn
 %endif
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/sitemesh-%{namedversion}-%{release}-root
 
 %description 
 SiteMesh is a web-page layout and decoration framework and web-application
@@ -103,7 +101,6 @@ for which a consistent look/feel, navigation and layout scheme is required.
 
 %package -n sitemesh-javadoc
 Summary:        Javadoc for sitemesh
-Group:          Development/Documentation
 Requires:       jpackage-utils
 BuildRequires:  jpackage-utils
 
@@ -112,7 +109,6 @@ BuildRequires:  jpackage-utils
 
 %package -n sitemesh-site
 Summary:        Site for sitemesh
-Group:          Development/Documentation
 Requires:       jpackage-utils
 BuildRequires:  jpackage-utils
 Requires:       sitemesh-javadoc = %{epoch}:%{version}-%{release}
@@ -214,7 +210,6 @@ export MAVEN_OPTS=
 %{__rm} -rf %{buildroot}
 
 %files -n sitemesh
-%defattr(0644,root,root,0755)
 %doc CHANGES.txt LICENSE.txt README.txt docs
 %{_javadir}/sitemesh-%{namedversion}.jar
 %{_javadir}/sitemesh.jar
@@ -227,15 +222,18 @@ export MAVEN_OPTS=
 %{_mavenpomdir}/JPP-sitemesh.pom
 
 %files -n sitemesh-javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/sitemesh-%{namedversion}
 %{_javadocdir}/sitemesh
 
 %files -n sitemesh-site
-%defattr(0644,root,root,0755)
 %{_docdir}/sitemesh
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.8
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.4.2-2.7
 - recompile all packages with the same (latest) version of java
 

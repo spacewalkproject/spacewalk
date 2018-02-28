@@ -500,6 +500,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates': 'receiving_updates',
         'rhn-channel-checksum-type': 'checksum_type',
         'rhn-channel-comps-last-modified': 'comps_last_modified',
+        'rhn-channel-modules-last-modified': 'modules_last_modified',
         'sharing': 'channel_access',
         'rhn-channel-trusted-orgs': 'trust_list',
     }
@@ -846,6 +847,7 @@ class ErratumItem(BaseItem):
         'rhn-erratum-last-modified': 'last_modified',
         'rhn-erratum-files': 'files',
         'rhn-erratum-errata-from': 'errata_from',
+        'rhn-erratum-severity': 'severity_id',
         'cve-names': 'cve',
     }
 addItem(ErratumItem)

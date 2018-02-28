@@ -2,13 +2,11 @@
 Summary: An json string library
 Name: stringtree-json
 Version: 2.0.9
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPL
-Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
 Source0: %{base_package}-%{version}-src.zip
 Patch0: stringtree-2.0.9-build-xml.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 %else
@@ -32,7 +30,6 @@ a simple json reader/writer library for java
 ant -f src/build.xml dist-json
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
 install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
@@ -40,13 +37,17 @@ install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{
 install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.9-13
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.0.9-12
 - recompile all packages with the same (latest) version of java
 

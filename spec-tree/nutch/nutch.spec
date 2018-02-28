@@ -1,13 +1,11 @@
 Name: nutch
 Version: 1.0
-Release: 0.18.20081201040121nightly%{?dist}
+Release: 0.19.20081201040121nightly%{?dist}
 Summary: Open source web-search software
 
-Group: Development/Tools
 License: ASL 2.0
 URL: http://lucene.apache.org/nutch/index.html
 Source0: http://hudson.zones.apache.org/hudson/job/Nutch-trunk/647/artifact/trunk/build/nutch-2008-12-01_04-01-21.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: java-headless >= 1:1.8.0
 
@@ -26,7 +24,6 @@ rm -fr ./lib/native/Linux-i386-32
 sed -i 's|^hadoop.log.dir=.*$|hadoop.log.dir=/var/log/rhn/search|' conf/log4j.properties
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/nutch
 install -m 644 nutch-2008-12-01_04-01-21.jar $RPM_BUILD_ROOT%{_prefix}/share/nutch
 install -m 644 default.properties $RPM_BUILD_ROOT%{_prefix}/share/nutch
@@ -39,17 +36,21 @@ ln -s %{_prefix}/share/nutch/nutch-2008-12-01_04-01-21.jar $RPM_BUILD_ROOT%{_pre
 install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(644,root,root,755)
 %{_prefix}/share/nutch/*
 %attr(755,root,root) %{_prefix}/share/nutch/bin/*
 %{_var}/log/rhn/search
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0-0.19.20081201040121nightly
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 1.0-0.18.20081201040121nightly
 - 1483503 - move hadoop logs to /var/log
 

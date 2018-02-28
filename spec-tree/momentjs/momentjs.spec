@@ -6,10 +6,9 @@
 
 Name:           momentjs
 Version:        2.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
-Group:          Development/Libraries
 License:        MIT
 URL:            http://momentjs.com/
 
@@ -22,7 +21,6 @@ Source3:        httpd-momentjs.conf
 %if 0%{?suse_version}
 Requires(pre):  apache2
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -49,12 +47,16 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apacheconfd}/momentjs.conf
 %{_datadir}/momentjs
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.6.0-5
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 2.6.0-4
 - momentjs: build on openSUSE
 

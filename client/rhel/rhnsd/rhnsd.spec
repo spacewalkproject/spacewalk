@@ -1,17 +1,16 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.34
+Version: 5.0.36
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
-%if 0%{?suse_version} >= 1210
+BuildRequires: gcc
+%if 0%{?suse_version} >= 1210 || 0%{?fedora}
 BuildRequires: systemd
 %{?systemd_requires}
 %endif
@@ -25,9 +24,6 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
 Requires(preun): systemd-sysv
-Requires(post): systemd-units
-Requires(preun): systemd-units
-BuildRequires: systemd-units
 %else
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -49,7 +45,6 @@ your machine, and runs any actions.
 make -f Makefile.rhnsd %{?_smp_mflags} CFLAGS="-pie -fPIE -Wl,-z,relro,-z,now %{optflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} INIT_DIR=$RPM_BUILD_ROOT/%{_initrddir}
 
 %if 0%{?suse_version} && 0%{?suse_version} < 1210
@@ -121,9 +116,6 @@ if [ "$1" -ge "1" ]; then
 fi
 %endif
 
-%clean
-rm -fr $RPM_BUILD_ROOT
-
 
 %files -f %{name}.lang
 %dir %{_sysconfdir}/sysconfig/rhn
@@ -138,6 +130,13 @@ rm -fr $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.36-1
+- add BuildRequires gcc
+
+* Mon Feb 05 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.35-1
+- remove systemd-units
+- remove obsoleted things from spec file
+
 * Thu Nov 16 2017 Tomas Kasparek <tkasparek@redhat.com> 5.0.34-1
 - removed settings for old RH build system
 

@@ -1,13 +1,12 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.8.3
+Version:     2.8.5
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
-Group:       Applications/System
 License:     GPLv2
 URL:         https://github.com/spacewalkproject/spacewalk
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -63,6 +62,12 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.5-1
+- use python3 on rhel8 in spacewalk-remote-utils
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- removed Group from specfile
+
 * Tue Oct 10 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - make python2/3 defs consistent with other specs
 

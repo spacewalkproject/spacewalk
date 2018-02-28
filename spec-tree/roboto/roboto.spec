@@ -6,17 +6,15 @@
 
 Name:           roboto
 Version:        1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Roboto font
 
-Group:          Application/Internet
 License:        Apache Software License v2
 URL:            http://developer.android.com/design/style/typography.html
 Source0:        http://developer.android.com/downloads/design/roboto-1.3.tar.gz
 %if 0%{?suse_version}
 BuildRequires:  unzip
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -31,7 +29,6 @@ and the Roboto Slab family.
 
 %package condensed
 Summary:        Roboto Condensed font
-Group:          Application/Internet
 
 %description condensed
 Roboto has a dual nature. It has a mechanical skeleton and the forms are largely
@@ -60,7 +57,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %doc
 %{apachedocroot}/fonts/Roboto
 %if 0%{?suse_version}
@@ -68,13 +64,17 @@ rm -rf %{buildroot}
 %endif
 
 %files condensed
-%defattr(-,root,root,-)
 %{apachedocroot}/fonts/RobotoCondensed
 %if 0%{?suse_version}
 %dir %{apachedocroot}/fonts
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3-2
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Jan 20 2017 Grant Gainey 1.3-1
 - 1208421 - Update Roboto fonts
 

@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -6,15 +6,13 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
-Version:        2.8.2
+Version:        2.8.4
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
-Group:	        Applications/System
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  gettext
 Requires:       %{pythonX}-%{name} = %{version}-%{release}
@@ -50,7 +48,6 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-abrt
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
                 PYTHON_PATH=%{python_sitelib} PYTHON_VERSION=%{python_version}
 %if 0%{?build_py3}
@@ -65,7 +62,6 @@ ln -s spacewalk-abrt%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/spacewalk-abrt
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 service abrtd restart
@@ -87,6 +83,14 @@ service abrtd restart
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
+- use python3 on rhel8 in spacewalk-abrt
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - use standard rpmbuild bytecompile
 - modules are now in standard sitelib path

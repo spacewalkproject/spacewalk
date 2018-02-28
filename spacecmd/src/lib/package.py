@@ -29,13 +29,16 @@
 # invalid function name
 # pylint: disable=C0103
 
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 
 def help_package_details(self):
-    print 'package_details: Show the details of a software package'
-    print 'usage: package_details PACKAGE ...'
+    print('package_details: Show the details of a software package')
+    print('usage: package_details PACKAGE ...')
 
 
 def complete_package_details(self, text, line, beg, end):
@@ -43,7 +46,9 @@ def complete_package_details(self, text, line, beg, end):
 
 
 def do_package_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_details()
@@ -61,7 +66,7 @@ def do_package_details(self, args):
 
     for package in packages:
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
         package_ids = self.get_package_id(package)
@@ -79,41 +84,40 @@ def do_package_details(self, args):
             installed_systems = \
                 self.client.system.listSystemsWithPackage(self.session, package_id)
 
-            print 'Name:    %s' % details.get('name')
-            print 'Version: %s' % details.get('version')
-            print 'Release: %s' % details.get('release')
-            print 'Epoch:   %s' % details.get('epoch')
-            print 'Arch:    %s' % details.get('arch_label')
-            print
-            print 'File:    %s' % details.get('file')
-            print 'Path:    %s' % details.get('path')
-            print 'Size:    %s' % details.get('size')
-            print 'MD5:     %s' % details.get('md5sum')
-            print
-            print 'Installed Systems: %i' % len(installed_systems)
-            print
-            print 'Description'
-            print '-----------'
-            print '\n'.join(wrap(details.get('description')))
-            print
-            print 'Available From Channels'
-            print '-----------------------'
-            print '\n'.join(sorted([c.get('label') for c in channels]))
-            print
+            print('Name:    %s' % details.get('name'))
+            print('Version: %s' % details.get('version'))
+            print('Release: %s' % details.get('release'))
+            print('Epoch:   %s' % details.get('epoch'))
+            print('Arch:    %s' % details.get('arch_label'))
+            print('')
+            print('File:    %s' % details.get('file'))
+            print('Path:    %s' % details.get('path'))
+            print('Size:    %s' % details.get('size'))
+            print('%s:  %s' % (details.get('checksum_type').upper(), details.get('checksum')))
+            print('')
+            print('Installed Systems: %i' % len(installed_systems))
+            print('')
+            print('Description')
+            print('-----------')
+            print('\n'.join(wrap(details.get('description'))))
+            print('')
+            print('Available From Channels')
+            print('-----------------------')
+            print('\n'.join(sorted([c.get('label') for c in channels])))
+            print('')
 
 ####################
 
 
 def help_package_search(self):
-    print 'package_search: Find packages that meet the given criteria'
-    print 'usage: package_search NAME|QUERY'
-    print
-    print 'Example: package_search kernel'
-    print
-    print 'Advanced Search:'
-    print 'Available Fields: name, epoch, version, release, arch, ' + \
-          'description, summary'
-    print 'Example: name:kernel AND version:2.6.18 AND -description:devel'
+    print('package_search: Find packages that meet the given criteria')
+    print('usage: package_search NAME|QUERY')
+    print('')
+    print('Example: package_search kernel')
+    print('')
+    print('Advanced Search:')
+    print('Available Fields: name, epoch, version, release, arch, description, summary')
+    print('Example: name:kernel AND version:2.6.18 AND -description:devel')
 
 
 def do_package_search(self, args, doreturn=False):
@@ -147,14 +151,14 @@ def do_package_search(self, args, doreturn=False):
         return packages
     else:
         if packages:
-            print '\n'.join(sorted(packages))
+            print('\n'.join(sorted(packages)))
 
 ####################
 
 
 def help_package_remove(self):
-    print 'package_remove: Remove a package from Satellite'
-    print 'usage: package_remove PACKAGE ...'
+    print('package_remove: Remove a package from Satellite')
+    print('usage: package_remove PACKAGE ...')
 
 
 def complete_package_remove(self, text, line, beg, end):
@@ -162,7 +166,9 @@ def complete_package_remove(self, text, line, beg, end):
 
 
 def do_package_remove(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_remove()
@@ -175,9 +181,9 @@ def do_package_remove(self, args):
     if not to_remove:
         return
 
-    print 'Packages'
-    print '--------'
-    print '\n'.join(sorted(to_remove))
+    print('Packages')
+    print('--------')
+    print('\n'.join(sorted(to_remove)))
 
     if not self.user_confirm('Remove these packages [y/N]:'):
         return
@@ -196,8 +202,8 @@ def do_package_remove(self, args):
 
 
 def help_package_listorphans(self):
-    print 'package_listorphans: List packages that are not in a channel'
-    print 'usage: package_listorphans'
+    print('package_listorphans: List packages that are not in a channel')
+    print('usage: package_listorphans')
 
 
 def do_package_listorphans(self, args, doreturn=False):
@@ -210,14 +216,14 @@ def do_package_listorphans(self, args, doreturn=False):
         return packages
     else:
         if packages:
-            print '\n'.join(sorted(packages))
+            print('\n'.join(sorted(packages)))
 
 ####################
 
 
 def help_package_removeorphans(self):
-    print 'package_removeorphans: Remove packages that are not in a channel'
-    print 'usage: package_removeorphans'
+    print('package_removeorphans: Remove packages that are not in a channel')
+    print('usage: package_removeorphans')
 
 
 def do_package_removeorphans(self, args):
@@ -228,9 +234,9 @@ def do_package_removeorphans(self, args):
         logging.warning('No orphaned packages')
         return
 
-    print 'Packages'
-    print '--------'
-    print '\n'.join(sorted(build_package_names(packages)))
+    print('Packages')
+    print('--------')
+    print('\n'.join(sorted(build_package_names(packages))))
 
     if not self.user_confirm('Remove these packages [y/N]:'):
         return
@@ -245,9 +251,8 @@ def do_package_removeorphans(self, args):
 
 
 def help_package_listinstalledsystems(self):
-    print 'package_listinstalledsystems: List the systems with a package ' + \
-          'installed'
-    print 'usage: package_listinstalledsystems PACKAGE ...'
+    print('package_listinstalledsystems: List the systems with a package installed')
+    print('usage: package_listinstalledsystems PACKAGE ...')
 
 
 def complete_package_listinstalledsystems(self, text, line, beg, end):
@@ -255,7 +260,9 @@ def complete_package_listinstalledsystems(self, text, line, beg, end):
 
 
 def do_package_listinstalledsystems(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listinstalledsystems()
@@ -273,7 +280,7 @@ def do_package_listinstalledsystems(self, args):
 
     for package in packages:
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
         systems = []
@@ -281,18 +288,18 @@ def do_package_listinstalledsystems(self, args):
             systems += self.client.system.listSystemsWithPackage(self.session,
                                                                  package_id)
 
-        print package
-        print '-' * len(package)
+        print(package)
+        print('-' * len(package))
 
         if systems:
-            print '\n'.join(sorted(['%s : %s' % (s.get('name'), s.get('id')) for s in systems]))
+            print('\n'.join(sorted(['%s : %s' % (s.get('name'), s.get('id')) for s in systems])))
 
 ####################
 
 
 def help_package_listerrata(self):
-    print 'package_listerrata: List the errata that provide this package'
-    print 'usage: package_listerrata PACKAGE ...'
+    print('package_listerrata: List the errata that provide this package')
+    print('usage: package_listerrata PACKAGE ...')
 
 
 def complete_package_listerrata(self, text, line, beg, end):
@@ -300,7 +307,9 @@ def complete_package_listerrata(self, text, line, beg, end):
 
 
 def do_package_listerrata(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listerrata()
@@ -318,29 +327,31 @@ def do_package_listerrata(self, args):
 
     for package in packages:
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
         for package_id in self.get_package_id(package):
             errata = self.client.packages.listProvidingErrata(self.session,
                                                               package_id)
 
-            print package
-            print '-' * len(package)
+            print(package)
+            print('-' * len(package))
 
             if errata:
-                print '\n'.join(sorted([e.get('advisory') for e in errata]))
+                print('\n'.join(sorted([e.get('advisory') for e in errata])))
 
 ####################
 
 
 def help_package_listdependencies(self):
-    print 'package_listdependencies: List the dependencies for a package'
-    print 'usage: package_listdependencies PACKAGE'
+    print('package_listdependencies: List the dependencies for a package')
+    print('usage: package_listdependencies PACKAGE')
 
 
 def do_package_listdependencies(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_package_listdependencies()
@@ -358,7 +369,7 @@ def do_package_listdependencies(self, args):
 
     for package in packages:
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
         for package_id in self.get_package_id(package):
@@ -368,8 +379,8 @@ def do_package_listdependencies(self, args):
 
             package_id = int(package_id)
             pkgdeps = self.client.packages.list_dependencies(self.session, package_id)
-            print 'Package Name: %s' % package
+            print('Package Name: %s' % package)
             for dep in pkgdeps:
-                print 'Dependency: %s Type: %s Modifier: %s' % \
-                      (dep['dependency'], dep['dependency_type'], dep['dependency_modifier'])
-            print self.SEPARATOR
+                print('Dependency: %s Type: %s Modifier: %s' % \
+                      (dep['dependency'], dep['dependency_type'], dep['dependency_modifier']))
+            print(self.SEPARATOR)

@@ -3,28 +3,49 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
+%if 0%{?fedora} || 0%{?suse_version} > 1320
+%global build_py3   1
+%global python_sitelib %{python3_sitelib}
+%endif
+
 Name:        spacecmd
-Version:     2.8.14
+Version:     2.8.19
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
-Group:       Applications/System
 License:     GPLv3+
 URL:         https://github.com/spacewalkproject/spacewalk/wiki/spacecmd
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:   noarch
 
 %if 0%{?pylint_check}
-BuildRequires: spacewalk-pylint
+%if 0%{?build_py3}
+BuildRequires: spacewalk-python3-pylint
+%else
+BuildRequires: spacewalk-python2-pylint
 %endif
+%endif
+%if 0%{?build_py3}
+BuildRequires: python3
+BuildRequires: python3-devel
+BuildRequires: python3-simplejson
+BuildRequires: python3-rpm
+Requires:      python3
+%else
 BuildRequires: python
 BuildRequires: python-devel
 BuildRequires: python-simplejson
 BuildRequires: rpm-python
+Requires:      python
+%if 0%{?suse_version}
+BuildRequires: python-xml
+Requires:      python-xml
+%endif
+%endif
 %if 0%{?rhel} == 5
 BuildRequires: python-json
 %endif
@@ -32,14 +53,8 @@ BuildRequires: python-json
 %if 0%{?rhel} == 5
 Requires:    python-simplejson
 %endif
-Requires:    python
 Requires:    file
 
-%if 0%{?suse_version}
-BuildRequires: python-xml
-Requires:      python-xml
-Requires:      python-simplejson
-%endif
 
 %description
 spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
@@ -54,6 +69,10 @@ spacecmd is a command-line interface to Spacewalk and Red Hat Satellite servers
 %{__rm} -rf %{buildroot}
 
 %{__mkdir_p} %{buildroot}/%{_bindir}
+
+%if 0%{?build_py3}
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' ./src/bin/spacecmd
+%endif
 %{__install} -p -m0755 src/bin/spacecmd %{buildroot}/%{_bindir}/
 
 %{__mkdir_p} %{buildroot}/%{_sysconfdir}
@@ -71,17 +90,29 @@ touch %{buildroot}/%{_sysconfdir}/spacecmd.conf
 touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %{__chmod} 0644 %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 
+%if 0%{?suse_version}
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python_sitelib}
+%else
+%py_compile -O %{buildroot}/%{python_sitelib}
+%endif
+%endif
+
 %clean
 %{__rm} -rf %{buildroot}
 
 %check
 %if 0%{?pylint_check}
+%if 0%{?build_py3}
 PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
-	spacewalk-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+	  spacewalk-python3-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+%else
+PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
+	  spacewalk-python2-pylint $RPM_BUILD_ROOT%{python_sitelib}/spacecmd
+%endif
 %endif
 
 %files
-%defattr(-,root,root)
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf
@@ -91,6 +122,35 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.19-1
+- 1484056 - updatefile and addfile are basically same calls
+- 1484056 - make configchannel_addfile fully non-interactive
+
+* Mon Feb 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
+- convert to int when getting int input
+- 1445725 - display all checksum types, not just MD5
+
+* Wed Feb 21 2018 Eric Herget <eherget@redhat.com> 2.8.17-1
+- PR602 - more python3 support updates
+- PR602 - Update to use newly separated spacewalk-python[2|3]-pylint packages
+- PR602 - switch to argparse from optparse
+- PR602 - fix fedora 26 build
+- PR602 - lint fixes
+- PR602 - use py_compile only on SUSE
+- PR602 - make lambda call python3 compatible
+- PR602 - make mkdir mode python3 compatible
+- PR602 - make exec python3 compatible
+- PR602 - make exceptions python3 compatible
+- PR602 - make print python3 compatible
+- PR602 - build with python3
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.16-1
+- removed %%%%defattr from specfile
+- removed Group from specfile
+
+* Mon Jan 22 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
+- search for actual package name
+
 * Tue Jan 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.14-1
 - 1429944 - return system id from search for distinguishable results
 

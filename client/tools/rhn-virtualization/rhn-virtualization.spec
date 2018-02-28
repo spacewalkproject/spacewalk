@@ -2,7 +2,7 @@
 %define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
 %define cron_dir %{_sysconfdir}/cron.d
 
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -11,15 +11,13 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.69
+Version:        5.4.71
 Release:        1%{?dist}
 
-Group:          System Environment/Base
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 %if 0%{?suse_version}
 # make chkconfig work in OBS
@@ -64,7 +62,6 @@ package.
 
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
-Group: System Environment/Base
 Requires: %{pythonX}-%{name}-host = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: cron
@@ -108,7 +105,6 @@ make -f Makefile.rhn-virtualization
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} install
 sed -i 's,@PYTHON@,python,; s,@PYTHONPATH@,%{python_sitelib},;' \
@@ -137,7 +133,6 @@ rm -f $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %if 0%{?suse_version}
 %post host
@@ -271,6 +266,14 @@ fi
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.71-1
+- use python3 for rhel8 in rhn-virtualization
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.70-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Nov 03 2017 Jan Dobes 5.4.69-1
 - simplify status check
 

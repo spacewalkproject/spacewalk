@@ -1,12 +1,10 @@
 Name: spacewalk-reports
 Summary: Script based reporting
-Group: Applications/Internet
 License: GPLv2
-Version: 2.8.3
+Version: 2.8.4
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python
 Requires: spacewalk-branding
@@ -22,7 +20,6 @@ Script based reporting to retrieve data from Spacewalk server in CSV format.
 /usr/bin/docbook2man *.sgml
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_bindir}
 install -d $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk
 install -d $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports/data
@@ -33,7 +30,6 @@ install -m 644 reports/data/* $RPM_BUILD_ROOT/%{_prefix}/share/spacewalk/reports
 install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %attr(755,root,root) %{_bindir}/spacewalk-report
@@ -46,6 +42,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri Oct 20 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - Revert "use SQL bind parameter"
 

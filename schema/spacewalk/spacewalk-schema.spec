@@ -1,17 +1,15 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-schema
-Group:          Applications/Internet
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.4
+Version:        2.8.18
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
 License:        GPLv2
 Url:            https://github.com/spacewalkproject/spacewalk/
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  python
@@ -32,7 +30,6 @@ spacewalk-schema is the SQL schema for the Spacewalk server.
 
 %package sanity
 Summary:  Schema source sanity check for Spacewalk database scripts.
-Group:    Applications/Internet
 
 Requires:  perl(Digest::SHA)
 
@@ -52,7 +49,6 @@ pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 pod2man spacewalk-sql spacewalk-sql.1
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0755 -d $RPM_BUILD_ROOT%{oracle}
 install -m 0755 -d $RPM_BUILD_ROOT%{postgres}
@@ -76,7 +72,6 @@ cp -p spacewalk-sql.1 $RPM_BUILD_ROOT%{_mandir}/man1
 install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-source-sanity-check.pl
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %{oracle}
@@ -94,6 +89,54 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
+- fix schema upgrade for oracle
+
+* Wed Feb 14 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.17-1
+- add forgotten semicolon
+
+* Tue Feb 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.16-1
+- 1542287 - purge records that would be violating unique constraint during
+  fixup
+
+* Tue Feb 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.15-1
+- fix sha1sums
+
+* Tue Feb 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.14-1
+- Oracle expects procedure signatures in pks files
+
+* Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.13-1
+- create indexes instead of constraints during upgrade
+- extra newline is causing troubles on Oracle DBs
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.12-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Fri Feb 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.11-1
+- postgresql requires numeric datatype not number
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.10-1
+- fix oracle equivalent shource sha1 sums
+
+* Thu Feb 08 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.9-1
+- update set_comps stored procedure for usage with modules
+- use rhnCompsType table for different types of repo metadata (comps) files
+- create table for different metadata file types
+
+* Wed Feb 07 2018 Jiri Dostal <jdostal@redhat.com> 2.8.8-1
+- fix different schema creation vs. upgrade
+
+* Tue Feb 06 2018 Jiri Dostal <jdostal@redhat.com> 2.8.7-1
+- Constraint already exists, use different name
+
+* Tue Feb 06 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- 1542287 - we don't have solaris table anymore
+
+* Mon Feb 05 2018 Jiri Dostal <jdostal@redhat.com> 2.8.5-1
+- 1541955 - Clone of an erratum doesn't have original erratum's severity
+
 * Thu Oct 19 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - move deletion to the inner loop to delete all duplicates
 

@@ -8,13 +8,17 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 2.8.4
+Version: 2.8.6
 Release: 1%{?dist}
 URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-gzipstream
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
 License: GPLv2
 BuildArch: noarch
+%if (0%{?fedora} > 27 || 0%{?rhel} > 7)
+BuildRequires: python2-devel
+%else
 BuildRequires: python-devel
+%endif
 
 
 %global _description\
@@ -34,7 +38,6 @@ Summary: %summary
 %if 0%{?build_py3}
 %package -n python3-gzipstream
 Summary:        %summary
-Group:          Development/Languages/Python
 BuildRequires:  python3-devel
 
 %description -n python3-gzipstream %_description
@@ -62,8 +65,6 @@ cd ../py3
 
 %endif
 
-%clean
-
 %files -n python2-gzipstream
 %{python_sitelib}/*
 %doc html
@@ -71,13 +72,22 @@ cd ../py3
 
 %if 0%{?build_py3}
 %files -n python3-gzipstream
-%defattr(-,root,root)
 %{python3_sitelib}/*
-%doc html LICENSE
+%doc html
+%license LICENSE
 
 %endif
 
 %changelog
+* Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- mark license for python3 subpackage
+- remove empty section
+- Update Python 2 dependency declarations to new packaging standards
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- removed %%%%defattr from specfile
+- removed Group from specfile
+
 * Wed Nov 08 2017 Jan Dobes 2.8.4-1
 - raise exception instead of returning
 - fix syntax for python3

@@ -1,4 +1,4 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -7,16 +7,15 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.4
+Version: 2.8.7
 Release: 1%{?dist}
 License: GPLv2
-Group: System Environment/Base
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
 
 Requires: %{pythonX}-%{name} = %{version}-%{release}
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 Requires: dnf >= 0.5.3
 %else
 Requires: dnf >= 2.0.0
@@ -55,7 +54,7 @@ Python 3 specific files for %{name}.
 %setup -q
 
 %build
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
 %endif
 
@@ -103,6 +102,15 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- %%if 0%%{?fedora} <= 25 is always true on rhel
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- rhel8 utilizes python3
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- removed Group from specfile
+
 * Mon Nov 27 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
 - 1512582 - don't fail on empty installroot
 

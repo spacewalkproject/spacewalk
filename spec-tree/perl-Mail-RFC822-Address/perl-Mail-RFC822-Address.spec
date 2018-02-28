@@ -1,12 +1,10 @@
 %{!?perlgen:%global perlgen 5.8}
 Name: perl-Mail-RFC822-Address
 Version: 0.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
-Group: Development/Libraries
 URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddress
-BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 %if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:	perl-interpreter
@@ -40,10 +38,8 @@ make
 make test
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 %install
 
-rm -rf $RPM_BUILD_ROOT
 eval `perl '-V:installarchlib'`
 mkdir -p $RPM_BUILD_ROOT/$installarchlib
 %if "%{perlgen}" == "5.8"
@@ -68,6 +64,11 @@ fi
 %files -f Mail-RFC822-Address-%{version}-filelist
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.3-15
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 0.3-14
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27

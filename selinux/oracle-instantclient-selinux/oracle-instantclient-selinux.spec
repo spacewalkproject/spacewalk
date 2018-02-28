@@ -1,10 +1,9 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:		oracle-instantclient-selinux
-Version:	11.2.0.3
+Version:	11.2.0.4
 Release:	1%{?dist}
 Summary:	SELinux support for Oracle Instant Client 11g
-Group:		System Environment/Base
 License:	GPLv2+
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -12,7 +11,6 @@ License:	GPLv2+
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:		https://github.com/spacewalkproject/spacewalk
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
 Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
@@ -25,7 +23,6 @@ SELinux support for Oracle Instant Client.
 
 %package -n oracle-instantclient-sqlplus-selinux
 Summary:	SELinux support for Oracle Instant Client sqlplus
-Group:		System Environment/Base
 Requires:	oracle-instantclient11.2-sqlplus
 Requires:	oracle-nofcontext-selinux
 Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
@@ -41,7 +38,6 @@ SELinux support for Oracle Instant Client sqlplus.
 %define used_libs libocci.so.11.1 libclntsh.so.11.1 libnnz11.so libociei.so libocijdbc11.so
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 install -d %{buildroot}%{_sbindir}
 
@@ -66,7 +62,6 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 EOS
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 if /usr/sbin/selinuxenabled ; then
@@ -113,6 +108,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Jul 17 2017 Jan Dobes 11.2.0.3-1
 - Remove more fedorahosted links
 - Use HTTPS in all Github links

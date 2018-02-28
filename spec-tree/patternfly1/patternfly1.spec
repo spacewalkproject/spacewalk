@@ -11,14 +11,12 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	8%{?release_suffix}%{?dist}
+Release:	9%{?release_suffix}%{?dist}
 License:	ASL 2.0
-Group:      Applications/Internet
 URL:		https://github.com/patternfly/patternfly
 Source:		patternfly-1.0.5.tar.gz
 Patch0:   fix_paths.patch
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
 %description
@@ -40,6 +38,10 @@ cp -pR less/ %{buildroot}%{_datadir}/%{name}/resources/less
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.5-9
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 20 2015 Tomas Kasparek <tkasparek@redhat.com> 1.0.5-8
 - font awesome lives in different directory
 

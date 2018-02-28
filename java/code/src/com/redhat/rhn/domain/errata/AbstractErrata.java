@@ -61,6 +61,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     private Long advisoryRel;
     private Boolean locallyModified;
     private Date lastModified;
+    private Severity severity;
     private Org org;
     private Set<Bug> bugs = new HashSet<Bug>();
     private Set<ErrataFile> files;
@@ -346,6 +347,22 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public void setAdvisoryRel(Long advisoryRelIn) {
         this.advisoryRel = advisoryRelIn;
+    }
+
+    /**
+     * Getter for severity
+     * @return Severity to get
+     */
+    public Severity getSeverity() {
+        return this.severity;
+    }
+
+    /**
+     * Setter for severity
+     * @param s Severity to set
+     */
+    public void setSeverity(Severity s) {
+        this.severity = s;
     }
 
     /**

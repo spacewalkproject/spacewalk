@@ -1,8 +1,7 @@
 Name:       perl-Term-Completion 
 Version:    1.00
-Release:    9%{?dist}.3
+Release:    9%{?dist}.4
 License:    GPL+ or Artistic 
-Group:      Development/Libraries
 Summary:    Read one line of user input, with convenience functions 
 Source:     http://search.cpan.org/CPAN/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
 Url:        http://search.cpan.org/dist/Term-Completion
@@ -68,6 +67,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.00-9.4
+- removed Group from specfile
+
 * Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.3
 - 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
   27

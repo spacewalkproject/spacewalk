@@ -14,63 +14,11 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import com.redhat.rhn.domain.BaseDomainHelper;
 /**
  *
  * @version $Rev $
  *
  */
-public class Comps extends BaseDomainHelper {
+public class Comps extends RepoMetadata {
 
-    private Long id;
-    private String relativeFilename;
-    private Channel channel;
-
-    /**
-     *
-     * @return Returns Id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     *
-     * @param idIn The Id to set.
-     */
-    public void setId(Long idIn) {
-        this.id = idIn;
-    }
-
-    /**
-     *
-     * @return Returns Relative filename
-     */
-    public String getRelativeFilename() {
-        return relativeFilename;
-    }
-
-    /**
-     *
-     * @param relativeFilenameIn The filename to set.
-     */
-    public void setRelativeFilename(String relativeFilenameIn) {
-        this.relativeFilename = relativeFilenameIn;
-    }
-
-    /**
-     *
-     * @param channelIn The channel to set.
-     */
-    public void setChannel(Channel channelIn) {
-        this.channel = channelIn;
-    }
-
-    /**
-     *
-     * @return Returns channel object
-     */
-    public Channel getChannel() {
-        return channel;
-    }
 }

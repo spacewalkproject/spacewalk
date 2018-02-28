@@ -6,14 +6,12 @@
 
 Name:           bootstrap-datepicker
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bootstrap-datepicker provides a flexible datepicker widget in the Twitter bootstrap style.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            https://github.com/eternicode/bootstrap-datepicker/
 Source0:        https://github.com/eternicode/bootstrap-datepicker/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -38,7 +36,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/css/*
 %{apachedocroot}/javascript/*
 %if 0%{?suse_version}
@@ -48,6 +45,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3.0-4
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.3.0-3
 - bootstrap-datepicker: build on openSUSE
 

@@ -1,9 +1,8 @@
 Name: nodejs
 Version: 0.10.22
-Release: 1.3%{?dist}
+Release: 1.4%{?dist}
 Summary: JavaScript runtime
 License: MIT and ASL 2.0 and ISC and BSD
-Group: Development/Languages
 URL: http://nodejs.org/
 
 # Exclusive archs must match v8
@@ -25,7 +24,6 @@ Patch2: nodejs-python24.patch
 %global v8_lt 1:3.15
 %global v8_abi 3.14
 
-BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %global _rpmconfigdir /usr/lib/rpm
 
 BuildRequires: v8-devel >= %{v8_ge}
@@ -66,7 +64,6 @@ real-time applications that run across distributed devices.
 
 %package devel
 Summary: JavaScript runtime - development headers
-Group: Development/Languages
 Requires: %{name}%{?_isa} == %{version}-%{release}
 Requires: libuv-devel%{?_isa} http-parser-devel%{?_isa} v8-devel%{?_isa}
 Requires: openssl-devel%{?_isa} c-ares19-devel%{?_isa} zlib-devel%{?_isa}
@@ -77,7 +74,6 @@ Development headers for the Node.js JavaScript runtime.
 
 %package docs
 Summary: Node.js API documentation
-Group: Documentation
 
 %description docs
 The API documentation for the Node.js JavaScript runtime.
@@ -169,6 +165,11 @@ cp -p common.gypi %{buildroot}%{_datadir}/node
 %{_defaultdocdir}/%{name}-docs-%{version}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.10.22-1.4
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Wed Nov 20 2013 Michael Mraka <michael.mraka@redhat.com> 0.10.22-1.3
 - simplejson has to be available in build time
 

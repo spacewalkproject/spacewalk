@@ -1,0 +1,19 @@
+#!/bin/sh
+
+PYLINTRC='/etc/spacewalk-python2-pylint.rc'
+
+for bin in /usr/bin/pylint-2 ; do
+    # check if pylint works (see bz1456049)
+    if "$bin" --version 2>/dev/null ; then
+        PYLINT="$bin"
+        break
+    fi
+done
+
+if [ -z "$PYLINT" ] ; then
+    echo "WARNING: this system is not able to run pylint (python2) checks" >&2
+    exit 0
+fi
+
+find "$@" -type f -name '*.py' \
+    | xargs "$PYLINT" --rcfile "$PYLINTRC"

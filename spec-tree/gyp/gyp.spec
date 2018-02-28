@@ -6,10 +6,9 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.6%{?revision:.%{revision}svn}.2%{?dist}
+Release:	0.6%{?revision:.%{revision}svn}.3%{?dist}
 Summary:	Generate Your Projects
 
-Group:		Development/Tools
 License:	BSD
 URL:		http://code.google.com/p/gyp/
 # No released tarball avaiable. so the tarball was generated
@@ -26,7 +25,6 @@ Patch1:		gyp-python24.patch
 
 BuildRequires:	python2-devel
 BuildArch:	noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 GYP is a tool to generates native Visual Studio, Xcode and SCons
@@ -50,23 +48,26 @@ done
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 %{__python} setup.py install --root $RPM_BUILD_ROOT --skip-build
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS LICENSE
 %{_bindir}/gyp
 %{python_sitelib}/*
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1-0.6.1010svn.3
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Fri May 23 2014 Milan Zazrivec <mzazrivec@redhat.com> 0.1-0.6.1010svn.2
 - spec file polish
 

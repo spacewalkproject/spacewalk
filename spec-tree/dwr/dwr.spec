@@ -1,8 +1,7 @@
 Name:       dwr
 Version:    3.0rc2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Direct Web Remoting
-Group:      Development/Libraries/Java
 License:    Apache Software License v2
 URL:        http://directwebremoting.org
 # The Source0 is an svn checkout with some purged content
@@ -17,7 +16,6 @@ Patch0:     dwr-no-noncla-no-junit.patch
 Patch1:     dwr-r3974-merged.patch
 Patch2:     dwr-r3975.patch
 BuildArch:  noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Requires:        java-headless >= 1:1.8.0
 BuildRequires:   java-1.8.0-openjdk-devel
@@ -41,7 +39,6 @@ export JAVA_TOOL_OPTIONS=-Dfile.encoding=ISO-8859-1
 LC_CTYPE=en_US.iso-8859-1 ant jar
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 (cd $RPM_BUILD_ROOT%{_javadir} && ln -sf %{name}-%{version}.jar %{name}.jar)
@@ -52,6 +49,11 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-9
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.0rc2-8
 - recompile all packages with the same (latest) version of java
 

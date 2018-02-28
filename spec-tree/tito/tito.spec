@@ -2,10 +2,9 @@
 
 Name: tito
 Version: 0.4.18
-Release: 1.10%{?dist}
+Release: 1.11%{?dist}
 Summary: A tool for managing rpm based git projects
 
-Group: Development/Tools
 License: GPLv2
 URL: http://rm-rf.ca/tito
 Source0: http://pkgs.fedoraproject.org/repo/pkgs/tito/tito-0.4.18.tar.gz/318e6f546c9b331317c94ea5d178876a/tito-0.4.18.tar.gz
@@ -16,7 +15,6 @@ Patch3:  0002-fixed-no-source-spec-issue.patch
 Patch4:  git-quick-build.patch
 Patch5:  fixing-unescaped-left-brace-in-newer-perl.patch
 Patch6:  dont-generate-renames-rhel-6-workaround.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
 BuildRequires: python-devel
@@ -58,7 +56,6 @@ a2x -d manpage -f manpage tito.props.5.asciidoc
 a2x -d manpage -f manpage releasers.conf.5.asciidoc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{python_sitelib}/*egg-info/requires.txt
 # manpages
@@ -71,11 +68,9 @@ rm -f $RPM_BUILD_ROOT%{python_sitelib}/*egg-info/requires.txt
 %{__gzip} -c build.py.props.5 > %{buildroot}/%{_mandir}/man5/build.py.props.5.gz
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc README.mkd AUTHORS COPYING
 %doc %{_mandir}/man5/titorc.5.gz
 %doc %{_mandir}/man5/tito.props.5.gz
@@ -92,6 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4.18-1.11
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Nov 27 2017 Jiri Dostal <jdostal@redhat.com> 0.4.18-1.10
 - Update tito.spec - repair outdated URL, Fedora 27 rebuild
 

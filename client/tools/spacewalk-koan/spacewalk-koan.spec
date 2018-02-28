@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -7,13 +7,11 @@
 
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.8.5
+Version: 2.8.7
 Release: 1%{?dist}
-Group: System Environment/Kernel
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 URL:            https://github.com/spacewalkproject/spacewalk
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 Requires:       %{pythonX}-%{name} = %{version}-%{release}
 Requires:       koan20
@@ -57,7 +55,6 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-koan all
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir}
 
@@ -75,7 +72,6 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
@@ -98,6 +94,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- use python3 on rhel8 in spacewalk-koan
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - spacewalk-koan: add missing directories to filelist on SUSE and build py3 on
   Tumbleweed

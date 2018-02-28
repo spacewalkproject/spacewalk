@@ -23,11 +23,10 @@
 
 Name:           ace-editor
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD-3-Clause
 Summary:        High performance code editor for the web
 Url:            http://ace.c9.io/
-Group:          Development/Libraries/Other
 Source0:        https://github.com/ajaxorg/ace-builds/archive/v%{version}.tar.gz#/ace-builds-%{version}.tar.gz
 Source1:        ace-editor.conf
 %if 0%{?suse_version}
@@ -35,7 +34,6 @@ BuildRequires:  fdupes
 BuildRequires:  apache2
 %endif
 BuildArch:      noarch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 TAce is an embeddable code editor written in JavaScript.
@@ -65,12 +63,16 @@ cp -r src-min %{buildroot}%{_datadir}/ace-editor/src-min-noconflict
 %endif
 
 %files
-%defattr(-,root,root)
 %doc LICENSE ChangeLog.txt README.md
 %{_datadir}/ace-editor
 %config(noreplace) %{_sysconfdir}/%{httpd}/conf.d/*.conf
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.1.3-4
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 06 2015 Tomas Lestach <tlestach@redhat.com> 1.1.3-3
 - Copyright texts updated to SUSE LLC
 

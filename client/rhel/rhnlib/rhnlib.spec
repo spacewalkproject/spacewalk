@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %endif
 
@@ -6,14 +6,12 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.5
+Version: 2.8.7
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 
-Group: Development/Libraries
 License: GPLv2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
@@ -38,7 +36,6 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 %if 0%{?build_py3}
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
-Group: Development/Libraries
 BuildRequires: python3-devel
 Requires: python3-pyOpenSSL
 %{?python_provide:%python_provide python3-rhnlib}
@@ -70,7 +67,6 @@ make -f Makefile.rhnlib
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 %if 0%{?build_py3}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
@@ -78,7 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
@@ -92,6 +87,14 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- rhel8 utilizes python3
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - rhnlib: enable py3 build for Tumbleweed
 

@@ -37,7 +37,7 @@ from spacewalk.common.rhnConfig import CFG
 
 import mapper
 import view
-from domain import Comps
+from domain import RepoMD
 from spacewalk.server import rhnChannel
 
 # One meg
@@ -161,23 +161,30 @@ class Repository(object):
     def get_filelists_view(self):
         return self.get_cache_view(self.filelists_prefix, view.FilelistsView)
 
-    def get_comps_file(self):
-        """ Return a file-like object of the comps.xml for the channel. """
-        if self.channel.comps:
-            comps_view = view.CompsView(self.channel.comps)
-            return comps_view.get_file()
-        elif self.channel.label in comps_mapping:
-            comps_view = view.CompsView(Comps(None,
+    def get_repomd_file(self, repomd_obj, func_name):
+        """ Return a file-like object of the comps.xml/modules.yaml for the channel. """
+        if repomd_obj:
+            repomd_view = view.RepoMDView(repomd_obj)
+            return repomd_view.get_file()
+        elif func_name == 'get_comps_file' and self.channel.label in comps_mapping:
+            comps_view = view.RepoMDView(RepoMD(None,
                                               os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()
         else:
             if self.channel.cloned_from_id is not None:
-                log_debug(1, "No comps and no comps_mapping for [%s] cloned from [%s] trying to get comps from the original one."
+                log_debug(1, "No comps/modules and no comps_mapping for [%s] cloned from [%s] trying to get comps from the original one."
                           % (self.channel.id, self.channel.cloned_from_id))
                 cloned_from_channel = rhnChannel.Channel().load_by_id(self.channel.cloned_from_id)
                 cloned_from_channel_label = cloned_from_channel._row['label']
-                return Repository(rhnChannel.channel_info(cloned_from_channel_label)).get_comps_file()
+                func = getattr(Repository(rhnChannel.channel_info(cloned_from_channel_label)), func_name)
+                return func()
         return None
+
+    def get_comps_file(self):
+        return self.get_repomd_file(self.channel.comps, 'get_comps_file')
+
+    def get_modules_file(self):
+        return self.get_repomd_file(self.channel.modules, 'get_modules_file')
 
     def generate_files(self, views):
         for view in views:
@@ -355,19 +362,27 @@ class MetadataRepository:
                                                   self.repository.get_updateinfo_xml_file(),
                                                   self.compressed_repository.get_updateinfo_xml_file())
 
-            # Comps might not exist on disc
+            # Comps and modules might not exist on disc
             comps = None
             comps_file = None
+            modules = None
+            modules_file = None
             try:
                 comps_file = self.repository.get_comps_file()
             except IOError:
                 pass
+            try:
+                modules_file = self.repository.get_modules_file()
+            except IOError:
+                pass
             if comps_file:
                 comps = self.__compute_open_checksum(timestamp, comps_file)
+            if modules_file:
+                modules = self.__compute_checksums(timestamp, modules_file)
 
             ret = self.cache.set_file(cache_entry, self.last_modified)
             repomd_view = view.RepoView(primary, filelists, other, updateinfo,
-                                        comps, ret, self.__get_checksumtype())
+                                        comps, modules, ret, self.__get_checksumtype())
 
             repomd_view.write_repomd()
             ret.close()
