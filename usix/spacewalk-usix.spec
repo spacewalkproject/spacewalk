@@ -17,7 +17,7 @@
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name:	    spacewalk-usix
-Version:	2.8.1
+Version:	2.8.2
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 
@@ -101,6 +101,10 @@ cp $RPM_BUILD_ROOT%{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{python3rhnroo
 %endif
 
 %changelog
+* Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.2-1
+- split spacewalk-usix into python2 and python3 variants
+- build python3-spacewalk-usix also on rhel8
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
