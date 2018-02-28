@@ -110,7 +110,7 @@ def manipulate_child_channels(self, args, remove=False):
 
     print('Systems')
     print('-------')
-    print('\n'.join(sorted([str(x) for x in systems])))
+    print('\n'.join(sorted(["%s" % x for x in systems])))
     print('')
 
     if remove:
@@ -310,7 +310,7 @@ def do_system_search(self, args, doreturn=False):
     max_size = 0
     for s in results:
         # only use real matches, not the fuzzy ones we get back
-        if re.search(value, str(s.get(key)), re.I):
+        if re.search(value, "%s" % s.get(key), re.I):
             if len(s.get('name')) > max_size:
                 max_size = len(s.get('name'))
 
