@@ -26,7 +26,7 @@ BuildRequires: python-devel
 %description
 Library for writing code that runs on Python 2 and 3
 
-%if 0%{?fedora} >= 23
+%if 0%{?fedora} >= 23 || 0%{?rhel} >= 8
 
 %package -n python3-%{name}
 Summary: Spacewalk client micro six library
