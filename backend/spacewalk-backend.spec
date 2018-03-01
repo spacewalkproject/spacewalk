@@ -59,7 +59,7 @@ BuildRequires: spacewalk-python2-pylint
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-BuildRequires: spacewalk-usix
+BuildRequires: python2-spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: python2-rhn-client-tools
@@ -72,7 +72,7 @@ BuildRequires: %{m2crypto}
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -93,7 +93,7 @@ Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
@@ -102,7 +102,7 @@ the Spacewalk backend modules.
 %package sql-oracle
 Summary: Oracle backend for Spacewalk
 Requires: python(:DBAPI:oracle)
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-oracle
@@ -112,7 +112,7 @@ modules.
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
 Requires: python-psycopg2 >= 2.0.14-2
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -123,7 +123,7 @@ backend modules.
 Summary: Basic code that provides Spacewalk Server functionality
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
@@ -146,7 +146,7 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
@@ -160,7 +160,7 @@ and the up2date clients.
 %package applet
 Summary: Handler for /APPLET
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 
@@ -171,7 +171,7 @@ provides the functions for the Spacewalk applet.
 %package app
 Summary: Handler for /APP
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
@@ -206,7 +206,7 @@ capability.
 Summary: Listener for the Server XML dumper
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 
 %description iss-export
 %{name} contains the basic code that provides server/backend
@@ -224,7 +224,7 @@ BuildRequires: python-devel
 Requires: python
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 %endif
 
 %description libs
@@ -252,7 +252,7 @@ Libraries required by Spacewalk client tools on Fedora 23.
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-config-files-common < 5.3.0
 Provides: rhns-config-files-common = 1:%{version}-%{release}
 
@@ -271,7 +271,7 @@ This package contains the server-side code for configuration management.
 %package config-files-tool
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Requires: %{name}-config-files-common = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
 Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
@@ -306,7 +306,7 @@ Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: python-requests
 Requires: %{m2crypto}
 %if 0%{?fedora} || 0%{?rhel} > 5
@@ -323,7 +323,7 @@ Various utilities for the Spacewalk Server.
 %package xml-export-libs
 Summary: Spacewalk XML data exporter
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
@@ -333,7 +333,7 @@ Libraries required by various exporting tools
 %package cdn
 Summary: CDN tools
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: subscription-manager
 Requires: %{m2crypto}
 Requires: python-argparse
