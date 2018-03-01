@@ -520,6 +520,7 @@ class Erratum(Information):
         'bugs': [Bug],
         'cve': [StringType],
         'errata_from': StringType,
+        'severity_id': IntType
     }
 
 
