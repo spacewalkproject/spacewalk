@@ -38,7 +38,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.50
+Version: 2.8.51
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -788,6 +788,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Mar 01 2018 Jiri Dostal <jdostal@redhat.com> 2.8.51-1
+- 1550001 - KeyError: 'severity' caught when exporting channel with rhn-
+  satellite-exporter
+
 * Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.50-1
 - build python3-spacewalk-backend on rhel8
 
