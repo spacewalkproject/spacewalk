@@ -56,7 +56,8 @@ public abstract class BaseSearchAction extends RhnAction {
 
     /** Channel-arches a default package-search should look in */
     public static final String[] DEFAULT_ARCHES = { "channel-ia32", "channel-ia64",
-            "channel-x86_64", "channel-s390", "channel-s390x", "channel-ppc" };
+            "channel-x86_64", "channel-s390", "channel-s390x", "channel-ppc",
+            "channel-ppc64le"};
 
     /** List of channel arches we don't really support any more. */
     public static final List<String> EXCLUDED_ARCHES = Arrays.asList(new String[]
