@@ -46,6 +46,8 @@ def setup_token():
 def list_requests():
     """Prints open pull requests with some additional info"""
     url = "https://api.github.com/repos/%s/%s/pulls" % (USER, REPO)
+    if OAUTH:
+        url += "?access_token=%s" % OAUTH
     pull_requests = simplejson.load(urllib.urlopen(url))
     for request in pull_requests:
         print request.get('number'), request.get('title')
@@ -129,9 +131,9 @@ if __name__ == "__main__":
             except ValueError:
                 pass
 
+    setup_token()
     if not req_num:
         list_requests()
         sys.exit(0)
 
-    setup_token()
     prepare_repo(repo, req_num, master, ignore_dirty)
