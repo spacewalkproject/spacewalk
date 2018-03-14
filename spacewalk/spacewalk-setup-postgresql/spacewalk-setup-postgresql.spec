@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 License:        GPLv2
@@ -62,6 +62,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar 14 2018 Jiri Dostal <jdostal@redhat.com> 2.8.3-1
+- Make spacewalk-setup-postgres run on postgres10+
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed %%%%defattr from specfile
 - removed Group from specfile
