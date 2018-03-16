@@ -325,6 +325,12 @@
         </context-group>
         <target>{0} ஒரு இரட்டையாகும்.</target>
       </trans-unit>
+      <trans-unit id="errors.unexpected">
+        <source>An unexpected error has occurred during the request.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page where an unexpected error occurred.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
         <source>Help Icon</source>
         <context-group name="ctx">
@@ -2565,7 +2571,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="actions.jsp.totalnote">
         <source>
-          Note: For multi-system scheduled actions, the ability to cancel individual 
+          Note: For multi-system scheduled actions, the ability to cancel individual
           systems means that the number of clients mentioned in the Action column may not match the number in Total.
         </source>
         <context-group name="ctx">
@@ -4718,6 +4724,12 @@ organization. You may grant or remove the organization administrator role in the
         </context-group>
         <target>அறிவிப்பி வகை&lt;span class=&quot;required-form-field&quot;&gt;*&lt;/span&gt;:</target>
       </trans-unit>
+      <trans-unit id="errata.create.jsp.advisoryseverity">
+        <source>Advisory Severity:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errata.create.jsp.product">
         <source>Product&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
         <context-group name="ctx">
@@ -5081,7 +5093,7 @@ organization. You may grant or remove the organization administrator role in the
           </context-group>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://cobbler.github.io/manuals/2.4.0/5/6_-_Power_Management.html"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See cobbler documentation for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
@@ -8252,7 +8264,7 @@ administrator privileges.</source>
         <target>இப்போது பயனர்களுக்கு செல்லவும்</target>
       </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link4">
-        <source>RHN Reference Guide</source>
+        <source>Getting Started Guide</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
@@ -9453,7 +9465,7 @@ Please note that some manual configuration of these scripts may still be require
         <target>பேர் மெட்டல் கிக்ஸ்டார்ட்</target>
       </trans-unit>
       <trans-unit id="kickstartips.jsp.resource">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Resource:&lt;/strong&gt; The RHN Reference Guide Kickstart section&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Resource:&lt;/strong&gt; The Getting Started Guide Kickstart section&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
@@ -9717,7 +9729,7 @@ Please note that some manual configuration of these scripts may still be require
         <target>செயல்படுத்தல் விசைகளை மேம்படுத்தவும்</target>
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.note">
-        <source>&lt;strong&gt;Note: The selection of incompatible activation keys can prevent a system from registering properly after it is kickstarted.&lt;/strong&gt;  You'll want to review the RHN Reference Guide section on using multiple activation keys before making use of this feature.</source>
+        <source>&lt;strong&gt;Note: The selection of incompatible activation keys can prevent a system from registering properly after it is kickstarted.&lt;/strong&gt;  You'll want to review the Getting Started Guide section on using multiple activation keys before making use of this feature.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
@@ -10076,7 +10088,10 @@ Please note that some manual configuration of these scripts may still be require
         <target>எந்த பொது விசை அல்லது ssl சான்றிதழும் குறிப்பிடப்படவில்லை.</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>
+You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.
+A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.
+For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
@@ -10228,7 +10243,11 @@ Please note that some manual configuration of these scripts may still be require
         <target>கோப்பு பாதுகாப்பு</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>
+        File preservation lists are lists of files that will be restored to a system during a particular kickstart.
+        You can reference a file preservation list in a kickstart profile.
+        For more information refer to the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;.
+        The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
@@ -10366,7 +10385,7 @@ Please note that some manual configuration of these scripts may still be require
         <target>கிக்ஸ்டார்ட் கோப்பு பாதுகாப்பு பட்டியலை உருவாக்கவும்</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
@@ -11074,7 +11093,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <target>&lt;strong&gt;சிக்கலான கணினிகள் இல்லை.&lt;/strong&gt; &lt;p&gt;உங்கள் கணினிகளில் சிக்கலான நிலையில் எதுவுமில்லை. &lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered">
-        <source>&lt;strong&gt;Recently Registered Systems&lt;/strong&gt;</source>
+        <source>Recently Registered Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
@@ -11121,6 +11140,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
         <target>தொடர்புடைய பாதுகாப்பு பிழைத்திருத்தங்கள்</target>
+      </trans-unit>
+      <trans-unit id="errata.sev.label.unspecified">
+        <source>Unspecified</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/YourRhn.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="errata.sev.label.low">
         <source>Low</source>
@@ -12516,6 +12541,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.details.statusFailed">
           <source>Failed</source>
         </trans-unit>
+        <trans-unit id="system.event.failwarning">
+          <source>Forcibly changing status of Picked Up action is potentially &lt;strong&gt;dangerous&lt;/strong&gt;. Are you sure you want to continue?</source>
+        </trans-unit>
+        <trans-unit id="system.event.faildescription">
+          <source>Description for the action</source>
+        </trans-unit>
+        <trans-unit id="system.event.failheader">
+          <source>Confirm Event Status Change</source>
+        </trans-unit>
         <trans-unit id="system.event.details.pickup">
           <source>The client picked up this action on {0}</source>
         </trans-unit>
@@ -12545,6 +12579,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="system.event.returnIcon">
           <source>Return to history list</source>
+        </trans-unit>
+        <trans-unit id="system.event.failActionButton">
+          <source>Set to Failed</source>
+        </trans-unit>
+        <trans-unit id="system.event.failconfirm">
+          <source>Confirm</source>
         </trans-unit>
         <trans-unit id="system.event.rescheduleButton">
           <source>Reschedule</source>
@@ -14509,13 +14549,6 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
           <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
         </context-group>
         <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt; உரை கோப்புகளுக்கு'644'ம் மற்றும் அடைவுகளுக்கு '755'ம் மற்றும் இயங்குக்கூடியவைகளுக்கு முழுமையான அணுகல் அல்லது இயக்கத்தை அனுமதிக்கும் (ஆனால் மாற்றப்படாது).</target>
-      </trans-unit>
-      <trans-unit id="filedetails.jsp.tip.macros">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the available macros is listed in the &lt;a href="{0}"&gt;RHN Reference Guide&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
-        </context-group>
-        <target>&lt;strong&gt;துணுக்கு:&lt;/strong&gt;ஒரு முழு பட்டியல் மேக்ரோக்கள் &lt;a href=&quot;{0}&quot;&gt;RHN குறிப்பு கையேட்டில்&lt;/a&gt; பட்டியலிடப்பட்டிருக்கும்.</target>
       </trans-unit>
       <trans-unit id="filedetails.jsp.tip.upload">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -17623,7 +17656,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <target>@@PRODUCT_NAME@@-மேலாண்மை செய்யாத விவரக்குறிப்புகள் கிக்ஸ்டார்டிற்கு பின் @@PRODUCT_NAME@@க்கு பதிவு செய்ய உத்தரவாதம் கொடுக்க முடியாது. நீங்கள் இந்த கிக்ஸ்டார்ட்களை மறுபார்வை செய்ய (விவரக்குறிப்பு பெயரை சொடுக்கி) உங்கள் கணினி கிக்ஸ்டார்ட செய்த பின் @@PRODUCT_NAME@@ கணினி பட்டியலில் மீண்டும் தோன்றுகிறது.</target>
       </trans-unit>
       <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
@@ -21208,111 +21241,53 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="help.jsp.about.summary">
-        <source>@@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network. Through a simple user interface, administrators can perform patch management, updates, monitoring, and maintenance. And because @@PRODUCT_NAME@@ is Web-based, it can be accessed from anywhere. @@PRODUCT_NAME@@ or Proxy server options provide advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.</source>
+        <source>
+        @@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network.
+        Through a simple user interface, administrators can perform patch management, updates, and maintenance.
+        @@PRODUCT_NAME@@ provides advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.
+        </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.modules">
-        <source>Modules</source>
+
+      <trans-unit id="help.jsp.about.overview">
+        <source>Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.modulessummary">
-        <source>@@PRODUCT_NAME@@ currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive @@PRODUCT_NAME@@ services and functionality. &lt;a href="http://www.redhat.com/software/rhn/purchase/" target="_blank"&gt;Learn more&lt;/a&gt;.</source>
+      <trans-unit id="help.jsp.about.overviewsummary">
+        <source>
+        All @@PRODUCT_NAME@@ functionality (system profiles, reporting data, application server, etc.)
+        is stored locally on the customer's network. This provides customers with the ability to take their
+        @@PRODUCT_NAME@@ solution off of the public internet if desired, and also allows for greater
+        optimization and control of their systems.
+        By using a @@PRODUCT_NAME@@ Proxy server in conjunction with the @@PRODUCT_NAME@@ server,
+        the customer's individual systems connect to a locally hosted Proxy.
+        The Proxy aggregates data and performs some tasks locally, communicating with the central @@PRODUCT_NAME@@ servers.
+        All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.update">
-        <source>Update Module</source>
+      <trans-unit id="help.jsp.about.5_8">
+        <source>About Red Hat Satellite 5.8</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.updatesummary">
-        <source>Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and &lt;a href="http://www.redhat.com/rhn/rhndetails/update/" target="_blank"&gt;more&lt;/a&gt;.</source>
+      <trans-unit id="help.jsp.about.5_8summary">
+        <source>
+        Uniquely for Red Hat Satellite 5.8, this version has been re-tooled to communicate with the successor to the
+        Red Hat Network (RHN) - the Red Hat Customer Portal and Content Delivery Network (CDN).
+        Red Hat Satellite 5.8 now synchronizes content exclusively from the CDN, and no content is synchronized from RHN.
+        </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.management">
-        <source>Management Module</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.managementsummary">
-        <source>The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with @@PRODUCT_NAME@@), and more.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.provisioning">
-        <source>Provisioning Module</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.provisioningsummary">
-        <source>The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and more.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.architectures">
-        <source>Architectures</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.architecturessummary">
-        <source>@@PRODUCT_NAME@@ has three types of architectures:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.hosted">
-        <source>Hosted model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.hostedsummary">
-        <source>The customer's indivdual systems connect with RHN via the internet and exchange packages and information with the central RHN servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.proxy">
-        <source>Proxy model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.proxysummary">
-        <source>The customer's individual systems connect to a locally hosted (on the customer network) @@PRODUCT_NAME@@ Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central @@PRODUCT_NAME@@ servers. All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.satellite">
-        <source>@@PRODUCT_NAME@@ model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.satellitesummary">
-        <source>All @@PRODUCT_NAME@@ functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The @@PRODUCT_NAME@@ Server connects with @@PRODUCT_NAME@@ over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their @@PRODUCT_NAME@@ solution off the public internet if desired, and also allows for greater optimization and control of your systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.refguide">
-        <source>@@PRODUCT_NAME@@ Reference Guide</source>
-        <target>@@PRODUCT_NAME@@ குறிப்பு கையேடு</target>
-      </trans-unit>
+
       <trans-unit id="help.jsp.helpdesk">
         <source>Welcome to the Help Desk</source>
         <target>Help Deskக்கு வருக</target>
@@ -21320,10 +21295,6 @@ given channel.</source>
       <trans-unit id="help.jsp.translation">
         <source>(Translations available)</source>
         <target>(இருக்கும் மொழிபெயர்ப்புகள்)</target>
-      </trans-unit>
-      <trans-unit id="help.jsp.detailed">
-        <source>Detailed instructions for using RHN service.</source>
-        <target>RHN சேவையை பயன்படுத்த விரிவான தகவல்கள்.</target>
       </trans-unit>
       <trans-unit id="help.jsp.install">
         <source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
@@ -21497,7 +21468,7 @@ given channel.</source>
         <source>Compare Packages</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.comparemessage">
-        <source>You can compare the packages in this channel with another channel. Select the channel which you would like to compare from the list below, and click 'View Packages'.</source>
+        <source>Compare packages in the current channel with packages from another channel. Only the latest version of packages will be compared. Choose a channel from the list below then select 'View Packages'.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.compareto">
         <source>Compare to</source>
@@ -23150,11 +23121,17 @@ given channel.</source>
       <trans-unit id="debuginfo.header">
         <source>DebugInfo Package</source>
       </trans-unit>
+      <trans-unit id="debugsource.header">
+        <source>DebugSource Package</source>
+      </trans-unit>
       <trans-unit id="debuginfo.external">
         <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
       </trans-unit>
       <trans-unit id="debuginfo.unavailable">
-        <source>If available, an appropriate debuginfo package can be downloaded from the Red Hat Customer Portal or by running the satellite-sync command from the respective debuginfo child channel. Note: Not all packages have published debuginfo packages.</source>
+        <source>If available, an appropriate debuginfo package can be synced from the respective debug channel or repository. Note: Not all packages have published debuginfo packages.</source>
+      </trans-unit>
+      <trans-unit id="debugsource.unavailable">
+        <source>If available, an appropriate debugsource package can be synced from the respective debug channel or repository. Note: Not all packages have published debugsource packages.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.changelog.title">
         <source>Change Log</source>
@@ -23529,7 +23506,7 @@ given channel.</source>
         <trans-unit id="iss.error.master.exists">
           <source>Master with domain name {0} already defined</source>
         </trans-unit>
-        
+
       </group>
       <group>
         <context-group name="ctx">

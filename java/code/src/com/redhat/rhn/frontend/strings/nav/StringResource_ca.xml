@@ -330,7 +330,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-        <target>Fitxers gestionats de manera centalitzada</target>
+        <target>Fitxers gestionats de manera centralitzada</target>
       </trans-unit>
       <trans-unit id="config.nav.localfiles">
         <source>Locally Managed Files</source>

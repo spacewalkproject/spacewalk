@@ -9009,6 +9009,12 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
         <source>A Custom Key label and description must be at least two characters long.</source>
         <target>La descrizione e l'etichetta di una chiave personalizzata devono essere lunghi almento due caratteri.</target>
       </trans-unit>
+      <trans-unit id="system.customkey.error.toolong">
+        <source>A Custom Key label can only be 64 characters long at maximum.</source>
+      </trans-unit>
+      <trans-unit id="system.customkey.error.descr_toolong">
+        <source>A Custom Key description can only be 4000 characters long at maximum.</source>
+      </trans-unit>
       <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
         <target>Una etichetta per la chiave personalizzata deve contenere solo lettere, numeri, trattini (-) e linee (_).</target>
@@ -9016,6 +9022,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
         <target>È stata aggiunta con successo 1 chiave personalizzata.</target>
+      </trans-unit>
+      <trans-unit id="system.customkey.deletesuccess">
+        <source>Successfully deleted 1 custom key.</source>
       </trans-unit>
       <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
@@ -9193,6 +9202,9 @@ Seguite l'url sotto riportato per visualizzare l'elenco completo di sistemi inat
       <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
         <target>Canale &lt;strong&gt;{0}&lt;/strong&gt; aggiornato.</target>
+      </trans-unit>
+      <trans-unit id="message.failactionsuccess">
+        <source>Status of action &lt;strong&gt;{0}&lt;/strong&gt; has been set to failed.</source>
       </trans-unit>
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
