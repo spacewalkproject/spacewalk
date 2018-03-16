@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:35-0400\n"
+"POT-Creation-Date: 2018-03-16 14:29+0100\n"
 "PO-Revision-Date: 2016-02-17 11:10-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan) <trans-zh_TW@lists.fedoraproject.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../src/up2date_client/capabilities.py:88
+#: ../src/up2date_client/capabilities.py:87
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -89,21 +89,13 @@ msgstr "讀取安裝方法的資訊時發生問題："
 msgid "Error reading network interface information:"
 msgstr "讀取網路介面資訊時發生問題："
 
-#: ../src/up2date_client/messageWindow.py:98
+#: ../src/up2date_client/messageWindow.py:97
 msgid "Error:"
 msgstr "錯誤："
 
-#: ../src/up2date_client/messageWindow.py:105
+#: ../src/up2date_client/messageWindow.py:104
 msgid "Yes/No dialog:"
 msgstr "「是/否」對話窗："
-
-#: ../src/up2date_client/rhnChannel.py:96
-msgid "Unable to Locate SystemId"
-msgstr "找不到 SystemId"
-
-#: ../src/up2date_client/rhnChannel.py:113
-msgid "This system may not be updated until it is associated with a channel."
-msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -197,6 +189,14 @@ msgstr "發生錯誤:"
 #: ../src/up2date_client/rhncli.py:235
 msgid "See /var/log/up2date for more information"
 msgstr "如需更多資料，請瀏覽 /var/log/up2date"
+
+#: ../src/up2date_client/rhnChannel.py:96
+msgid "Unable to Locate SystemId"
+msgstr "找不到 SystemId"
+
+#: ../src/up2date_client/rhnChannel.py:113
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
@@ -361,7 +361,7 @@ msgid "Red Hat Login:"
 msgstr "Red Hat 登入："
 
 #: ../src/up2date_client/rhnreg_constants.py:73
-#: ../src/up2date_client/tui.py:128
+#: ../src/up2date_client/tui.py:127
 msgid "Login:"
 msgstr "登入名稱："
 
@@ -889,12 +889,12 @@ msgstr ""
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:319
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "OK"
 msgstr "確定"
 
 #: ../src/up2date_client/rhnreg_constants.py:320
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "Error"
 msgstr "錯誤"
 
@@ -1045,8 +1045,8 @@ msgstr "註冊系統"
 
 #: ../src/up2date_client/rhnregGui.py:794
 #: ../src/up2date_client/rhnregGui.py:798
-#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:881
-#: ../src/up2date_client/tui.py:884 ../src/up2date_client/tui.py:887
+#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:880
+#: ../src/up2date_client/tui.py:883 ../src/up2date_client/tui.py:886
 msgid "Problem registering system:\n"
 msgstr "註冊系統發生問題：\n"
 
@@ -1057,11 +1057,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr "您提供的安裝號碼 [ %s ] 是無效的安裝號碼。請回到上一個畫面並修正之。"
 
-#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:893
+#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:892
 msgid "Problem registering system."
 msgstr "註冊系統時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:898
+#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:897
 msgid "Problem writing out system id to disk."
 msgstr "寫入系統 ID 到磁碟發生問題。"
 
@@ -1094,7 +1094,7 @@ msgstr "傳送套件資訊"
 msgid "Problem sending package information."
 msgstr "傳送套件訊息時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:971
+#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:970
 msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
@@ -1103,14 +1103,14 @@ msgstr ""
 "yum-rhn-plugin 未啟用。\n"
 
 #: ../src/up2date_client/rhnregGui.py:925
-#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:912
-#: ../src/up2date_client/tui.py:926
+#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:911
+#: ../src/up2date_client/tui.py:925
 msgid "Problem registering personal information:\n"
 msgstr "註冊個人資訊發生問題：\n"
 
 #: ../src/up2date_client/rhnregGui.py:930
-#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:918
-#: ../src/up2date_client/tui.py:930
+#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:917
+#: ../src/up2date_client/tui.py:929
 msgid "Problem registering personal information"
 msgstr "註冊個人資訊發生問題"
 
@@ -1145,7 +1145,7 @@ msgstr "未知的"
 msgid "There was an error getting the list of hardware."
 msgstr "取得硬體清單時發生了錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:678
+#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:677
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
@@ -1215,86 +1215,86 @@ msgstr "連線被使用者中斷"
 msgid "Server has refused connection due to high load"
 msgstr "由於負載太大，伺服器拒絕連線"
 
-#: ../src/up2date_client/tui.py:127
+#: ../src/up2date_client/tui.py:126
 msgid "Red Hat Network Location:"
 msgstr "Red Hat Network 的位置："
 
-#: ../src/up2date_client/tui.py:129
+#: ../src/up2date_client/tui.py:128
 msgid "System ID:"
 msgstr "系統 ID："
 
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "The server indicated an error:\n"
 msgstr "伺服器指出有錯誤發生：\n"
 
-#: ../src/up2date_client/tui.py:427
+#: ../src/up2date_client/tui.py:426
 msgid "There was an error communicating with the registration server:\n"
 msgstr "連接註冊伺服器時發生了錯誤：\n"
 
-#: ../src/up2date_client/tui.py:627
+#: ../src/up2date_client/tui.py:626
 msgid "Profile name:"
 msgstr "資料檔名稱："
 
-#: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
+#: ../src/up2date_client/tui.py:648 ../src/up2date_client/tui.py:649
 msgid "Version: "
 msgstr "版本："
 
-#: ../src/up2date_client/tui.py:656
+#: ../src/up2date_client/tui.py:655
 msgid "CPU model: "
 msgstr "處理器型號："
 
-#: ../src/up2date_client/tui.py:662
+#: ../src/up2date_client/tui.py:661
 msgid "Hostname: "
 msgstr "主機名稱："
 
-#: ../src/up2date_client/tui.py:674
+#: ../src/up2date_client/tui.py:673
 msgid "CPU speed: "
 msgstr "處理器速度："
 
-#: ../src/up2date_client/tui.py:680
+#: ../src/up2date_client/tui.py:679
 msgid "IP Address: "
 msgstr "IP 位址："
 
-#: ../src/up2date_client/tui.py:689
+#: ../src/up2date_client/tui.py:688
 msgid "Memory: "
 msgstr "記憶體："
 
-#: ../src/up2date_client/tui.py:693
+#: ../src/up2date_client/tui.py:692
 #, python-format
 msgid "%s megabytes"
 msgstr "%s MB"
 
-#: ../src/up2date_client/tui.py:940
+#: ../src/up2date_client/tui.py:939
 msgid "Problem sending hardware profile:\n"
 msgstr "傳送硬體資料檔發生問題：\n"
 
-#: ../src/up2date_client/tui.py:944
+#: ../src/up2date_client/tui.py:943
 msgid "Problem sending hardware profile."
 msgstr "傳送硬體資料檔發生問題。"
 
-#: ../src/up2date_client/tui.py:953
+#: ../src/up2date_client/tui.py:952
 msgid "Problem sending package list:\n"
 msgstr "傳送套件清單發生問題：\n"
 
-#: ../src/up2date_client/tui.py:956
+#: ../src/up2date_client/tui.py:955
 msgid "Problem sending package list."
 msgstr "傳送套件清單發生問題。"
 
-#: ../src/up2date_client/tui.py:1009
+#: ../src/up2date_client/tui.py:1008
 msgid "Finish"
 msgstr "完成"
 
-#: ../src/up2date_client/tui.py:1127
+#: ../src/up2date_client/tui.py:1126
 #, fuzzy
 msgid "You specified an invalid protocol.Only https and http are allowed."
 msgstr "您指定了不合規定的通訊協定。請使用 https 或 http。"
 
-#: ../src/up2date_client/tui.py:1161
+#: ../src/up2date_client/tui.py:1160
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
 
-#: ../src/up2date_client/tui.py:1258
+#: ../src/up2date_client/tui.py:1257
 msgid "You must run the RHN registration program as root."
 msgstr "您必須是 root 才能執行 RHN 註冊程式。"
 
@@ -1379,22 +1379,6 @@ msgstr ""
 "    一組帳號上為全域預設值，您可停用這組金鑰，並重新嘗試以避免\n"
 "    需要使用到 Management 權利。"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:41
-#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
-msgid "Choose Server"
-msgstr "選擇伺服器"
-
-#: ../src/firstboot/rhn_choose_server_gui.py:66
-#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
-msgid "Red Hat Login"
-msgstr "Red Hat 登入："
-
-#: ../src/firstboot/rhn_choose_server_gui.py:71
-#: ../src/firstboot/rhn_provide_certificate_gui.py:40
-#: ../src/firstboot/rhn_provide_certificate_gui.py:41
-msgid "Provide Certificate"
-msgstr "提供認證"
-
 #: ../src/firstboot/rhn_create_profile_gui.py:41
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_login_gui.py:70
@@ -1421,6 +1405,22 @@ msgstr "連接伺服器時發生錯誤："
 #: ../src/firstboot/rhn_login_gui.py:100
 msgid "Would you like to go back and try again?"
 msgstr "您希望返回並重新嘗試嗎？"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:41
+#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
+msgid "Choose Server"
+msgstr "選擇伺服器"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:66
+#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
+msgid "Red Hat Login"
+msgstr "Red Hat 登入："
+
+#: ../src/firstboot/rhn_choose_server_gui.py:71
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+#: ../src/firstboot/rhn_provide_certificate_gui.py:41
+msgid "Provide Certificate"
+msgstr "提供認證"
 
 #: ../src/firstboot/rhn_register.py:28 ../src/firstboot/rhn_register.py:29
 #: ../src/firstboot/rhn_start_gui.py:42 ../src/firstboot/rhn_start_gui.py:43

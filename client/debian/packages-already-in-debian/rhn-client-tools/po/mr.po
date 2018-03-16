@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:35-0400\n"
+"POT-Creation-Date: 2018-03-16 14:29+0100\n"
 "PO-Revision-Date: 2016-02-17 11:02-0500\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Marathi (http://www.transifex.net/projects/p/fedora/language/"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../src/up2date_client/capabilities.py:88
+#: ../src/up2date_client/capabilities.py:87
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -87,21 +87,13 @@ msgstr "प्रतिष्ठापन पद्धती माहिती 
 msgid "Error reading network interface information:"
 msgstr "संजाळ इंटरफेस माहिती वाचण्यात चूक:"
 
-#: ../src/up2date_client/messageWindow.py:98
+#: ../src/up2date_client/messageWindow.py:97
 msgid "Error:"
 msgstr "चूक:"
 
-#: ../src/up2date_client/messageWindow.py:105
+#: ../src/up2date_client/messageWindow.py:104
 msgid "Yes/No dialog:"
 msgstr "होय/नाही संवाद:"
-
-#: ../src/up2date_client/rhnChannel.py:96
-msgid "Unable to Locate SystemId"
-msgstr "SystemId शोधण्यास अशक्य"
-
-#: ../src/up2date_client/rhnChannel.py:113
-msgid "This system may not be updated until it is associated with a channel."
-msgstr "एखाद्या वाहिनीशी संबंधित केल्याशिवाय प्रणाली कदाचित अद्ययावत होऊ शकणार नाही."
 
 #: ../src/up2date_client/rhncli.py:70
 msgid "Show additional output"
@@ -196,6 +188,14 @@ msgstr "चूक उद्भवली आहे:"
 #: ../src/up2date_client/rhncli.py:235
 msgid "See /var/log/up2date for more information"
 msgstr "अधिक माहितीसाठी /var/log/up2date पहा"
+
+#: ../src/up2date_client/rhnChannel.py:96
+msgid "Unable to Locate SystemId"
+msgstr "SystemId शोधण्यास अशक्य"
+
+#: ../src/up2date_client/rhnChannel.py:113
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "एखाद्या वाहिनीशी संबंधित केल्याशिवाय प्रणाली कदाचित अद्ययावत होऊ शकणार नाही."
 
 #: ../src/up2date_client/rhnreg_constants.py:14
 msgid "Copyright © 2006--2010 Red Hat, Inc. All rights reserved."
@@ -367,7 +367,7 @@ msgid "Red Hat Login:"
 msgstr "Red Hat लॉगीन:"
 
 #: ../src/up2date_client/rhnreg_constants.py:73
-#: ../src/up2date_client/tui.py:128
+#: ../src/up2date_client/tui.py:127
 msgid "Login:"
 msgstr "लॉगीन:"
 
@@ -924,12 +924,12 @@ msgstr ""
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:319
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "OK"
 msgstr "ठीक"
 
 #: ../src/up2date_client/rhnreg_constants.py:320
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "Error"
 msgstr "चूक"
 
@@ -1084,8 +1084,8 @@ msgstr "प्रणाली नोंदवत आहे"
 
 #: ../src/up2date_client/rhnregGui.py:794
 #: ../src/up2date_client/rhnregGui.py:798
-#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:881
-#: ../src/up2date_client/tui.py:884 ../src/up2date_client/tui.py:887
+#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:880
+#: ../src/up2date_client/tui.py:883 ../src/up2date_client/tui.py:886
 msgid "Problem registering system:\n"
 msgstr "प्रणाली नोंदवण्यात समस्या:\n"
 
@@ -1098,11 +1098,11 @@ msgstr ""
 "पुरवलेला प्रतिष्ठापना क्रमांक [ %s ] वैध सभासदत्व क्रमांक नाही. कृपया मागील स्क्रीनवर परत "
 "जा आणि हे ठीक करा."
 
-#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:893
+#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:892
 msgid "Problem registering system."
 msgstr "प्रणाली नोंदवण्यात समस्या."
 
-#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:898
+#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:897
 msgid "Problem writing out system id to disk."
 msgstr "प्रणाली id डिस्कवर लिहीण्यात समस्या."
 
@@ -1135,7 +1135,7 @@ msgstr "संकुल माहिती पाठवत आहे"
 msgid "Problem sending package information."
 msgstr "संकुल माहिती पाठवण्यात समस्या."
 
-#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:971
+#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:970
 msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
@@ -1144,14 +1144,14 @@ msgstr ""
 "yum-rhn-plugin सुरू नाही.\n"
 
 #: ../src/up2date_client/rhnregGui.py:925
-#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:912
-#: ../src/up2date_client/tui.py:926
+#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:911
+#: ../src/up2date_client/tui.py:925
 msgid "Problem registering personal information:\n"
 msgstr "वय्यक्तिक माहिती नोंदवण्यात समस्या:\n"
 
 #: ../src/up2date_client/rhnregGui.py:930
-#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:918
-#: ../src/up2date_client/tui.py:930
+#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:917
+#: ../src/up2date_client/tui.py:929
 msgid "Problem registering personal information"
 msgstr "वय्यक्तिक माहिती नोंदवण्यात समस्या"
 
@@ -1186,7 +1186,7 @@ msgstr "अपरिचित"
 msgid "There was an error getting the list of hardware."
 msgstr "हार्डवेअर सूची प्राप्त करतेवेळी त्रुटी आढळली."
 
-#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:678
+#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:677
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
@@ -1260,86 +1260,86 @@ msgstr "जोडणी उपयोक्त्याद्वारे सो�
 msgid "Server has refused connection due to high load"
 msgstr "अति भारामुळे सेवकाने जोडणी नाकारली आहे"
 
-#: ../src/up2date_client/tui.py:127
+#: ../src/up2date_client/tui.py:126
 msgid "Red Hat Network Location:"
 msgstr "Red Hat Network ठिकाण:"
 
-#: ../src/up2date_client/tui.py:129
+#: ../src/up2date_client/tui.py:128
 msgid "System ID:"
 msgstr "प्रणाली ID:"
 
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "The server indicated an error:\n"
 msgstr "सेवकाने चूक दर्शवली:\n"
 
-#: ../src/up2date_client/tui.py:427
+#: ../src/up2date_client/tui.py:426
 msgid "There was an error communicating with the registration server:\n"
 msgstr "नोंदणी सर्व्हरशी संपर्क करतेवेळी त्रुटी आढळली:\n"
 
-#: ../src/up2date_client/tui.py:627
+#: ../src/up2date_client/tui.py:626
 msgid "Profile name:"
 msgstr "प्रोफाइल नाव:"
 
-#: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
+#: ../src/up2date_client/tui.py:648 ../src/up2date_client/tui.py:649
 msgid "Version: "
 msgstr "आवृत्ती:"
 
-#: ../src/up2date_client/tui.py:656
+#: ../src/up2date_client/tui.py:655
 msgid "CPU model: "
 msgstr "CPU नमुना:"
 
-#: ../src/up2date_client/tui.py:662
+#: ../src/up2date_client/tui.py:661
 msgid "Hostname: "
 msgstr "यजमाननाम:"
 
-#: ../src/up2date_client/tui.py:674
+#: ../src/up2date_client/tui.py:673
 msgid "CPU speed: "
 msgstr "CPU वेग:"
 
-#: ../src/up2date_client/tui.py:680
+#: ../src/up2date_client/tui.py:679
 msgid "IP Address: "
 msgstr "IP पत्ता:"
 
-#: ../src/up2date_client/tui.py:689
+#: ../src/up2date_client/tui.py:688
 msgid "Memory: "
 msgstr "स्मृती:"
 
-#: ../src/up2date_client/tui.py:693
+#: ../src/up2date_client/tui.py:692
 #, python-format
 msgid "%s megabytes"
 msgstr "%s मेगाबाइट्स"
 
-#: ../src/up2date_client/tui.py:940
+#: ../src/up2date_client/tui.py:939
 msgid "Problem sending hardware profile:\n"
 msgstr "हार्डवेयर प्रोफाइल पाठवण्यात समस्या:\n"
 
-#: ../src/up2date_client/tui.py:944
+#: ../src/up2date_client/tui.py:943
 msgid "Problem sending hardware profile."
 msgstr "हार्डवेयर प्रोफाइल पाठवण्यात समस्या."
 
-#: ../src/up2date_client/tui.py:953
+#: ../src/up2date_client/tui.py:952
 msgid "Problem sending package list:\n"
 msgstr "संकुल यादी पाठवण्यात समस्या:\n"
 
-#: ../src/up2date_client/tui.py:956
+#: ../src/up2date_client/tui.py:955
 msgid "Problem sending package list."
 msgstr "संकुल यादी पाठवण्यात समस्या."
 
-#: ../src/up2date_client/tui.py:1009
+#: ../src/up2date_client/tui.py:1008
 msgid "Finish"
 msgstr "समाप्त"
 
-#: ../src/up2date_client/tui.py:1127
+#: ../src/up2date_client/tui.py:1126
 #, fuzzy
 msgid "You specified an invalid protocol.Only https and http are allowed."
 msgstr "तुम्ही एक अवैध प्रोटोकॉल दर्शवला. फक्त https आणि http यांनाच परवानगी आहे."
 
-#: ../src/up2date_client/tui.py:1161
+#: ../src/up2date_client/tui.py:1160
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> तत्वांदरम्यान |  <Space> निवडतो  |  <F12> पुढील पटल"
 
-#: ../src/up2date_client/tui.py:1258
+#: ../src/up2date_client/tui.py:1257
 msgid "You must run the RHN registration program as root."
 msgstr "RHN नोंदणी कार्यक्रम तुम्ही रूटद्वारेच चालवला पाहिजे."
 
@@ -1427,22 +1427,6 @@ msgstr ""
 "    म्हणून ठरवल्यास, व्यवस्थापन हक्कांची आवश्यकता टाळण्यासाठी हि कि\n"
 "    अकार्यान्वीत करून पुनः प्रयत्न करा."
 
-#: ../src/firstboot/rhn_choose_server_gui.py:41
-#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
-msgid "Choose Server"
-msgstr "सेवक निवडा"
-
-#: ../src/firstboot/rhn_choose_server_gui.py:66
-#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
-msgid "Red Hat Login"
-msgstr "Red Hat लॉगीन"
-
-#: ../src/firstboot/rhn_choose_server_gui.py:71
-#: ../src/firstboot/rhn_provide_certificate_gui.py:40
-#: ../src/firstboot/rhn_provide_certificate_gui.py:41
-msgid "Provide Certificate"
-msgstr "प्रमाणपत्र पुरवा"
-
 #: ../src/firstboot/rhn_create_profile_gui.py:41
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_login_gui.py:70
@@ -1469,6 +1453,22 @@ msgstr "सर्व्हरशी संपर्क त्रुटी आढ
 #: ../src/firstboot/rhn_login_gui.py:100
 msgid "Would you like to go back and try again?"
 msgstr "पूर्वस्थितीत जाऊन तुम्हाला पुन: प्रयत्न करायचे?"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:41
+#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
+msgid "Choose Server"
+msgstr "सेवक निवडा"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:66
+#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
+msgid "Red Hat Login"
+msgstr "Red Hat लॉगीन"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:71
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+#: ../src/firstboot/rhn_provide_certificate_gui.py:41
+msgid "Provide Certificate"
+msgstr "प्रमाणपत्र पुरवा"
 
 #: ../src/firstboot/rhn_register.py:28 ../src/firstboot/rhn_register.py:29
 #: ../src/firstboot/rhn_start_gui.py:42 ../src/firstboot/rhn_start_gui.py:43
