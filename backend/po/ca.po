@@ -1,10 +1,11 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-13 14:36-0400\n"
-"PO-Revision-Date: 2015-10-18 04:09-0400\n"
+"PO-Revision-Date: 2018-02-24 11:38-0500\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
@@ -81,7 +82,7 @@ msgstr "No esteu autoritzat per realitzar les tasques administratives"
 msgid ""
 "You are not allowed to manage channel %s, or that channel does not exist"
 msgstr ""
-"No esteu autoritzat per gestionar el canal %s, o no exeisteix aquest canal"
+"No esteu autoritzat per gestionar el canal %s, o no existeix aquest canal"
 
 #: ../server/handlers/sat/auth.py:45
 msgid "ISS is disabled on this satellite."
@@ -860,7 +861,7 @@ msgstr "Error de permís"
 
 #: ../common/rhnException.py:231
 msgid "Content missing for configuration file"
-msgstr "Falta contingut per al fitxer de confguració"
+msgstr "Falta contingut per al fitxer de configuració"
 
 #: ../common/rhnException.py:232
 msgid "Template delimiters not specified"

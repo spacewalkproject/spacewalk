@@ -6,12 +6,13 @@
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004, 2005.
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-13 14:35-0400\n"
-"PO-Revision-Date: 2015-10-18 03:34-0400\n"
+"PO-Revision-Date: 2018-02-24 11:40-0500\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan <fedora@llistes.softcatala.org>\n"
 "Language: ca\n"
@@ -861,7 +862,7 @@ msgstr ""
 #: ../src/up2date_client/rhnreg_constants.py:266
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
-msgstr "Arquitectura: %s, Llanament del SO: %s, Versió del SO: %s"
+msgstr "Arquitectura: %s, Llançament del SO: %s, Versió del SO: %s"
 
 #: ../src/up2date_client/rhnreg_constants.py:268
 msgid ""
@@ -1701,7 +1702,7 @@ msgstr "la vostra contrasenya"
 #: ../src/bin/spacewalk-channel.py:81
 msgid "ERROR: these arguments make no sense in this context (try --help)"
 msgstr ""
-"ERROR: aquests arguments no tenen sentit en aquest context (poveu --help)"
+"ERROR: aquests arguments no tenen sentit en aquest context (proveu --help)"
 
 #: ../src/bin/spacewalk-channel.py:83
 msgid "Username: "

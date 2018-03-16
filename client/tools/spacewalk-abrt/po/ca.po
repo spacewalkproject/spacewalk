@@ -25,6 +25,7 @@ msgstr ""
 "especificat"
 
 #: ../src/bin/spacewalk-abrt:47
+#, fuzzy
 msgid "Synchronize missing problem directories"
 msgstr "Sincronitza els directoris dels problemes restants"
 
