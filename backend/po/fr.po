@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:36-0400\n"
+"POT-Creation-Date: 2018-03-16 14:32+0100\n"
 "PO-Revision-Date: 2015-03-17 08:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
@@ -27,6 +27,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Zanata 3.9.6\n"
+
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr "Service désactivé pour le profil de système : \"%s\""
+
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr "Paquet RPM %s demandé invalide"
+
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr "Paquet non trouvé"
+
+#: ../server/handlers/applet/applet.py:78
+msgid "Your system was not found in the RHN database"
+msgstr "Votre système n'a pas été trouvé dans la base de données RHN"
+
+#: ../server/handlers/xmlrpc/proxy.py:63
+#, fuzzy, python-format
+msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
+msgstr "Service RHN Proxy non activé pour le profil de serveur : \"%s\""
+
+#: ../server/handlers/xmlrpc/proxy.py:83
+msgid "Invalid session key"
+msgstr "Clé de session invalide"
+
+#: ../server/handlers/xmlrpc/proxy.py:91
+msgid "This server ID no longer exists"
+msgstr "Cet identifiant de serveur n'existe plus"
+
+#: ../server/handlers/xmlrpc/registration.py:202
+msgid "Required data missing"
+msgstr "Données requises manquantes"
+
+#: ../server/handlers/xmlrpc/registration.py:206
+msgid "Required members missing"
+msgstr "Membres requis manquantes"
+
+#: ../server/handlers/xmlrpc/registration.py:215
+msgid "Attempt to register a system to an invalid username"
+msgstr "Essai d'enregistrer un système avec un nom d'utilisateur invalide"
+
+#: ../server/handlers/xmlrpc/registration.py:223
+#, python-format
+msgid ""
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr ""
+"\n"
+"                   Le compte %s a été désactivé sur ce serveur.\n"
+"                   Veuillez contacter votre administrateur d'organisation "
+"pour plus d'assistance."
+
+#: ../server/handlers/xmlrpc/registration.py:827
+msgid "Invalid system release version requested"
+msgstr "Version de système demandée invalide"
+
+#: ../server/handlers/xmlrpc/registration.py:1059
+#, fuzzy
+msgid "Red Hat Satellite Welcome Message"
+msgstr "Message de bienvenue de Red Hat Network"
+
+#: ../server/handlers/xmlrpc/registration.py:1069
+#, fuzzy
+msgid "Red Hat Satellite Privacy Statement"
+msgstr "Déclaration de respect de la vie privée de Red Hat Network"
+
+#: ../server/handlers/xmlrpc/registration.py:1090
+msgid "Expected a dictionary as a product argument"
+msgstr "J'attendais un dictionnaire en tant qu'arguement produit"
+
+#: ../server/handlers/xmlrpc/registration.py:1300
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr "Valeur incorrecte '%s' pour %s (%s)"
+
+#: ../server/handlers/xmlrpc/errata.py:62
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr "Nom de paquet attendu, pas : %s"
+
+#: ../server/handlers/xmlrpc/errata.py:113
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr "Paquet attendu, pas : %s"
+
+#: ../server/handlers/xmlrpc/queue.py:434
+#, python-format
+msgid "Invalid action value type %s (%s)"
+msgstr "Type d'action %s invalide (%s)"
+
+#: ../server/handlers/xmlrpc/queue.py:459
+#, python-format
+msgid "Action %s does not belong to server %s"
+msgstr "L'action %s n'appartient pas au serveur %s"
+
+#: ../server/handlers/xmlrpc/scap.py:89
+#, fuzzy
+msgid "Invalid system_id/action_id pair."
+msgstr "Informations d'identification du système invalides."
+
+#: ../server/handlers/xmlrpc/up2date.py:234
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr "Valeur %s invalide (%s)"
+
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
+msgstr "ISS est désactivé sur ce satellite."
+
+#: ../server/handlers/sat/auth.py:50
+#, python-format
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr "Serveur \"%s\" n'est pas autorisé pour ISS."
 
 #: ../server/rhnServer/server_token.py:77
 #, python-format
@@ -78,201 +200,6 @@ msgstr "L'empilement de jetons de réenregistrement n'est pas supporté"
 #, python-format
 msgid "Architecture `%s' is not supported"
 msgstr "L'architecture `%s' n'est pas supportée"
-
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr ""
-"Vous n'êtes pas autorisé à administrer les paquets de l'organisation null"
-
-#: ../server/importlib/userAuth.py:103
-#, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr ""
-"Vous n'êtes pas autorisé à administrer les paquets de l'organisation %s"
-
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr "Vous n'êtes pas autorisé à réaliser des tâches d'administration"
-
-#: ../server/importlib/userAuth.py:144
-#, python-format
-msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
-msgstr ""
-"Vous n'êtes pas autorisé à administrer le canal %s, ou ce canal n'existe pas"
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr "ISS est désactivé sur ce satellite."
-
-#: ../server/handlers/sat/auth.py:50
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr "Serveur \"%s\" n'est pas autorisé pour ISS."
-
-#: ../server/handlers/xmlrpc/queue.py:434
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr "Type d'action %s invalide (%s)"
-
-#: ../server/handlers/xmlrpc/queue.py:459
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr "L'action %s n'appartient pas au serveur %s"
-
-#: ../server/handlers/xmlrpc/scap.py:89
-#, fuzzy
-msgid "Invalid system_id/action_id pair."
-msgstr "Informations d'identification du système invalides."
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr "Nom de paquet attendu, pas : %s"
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr "Paquet attendu, pas : %s"
-
-#: ../server/handlers/xmlrpc/up2date.py:234
-#, python-format
-msgid "Invalid value %s (%s)"
-msgstr "Valeur %s invalide (%s)"
-
-#: ../server/handlers/xmlrpc/registration.py:202
-msgid "Required data missing"
-msgstr "Données requises manquantes"
-
-#: ../server/handlers/xmlrpc/registration.py:206
-msgid "Required members missing"
-msgstr "Membres requis manquantes"
-
-#: ../server/handlers/xmlrpc/registration.py:215
-msgid "Attempt to register a system to an invalid username"
-msgstr "Essai d'enregistrer un système avec un nom d'utilisateur invalide"
-
-#: ../server/handlers/xmlrpc/registration.py:223
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-"\n"
-"                   Le compte %s a été désactivé sur ce serveur.\n"
-"                   Veuillez contacter votre administrateur d'organisation "
-"pour plus d'assistance."
-
-#: ../server/handlers/xmlrpc/registration.py:827
-msgid "Invalid system release version requested"
-msgstr "Version de système demandée invalide"
-
-#: ../server/handlers/xmlrpc/registration.py:1059
-#, fuzzy
-msgid "Red Hat Satellite Welcome Message"
-msgstr "Message de bienvenue de Red Hat Network"
-
-#: ../server/handlers/xmlrpc/registration.py:1069
-#, fuzzy
-msgid "Red Hat Satellite Privacy Statement"
-msgstr "Déclaration de respect de la vie privée de Red Hat Network"
-
-#: ../server/handlers/xmlrpc/registration.py:1090
-msgid "Expected a dictionary as a product argument"
-msgstr "J'attendais un dictionnaire en tant qu'arguement produit"
-
-#: ../server/handlers/xmlrpc/registration.py:1300
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr "Valeur incorrecte '%s' pour %s (%s)"
-
-#: ../server/handlers/xmlrpc/proxy.py:63
-#, fuzzy, python-format
-msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr "Service RHN Proxy non activé pour le profil de serveur : \"%s\""
-
-#: ../server/handlers/xmlrpc/proxy.py:83
-msgid "Invalid session key"
-msgstr "Clé de session invalide"
-
-#: ../server/handlers/xmlrpc/proxy.py:91
-msgid "This server ID no longer exists"
-msgstr "Cet identifiant de serveur n'existe plus"
-
-#: ../server/handlers/applet/applet.py:78
-msgid "Your system was not found in the RHN database"
-msgstr "Votre système n'a pas été trouvé dans la base de données RHN"
-
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
-#, python-format
-msgid "Invalid RPM package %s requested"
-msgstr "Paquet RPM %s demandé invalide"
-
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr "Paquet non trouvé"
-
-#: ../server/rhnUser.py:289 ../server/rhnUser.py:292
-msgid "Invalid username/password combination"
-msgstr "Combinaison utilisateur/mot de passe invalide"
-
-#. nope, not reserved either
-#: ../server/rhnUser.py:468
-#, python-format
-msgid "Username `%s' has not been reserved"
-msgstr "Le nom d'utilisateur `%s' n'a pas été réservé"
-
-#. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:474
-msgid "E-mail address not specified"
-msgstr "Adresse courriel non spécifiée"
-
-#: ../server/rhnUser.py:510
-#, python-format
-msgid "username should be at least %d characters"
-msgstr "Le nom d'utilisateur doit comporter au moins %d caractères"
-
-#: ../server/rhnUser.py:513
-#, python-format
-msgid "username should be less than %d characters"
-msgstr "Le nom d'utilisateur doit comporter au plus %d caractères"
-
-#: ../server/rhnUser.py:524
-#, python-format
-msgid "username = `%s', invalid character `%s'"
-msgstr "nom d'utilisateur = `%s', caractère invalide `%s'"
-
-#: ../server/rhnUser.py:543
-#, python-format
-msgid "Please limit your e-mail address to %s chars"
-msgstr "Veuillez limiter votre adresse courriel à %s caractères"
-
-#: ../server/rhnUser.py:624
-#, python-format
-msgid "password must be at least %d characters"
-msgstr "Le mot de passe doit comporter au moins %d caractères"
-
-#: ../server/rhnUser.py:627
-#, python-format
-msgid "Password must be shorter than %d characters"
-msgstr "Le mot de passe doit comporter au plus %d caractères"
-
-#: ../server/rhnUser.py:645
-#, python-format
-msgid "password contains character `%s'"
-msgstr "le mot de passe contient le caractère `%s'"
-
-#: ../server/rhnUser.py:652
-#, python-format
-msgid "username should be at least %d characters long"
-msgstr "Le nom d'utilisateur doit comporter au moins %d caractères"
-
-#: ../server/rhnUser.py:663
-#, python-format
-msgid "Cannot register usernames ending with %s"
-msgstr "Impossible d'enregistrer un nom d'utilisateur se terminant par %s"
 
 #: ../server/rhnChannel.py:1926
 #, python-format
@@ -382,6 +309,66 @@ msgstr ""
 "\n"
 "  %(entitlement_url)s\n"
 
+#: ../server/rhnUser.py:289 ../server/rhnUser.py:292
+msgid "Invalid username/password combination"
+msgstr "Combinaison utilisateur/mot de passe invalide"
+
+#. nope, not reserved either
+#: ../server/rhnUser.py:468
+#, python-format
+msgid "Username `%s' has not been reserved"
+msgstr "Le nom d'utilisateur `%s' n'a pas été réservé"
+
+#. New accounts have to specify an e-mail address
+#: ../server/rhnUser.py:474
+msgid "E-mail address not specified"
+msgstr "Adresse courriel non spécifiée"
+
+#: ../server/rhnUser.py:510
+#, python-format
+msgid "username should be at least %d characters"
+msgstr "Le nom d'utilisateur doit comporter au moins %d caractères"
+
+#: ../server/rhnUser.py:513
+#, python-format
+msgid "username should be less than %d characters"
+msgstr "Le nom d'utilisateur doit comporter au plus %d caractères"
+
+#: ../server/rhnUser.py:524
+#, python-format
+msgid "username = `%s', invalid character `%s'"
+msgstr "nom d'utilisateur = `%s', caractère invalide `%s'"
+
+#: ../server/rhnUser.py:543
+#, python-format
+msgid "Please limit your e-mail address to %s chars"
+msgstr "Veuillez limiter votre adresse courriel à %s caractères"
+
+#: ../server/rhnUser.py:624
+#, python-format
+msgid "password must be at least %d characters"
+msgstr "Le mot de passe doit comporter au moins %d caractères"
+
+#: ../server/rhnUser.py:627
+#, python-format
+msgid "Password must be shorter than %d characters"
+msgstr "Le mot de passe doit comporter au plus %d caractères"
+
+#: ../server/rhnUser.py:645
+#, python-format
+msgid "password contains character `%s'"
+msgstr "le mot de passe contient le caractère `%s'"
+
+#: ../server/rhnUser.py:652
+#, python-format
+msgid "username should be at least %d characters long"
+msgstr "Le nom d'utilisateur doit comporter au moins %d caractères"
+
+#: ../server/rhnUser.py:663
+#, python-format
+msgid "Cannot register usernames ending with %s"
+msgstr "Impossible d'enregistrer un nom d'utilisateur se terminant par %s"
+
 #: ../server/apacheAuth.py:67
 #, python-format
 msgid "incomplete proxy authentication token: %s"
@@ -396,14 +383,27 @@ msgstr "La signature de proxy envoyée %s ne correspond pas à la nôtre : %s."
 msgid "declined proxy authentication"
 msgstr "authentification proxy rejetée"
 
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
 msgstr ""
+"Vous n'êtes pas autorisé à administrer les paquets de l'organisation null"
 
-#: ../server/rhnHandler.py:75
+#: ../server/importlib/userAuth.py:103
 #, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr "Service désactivé pour le profil de système : \"%s\""
+msgid "You are not allowed to manage packages in the %s org"
+msgstr ""
+"Vous n'êtes pas autorisé à administrer les paquets de l'organisation %s"
+
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr "Vous n'êtes pas autorisé à réaliser des tâches d'administration"
+
+#: ../server/importlib/userAuth.py:144
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr ""
+"Vous n'êtes pas autorisé à administrer le canal %s, ou ce canal n'existe pas"
 
 #: ../server/apacheRequest.py:59
 #, python-format
@@ -432,6 +432,16 @@ msgstr ""
 #, python-format
 msgid "Invalid URI %s"
 msgstr "URI invalide %s"
+
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
+msgstr ""
 
 #. 0-999: Red Hat client/client-like interaction errors:
 #: ../common/rhnException.py:53
@@ -1109,16 +1119,6 @@ msgstr "Information de classe d'erreur : %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Explication : %s"
-
-#: ../common/rhnTB.py:205
-#, python-format
-msgid "ERROR: %s %s: %s"
-msgstr ""
-
-#: ../common/rhnTB.py:207
-#, python-format
-msgid "TRACEBACK: %s"
-msgstr ""
 
 #~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
 #~ msgstr ""
