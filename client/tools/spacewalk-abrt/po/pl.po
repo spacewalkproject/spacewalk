@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:13+0100\n"
+"POT-Creation-Date: 2018-03-16 14:31+0100\n"
 "PO-Revision-Date: 2015-09-02 08:46-0400\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish\n"
@@ -15,36 +15,36 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2)\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../src/bin/spacewalk-abrt:43
+#: ../src/bin/spacewalk-abrt:39
 msgid "Upload content of the specified problem directory"
 msgstr "Wysyła zawartość podanego katalogu problemu"
 
-#: ../src/bin/spacewalk-abrt:45
+#: ../src/bin/spacewalk-abrt:41
 msgid "Update crash count for the specified problem directory"
 msgstr "Aktualizuje liczbę awarii podanego katalogu problemu"
 
-#: ../src/bin/spacewalk-abrt:47
+#: ../src/bin/spacewalk-abrt:43
 #, fuzzy
 msgid "Synchronize missing problem directories"
 msgstr "Synchronizuje brakujące katalogi problemów"
 
-#: ../src/bin/spacewalk-abrt:52
+#: ../src/bin/spacewalk-abrt:48
 #, python-format
 msgid "Error: specified problem directory [%s] does not exist.\n"
 msgstr "Błąd: podany katalog problemu [%s] nie istnieje.\n"
 
-#: ../src/bin/spacewalk-abrt:57
+#: ../src/bin/spacewalk-abrt:53
 msgid "No command specified. Use --help for more information on the usage."
 msgstr "Nie podano polecenia. Opcja --help wyświetli więcej informacji."
 
-#: ../src/bin/spacewalk-abrt:66
+#: ../src/bin/spacewalk-abrt:62
 msgid ""
 "More than one command specified. Use --help for more information on the "
 "usage."
 msgstr ""
 "Podano więcej niż jedno polecenie. Opcja --help wyświetli więcej informacji."
 
-#: ../src/bin/spacewalk-abrt:69
+#: ../src/bin/spacewalk-abrt:65
 msgid ""
 "This system does not seem to be registered, use `rhn_register` before using "
 "this command."
