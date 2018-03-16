@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:33-0400\n"
+"POT-Creation-Date: 2018-03-16 14:22+0100\n"
 "PO-Revision-Date: 2015-03-17 08:23-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (China) <trans-zh_cn@lists.fedoraproject.org>\n"
@@ -28,17 +28,17 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnplugin.py:52
+#: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "连接到 RHN 时出错。"
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:63
 #, fuzzy
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "RHN 卫星服务或RHN 传统服务的支持将被禁用。"
 
 #. If non-root notify user Spacewalk repo not accessible
-#: ../rhnplugin.py:74
+#: ../rhnplugin.py:70
 #, fuzzy
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
@@ -47,62 +47,62 @@ msgstr ""
 "*备注* 下面没有列出红帽网络程序库。您必须以 root 身份运行这个命令方可访问 "
 "RHN 程序库。"
 
-#: ../rhnplugin.py:90
+#: ../rhnplugin.py:86
 #, fuzzy
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "解析 RHN 代理服务器设置时出错。"
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:98
 msgid "Either --version, --help or no commands entered"
 msgstr "您没有添加 --version 或 --help 参数"
 
-#: ../rhnplugin.py:107
+#: ../rhnplugin.py:103
 msgid "Cleaning"
 msgstr "清理"
 
-#: ../rhnplugin.py:116
+#: ../rhnplugin.py:112
 msgid "Using list of RHN repos from cache"
 msgstr "从缓存中使用RHN 的仓库列表"
 
-#: ../rhnplugin.py:132
+#: ../rhnplugin.py:128
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:133 ../rhnplugin.py:149
+#: ../rhnplugin.py:129 ../rhnplugin.py:145
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:135
 msgid "RHN channel support will be disabled."
 msgstr "RHN 频道支持将被禁用。"
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:139
 msgid "This system is not subscribed to any channels."
 msgstr "没有在任何频道中订阅这个系统。"
 
-#: ../rhnplugin.py:148
+#: ../rhnplugin.py:144
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:161
+#: ../rhnplugin.py:157
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:271
+#: ../rhnplugin.py:267
 msgid "Package profile information could not be sent."
 msgstr "无法发送软件包侧写信息。"
 
-#: ../rhnplugin.py:279
+#: ../rhnplugin.py:275
 msgid "Error Message:"
 msgstr "出错信息："
 
-#: ../rhnplugin.py:280
+#: ../rhnplugin.py:276
 msgid "Please run rhn_register as root on this client"
 msgstr "请在这个客户端中以 root 身份运行 rhn_register"
 
-#: ../rhnplugin.py:359
+#: ../rhnplugin.py:355
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "缺少 RHN 所需登录信息：%s"

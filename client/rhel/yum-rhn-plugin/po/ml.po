@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:33-0400\n"
+"POT-Creation-Date: 2018-03-16 14:22+0100\n"
 "PO-Revision-Date: 2015-03-17 08:22-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Malayalam <discuss@lists.smc.org.in>\n"
@@ -20,17 +20,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnplugin.py:52
+#: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "RHN-മായി ബന്ധപ്പെടുന്നതില്‍ ഒരു പിഴവ് ഉണ്ടായിരുന്നു."
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:63
 #, fuzzy
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "RHN ചാനലിനുള്ള പിന്തുണ സജ്ജമായിരിക്കില്ല."
 
 #. If non-root notify user Spacewalk repo not accessible
-#: ../rhnplugin.py:74
+#: ../rhnplugin.py:70
 #, fuzzy
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
@@ -39,62 +39,62 @@ msgstr ""
 "*കുറിപ്പു്* Red Hat നെറ്റ്‌വര്‍ക്ക് റിപ്പോസിറ്ററികള്‍ താഴെ ലഭ്യമാക്കിയിട്ടില്ല. RHN "
 "റിപ്പോസിറ്ററികള്‍ ലഭ്യമാക്കുന്നതിനായി ഈ കമാന്‍ഡ് നിങ്ങള്‍ റൂട്ടായി പ്രവര്‍ത്തിപ്പിക്കണം."
 
-#: ../rhnplugin.py:90
+#: ../rhnplugin.py:86
 #, fuzzy
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr "RHN പ്രോക്സി ക്രമീകരണങ്ങള്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പിഴവുകളില്ല."
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:98
 msgid "Either --version, --help or no commands entered"
 msgstr ""
 
-#: ../rhnplugin.py:107
+#: ../rhnplugin.py:103
 msgid "Cleaning"
 msgstr ""
 
-#: ../rhnplugin.py:116
+#: ../rhnplugin.py:112
 msgid "Using list of RHN repos from cache"
 msgstr ""
 
-#: ../rhnplugin.py:132
+#: ../rhnplugin.py:128
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:133 ../rhnplugin.py:149
+#: ../rhnplugin.py:129 ../rhnplugin.py:145
 msgid "You can use rhn_register to register."
 msgstr ""
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:135
 msgid "RHN channel support will be disabled."
 msgstr "RHN ചാനലിനുള്ള പിന്തുണ സജ്ജമായിരിക്കില്ല."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:139
 msgid "This system is not subscribed to any channels."
 msgstr "ഈ സിസ്റ്റം ഒരു ചാനലിന്റെയും അംഗമല്ല."
 
-#: ../rhnplugin.py:148
+#: ../rhnplugin.py:144
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
 msgstr ""
 
-#: ../rhnplugin.py:161
+#: ../rhnplugin.py:157
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 
-#: ../rhnplugin.py:271
+#: ../rhnplugin.py:267
 msgid "Package profile information could not be sent."
 msgstr "പാക്കേജിനുള്ള പ്രൊഫൈല്‍ വിവരം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല."
 
-#: ../rhnplugin.py:279
+#: ../rhnplugin.py:275
 msgid "Error Message:"
 msgstr "പിശക് സന്ദേശം:"
 
-#: ../rhnplugin.py:280
+#: ../rhnplugin.py:276
 msgid "Please run rhn_register as root on this client"
 msgstr "ദയവായി ഈ ക്ലയന്റില്‍ rhn_register റൂട്ടായി പ്രവര്‍ത്തിപ്പിയ്ക്കുക"
 
-#: ../rhnplugin.py:359
+#: ../rhnplugin.py:355
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN-ലേക്ക് പ്രവേശിക്കുന്നതിനുളള വിവരം ലഭ്യമല്ല: %s"
