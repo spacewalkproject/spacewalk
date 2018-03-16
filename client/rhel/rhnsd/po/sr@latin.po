@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:34-0400\n"
+"POT-Creation-Date: 2018-03-16 14:28+0100\n"
 "PO-Revision-Date: 2012-11-20 08:41+0000\n"
 "Last-Translator: Miroslav Suchý <msuchy@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,42 +19,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../rhnsd.c:57
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr ""
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:55
 msgid "Connect to Spacewalk every MINS minutes"
 msgstr ""
 
-#: ../rhnsd.c:60
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:65
+#: ../rhnsd.c:62
 msgid "Spacewalk Services Daemon"
 msgstr ""
 
-#: ../rhnsd.c:118
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr "Samo root može pokrenuti ovaj program\n"
 
-#: ../rhnsd.c:138
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr "pogrešan broj argumenata"
 
-#: ../rhnsd.c:145
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr "već je pokrenut"
 
-#: ../rhnsd.c:264
+#: ../rhnsd.c:249
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr "Autorska prava %s Red Hat, Inc.\n"
 
-#: ../rhnsd.c:267
+#: ../rhnsd.c:252
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napisao je %s.\n"
