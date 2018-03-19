@@ -290,9 +290,11 @@ Python 3 specific files for rhn-setup-gnome.
 make -f Makefile.rhn-client-tools
 
 %install
+%if 0%{?build_py2}
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
+%endif
 %if 0%{?build_py3}
 sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
 make -f Makefile.rhn-client-tools
