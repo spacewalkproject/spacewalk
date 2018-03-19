@@ -7,6 +7,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
@@ -30,6 +34,7 @@ Requires: libselinux-python
 %description
 The base libraries and functions needed by all rhncfg-* packages.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: Spacewalk Configuration Client Libraries
 %{?python_provide:%python_provide python2-%{name}}
@@ -44,6 +49,7 @@ Requires: python-hashlib
 BuildRequires: python
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -70,12 +76,14 @@ Requires: %{pythonX}-%{name}-client = %{version}-%{release}
 A command line interface to the client features of the RHN Configuration
 Management system.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}-client
 Summary: Spacewalk Configuration Client
 %{?python_provide:%python_provide python2-%{name}-client}
 Requires: %{name}-client = %{version}-%{release}
 %description -n python2-%{name}-client
 Python 2 specific files for %{name}-client.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}-client
@@ -95,12 +103,14 @@ Requires: %{pythonX}-%{name}-management = %{version}-%{release}
 %description management
 A command line interface used to manage Spacewalk configuration.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}-management
 Summary: Spacewalk Configuration Management Client
 %{?python_provide:%python_provide python2-%{name}-management}
 Requires: %{name}-management = %{version}-%{release}
 %description -n python2-%{name}-management
 Python 2 specific files for python2-%{name}-management.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}-management
@@ -120,6 +130,7 @@ Requires: %{pythonX}-%{name}-actions = %{version}-%{release}
 %description actions
 The code required to run configuration actions scheduled via the RHN Classic website or Red Hat Satellite or Spacewalk.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}-actions
 Summary: Spacewalk Configuration Client Actions
 %{?python_provide:%python_provide python2-%{name}-actions}
@@ -127,6 +138,7 @@ Requires: %{name}-actions = %{version}-%{release}
 Requires: python2-%{name}-client
 %description -n python2-%{name}-actions
 Python 2 specific files for python2-%{name}-actions.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}-actions
@@ -146,8 +158,10 @@ make -f Makefile.rhncfg all
 
 %install
 install -d $RPM_BUILD_ROOT/%{python_sitelib}
+%if 0%{?build_py2}
 make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir} PYTHONVERSION=%{python_version}
+%endif
 %if 0%{?build_py3}
     install -d $RPM_BUILD_ROOT/%{python3_sitelib}
     sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
@@ -194,8 +208,10 @@ fi
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{python_sitelib}/config_common
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
@@ -207,9 +223,11 @@ fi
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-client.conf
 %{_mandir}/man8/rhncfg-client.8*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}-client
 %{python_sitelib}/config_client
 %{_bindir}/rhncfg-client-%{python_version}
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}-client
@@ -222,9 +240,11 @@ fi
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-manager.conf
 %{_mandir}/man8/rhncfg-manager.8*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}-management
 %{python_sitelib}/config_management
 %{_bindir}/rhncfg-manager-%{python_version}
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}-management
@@ -238,11 +258,13 @@ fi
 %{_mandir}/man8/rhn-actions-control.8*
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
+%if 0%{?build_py2}
 %files -n python2-%{name}-actions
 %{python_sitelib}/rhn/actions
 %{_bindir}/rhn-actions-control-%{python_version}
 %if 0%{?suse_version}
 %dir %{python_sitelib}/rhn
+%endif
 %endif
 
 %if 0%{?build_py3}
