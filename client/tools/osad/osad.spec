@@ -18,6 +18,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: osad
@@ -73,6 +77,7 @@ commands are instantly executed.
 This package effectively replaces the behavior of rhnsd/rhn_check that
 only poll the Spacewalk Server from time to time.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: Open Source Architecture Daemon
 %{?python_provide:%python_provide python2-%{name}}
@@ -89,6 +94,7 @@ Requires: python-hashlib
 BuildRequires: python-devel
 %description -n python2-%{name}
 Python 2 specific files for %{name}
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -106,6 +112,7 @@ BuildRequires: python3-devel
 Python 3 specific files for %{name}
 %endif
 
+%if 0%{?build_py2}
 %package -n python2-osa-common
 Summary: OSA common files
 Requires: jabberpy
@@ -115,6 +122,7 @@ Obsoletes: osa-common <= 5.11.91
 Provides:  osa-common = %{version}
 %description -n python2-osa-common
 Python 2 common files needed by osad and osa-dispatcher
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-osa-common
@@ -154,14 +162,21 @@ OSA dispatcher is supposed to run on the Spacewalk server. It gets information
 from the Spacewalk server that some command needs to be execute on the client;
 that message is transported via jabber protocol to OSAD agent on the clients.
 
+%if 0%{?build_py2}
 %package -n python2-osa-dispatcher
 Summary: OSA dispatcher
+%if 0%{?fedora} >= 28
+BuildRequires: python2-devel
+Requires: python2
+%else
 BuildRequires: python-devel
 Requires: python
+%endif
 Requires: jabberpy
 Requires: python2-osa-common = %{version}
 %description -n python2-osa-dispatcher
 Python 2 specific files for osa-dispatcher.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-osa-dispatcher
@@ -232,8 +247,10 @@ done
 
 %install
 install -d $RPM_BUILD_ROOT%{rhnroot}
+%if 0%{?build_py2}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version}
+%endif
 %if 0%{?build_py3}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version}
@@ -427,12 +444,14 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %attr(755,root,root) %{_sbindir}/osad-%{python_version}
 %dir %{python_sitelib}/osad
 %{python_sitelib}/osad/osad.py*
 %{python_sitelib}/osad/osad_client.py*
 %{python_sitelib}/osad/osad_config.py*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
@@ -471,11 +490,13 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_var}/log/rhn
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-osa-dispatcher
 %attr(755,root,root) %{_sbindir}/osa-dispatcher-%{python_version}
 %dir %{python_sitelib}/osad
 %{python_sitelib}/osad/osa_dispatcher.py*
 %{python_sitelib}/osad/dispatcher_client.py*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-osa-dispatcher
@@ -487,10 +508,12 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %{python3_sitelib}/osad/__pycache__/dispatcher_client.*
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-osa-common
 %{python_sitelib}/osad/__init__.py*
 %{python_sitelib}/osad/jabber_lib.py*
 %{python_sitelib}/osad/rhn_log.py*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-osa-common
