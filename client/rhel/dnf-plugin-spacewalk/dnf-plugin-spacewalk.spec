@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.7
+Version: 2.8.8
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -112,6 +112,9 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't build python2 subpackages on systems with default python2
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
 - %%if 0%%{?fedora} <= 25 is always true on rhel
 
