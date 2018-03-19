@@ -31,6 +31,7 @@ else:
     from urlparse import urlparse
     from urllib import splitport # pylint: disable=C0412
 
+# pylint: disable=W0622
 class ConnectionError(Exception):
     pass
 
@@ -276,6 +277,7 @@ class PackageUpload:
         text = [x[1] for x in headers.getaddrlist(prefix + '-String')]
         # text is a list now, convert it to a string
         text = '\n'.join(text)
+        # pylint: disable=W1505
         text = base64.decodestring(text)
         return text
 
