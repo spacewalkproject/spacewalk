@@ -16,7 +16,11 @@ License: GPLv2
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+BuildRequires: python2-devel
+%else
 BuildRequires: python-devel
+%endif
 Provides: python2-rhnlib = %{version}-%{release}
 %{?python_provide:%python_provide python2-rhnlib}
 
