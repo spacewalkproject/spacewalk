@@ -324,22 +324,28 @@ mkdir -p $RPM_BUILD_ROOT/%{_presetdir}
 install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 %endif
 
+%if 0%{?build_py2}
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} >= 1140
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_hal.*
 %else
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_gudev.*
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_udev.*
 %endif
+%endif
 
 %if 0%{?rhel} == 5
+%if 0%{?build_py2}
 rm -rf $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/firstboot
+%endif
 rm -f $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_register.*
 %endif
 %if 0%{?rhel} == 6
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 %endif
 %if ! 0%{?rhel} || 0%{?rhel} > 6
+%if 0%{?build_py2}
 rm -rf $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/firstboot
+%endif
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/
 %endif
 %if 0%{?build_py3}
