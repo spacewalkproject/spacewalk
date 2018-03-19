@@ -55,7 +55,7 @@ Requires: python3-rhn-client-tools
 Requires: python3-spacewalk-backend-libs
 Requires: python3-spacewalk-usix
 BuildRequires: spacewalk-backend-libs > 1.8.33
-BuildRequires: python-devel
+BuildRequires: python3-devel
 BuildRequires: python3-rhn-client-tools
 BuildRequires: python3-rpm-macros
 %description -n python3-%{name}
