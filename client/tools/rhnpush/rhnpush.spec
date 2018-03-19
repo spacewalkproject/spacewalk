@@ -33,13 +33,18 @@ per channel.
 Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 %{?python_provide:%python_provide python2-%{name}}
 Requires: %{name} = %{version}-%{release}
+%if 0%{?fedora} >= 28
+Requires: python2-rpm
+BuildRequires: python2-devel
+%else
 Requires: rpm-python
+BuildRequires: python-devel
+%endif
 Requires: rhnlib >= 2.8.3
 Requires: python2-rhn-client-tools
 Requires: spacewalk-backend-libs >= 1.7.17
 Requires: spacewalk-usix
 BuildRequires: spacewalk-backend-libs > 1.8.33
-BuildRequires: python-devel
 BuildRequires: python2-rhn-client-tools
 %description -n python2-%{name}
 Python 2 specific files for rhnpush.
