@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 %{!?python2_sitelib: %global python2_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
@@ -62,6 +66,7 @@ BuildRequires: yum
 Red Hat Satellite Client Tools provides programs and libraries to allow your
 system to receive software updates from Red Hat Satellite or Spacewalk.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
@@ -112,6 +117,7 @@ Requires: rhnlib >= 2.5.78
 
 %description -n python2-%{name}
 Python 2 specific files of %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -163,6 +169,7 @@ Requires: yum-rhn-plugin >= 1.6.4-1
 rhn-check polls a Red Hat Satellite or Spacewalk server to find and execute
 scheduled actions.
 
+%if 0%{?build_py2}
 %package -n python2-rhn-check
 Summary: Check for RHN actions
 %{?python_provide:%python_provide python2-rhn-check}
@@ -170,6 +177,7 @@ Requires: rhn-check = %{version}-%{release}
 
 %description -n python2-rhn-check
 Python 2 specific files for rhn-check.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-rhn-check
@@ -195,6 +203,7 @@ Requires: rhnsd
 rhn-setup contains programs and utilities to configure a system to use
 Red Hat Satellite or Spacewalk, and to register a system with a Red Hat Satellite or Spacewalk server.
 
+%if 0%{?build_py2}
 %package -n python2-rhn-setup
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python2-rhn-setup}
@@ -208,6 +217,7 @@ Requires: newt-python
 
 %description -n python2-rhn-setup
 Python 2 specific files for rhn-setup.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-rhn-setup
@@ -233,6 +243,7 @@ Requires: pam >= 0.72
 rhn-setup-gnome contains a GTK+ graphical interface for configuring and
 registering a system with a Red Hat Satellite or Spacewalk server.
 
+%if 0%{?build_py2}
 %package -n python2-rhn-setup-gnome
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python2-rhn-setup-gnome}
@@ -249,6 +260,7 @@ Requires: liberation-sans-fonts
 
 %description -n python2-rhn-setup-gnome
 Python 2 specific files for rhn-setup-gnome.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-rhn-setup-gnome
@@ -415,6 +427,7 @@ make -f Makefile.rhn-client-tools test
 %{_presetdir}/50-spacewalk-client.preset
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{_sbindir}/rhn-profile-sync-%{python_version}
 %dir %{python_sitelib}/up2date_client/
@@ -439,6 +452,7 @@ make -f Makefile.rhn-client-tools test
 %{python_sitelib}/up2date_client/capabilities.*
 %{python_sitelib}/up2date_client/rhncli.*
 %{python_sitelib}/up2date_client/pkgplatform.*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
@@ -493,6 +507,7 @@ make -f Makefile.rhn-client-tools test
 %{_mandir}/man8/rhn_check.8*
 %{_sbindir}/rhn_check
 
+%if 0%{?build_py2}
 %files -n python2-rhn-check
 %{_sbindir}/rhn_check-%{python_version}
 %dir %{python_sitelib}/rhn
@@ -505,6 +520,7 @@ make -f Makefile.rhn-client-tools test
 %{python_sitelib}/rhn/actions/reboot.*
 %{python_sitelib}/rhn/actions/rhnsd.*
 %{python_sitelib}/rhn/actions/up2date_config.*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-rhn-check
@@ -553,6 +569,7 @@ make -f Makefile.rhn-client-tools test
 %dir %{_datadir}/setuptool/setuptool.d
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-rhn-setup
 %{_sbindir}/rhn_register-%{python_version}
 %{_sbindir}/rhnreg_ks-%{python_version}
@@ -561,6 +578,7 @@ make -f Makefile.rhn-client-tools test
 %{python2_sitelib}/up2date_client/pmPlugin.*
 %{python2_sitelib}/up2date_client/tui.*
 %{python2_sitelib}/up2date_client/rhnreg_constants.*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-rhn-setup
@@ -607,6 +625,7 @@ make -f Makefile.rhn-client-tools test
 %dir %{_datadir}/rhn/up2date_client
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-rhn-setup-gnome
 %{python_sitelib}/up2date_client/messageWindow.*
 %{python_sitelib}/up2date_client/rhnregGui.*
@@ -634,6 +653,7 @@ make -f Makefile.rhn-client-tools test
 %{python_sitelib}/up2date_client/firstboot/rhn_create_profile_gui.*
 %{python_sitelib}/up2date_client/firstboot/rhn_review_gui.*
 %{python_sitelib}/up2date_client/firstboot/rhn_finish_gui.*
+%endif
 %endif
 %endif
 
