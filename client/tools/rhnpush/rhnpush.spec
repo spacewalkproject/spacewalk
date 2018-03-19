@@ -24,7 +24,12 @@ BuildArch:     noarch
 Requires:      %{pythonX}-%{name} = %{version}-%{release}
 BuildRequires: docbook-utils, gettext
 %if 0%{?pylint_check}
+%if 0%{?build_py2}
 BuildRequires:  spacewalk-python2-pylint
+%endif
+%if 0%{?build_py3}
+BuildRequires:  spacewalk-python3-pylint
+%endif
 %endif
 
 %description
@@ -102,8 +107,14 @@ ln -s rhnpush%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhnpush
 %check
 %if 0%{?pylint_check}
 # check coding style
+%if 0%{?build_py2}
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
 spacewalk-python2-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
+%endif
+%if 0%{?build_py3}
+export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib}
+spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_sitelib}
+%endif
 %endif
 
 %files
