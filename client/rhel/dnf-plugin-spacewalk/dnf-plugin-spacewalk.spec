@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Summary: DNF plugin for Spacewalk
@@ -29,6 +33,7 @@ Obsoletes: yum-rhn-plugin < 2.7
 %description
 This DNF plugin provides access to a Spacewalk server for software updates.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: DNF plugin for Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
@@ -37,6 +42,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: python2-rhn-client-tools >= 2.8.4
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -67,11 +73,13 @@ install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
 # python2
+%if 0%{?build_py2}
 install -d %{buildroot}%{python2_sitelib}/rhn/actions
 install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -m 644 actions/packages.py %{buildroot}%{python2_sitelib}/rhn/actions/
 install -m 644 actions/errata.py %{buildroot}%{python2_sitelib}/rhn/actions/
+%endif
 
 %if 0%{?build_py3}
 install -d %{buildroot}%{python3_sitelib}/rhn/actions
@@ -91,9 +99,11 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{python_sitelib}/dnf-plugins/*
 %{python_sitelib}/rhn/actions/*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
