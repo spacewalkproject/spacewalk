@@ -293,6 +293,11 @@ install -d %{buildroot}%{_sbindir}
 install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
 %endif
 
+%if ! 0%{?build_py2}
+rm -rf $RPM_BUILD_ROOT/%{python_sitelib}/osad/osad*
+rm -f $RPM_BUILD_ROOT/usr/sbin/osad-%{python_version}
+%endif
+
 %clean
 
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
