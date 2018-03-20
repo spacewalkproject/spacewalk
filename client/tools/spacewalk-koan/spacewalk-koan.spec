@@ -11,7 +11,7 @@
 
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.8.7
+Version: 2.8.8
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't build python2 subpackages on systems with default python3
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
 - use python3 on rhel8 in spacewalk-koan
 
