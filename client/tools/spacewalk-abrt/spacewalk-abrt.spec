@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
@@ -21,6 +25,7 @@ Requires:       abrt-cli
 %description
 spacewalk-abrt - rhn-check plug-in for collecting information about crashes handled by ABRT.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary:        ABRT plug-in for rhn-check
 %{?python_provide:%python_provide python2-%{name}}
@@ -29,6 +34,7 @@ Requires:       python2-rhn-client-tools
 Requires:       python2-rhn-check
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -48,8 +54,10 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-abrt
 
 %install
+%if 0%{?build_py2}
 make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
                 PYTHON_PATH=%{python_sitelib} PYTHON_VERSION=%{python_version}
+%endif
 %if 0%{?build_py3}
 sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
 make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
@@ -72,9 +80,11 @@ service abrtd restart
 %{_bindir}/spacewalk-abrt
 %{_mandir}/man8/*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{_bindir}/spacewalk-abrt-%{python_version}
 %{python_sitelib}/spacewalk_abrt/
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
