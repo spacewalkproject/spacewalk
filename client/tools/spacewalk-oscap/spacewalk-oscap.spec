@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.7
+Version:	2.8.8
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -113,6 +113,9 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't build python2 subpackages on systems with default python3
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
 - use python3 on rhel8 in spacewalk-oscap
 
