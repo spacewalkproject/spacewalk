@@ -38,7 +38,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.52
+Version: 2.8.53
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -788,6 +788,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Mar 20 2018 Jiri Dostal <jdostal@redhat.com> 2.8.53-1
+- Fixing newline error in translation
+- Updating copyright years for 2018
+- Regenerating .po and .pot files for spacewalk-backend.
+- Updating .po translations from Zanata
+
 * Thu Mar 01 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.52-1
 - require python2 version of spacewalk-usix for backend server
 
