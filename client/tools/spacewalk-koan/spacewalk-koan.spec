@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Summary: Support package for spacewalk koan interaction
@@ -25,6 +29,7 @@ Requires: rhn-check
 %description
 Support package for spacewalk koan interaction.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: Support package for spacewalk koan interaction
 %{?python_provide:%python_provide python2-%{name}}
@@ -36,6 +41,7 @@ BuildRequires: rhn-client-tools
 %endif
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -55,8 +61,10 @@ Python 3 specific files for %{name}.
 make -f Makefile.spacewalk-koan all
 
 %install
+%if 0%{?build_py2}
 make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
     MANDIR=%{_mandir}
+%endif
 
 %if 0%{?build_py3}
 make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
@@ -77,11 +85,13 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
 %{_sbindir}/*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{python_sitelib}/spacewalkkoan/
 %{python_sitelib}/rhn/actions/
 %if 0%{?suse_version}
 %dir %{python_sitelib}/rhn
+%endif
 %endif
 
 %if 0%{?build_py3}
