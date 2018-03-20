@@ -15,7 +15,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.71
+Version:        5.4.72
 Release:        1%{?dist}
 
 License:        GPLv2
@@ -280,6 +280,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.72-1
+- don't build python2 subpackages on systems with default python3
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.71-1
 - use python3 for rhel8 in rhn-virtualization
 
