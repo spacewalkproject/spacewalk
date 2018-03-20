@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
-Version:        2.8.4
+Version:        2.8.5
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -93,6 +93,11 @@ service abrtd restart
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.5-1
+- don't build python2 subpackages on systems with default python3
+- Regenerating .po and .pot files for spacewalk-abrt.
+- Updating .po translations from Zanata
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
 - use python3 on rhel8 in spacewalk-abrt
 
