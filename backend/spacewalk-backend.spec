@@ -33,6 +33,12 @@
 %global m2crypto python-m2crypto
 %endif
 
+%if  0%{?fedora} >= 28  || 0%{?rhel} >= 8
+%global python_prefix python2
+%else
+%global python_prefix python
+%endif
+
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
@@ -48,7 +54,7 @@ Requires: python, rpm-python
 Requires: /etc/rhn
 Requires: rhnlib >= 2.5.74
 # for Debian support
-Requires: python-debian
+Requires: %{python_prefix}-debian
 Requires: %{name}-libs >= 1.1.16-1
 %if 0%{?rhel} > 5
 Requires: pyliblzma
@@ -64,8 +70,9 @@ BuildRequires: python2-spacewalk-usix
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: python2-rhn-client-tools
 BuildRequires: rpm-python
-BuildRequires: python-crypto
-BuildRequires: python-debian
+BuildRequires: %{python_prefix}-crypto
+BuildRequires: %{python_prefix}-debian
+
 BuildRequires: python2-gzipstream
 BuildRequires: yum
 BuildRequires: %{m2crypto}
