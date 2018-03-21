@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.53
+Version: 2.8.54
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.54-1
+- Make spec file follow guidelines for fedora28+
+
 * Tue Mar 20 2018 Jiri Dostal <jdostal@redhat.com> 2.8.53-1
 - Fixing newline error in translation
 - Updating copyright years for 2018
