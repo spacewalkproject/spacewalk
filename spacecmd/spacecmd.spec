@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.20
+Version:     2.8.21
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -122,6 +122,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.21-1
+- Updating copyright years for 2018
+
 * Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.20-1
 - 1536484 - Command spacecmd supports utf8 name of systems
 
