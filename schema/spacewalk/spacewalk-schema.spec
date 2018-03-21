@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.18
+Version:        2.8.19
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,10 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.19-1
+- Updating schema SHAs to match after copyright update
+- Updating copyright years for 2018
+
 * Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.18-1
 - fix schema upgrade for oracle
 
