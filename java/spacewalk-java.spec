@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.72
+Version: 2.8.73
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.73-1
+- Bump Java API version
+- Updating copyright years for 2018
+- Merging frontend L10N from Zanata
+
 * Fri Mar 02 2018 Jiri Dostal <jdostal@redhat.com> 2.8.72-1
 - 1187053 - package search do not search through ppc64le packages by default
 
