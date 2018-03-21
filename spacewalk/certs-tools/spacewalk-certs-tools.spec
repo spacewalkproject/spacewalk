@@ -15,7 +15,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 License: GPLv2
-Version: 2.8.7
+Version: 2.8.8
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -123,6 +123,9 @@ ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 %endif
 
 %changelog
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.8-1
+- Updating copyright years for 2018
+
 * Tue Feb 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.7-1
 - options are not defined
 
