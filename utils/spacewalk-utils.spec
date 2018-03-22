@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.13
+Version:	2.8.14
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,11 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Mar 22 2018 Grant Gainey 2.8.14-1
+- 1537766 - make sure to send output to log and stdout
+- 1537766 - reject negative numbers for batch/interval/age
+- Two tiny typos in the spacewalk-manage-snapshots man-page
+
 * Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.13-1
 - run pylint on rhel 7 builds
 
