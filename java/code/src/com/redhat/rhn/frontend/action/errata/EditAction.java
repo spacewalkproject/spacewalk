@@ -235,6 +235,9 @@ public class EditAction extends LookupDispatchAction {
         if (ErrataFactory.ERRATA_TYPE_SECURITY.equals(e.getAdvisoryType())) {
             e.setSeverity(Severity.getById((Integer)form.get("advisorySeverity")));
         }
+        else {
+            e.setSeverity(null);
+        }
 
         //Clear all the keywords and bugs we have, and then add the ones on page
         if (e.getKeywords() != null) {
