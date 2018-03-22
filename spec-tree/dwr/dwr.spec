@@ -1,20 +1,16 @@
 Name:       dwr
-Version:    3.0rc2
-Release:    9%{?dist}
+Version:    3.0.2
+Release:    0%{?dist}
 Summary:    Direct Web Remoting
 License:    Apache Software License v2
 URL:        http://directwebremoting.org
-# The Source0 is an svn checkout with some purged content
-# rm -rf dwr-3.0rc2
-# svn export --ignore-externals http://svn.directwebremoting.org/dwr/tags/Version_3_0_RC2_FINAL/ dwr-3.0rc2
-# while read i ; do rm -f "dwr-3.0rc2/$i" ; done < dwr-purge-source-tree.list
-# tar czf dwr-3.0rc2-lite.tar.gz dwr-3.0rc2/
-Source0:    %{name}-%{version}-lite.tar.gz
-Source1:    dwr-purge-source-tree.list
+# Source0: https://github.com/directwebremoting/dwr/archive/3.0.2-RELEASE.tar.gz
+# Untar - tar xf 3.0.2-RELEASE.tar.gz --transform 's/-RELEASE//'
+# Do some cleanup
+# while read i ; do rm -f "dwr-3.0.2/$i" ; done < dwr-purge-source-tree.list
+# tar czf dwr-3.0.2.tar.gz dwr-3.0.2/
+Source0:    %{name}-%{version}.tar.gz
 Patch0:     dwr-no-noncla-no-junit.patch
-# The following two patches should address DWR-467 but they do not
-Patch1:     dwr-r3974-merged.patch
-Patch2:     dwr-r3975.patch
 BuildArch:  noarch
 
 Requires:        java-headless >= 1:1.8.0
@@ -31,8 +27,6 @@ in a browser to interact and call each other as simply as possible.
 %prep
 %setup -q
 %patch0 -p0
-%patch1 -p1
-%patch2 -p0
 
 %build
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=ISO-8859-1
