@@ -229,6 +229,7 @@ def purge(opt):
 
     to_be_purged = purge_count(name, opt)
     print '{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size)
+    _log('{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size))
 
     lock_str = _get_sql('LOCK_GROUPS')
     del_str = _get_sql('PURGE_DATA')
