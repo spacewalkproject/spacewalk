@@ -132,6 +132,15 @@ def validate_options():
     if not (options.reports or (options.num_days is not None)):
         parser.error("Either --reports or --delete-older-than is required")
 
+    if options.batch_size < 1:
+        parser.error("--batch-size requires a positive integer argument")
+
+    if options.report_interval < 1:
+        parser.error("--interval-older-than requires a positive number of days")
+
+    if options.num_days and options.num_days < 1:
+        parser.error("--delete-older-than requires a positive number of days")
+
     return (options, args)
 
 
