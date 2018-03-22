@@ -31,7 +31,7 @@ Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: cobbler20
-Requires: dwr >= 3
+Requires: dwr >= 3.0.2
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
