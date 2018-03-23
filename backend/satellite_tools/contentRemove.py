@@ -76,7 +76,7 @@ def __unsubscribeServers(labels):
     channel_list = channel_counts.keys()
     channel_list.sort()
     for i in channel_list:
-        print("%-40s s-8%" % (i, channel_counts[i]))
+        print("%-40s %-8s" % (i, channel_counts[i]))
 
     pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
                      finalSize=len(server_channel_list), finalBarLength=40, stream=sys.stdout)
