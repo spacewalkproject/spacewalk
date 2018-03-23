@@ -110,7 +110,7 @@ def __kickstartCheck(labels):
 
     print("The following kickstarts are associated with one of the specified channels. " +
           "Please remove these or change their associated base channel.\n")
-    print("%-8s label" % ('org_id', 'label'))
+    print("%-8s label" % 'org_id')
     print("-" * 20)
     for kickstart in kickstart_list:
         print("%-8s %s" % (kickstart['org_id'], kickstart['label']))
