@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.73
+Version: 2.8.74
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.74-1
+- 1544350 - Add possibility to manage errata severity via API/WebUI
+- Java should require new dwr, old doesn't work anymore
+- Update dwr to 3.0.2
+
 * Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.73-1
 - Bump Java API version
 - Updating copyright years for 2018
