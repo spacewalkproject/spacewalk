@@ -227,7 +227,6 @@ EOF
     if ! exists_plpgsql ; then
             if is_postgres10 ; then
                 EXTENSION=$($RUNUSER - postgres -c 'psql -c "CREATE EXTENSION IF NOT EXISTS plpgsql;" -d '$PGNAME'')
-                LANGUAGE=$($RUNUSER - postgres -c 'psql -t -c "CREATE OR REPLACE LANGUAGE plpgsql;"')
             else
                 $RUNUSER - postgres -c "createlang plpgsql '$PGNAME'"
             fi
@@ -235,7 +234,6 @@ EOF
     if ! exists_pltclu ; then
             if is_postgres10 ; then
                 EXTENSION=$($RUNUSER - postgres -c 'psql -c "CREATE EXTENSION IF NOT EXISTS pltclu;" -d '$PGNAME'')
-                LANGUAGE=$($RUNUSER - postgres -c 'psql -t -c "CREATE OR REPLACE LANGUAGE pltclu;"')
             else
                 $RUNUSER - postgres -c "createlang pltclu '$PGNAME'"
             fi
