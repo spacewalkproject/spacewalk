@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.55
+Version: 2.8.56
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Mar 23 2018 Jan Dobes <jdobes@redhat.com> 2.8.56-1
+- fixing incorrect syntax of format string
+- fixing incorrect syntax of format string
+- pylint: Unused variable 'frag' (unused-variable)
+
 * Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.55-1
 - refactoring ljust methods in print
 - Hack: Try to build an URL that works for SUSE SCC downloads, based on PR #617
