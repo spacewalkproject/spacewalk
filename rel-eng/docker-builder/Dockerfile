@@ -1,7 +1,6 @@
 FROM centos:7
 
-RUN yum -y install epel-release
-RUN yum -y install mock tito
+RUN yum -y install epel-release && yum -y install mock tito && rm -rf /var/cache/yum/*
 RUN useradd -G mock builder
 
 ADD spacewalk-nightly*.cfg /etc/mock/
