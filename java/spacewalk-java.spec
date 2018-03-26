@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.75
+Version: 2.8.76
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,12 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.76-1
+- Fix: rename JSP method
+- Fix: hide non-org event details
+- Fix channel <-> advisory field inversion on the ErrataChannelIntersection
+  page
+
 * Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.75-1
 - 1542556 - Prevent deletion of last SW admin if disabled.
 
