@@ -2403,7 +2403,7 @@ def do_softwarechannel_listsyncschedule(self, args):
     print(csched_fmt.format('-----', '---------------------', '---------------'))
 
     # Sort and print(the channel names and associated repo-sync schedule (if any))
-    for key,value in sorted(chan_name.items(), key=lambda k,v: (v,k)):
+    for key,value in sorted(chan_name.items()):
         print(csched_fmt.format(str(key), value, chan_sched[int(key)]))
 
 ####################
