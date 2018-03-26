@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.56
+Version: 2.8.57
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Mar 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.57-1
+- 1549546 - Allow spacewalk-channel to add parent channel.
+
 * Fri Mar 23 2018 Jan Dobes <jdobes@redhat.com> 2.8.56-1
 - fixing incorrect syntax of format string
 - fixing incorrect syntax of format string
