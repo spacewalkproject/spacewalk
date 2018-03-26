@@ -4271,7 +4271,7 @@ organization. You may grant or remove the organization administrator role in the
         </context-group>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
