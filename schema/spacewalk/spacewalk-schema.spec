@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.19
+Version:        2.8.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,10 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Mar 27 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.20-1
+- implicit default null is different from explicit default null - use the
+  implicit one
+
 * Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.19-1
 - Updating schema SHAs to match after copyright update
 - Updating copyright years for 2018
