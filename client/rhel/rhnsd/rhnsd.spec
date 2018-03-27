@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.35
+Version: 5.0.37
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -9,6 +9,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
+BuildRequires: gcc
 %if 0%{?suse_version} >= 1210 || 0%{?fedora}
 BuildRequires: systemd
 %{?systemd_requires}
@@ -129,6 +130,13 @@ fi
 %doc LICENSE
 
 %changelog
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.37-1
+- Regenerating .po and .pot files for rhnsd.
+- Updating .po translations from Zanata
+
+* Mon Feb 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.36-1
+- add BuildRequires gcc
+
 * Mon Feb 05 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.35-1
 - remove systemd-units
 - remove obsoleted things from spec file

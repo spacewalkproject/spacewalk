@@ -1,13 +1,17 @@
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.8.5
+Version: 2.8.8
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -15,7 +19,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 BuildArch: noarch
 
 Requires: %{pythonX}-%{name} = %{version}-%{release}
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 Requires: dnf >= 0.5.3
 %else
 Requires: dnf >= 2.0.0
@@ -29,6 +33,7 @@ Obsoletes: yum-rhn-plugin < 2.7
 %description
 This DNF plugin provides access to a Spacewalk server for software updates.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: DNF plugin for Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
@@ -37,6 +42,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: python2-rhn-client-tools >= 2.8.4
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -54,7 +60,7 @@ Python 3 specific files for %{name}.
 %setup -q
 
 %build
-%if 0%{?fedora} <= 25
+%if 0%{?fedora} && 0%{?fedora} <= 25
 patch -p4 < dnf-plugin-spacewalk-revert-to-1.0.patch
 %endif
 
@@ -67,11 +73,13 @@ install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
 
 # python2
+%if 0%{?build_py2}
 install -d %{buildroot}%{python2_sitelib}/rhn/actions
 install -d %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -m 644 spacewalk.py %{buildroot}%{python2_sitelib}/dnf-plugins/
 install -m 644 actions/packages.py %{buildroot}%{python2_sitelib}/rhn/actions/
 install -m 644 actions/errata.py %{buildroot}%{python2_sitelib}/rhn/actions/
+%endif
 
 %if 0%{?build_py3}
 install -d %{buildroot}%{python3_sitelib}/rhn/actions
@@ -91,9 +99,11 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{python_sitelib}/dnf-plugins/*
 %{python_sitelib}/rhn/actions/*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
@@ -102,6 +112,15 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't build python2 subpackages on systems with default python2
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- %%if 0%%{?fedora} <= 25 is always true on rhel
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- rhel8 utilizes python3
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - removed Group from specfile
 

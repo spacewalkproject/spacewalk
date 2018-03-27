@@ -45,6 +45,22 @@ public class SatManager extends BaseManager {
     }
 
     /**
+     * Returns a list of all the satellite admins. If none exist,
+     * returns Empty list.
+     * @return a list of all the satellite admins.
+     */
+    public static List getAllSatAdmins() {
+        SelectMode m = ModeFactory.getMode("User_queries", "all_sat_admins");
+        Map<String, Object> params = new HashMap<String, Object>();
+        DataResult dr = m.execute(params);
+        if (dr == null) {
+            return Collections.EMPTY_LIST;
+        }
+        return dr;
+    }
+
+
+    /**
      * Returns a list of the activate satellite admins. If none exist,
      * returns Empty list.
      * @return a list of the activate satellite admins.

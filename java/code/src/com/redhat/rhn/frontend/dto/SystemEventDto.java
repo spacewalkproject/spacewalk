@@ -42,6 +42,7 @@ public class SystemEventDto extends BaseDto implements Serializable {
     protected String historyTypeName;
     private String historyStatus;
     protected static final Map<String, String> ACTIONTYPES;
+    private boolean historyVisible;
 
     static {
         ACTIONTYPES = new HashMap<String, String>();
@@ -217,6 +218,20 @@ public class SystemEventDto extends BaseDto implements Serializable {
      */
     public void setHistoryStatus(String historyStatusIn) {
         this.historyStatus = historyStatusIn;
+    }
+
+    /**
+     * @return if details of this event will be visible
+     */
+    public boolean isHistoryVisible() {
+        return historyVisible;
+    }
+
+    /**
+     * @param historyVisibleIn to set if details of this event will be visible
+     */
+    public void setHistoryVisible(boolean historyVisibleIn) {
+        this.historyVisible = historyVisibleIn;
     }
 
 }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:33-0400\n"
+"POT-Creation-Date: 2018-03-16 14:22+0100\n"
 "PO-Revision-Date: 2015-10-18 03:18-0400\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -14,16 +14,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../rhnplugin.py:52
+#: ../rhnplugin.py:48
 msgid "There was an error communicating with RHN."
 msgstr "S'ha produït un error en la comunicació amb la RHN."
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:63
 msgid "Red Hat Satellite or RHN Classic support will be disabled."
 msgstr "S'inhabilitarà el suport de Red Hat Satellite o RHN Classic."
 
 #. If non-root notify user Spacewalk repo not accessible
-#: ../rhnplugin.py:74
+#: ../rhnplugin.py:70
 msgid ""
 "*Note* Spacewalk repositories are not listed below. You must run this "
 "command as root to access Spacewalk repositories."
@@ -32,41 +32,41 @@ msgstr ""
 "d'executar aquesta comanda com a root per accedir als dipòsits de "
 "l'Spacewalk."
 
-#: ../rhnplugin.py:90
+#: ../rhnplugin.py:86
 msgid "There was an error parsing the Red Hat Satellite Proxy settings."
 msgstr ""
 "S'ha produït un error en l'anàlisi sintàctic dels ajustos del Red Hat "
 "Satellite Proxy."
 
-#: ../rhnplugin.py:102
+#: ../rhnplugin.py:98
 msgid "Either --version, --help or no commands entered"
 msgstr "No s'ha introduït cap ordre, o bé --version o --help"
 
-#: ../rhnplugin.py:107
+#: ../rhnplugin.py:103
 msgid "Cleaning"
 msgstr "S'està netejant"
 
-#: ../rhnplugin.py:116
+#: ../rhnplugin.py:112
 msgid "Using list of RHN repos from cache"
 msgstr "S'estan utilitzant els dipòsits de la RHN des de la memòria cau"
 
-#: ../rhnplugin.py:132
+#: ../rhnplugin.py:128
 msgid "This system is not registered with RHN Classic or Red Hat Satellite."
 msgstr "Aquest sistema no està registrat amb RHN Classic o Red Hat Satellite."
 
-#: ../rhnplugin.py:133 ../rhnplugin.py:149
+#: ../rhnplugin.py:129 ../rhnplugin.py:145
 msgid "You can use rhn_register to register."
 msgstr "Podeu utilitzar rhn_register per a registrar-ho."
 
-#: ../rhnplugin.py:139
+#: ../rhnplugin.py:135
 msgid "RHN channel support will be disabled."
 msgstr "S'inhabilitarà el suport al canal de la RHN."
 
-#: ../rhnplugin.py:143
+#: ../rhnplugin.py:139
 msgid "This system is not subscribed to any channels."
 msgstr "Aquest sistema no està subscrit a cap canal."
 
-#: ../rhnplugin.py:148
+#: ../rhnplugin.py:144
 msgid ""
 "This system may not be registered to RHN Classic or Red Hat Satellite. "
 "SystemId could not be acquired."
@@ -74,25 +74,25 @@ msgstr ""
 "Aquest sistema pot no estar registrat a RHN Classic o Red Hat Satellite. No "
 "s'ha pogut adquirir el SystemId."
 
-#: ../rhnplugin.py:161
+#: ../rhnplugin.py:157
 msgid "This system is receiving updates from RHN Classic or Red Hat Satellite."
 msgstr ""
 "Aquest sistema està rebent actualitzacions des de RHN Classic o Red Hat "
 "Satellite."
 
-#: ../rhnplugin.py:271
+#: ../rhnplugin.py:267
 msgid "Package profile information could not be sent."
 msgstr "No s'ha pogut enviar la informació del perfil del paquet."
 
-#: ../rhnplugin.py:279
+#: ../rhnplugin.py:275
 msgid "Error Message:"
 msgstr "Missatge d'error:"
 
-#: ../rhnplugin.py:280
+#: ../rhnplugin.py:276
 msgid "Please run rhn_register as root on this client"
 msgstr "Si us plau, executeu rhn_register com a root sobre aquest client"
 
-#: ../rhnplugin.py:359
+#: ../rhnplugin.py:355
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Falta la informació necessària per iniciar la sessió a la RHN: %s"

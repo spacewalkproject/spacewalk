@@ -1,12 +1,16 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.5
+Version:	2.8.8
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -27,6 +31,7 @@ Requires:       %{pythonX}-%{name} = %{version}-%{release}
 spacewalk-oscap is a plug-in for rhn-check. With this plugin, user is able
 to run OpenSCAP scan from Spacewalk or Red Hat Satellite server.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary:	OpenSCAP plug-in for rhn-check
 %{?python_provide:%python_provide python2-%{name}}
@@ -37,6 +42,7 @@ BuildRequires:	python-devel
 BuildRequires:	rhnlib >= 2.8.3
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -60,7 +66,9 @@ make -f Makefile.spacewalk-oscap
 
 
 %install
+%if 0%{?build_py2}
 make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{python_sitelib}
+%endif
 %if 0%{?build_py3}
 make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{python3_sitelib}
 %endif
@@ -86,10 +94,12 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %dir %{_datadir}/openscap/xsl
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %{python_sitelib}/rhn/actions/scap.*
 %if 0%{?suse_version}
 %dir %{python_sitelib}/rhn/actions
+%endif
 %endif
 
 %if 0%{?build_py3}
@@ -103,6 +113,15 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't build python2 subpackages on systems with default python3
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- use python3 on rhel8 in spacewalk-oscap
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
+- move spacewalk-oscap to tools directory as it's not rhel package
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - remove install/clean section initial cleanup
 - removed Group from specfile

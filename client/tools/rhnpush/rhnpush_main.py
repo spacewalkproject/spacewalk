@@ -32,6 +32,7 @@ import os
 import random
 import sys
 import time
+# pylint: disable=W0402
 from optparse import Option, OptionParser
 
 # pylint: disable=F0401,E0611

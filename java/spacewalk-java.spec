@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.67
+Version: 2.8.76
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -31,7 +31,7 @@ Requires: bcel
 Requires: c3p0 >= 0.9.1
 Requires: cglib
 Requires: cobbler20
-Requires: dwr >= 3
+Requires: dwr >= 3.0.2
 Requires: hibernate3 >= 3.6.10
 Requires: hibernate3-c3p0 >= 3.6.10
 Requires: hibernate3-ehcache >= 3.6.10
@@ -757,6 +757,40 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Mar 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.76-1
+- Fix: rename JSP method
+- Fix: hide non-org event details
+- Fix channel <-> advisory field inversion on the ErrataChannelIntersection
+  page
+
+* Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.75-1
+- 1542556 - Prevent deletion of last SW admin if disabled.
+
+* Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.74-1
+- 1544350 - Add possibility to manage errata severity via API/WebUI
+- Java should require new dwr, old doesn't work anymore
+- Update dwr to 3.0.2
+
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.73-1
+- Bump Java API version
+- Updating copyright years for 2018
+- Merging frontend L10N from Zanata
+
+* Fri Mar 02 2018 Jiri Dostal <jdostal@redhat.com> 2.8.72-1
+- 1187053 - package search do not search through ppc64le packages by default
+
+* Tue Feb 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.71-1
+- Fix building java, silly mistake
+
+* Tue Feb 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.70-1
+- Allow fetching jars from different install-root
+
+* Mon Feb 19 2018 Grant Gainey 2.8.69-1
+- 1020318 - Check description for max-len when updating
+
+* Fri Feb 16 2018 Grant Gainey 2.8.68-1
+- 1020318 - Fix refactored to take more, multiple, errors into account
+
 * Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.67-1
 - there might not be repo metadata we're looking for
 

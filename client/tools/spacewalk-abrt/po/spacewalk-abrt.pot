@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Spacewalk\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:13+0100\n"
+"POT-Creation-Date: 2018-03-16 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,34 +17,34 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/bin/spacewalk-abrt:43
+#: ../src/bin/spacewalk-abrt:39
 msgid "Upload content of the specified problem directory"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:45
+#: ../src/bin/spacewalk-abrt:41
 msgid "Update crash count for the specified problem directory"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:47
+#: ../src/bin/spacewalk-abrt:43
 msgid "Synchronize missing problem directories"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:52
+#: ../src/bin/spacewalk-abrt:48
 #, python-format
 msgid "Error: specified problem directory [%s] does not exist.\n"
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:57
+#: ../src/bin/spacewalk-abrt:53
 msgid "No command specified. Use --help for more information on the usage."
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:66
+#: ../src/bin/spacewalk-abrt:62
 msgid ""
 "More than one command specified. Use --help for more information on the "
 "usage."
 msgstr ""
 
-#: ../src/bin/spacewalk-abrt:69
+#: ../src/bin/spacewalk-abrt:65
 msgid ""
 "This system does not seem to be registered, use `rhn_register` before using "
 "this command."

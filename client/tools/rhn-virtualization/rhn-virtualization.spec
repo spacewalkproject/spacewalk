@@ -2,16 +2,20 @@
 %define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
 %define cron_dir %{_sysconfdir}/cron.d
 
-%if 0%{?fedora} || 0%{?suse_version} > 1320
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.70
+Version:        5.4.72
 Release:        1%{?dist}
 
 License:        GPLv2
@@ -28,6 +32,7 @@ BuildRequires: sysconfig syslog
 rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
 virtual machine guest images.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}-common
 Summary: Files needed by rhn-virtualization-host
 %{?python_provide:%python_provide python2-%{name}-common}
@@ -46,6 +51,7 @@ Requires: chkconfig
 %description -n python2-%{name}-common
 This package contains files that are needed by the rhn-virtualization-host
 package.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}-common
@@ -73,6 +79,7 @@ Requires: /usr/sbin/crond
 This package contains code for RHN's and Spacewalk's Virtualization support 
 that is specific to the Host system (a.k.a. Dom0).
 
+%if 0%{?build_py2}
 %package -n python2-%{name}-host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Requires: %{name}-host = %{version}-%{release}
@@ -85,6 +92,7 @@ Requires: python-pycurl
 %endif
 %description -n python2-%{name}-host
 Python 2 files for %{name}-host.
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}-host
@@ -105,11 +113,13 @@ make -f Makefile.rhn-virtualization
 
 
 %install
+%if 0%{?build_py2}
 make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
         PYTHONPATH=%{python_sitelib} install
 sed -i 's,@PYTHON@,python,; s,@PYTHONPATH@,%{python_sitelib},;' \
         $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host \
         $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
+%endif
 
 %if 0%{?build_py3}
 make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
@@ -162,6 +172,7 @@ fi
 /sbin/service crond condrestart
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-%{name}-common
 %{python_sitelib}/virtualization/__init__.py*
 %{python_sitelib}/virtualization/batching_log_notifier.py*
@@ -172,6 +183,7 @@ fi
 %doc LICENSE
 %if 0%{?suse_version}
 %dir %{python_sitelib}/virtualization
+%endif
 %endif
 
 %if 0%{?build_py3}
@@ -208,6 +220,7 @@ fi
 %config(noreplace) %{rhn_conf_dir}/image.cfg
 %doc LICENSE
 
+%if 0%{?build_py2}
 %files -n python2-%{name}-host
 %{python_sitelib}/virtualization/domain_config.py*
 %{python_sitelib}/virtualization/domain_control.py*
@@ -228,6 +241,7 @@ fi
 %if 0%{?suse_version}
 %dir %{python_sitelib}/rhn
 %dir %{python_sitelib}/rhn/actions
+%endif
 %endif
 
 %if 0%{?build_py3}
@@ -266,6 +280,12 @@ fi
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.72-1
+- don't build python2 subpackages on systems with default python3
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.71-1
+- use python3 for rhel8 in rhn-virtualization
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.70-1
 - remove install/clean section initial cleanup
 - removed Group from specfile

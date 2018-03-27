@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:35-0400\n"
+"POT-Creation-Date: 2018-03-16 14:29+0100\n"
 "PO-Revision-Date: 2011-03-04 15:46+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: ../src/up2date_client/capabilities.py:88
+#: ../src/up2date_client/capabilities.py:87
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -80,20 +80,12 @@ msgstr ""
 msgid "Error reading network interface information:"
 msgstr ""
 
-#: ../src/up2date_client/messageWindow.py:98
+#: ../src/up2date_client/messageWindow.py:97
 msgid "Error:"
 msgstr ""
 
-#: ../src/up2date_client/messageWindow.py:105
+#: ../src/up2date_client/messageWindow.py:104
 msgid "Yes/No dialog:"
-msgstr ""
-
-#: ../src/up2date_client/rhnChannel.py:96
-msgid "Unable to Locate SystemId"
-msgstr ""
-
-#: ../src/up2date_client/rhnChannel.py:113
-msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:70
@@ -181,6 +173,14 @@ msgstr ""
 
 #: ../src/up2date_client/rhncli.py:235
 msgid "See /var/log/up2date for more information"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:96
+msgid "Unable to Locate SystemId"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:113
+msgid "This system may not be updated until it is associated with a channel."
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:14
@@ -327,7 +327,7 @@ msgid "Red Hat Login:"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:73
-#: ../src/up2date_client/tui.py:128
+#: ../src/up2date_client/tui.py:127
 msgid "Login:"
 msgstr ""
 
@@ -758,12 +758,12 @@ msgstr ""
 
 #. Navigation
 #: ../src/up2date_client/rhnreg_constants.py:319
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "OK"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:320
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "Error"
 msgstr ""
 
@@ -912,8 +912,8 @@ msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:794
 #: ../src/up2date_client/rhnregGui.py:798
-#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:881
-#: ../src/up2date_client/tui.py:884 ../src/up2date_client/tui.py:887
+#: ../src/up2date_client/rhnregGui.py:802 ../src/up2date_client/tui.py:880
+#: ../src/up2date_client/tui.py:883 ../src/up2date_client/tui.py:886
 msgid "Problem registering system:\n"
 msgstr ""
 
@@ -924,11 +924,11 @@ msgid ""
 "Please go back to the previous screen and fix it."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:893
+#: ../src/up2date_client/rhnregGui.py:815 ../src/up2date_client/tui.py:892
 msgid "Problem registering system."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:898
+#: ../src/up2date_client/rhnregGui.py:825 ../src/up2date_client/tui.py:897
 msgid "Problem writing out system id to disk."
 msgstr ""
 
@@ -961,21 +961,21 @@ msgstr ""
 msgid "Problem sending package information."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:971
+#: ../src/up2date_client/rhnregGui.py:909 ../src/up2date_client/tui.py:970
 msgid ""
 "Could not open /etc/yum/pluginconf.d/rhnplugin.conf\n"
 "yum-rhn-plugin is not enabled.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:925
-#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:912
-#: ../src/up2date_client/tui.py:926
+#: ../src/up2date_client/rhnregGui.py:942 ../src/up2date_client/tui.py:911
+#: ../src/up2date_client/tui.py:925
 msgid "Problem registering personal information:\n"
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:930
-#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:918
-#: ../src/up2date_client/tui.py:930
+#: ../src/up2date_client/rhnregGui.py:947 ../src/up2date_client/tui.py:917
+#: ../src/up2date_client/tui.py:929
 msgid "Problem registering personal information"
 msgstr ""
 
@@ -1010,7 +1010,7 @@ msgstr ""
 msgid "There was an error getting the list of hardware."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:678
+#: ../src/up2date_client/rhnregGui.py:1213 ../src/up2date_client/tui.py:677
 #, python-format
 msgid "%d MHz"
 msgstr ""
@@ -1077,85 +1077,85 @@ msgstr ""
 msgid "Server has refused connection due to high load"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:127
+#: ../src/up2date_client/tui.py:126
 msgid "Red Hat Network Location:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:129
+#: ../src/up2date_client/tui.py:128
 msgid "System ID:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:423
+#: ../src/up2date_client/tui.py:422
 msgid "The server indicated an error:\n"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:427
+#: ../src/up2date_client/tui.py:426
 msgid "There was an error communicating with the registration server:\n"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:627
+#: ../src/up2date_client/tui.py:626
 msgid "Profile name:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:649 ../src/up2date_client/tui.py:650
+#: ../src/up2date_client/tui.py:648 ../src/up2date_client/tui.py:649
 msgid "Version: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:656
+#: ../src/up2date_client/tui.py:655
 msgid "CPU model: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:662
+#: ../src/up2date_client/tui.py:661
 msgid "Hostname: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:674
+#: ../src/up2date_client/tui.py:673
 msgid "CPU speed: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:680
+#: ../src/up2date_client/tui.py:679
 msgid "IP Address: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:689
+#: ../src/up2date_client/tui.py:688
 msgid "Memory: "
 msgstr ""
 
-#: ../src/up2date_client/tui.py:693
+#: ../src/up2date_client/tui.py:692
 #, python-format
 msgid "%s megabytes"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:940
+#: ../src/up2date_client/tui.py:939
 msgid "Problem sending hardware profile:\n"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:944
+#: ../src/up2date_client/tui.py:943
 msgid "Problem sending hardware profile."
 msgstr ""
 
-#: ../src/up2date_client/tui.py:953
+#: ../src/up2date_client/tui.py:952
 msgid "Problem sending package list:\n"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:956
+#: ../src/up2date_client/tui.py:955
 msgid "Problem sending package list."
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1009
+#: ../src/up2date_client/tui.py:1008
 msgid "Finish"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1127
+#: ../src/up2date_client/tui.py:1126
 msgid "You specified an invalid protocol.Only https and http are allowed."
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1161
+#: ../src/up2date_client/tui.py:1160
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1258
+#: ../src/up2date_client/tui.py:1257
 msgid "You must run the RHN registration program as root."
 msgstr ""
 
@@ -1227,22 +1227,6 @@ msgid ""
 "    requiring a Management entitlement."
 msgstr ""
 
-#: ../src/firstboot/rhn_choose_server_gui.py:41
-#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
-msgid "Choose Server"
-msgstr ""
-
-#: ../src/firstboot/rhn_choose_server_gui.py:66
-#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
-msgid "Red Hat Login"
-msgstr ""
-
-#: ../src/firstboot/rhn_choose_server_gui.py:71
-#: ../src/firstboot/rhn_provide_certificate_gui.py:40
-#: ../src/firstboot/rhn_provide_certificate_gui.py:41
-msgid "Provide Certificate"
-msgstr ""
-
 #: ../src/firstboot/rhn_create_profile_gui.py:41
 #: ../src/firstboot/rhn_create_profile_gui.py:42
 #: ../src/firstboot/rhn_login_gui.py:70
@@ -1268,6 +1252,22 @@ msgstr ""
 #: ../src/firstboot/rhn_create_profile_gui.py:88
 #: ../src/firstboot/rhn_login_gui.py:100
 msgid "Would you like to go back and try again?"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:41
+#: ../src/firstboot/rhn_choose_server_gui.py:42 ../data/rh_register.glade.h:9
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:66
+#: ../src/firstboot/rhn_login_gui.py:40 ../src/firstboot/rhn_login_gui.py:41
+msgid "Red Hat Login"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:71
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+#: ../src/firstboot/rhn_provide_certificate_gui.py:41
+msgid "Provide Certificate"
 msgstr ""
 
 #: ../src/firstboot/rhn_register.py:28 ../src/firstboot/rhn_register.py:29

@@ -8,7 +8,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        2.8.2
+Version:        2.8.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -112,6 +112,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Mar 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- 1365569 - Update SELinux to allow httpd to read systemid file
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed Group from specfile
 - removed BuildRoot from specfiles

@@ -25,6 +25,7 @@
                 <div class="col-lg-6">
                     <input type="text" name="label"
                            length="64" size="30" class="form-control"
+                           maxlength="64"
                            value="<c:out value="${old_label}" />"/>
                 </div>
             </div>
@@ -35,6 +36,7 @@
                 <div class="col-lg-6">
                     <textarea id="descr" wrap="virtual" rows="6" cols="50"
                               class="form-control"
+                              maxlength="4000"
                               name="description"><c:out value="${old_description}" /></textarea>
                 </div>
             </div>

@@ -9010,6 +9010,12 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
         <source>A Custom Key label and description must be at least two characters long.</source>
         <target>Das Label und die Beschreibung eines Spezial-Schlüssels müssen mindestens zwei Zeichen lang sein.</target>
       </trans-unit>
+      <trans-unit id="system.customkey.error.toolong">
+        <source>A Custom Key label can only be 64 characters long at maximum.</source>
+      </trans-unit>
+      <trans-unit id="system.customkey.error.descr_toolong">
+        <source>A Custom Key description can only be 4000 characters long at maximum.</source>
+      </trans-unit>
       <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
         <target>Eine Spezial-Schlüssel Kennung darf nur Buchstaben, Ziffern, Bindestriche (-) und Unterstriche (_) enthalten.</target>
@@ -9017,6 +9023,9 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
       <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
         <target>1  Spezial-Schlüssel erfolgreich hinzugefügt.</target>
+      </trans-unit>
+      <trans-unit id="system.customkey.deletesuccess">
+        <source>Successfully deleted 1 custom key.</source>
       </trans-unit>
       <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
@@ -9194,6 +9203,9 @@ Folgen Sie dieser URL für die vollständige Liste inaktiver Systeme:
       <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
         <target>Channel &lt;strong&gt;{0}&lt;/strong&gt; aktualisiert.</target>
+      </trans-unit>
+      <trans-unit id="message.failactionsuccess">
+        <source>Status of action &lt;strong&gt;{0}&lt;/strong&gt; has been set to failed.</source>
       </trans-unit>
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>

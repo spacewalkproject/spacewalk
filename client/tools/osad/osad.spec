@@ -13,9 +13,13 @@
 %global include_selinux_package 1
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %global build_py3   1
 %global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
@@ -23,7 +27,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.99
+Version: 5.11.102
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -73,6 +77,7 @@ commands are instantly executed.
 This package effectively replaces the behavior of rhnsd/rhn_check that
 only poll the Spacewalk Server from time to time.
 
+%if 0%{?build_py2}
 %package -n python2-%{name}
 Summary: Open Source Architecture Daemon
 %{?python_provide:%python_provide python2-%{name}}
@@ -89,6 +94,7 @@ Requires: python-hashlib
 BuildRequires: python-devel
 %description -n python2-%{name}
 Python 2 specific files for %{name}
+%endif
 
 %if 0%{?build_py3}
 %package -n python3-%{name}
@@ -156,8 +162,13 @@ that message is transported via jabber protocol to OSAD agent on the clients.
 
 %package -n python2-osa-dispatcher
 Summary: OSA dispatcher
+%if 0%{?fedora} >= 28
+BuildRequires: python2-devel
+Requires: python2
+%else
 BuildRequires: python-devel
 Requires: python
+%endif
 Requires: jabberpy
 Requires: python2-osa-common = %{version}
 %description -n python2-osa-dispatcher
@@ -280,6 +291,11 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 # Install osa-dispatcher-selinux-enable which will be called in %%post
 install -d %{buildroot}%{_sbindir}
 install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
+%endif
+
+%if ! 0%{?build_py2}
+rm -rf $RPM_BUILD_ROOT/%{python_sitelib}/osad/osad*
+rm -f $RPM_BUILD_ROOT/usr/sbin/osad-%{python_version}
 %endif
 
 %clean
@@ -427,12 +443,14 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
 %endif
 
+%if 0%{?build_py2}
 %files -n python2-%{name}
 %attr(755,root,root) %{_sbindir}/osad-%{python_version}
 %dir %{python_sitelib}/osad
 %{python_sitelib}/osad/osad.py*
 %{python_sitelib}/osad/osad_client.py*
 %{python_sitelib}/osad/osad_config.py*
+%endif
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
@@ -514,6 +532,17 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.102-1
+- remove osad files when packaging only for python3
+- osa-dispatcher is dependent on spacewalk-backend which is in python2
+
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.101-1
+- run osa-dispatcher on python3 when possible
+- don't build python2 subpackages on F28 + update python requires
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.100-1
+- use python3 for rhel8 in osad
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.99-1
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup

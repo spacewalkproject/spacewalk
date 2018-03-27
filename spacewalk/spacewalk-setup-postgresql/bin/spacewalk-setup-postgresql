@@ -162,7 +162,7 @@ listen_addresses='$ADDRESS'
 EOF
     fi
 
-    sysctl kernel.shmmax | ( read v v v ; LIMIT=500000000 ; if [ "0$v" -lt $LIMIT ] ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
+    sysctl kernel.shmmax | ( read v v v ; LIMIT=5000000000 ; if (("$v"0 < $LIMIT )) ; then sysctl "kernel.shmmax=$LIMIT" >> /etc/sysctl.conf ; fi )
 
     cat >> $PG_IDENT <<EOF
 
@@ -225,10 +225,18 @@ EOF
             $RUNUSER - postgres -c "createdb -E UTF8 '$PGNAME'"
     fi
     if ! exists_plpgsql ; then
-            $RUNUSER - postgres -c "createlang plpgsql '$PGNAME'"
+            if is_postgres10 ; then
+                EXTENSION=$($RUNUSER - postgres -c 'psql -c "CREATE EXTENSION IF NOT EXISTS plpgsql;" -d '$PGNAME'')
+            else
+                $RUNUSER - postgres -c "createlang plpgsql '$PGNAME'"
+            fi
     fi
     if ! exists_pltclu ; then
-            $RUNUSER - postgres -c "createlang pltclu '$PGNAME'"
+            if is_postgres10 ; then
+                EXTENSION=$($RUNUSER - postgres -c 'psql -c "CREATE EXTENSION IF NOT EXISTS pltclu;" -d '$PGNAME'')
+            else
+                $RUNUSER - postgres -c "createlang pltclu '$PGNAME'"
+            fi
     fi
     if ! exists_user ; then
             $RUNUSER - postgres -c "yes '$PGPASSWORD' | createuser -P -sDR '$PGUSER'" 2>/dev/null
@@ -288,6 +296,15 @@ check() {
         fi
     fi
     exit $RET
+}
+
+is_postgres10() {
+    NUM=$($RUNUSER - postgres -c 'psql -t -c "SHOW server_version_num;"')
+    if (( $NUM > 100000 )) ; then
+        return 0
+    else
+        return 1
+    fi
 }
 
 exists_db() {

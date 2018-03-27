@@ -7666,6 +7666,9 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="system.customkey.error.toolong">
         <source>A Custom Key label can only be 64 characters long at maximum.</source>
       </trans-unit>
+      <trans-unit id="system.customkey.error.descr_toolong">
+        <source>A Custom Key description can only be 4000 characters long at maximum.</source>
+      </trans-unit>
       <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
       </trans-unit>

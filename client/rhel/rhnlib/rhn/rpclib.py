@@ -1,7 +1,7 @@
 #
 # This module contains all the RPC-related functions the RHN code uses
 #
-# Copyright (c) 2005--2016 Red Hat, Inc.
+# Copyright (c) 2005--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -74,7 +74,7 @@ def split_host(hoststring):
     # Now parse hostport
     if hostport[0] == '[':
         # IPv6 with port
-        host, port = re.split('(?<=\]):', ip_port, 1)
+        host, port = re.split('(?<=\]):', hostport, 1)
         host = host.lstrip('[').rstrip(']')
     elif check_ipv6(hostport):
         # just IPv6

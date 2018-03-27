@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -234,6 +234,9 @@ public class EditAction extends LookupDispatchAction {
         e.setNotes(form.getString("notes"));
         if (ErrataFactory.ERRATA_TYPE_SECURITY.equals(e.getAdvisoryType())) {
             e.setSeverity(Severity.getById((Integer)form.get("advisorySeverity")));
+        }
+        else {
+            e.setSeverity(null);
         }
 
         //Clear all the keywords and bugs we have, and then add the ones on page

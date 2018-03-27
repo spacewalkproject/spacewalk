@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2017 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -175,7 +175,7 @@ def getHeader(productName, activation_keys, org_gpg_key,
               allow_config_actions, allow_remote_commands, up2dateYN, pubname):
     # 11/22/16 options.gpg_key is now a comma-separated list of path.
     # Removing paths from options.gpg_key
-    org_gpg_key = ",".join([os.path.basename(gpg_key) for gpg_key in options.gpg_key.split(",")])
+    org_gpg_key = ",".join([os.path.basename(gpg_key) for gpg_key in org_gpg_key.split(",")])
 
     if not activation_keys:
         exit_call = "exit 1"

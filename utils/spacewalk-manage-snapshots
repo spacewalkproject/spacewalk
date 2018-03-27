@@ -132,6 +132,15 @@ def validate_options():
     if not (options.reports or (options.num_days is not None)):
         parser.error("Either --reports or --delete-older-than is required")
 
+    if options.batch_size < 1:
+        parser.error("--batch-size requires a positive integer argument")
+
+    if options.report_interval < 1:
+        parser.error("--interval-older-than requires a positive number of days")
+
+    if options.num_days and options.num_days < 1:
+        parser.error("--delete-older-than requires a positive number of days")
+
     return (options, args)
 
 
@@ -220,6 +229,7 @@ def purge(opt):
 
     to_be_purged = purge_count(name, opt)
     print '{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size)
+    _log('{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size))
 
     lock_str = _get_sql('LOCK_GROUPS')
     del_str = _get_sql('PURGE_DATA')

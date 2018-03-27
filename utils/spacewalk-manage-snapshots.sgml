@@ -158,7 +158,7 @@ sys	0m0.020s
 
 <RefSect1><Title>Log Output</Title>
     <para>
-        When --delete-older-than is chosen, spacewalk-manage-snapshots writes its processing to a log file. THis file can be found at <emphasis>/var/log/rhn/spacewalk-manage-snapshots.log</emphasis>
+        When --delete-older-than is chosen, spacewalk-manage-snapshots writes its processing to a log file. This file can be found at <emphasis>/var/log/rhn/spacewalk-manage-snapshots.log</emphasis>
     </para>
     <para>
         Log output includes:
@@ -173,7 +173,7 @@ sys	0m0.020s
 
 <RefSect1><Title>Authors</Title>
 <simplelist>
-    <member>Grant Gainey<email>ggainey@redhat.com</email></member>
+    <member>Grant Gainey <email>ggainey@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>

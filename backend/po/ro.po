@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:36-0400\n"
+"POT-Creation-Date: 2018-03-16 14:32+0100\n"
 "PO-Revision-Date: 2015-03-17 08:03-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Romanian (http://www.transifex.com/projects/p/fedora/language/"
@@ -25,110 +25,40 @@ msgstr ""
 "2:1));\n"
 "X-Generator: Zanata 3.9.6\n"
 
-#: ../server/rhnServer/server_token.py:77
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
 #, python-format
-msgid "Token `%s' has more than one base channel assigned"
+msgid "Service not enabled for system profile: \"%s\""
 msgstr ""
 
-#: ../server/rhnServer/server_token.py:79
-msgid "Conflicting base channels"
-msgstr ""
-
-#: ../server/rhnServer/server_token.py:189
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
 #, python-format
-msgid "Failed to add server to group %s"
+msgid "Invalid RPM package %s requested"
 msgstr ""
 
-#: ../server/rhnServer/server_token.py:502
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr ""
+
+#: ../server/handlers/applet/applet.py:78
+msgid "Your system was not found in the RHN database"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/proxy.py:63
 #, python-format
-msgid "Maximum usage count of %s reached"
+msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
 msgstr ""
 
-#: ../server/rhnServer/server_token.py:733
-msgid ""
-"Stacking of re-registration tokens with different base entitlements is not "
-"supported"
+#: ../server/handlers/xmlrpc/proxy.py:83
+msgid "Invalid session key"
 msgstr ""
 
-#: ../server/rhnServer/server_token.py:787
-#, python-format
-msgid "Could not find token '%s'"
-msgstr ""
-
-#. Cannot use activation keys from different orgs
-#: ../server/rhnServer/server_token.py:819
-msgid "Tokens from mismatching orgs"
-msgstr ""
-
-#. Two tokens with different kickstart sessions
-#: ../server/rhnServer/server_token.py:829
-msgid "Kickstart session mismatch"
-msgstr ""
-
-#: ../server/rhnServer/server_token.py:849
-msgid "Stacking of re-registration tokens is not supported"
-msgstr ""
-
-#: ../server/rhnServer/server_class.py:97
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:103
-#, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:144
-#, python-format
-msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
-msgstr ""
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr ""
-
-#: ../server/handlers/sat/auth.py:50
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr ""
-
-#: ../server/handlers/xmlrpc/queue.py:434
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/queue.py:459
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/scap.py:89
-msgid "Invalid system_id/action_id pair."
-msgstr ""
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/up2date.py:234
-#, python-format
-msgid "Invalid value %s (%s)"
+#: ../server/handlers/xmlrpc/proxy.py:91
+msgid "This server ID no longer exists"
 msgstr ""
 
 #: ../server/handlers/xmlrpc/registration.py:202
@@ -177,91 +107,91 @@ msgstr ""
 msgid "Invalid value '%s' for %s (%s)"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/proxy.py:63
+#: ../server/handlers/xmlrpc/errata.py:62
 #, python-format
-msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
+msgid "Expected a package name, not: %s"
 msgstr ""
 
-#: ../server/handlers/xmlrpc/proxy.py:83
-msgid "Invalid session key"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/proxy.py:91
-msgid "This server ID no longer exists"
-msgstr ""
-
-#: ../server/handlers/applet/applet.py:78
-msgid "Your system was not found in the RHN database"
-msgstr ""
-
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#: ../server/handlers/xmlrpc/errata.py:113
 #, python-format
-msgid "Invalid RPM package %s requested"
+msgid "Expected a package, not: %s"
 msgstr ""
 
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr ""
-
-#: ../server/rhnUser.py:289 ../server/rhnUser.py:292
-msgid "Invalid username/password combination"
-msgstr ""
-
-#. nope, not reserved either
-#: ../server/rhnUser.py:468
+#: ../server/handlers/xmlrpc/queue.py:434
 #, python-format
-msgid "Username `%s' has not been reserved"
+msgid "Invalid action value type %s (%s)"
 msgstr ""
 
-#. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:474
-msgid "E-mail address not specified"
-msgstr ""
-
-#: ../server/rhnUser.py:510
+#: ../server/handlers/xmlrpc/queue.py:459
 #, python-format
-msgid "username should be at least %d characters"
+msgid "Action %s does not belong to server %s"
 msgstr ""
 
-#: ../server/rhnUser.py:513
-#, python-format
-msgid "username should be less than %d characters"
+#: ../server/handlers/xmlrpc/scap.py:89
+msgid "Invalid system_id/action_id pair."
 msgstr ""
 
-#: ../server/rhnUser.py:524
+#: ../server/handlers/xmlrpc/up2date.py:234
 #, python-format
-msgid "username = `%s', invalid character `%s'"
+msgid "Invalid value %s (%s)"
 msgstr ""
 
-#: ../server/rhnUser.py:543
-#, python-format
-msgid "Please limit your e-mail address to %s chars"
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
 msgstr ""
 
-#: ../server/rhnUser.py:624
+#: ../server/handlers/sat/auth.py:50
 #, python-format
-msgid "password must be at least %d characters"
+msgid "Server \"%s\" is not enabled for ISS."
 msgstr ""
 
-#: ../server/rhnUser.py:627
+#: ../server/rhnServer/server_token.py:77
 #, python-format
-msgid "Password must be shorter than %d characters"
+msgid "Token `%s' has more than one base channel assigned"
 msgstr ""
 
-#: ../server/rhnUser.py:645
-#, python-format
-msgid "password contains character `%s'"
+#: ../server/rhnServer/server_token.py:79
+msgid "Conflicting base channels"
 msgstr ""
 
-#: ../server/rhnUser.py:652
+#: ../server/rhnServer/server_token.py:189
 #, python-format
-msgid "username should be at least %d characters long"
+msgid "Failed to add server to group %s"
 msgstr ""
 
-#: ../server/rhnUser.py:663
+#: ../server/rhnServer/server_token.py:502
 #, python-format
-msgid "Cannot register usernames ending with %s"
+msgid "Maximum usage count of %s reached"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:733
+msgid ""
+"Stacking of re-registration tokens with different base entitlements is not "
+"supported"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:787
+#, python-format
+msgid "Could not find token '%s'"
+msgstr ""
+
+#. Cannot use activation keys from different orgs
+#: ../server/rhnServer/server_token.py:819
+msgid "Tokens from mismatching orgs"
+msgstr ""
+
+#. Two tokens with different kickstart sessions
+#: ../server/rhnServer/server_token.py:829
+msgid "Kickstart session mismatch"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:849
+msgid "Stacking of re-registration tokens is not supported"
+msgstr ""
+
+#: ../server/rhnServer/server_class.py:97
+#, python-format
+msgid "Architecture `%s' is not supported"
 msgstr ""
 
 #: ../server/rhnChannel.py:1926
@@ -338,6 +268,66 @@ msgid ""
 "  %(entitlement_url)s\n"
 msgstr ""
 
+#: ../server/rhnUser.py:289 ../server/rhnUser.py:292
+msgid "Invalid username/password combination"
+msgstr ""
+
+#. nope, not reserved either
+#: ../server/rhnUser.py:468
+#, python-format
+msgid "Username `%s' has not been reserved"
+msgstr ""
+
+#. New accounts have to specify an e-mail address
+#: ../server/rhnUser.py:474
+msgid "E-mail address not specified"
+msgstr ""
+
+#: ../server/rhnUser.py:510
+#, python-format
+msgid "username should be at least %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:513
+#, python-format
+msgid "username should be less than %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:524
+#, python-format
+msgid "username = `%s', invalid character `%s'"
+msgstr ""
+
+#: ../server/rhnUser.py:543
+#, python-format
+msgid "Please limit your e-mail address to %s chars"
+msgstr ""
+
+#: ../server/rhnUser.py:624
+#, python-format
+msgid "password must be at least %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:627
+#, python-format
+msgid "Password must be shorter than %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:645
+#, python-format
+msgid "password contains character `%s'"
+msgstr ""
+
+#: ../server/rhnUser.py:652
+#, python-format
+msgid "username should be at least %d characters long"
+msgstr ""
+
+#: ../server/rhnUser.py:663
+#, python-format
+msgid "Cannot register usernames ending with %s"
+msgstr ""
+
 #: ../server/apacheAuth.py:67
 #, python-format
 msgid "incomplete proxy authentication token: %s"
@@ -352,13 +342,23 @@ msgstr ""
 msgid "declined proxy authentication"
 msgstr ""
 
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
 msgstr ""
 
-#: ../server/rhnHandler.py:75
+#: ../server/importlib/userAuth.py:103
 #, python-format
-msgid "Service not enabled for system profile: \"%s\""
+msgid "You are not allowed to manage packages in the %s org"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:144
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
 msgstr ""
 
 #: ../server/apacheRequest.py:59
@@ -383,6 +383,16 @@ msgstr ""
 #: ../server/apacheRequest.py:602
 #, python-format
 msgid "Invalid URI %s"
+msgstr ""
+
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
 msgstr ""
 
 #. 0-999: Red Hat client/client-like interaction errors:
@@ -955,14 +965,4 @@ msgstr ""
 #: ../common/rhnException.py:362
 #, python-format
 msgid "Explanation: %s"
-msgstr ""
-
-#: ../common/rhnTB.py:205
-#, python-format
-msgid "ERROR: %s %s: %s"
-msgstr ""
-
-#: ../common/rhnTB.py:207
-#, python-format
-msgid "TRACEBACK: %s"
 msgstr ""

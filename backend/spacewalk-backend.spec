@@ -7,7 +7,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %endif
 
-%if 0%{?fedora} >= 23 || 0%{?suse_version} > 1320
+%if 0%{?fedora} >= 23 || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %global build_py3 1
@@ -33,12 +33,18 @@
 %global m2crypto python-m2crypto
 %endif
 
+%if  0%{?fedora} >= 28  || 0%{?rhel} >= 8
+%global python_prefix python2
+%else
+%global python_prefix python
+%endif
+
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.8.48
+Version: 2.8.57
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -48,7 +54,7 @@ Requires: python, rpm-python
 Requires: /etc/rhn
 Requires: rhnlib >= 2.5.74
 # for Debian support
-Requires: python-debian
+Requires: %{python_prefix}-debian
 Requires: %{name}-libs >= 1.1.16-1
 %if 0%{?rhel} > 5
 Requires: pyliblzma
@@ -59,20 +65,21 @@ BuildRequires: spacewalk-python2-pylint
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-BuildRequires: spacewalk-usix
+BuildRequires: python2-spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: python2-rhn-client-tools
 BuildRequires: rpm-python
-BuildRequires: python-crypto
-BuildRequires: python-debian
+BuildRequires: %{python_prefix}-crypto
+BuildRequires: %{python_prefix}-debian
+
 BuildRequires: python2-gzipstream
 BuildRequires: yum
 BuildRequires: %{m2crypto}
 %endif
 Requires(pre): %{apache_pkg}
 Requires: %{apache_pkg}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
@@ -93,7 +100,7 @@ Requires: %{name} = %{version}-%{release}
 Obsoletes: rhns-sql < 5.3.0
 Provides: rhns-sql = 1:%{version}-%{release}
 Requires: %{name}-sql-virtual = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 
 %description sql
 This package contains the basic code that provides SQL connectivity for
@@ -102,7 +109,7 @@ the Spacewalk backend modules.
 %package sql-oracle
 Summary: Oracle backend for Spacewalk
 Requires: python(:DBAPI:oracle)
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-oracle
@@ -112,7 +119,7 @@ modules.
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
 Requires: python-psycopg2 >= 2.0.14-2
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
 %description sql-postgresql
@@ -123,7 +130,7 @@ backend modules.
 Summary: Basic code that provides Spacewalk Server functionality
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: %{name}-sql = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = 1:%{version}-%{release}
@@ -146,7 +153,7 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Requires: %{name}-server = %{version}-%{release}
 Requires: rpm-python
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 Provides: rhns-server-xmlrpc = 1:%{version}-%{release}
@@ -160,7 +167,7 @@ and the up2date clients.
 %package applet
 Summary: Handler for /APPLET
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-applet < 5.3.0
 Provides: rhns-applet = 1:%{version}-%{release}
 
@@ -171,7 +178,7 @@ provides the functions for the Spacewalk applet.
 %package app
 Summary: Handler for /APP
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
 Provides: rhns-server-app = 1:%{version}-%{release}
@@ -206,7 +213,7 @@ capability.
 Summary: Listener for the Server XML dumper
 Requires: rpm-python
 Requires: %{name}-xml-export-libs = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 
 %description iss-export
 %{name} contains the basic code that provides server/backend
@@ -224,7 +231,7 @@ BuildRequires: python-devel
 Requires: python
 BuildRequires: python2-devel
 Conflicts: %{name} < 1.7.0
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 %endif
 
 %description libs
@@ -252,7 +259,7 @@ Libraries required by Spacewalk client tools on Fedora 23.
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-config-files-common < 5.3.0
 Provides: rhns-config-files-common = 1:%{version}-%{release}
 
@@ -271,7 +278,7 @@ This package contains the server-side code for configuration management.
 %package config-files-tool
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Requires: %{name}-config-files-common = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-config-files-tool < 5.3.0
 Provides: rhns-config-files-tool = 1:%{version}-%{release}
 
@@ -306,7 +313,7 @@ Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: python-requests
 Requires: %{m2crypto}
 %if 0%{?fedora} || 0%{?rhel} > 5
@@ -323,7 +330,7 @@ Various utilities for the Spacewalk Server.
 %package xml-export-libs
 Summary: Spacewalk XML data exporter
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Obsoletes: rhns-xml-export-libs < 5.3.0
 Provides: rhns-xml-export-libs = 1:%{version}-%{release}
 
@@ -333,7 +340,7 @@ Libraries required by various exporting tools
 %package cdn
 Summary: CDN tools
 Requires: %{name}-server = %{version}-%{release}
-Requires: spacewalk-usix
+Requires: python2-spacewalk-usix
 Requires: subscription-manager
 Requires: %{m2crypto}
 Requires: python-argparse
@@ -788,6 +795,40 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Mar 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.57-1
+- 1549546 - Allow spacewalk-channel to add parent channel.
+
+* Fri Mar 23 2018 Jan Dobes <jdobes@redhat.com> 2.8.56-1
+- fixing incorrect syntax of format string
+- fixing incorrect syntax of format string
+- pylint: Unused variable 'frag' (unused-variable)
+
+* Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.55-1
+- refactoring ljust methods in print
+- Hack: Try to build an URL that works for SUSE SCC downloads, based on PR #617
+
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.54-1
+- Make spec file follow guidelines for fedora28+
+
+* Tue Mar 20 2018 Jiri Dostal <jdostal@redhat.com> 2.8.53-1
+- Fixing newline error in translation
+- Updating copyright years for 2018
+- Regenerating .po and .pot files for spacewalk-backend.
+- Updating .po translations from Zanata
+
+* Thu Mar 01 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.52-1
+- require python2 version of spacewalk-usix for backend server
+
+* Thu Mar 01 2018 Jiri Dostal <jdostal@redhat.com> 2.8.51-1
+- 1550001 - KeyError: 'severity' caught when exporting channel with rhn-
+  satellite-exporter
+
+* Wed Feb 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.50-1
+- build python3-spacewalk-backend on rhel8
+
+* Fri Feb 23 2018 Grant Gainey 2.8.49-1
+- 1534417 - sanitize pwds in backup files and http-proxy-pwds as well
+
 * Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.48-1
 - Update to use newly separated spacewalk-python[2|3]-pylint packages
 

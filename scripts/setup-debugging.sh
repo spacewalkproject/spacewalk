@@ -11,10 +11,13 @@ function help {
 function setup_taskomatic {
 OK="\e[32m[[ \e[37mOK \e[32m]]\e[m"
 TASKOMATIC_TEMPLATE=/usr/share/rhn/config-defaults/rhn_taskomatic_daemon.conf
+ADDON_NUMBER=$(cat /usr/share/rhn/config-defaults/rhn_taskomatic_daemon.conf | grep -oP '^wrapper.java.additional.\K[0-9]+(?==)' | sort -n | tail -n 1)
+let ADDON_NUMBER++
 cat $TASKOMATIC_TEMPLATE | grep "^wrapper.java.detect_debug_jvm=TRUE" > /dev/null
 if [ $? -ne 0 ]; then
-    echo "wrapper.java.additional.5=-Xdebug" >> $TASKOMATIC_TEMPLATE
-    echo "wrapper.java.additional.6=-Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=n" >> $TASKOMATIC_TEMPLATE
+    echo "wrapper.java.additional.$ADDON_NUMBER=-Xdebug" >> $TASKOMATIC_TEMPLATE
+    let ADDON_NUMBER++
+    echo "wrapper.java.additional.$ADDON_NUMBER=-Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=n" >> $TASKOMATIC_TEMPLATE
     echo "wrapper.java.detect_debug_jvm=TRUE" >> $TASKOMATIC_TEMPLATE
     echo -e "$OK Taskomatic debugging has been set successfully on port 8001"
 else

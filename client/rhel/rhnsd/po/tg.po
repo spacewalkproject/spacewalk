@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-13 14:34-0400\n"
+"POT-Creation-Date: 2018-03-16 14:28+0100\n"
 "PO-Revision-Date: 2011-03-04 16:04+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Tajik (http://www.transifex.net/projects/p/fedora/team/tg/)\n"
@@ -17,42 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../rhnsd.c:57
+#: ../rhnsd.c:54
 msgid "MINS"
 msgstr ""
 
-#: ../rhnsd.c:58
+#: ../rhnsd.c:55
 msgid "Connect to Spacewalk every MINS minutes"
 msgstr ""
 
-#: ../rhnsd.c:60
+#: ../rhnsd.c:57
 msgid "Run in foreground"
 msgstr ""
 
 #. Short description of program.
-#: ../rhnsd.c:65
+#: ../rhnsd.c:62
 msgid "Spacewalk Services Daemon"
 msgstr ""
 
-#: ../rhnsd.c:118
+#: ../rhnsd.c:115
 #, c-format
 msgid "Only root can run this program\n"
 msgstr ""
 
-#: ../rhnsd.c:138
+#: ../rhnsd.c:135
 msgid "wrong number of arguments"
 msgstr ""
 
-#: ../rhnsd.c:145
+#: ../rhnsd.c:142
 msgid "already running"
 msgstr ""
 
-#: ../rhnsd.c:264
+#: ../rhnsd.c:249
 #, c-format
 msgid "Copyright (C) %s Red Hat, Inc.\n"
 msgstr ""
 
-#: ../rhnsd.c:267
+#: ../rhnsd.c:252
 #, c-format
 msgid "Written by %s.\n"
 msgstr ""

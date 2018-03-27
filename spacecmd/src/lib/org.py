@@ -32,15 +32,14 @@
 import shlex
 from getpass import getpass
 from operator import itemgetter
-from optparse import Option
 from spacecmd.utils import *
 
 _PREFIXES = ['Dr.', 'Mr.', 'Miss', 'Mrs.', 'Ms.']
 
 
 def help_org_create(self):
-    print 'org_create: Create an organization'
-    print '''usage: org_create [options]
+    print('org_create: Create an organization')
+    print('''usage: org_create [options])
 
 options:
   -n ORG_NAME
@@ -50,20 +49,21 @@ options:
   -l LAST_NAME
   -e EMAIL
   -p PASSWORD
-  --pam enable PAM authentication''' % ', '.join(_PREFIXES)
+  --pam enable PAM authentication''' % ', '.join(_PREFIXES))
 
 
 def do_org_create(self, args):
-    options = [Option('-n', '--org-name', action='store'),
-               Option('-u', '--username', action='store'),
-               Option('-P', '--prefix', action='store'),
-               Option('-f', '--first-name', action='store'),
-               Option('-l', '--last-name', action='store'),
-               Option('-e', '--email', action='store'),
-               Option('-p', '--password', action='store'),
-               Option('', '--pam', action='store_true')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--org-name')
+    arg_parser.add_argument('-u', '--username')
+    arg_parser.add_argument('-P', '--prefix')
+    arg_parser.add_argument('-f', '--first-name')
+    arg_parser.add_argument('-l', '--last-name')
+    arg_parser.add_argument('-e', '--email')
+    arg_parser.add_argument('-p', '--password')
+    arg_parser.add_argument('--pam', action='store_true')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
         options.org_name = prompt_user('Organization Name:', noblank=True)
@@ -137,8 +137,8 @@ def do_org_create(self, args):
 
 
 def help_org_delete(self):
-    print 'org_delete: Delete an organization'
-    print 'usage: org_delete NAME'
+    print('org_delete: Delete an organization')
+    print('usage: org_delete NAME')
 
 
 def complete_org_delete(self, text, line, beg, end):
@@ -146,7 +146,9 @@ def complete_org_delete(self, text, line, beg, end):
 
 
 def do_org_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 1:
         self.help_org_delete()
@@ -162,8 +164,8 @@ def do_org_delete(self, args):
 
 
 def help_org_rename(self):
-    print 'org_rename: Rename an organization'
-    print 'usage: org_rename OLDNAME NEWNAME'
+    print('org_rename: Rename an organization')
+    print('usage: org_rename OLDNAME NEWNAME')
 
 
 def complete_org_rename(self, text, line, beg, end):
@@ -171,7 +173,9 @@ def complete_org_rename(self, text, line, beg, end):
 
 
 def do_org_rename(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_rename()
@@ -186,8 +190,8 @@ def do_org_rename(self, args):
 
 
 def help_org_addtrust(self):
-    print 'org_addtrust: Add a trust between two organizations'
-    print 'usage: org_addtrust YOUR_ORG ORG_TO_TRUST'
+    print('org_addtrust: Add a trust between two organizations')
+    print('usage: org_addtrust YOUR_ORG ORG_TO_TRUST')
 
 
 def complete_org_addtrust(self, text, line, beg, end):
@@ -195,7 +199,9 @@ def complete_org_addtrust(self, text, line, beg, end):
 
 
 def do_org_addtrust(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_addtrust()
@@ -210,8 +216,8 @@ def do_org_addtrust(self, args):
 
 
 def help_org_removetrust(self):
-    print 'org_removetrust: Remove a trust between two organizations'
-    print 'usage: org_removetrust YOUR_ORG TRUSTED_ORG'
+    print('org_removetrust: Remove a trust between two organizations')
+    print('usage: org_removetrust YOUR_ORG TRUSTED_ORG')
 
 
 def complete_org_removetrust(self, text, line, beg, end):
@@ -219,7 +225,9 @@ def complete_org_removetrust(self, text, line, beg, end):
 
 
 def do_org_removetrust(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_org_removetrust()
@@ -232,13 +240,13 @@ def do_org_removetrust(self, args):
                                                          your_org_id,
                                                          trusted_org_id)
 
-    print 'Affected Systems'
-    print '----------------'
+    print('Affected Systems')
+    print('----------------')
 
     if systems:
-        print '\n'.join(sorted([s.get('systemName') for s in systems]))
+        print('\n'.join(sorted([s.get('systemName') for s in systems])))
     else:
-        print 'None'
+        print('None')
 
     if not self.user_confirm('Remove this trust [y/N]:'):
         return
@@ -251,8 +259,8 @@ def do_org_removetrust(self, args):
 
 
 def help_org_trustdetails(self):
-    print 'org_trustdetails: Show the details of an organizational trust'
-    print 'usage: org_trustdetails TRUSTED_ORG'
+    print('org_trustdetails: Show the details of an organizational trust')
+    print('usage: org_trustdetails TRUSTED_ORG')
 
 
 def complete_org_trustdetails(self, text, line, beg, end):
@@ -260,7 +268,9 @@ def complete_org_trustdetails(self, text, line, beg, end):
 
 
 def do_org_trustdetails(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_trustdetails()
@@ -273,29 +283,29 @@ def do_org_trustdetails(self, args):
     consumed = self.client.org.trusts.listChannelsConsumed(self.session, org_id)
     provided = self.client.org.trusts.listChannelsProvided(self.session, org_id)
 
-    print 'Trusted Organization:   %s' % trusted_org
-    print 'Trusted Since:          %s' % details.get('trusted_since')
-    print 'Systems Migrated From:  %i' % details.get('systems_migrated_from')
-    print 'Systems Migrated To:    %i' % details.get('systems_migrated_to')
-    print
-    print 'Channels Consumed'
-    print '-----------------'
+    print('Trusted Organization:   %s' % trusted_org)
+    print('Trusted Since:          %s' % details.get('trusted_since'))
+    print('Systems Migrated From:  %i' % details.get('systems_migrated_from'))
+    print('Systems Migrated To:    %i' % details.get('systems_migrated_to'))
+    print('')
+    print('Channels Consumed')
+    print('-----------------')
     if consumed:
-        print '\n'.join(sorted([c.get('name') for c in consumed]))
+        print('\n'.join(sorted([c.get('name') for c in consumed])))
 
-    print
+    print('')
 
-    print 'Channels Provided'
-    print '-----------------'
+    print('Channels Provided')
+    print('-----------------')
     if provided:
-        print '\n'.join(sorted([c.get('name') for c in provided]))
+        print('\n'.join(sorted([c.get('name') for c in provided])))
 
 ####################
 
 
 def help_org_list(self):
-    print 'org_list: List all organizations'
-    print 'usage: org_list'
+    print('org_list: List all organizations')
+    print('usage: org_list')
 
 
 def do_org_list(self, args, doreturn=False):
@@ -306,14 +316,14 @@ def do_org_list(self, args, doreturn=False):
         return orgs
     else:
         if orgs:
-            print '\n'.join(sorted(orgs))
+            print('\n'.join(sorted(orgs)))
 
 ####################
 
 
 def help_org_listtrusts(self):
-    print "org_listtrusts: List an organization's trusts"
-    print 'usage: org_listtrusts NAME'
+    print("org_listtrusts: List an organization's trusts")
+    print('usage: org_listtrusts NAME')
 
 
 def complete_org_listtrusts(self, text, line, beg, end):
@@ -321,7 +331,9 @@ def complete_org_listtrusts(self, text, line, beg, end):
 
 
 def do_org_listtrusts(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_listtrusts()
@@ -333,14 +345,14 @@ def do_org_listtrusts(self, args):
 
     for trust in sorted(trusts, key=itemgetter('orgName')):
         if trust.get('trustEnabled'):
-            print trust.get('orgName')
+            print(trust.get('orgName'))
 
 ####################
 
 
 def help_org_listusers(self):
-    print "org_listusers: List an organization's users"
-    print 'usage: org_listusers NAME'
+    print("org_listusers: List an organization's users")
+    print('usage: org_listusers NAME')
 
 
 def complete_org_listusers(self, text, line, beg, end):
@@ -348,7 +360,9 @@ def complete_org_listusers(self, text, line, beg, end):
 
 
 def do_org_listusers(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_listusers()
@@ -358,14 +372,14 @@ def do_org_listusers(self, args):
 
     users = self.client.org.listUsers(self.session, org_id)
 
-    print '\n'.join(sorted([u.get('login') for u in users]))
+    print('\n'.join(sorted([u.get('login') for u in users])))
 
 ####################
 
 
 def help_org_details(self):
-    print 'org_details: Show the details of an organization'
-    print 'usage: org_details NAME'
+    print('org_details: Show the details of an organization')
+    print('usage: org_details NAME')
 
 
 def complete_org_details(self, text, line, beg, end):
@@ -373,7 +387,9 @@ def complete_org_details(self, text, line, beg, end):
 
 
 def do_org_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_details()
@@ -383,28 +399,27 @@ def do_org_details(self, args):
 
     details = self.client.org.getDetails(self.session, name)
 
-    print 'Name:                   %s' % details.get('name')
-    print 'Active Users:           %i' % details.get('active_users')
-    print 'Systems:                %i' % details.get('systems')
+    print('Name:                   %s' % details.get('name'))
+    print('Active Users:           %i' % details.get('active_users'))
+    print('Systems:                %i' % details.get('systems'))
 
     # trusts is optional, which is annoying...
-    if details.has_key('trusts'):
-        print 'Trusts:                 %i' % details.get('trusts')
+    if 'trusts' in details:
+        print('Trusts:                 %i' % details.get('trusts'))
     else:
-        print 'Trusts:                 %i' % 0
+        print('Trusts:                 %i' % 0)
 
-    print 'System Groups:          %i' % details.get('system_groups')
-    print 'Activation Keys:        %i' % details.get('activation_keys')
-    print 'Kickstart Profiles:     %i' % details.get('kickstart_profiles')
-    print 'Configuration Channels: %i' % details.get('configuration_channels')
+    print('System Groups:          %i' % details.get('system_groups'))
+    print('Activation Keys:        %i' % details.get('activation_keys'))
+    print('Kickstart Profiles:     %i' % details.get('kickstart_profiles'))
+    print('Configuration Channels: %i' % details.get('configuration_channels'))
 
 ####################
 
 
 def help_org_setsystementitlements(self):
-    print "org_setsystementitlements: Sets an organization's system",
-    print "entitlements"
-    print 'usage: org_setsystementitlements ORG ENTITLEMENT VALUE'
+    print("org_setsystementitlements: Sets an organization's system entitlements")
+    print('usage: org_setsystementitlements ORG ENTITLEMENT VALUE')
 
 
 def complete_org_setsystementitlements(self, text, line, beg, end):
@@ -417,7 +432,9 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 
 
 def do_org_setsystementitlements(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_org_setsystementitlements()

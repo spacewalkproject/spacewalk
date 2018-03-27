@@ -50,27 +50,27 @@
   <!-- =================== jar dependencies ======================= -->
 
   <condition property="cglib" value="cglib/cglib" else="cglib">
-    <available file="/usr/share/java/cglib/cglib.jar" />
+    <available file="${java.lib.dir}/cglib/cglib.jar" />
   </condition>
 
   <condition property="oscache" value="oscache" else="">
-    <available file="/usr/share/java/oscache.jar" />
+    <available file="${java.lib.dir}/oscache.jar" />
   </condition>
 
   <condition property="commons-lang" value="commons-lang commons-lang3" else="commons-lang">
-    <available file="/usr/share/java/commons-lang3.jar" />
+    <available file="${java.lib.dir}/commons-lang3.jar" />
   </condition>
 
   <condition property="hibernate-commons-annotations" value="hibernate/hibernate-commons-annotations" else="hibernate-commons-annotations/hibernate-commons-annotations">
-    <available file="/usr/share/java/hibernate/hibernate-commons-annotations.jar" />
+    <available file="${java.lib.dir}/hibernate/hibernate-commons-annotations.jar" />
   </condition>
 
   <condition property="commons-validator" value="apache-commons-validator" else="commons-validator">
-    <available file="/usr/share/java/apache-commons-validator.jar" />
+    <available file="${java.lib.dir}/apache-commons-validator.jar" />
   </condition>
 
   <condition property="log4j-jars" value="log4j-1" else="log4j">
-    <available file="/usr/share/java/log4j-1.jar" />
+    <available file="${java.lib.dir}/log4j-1.jar" />
   </condition>
 
   <property name="hibernate3.2deps" value="hibernate3"/>
@@ -80,18 +80,18 @@
   <condition property="hibernate"
                 value="${hibernate3.2deps}"
                  else="${hibernate3.6deps}">
-    <available file="/usr/share/java/hibernate3.jar" />
+    <available file="${java.lib.dir}/hibernate3.jar" />
   </condition>
 
   <condition property="jmock-jars"
                 value="jmock/jmock jmock/jmock-junit3 jmock/jmock-legacy hamcrest/all.jar"
                  else="">
-    <available file="/usr/share/java/jmock/jmock.jar" />
+    <available file="${java.lib.dir}/jmock/jmock.jar" />
   </condition>
 
   <condition property="taglibs" value="taglibs-core taglibs-standard"
                                  else="tomcat-taglibs-standard/taglibs-build-tools tomcat-taglibs-standard/taglibs-standard-compat tomcat-taglibs-standard/taglibs-standard-impl tomcat-taglibs-standard/taglibs-standard-jstlel tomcat-taglibs-standard/taglibs-standard-spec">
-      <available file="/usr/share/java/taglibs-core.jar"/>
+      <available file="${java.lib.dir}/taglibs-core.jar"/>
   </condition>
 
   <property name="boot.jar.dependencies" value="ivy" />
@@ -119,7 +119,7 @@
              postgresql-jdbc" />
 
   <condition property="ant-contrib.path" value="ant/ant-contrib" else="ant-contrib">
-      <available file="/usr/share/java/ant/ant-contrib.jar"/>
+      <available file="${java.lib.dir}/ant/ant-contrib.jar"/>
   </condition>
 
   <property name="build.jar.dependencies"

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2017 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -1092,7 +1092,7 @@ class _ErratumDumper(BaseRowDumper):
             ('rhn-erratum-refers-to', 'refers_to', 4000),
             ('rhn-erratum-notes', 'notes', 4000),
             ('rhn-erratum-errata-from', 'errata_from', 127),
-            ('rhn-erratum-severity', 'severity', 127)
+            ('rhn-erratum-severity', 'severity_id', 127)
         ]
         for k, v, b in mappings:
             arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))

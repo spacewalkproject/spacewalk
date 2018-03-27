@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -2901,13 +2901,17 @@ public class SystemManager extends BaseManager {
 
     /**
      * @param sid server id
+     * @param oid organization id
      * @param pc pageContext
      * @return Returns history events for a system
      */
-    public static DataResult<SystemEventDto> systemEventHistory(Long sid, PageControl pc) {
+    public static DataResult<SystemEventDto> systemEventHistory(Long sid, Long oid,
+            PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "system_events_history");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
+        params.put("oid", oid);
+
         Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m, SystemEventDto.class);
     }

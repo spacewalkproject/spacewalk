@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -257,7 +257,9 @@ public class ErrataHandler extends BaseHandler {
                 StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type",
                 StringUtils.defaultString(errata.getAdvisoryType()));
-        errataMap.put("severity_id", errata.getSeverity().getId());
+        if (errata.getSeverity() != null) {
+            errataMap.put("severity_id", errata.getSeverity().getId());
+        }
 
 
         return errataMap;
@@ -436,9 +438,14 @@ public class ErrataHandler extends BaseHandler {
         if (details.containsKey("notes")) {
             errata.setNotes((String)details.get("notes"));
         }
-        if (details.containsKey("severity_id")) {
-            Integer sevId = (Integer)details.get("severity_id");
-            errata.setSeverity(Severity.getById(sevId));
+        if ("Security Advisory".equals(errata.getAdvisoryType())) {
+            if (details.containsKey("severity_id")) {
+                Integer sevId = (Integer) details.get("severity_id");
+                errata.setSeverity(Severity.getById(sevId));
+            }
+        }
+        else if (errata.getSeverity() != null) {
+                errata.setSeverity(null);
         }
         if (details.containsKey("bugs")) {
 
