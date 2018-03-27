@@ -1,8 +1,8 @@
-alter table rhnChannelComps add comps_type_id number default 1 not null constraint rhn_channelcomps_comps_type_fk references rhnCompsType(id);
+alter table rhnChannelComps add comps_type_id number constraint rhn_channelcomps_comps_type_fk references rhnCompsType(id);
 
 update rhnChannelComps set comps_type_id = (select id from rhnCompsType where label = 'comps');
 
-alter table rhnChannelComps modify comps_type_id default null;
+alter table rhnChannelComps modify (comps_type_id not null);
 
 alter table rhnChannelComps drop constraint rhn_channelcomps_cid_uq;
 
