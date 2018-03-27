@@ -23,15 +23,7 @@ use warnings;
 my $verbose = 0;
 my $macros = '';
 my $help = 0;
-
-# Try to get the FQDN or SSL verification will likely fail.
-# Fallback to shortname
-# Net::Domain::hostfqdn() is broken. Use hostname command instead.
-my $hostname ||= `hostname --fqdn`;
-chomp($hostname);
-$hostname ||= Sys::Hostname::hostname(),
-
-my %macros = ('hostname' => $hostname,
+my %macros = ('hostname' => Sys::Hostname::hostname(),
               'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem',
               'localhost' => '127.0.0.1',
               'ipaddress' => '0.0.0.0');

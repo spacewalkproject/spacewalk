@@ -51,12 +51,6 @@ push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS
 Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 my $product_name = $answers{'product_name'} || 'Spacewalk';
 
-# Try to get the FQDN or SSL verification will likely fail.
-# Fallback to shortname
-# Net::Domain::hostfqdn() is broken. Use hostname command instead.
-$hostname = `hostname --fqdn`;
-chomp($hostname);
-$answers{hostname} ||= $hostname;
 $answers{hostname} ||= Sys::Hostname::hostname;
 
 if (not $opts{"skip-fqdn-test"} and
