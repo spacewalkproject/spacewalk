@@ -51,6 +51,7 @@ for selinuxvariant in mls strict targeted
 /usr/sbin/setsebool -P httpd_can_sendmail 1
 /usr/sbin/setsebool -P tomcat_read_rpm_db 1
 /usr/sbin/setsebool -P nis_enabled 1
+/usr/sbin/setsebool -P domain_kernel_load_modules 1
 
 if [ -z "$RUN_PURE" ] ; then
 	for dir in mount_point kickstart_mount_point; do
