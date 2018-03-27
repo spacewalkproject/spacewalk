@@ -36,7 +36,7 @@ try: # python 3
     from configparser import SafeConfigParser
 except ImportError: # python 2
     from ConfigParser import SafeConfigParser
-from socket import getfqdn
+from socket import gethostname
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
 
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     if shell.options.server:
         shell.config['server'] = shell.options.server
     else:
-        shell.config['server'] = getfqdn()
+        shell.config['server'] = gethostname()
 
     # don't automatically create config files passed via --config
     if shell.options.config:
