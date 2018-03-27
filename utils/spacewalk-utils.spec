@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.8.14
+Version:	2.8.15
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.15-1
+- 1533052 - Add FQDN detection to setup and config utilities.
+
 * Thu Mar 22 2018 Grant Gainey 2.8.14-1
 - 1537766 - make sure to send output to log and stdout
 - 1537766 - reject negative numbers for batch/interval/age
