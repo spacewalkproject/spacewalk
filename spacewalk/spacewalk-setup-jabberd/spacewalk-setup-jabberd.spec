@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-jabberd
-Version:        2.8.3
+Version:        2.8.4
 Release:        1%{?dist}
 Summary:        Tools to setup jabberd for Spacewalk
 License:        GPLv2
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 %{_sysconfdir}/pki/spacewalk
 
 %changelog
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.4-1
+- 1533052 - Add FQDN detection to setup and config utilities.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - removed Group from specfile
 - removed BuildRoot from specfiles
