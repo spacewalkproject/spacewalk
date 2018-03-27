@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.8.6
+Version:        2.8.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -123,6 +123,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.7-1
+- Revert "1533052 - Add FQDN detection to setup and config utilities."
+
 * Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.6-1
 - 1533052 - Add FQDN detection to setup and config utilities.
 
