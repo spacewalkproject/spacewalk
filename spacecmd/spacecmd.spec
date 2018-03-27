@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.8.22
+Version:     2.8.23
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -122,6 +122,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.23-1
+- Fixing pylint
+
 * Mon Mar 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.22-1
 - BZ 1539878 - add save_cache to do_ssm_intersect
 - [spacecmd] Fix softwarechannel_listsyncschedule
