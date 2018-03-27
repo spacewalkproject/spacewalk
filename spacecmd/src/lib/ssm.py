@@ -138,7 +138,7 @@ def do_ssm_intersect(self, args):
 
     # set self.ssm to tmp_ssm, which now holds the intersection
     self.ssm = tmp_ssm
-    
+
     # save the SSM for use between sessions
     save_cache(self.ssm_cache_file, self.ssm)
 
