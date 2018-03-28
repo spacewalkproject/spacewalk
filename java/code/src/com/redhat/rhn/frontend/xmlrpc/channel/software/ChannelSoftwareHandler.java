@@ -1990,6 +1990,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public int clone(User loggedInUser, String originalLabel,
             Map<String, String> channelDetails, Boolean originalState) {
 
+        channelAdminPermCheck(loggedInUser);
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("name");
@@ -2007,89 +2008,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("checksum");
         validateMap(validKeys, channelDetails);
 
-        channelAdminPermCheck(loggedInUser);
-
-        String name = channelDetails.get("name");
-        String label = channelDetails.get("label");
-        String parentLabel = channelDetails.get("parent_label");
-        String archLabel = channelDetails.get("arch_label");
-        String summary = channelDetails.get("summary");
-        String description = channelDetails.get("description");
-        String checksum = channelDetails.get("checksum");
-
-        if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
-            throw new DuplicateChannelLabelException(label);
-        }
-
         Channel originalChan = lookupChannelByLabel(loggedInUser.getOrg(), originalLabel);
 
-        ChannelArch arch = null;
-        if (archLabel != null && archLabel.length() > 0) {
+        CloneChannelCommand ccc = new CloneChannelCommand(originalState, originalChan);
 
-            arch = ChannelFactory.lookupArchByName(archLabel);
-            if (arch == null) {
-                throw new InvalidChannelArchException(archLabel);
-            }
-        }
-        else {
-            arch = originalChan.getChannelArch();
-        }
+        ccc.setUser(loggedInUser);
+        setChangedValues(ccc, channelDetails);
 
-        if (checksum == null) {
-            checksum = originalChan.getChecksumTypeLabel();
-        }
-
-        String gpgUrl, gpgId, gpgFingerprint;
-        if (channelDetails.containsKey("gpg_key_url") ||
-                channelDetails.containsKey("gpg_url") ||
-                channelDetails.containsKey("gpg_key_id") ||
-                channelDetails.containsKey("gpg_id") ||
-                channelDetails.containsKey("gpg_key_fp") ||
-                channelDetails.containsKey("gpg_fingerprint")) {
-            // if one of the GPG information was set, use it
-            if (channelDetails.get("gpg_key_url") == null) {
-                gpgUrl = channelDetails.get("gpg_url");
-            }
-            else {
-                gpgUrl = channelDetails.get("gpg_key_url");
-            }
-            if (channelDetails.get("gpg_key_id") == null) {
-                gpgId = channelDetails.get("gpg_id");
-            }
-            else {
-                gpgId = channelDetails.get("gpg_key_id");
-            }
-            if (channelDetails.get("gpg_key_fp") == null) {
-                gpgFingerprint = channelDetails.get("gpg_fingerprint");
-            }
-            else {
-                gpgFingerprint = channelDetails.get("gpg_key_fp");
-            }
-        }
-        else {
-            // copy GPG info from the original channel
-            gpgUrl = originalChan.getGPGKeyUrl();
-            gpgId = originalChan.getGPGKeyId();
-            gpgFingerprint = originalChan.getGPGKeyFp();
-        }
-
-        CloneChannelCommand helper = new CloneChannelCommand(originalState.booleanValue(),
-                originalChan);
-        helper.setName(name);
-        helper.setArchLabel(arch.getLabel());
-        helper.setDescription(description);
-        helper.setGpgKeyFp(gpgFingerprint);
-        helper.setGpgKeyId(gpgId);
-        helper.setGpgKeyUrl(gpgUrl);
-        helper.setLabel(label);
-        if (parentLabel != null) {
-            helper.setParentLabel(parentLabel);
-        }
-        helper.setUser(loggedInUser);
-        helper.setSummary(summary);
-        helper.setChecksumLabel(checksum);
-
-        Channel clone = helper.create();
+        Channel clone = ccc.create();
         return clone.getId().intValue();
     }
 
@@ -2102,7 +2028,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Role channelRole = RoleFactory.lookupByLabel("channel_admin");
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
         if (!loggedInUser.hasRole(channelRole) && !loggedInUser.hasRole(orgAdminRole)) {
-            throw new PermissionException("Only Org Admins and Channel Admins can clone " +
+            throw new PermissionException("Only Org Admins and Channel Admins can clone or update " +
                     "channels.");
         }
     }
