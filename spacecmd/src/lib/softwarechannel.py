@@ -732,7 +732,107 @@ def do_softwarechannel_delete(self, args):
 
     for channel in children + parents:
         self.client.channel.software.delete(self.session, channel)
+####################
+def help_softwarechannel_update(self):
+    print('softwarechannel_update: Update a software channel')
+    print('''usage: softwarechannel_update LABEL(To identify the channel) [options]
+options:
+  -l LABEL(Required)
+  -n NAME
+  -s SUMMARY
+  -d DESCRIPTION
+  -c CHECKSUM %s
+  -u GPG-URL
+  -i GPG-ID
+  -f GPG-FINGERPRINT''' % CHECKSUM
 
+
+def do_softwarechannel_update(self, args):
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--name')
+    arg_parser.add_argument('-l', '--label')
+    arg_parser.add_argument('-s', '--summary')
+    arg_parser.add_argument('-d', '--description')
+    arg_parser.add_argument('-c', '--checksum')
+    arg_parser.add_argument('-u', '--gpg_url')
+    arg_parser.add_argument('-i', '--gpg_id')
+    arg_parser.add_argument('-f', '--gpg_fingerprint')
+
+    (args, options) = parse_command_arguments(args, arg_parser)
+
+    if is_interactive(options):
+       options.label = prompt_user('Channel Label:', noblank=True)
+
+       print('')
+       print('New Name (blank to keep unchanged)')
+       print('------------')
+       print('')
+       options.name = prompt_user('Name:')
+
+       print('')
+       print('New Summary (blank to keep unchanged)')
+       print('------------')
+       print('')
+       options.summary = prompt_user('Summary:')
+
+       print('')
+       print 'New Description (blank to keep unchanged)'
+       print('------------')
+       print('')
+       options.description = prompt_user('Description:')
+
+       print('')
+       print('New Checksum type (blank to keep unchanged)')
+       print('------------')
+       print('\n'.join(sorted(self.CHECKSUM)))
+       print('')
+       options.checksum = prompt_user('Select:')
+
+       print('')
+       print('New GPG URL (blank to keep unchanged)')
+       print('------------')
+       print('')
+       options.gpg_url = prompt_user('GPG URL:')
+
+       print('')
+       print('New GPG ID (blank to keep unchanged)')
+       print('------------')
+       print('')
+       options.gpg_id = prompt_user('GPG ID:')
+
+       print('')
+       print('New GPG Fingerprint (blank to keep unchanged)')
+       print('------------')
+       print('')
+       options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
+
+    if not options.label:
+        logging.error('A channel label is required to identify the channel')
+        return
+
+    details = {}
+    if options.name:
+        details['name'] = options.name
+
+    if options.summary:
+        details['summary'] = options.summary
+
+    if options.description:
+        details['description'] = options.description
+
+    if options.checksum:
+        details['checksum_label'] = options.checksum
+
+    if options.gpg_id:
+        details['gpg_key_id'] = options.gpg_id
+
+    if options.gpg_url:
+        details['gpg_key_url'] = options.gpg_url
+
+    if options.gpg_fingerprint:
+        details['gpg_key_fp'] = options.gpg_fingerprint
+
+    self.client.channel.software.setDetails(self.session, options.label, details)
 ####################
 
 
