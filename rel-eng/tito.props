@@ -8,35 +8,35 @@ lib_dir = rel-eng/lib
 #
 ## nightly packages are now built in COPR
 #
-#[spacewalk-nightly-rhel5]
+#[spacewalk-2.8-rhel5]
 #disttag = .el5
 #blacklist=nutch spacewalk-search spacewalk-proxy-installer python-gzipstream spacewalk-setup spacewalk spacewalk-selinux select2-bootstrap-css spacewalk-proxy-selinux spacewalk-branding jquery-timepicker spacewalk-java spacewalk-setup-jabberd spacewalk-web momentjs spacewalk-schema cobbler-loaders susestudio-java-client spacewalk-setup-postgresql simple-xml select2 oracle-lib-compat ace-editor perl-Satcon jquery-ui cx_Oracle simple-core spacewalk-reports stringtree-json bootstrap redstone-xmlrpc oracle-selinux spacewalk-pylint tito bootstrap-datepicker spacewalk-config font-awesome dwr roboto jpam spacewalk-remote-utils spacewalk-doc-indexes perl-DBD-Oracle perl-Mail-RFC822-Address patternfly1 spacewalk-utils spacewalk-ssl-cert-check oracle-instantclient-selinux spacecmd tanukiwrapper quartz spacewalk-proxy-html spacewalk-proxy spacewalk-admin pwstrength-bootstrap spacewalk-proxy-docs oracle-xe-selinux apt-spacewalk mod_perl oracle-rhnsat-selinux ycssmin dnf-plugin-spacewalk spacewalk-abrt v8 scons nodejs nodejs-packaging nodejs-less libuv http-parser gyp c-ares19 jabberd-selinux sitemesh perl-Term-Size perl-Term-Completion spacewalkproject-java-packages-buildsetup
 #
-#[spacewalk-nightly-rhel6]
+#[spacewalk-2.8-rhel6]
 #disttag = .el6
 #blacklist=oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin dnf-plugin-spacewalk spacewalkproject-java-packages-buildsetup
 #
-#[spacewalk-nightly-rhel7]
+#[spacewalk-2.8-rhel7]
 #disttag = .el7
 #blacklist=oracle-rhnsat-selinux jabberd-selinux apt-spacewalk python-hwdata mod_perl nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging spacewalkproject-java-packages-buildsetup
 #
-#[spacewalk-nightly-fedora24]
+#[spacewalk-2.8-fedora24]
 #disttag = .fc24
 #blacklist=jabberd-selinux apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address perl-Term-Size perl-Term-Completion spacewalkproject-java-packages-buildsetup
 #
-#[spacewalk-nightly-fedora25]
+#[spacewalk-2.8-fedora25]
 #disttag = .fc25
 #blacklist=jabberd-selinux apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address perl-Term-Size perl-Term-Completion spacewalkproject-java-packages-buildsetup
 #
-#[spacewalk-nightly-fedora26]
+#[spacewalk-2.8-fedora26]
 #disttag = .fc26
 #blacklist=jabberd-selinux apt-spacewalk python-hwdata oracle-rhnsat-selinux mod_perl nodejs-less nodejs scons v8 gyp http-parser libuv c-ares19 nodejs-packaging ycssmin perl-Mail-RFC822-Address perl-Term-Size perl-Term-Completion spacewalkproject-java-packages-buildsetup
 
 # copr repos
-[@spacewalkproject/nightly-client]
+[@spacewalkproject/spacewalk-2.8-client]
 disttag = .el6.centos .el6 .el7.centos .el7 .fc24 .fc25 .fc26 .fc27
 blacklist= ace-editor apt-spacewalk bootstrap bootstrap-datepicker c-ares19 cobbler-loaders cx_Oracle dnf-plugin-spacewalk dwr font-awesome gyp http-parser jabberd-selinux jpam jquery-timepicker jquery-ui libuv mod_perl momentjs nodejs nodejs-less nodejs-packaging nutch oracle-instantclient-selinux oracle-lib-compat oracle-rhnsat-selinux oracle-selinux oracle-xe-selinux patternfly1 perl-DBD-Oracle perl-Mail-RFC822-Address perl-Satcon perl-Term-Completion perl-Term-Size pwstrength-bootstrap quartz redstone-xmlrpc roboto scons select2 select2-bootstrap-css simple-core simple-xml sitemesh spacecmd spacewalk spacewalk-abrt spacewalk-admin spacewalk-branding spacewalk-config spacewalk-doc-indexes spacewalk-java spacewalk-proxy spacewalk-proxy-docs spacewalk-proxy-html spacewalk-proxy-installer spacewalk-proxy-selinux spacewalk-pylint spacewalk-python2-pylint spacewalk-python3-pylint spacewalk-remote-utils spacewalk-reports spacewalk-schema spacewalk-search spacewalk-selinux spacewalk-setup spacewalk-setup-jabberd spacewalk-setup-postgresql spacewalk-ssl-cert-check spacewalk-utils spacewalk-web spacewalkproject-java-packages-buildsetup stringtree-json susestudio-java-client tanukiwrapper tito v8 ycssmin
 
-[@spacewalkproject/nightly]
+[@spacewalkproject/spacewalk-2.8]
 disttag = .el6.centos .el6 .el7.centos .el7 .fc24 .fc25 .fc26 .fc27
 blacklist= apt-spacewalk c-ares19 dnf-plugin-spacewalk gyp http-parser jabberd-selinux libuv mod_perl nodejs nodejs-less nodejs-packaging oracle-rhnsat-selinux perl-Term-Size python-hwdata rhn-custom-info rhn-virtualization rhncfg rhnsd scons spacewalk-abrt spacewalk-client-cert spacewalk-koan spacewalk-oscap spacewalkproject-java-packages-buildsetup tito v8 ycssmin yum-rhn-plugin
