@@ -295,6 +295,7 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "references")
      *          #prop("string", "notes")
      *          #prop("string", "solution")
+     *          #prop("string", "severity_id")
      *          #prop_desc("array", "bugs", "'bugs' is the key into the struct")
      *              #array()
      *                 #struct("bug")
@@ -1146,6 +1147,7 @@ public class ErrataHandler extends BaseHandler {
      *  String "solution" the solution of the errata
      *  String "references" references of the errata to be created
      *  String "notes" notes on the errata
+     *  String "severity_id" is id of given security advisory severity
      * @param bugs a List of maps consisting of 'id' Integers and 'summary' strings
      * @param keywords a List of keywords for the errata
      * @param packageIds a List of package Id packageId Integers
@@ -1173,6 +1175,7 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "references")
      *          #prop("string", "notes")
      *          #prop("string", "solution")
+     *          #prop("string", "severity_id")
      *       #struct_end()
      *  @xmlrpc.param
      *       #array()
