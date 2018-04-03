@@ -98,7 +98,8 @@ public class CloneChannelAction extends RhnAction {
 
         // add all children
         for (ChannelTreeNode channel : channelTree) {
-            if (!subscribableCids.contains(channel.getId()) || channel.isParent()) {
+            if (!subscribableCids.contains(channel.getId()) || channel.isParent() ||
+                    !subscribableCids.contains(channel.getParentId())) {
                 continue;
             }
             nameToId.put(channel.getName(), channel.getId());
