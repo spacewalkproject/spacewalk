@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.8.8
+Version:	2.9.0
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 

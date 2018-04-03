@@ -6,7 +6,7 @@
 
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
-Version: 2.8.2
+Version: 2.9.0
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk

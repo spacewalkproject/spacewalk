@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.22
+Version:        2.9.0
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 

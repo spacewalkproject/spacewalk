@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.8.5
+Version:    2.9.0
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 

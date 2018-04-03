@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.8.2
+Version:        2.9.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk

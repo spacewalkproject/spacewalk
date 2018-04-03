@@ -3,7 +3,7 @@
 Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 License: GPLv2
-Version: 2.8.3
+Version: 2.9.0
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands

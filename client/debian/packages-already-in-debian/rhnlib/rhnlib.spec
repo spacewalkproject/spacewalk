@@ -4,7 +4,7 @@ Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 2.8.0
+Version: 2.9.0
 Release: 1%{?dist}
 
 License: GPLv2

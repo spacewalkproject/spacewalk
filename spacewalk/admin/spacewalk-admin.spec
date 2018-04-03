@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for Spacewalk and Red Hat Satellite installations
 Name: spacewalk-admin
 URL:     https://github.com/spacewalkproject/spacewalk
-Version: 2.8.4
+Version: 2.9.0
 Release: 1%{?dist}
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 License: GPLv2
