@@ -15,7 +15,7 @@ Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.113
+Version:       5.5.114
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
@@ -135,6 +135,9 @@ spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_site
 %endif
 
 %changelog
+* Tue Apr 03 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.114-1
+- rhnpush is needed on python2 due to spacewalk-proxy
+
 * Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.113-1
 - disable pylint warnings discovered by run on python3
 - run pylint 2/3 depending on environment
