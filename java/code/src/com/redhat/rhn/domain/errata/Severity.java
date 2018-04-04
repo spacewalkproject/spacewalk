@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.domain.errata;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.manager.errata.ErrataManager;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -104,6 +106,34 @@ public class Severity {
     }
 
     /**
+     * Looks up label for translated string
+     * @return untranslated label
+     * @param translated translated string
+     */
+    public static String getLabelForTranslation(String translated) {
+        Map<String, String> labels = ErrataManager.advisorySeverityUntranslatedLabels();
+        for (Map.Entry<String, String> entry : labels.entrySet()) {
+            if (entry.getValue().equalsIgnoreCase(translated)) {
+                return entry.getKey();
+            }
+        }
+        throw new LookupException("Specified severity is not correct!");
+    }
+
+    /**
+     * Returns id to label mapping
+     * @return id to label map
+     */
+    public static Map<Integer, String> getIdToLabelMap() {
+        Map<Integer, String> severityMap = new HashMap<Integer, String>();
+        severityMap.put(0, CRITICAL_LABEL);
+        severityMap.put(1, IMPORTANT_LABEL);
+        severityMap.put(2, MODERATE_LABEL);
+        severityMap.put(3, LOW_LABEL);
+        return severityMap;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String toString() {
@@ -117,12 +147,8 @@ public class Severity {
      * @param id severity_id
      */
     public static Severity getById(Integer id) {
-        Map<Integer, String> severityMap = new HashMap<Integer, String>();
+        Map<Integer, String> severityMap = getIdToLabelMap();
         Severity newSeverity = new Severity();
-        severityMap.put(0, CRITICAL_LABEL);
-        severityMap.put(1, IMPORTANT_LABEL);
-        severityMap.put(2, MODERATE_LABEL);
-        severityMap.put(3, LOW_LABEL);
         if (severityMap.get(id) == null) {
             return null;
         }
@@ -131,4 +157,29 @@ public class Severity {
         newSeverity.setRank(id);
         return newSeverity;
     }
+
+    /**
+     * Looks up corresponding Severity object by given name
+     * @return Severity object
+     * @param name severity_name
+     */
+    public static Severity getByName(String name) {
+        Integer id = null;
+        String key = getLabelForTranslation(name);
+        if (UNSPECIFIED_LABEL.equals(key)) {
+            return null;
+        }
+        Map<Integer, String> severityMap = getIdToLabelMap();
+        Severity newSeverity = new Severity();
+        for (Map.Entry<Integer, String> entry : severityMap.entrySet()) {
+            if (entry.getValue().equals(key)) {
+                id = entry.getKey();
+            }
+        }
+        newSeverity.setId(id);
+        newSeverity.setLabel(severityMap.get(id));
+        newSeverity.setRank(id);
+        return newSeverity;
+    }
+
 }
