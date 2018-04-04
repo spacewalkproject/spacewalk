@@ -947,6 +947,21 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
+     * Returns untranslated severity labels
+     * @return Untranslated advisory severity labels
+     */
+    public static Map<String, String> advisorySeverityUntranslatedLabels() {
+        Map<String, String> labelMap = new HashMap<String, String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        labelMap.put(Severity.CRITICAL_LABEL, ls.getMessage(Severity.CRITICAL_LABEL));
+        labelMap.put(Severity.IMPORTANT_LABEL, ls.getMessage(Severity.IMPORTANT_LABEL));
+        labelMap.put(Severity.MODERATE_LABEL, ls.getMessage(Severity.MODERATE_LABEL));
+        labelMap.put(Severity.LOW_LABEL, ls.getMessage(Severity.LOW_LABEL));
+        labelMap.put(Severity.UNSPECIFIED_LABEL, ls.getMessage(Severity.UNSPECIFIED_LABEL));
+        return labelMap;
+    }
+
+    /**
      * Returns a list of advisory severity ranks available for an errata
      * @return advisory severity ranks
      */
