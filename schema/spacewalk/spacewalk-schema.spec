@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.9.0
+Version:        2.9.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,10 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed Apr 04 2018 Jiri Dostal <jdostal@redhat.com> 2.9.1-1
+- Add Fedora keys into schema upgrade
+- Bumping package versions for 2.9.
+
 * Thu Mar 29 2018 Jiri Dostal <jdostal@redhat.com> 2.8.22-1
 - Update gpgs in database
 
