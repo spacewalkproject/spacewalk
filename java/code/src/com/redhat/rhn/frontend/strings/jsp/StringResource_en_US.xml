@@ -19573,6 +19573,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.clone.clonefrom">
         <source>Clone From</source>
         <context-group name="ctx">
