@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.3
+Version: 2.9.4
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 05 2018 Jiri Dostal <jdostal@redhat.com> 2.9.4-1
+- 1544350 - Add possibility to manage errata severity via API/WebUI
+
 * Wed Apr 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
 - don't offer cloning of channel when there's no avaialable to clone from
 
