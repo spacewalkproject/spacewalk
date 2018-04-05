@@ -66,15 +66,16 @@ def update_sources_list():
             source.set_enabled(False)
             sw_source.append(source)
 
+    for source in sw_source:
+        sources.remove(source)
     if up2dateAuth.getSystemId():
         channels = get_channels()
         if len(channels):
-            for source in sw_source:
-                sources.remove(source)
-            sources.add(type='deb',
+            for chan in channels:
+                sources.add(type='deb',
                         uri='spacewalk://' + get_server(),
-                        dist='channels:',
-                        orig_comps=channels,
+                        dist=chan,
+                        orig_comps=['repodata'],
                         file=get_conf_file()
                         )
     sources.save()
