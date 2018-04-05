@@ -1,3 +1,11 @@
+apt-spacewalk (1.0.6-2.1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+  * Added support for signed repos
+    see https://bugzilla.redhat.com/show_bug.cgi?id=1198723
+
+ -- Robert Paschedag <robert.paschedag@web.de>  Thu, 05 Apr 2018 18:14:03 +0200
+
 apt-spacewalk (1.0.6-2) unstable; urgency=low
 
   * [22c43b83] Rename binary package to apt-transport-spacewalk

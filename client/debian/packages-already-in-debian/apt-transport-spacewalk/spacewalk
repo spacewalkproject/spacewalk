@@ -191,10 +191,11 @@ class spacewalk_method(pkg_acquire_method):
 
     def __transform_document(self, document):
         """Transform url given by apt to real spacewalk url"""
-        document = document.replace('dists/channels:/main/',
-                'dists/channels:/' + self.base_channel  + '/', 1)
-        document = re.sub('/binary-[\d\w]*/', '/repodata/', document, 1)
-        document = document.replace('dists/channels:/', '/XMLRPC/GET-REQ/', 1)
+        document = document.replace('dists/', '/XMLRPC/GET-REQ/', 1)
+        document = re.sub('/binary-[\d\w]*/', '/', document, 1)
+        document = re.sub('/(InRelease|Release|Release.gpg)', r'/repodata/\1', document, 1)
+        # point i18n to wrong path so we dont get traceback mails when not having i18n in repodata
+        document = document.replace('repodata/i18n', '/i18n', 1)
         return document
 
 
