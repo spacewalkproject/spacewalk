@@ -16,8 +16,8 @@ Depends: ${misc:Depends}, ${python:Depends}, apt, python-apt,
 Provides: ${python:Provides}
 Recommends: rhnsd
 Description: APT transport for communicating with Spacewalk servers
- makes it possible to use
- 'deb spacewalk://your-spacewalk-server/XMLRPC channels: channel1 channel2'
- type lines in your sources.list. Also it provides the necessary hooks to
- update your sources.list automatically according to the settings on
- your Spacewalk server.
+ creates repository entries like
+ 'deb spacewalk://your-spacewalk-server/ channel repodata'
+ for every channel the client has subscribed in your sources.list.
+ Also it provides the necessary hooks to update your sources.list
+ automatically according to the settings on your Spacewalk server.
