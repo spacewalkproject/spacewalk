@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.4
+Version: 2.9.5
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Apr 06 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.5-1
+- 1564065 - Fix relevant_to_server_group query performance.
+
 * Thu Apr 05 2018 Jiri Dostal <jdostal@redhat.com> 2.9.4-1
 - 1544350 - Add possibility to manage errata severity via API/WebUI
 
