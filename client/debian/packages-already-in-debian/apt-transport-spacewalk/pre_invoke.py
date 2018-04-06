@@ -37,10 +37,9 @@ from up2date_client import up2dateErrors
 def get_channels():
     """Return channels associated with a machine"""
     try:
-        channels = ['main']
+        channels = []
         for channel in rhnChannel.getChannelDetails():
-            if channel['parent_channel']:
-                channels.append(channel['label'])
+            channels.append(channel['label'])
         return channels
     except up2dateErrors.Error:
         return []
