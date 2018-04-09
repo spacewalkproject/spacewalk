@@ -45,7 +45,7 @@ python:
 	$(EPYDOC_BIN) $(EPYDOC_SWITCHES) -o $(PYTHON_DOC_DIR) --config $(BUILD_DIR)/epydoc.lst
 
 java:
-	$(JAVA_DOC_BIN) -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) -classpath $(JAVA_DOC_CLASSPATH) $(JAVA_DOC_EXTRA_ARGS) -J-Xmx512m >/dev/null
+	$(JAVA_DOC_BIN) -locale en -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) -classpath $(JAVA_DOC_CLASSPATH) $(JAVA_DOC_EXTRA_ARGS) -J-Xmx512m >/dev/null
 
 schema:
 	$(ORASCHEMADOC) --dia schema.dia --syntax --pb $(DSN) \
