@@ -87,10 +87,10 @@ SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYN
 
 <mode name="all_errata_by_type" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id, type">
-SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS
+SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.synopsis AS ADVISORY_SYNOPSIS, E.severity_id AS severityId
   FROM  rhnErrata E, rhnChannelErrata CE, rhnChannel C,
         rhnChannelFamilyMembers CFM,
-        rhnOrgChannelFamilyPermissions OCF, E.severity_id AS severityId
+        rhnOrgChannelFamilyPermissions OCF
  WHERE  CE.errata_id = E.id
    AND  CE.channel_id = C.id
    AND  C.id = CFM.channel_id
