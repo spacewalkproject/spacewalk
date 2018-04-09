@@ -96,7 +96,7 @@ public class EusReleaseComparator implements Comparator<EssentialChannelDto> {
      * @param dto Channel-info we might want to subscribe to
      * @param pevr PackageEvr of the redhat-release RPM that is installed
      * on the system of interest
-     * @return 1 if channel-eus-release > pevr.release, 0 is the same, or
+     * @return 1 if channel-eus-release is bigger then pevr.release, 0 is the same, or
      * -1 if the package is for an 'older' EUS release
      */
     public int compare(EssentialChannelDto dto, PackageEvr pevr) {
