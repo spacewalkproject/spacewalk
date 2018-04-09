@@ -1283,8 +1283,9 @@ public class ErrataHandler extends BaseHandler {
         newErrata.setErrataFrom(errataFrom);
         newErrata.setRefersTo(references);
         newErrata.setNotes(notes);
-        newErrata.setSeverity(Severity.getByName(severity));
-
+        if (errataInfo.get("severity") != null) {
+            newErrata.setSeverity(Severity.getByName(severity));
+        }
         for (Iterator<Map<String, Object>> itr = bugs.iterator(); itr.hasNext();) {
             Map<String, Object> bugMap = itr.next();
             String url = null;
