@@ -8,14 +8,22 @@ URL:     https://github.com/spacewalkproject/spacewalk
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
+%if %{?fedora} >= 28
+BuildRequires: python2
+%else
 BuildRequires: python
+%endif
 BuildRequires: intltool
 BuildRequires: gettext
 
 Requires: yum >= 3.2.19-15
 Requires: rhn-client-tools >= 2.8.4
 Requires: m2crypto >= 0.16-6
+%if %{?fedora} >= 28
+Requires: python2-iniparse
+%else
 Requires: python-iniparse
+%endif
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup >= 2.8.4
