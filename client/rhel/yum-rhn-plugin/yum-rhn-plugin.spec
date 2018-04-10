@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.9.0
+Version: 2.9.1
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -74,6 +74,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Apr 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- Update Python 2 dependency declarations to new packaging standards
+- Bumping package versions for 2.9.
+
 * Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
 - Regenerating .po and .pot files for yum-rhn-plugin.
 
