@@ -260,7 +260,7 @@ public class KickstartHandler extends BaseHandler {
      * for the profile. Valid choices are "red_hat", "none", "all".
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
      * kickstart profile.")
@@ -322,7 +322,7 @@ public class KickstartHandler extends BaseHandler {
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
      * kickstart profile.")
@@ -356,7 +356,7 @@ public class KickstartHandler extends BaseHandler {
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
@@ -392,7 +392,7 @@ public class KickstartHandler extends BaseHandler {
      * for the profile. Valid choices are "red_hat", "none", "all".
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
