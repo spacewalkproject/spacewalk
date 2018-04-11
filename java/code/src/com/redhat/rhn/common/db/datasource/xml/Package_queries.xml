@@ -974,7 +974,8 @@ SELECT  n.id AS id,
   SELECT  PN.id AS id,
           SOP.errata_id AS errata_id,
           SOP.errata_advisory AS errata_advisory,
-          E.advisory_type AS errata_advisory_type
+          E.advisory_type AS errata_advisory_type,
+          E.severity_id AS errata_severity_id
     FROM  rhnServerOutdatedPackages SOP
           INNER JOIN rhnPackageName PN on SOP.package_name_id = PN.id
           INNER JOIN rhnErrata E on SOP.errata_id = E.id

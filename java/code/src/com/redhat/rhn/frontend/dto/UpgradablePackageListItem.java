@@ -31,6 +31,7 @@ public class UpgradablePackageListItem extends PackageListItem {
     private List errataId = new ArrayList();
     private List errataAdvisory = new ArrayList();
     private List errataAdvisoryType = new ArrayList();
+    private List errataSeverityId = new ArrayList();
     private Set installed;
     private String installedPackage = new String();
 
@@ -109,7 +110,18 @@ public class UpgradablePackageListItem extends PackageListItem {
     public void setErrataAdvisoryType(List errataAdvisoryTypeIn) {
         errataAdvisoryType = errataAdvisoryTypeIn;
     }
-
+    /**
+     * @return Returns the Errata Advisory Severity.
+     */
+    public List getErrataSeverityId() {
+        return errataSeverityId;
+    }
+    /**
+     * @param errataSeverityIdIn The errata advisory severity to set.
+     */
+    public void setErrataSeverityId(List errataSeverityIdIn) {
+        errataSeverityId = errataSeverityIdIn;
+    }
     /**
      * Returns the three errata instance variables as
      * a list of HashMaps all in a single convenient Object
@@ -123,6 +135,9 @@ public class UpgradablePackageListItem extends PackageListItem {
             current.put("id", errataId.get(i));
             if (i < errataAdvisoryType.size()) {
                 current.put("type", errataAdvisoryType.get(i));
+            }
+            if (i < errataSeverityId.size()) {
+                current.put("severity", errataSeverityId.get(i));
             }
             retval.add(current);
         }

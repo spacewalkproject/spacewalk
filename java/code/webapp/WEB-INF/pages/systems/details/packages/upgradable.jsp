@@ -53,7 +53,29 @@
       <c:forEach items="${current.errata}" var="errata">
         <c:if test="${not empty errata.advisory}">
           <c:if test="${errata.type == 'Security Advisory'}">
-            <rhn:icon type="errata-security" title="erratalist.jsp.securityadvisory" />
+              <c:choose>
+                  <c:when test="${errata.severity=='0'}">
+                      <rhn:icon type="errata-security-critical"
+                                title="erratalist.jsp.securityadvisory" />
+                  </c:when>
+                  <c:when test="${errata.severity=='1'}">
+                      <rhn:icon type="errata-security-important"
+                                title="erratalist.jsp.securityadvisory" />
+                  </c:when>
+                  <c:when test="${errata.severity=='2'}">
+                      <rhn:icon type="errata-security-moderate"
+                                title="erratalist.jsp.securityadvisory" />
+                  </c:when>
+                  <c:when test="${errata.severity=='3'}">
+                      <rhn:icon type="errata-security-low"
+                                title="erratalist.jsp.securityadvisory" />
+                  </c:when>
+                  <c:otherwise>
+                      <rhn:icon type="errata-security"
+                                title="erratalist.jsp.securityadvisory" />
+                  </c:otherwise>
+              </c:choose>
+
           </c:if>
           <c:if test="${errata.type == 'Bug Fix Advisory'}">
             <rhn:icon type="errata-bugfix" title="erratalist.jsp.bugadvisory" />
