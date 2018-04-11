@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.8.8
+Version: 2.8.9
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -74,6 +74,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 11 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.9-1
+- fix condition for RHEL systems
+
 * Tue Apr 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
 - Update Python 2 dependency declarations to new packaging standards
 
