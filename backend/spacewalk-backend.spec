@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.1
+Version: 2.9.2
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Apr 12 2018 Jiri Dostal <jdostal@redhat.com> 2.9.2-1
+- Sat export evauated severity 0 as None
+
 * Fri Apr 06 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
 - 1198723 - rhnRepository.py: add support for Debian / Ubuntu Release files
 - Bumping package versions for 2.9.
