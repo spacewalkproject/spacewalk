@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.7
+Version: 2.9.8
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Apr 12 2018 Jiri Dostal <jdostal@redhat.com> 2.9.8-1
+- One more page to apply colored icons
+
 * Tue Apr 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
 - fix API doc for kickstart.createProfile*
 
