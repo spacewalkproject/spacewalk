@@ -1095,7 +1095,8 @@ class _ErratumDumper(BaseRowDumper):
             ('rhn-erratum-severity', 'severity_id', 127)
         ]
         for k, v, b in mappings:
-            arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))
+            value = self._row[v] if self._row[v] is not None else ""
+            arr.append(SimpleDumper(self._writer, k, value, b))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-issue-date',
                                 _dbtime2timestamp(self._row['issue_date'])))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-update-date',
