@@ -290,7 +290,7 @@ class UpdateinfoView(object):
         ref_string = "       <reference href=\"%s%s\" id=\"%s\" type=\"%s\">"
         for cve_ref in erratum.cve_references:
             output.append(ref_string
-                          % ("http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=",
+                          % ("http://cve.mitre.org/cgi-bin/cvename.cgi?name=",
                              cve_ref, cve_ref, "cve"))
             output.append("      </reference>")
 
