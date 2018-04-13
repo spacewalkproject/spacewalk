@@ -236,7 +236,7 @@ public class UpdateInfoWriter extends RepomdWriter {
 
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("href",
-                    "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=" + cveid);
+                    "http://cve.mitre.org/cgi-bin/cvename.cgi?name=" + cveid);
             attr.addAttribute("id", cveid);
             attr.addAttribute("type", "cve");
             handler.startElement("reference", attr);

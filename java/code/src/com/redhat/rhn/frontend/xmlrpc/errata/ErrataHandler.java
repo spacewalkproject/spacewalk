@@ -693,7 +693,7 @@ public class ErrataHandler extends BaseHandler {
         throws FaultException {
      *
      * @xmlrpc.doc Returns a list of
-     * <a href="http://www.cve.mitre.org/" target="_blank">CVE</a>s
+     * <a href="http://cve.mitre.org/" target="_blank">CVE</a>s
      * applicable to the erratum with the given advisory name. CVEs may be associated
      * only with published errata.
      * @xmlrpc.param #session_key()
