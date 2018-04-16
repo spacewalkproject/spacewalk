@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.23
+Version:        2.8.24
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Mon Apr 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.24-1
+- 1543381 - teach triggers about comps_type_id
+
 * Tue Apr 03 2018 Jiri Dostal <jdostal@redhat.com> 2.8.23-1
 - Add Fedora keys into schema upgrade
 
