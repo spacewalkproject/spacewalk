@@ -3,7 +3,7 @@
 
 Name: apt-spacewalk
 Summary: Spacewalk plugin for Advanced Packaging tool.
-Version: 1.0.12
+Version: 1.0.13
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://example.com/%{name}-%{version}.tar.gz
@@ -18,6 +18,11 @@ to acquire content from Spacewalk server
 %files
 
 %changelog
+* Mon Apr 16 2018 Tomas Kasparek <tkasparek@redhat.com> 1.0.13-1
+- apt-transport-spacewalk: missed part of patch within pre_invoke
+- further modifications on apt-transport-spacewalk
+- modify apt-transport-spacewalk to support signed repos
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.12-1
 - removed BuildRoot from specfiles
 
