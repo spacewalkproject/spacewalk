@@ -14,6 +14,8 @@
 -- in this software or its documentation. 
 --
 
+drop trigger rhn_channel_cloned_comps_trig on rhnChannelCloned;
+
 create or replace function rhn_channel_cloned_comps_trig_fun() returns trigger
 as
 $$
