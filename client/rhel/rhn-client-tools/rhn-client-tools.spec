@@ -21,7 +21,7 @@ BuildRequires: update-desktop-files
 %endif
 
 Requires: rpm >= 4.2.3-24_nonptl
-Requires: gnupg
+Requires: /usr/bin/gpg
 Requires: coreutils
 Requires: %{pythonX}-%{name} = %{version}-%{release}
 
