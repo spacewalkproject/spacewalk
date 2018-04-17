@@ -54,7 +54,7 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="relevant_errata_by_type_with_cves" class="com.redhat.rhn.frontend.dto.SecurityErrataOverview">
   <query params="user_id, type">
-SELECT E.id, E.update_date, E.advisory_name, E.synopsis as advisory_synopsis
+SELECT E.id, E.update_date, E.advisory_name, E.synopsis as advisory_synopsis, E.severity_id AS severityId
   FROM rhnErrata E,
        (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
           FROM rhnServerNeededErrataCache SNEC
