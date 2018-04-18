@@ -29,20 +29,17 @@ begin
 
     if not found then
         benchmark_id := nextval('rhn_xccdf_benchmark_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnXccdfBenchmark (id, identifier, version) values (' ||
-                benchmark_id || ', ' ||
-                coalesce(quote_literal(identifier_in), 'NULL') || ', ' ||
-                coalesce(quote_literal(version_in), 'NULL') || ')');
-        exception when unique_violation then
-            select id
-              into strict benchmark_id
-              from rhnXccdfBenchmark
-             where identifier = identifier_in and version = version_in;
-        end;
+
+        insert into rhnXccdfBenchmark (id, identifier, version)
+            values (benchmark_id, identifier_in, version_in)
+            on conflict do nothing;
+
+        select id
+            into strict benchmark_id
+            from rhnXccdfBenchmark
+            where identifier = identifier_in and version = version_in;
     end if;
 
     return benchmark_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;
