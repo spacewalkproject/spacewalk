@@ -10,7 +10,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.23
+Version: 2.8.24
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -678,6 +678,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Wed Apr 18 2018 Jiri Dostal <jdostal@redhat.com> 2.8.24-1
+- 1566025 - require latest provider of /usr/bin/gpg
+
 * Tue Apr 03 2018 Jiri Dostal <jdostal@redhat.com> 2.8.23-1
 - Build both python 2/3 because of rhnpush
 
