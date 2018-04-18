@@ -28,19 +28,17 @@ begin
 
     if not found then
         package_id := nextval('rhn_package_group_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnPackageGroup(id, name) values (' ||
-                package_id || ', ' || coalesce(quote_literal(name_in), 'NULL') || ')');
-        exception when unique_violation then
-            select id
-              into strict package_id
-              from rhnPackageGroup
-             where name = name_in;
-        end;
+
+        insert into rhnPackageGroup(id, name)
+            values (package_id, name_in)
+            on conflict do nothing;
+
+        select id
+            into strict package_id
+            from rhnPackageGroup
+            where name = name_in;
     end if;
 
     return package_id;
 end;
-$$
-language plpgsql immutable;
+$$ language plpgsql;
