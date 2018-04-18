@@ -28,16 +28,15 @@ begin
      where system = system_in;
     if not found then
         ident_sys_id := nextval('rhn_xccdf_identsytem_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnXccdfIdentSystem (id, system) values (' ||
-                ident_sys_id || ', ' || coalesce(quote_literal(system_in)) || ')');
-        exception when unique_violation then
-            select id
-              into strict ident_sys_id
-              from rhnXccdfIdentSystem
-             where system = system_in;
-        end;
+
+        insert into rhnXccdfIdentSystem (id, system)
+            values (ident_sys_id, system_in)
+            on conflict do nothing;
+
+        select id
+            into strict ident_sys_id
+            from rhnXccdfIdentSystem
+            where system = system_in;
     end if;
 
     select id
@@ -46,18 +45,16 @@ begin
      where identsystem_id = ident_sys_id and identifier = identifier_in;
     if not found then
         xccdf_ident_id := nextval('rhn_xccdf_ident_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnXccdfIdent (id, identsystem_id, identifier) values (' ||
-                xccdf_ident_id || ', ' || ident_sys_id || ', ' ||
-                coalesce(quote_literal( identifier_in)) || ')');
-        exception when unique_violation then
-            select id
-              into strict xccdf_ident_id
-              from rhnXccdfIdent
-             where identsystem_id = ident_sys_id and identifier = identifier_in;
-        end;
+
+        insert into rhnXccdfIdent (id, identsystem_id, identifier)
+            values (xccdf_ident_id, ident_sys_id, identifier_in)
+            on conflict do nothing;
+
+        select id
+            into strict xccdf_ident_id
+            from rhnXccdfIdent
+            where identsystem_id = ident_sys_id and identifier = identifier_in;
     end if;
     return xccdf_ident_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;
