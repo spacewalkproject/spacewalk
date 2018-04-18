@@ -36,33 +36,27 @@ begin
 
     if not found then
         name_id = nextval('rhn_pkg_capability_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnPackageCapability(id, name, version) values (' ||
-                name_id || ', ' ||
-                coalesce(quote_literal(name_in), 'NULL') || ', ' ||
-                coalesce(quote_literal(version_in), 'NULL') || ')');
-        exception when unique_violation then
-            if version_in is null then
-                select id
-                  into strict name_id
-                  from rhnpackagecapability
-                 where name = name_in and
-                       version is null;
-            else
-                select id
-                  into strict name_id
-                  from rhnpackagecapability
-                 where name = name_in and
-                       version = version_in;
-            end if;
-        end;
+
+        insert into rhnPackageCapability(id, name, version)
+            values (name_id, name_in, version_in)
+            on conflict do nothing;
+
+        if version_in is null then
+            select id
+                into strict name_id
+                from rhnpackagecapability
+                where name = name_in and version is null;
+        else
+            select id
+                into strict name_id
+                from rhnpackagecapability
+                where name = name_in and version = version_in;
+        end if;
     end if;
 
     return name_id;
 end;
-$$
-language plpgsql immutable;
+$$ language plpgsql;
 
 -- Note: intentionally not thread-safe! You must aquire a write lock on the
 -- rhnPackageCapability tabel if you are going to use this proc!
