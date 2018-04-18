@@ -69,23 +69,16 @@ system to receive software updates from Red Hat Satellite or Spacewalk.
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 %{?python_provide:%python_provide python2-%{name}}
 Requires: %{name} = %{version}-%{release}
-Requires: rpm-python
-Requires: python-dmidecode
-Requires: python-ethtool >= 0.4
 Requires: rhnlib >= 2.5.78
-BuildRequires: python-devel
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: pygobject2
 Requires: libgudev
-Requires: python-hwdata
 %else
 %if 0%{?suse_version} >= 1140
 Requires: python-pyudev
-Requires: python-hwdata
 %else
 Requires: python-gudev
-Requires: python-hwdata
 %endif # 0%{?suse_version} >= 1140
 %endif # 0%{?fedora}
 
@@ -97,13 +90,33 @@ Requires: newt-python
 Requires: dbus-1-python
 Requires: python-newt
 %else
+%if 0%{?default_py3}
+Requires: python2-dbus
+%else
 Requires: dbus-python
+%endif
 %endif # 0%{?suse_version}
 
 # The following BuildRequires are for check only
-BuildRequires: python-coverage
-BuildRequires: rpm-python
 Requires: rhnlib >= 2.5.78
+
+%if 0%{?default_py3}
+Requires: python2-rpm
+Requires: python2-dmidecode
+Requires: python2-ethtool >= 0.4
+BuildRequires: python2-devel
+Requires: python2-hwdata
+BuildRequires: python2-rpm
+BuildRequires: python2-coverage
+%else
+Requires: rpm-python
+Requires: python-dmidecode
+Requires: python-ethtool >= 0.4
+BuildRequires: python-devel
+Requires: python-hwdata
+BuildRequires: rpm-python
+BuildRequires: python-coverage
+%endif
 
 %description -n python2-%{name}
 Python 2 specific files of %{name}.
