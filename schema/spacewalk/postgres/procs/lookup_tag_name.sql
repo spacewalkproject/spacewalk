@@ -28,18 +28,17 @@ begin
 
     if not found then
         name_id := nextval('rhn_tagname_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnTagName(id, name) values (' ||
-                name_id || ', ' || coalesce(quote_literal(name_in), 'NULL') || ')');
-        exception when unique_violation then
-            select id
-              into strict name_id
-              from rhnTagName
-             where name = name_in;
-        end;
+
+        insert into rhnTagName(id, name)
+            values (name_id, name_in)
+            on conflict do nothing;
+
+        select id
+            into strict name_id
+            from rhnTagName
+            where name = name_in;
     end if;
 
     return name_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;
