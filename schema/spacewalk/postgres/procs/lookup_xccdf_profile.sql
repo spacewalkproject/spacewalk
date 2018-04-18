@@ -29,18 +29,15 @@ begin
 
     if not found then
         profile_id := nextval('rhn_xccdf_profile_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnXccdfProfile (id, identifier, title) values (' ||
-                profile_id || ', ' ||
-                coalesce(quote_literal(identifier_in), 'NULL') || ', ' ||
-                coalesce(quote_literal(title_in), 'NULL') || ')' );
-        exception when unique_violation then
-            select id
-              into profile_id
-              from rhnXccdfProfile
-             where identifier = identifier_in and title = title_in;
-        end;
+
+        insert into rhnXccdfProfile (id, identifier, title)
+            values (profile_id, identifier_in, title_in)
+            on conflict do nothing;
+
+        select id
+            into profile_id
+            from rhnXccdfProfile
+            where identifier = identifier_in and title = title_in;
     end if;
 
     return profile_id;
