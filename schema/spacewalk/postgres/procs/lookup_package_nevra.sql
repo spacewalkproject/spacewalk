@@ -39,25 +39,19 @@ begin
 
     if not found then
         nevra_id := nextval('rhn_pkgnevra_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnPackageNEVRA(id, name_id, evr_id, package_arch_id) values (' ||
-                    nevra_id || ', ' ||
-                    coalesce(quote_literal(name_id_in), 'NULL') || ', ' ||
-                    coalesce(quote_literal(evr_id_in), 'NULL') || ', ' ||
-                    coalesce(quote_literal(package_arch_id_in), 'NULL') || ')');
-                nevra_id := currval('rhn_pkgnevra_id_seq');
-        exception when unique_violation then
-            select id
-              into strict nevra_id
-              from rhnPackageNEVRA
-             where name_id = name_id_in and
-                   evr_id = evr_id_in and
-                   (package_arch_id = package_arch_id_in or
-                    (package_arch_id is null and package_arch_id_in is null));
-        end;
+
+        insert into rhnPackageNEVRA(id, name_id, evr_id, package_arch_id)
+            values (nevra_id, name_id_in, evr_id_in, package_arch_id_in)
+            on conflict do nothing;
+
+        select id
+            into strict nevra_id
+            from rhnPackageNEVRA
+            where name_id = name_id_in and evr_id = evr_id_in and
+                (package_arch_id = package_arch_id_in or
+                (package_arch_id is null and package_arch_id_in is null));
     end if;
 
     return nevra_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;
