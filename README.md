@@ -25,4 +25,4 @@ Following links might be of value in case you are interested:
 [RedHatSatellite]: https://www.redhat.com/products/enterprise-linux/satellite/
 [SUSEManager]: https://www.suse.com/products/suse-manager/
 [DownloadIt]: https://github.com/spacewalkproject/spacewalk/wiki/DownloadIt
-[CurrentReleaseImg]: https://raw.githubusercontent.com/spacewalkproject/spacewalk-wiki/master/images/27release.png
+[CurrentReleaseImg]: https://raw.githubusercontent.com/spacewalkproject/spacewalk-wiki/master/images/28release_new.png
