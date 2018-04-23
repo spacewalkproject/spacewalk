@@ -41,7 +41,7 @@ dontaudit httpd_sys_script_t httpd_log_t:file { ioctl };
 type spacewalk_initrc_exec_t;
 domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 
-allow tomcat_t self:netlink_audit_socket { nlmsg_relay read write };
+allow tomcat_t self:netlink_audit_socket { nlmsg_relay read write create };
 allow tomcat_t spacewalk_log_t:file { open read };
 
 optional_policy(`
