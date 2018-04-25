@@ -377,6 +377,7 @@ done
 %post
 rm -f %{_localstatedir}/spool/up2date/loginAuth.pkl
 
+%if ! 0%{?build_py3}
 %post -n rhn-setup-gnome
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -388,6 +389,7 @@ fi
 
 %posttrans -n rhn-setup-gnome
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 
 
 %clean
