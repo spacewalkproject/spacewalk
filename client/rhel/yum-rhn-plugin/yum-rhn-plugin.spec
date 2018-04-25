@@ -27,8 +27,6 @@ Requires: python-iniparse
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup >= 2.8.4
-Obsoletes: up2date < 5.0.0
-Provides: up2date = 5.0.0
 
 %description
 This yum plugin provides support for yum to access a Spacewalk server for
