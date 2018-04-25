@@ -6,7 +6,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.8.10
+Version: 2.8.11
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -97,6 +97,9 @@ make -f Makefile.rhnlib
 %endif
 
 %changelog
+* Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.11-1
+- move python2 version of rhnlib into python2-rhnlib package
+
 * Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.10-1
 - Updating copyright years for 2018
 
