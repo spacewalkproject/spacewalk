@@ -46,13 +46,6 @@ BuildRequires: python-xml
 Requires:      python-xml
 %endif
 %endif
-%if 0%{?rhel} == 5
-BuildRequires: python-json
-%endif
-
-%if 0%{?rhel} == 5
-Requires:    python-simplejson
-%endif
 Requires:    file
 
 
@@ -97,9 +90,6 @@ touch %{buildroot}/%{python_sitelib}/spacecmd/__init__.py
 %py_compile -O %{buildroot}/%{python_sitelib}
 %endif
 %endif
-
-%clean
-%{__rm} -rf %{buildroot}
 
 %check
 %if 0%{?pylint_check}
