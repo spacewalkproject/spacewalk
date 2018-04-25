@@ -16,15 +16,22 @@ License: GPLv2
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
+
+%description
+rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
+
+%package -n python2-rhnlib
+Summary: Python libraries for the Spacewalk project
 %if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 BuildRequires: python2-devel
+Requires: python2-pyOpenSSL
 %else
 BuildRequires: python-devel
+Requires: pyOpenSSL
 %endif
 Provides: python2-rhnlib = %{version}-%{release}
 %{?python_provide:%python_provide python2-rhnlib}
 
-Requires: pyOpenSSL 
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2
 Conflicts: rhn-client-tools < 1.3.3
@@ -33,7 +40,10 @@ Conflicts: rhnpush < 5.5.10
 Conflicts: rhnclient < 0.10
 Conflicts: spacewalk-proxy < 1.3.6
 
-%description
+Provides: rhnlib = %{version}-%{release}
+Obsoletes: rhnlib < %{version}-%{release}
+
+%description -n python2-rhnlib
 rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
 
 
@@ -76,11 +86,7 @@ make -f Makefile.rhnlib
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
 %endif
 
-
-%clean
-
-
-%files
+%files -n python2-rhnlib
 %doc ChangeLog COPYING README TODO
 %{python_sitelib}/*
 
