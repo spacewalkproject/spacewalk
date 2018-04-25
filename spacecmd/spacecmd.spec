@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.9.0
+Version:     2.9.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -112,6 +112,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- get rid of old RHEL 5 stuff in specfile
+- Bumping package versions for 2.9.
+
 * Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.25-1
 - Revert "1533052 - Add FQDN detection to setup and config utilities."
 
