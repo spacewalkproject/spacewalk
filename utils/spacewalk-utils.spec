@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.9.0
+Version:	2.9.1
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,10 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Apr 25 2018 Grant Gainey 2.9.1-1
+- 1554307 - make purge-loop work off static timestamp
+- Bumping package versions for 2.9.
+
 * Thu Mar 29 2018 Jiri Dostal <jdostal@redhat.com> 2.8.17-1
 - Update gpgs in database
 - Update common channels with latest releases
