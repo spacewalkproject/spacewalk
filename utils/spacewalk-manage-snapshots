@@ -72,8 +72,9 @@ end
  order by AGE
     """,
     'FIND_TABLE': "select table_name from user_tables where table_name like 'RHNSNAPSHOT%' escape '|' order by table_name",
-    'PURGE_DATA': "delete from rhnsnapshot ss where ROWNUM <= :batchsize and ss.created < current_timestamp - numtodsinterval(:num_days,'day')",
-    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < current_timestamp - numtodsinterval(:num_days,'day')",
+    'PURGE_DATA': "delete from rhnsnapshot ss where ROWNUM <= :batchsize and ss.created < to_timestamp(:current_timestamp) - numtodsinterval(:num_days,'day')",
+    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < to_timestamp(:current_timestamp) - numtodsinterval(:num_days,'day')",
+    'GET_NOW' : "select current_timestamp from dual",
     'LOCK_GROUPS': "lock table rhnSnapshotServerGroup in row exclusive mode"
 },
     'postgresql': {
@@ -100,8 +101,9 @@ count(distinct ss.server_id) as SERVERS_AFFECTED
  order by AGE
     """,
     'FIND_TABLE': "select table_name from information_schema.tables where table_name like 'rhnsnapshot%' escape '!' order by table_name",
-    'PURGE_DATA': "delete from rhnsnapshot ss where ss.id = any (array(select id from rhnsnapshot where created < current_timestamp - numtodsinterval(:num_days, 'day') limit :batchsize))",
-    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < current_timestamp - numtodsinterval(:num_days, 'day')",
+    'PURGE_DATA': "delete from rhnsnapshot ss where ss.id = any (array(select id from rhnsnapshot where created < to_timestamp(:current_timestamp, 'YYYY-MM-DD HH24:MI:SS:MS') - numtodsinterval(:num_days, 'day') limit :batchsize))",
+    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < to_timestamp(:current_timestamp, 'YYYY-MM-DD HH24:MI:SS:MS') - numtodsinterval(:num_days, 'day')",
+    'GET_NOW' : "select current_timestamp",
     'LOCK_GROUPS': "lock table rhnSnapshotServerGroup in access exclusive mode"
 }
 }
@@ -173,13 +175,12 @@ def count(tbl):
     return num_rows[0]
 
 
-def purge_count(tbl, opt):
+def purge_count(tbl, opt, since):
     """How many rows are we planning to remove from <tbl>?"""
     tbl_str = _get_sql('PURGE_COUNT') % {"table": tbl}
-    stmt = rhnSQL.execute(tbl_str, num_days=opt.num_days )
+    stmt = rhnSQL.execute(tbl_str, current_timestamp=since, num_days=opt.num_days )
     num_rows = stmt.fetchone()
     return num_rows[0]
-
 
 def _generate_age_string(val, opt):
     """age is returned as a bucket-number, 1-5. Convert it to days-old based on report_interval"""
@@ -222,12 +223,16 @@ def purge(opt):
     print 'Deleting snapshots older than ' + str(opt.num_days) + ' days'
     _log('Deleting snapshots older than ' + str(opt.num_days) + ' days')
 
+
+    now_sql = _get_sql('GET_NOW')
+    now_ts = rhnSQL.execute(now_sql).fetchone()[0]
+
     name = 'rhnsnapshot'
 
     print '{0:12d} snapshots currently'.format(count(name))
     _log('{0:12d} snapshots currently'.format(count(name)))
 
-    to_be_purged = purge_count(name, opt)
+    to_be_purged = purge_count(name, opt, now_ts)
     print '{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size)
     _log('{0:12d} snapshots to be deleted, {1:d} per commit'.format(to_be_purged, opt.batch_size))
 
@@ -241,9 +246,9 @@ def purge(opt):
         # Also limits size of redo-log and friends
         rhnSQL.transaction('PURGE_BATCH')
         stmt = rhnSQL.execute(lock_str)
-        stmt = rhnSQL.execute(del_str, batchsize=opt.batch_size, num_days=opt.num_days)
+        stmt = rhnSQL.execute(del_str, current_timestamp=now_ts, batchsize=opt.batch_size, num_days=opt.num_days)
         rhnSQL.commit()
-        to_be_purged = purge_count(name, opt)
+        to_be_purged = purge_count(name, opt, now_ts)
 
     print '{0:12d} snapshots remain'.format(count(name))
     _log('{0:12d} snapshots remain'.format(count(name)))
