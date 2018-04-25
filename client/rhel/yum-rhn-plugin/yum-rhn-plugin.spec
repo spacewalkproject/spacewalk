@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.9.2
+Version: 2.9.3
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- up2date is dead
+- empty clean section is not needed
+
 * Wed Apr 11 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - fix condition for RHEL systems
 
