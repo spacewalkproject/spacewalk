@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.8.5
+Version:        2.8.6
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Apr 26 2018 Jiri Dostal <jdostal@redhat.com> 2.8.6-1
+- [selinux] Really fix pam authentication
+
 * Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.5-1
 - Set sebool to allow cobbler load kernel module
 
