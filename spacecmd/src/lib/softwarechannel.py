@@ -744,7 +744,7 @@ options:
   -c CHECKSUM %s
   -u GPG-URL
   -i GPG-ID
-  -f GPG-FINGERPRINT''' % CHECKSUM
+  -f GPG-FINGERPRINT''' % CHECKSUM)
 
 
 def do_softwarechannel_update(self, args):
@@ -761,50 +761,50 @@ def do_softwarechannel_update(self, args):
     (args, options) = parse_command_arguments(args, arg_parser)
 
     if is_interactive(options):
-       options.label = prompt_user('Channel Label:', noblank=True)
+        options.label = prompt_user('Channel Label:', noblank=True)
 
-       print('')
-       print('New Name (blank to keep unchanged)')
-       print('------------')
-       print('')
-       options.name = prompt_user('Name:')
+        print('')
+        print('New Name (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.name = prompt_user('Name:')
 
-       print('')
-       print('New Summary (blank to keep unchanged)')
-       print('------------')
-       print('')
-       options.summary = prompt_user('Summary:')
+        print('')
+        print('New Summary (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.summary = prompt_user('Summary:')
 
-       print('')
-       print 'New Description (blank to keep unchanged)'
-       print('------------')
-       print('')
-       options.description = prompt_user('Description:')
+        print('')
+        print('New Description (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.description = prompt_user('Description:')
 
-       print('')
-       print('New Checksum type (blank to keep unchanged)')
-       print('------------')
-       print('\n'.join(sorted(self.CHECKSUM)))
-       print('')
-       options.checksum = prompt_user('Select:')
+        print('')
+        print('New Checksum type (blank to keep unchanged)')
+        print('------------')
+        print('\n'.join(sorted(self.CHECKSUM)))
+        print('')
+        options.checksum = prompt_user('Select:')
 
-       print('')
-       print('New GPG URL (blank to keep unchanged)')
-       print('------------')
-       print('')
-       options.gpg_url = prompt_user('GPG URL:')
+        print('')
+        print('New GPG URL (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.gpg_url = prompt_user('GPG URL:')
 
-       print('')
-       print('New GPG ID (blank to keep unchanged)')
-       print('------------')
-       print('')
-       options.gpg_id = prompt_user('GPG ID:')
+        print('')
+        print('New GPG ID (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.gpg_id = prompt_user('GPG ID:')
 
-       print('')
-       print('New GPG Fingerprint (blank to keep unchanged)')
-       print('------------')
-       print('')
-       options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
+        print('')
+        print('New GPG Fingerprint (blank to keep unchanged)')
+        print('------------')
+        print('')
+        options.gpg_fingerprint = prompt_user('GPG Fingerprint:')
 
     if not options.label:
         logging.error('A channel label is required to identify the channel')
@@ -919,7 +919,7 @@ def do_softwarechannel_create(self, args):
         self.client.channel.software.create(self.session, options.label, options.name, options.summary,
                                             'channel-%s' % options.arch, options.parent_channel,
                                             options.checksum, gpgData
-                                       )
+                                            )
 
 ####################
 
@@ -1196,7 +1196,7 @@ def clone_channel(self, channel, options, details) :
 
     if options.gpg_copy:
         srcdetails = self.client.channel.software.getDetails(self.session, channel)
-        copy_gpg_values_from_source(details, srcdetails);
+        copy_gpg_values_from_source(details, srcdetails)
 
     if options.gpg_id:
         details['gpg_id'] = options.gpg_id
@@ -1254,7 +1254,7 @@ def do_regx_replacement(self,channel, options):
     newvalues['label'] = re.sub(findstr, replacestr, channel)
     logging.debug("regex mode : %s %s %s" % (options.source_channel,  newvalues['name'], newvalues['label']))
 
-    return newvalues;
+    return newvalues
 
 ####################
 
