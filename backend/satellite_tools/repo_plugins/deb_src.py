@@ -25,6 +25,12 @@ from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.common.rhnConfig import CFG, initCFG
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
 
 RETRIES = 10
 RETRY_DELAY = 1
@@ -181,12 +187,18 @@ class ContentSource(object):
         self.proxy_addr = CFG.http_proxy
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
+        self.authtoken = None
 
         self.repo = DebRepo(url, os.path.join(CACHE_DIR, self.org, name),
                             os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'))
 
         self.num_packages = 0
         self.num_excluded = 0
+
+        # keep authtokens for mirroring
+        (_scheme, _netloc, _path, query, _fragid) = urlparse.urlsplit(url)
+        if query:
+            self.authtoken = query
 
     def list_packages(self, filters, latest):
         """ list packages"""
@@ -308,6 +320,7 @@ class ContentSource(object):
 
         params['urls'] = self.repo.urls
         params['relative_path'] = relative_path
+        params['authtoken'] = self.authtoken
         params['target_file'] = target_file
         params['ssl_ca_cert'] = self.repo.sslcacert
         params['ssl_client_cert'] = self.repo.sslclientcert
