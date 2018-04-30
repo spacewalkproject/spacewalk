@@ -341,4 +341,3 @@ class ContentSource(object):
         # Called from import_kickstarts, not working for deb repo
         log2(0, 0, "Unable to download path %s from deb repo." % path, stream=sys.stderr)
         return None
-
