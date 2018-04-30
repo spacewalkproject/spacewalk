@@ -113,7 +113,7 @@ Requires: dbus-python
 # The following BuildRequires are for check only
 Requires: rhnlib >= 2.5.78
 
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-rpm
 Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
