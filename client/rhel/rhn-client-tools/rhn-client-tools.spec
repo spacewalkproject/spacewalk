@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+%global py3_deps   1
+%endif
+
 %global build_py2   1
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
@@ -99,7 +103,7 @@ Requires: newt-python
 Requires: dbus-1-python
 Requires: python-newt
 %else
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-dbus
 %else
 Requires: dbus-python
