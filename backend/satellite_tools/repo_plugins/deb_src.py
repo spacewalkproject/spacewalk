@@ -25,7 +25,6 @@ from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.common.rhnConfig import CFG, initCFG
-from urlgrabber.grabber import URLGrabError
 try:
     #  python 2
     import urlparse
