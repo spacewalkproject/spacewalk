@@ -2331,7 +2331,8 @@ def do_softwarechannel_setsyncschedule(self, args):
     arg_parser.add_argument('-k', '--sync-kickstart', action='store_true', default=False)
     arg_parser.add_argument('-l', '--latest', action='store_true', default=False)
 
-    (args, options) = parse_command_arguments(args, arg_parser)
+    # Set glob = false, otherwise this will generate a com.redhat.rhn.taskomatic.InvalidParamException: Cron trigger. 
+    (args, options) = parse_command_arguments(args, arg_parser, glob=False)
 
     params = dict((i.replace('_', '-'), getattr(options, i)) for i in ['no_errata', 'fail', 'sync_kickstart', 'latest'])
 
