@@ -25,7 +25,6 @@ from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.common.rhnConfig import CFG, initCFG
-from urlgrabber.grabber import URLGrabError
 try:
     #  python 2
     import urlparse
@@ -342,4 +341,3 @@ class ContentSource(object):
         # Called from import_kickstarts, not working for deb repo
         log2(0, 0, "Unable to download path %s from deb repo." % path, stream=sys.stderr)
         return None
-

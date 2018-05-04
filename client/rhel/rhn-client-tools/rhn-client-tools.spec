@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+%global py3_deps   1
+%endif
+
 %global build_py2   1
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
@@ -10,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.4
+Version: 2.9.7
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -90,7 +94,7 @@ Requires: newt-python
 Requires: dbus-1-python
 Requires: python-newt
 %else
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-dbus
 %else
 Requires: dbus-python
@@ -100,7 +104,7 @@ Requires: dbus-python
 # The following BuildRequires are for check only
 Requires: rhnlib >= 2.5.78
 
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-rpm
 Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
@@ -347,6 +351,8 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/up2date_client/firstboot
 %endif
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
+mkdir -p $RPM_BUILD_ROOT/usr/share/metainfo/
+install rhn_register.appdata.xml $RPM_BUILD_ROOT/usr/share/metainfo/
 %if 0%{?suse_version}
 %suse_update_desktop_file -r rhn_register "Settings;System;SystemSetup;"
 # no usermod on SUSE
@@ -610,6 +616,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif
 %{_datadir}/applications/rhn_register.desktop
+/usr/share/metainfo/rhn_register.appdata.xml
 %{_datadir}/rhn/up2date_client/gui.glade
 %{_datadir}/rhn/up2date_client/progress.glade
 %{_datadir}/rhn/up2date_client/rh_register.glade
@@ -664,6 +671,15 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri May 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
+- 1094744 - provide AppData file for rhn-setup-gnome
+
+* Mon Apr 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.6-1
+- further fix building on older Fedoras
+
+* Mon Apr 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.5-1
+- fix dependencies on older Fedoras
+
 * Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
 - do touch --no-create only on older systems
 
