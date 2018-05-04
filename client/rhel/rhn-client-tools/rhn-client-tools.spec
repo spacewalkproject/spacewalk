@@ -351,6 +351,8 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/up2date_client/firstboot
 %endif
 
 desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
+mkdir -p $RPM_BUILD_ROOT/usr/share/metainfo/
+install rhn_register.appdata.xml $RPM_BUILD_ROOT/usr/share/metainfo/
 %if 0%{?suse_version}
 %suse_update_desktop_file -r rhn_register "Settings;System;SystemSetup;"
 # no usermod on SUSE
@@ -614,6 +616,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif
 %{_datadir}/applications/rhn_register.desktop
+/usr/share/metainfo/rhn_register.appdata.xml
 %{_datadir}/rhn/up2date_client/gui.glade
 %{_datadir}/rhn/up2date_client/progress.glade
 %{_datadir}/rhn/up2date_client/rh_register.glade
