@@ -14,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.6
+Version: 2.9.7
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -671,6 +671,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri May 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
+- 1094744 - provide AppData file for rhn-setup-gnome
+
 * Mon Apr 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.6-1
 - further fix building on older Fedoras
 
