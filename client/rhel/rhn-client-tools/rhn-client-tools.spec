@@ -3,6 +3,10 @@
 %global default_py3 1
 %endif
 
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+%global py3_deps   1
+%endif
+
 %global build_py2   1
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
@@ -10,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.8.25
+Version: 2.8.26
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -99,7 +103,7 @@ Requires: newt-python
 Requires: dbus-1-python
 Requires: python-newt
 %else
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-dbus
 %else
 Requires: dbus-python
@@ -109,7 +113,7 @@ Requires: dbus-python
 # The following BuildRequires are for check only
 Requires: rhnlib >= 2.5.78
 
-%if 0%{?default_py3}
+%if 0%{?py3_deps}
 Requires: python2-rpm
 Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
@@ -694,6 +698,10 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Fri May 04 2018 Jiri Dostal <jdostal@redhat.com> 2.8.26-1
+- further fix building on older Fedoras
+- fix dependencies on older Fedoras
+
 * Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.25-1
 - do touch --no-create only on older systems
 - adapt to new fedora python2/3 packaging
