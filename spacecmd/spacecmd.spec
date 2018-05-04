@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.9.2
+Version:     2.9.3
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -112,6 +112,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri May 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- fix pylint
+
 * Thu May 03 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - Turn off glob for softwarechannel_setsyncschedule
 
