@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.9.2
+Version:        2.9.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed May 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- drop the trigger only if it exists
+
 * Mon Apr 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - 1543381 - teach triggers about comps_type_id
 
