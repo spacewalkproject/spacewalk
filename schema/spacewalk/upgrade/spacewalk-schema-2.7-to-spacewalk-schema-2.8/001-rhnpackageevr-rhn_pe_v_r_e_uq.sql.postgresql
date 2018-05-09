@@ -47,7 +47,7 @@ begin
 end;
 $$ language plpgsql;
 
-drop trigger rhn_pack_evr_no_updel_trig on rhnpackageevr;
+drop trigger if exists rhn_pack_evr_no_updel_trig on rhnpackageevr;
 
 select fix_rhn_pe_v_r_e_uq();
 
