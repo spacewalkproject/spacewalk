@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.9.0
+Version:	2.9.1
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -113,6 +113,10 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Thu May 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- require openscap-scanner on newer versions of RHEL
+- Bumping package versions for 2.9.
+
 * Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
 - don't build python2 subpackages on systems with default python3
 
