@@ -19,7 +19,7 @@ URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:  libxslt
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 8
 Requires: openscap-utils
 %else
 Requires:	openscap-scanner
