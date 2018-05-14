@@ -182,7 +182,7 @@ class FileProcessor:
 
             #rip off the leading '0' from the mode returned by stat()
             if cur_perm[0] == '0':
-                cur_perm = cur_perm[1:]
+                cur_perm = cur_perm[2:] if cur_perm[1] == 'o' else cur_perm[1:]
 
             #perm_status gets displayed with the verbose option.
             if cur_perm == str(file_struct['filemode']):
