@@ -15,9 +15,11 @@ BuildArch:   noarch
 %if 0%{?build_py3}
 BuildRequires: python3-devel
 Requires: python3-rhnlib
+Requires: python3-pygpgme
 %else
 BuildRequires: python-devel
 Requires: rhnlib >= 2.8.4
+Requires: pygpgme
 %if 0%{?suse_version}
 # provide directories for filelist check in OBS
 BuildRequires: rhn-client-tools
