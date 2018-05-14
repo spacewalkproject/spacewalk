@@ -12,7 +12,7 @@ URL:         https://github.com/spacewalkproject/spacewalk
 Source:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:   noarch
 
-%if 0%{?build_py}
+%if 0%{?build_py3}
 BuildRequires: python3-devel
 Requires: python3-rhnlib
 %else
