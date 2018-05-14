@@ -14,7 +14,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name: rhncfg
-Version: 5.10.123
+Version: 5.10.124
 Release: 1%{?dist}
 Summary: Spacewalk Configuration Client Libraries
 License: GPLv2
@@ -281,6 +281,11 @@ fi
 %endif
 
 %changelog
+* Mon May 14 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.124-1
+- 1577138 - when loading a file take into account if it's binary or not
+- 1572652 - do not report that files differ due to python3 octal number
+  represenatation
+
 * Mon May 14 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.123-1
 - require python3-libselinux on python3 only OS
 
