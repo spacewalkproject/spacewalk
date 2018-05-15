@@ -207,7 +207,7 @@ class DownloadThread(Thread):
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
             ## BEWARE: This hack is introduced in order to support SUSE SCC channels
             ## This also needs a patched urlgrabber AFAIK
-            if params['authtoken']:
+            if 'authtoken' in params and params['authtoken']:
                 (scheme, netloc, path, query, _) = urlparse.urlsplit(params['urls'][self.mirror])
                 url = "%s://%s%s/%s?%s" % (scheme,netloc,path,params['relative_path'],query.rstrip('/'))
             try:
