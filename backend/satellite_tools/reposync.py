@@ -583,6 +583,7 @@ class RepoSync(object):
             self.upload_updates(notices)
 
     def copy_metadata_file(self, filename, comps_type, relative_dir):
+        old_checksum = None
         basename = os.path.basename(filename)
         log(0, '')
         log(0, "  Importing %s file %s." % (comps_type, basename))
@@ -596,11 +597,21 @@ class RepoSync(object):
             if basename.endswith(suffix):
                 abspath = abspath.rstrip(suffix)
                 relativepath = relativepath.rstrip(suffix)
+
+        h = rhnSQL.prepare("""select relative_filename
+                                from rhnChannelComps
+                               where channel_id = :cid
+                                 and comps_type_id = (select id from rhnCompsType where label = :ctype)""")
+        if h.execute(cid=self.channel['id'], ctype=comps_type):
+            old_checksum = getFileChecksum('sha256', os.path.join(CFG.MOUNT_POINT, h.fetchone()[0]))
+
         src = fileutils.decompress_open(filename)
         dst = open(abspath, "w")
         shutil.copyfileobj(src, dst)
         dst.close()
         src.close()
+        if old_checksum and old_checksum != getFileChecksum('sha256', abspath):
+            self.regen = True
         # update or insert
         hu = rhnSQL.prepare("""update rhnChannelComps
                                   set relative_filename = :relpath,
