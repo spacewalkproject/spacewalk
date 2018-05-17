@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.7
+Version: 2.9.8
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu May 17 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.8-1
+- Fix crash in satellite_tools on RH/Fedora/Mageia urlgrabber
+
 * Wed May 09 2018 Jiri Dostal <jdostal@redhat.com> 2.9.7-1
 - fix errata import error if severity is 'None'
 
