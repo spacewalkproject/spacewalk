@@ -442,6 +442,8 @@ class Syncer:
         self.xmlDataServer = None
         self.systemid = None
 
+        self.reporegen = set()
+
         # self._*_full hold list of all ids for appropriate channel while
         # non-full self._* contain every id only once (in first channel it appeared)
         self._channel_packages = {}
@@ -587,6 +589,7 @@ class Syncer:
                 stream = repomdFileStreamFunc(label)
             f = FileManip(repomd_path, timestamp, None)
             f.write_file(stream)
+            self.reporegen.add(label)
 
     def _process_comps(self, backend, label, timestamp):
         comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
@@ -1614,6 +1617,19 @@ class Syncer:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=OPTIONS.consider_full)
             else:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data)
+            if self.reporegen:
+                h = rhnSQL.prepare("""select channel_label from rhnRepoRegenQueue""")
+                h.execute()
+                result = h.fetchall_dict()
+                if result:
+                    for regenerating in h.fetchall_dict():
+                        if regenerating['channel_label'] in self.reporegen:
+                            self.reporegen.remove(regenerating['channel_label'])
+                for channel in self.reporegen:
+                    h = rhnSQL.prepare("""insert into rhnRepoRegenQueue
+                            (channel_label) values (:clabel)""")
+                    h.execute(clabel=channel)
+                    rhnSQL.commit()
         except (SQLError, SQLSchemaError, SQLConnectError):
             e = sys.exc_info()[1]
             # an SQL error is fatal... crash and burn
