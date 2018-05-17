@@ -60,15 +60,6 @@ for package in $GITROOT/rel-eng/packages/* ; do
         echo -en "travis_fold:end:$package_basename-mock\\r"
         if [ $status -eq 0 ] ; then
             STATUS_MSG="Building $package_basename succeeded!"
-            # build in koji if tag was pushed
-            tag_commit=$(git rev-parse $latest_tag^{commit})
-            if [ -f ~/.koji/.spacewalk.cert ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && git rev-list $TRAVIS_COMMIT_RANGE | grep -q "$tag_commit" ; then
-                echo "Tag present, releasing to Koji"
-                # workarround - git ls-remote ./. on Travis doesn't work with shallow clones (bug?)
-                mv $GITROOT/.git/shallow $GITROOT/.git/shallow.org
-                tito release koji
-                mv $GITROOT/.git/shallow.org $GITROOT/.git/shallow
-            fi
         else
             STATUS_MSG="Building $package_basename failed with code: $status, see logs."
 
