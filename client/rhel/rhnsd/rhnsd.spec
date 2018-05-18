@@ -1,3 +1,7 @@
+%if 0%{?fedora} || 0%{?rhel} >= 7 || 0%{?suse_version} >= 1210
+%global systemd_present 1
+%endif
+
 Summary: Spacewalk query daemon
 Name: rhnsd
 Version: 5.0.37
@@ -19,7 +23,7 @@ Requires(post): aaa_base
 Requires(preun): aaa_base
 BuildRequires: sysconfig
 %else
-%if 0%{?fedora}
+%if 0%{?systemd_present}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -50,10 +54,11 @@ make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_R
 %if 0%{?suse_version} && 0%{?suse_version} < 1210
 install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?systemd_present}
 rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
+install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
 %endif
 
 %find_lang %{name}
@@ -62,25 +67,30 @@ install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 %{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} > /dev/null 2>&1 || : ; fi; }
 %{!?systemd_postun_with_restart: %global systemd_postun_with_restart() /usr/bin/systemctl daemon-reload >/dev/null 2>&1 || : ; if [ $1 -ge 1 ] ; then /usr/bin/systemctl try-restart %%{?*} >/dev/null 2>&1 || : ; fi; }
 
+%if 0%{?systemd_present}
+rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/rhn/rhnsd
+rm -f $RPM_BUILD_ROOT/%{_sbindir}/rhnsd
+%endif
+
 
 %if 0%{?suse_version} >= 1210
 %pre
-%service_add_pre rhnsd.service
+%service_add_pre rhnsd.timer
 %endif
 
 %post
 %if 0%{?suse_version} >= 1210
-%service_add_post rhnsd.service
+%service_add_post rhnsd.timer
 %else
 if [ -f /etc/init.d/rhnsd ]; then
     /sbin/chkconfig --add rhnsd
 fi
 if [ -f %{_unitdir}/rhnsd.service ]; then
-    %systemd_post rhnsd.service
+    %systemd_post rhnsd.timer
     if [ "$1" = "2" ]; then
         # upgrade from old init.d
         if [ -L /etc/rc2.d/S97rhnsd ]; then
-            /usr/bin/systemctl enable rhnsd.service >/dev/null 2>&1
+            /usr/bin/systemctl enable rhnsd.timer >/dev/null 2>&1
         fi
         rm -f /etc/rc?.d/[SK]??rhnsd
     fi
@@ -89,11 +99,11 @@ fi
 
 %preun
 %if 0%{?suse_version} >= 1210
-%service_del_preun rhnsd.service
+%service_del_preun rhnsd.timer
 %else
 if [ $1 = 0 ] ; then
-    %if 0%{?fedora}
-        %systemd_preun rhnsd.service
+    %if 0%{?systemd_present}
+        %systemd_preun rhnsd.timer
     %else
     service rhnsd stop >/dev/null 2>&1
     %endif
@@ -105,11 +115,11 @@ fi
 
 %postun
 %if 0%{?suse_version} >= 1210
-%service_del_postun rhnsd.service
+%service_del_postun rhnsd.timer
 %else
 if [ "$1" -ge "1" ]; then
     %if 0%{?fedora}
-    %systemd_postun_with_restart rhnsd.service
+    %systemd_postun_with_restart rhnsd.timer
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
     %endif
@@ -118,12 +128,13 @@ fi
 
 
 %files -f %{name}.lang
+%if 0%{?systemd_present}
+%{_unitdir}/rhnsd.service
+%{_unitdir}/rhnsd.timer
+%else
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
-%{_unitdir}/rhnsd.service
-%else
 %{_initrddir}/rhnsd
 %endif
 %{_mandir}/man8/rhnsd.8*

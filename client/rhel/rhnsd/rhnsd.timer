@@ -1,0 +1,10 @@
+[Unit]
+Description=Spacewalk periodic check timer
+
+[Timer]
+OnCalendar=00/4:00
+RandomizedDelaySec=30min
+
+[Install]
+WantedBy=timers.target
+
