@@ -27,29 +27,21 @@ begin
      where ((epoch is null and e_in is null) or (epoch = e_in)) and
            version = v_in and
            release = r_in;
-            
+
     if not found then
         evr_id := nextval('rhn_pkg_evr_seq');
-        declare
-            e_text varchar = coalesce(quote_literal(e_in), 'NULL');
-            v_text varchar = coalesce(quote_literal(v_in), 'NULL');
-            r_text varchar = coalesce(quote_literal(r_in), 'NULL');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnPackageEVR(id, epoch, version, release, evr) values (' ||
-                evr_id || ', ' || e_text || ', ' || v_text || ', ' || r_text
-		|| ', evr_t(' || e_text || ', ' || v_text || ', ' || r_text || '))'
-            );
-        exception when unique_violation then
-            select id
-              into strict evr_id
-              from rhnPackageEVR
-             where ((epoch is null and e_in is null) or (epoch = e_in)) and
-                   version = v_in and
-                   release = r_in;
-        end;
+
+        insert into rhnPackageEVR(id, epoch, version, release, evr)
+            values (evr_id, e_in, v_in, r_in, evr_t(e_in, v_in, r_in))
+            on conflict do nothing;
+
+        select id
+            into strict evr_id
+            from rhnPackageEVR
+            where ((epoch is null and e_in is null) or (epoch = e_in)) and
+               version = v_in and release = r_in;
     end if;
 
     return evr_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;

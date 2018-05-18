@@ -27,19 +27,17 @@ begin
 
     if not found then
         cap_name_id := nextval('rhn_client_capname_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnClientCapabilityName(id, name) values (' ||
-                cap_name_id  || ' ,' ||
-                coalesce(quote_literal(name_in), 'NULL') || ')');
-        exception when unique_violation then
-            select id
-              into strict cap_name_id
-              from rhnclientcapabilityname
+
+        insert into rhnClientCapabilityName(id, name)
+            values (cap_name_id, name_in)
+            on conflict do nothing;
+
+        select id
+            into strict cap_name_id
+            from rhnclientcapabilityname
             where name = name_in;
-        end;
     end if;
 
     return cap_name_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;

@@ -58,23 +58,17 @@ begin
 
     if not found then
         tp_id := nextval('rhn_transpack_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnTransactionPackage (id, operation, name_id, evr_id, package_arch_id)' ||
-                ' values (' || tp_id || ', ' || o_id || ', ' || n_id || ', ' || e_id ||
-                ', ' || ( case when p_arch_id is null then 'NULL' else p_arch_id::varchar end )  || ')');
-        exception when unique_violation then
-            select id
-              into strict tp_id
-              from rhnTransactionPackage
-             where operation = o_id and
-                   name_id = n_id and
-                   evr_id = e_id and
-                   (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));
-        end;
-    end if;
 
+        insert into rhnTransactionPackage (id, operation, name_id, evr_id, package_arch_id)
+            values (tp_id, o_id, n_id, e_id, p_arch_id)
+            on conflict do nothing;
+
+        select id
+            into strict tp_id
+            from rhnTransactionPackage
+         where operation = o_id and name_id = n_id and evr_id = e_id and
+            (package_arch_id = p_arch_id or (p_arch_id is null and package_arch_id is null));
+    end if;
     return tp_id;
 end;
-$$
-language plpgsql immutable;
+$$ language plpgsql;

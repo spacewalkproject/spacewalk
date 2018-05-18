@@ -28,19 +28,17 @@ begin
 
     if not found then
         source_id := nextval('rhn_sourcerpm_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnSourceRPM(id, name) values (' ||
-                source_id || ', ' || coalesce(quote_literal(name_in), 'NULL') || ')');
-        exception when unique_violation then
-            select id
-              into strict source_id
-              from rhnSourceRPM
-             where name = name_in;
-        end;
+
+        insert into rhnSourceRPM(id, name)
+            values (source_id, name_in)
+            on conflict do nothing;
+
+        select id
+            into strict source_id
+            from rhnSourceRPM
+            where name = name_in;
     end if;
 
     return source_id;
 end;
-$$
-language plpgsql immutable;
+$$ language plpgsql;

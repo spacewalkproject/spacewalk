@@ -47,21 +47,14 @@ begin
     end loop;
     -- If we got here, we don't have the id
     v_id := nextval('rhn_confinfo_id_seq');
-    begin
-        perform pg_dblink_exec(
-            'insert into rhnConfigInfo ' ||
-            '(id, username, groupname, filemode, selinux_ctx, symlink_target_filename_id)' ||
-            'values (' || v_id || ', ' ||
-            coalesce(quote_literal(username_in), 'NULL') || ', ' ||
-            coalesce(quote_literal(groupname_in), 'NULL') || ', ' ||
-            coalesce(quote_literal( filemode_in), 'NULL') || ', ' ||
-            coalesce(quote_literal(selinux_ctx_in), 'NULL') || ', ' ||
-            coalesce(quote_literal(symlink_target_id), 'NULL') || ')');
-    exception when unique_violation then
-        for r in lookup_cursor loop
-            return r.id;
-        end loop;
-    end;
+
+    insert into rhnConfigInfo (id, username, groupname, filemode, selinux_ctx, symlink_target_filename_id)
+        values (v_id, username_in, groupname_in, filemode_in, selinux_ctx_in, symlink_target_id)
+        on conflict do nothing;
+
+    for r in lookup_cursor loop
+        return r.id;
+    end loop;
     return v_id;
 end;
-$$ language plpgsql immutable;
+$$ language plpgsql;

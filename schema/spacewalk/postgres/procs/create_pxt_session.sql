@@ -26,11 +26,15 @@ declare
 begin
     l_id := nextval( 'pxt_id_seq' );
 
-    perform pg_dblink_exec(
-        'insert into PXTSessions (id, value, expires, web_user_id) values (' ||
-        l_id || ', ' || coalesce(quote_literal(p_value), 'NULL') ||
-        ', ' || p_expires || ', ' || coalesce(quote_literal(p_web_user_id), 'NULL') || '); commit');
+    insert into PXTSessions (id, value, expires, web_user_id)
+        values (l_id, p_value, p_expires, p_web_user_id)
+        on conflict do nothing;
 
-	return l_id;
+    select id
+        into strict l_id
+        from PXTSessions
+        where value = p_value and expires = p_expires and web_user_id = p_web_user_id;
+
+	  return l_id;
 end;
 $$ language plpgsql;

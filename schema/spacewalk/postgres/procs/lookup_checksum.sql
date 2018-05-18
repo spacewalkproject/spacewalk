@@ -34,25 +34,25 @@ begin
 
     if not found then
         checksum_id := nextval('rhnchecksum_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnChecksum (id, checksum_type_id, checksum) values (' ||
-                checksum_id || ', (select id from rhnChecksumType where label = ' ||
-                coalesce(quote_literal(checksum_type_in), 'NULL') || '), ' ||
-                coalesce(quote_literal(checksum_in), 'NULL') || ')');
-        exception when unique_violation then
-            select c.id
+
+        insert into rhnChecksum (id, checksum_type_id, checksum)
+          values (
+              checksum_id,
+              (select id from rhnChecksumType where label = checksum_type_in),
+              checksum_in
+          )
+          on conflict do nothing;
+
+          select c.id
               into strict checksum_id
               from rhnChecksumView c
-             where c.checksum = checksum_in and
-                   c.checksum_type = checksum_type_in;
-        end;
+              where c.checksum = checksum_in and
+                  c.checksum_type = checksum_type_in;
     end if;
 
     return checksum_id;
 end;
-$$
-language plpgsql immutable;
+$$ language plpgsql;
 
 -- NOTE: This is intentionally not thread safe! You must lock rhnChecksum
 -- if you are going to use this procedure!

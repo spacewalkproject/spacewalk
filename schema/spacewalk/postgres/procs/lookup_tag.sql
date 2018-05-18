@@ -31,19 +31,18 @@ begin
 
     if not found then
         tag_id := nextval('rhn_tag_id_seq');
-        begin
-            perform pg_dblink_exec(
-                'insert into rhnTag(id, org_id, name_id) values (' ||
-                tag_id || ', ' || org_id_in || ', ' || tag_name_id || ')');
-        exception when unique_violation then
-            select id
-              into strict tag_id
-              from rhnTag
-             where org_id = org_id_in and
-                   name_id = lookup_tag_name(name_in);
-        end;
+
+        insert into rhnTag(id, org_id, name_id)
+            values (tag_id, org_id_in, tag_name_id)
+            on conflict do nothing;
+
+        select id
+            into strict tag_id
+            from rhnTag
+            where org_id = org_id_in and
+                name_id = lookup_tag_name(name_in);
     end if;
 
     return tag_id;
-end; $$
-language plpgsql immutable;
+end;
+$$ language plpgsql;
