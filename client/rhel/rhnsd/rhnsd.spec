@@ -2,6 +2,7 @@
 %global systemd_present 1
 %endif
 
+
 Summary: Spacewalk query daemon
 Name: rhnsd
 Version: 5.0.37
@@ -42,6 +43,8 @@ The Red Hat Update Agent that automatically queries the Red Hat
 Network servers and determines which packages need to be updated on
 your machine, and runs any actions.
 
+%global debug_package %{nil}
+
 %prep
 %setup -q
 
@@ -59,9 +62,10 @@ rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
+%else
+%find_lang %{name}
 %endif
 
-%find_lang %{name}
 
 %{!?systemd_post: %global systemd_post() if [ $1 -eq 1 ] ; then /usr/bin/systemctl enable %%{?*} >/dev/null 2>&1 || : ; fi; }
 %{!?systemd_preun: %global systemd_preun() if [ $1 -eq 0 ] ; then /usr/bin/systemctl --no-reload disable %%{?*} > /dev/null 2>&1 || : ; /usr/bin/systemctl stop %%{?*} > /dev/null 2>&1 || : ; fi; }
@@ -70,6 +74,7 @@ install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
 %if 0%{?systemd_present}
 rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/rhn/rhnsd
 rm -f $RPM_BUILD_ROOT/%{_sbindir}/rhnsd
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %endif
 
 
@@ -127,11 +132,12 @@ fi
 %endif
 
 
-%files -f %{name}.lang
 %if 0%{?systemd_present}
+%files
 %{_unitdir}/rhnsd.service
 %{_unitdir}/rhnsd.timer
 %else
+%files -f %{name}.lang
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
