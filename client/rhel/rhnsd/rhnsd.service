@@ -1,13 +1,7 @@
 [Unit]
 Description=Spacewalk Server daemon
 After=syslog.target network.target auditd.service
+ConditionFileNotEmpty=/etc/sysconfig/rhn/systemid
 
 [Service]
-Type=forking
-PIDFile=/var/run/rhnsd.pid
-ExecStart=/usr/sbin/rhnsd
-ExecReload=/bin/kill -HUP $MAINPID
-KillMode=process
-
-[Install]
-WantedBy=multi-user.target
+ExecStart=/usr/sbin/rhn_check
