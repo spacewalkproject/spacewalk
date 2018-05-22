@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.10
+Version: 2.9.11
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue May 22 2018 Jiri Dostal <jdostal@redhat.com> 2.9.11-1
+- Refactored some existing code
+- Add a method in spacecmd to update the software channel
+
 * Tue Apr 17 2018 Jiri Dostal <jdostal@redhat.com> 2.9.10-1
 - Relevant errata dosn't have colored icons
 
