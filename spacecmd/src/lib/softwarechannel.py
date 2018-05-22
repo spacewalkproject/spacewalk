@@ -919,7 +919,7 @@ def do_softwarechannel_create(self, args):
         self.client.channel.software.create(self.session, options.label, options.name, options.summary,
                                             'channel-%s' % options.arch, options.parent_channel,
                                             options.checksum, gpgData
-                                            )
+                                           )
 
 ####################
 
