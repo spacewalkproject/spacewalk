@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.9.3
+Version:     2.9.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -112,6 +112,12 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue May 22 2018 Jiri Dostal <jdostal@redhat.com> 2.9.4-1
+- Fix pylint
+- fix typos & indentation
+- Refactored some existing code
+- Add a method in spacecmd to update the software channel
+
 * Fri May 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
 - fix pylint
 
