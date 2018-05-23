@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.8.24
+Version:        2.8.25
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed May 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.25-1
+- 1576002 - fix detection of "correct" original record
+
 * Mon Apr 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.24-1
 - 1543381 - teach triggers about comps_type_id
 
