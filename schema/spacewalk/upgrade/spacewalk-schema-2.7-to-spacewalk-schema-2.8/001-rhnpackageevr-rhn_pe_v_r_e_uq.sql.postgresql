@@ -12,6 +12,18 @@ begin
           from rhnpackageevr
       group by version, release, epoch
         having count(*) > 1 loop
+      for duplicate in select evr2.id
+             from rhnpackageevr evr1, rhnpackageevr evr2
+            where evr1.version = evr2.version
+              and evr1.release = evr2.release
+              and (evr1.epoch = evr2.epoch
+               or (evr1.epoch is NULL and evr2.epoch is NULL))
+              and evr1.id = original.id loop
+      if (select count(*) from rhnpackagenevra where evr_id = duplicate.id) > 0 then
+        original := duplicate;
+        exit;
+      end if;
+    end loop;
     for duplicate in select evr2.id
              from rhnpackageevr evr1, rhnpackageevr evr2
             where evr1.version = evr2.version
