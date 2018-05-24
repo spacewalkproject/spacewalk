@@ -34,7 +34,7 @@ import java.util.Map;
 public class ClientCertificate {
 
     public static final String SYSTEM_ID = "system_id";
-    private static final String FIELDS = "fields";
+    public static final String FIELDS = "fields";
     private final List<Member> members;
     private final Map<String, String[]> byName;
     private final Map<String, String> checksumFields;
@@ -86,7 +86,7 @@ public class ClientCertificate {
      * Add a member to the certificate.
      * @param member Member to be added.
      */
-    private void addMember(Member member) {
+    public void addMember(Member member) {
         members.add(member);
         byName.put(member.getName(), member.getValues());
     }
