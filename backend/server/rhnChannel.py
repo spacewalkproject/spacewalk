@@ -1812,6 +1812,7 @@ select pc.id, pc.label
   from rhnChannel c
   join rhnServerChannel sc on c.parent_channel = sc.channel_id
   join rhnChannel pc on c.parent_channel = pc.id
+ where sc.server_id = :sid
  group by pc.id, pc.label
 """)
 
