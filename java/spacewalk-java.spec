@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.8.78
+Version: 2.8.79
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon May 28 2018 Jiri Dostal <jdostal@redhat.com> 2.8.79-1
+- Revert "ClientCertificate - make not publically used methods/attributes
+  private"
+
 * Wed Apr 18 2018 Jiri Dostal <jdostal@redhat.com> 2.8.78-1
 - List severities in api doc
 - Erratum severity is not a required field
