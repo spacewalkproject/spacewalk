@@ -74,7 +74,8 @@ install -d %{buildroot}%{_mandir}/man{5,8}
 install -m 644 spacewalk.conf %{buildroot}%{_sysconfdir}/dnf/plugins/
 install -m 644 man/spacewalk.conf.5 %{buildroot}%{_mandir}/man5/
 install -m 644 man/dnf.plugin.spacewalk.8 %{buildroot}%{_mandir}/man8/
-ln -sf man/dnf.plugin.spacewalk.8 man/dnf-plugin-spacewalk.8
+ln -sf dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/dnf-plugin-spacewalk.8
+ln -sf dnf.plugin.spacewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/yum-rhn-plugin.8
 
 # python2
 %if 0%{?build_py2}
