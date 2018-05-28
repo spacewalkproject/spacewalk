@@ -29,6 +29,9 @@ Requires: librepo >= 1.7.15
 %if 0%{?fedora}
 Obsoletes: yum-rhn-plugin < 2.7
 %endif
+%if 0%{?rhel} >= 8
+Provides: yum-rhn-plugin = %{version}
+%endif
 
 %description
 This DNF plugin provides access to a Spacewalk server for software updates.
