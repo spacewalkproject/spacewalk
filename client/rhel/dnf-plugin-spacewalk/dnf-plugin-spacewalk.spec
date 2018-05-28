@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 8 || 0%{?mageia} >= 6 || 0%{?suse_version} >= 1500
 %global build_py3   1
 %global default_py3 1
 %endif
