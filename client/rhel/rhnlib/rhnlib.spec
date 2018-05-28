@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
 %global build_py3   1
 %endif
 
@@ -51,7 +51,11 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
 BuildRequires: python3-devel
+%if 0%{?mageia}
+Requires: python3-OpenSSL
+%else
 Requires: python3-pyOpenSSL
+%endif
 %{?python_provide:%python_provide python3-rhnlib}
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2

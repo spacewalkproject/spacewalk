@@ -8,7 +8,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
-%if 0%{?fedora} >= 28
+%if 0%{?fedora} >= 28 || 0%{?mageia}
 BuildRequires: python2
 %else
 BuildRequires: python

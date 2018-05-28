@@ -10,7 +10,9 @@ BuildRequires: gettext
 
 Requires: rhn-check >= 0.0.8
 BuildRequires: gcc
-%if 0%{?suse_version} >= 1210 || 0%{?fedora}
+%if 0%{?suse_version} >= 1210 || 0%{?fedora} || 0%{?mageia}
+%{?mageia:BuildRequires: systemd-devel}
+%{?suse_version:BuildRequires: systemd-rpm-macros}
 BuildRequires: systemd
 %{?systemd_requires}
 %endif
@@ -50,7 +52,7 @@ make -f Makefile.rhnsd install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_R
 %if 0%{?suse_version} && 0%{?suse_version} < 1210
 install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia}
 rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
@@ -92,7 +94,7 @@ fi
 %service_del_preun rhnsd.service
 %else
 if [ $1 = 0 ] ; then
-    %if 0%{?fedora}
+    %if 0%{?fedora} || 0%{?mageia}
         %systemd_preun rhnsd.service
     %else
     service rhnsd stop >/dev/null 2>&1
@@ -108,7 +110,7 @@ fi
 %service_del_postun rhnsd.service
 %else
 if [ "$1" -ge "1" ]; then
-    %if 0%{?fedora}
+    %if 0%{?fedora} || 0%{?mageia}
     %systemd_postun_with_restart rhnsd.service
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
@@ -121,7 +123,7 @@ fi
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
-%if 0%{?fedora} || 0%{?suse_version} >= 1210
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia}
 %{_unitdir}/rhnsd.service
 %else
 %{_initrddir}/rhnsd

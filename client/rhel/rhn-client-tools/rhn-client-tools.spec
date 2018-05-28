@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
 %global build_py3   1
 %global default_py3 1
 %endif
@@ -32,7 +32,7 @@ Requires: %{pythonX}-%{name} = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypper
 %else
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 8 || 0%{?mageia} >= 6
 Requires: dnf
 %else
 Requires: yum
@@ -52,6 +52,10 @@ BuildRequires: desktop-file-utils
 
 %if 0%{?fedora}
 BuildRequires: fedora-logos
+BuildRequires: dnf
+%endif
+
+%if 0%{?mageia} >= 6
 BuildRequires: dnf
 %endif
 
@@ -165,7 +169,7 @@ Requires: %{pythonX}-rhn-check = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: zypp-plugin-spacewalk
 %else
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 8 || 0%{?mageia} >= 6
 Requires: dnf-plugin-spacewalk >= 2.4.0
 %else
 Requires: yum-rhn-plugin >= 1.6.4-1
@@ -203,6 +207,9 @@ Requires: %{pythonX}-rhn-setup = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel}
 Requires: usermode >= 1.36
 %endif
+%if 0%{?mageia}
+Requires: usermode-consoleonly >= 1.36
+%endif
 Requires: %{name} = %{version}-%{release}
 Requires: rhnsd
 
@@ -218,6 +225,9 @@ Requires: rhn-setup = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel}
 Requires: newt-python
 %endif
+%if 0%{?mageia}
+Requires: python-newt
+%endif
 
 %description -n python2-rhn-setup
 Python 2 specific files for rhn-setup.
@@ -228,7 +238,11 @@ Python 2 specific files for rhn-setup.
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python3-rhn-setup}
 Requires: rhn-setup = %{version}-%{release}
+%if 0%{?mageia}
+Requires: python3-newt
+%else
 Requires: newt-python3
+%endif
 
 %description -n python3-rhn-setup
 Python 3 specific files for rhn-setup.
@@ -255,11 +269,22 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: python-gnome python-gtk
 %else
+%if 0%{?mageia}
+Requires: pygtk2.0 pygtk2.0-libglade
+Requires: usermode
+%else
 Requires: pygtk2 pygtk2-libglade
 Requires: usermode-gtk
 %endif
-%if 0%{?fedora} || 0%{?rhel}
+%endif
+%if 0%{?rhel} || 0%{?fedora}
 Requires: liberation-sans-fonts
+%endif
+%if 0%{?mageia}
+Requires: fonts-ttf-liberation
+%endif
+%if 0%{?suse_version}
+Requires: liberation-fonts
 %endif
 
 %description -n python2-rhn-setup-gnome
@@ -271,15 +296,26 @@ Python 2 specific files for rhn-setup-gnome.
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python3-rhn-setup-gnome}
 Requires: rhn-setup-gnome = %{version}-%{release}
-%if 0%{?suse_version}
-Requires: python-gnome python-gtk
-%else
-Requires: python3-gobject-base gtk3
 # gtk-builder-convert
 BuildRequires: gtk2-devel
+Requires: gtk3
+%if 0%{?suse_version}
+Requires: python3-gobject
+%else
+%if 0%{?mageia}
+Requires: python3-gobject3
+%else
+Requires: python3-gobject-base
 %endif
-%if 0%{?fedora} || 0%{?rhel}
+%endif
+%if 0%{?rhel} || 0%{?fedora}
 Requires: liberation-sans-fonts
+%endif
+%if 0%{?mageia}
+Requires: fonts-ttf-liberation
+%endif
+%if 0%{?suse_version}
+Requires: liberation-fonts
 %endif
 
 %description -n python3-rhn-setup-gnome
@@ -323,13 +359,13 @@ ln -s spacewalk-channel $RPM_BUILD_ROOT%{_sbindir}/rhn-channel
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 mkdir -pm700 $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date
 touch $RPM_BUILD_ROOT%{_localstatedir}/spool/up2date/loginAuth.pkl
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?mageia}
 mkdir -p $RPM_BUILD_ROOT/%{_presetdir}
 install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 %endif
 
 %if 0%{?build_py2}
-%if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} >= 1140
+%if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} >= 1140 || 0%{?mageia}
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_hal.*
 %else
 rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_gudev.*
@@ -433,7 +469,7 @@ make -f Makefile.rhn-client-tools test
 #public keys and certificates
 %{_datadir}/rhn/RHNS-CA-CERT
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?mageia}
 %{_presetdir}/50-spacewalk-client.preset
 %endif
 
@@ -562,7 +598,7 @@ make -f Makefile.rhn-client-tools test
 
 %config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
 %config(noreplace) %{_sysconfdir}/pam.d/rhn_register
-%if 0%{?fedora} || 0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} || 0%{?mageia}
 %{_bindir}/rhn_register
 %endif
 %{_sbindir}/rhn_register
@@ -611,7 +647,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
-%if 0%{?rhel} > 6 || 0%{?fedora}
+%if 0%{?rhel} > 6 || 0%{?fedora} || 0%{?mageia}
 %{_datadir}/icons/hicolor/22x22/apps/up2date.png
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif
