@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.9.1
+Version: 2.9.2
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -117,6 +117,10 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Mon May 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
+- 1581665 - provide useful symlinks to a manpage
+- 1581665 - provide yum-rhn-plugin on new RHEL systems
+
 * Mon May 21 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
 - 1580392 - create a symlink to a manpage named after package name
 - Bumping package versions for 2.9.
