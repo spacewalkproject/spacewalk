@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.10
+Version: 2.9.11
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue May 29 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.11-1
+- 1574437 - enable_nvrea should always be true for cdn-sync
+
 * Mon May 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.10-1
 - 1576006 - fix detection of parent channel
 
