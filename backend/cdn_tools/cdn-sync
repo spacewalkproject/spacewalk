@@ -31,6 +31,7 @@ def process_commandline():
     """process the commandline, setting the CFG object"""
 
     initCFG('server.satellite')
+    CFG.ENABLE_NVREA = 1
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--list-channels", action="store_true", help="List channels available to sync.")
     parser.add_argument("-r", "--show-repos", action="store_true",
