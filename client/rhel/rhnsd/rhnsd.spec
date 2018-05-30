@@ -1,6 +1,6 @@
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.37
+Version: 5.0.38
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -132,6 +132,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.38-1
+- client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
+
 * Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.37-1
 - Regenerating .po and .pot files for rhnsd.
 - Updating .po translations from Zanata
