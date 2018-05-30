@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.9.2
+Version: 2.9.3
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -117,6 +117,9 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
+
 * Mon May 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - 1581665 - provide useful symlinks to a manpage
 - 1581665 - provide yum-rhn-plugin on new RHEL systems
