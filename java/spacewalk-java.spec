@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.12
+Version: 2.9.13
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -757,6 +757,13 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Jun 01 2018 Jiri Dostal <jdostal@redhat.com> 2.9.13-1
+- Change data type of key counters according to the database and constraint.
+- Remove unused local variable strValue
+- Add new JUnit test case for long constraint.
+- Display messages about wrong input more end-user friendly.
+- Change misleading name of method isValid to validate.
+
 * Mon May 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.12-1
 - Revert "ClientCertificate - make not publically used methods/attributes
   private"
