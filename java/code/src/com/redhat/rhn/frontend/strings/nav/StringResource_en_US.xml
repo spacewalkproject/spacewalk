@@ -1013,9 +1013,6 @@
         </trans-unit>
       </group>
       <!-- SUSE Studio -->
-      <trans-unit id="Credentials">
-        <source>Credentials</source>
-      </trans-unit>
       <trans-unit id="Images">
         <source>Images</source>
       </trans-unit>
