@@ -20483,36 +20483,18 @@ given channel.</source>
       <trans-unit id="channel.jsp.dependencies.enhances.title">
         <source>Enhances</source>
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -20538,11 +20520,11 @@ given channel.</source>
       <trans-unit id="images.jsp.proxypass">
         <source>Proxy Password:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
+      </trans-unit>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
       <trans-unit id="iss.unmapped.org">
         <source>MASTER ORG NOT MAPPED</source>
