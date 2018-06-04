@@ -45,7 +45,6 @@ import com.redhat.rhn.domain.config.ConfigFileName;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.image.Image;
 import com.redhat.rhn.domain.image.ProxyConfig;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -563,13 +562,13 @@ public class ActionManager extends BaseManager {
      *
      * @return The created action
      * @param user The user scheduling image deployment
-     * @param image The image that will be deployed
+     * @param imageUrl The URL of the image to be deployed
      * @param vcpus number of vcpus
      * @param memkb memory in Kb
      * @param bridge device
      * @param proxy proxy configuration
      */
-    public static Action createDeployImageAction(User user, Image image,
+    public static Action createDeployImageAction(User user, String imageUrl,
             Long vcpus, Long memkb, String bridge, ProxyConfig proxy) {
         DeployImageAction a = (DeployImageAction) ActionFactory
                 .createAction(ActionFactory.TYPE_DEPLOY_IMAGE);
@@ -583,7 +582,7 @@ public class ActionManager extends BaseManager {
         details.setVcpus(vcpus);
         details.setMemKb(memkb);
         details.setBridgeDevice(bridge);
-        details.setDownloadUrl(image.getDownloadUrl());
+        details.setDownloadUrl(imageUrl);
         if (proxy != null) {
             details.setProxyServer(proxy.getServer());
             details.setProxyUser(proxy.getUser());
@@ -591,8 +590,7 @@ public class ActionManager extends BaseManager {
                     proxy.getPass().getBytes())));
         }
         a.setDetails(details);
-        a.setName("Image Deployment: " + image.getName() + " - " +
-                image.getVersion());
+        a.setName("Image Deployment: " + imageUrl);
         return a;
     }
 

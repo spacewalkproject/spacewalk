@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.systems.images;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,21 +26,17 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.image.Image;
 import com.redhat.rhn.domain.image.ProxyConfig;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.renderers.ImagesRenderer;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
- * This action will present the user with a list of available images
- * and allow one to be selected for provisioning.
+ * This action will schedule image deployment for an image given by URL.
  */
 public class ScheduleImageDeploymentAction extends RhnAction {
 
@@ -73,10 +68,6 @@ public class ScheduleImageDeploymentAction extends RhnAction {
             String proxyUser = form.getString("proxy_user");
             String proxyPass = form.getString("proxy_pass");
 
-            // Find the requested image
-            String imageId = request.getParameter("image_id");
-            Image image = findImage(new Long(imageId), request);
-
             // Set up the proxy configuration
             ProxyConfig proxy = null;
             if (StringUtils.isNotEmpty(proxyServer)) {
@@ -92,66 +83,29 @@ public class ScheduleImageDeploymentAction extends RhnAction {
             }
 
             // Create the action and store it
-            Action action = ActionManager.createDeployImageAction(user, image,
-                    vcpus, memkb, bridge, proxy);
-            ActionManager.addServerToAction(sid, action);
-            ActionManager.storeAction(action);
-            createSuccessMessage(request, SUCCESS_KEY, image.getName());
+            String imageUrl = form.getString("image_url");
 
-            // Forward the sid as a request parameter
-            Map forwardParams = makeParamMap(request);
-            forwardParams.put(RequestContext.SID, sid);
-            forwardParams.put("load_async", false);
-            forward = getStrutsDelegate().forwardParams(
-                    actionMapping.findForward("submitted"), forwardParams);
-        }
-        else {
-            // Load images asynchronously if 'sid' is the only parameter
-            if (loadAsync(request)) {
-                request.setAttribute("loadAsync", true);
+            if (StringUtils.isEmpty(imageUrl)) {
+                createErrorMessage(request, "images.jsp.error.noimage", null);
+                forward = actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
             }
             else {
-                // The 'parentUrl' is needed for the 'listset' tag
-                request.setAttribute(ListTagHelper.PARENT_URL,
-                        request.getRequestURI());
+                Action action = ActionManager.createDeployImageAction(user, imageUrl,
+                        vcpus, memkb, bridge, proxy);
+                ActionManager.addServerToAction(sid, action);
+                ActionManager.storeAction(action);
+                createSuccessMessage(request, SUCCESS_KEY, imageUrl);
+
+                // Forward the sid as a request parameter
+                Map<String, Object> forwardParams = makeParamMap(request);
+                forwardParams.put(RequestContext.SID, sid);
+                forward = getStrutsDelegate().forwardParams(
+                        actionMapping.findForward("submitted"), forwardParams);
             }
-            // Find the default destination
+        }
+        else {
             forward = actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         return forward;
-    }
-
-    /**
-     * Get the list of images from the session and find the selected one.
-     * @param imageId
-     * @param request
-     * @return
-     */
-    private Image findImage(Long imageId, HttpServletRequest request) {
-        @SuppressWarnings("unchecked")
-        List<Image> images = (List<Image>) request.getSession().getAttribute(
-                ImagesRenderer.ATTRIB_IMAGES_LIST);
-        Image image = null;
-        for (Image i : images) {
-            if (i.getId().equals(imageId)) {
-                image = i;
-                break;
-            }
-        }
-        return image;
-    }
-
-    /**
-     * Return true if there is only one parameter contained in the request.
-     * @param request
-     * @return true if there is only one parameter, else false
-     */
-    private boolean loadAsync(HttpServletRequest request) {
-        boolean ret = false;
-        Map params = request.getParameterMap();
-        if (params.size() == 1) {
-            ret = true;
-        }
-        return ret;
     }
 }

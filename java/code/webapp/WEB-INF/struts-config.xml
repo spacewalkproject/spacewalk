@@ -1066,6 +1066,7 @@
 
     <form-bean name="deployImageForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="image_url" type="java.lang.String" />
       <form-property name="vcpus" type="java.lang.Long" />
       <form-property name="mem_mb" type="java.lang.Long" />
       <form-property name="bridge" type="java.lang.String" />
@@ -8210,7 +8211,7 @@
      </action>
 
     <!-- Image Deployment -->
-    <action path="/systems/details/virtualization/Images"
+    <action path="/systems/details/virtualization/Deployment"
             scope="request"
             name="deployImageForm"
             parameter="dispatch"
@@ -8219,10 +8220,10 @@
       <set-property property="postRequiredIfSubmitted" value="true" />
       <set-property property="acls" value="not system_is_virtual(); system_has_management_entitlement()" />
       <forward name="default"
-               path="/WEB-INF/pages/systems/details/virtualization/images/images.jsp" />
+               path="/WEB-INF/pages/systems/details/virtualization/images/deployment.jsp" />
       <forward name="submitted"
                redirect="true"
-               path="/systems/details/virtualization/Images.do" />
+               path="/systems/details/virtualization/Deployment.do" />
     </action>
 
     <action path="/systems/ExtraPackagesSystems"

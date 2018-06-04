@@ -1012,9 +1012,8 @@
           <source>Clear</source>
         </trans-unit>
       </group>
-      <!-- SUSE Studio -->
-      <trans-unit id="Images">
-        <source>Images</source>
+      <trans-unit id="Deployment">
+        <source>Deployment</source>
       </trans-unit>
     </body>
   </file>
