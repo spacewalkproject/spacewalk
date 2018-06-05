@@ -53,7 +53,6 @@
         <dependency org="redhat" name="struts/core" rev="*" />
         <dependency org="redhat" name="struts/extras" rev="*" />
         <dependency org="redhat" name="struts/taglib" rev="*" />
-        <dependency org="redhat" name="susestudio-java-client" rev="*" />
         <dependency org="redhat" name="tanukiwrapper" rev="*" />
         <dependency org="redhat" name="velocity" rev="*" />
         <dependency org="redhat" name="xalan-j2" rev="*" />

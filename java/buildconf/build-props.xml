@@ -155,7 +155,7 @@
              ${log4j-jars} oro redstone-xmlrpc-client redstone-xmlrpc ${struts-jars}
              jcommon stringtree-json postgresql-jdbc
              ${taglibs} quartz
-             concurrent simple-core simple-xml susestudio-java-client" />
+             concurrent simple-core simple-xml" />
 
   <property name="dist.jar.dependencies"
       value="antlr objectweb-asm/asm bcel c3p0 mchange-commons ${cglib}
@@ -166,7 +166,7 @@
              ${jasper-jars} javamail/javax.mail jcommon jdom ${other-jars}
              ${tomcat-jars} jpam ${log4j-jars} redstone-xmlrpc-client redstone-xmlrpc
              oro ${oscache} quartz stringtree-json sitemesh ${struts-jars} ${taglibs}
-             tanukiwrapper postgresql-jdbc simple-xml susestudio-java-client
+             tanukiwrapper postgresql-jdbc simple-xml
              xalan-j2 xerces-j2 xml-commons-apis simple-core" />
 
   <property name="taskomatic.jar.dependencies"
