@@ -211,7 +211,6 @@ rhnVisibleObjects              :: PXTSessions
 rhnWebContactChangeLog         :: rhnWebContactChangeState
 rhnActionChain                 :: web_contact
 rhnActionChainEntry            :: rhnActionChain rhnAction rhnServer
-suseCredentials                :: suseCredentialsType web_contact
 web_contact                    :: web_customer
 web_contact_all                :: web_contact
 web_user_contact_permission    :: web_contact
