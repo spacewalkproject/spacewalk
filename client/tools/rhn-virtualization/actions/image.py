@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 import base64
 try:
-    #  python 2
+    # python2
     import ConfigParser
 except ImportError:
-    #  python3
+    # python3
     import configparser as ConfigParser
-import hashlib
 import itertools
 import os
+import platform
 import pycurl
-import re
 import sys
-import shutil
 
 import virtualization.support as virt_support
 from virtualization.util import generate_uuid
@@ -23,7 +21,7 @@ log = up2dateLog.initLog()
 
 config = ConfigParser.ConfigParser({
     "IMAGE_BASE_PATH"      : "/var/lib/libvirt/images/",
-    "IMAGE_CFG_TEMPLATE"   : "/etc/sysconfig/rhn/studio-kvm-template.xml",
+    "IMAGE_CFG_TEMPLATE"   : "/etc/sysconfig/rhn/kvm-template.xml",
     "PRE_SCRIPT"           : "",
 })
 config.read('/etc/sysconfig/rhn/image.cfg')
@@ -36,29 +34,29 @@ __rhnexport__ = [
     'deploy'
 ]
 
-# download and extract tar.gz file with image
-def _downloadFile(imageName,serverUrl,proxySetting):
-    log.log_debug("downloading %s" % serverUrl)
+def _download_file(target_filename, server_url, proxy_settings):
+    """Download file from a URL to given filename using given proxy settings."""
+    log.log_debug("downloading %s" % server_url)
 
     # get the file via pycurl
     c = pycurl.Curl()
-    c.setopt(pycurl.URL, serverUrl)
+    c.setopt(pycurl.URL, server_url)
 
-    # proxySetting : { proxyURL  : http://myproxy.site:3128
-    #                  proxyUser : user
-    #                  proxyPass : s3cr3t }
+    # proxy_settings: { proxyURL  : http://myproxy.site:3128
+    #                   proxyUser : user
+    #                   proxyPass : s3cr3t }
     # proxyUser and proxyPass are optional
-    #
-    if "proxyURL" in proxySetting and proxySetting["proxyURL"] is not None and proxySetting["proxyURL"] != "":
-        server = proxySetting["proxyURL"]
+    if "proxyURL" in proxy_settings and proxy_settings["proxyURL"] is not None and proxy_settings["proxyURL"] != "":
+        server = proxy_settings["proxyURL"]
         c.setopt(pycurl.PROXY, server )
-        if "proxyUser" in proxySetting and proxySetting["proxyUser"] is not None and proxySetting["proxyUser"] != "":
-            user     = proxySetting["proxyUser"]
-            password = base64.b64decode( proxySetting["proxyPass"] )
-            c.setopt(pycurl.PROXYUSERPWD, "%s:%s" % (user,password) )
+        if "proxyUser" in proxy_settings and proxy_settings["proxyUser"] is not None and proxy_settings["proxyUser"] != "":
+            user     = proxy_settings["proxyUser"]
+            password = base64.b64decode(proxy_settings["proxyPass"])
+            c.setopt(pycurl.PROXYUSERPWD, "%s:%s" % (user, password))
     # default IMAGE_BASE_PATH is /var/lib/libvirt/images
-    filePath = "/%s/%s" % (IMAGE_BASE_PATH, imageName)
-    f = open(filePath, 'w')
+    file_path = "/%s/%s" % (IMAGE_BASE_PATH, target_filename)
+    f = open(file_path, 'w')
+    c.setopt(pycurl.FOLLOWLOCATION, 1)
     c.setopt(pycurl.WRITEFUNCTION, f.write)
     c.setopt(pycurl.SSL_VERIFYPEER, 0)
     c.perform()
@@ -67,74 +65,26 @@ def _downloadFile(imageName,serverUrl,proxySetting):
     return c.getinfo(pycurl.HTTP_CODE)
 
 def _connect_to_hypervisor():
-    """
-    Connects to the hypervisor.
-    """
+    """Connect to the hypervisor."""
     # First, attempt to import libvirt.  If we don't have that, we can't do
     # much else.
     try:
         import libvirt
-    except ImportError:
-        ie = sys.exc_info()[1]
+    except ImportError as ie:
         raise VirtualizationException("Unable to locate libvirt: %s" % str(ie))
 
     # Attempt to connect to the hypervisor.
     try:
         connection = libvirt.open(None)
-    except Exception:
-        e = sys.exc_info()[1]
+    except Exception as e:
         raise VirtualizationException("Could not connect to hypervisor: %s" % str(e))
 
     return connection
 
-#
-# this is not nice but tarfile.py does not support
-# sparse file writing :(
-#
-def _extractImage( source, dest, imageType ):
-    param = "xf"
-    if not os.path.exists( source ):
-        log.log_debug("source file not found: %s" % source)
-        raise Exception("source file not found: %s" % source)
+def _file_exists(name):
+    return os.path.exists(name)
 
-    if not os.path.exists( dest ):
-        log.log_debug("target path not found: %s" % dest)
-        raise Exception("target path not found: %s" % dest)
-
-    if source.endswith("gz"):
-        param += "z"
-    elif source.endswith("bz2"):
-        param += "j"
-
-    if imageType == 'qcow2':
-        log.log_debug(2, "copy %s to %s" %(source, dest))
-        shutil.copy2(source, dest)
-    else:
-        # skip the root directory in the tar - extract only the image files
-        cmd = "tar %s %s -C %s --strip-components=1" % ( param, source, dest )
-        log.log_debug(cmd)
-        if os.system( cmd ) != 0:
-            log.log_debug( "%s failed" % cmd )
-            raise Exception("%s failed" % cmd)
-
-    return 0
-
-def _md5(path):
-    f = open(path, "rb")
-    sum = hashlib.md5()
-    while 1:
-        block = f.read(128)
-        if not block:
-            break
-        sum.update(block)
-    f.close()
-    return sum.hexdigest()
-
-
-def _fileExists(name, md5Sum):
-    return os.path.exists( name ) and md5Sum == _md5( name )
-
-def _domainExists( dom, connection ):
+def _domain_exists(dom, connection):
     try:
         connection.lookupByName(dom)
     except Exception:
@@ -143,27 +93,11 @@ def _domainExists( dom, connection ):
     log.log_debug("domain %s exists" % dom)
     return True
 
-# create a new or reuse an existing directory
-def _createTargetDir( wantedDir ):
-    new_dir_name = wantedDir
-    for i in itertools.count(1):
-        if not os.path.exists(new_dir_name):
-            try:
-                os.makedirs( new_dir_name )
-            except OSError:
-                return (1, "creating directory %s failed" % new_dir_name)
-            return new_dir_name
-        elif len(os.listdir(new_dir_name)) <= 1:
-            # if the directory exists with zero or only one file, we'll use it
-            # to extract the image into it
-            return new_dir_name
-        new_dir_name = "%s-%i" % ( wantedDir, i )
-
-# fillout the variables in the XML template file
-def _generateXML( params ):
+def _generate_xml(params):
+    """Populate the variables in the XML template file."""
     if PRE_SCRIPT != "":
         log.log_debug("running image pre-script %s" % PRE_SCRIPT)
-        os.system( PRE_SCRIPT )
+        os.system(PRE_SCRIPT)
 
     if os.path.isfile(IMAGE_CFG_TEMPLATE):
         f = open(IMAGE_CFG_TEMPLATE, 'r')
@@ -174,115 +108,88 @@ def _generateXML( params ):
     log.log_debug("libvirt XML: %s" % created_xml)
     return created_xml
 
-# download/extract and start a new image
-# imageName = myImage.x86_64.
+# Download and start a new image given by the following parameters:
 #
-# downloadURL  : http://susestudio.com/download/f98.../my_image.i686-0.0.3.vmx.tar.gz
-# proxySetting : { proxyURL  : http://myproxy.site:3128
+# downloadURL   : http://download.suse.de/install/SLE-15-JeOS-RC2/SLES15-JeOS.x86_64-15.0-kvm-and-xen-RC2.qcow2
+# proxySettings : { proxyURL  : http://myproxy.site:3128
 #                  proxyUser : user
 #                  proxyPass : s3cr3t }
-# memKB      : 524288
-# vCPUs      : 1
-# domainName : virt_test_machine
-# virtBridge : br0
-#
-def deploy(params, extraParams="",cache_only=None):
-    """start and connect a local image with SUSE Manager"""
+# memKB         : 524288
+# vCPUs         : 1
+# domainName    : virt_test_machine
+# virtBridge    : br0
+def deploy(params, extra_params="", cache_only=None):
+    """Download and start a new image."""
 
-    urlParts  = params["downloadURL"].split('/')
-    studioArchiveFileName  = urlParts[-1]
-    checksum  = urlParts[-2]
-
-    # studioArchiveFileName = workshop_test_sles11sp1.i686-0.0.1.vmx.tar.gz
-    # studioArchiveFileName = Just_enough_OS_openSUSE_12.1.x86_64-0.0.1.xen.tar.gz
-    m = re.search( '(.*)\.(x86_64|i\d86)-(\d+\.\d+\.\d+)\.(xen|vmx|qcow2)', studioArchiveFileName )
-
-    imageName    = m.group(1)
-    imageArch    = m.group(2)
-    imageVersion = m.group(3)
-    imageType    = m.group(4)
-    studioImageDiskFileName = imageName+"."+imageArch+"-"+imageVersion
+    image_filename  = params["downloadURL"].split('/')[-1]
+    domain_name, image_extension = os.path.splitext(image_filename)
+    if not image_extension or image_extension != ".qcow2":
+        return (1, "image type is not qcow2: %s" % image_filename, {})
+    image_arch = platform.machine() or 'x86_64'
 
     try:
         connection = _connect_to_hypervisor()
-    except Exception:
-        e = sys.exc_info()[1]
+    except Exception as e:
         return (1, "%s" % e, {})
 
-    # if we got an explicit name, we'll use it
+    # If we got an explicit domain name then use it and update the filename
     if "domainName" in params and params["domainName"] != "":
-        imageName = params["domainName"]
-    # if not, we'll try to find a free name
-    elif( _domainExists(imageName, connection) ):
+        domain_name = params["domainName"]
+    image_filename = domain_name + image_extension
+
+    # If domain or file exists try to find a free name for both
+    if _domain_exists(domain_name, connection) or _file_exists("%s/%s" % (IMAGE_BASE_PATH, image_filename)):
         for i in itertools.count(1):
-            newImageName = ("%s-%i" % (imageName,i))
-            if not _domainExists(newImageName, connection):
-                log.log_debug("free domain found")
-                imageName = newImageName
+            new_domain_name = ("%s-%i" % (domain_name, i))
+            image_filename = new_domain_name + image_extension
+            if not _domain_exists(new_domain_name, connection) and not _file_exists("%s/%s" % (IMAGE_BASE_PATH, image_filename)):
+                log.log_debug("free domain and matching filename found")
+                domain_name = new_domain_name
                 break
-    log.log_debug( "name=%s arch=%s ver=%s type=%s" % (imageName,imageArch,imageVersion,imageType) )
 
-    if len(imageName) < 1 or len(imageArch) < 1:
-        log.log_debug("invalid image name or arch")
-        return (1, "invalid image name or arch: name=%s arch=%s ver=%s type=%s" % (imageName,imageArch,imageVersion,imageType), {})
+    log.log_debug("filename=%s domain=%s arch=%s" % (image_filename, domain_name, image_arch))
 
-    httpResponseCode = -1
-    if not _fileExists("%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), checksum):
-        try:
-            httpResponseCode = _downloadFile(studioArchiveFileName,params["downloadURL"],params["proxySettings"])
-            if not _fileExists("%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), checksum):
-                log.log_debug("downloading image file failed. HTTP Code is: %s" % httpResponseCode)
-                return (1, "downloading image file failed: %s/%s (%s)" % (IMAGE_BASE_PATH, studioArchiveFileName,httpResponseCode), {})
-        except Exception:
-            e = sys.exc_info()[1]
-            return ( 1, "getting the image failed with: %s" % e )
+    if not domain_name or image_arch not in ['x86_64', 'i686', 'ppc64le', 's390x']:
+        log.log_debug("invalid domain name or arch")
+        return (1, "invalid domain name or arch: domain=%s arch=%s" % (domain_name, image_arch), {})
+
+    http_response_code = -1
+    try:
+        http_response_code = _download_file(image_filename, params["downloadURL"], params["proxySettings"])
+        if not _file_exists("%s/%s" % (IMAGE_BASE_PATH, image_filename)):
+            log.log_debug("downloading image file failed, HTTP return code: %s" % http_response_code)
+            return (1, "downloading image file failed: %s/%s (%s)" % (IMAGE_BASE_PATH, image_filename, http_response_code), {})
+    except Exception as e:
+        return (1, "getting the image failed with: %s" % e, {})
     if cache_only:
         return (0, "image fetched and cached for later deployment", {})
-    try:
-        targetDir = _createTargetDir( "%s/%s" % (IMAGE_BASE_PATH, imageName) )
-        _extractImage( "%s/%s" % (IMAGE_BASE_PATH,studioArchiveFileName), targetDir, imageType )
-    except Exception:
-        e = sys.exc_info()[1]
-        return (1, "extracting the image tarball failed with: %s" % e, {})
 
-    # image exists in $IMAGE_BASE_PATH/$imageName now
+    image_path = "%s/%s" % (IMAGE_BASE_PATH, image_filename)
+    if not os.path.exists(image_path):
+        return (1, "image not found at %s" % image_path, {})
+    log.log_debug("working on image in %s" % image_path)
 
-    uuid = generate_uuid()
-    # FIXME: check for the extensions. There might be more
-    studioFileExtension = "vmdk"
-    if imageType == "xen":
-        studioFileExtension = "raw"
-    elif imageType == "qcow2":
-        studioFileExtension = "qcow2"
-    extractedImagePath = "%s/%s.%s" % (targetDir,studioImageDiskFileName,studioFileExtension)
-    log.log_debug("working on image in %s" % extractedImagePath)
-    if not os.path.exists( extractedImagePath ):
-        return (1, "extracted image not found at %s" % extractedImagePath, {})
-    if imageArch in ( 'i386', 'i486', 'i568' ):
-        imageArch = 'i686'
-
-    create_params = { 'name'           : imageName,
-                      'arch'           : imageArch,
-                      'extra'          : extraParams,
+    create_params = { 'name'           : domain_name,
+                      'arch'           : image_arch,
+                      'extra'          : extra_params,
                       'mem_kb'         : params["memKB"],
                       'vcpus'          : params["vCPUs"],
-                      'uuid'           : uuid,
-                      'disk'           : extractedImagePath,
-                      'imageType'      : imageType,
+                      'uuid'           : generate_uuid(),
+                      'disk'           : image_path,
+                      'imageType'      : 'qcow2',
                       'virtBridge'     : params["virtBridge"],
                     }
-    create_xml = _generateXML( create_params )
+    create_xml = _generate_xml(create_params)
     domain = None
     try:
         domain = connection.defineXML(create_xml)
-    except Exception:
-        e = sys.exc_info()[1]
+    except Exception as e:
         return (1, "failed to pass XML to libvirt: %s" % e, {})
 
     domain.create()
     virt_support.refresh()
 
-    return (0, "image '%s' deployed and started" % imageName, {})
+    return (0, "image '%s' deployed and started" % domain_name, {})
 
 # just for testing
 if __name__ == "__main__":
