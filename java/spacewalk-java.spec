@@ -52,7 +52,6 @@ Requires: spacewalk-java-jdbc
 Requires: spacewalk-java-lib
 Requires: stringtree-json
 Requires: struts >= 0:1.3.0
-Requires: susestudio-java-client
 Requires: tomcat-taglibs-standard
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
@@ -236,7 +235,6 @@ BuildRequires: simple-xml
 BuildRequires: sitemesh
 BuildRequires: stringtree-json
 BuildRequires: struts >= 0:1.3.0
-BuildRequires: susestudio-java-client
 BuildRequires: tanukiwrapper
 BuildRequires: tomcat-taglibs-standard
 %if 0%{?run_checkstyle}
@@ -691,7 +689,6 @@ fi
 %{jardir}/simple-xml.jar
 %{jardir}/sitemesh.jar
 %{jardir}/stringtree-json.jar
-%{jardir}/susestudio-java-client.jar
 %{jardir}/tanukiwrapper.jar
 %{jardir}/velocity-*.jar
 %{jardir}/xalan-j2.jar
