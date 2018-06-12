@@ -17,6 +17,8 @@
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 
+from __future__ import print_function
+
 import os
 import sys
 import time
@@ -143,7 +145,7 @@ def refresh_list(rhnsd=None, cache_only=None):
     try:
         rhnPackageInfo.updatePackageProfile()
     except:
-        print "ERROR: refreshing remote package list for System Profile"
+        print("ERROR: refreshing remote package list for System Profile")
         return (20, "Error refreshing package list", {})
 
     touch_time_stamp()

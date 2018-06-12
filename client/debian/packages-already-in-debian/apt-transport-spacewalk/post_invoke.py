@@ -16,6 +16,8 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 
 
+from __future__ import print_function
+
 import sys
 
 # Once we have the up2date stuff in a site-packages,
@@ -34,10 +36,10 @@ if __name__ == '__main__':
     systemid = up2dateAuth.getSystemId()
     if systemid:
         try:
-            print "Apt-Spacewalk: Updating package profile"
+            print("Apt-Spacewalk: Updating package profile")
             s = rhnserver.RhnServer()
             s.registration.update_packages(systemid,
                 pkgUtils.getInstalledPackageList(getArch=1))
-        except up2dateErrors.RhnServerException, e:
-            print "Package profile information could not be sent."
-            print str(e)
+        except up2dateErrors.RhnServerException as e:
+            print("Package profile information could not be sent.")
+            print(str(e))

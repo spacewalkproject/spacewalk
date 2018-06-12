@@ -16,9 +16,11 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 
 
+from __future__ import print_function
+
 import sys
 import os
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 from aptsources import sourceslist
 import apt_pkg
 
@@ -80,5 +82,5 @@ def update_sources_list():
     sources.save()
 
 if __name__ == '__main__':
-    print "Apt-Spacewalk: Updating sources.list"
+    print("Apt-Spacewalk: Updating sources.list")
     update_sources_list()
