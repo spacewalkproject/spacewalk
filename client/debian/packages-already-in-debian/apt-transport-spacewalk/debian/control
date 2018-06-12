@@ -12,7 +12,7 @@ Vcs-Git: git://anonscm.debian.org/collab-maint/spacewalk/apt-spacewalk.git
 Package: apt-transport-spacewalk
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends}, apt, python-apt,
- rhn-client-tools
+ rhn-client-tools, python-six
 Provides: ${python:Provides}
 Recommends: rhnsd
 Description: APT transport for communicating with Spacewalk servers

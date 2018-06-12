@@ -16,6 +16,8 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 
 
+from __future__ import print_function
+
 import sys
 import re
 import hashlib
@@ -24,7 +26,7 @@ import warnings
 warnings.filterwarnings("ignore", message="the md5 module is deprecated; use hashlib instead")
 sys.path.append("/usr/share/rhn/")
 
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 from rhn.connections import HTTPConnection, HTTPSConnection
 from up2date_client import config
 from up2date_client import rhnChannel
@@ -42,7 +44,7 @@ class pkg_acquire_method:
     __eof = False
 
     def __init__(self):
-        print "100 Capabilities\nVersion: 1.0\nSingle-Instance: true\n\n",
+        print("100 Capabilities\nVersion: 1.0\nSingle-Instance: true\n\n", end=' ')
 
     def __get_next_msg(self):
         """
@@ -75,22 +77,22 @@ class pkg_acquire_method:
     def __dict2msg(self, msg):
         """Convert dictionary to http like message"""
         result = ""
-        for item in msg.keys():
+        for item in list(msg.keys()):
             if msg[item] != None:
                 result += item + ": " + msg[item] + "\n"
         return result
 
     def status(self, **kwargs):
-        print "102 Status\n%s\n" % self.__dict2msg(kwargs),
+        print("102 Status\n%s\n" % self.__dict2msg(kwargs), end=' ')
 
     def uri_start(self, msg):
-        print "200 URI Start\n%s\n" % self.__dict2msg(msg),
+        print("200 URI Start\n%s\n" % self.__dict2msg(msg), end=' ')
 
     def uri_done(self, msg):
-        print "201 URI Done\n%s\n" % self.__dict2msg(msg),
+        print("201 URI Done\n%s\n" % self.__dict2msg(msg), end=' ')
 
     def uri_failure(self, msg):
-        print "400 URI Failure\n%s\n" % self.__dict2msg(msg),
+        print("400 URI Failure\n%s\n" % self.__dict2msg(msg), end=' ')
 
     def run(self):
         """Loop through requests on stdin"""
@@ -101,9 +103,9 @@ class pkg_acquire_method:
             if msg['_number'] == 600:
                 try:
                     self.fetch(msg)
-                except Exception, e:
+                except Exception as e:
                     self.fail(e.__class__.__name__ + ": " + str(e))
-                except up2dateErrors.Error, e:
+                except up2dateErrors.Error as e:
                     self.fail(e.__class__.__name__ + ": " + str(e))
             else:
                 return 100
@@ -111,7 +113,7 @@ class pkg_acquire_method:
 
 
 def get_ssl_ca_cert(up2date_cfg):
-    if not (up2date_cfg.has_key('sslCACert') and up2date_cfg['sslCACert']):
+    if not ('sslCACert' in up2date_cfg and up2date_cfg['sslCACert']):
        raise BadSslCaCertConfig
 
     ca_certs = up2date_cfg['sslCACert']
@@ -172,7 +174,7 @@ class spacewalk_method(pkg_acquire_method):
                                   'X-RHN-Auth-Expire-Offset']
             self.http_headers = {};
             for header in rhn_needed_headers:
-                if not self.login_info.has_key(header):
+                if header not in self.login_info:
                     raise up2date_client.AuthenticationError(
                         "Missing required login information %s" % (header))
                 self.http_headers[header] = self.login_info[header]
