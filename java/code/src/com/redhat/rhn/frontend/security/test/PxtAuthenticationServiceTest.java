@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.security.test;
 
 import com.redhat.rhn.frontend.security.PxtAuthenticationService;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.jmock.Expectations;
 
 import java.util.Vector;
@@ -159,6 +160,10 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         setupPxtDelegate(true, false, 1234L);
         setupGetRequestURI("/rhn/YourRhn.do");
 
+        URIBuilder uriBuilder = new URIBuilder("/rhn/Login.do");
+        uriBuilder.addParameter("url_bounce", "/rhn/YourRhn.do");
+        uriBuilder.addParameter("request_method", "POST");
+
         context().checking(new Expectations() { {
             allowing(mockRequest).getParameterNames();
             will(returnValue(new Vector<String>().elements()));
@@ -176,8 +181,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
             allowing(mockPxtDelegate)
                     .isPxtSessionKeyValid(with(any(HttpServletRequest.class)));
             will(returnValue(false));
-            oneOf(mockResponse).sendRedirect("/rhn/Login.do?url_bounce=" +
-                    "/rhn/YourRhn.do&request_method=POST");
+            oneOf(mockResponse).sendRedirect(uriBuilder.toString());
             will(returnValue(null));
             allowing(mockRequest).setAttribute("url_bounce", uri);
         } });
@@ -193,12 +197,18 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceAbstractT
         setupGetRequestURI("/rhn/YourRhn.do");
         setUpRedirectToLogin();
 
+        URIBuilder uriBounceBuilder = new URIBuilder();
+        uriBounceBuilder.setPath("/rhn/YourRhn.do");
+        uriBounceBuilder.addParameter("question", "param 1 = 'Who is the one?'");
+        uriBounceBuilder.addParameter("answer", "param 2 = 'Neo is the one!'");
+
+        URIBuilder uriBuilder = new URIBuilder();
+        uriBuilder.setPath("/rhn/Login.do");
+        uriBuilder.addParameter("url_bounce", uriBounceBuilder.toString());
+        uriBuilder.addParameter("request_method", "POST");
+
         context().checking(new Expectations() { {
-            allowing(mockResponse).sendRedirect(
-                    "/rhn/Login.do?url_bounce=/rhn/YourRhn.do?" +
-                            "question=param+1+%3D+%27Who+is+the+one%3F%27&" +
-                            "answer=param+2+%3D+%27Neo+is+the+one%21%27&" +
-                            "request_method=POST");
+            allowing(mockResponse).sendRedirect(uriBuilder.toString());
             will(returnValue(null));
             allowing(mockRequest).getRequestURI();
             will(returnValue("/rhn/YourRhn.do"));

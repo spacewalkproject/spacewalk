@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 import org.apache.commons.collections.set.UnmodifiableSet;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
 import java.util.Set;
@@ -161,8 +162,13 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
                 response.sendRedirect("/rhn/Login2.do");
                 return;
             }
-            response.sendRedirect("/rhn/Login.do?url_bounce=" + urlBounce +
-                    "&request_method=" + request.getMethod());
+
+            URIBuilder uriBuilder = new URIBuilder();
+            uriBuilder.setPath("/rhn/Login.do");
+            uriBuilder.addParameter("url_bounce", urlBounce);
+            uriBuilder.addParameter("request_method", request.getMethod());
+
+            response.sendRedirect(uriBuilder.toString());
         }
         catch (IOException e) {
             throw new ServletException(e);
