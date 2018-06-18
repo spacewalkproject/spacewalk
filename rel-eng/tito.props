@@ -34,9 +34,9 @@ lib_dir = rel-eng/lib
 
 # copr repos
 [@spacewalkproject/nightly-client]
-disttag = .el6.centos .el6 .el7.centos .el7 .fc24 .fc25 .fc26 .fc27
+disttag = .el6.centos .el6 .el7.centos .el7 .fc26 .fc27 .fc28 .fc29
 blacklist= ace-editor apt-spacewalk bootstrap bootstrap-datepicker c-ares19 cobbler-loaders cx_Oracle dnf-plugin-spacewalk dwr font-awesome gyp http-parser jabberd-selinux jpam jquery-timepicker jquery-ui libuv mod_perl momentjs nodejs nodejs-less nodejs-packaging nutch oracle-instantclient-selinux oracle-lib-compat oracle-rhnsat-selinux oracle-selinux oracle-xe-selinux patternfly1 perl-DBD-Oracle perl-Mail-RFC822-Address perl-Satcon perl-Term-Completion perl-Term-Size pwstrength-bootstrap quartz redstone-xmlrpc roboto scons select2 select2-bootstrap-css simple-core simple-xml sitemesh spacecmd spacewalk spacewalk-abrt spacewalk-admin spacewalk-branding spacewalk-config spacewalk-doc-indexes spacewalk-java spacewalk-proxy spacewalk-proxy-docs spacewalk-proxy-html spacewalk-proxy-installer spacewalk-proxy-selinux spacewalk-pylint spacewalk-python2-pylint spacewalk-python3-pylint spacewalk-remote-utils spacewalk-reports spacewalk-schema spacewalk-search spacewalk-selinux spacewalk-setup spacewalk-setup-jabberd spacewalk-setup-postgresql spacewalk-ssl-cert-check spacewalk-utils spacewalk-web spacewalkproject-java-packages-buildsetup stringtree-json susestudio-java-client tanukiwrapper tito v8 ycssmin
 
 [@spacewalkproject/nightly]
-disttag = .el6.centos .el6 .el7.centos .el7 .fc24 .fc25 .fc26 .fc27
+disttag = .el6.centos .el6 .el7.centos .el7 .fc26 .fc27 .fc28 .fc29
 blacklist= apt-spacewalk c-ares19 dnf-plugin-spacewalk gyp http-parser jabberd-selinux libuv mod_perl nodejs nodejs-less nodejs-packaging oracle-rhnsat-selinux perl-Term-Size python-hwdata rhn-custom-info rhn-virtualization rhncfg rhnsd scons spacewalk-abrt spacewalk-client-cert spacewalk-koan spacewalk-oscap spacewalkproject-java-packages-buildsetup tito v8 ycssmin yum-rhn-plugin
