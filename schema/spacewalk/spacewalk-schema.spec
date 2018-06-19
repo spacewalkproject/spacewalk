@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.9.4
+Version:        2.9.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Jun 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.5-1
+- Clean up SUSE Studio credentials from the database
+
 * Wed May 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
 - 1576002 - fix detection of "correct" original record
 
