@@ -3,7 +3,7 @@
 Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 License: GPLv2
-Version: 2.9.1
+Version: 2.9.2
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -146,6 +146,9 @@ install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_RO
 %doc LICENSE
 
 %changelog
+* Tue Jun 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
+- Simplified version of the image deployment page
+
 * Wed Apr 04 2018 Jiri Dostal <jdostal@redhat.com> 2.9.1-1
 - Bumping package version for web.version
 - Bumping package versions for 2.9.
