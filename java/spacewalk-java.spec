@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.16
+Version: 2.9.17
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.17-1
+- SLES errata have lower case synopsis
+
 * Tue Jun 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.16-1
 - 1581744 - provide a warning when doing package actions on channels with
   modules
