@@ -533,10 +533,10 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
     <query params="uid">
         SELECT s1.id,
                s1.name,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'C' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) critical,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'I' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) important,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'M' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) moderate,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'L' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) low,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'C' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) critical,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'I' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) important,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'M' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) moderate,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'L' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) low,
                sum(case when errata.advisory_type = 'Bug Fix Advisory' then 1 else 0 end) bug,
                sum(case when errata.advisory_type = 'Product Enhancement Advisory' then 1 else 0 end) enhancement
          FROM rhnServer S1
