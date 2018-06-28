@@ -3,7 +3,7 @@
 %endif
 
 Name:        spacewalk-remote-utils
-Version:     2.9.2
+Version:     2.9.3
 Release:     1%{?dist}
 Summary:     Utilities to interact with a Red Hat Satellite or Spacewalk server remotely.
 
@@ -64,6 +64,11 @@ docbook2man ./spacewalk-create-channel/doc/spacewalk-create-channel.sgml -o ./sp
 %doc %{_mandir}/man1/spacewalk-create-channel.1.gz
 
 %changelog
+* Thu Jun 28 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- add RHEL 6.10 channel definitions
+- fix ordering of RPMs
+- ensure numbers are compared
+
 * Mon May 14 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - 1577219 - explicitly require pygpgme
 - 1577219 - fix build macro for python3
