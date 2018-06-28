@@ -11,10 +11,10 @@ clufter-lib-general-0.76.0-1.el7.noarch.rpm
 clufter-lib-pcs-0.76.0-1.el7.noarch.rpm
 cmirror-2.02.171-8.el7.s390x.rpm
 corosync-2.4.0-9.el7.s390x.rpm
-corosync-qdevice-2.4.0-9.el7.s390x.rpm
-corosync-qnetd-2.4.0-9.el7.s390x.rpm
 corosynclib-2.4.0-9.el7.s390x.rpm
 corosynclib-devel-2.4.0-9.el7.s390x.rpm
+corosync-qdevice-2.4.0-9.el7.s390x.rpm
+corosync-qnetd-2.4.0-9.el7.s390x.rpm
 ctdb-4.6.2-8.el7.s390x.rpm
 ctdb-tests-4.6.2-8.el7.s390x.rpm
 dlm-4.0.7-1.el7.s390x.rpm

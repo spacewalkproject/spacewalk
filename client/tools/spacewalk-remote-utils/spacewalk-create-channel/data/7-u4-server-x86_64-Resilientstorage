@@ -11,12 +11,12 @@ clufter-lib-general-0.76.0-1.el7.noarch.rpm
 clufter-lib-pcs-0.76.0-1.el7.noarch.rpm
 cmirror-2.02.171-8.el7.x86_64.rpm
 corosync-2.4.0-9.el7.x86_64.rpm
-corosync-qdevice-2.4.0-9.el7.x86_64.rpm
-corosync-qnetd-2.4.0-9.el7.x86_64.rpm
 corosynclib-2.4.0-9.el7.i686.rpm
 corosynclib-2.4.0-9.el7.x86_64.rpm
 corosynclib-devel-2.4.0-9.el7.i686.rpm
 corosynclib-devel-2.4.0-9.el7.x86_64.rpm
+corosync-qdevice-2.4.0-9.el7.x86_64.rpm
+corosync-qnetd-2.4.0-9.el7.x86_64.rpm
 ctdb-4.6.2-8.el7.x86_64.rpm
 ctdb-tests-4.6.2-8.el7.x86_64.rpm
 dlm-4.0.7-1.el7.x86_64.rpm

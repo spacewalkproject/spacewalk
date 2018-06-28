@@ -10,12 +10,12 @@ clufter-lib-ccs-0.76.0-1.el7.noarch.rpm
 clufter-lib-general-0.76.0-1.el7.noarch.rpm
 clufter-lib-pcs-0.76.0-1.el7.noarch.rpm
 corosync-2.4.0-9.el7.x86_64.rpm
-corosync-qdevice-2.4.0-9.el7.x86_64.rpm
-corosync-qnetd-2.4.0-9.el7.x86_64.rpm
 corosynclib-2.4.0-9.el7.i686.rpm
 corosynclib-2.4.0-9.el7.x86_64.rpm
 corosynclib-devel-2.4.0-9.el7.i686.rpm
 corosynclib-devel-2.4.0-9.el7.x86_64.rpm
+corosync-qdevice-2.4.0-9.el7.x86_64.rpm
+corosync-qnetd-2.4.0-9.el7.x86_64.rpm
 omping-0.0.4-6.el7.x86_64.rpm
 pacemaker-1.1.16-12.el7.x86_64.rpm
 pacemaker-cli-1.1.16-12.el7.x86_64.rpm

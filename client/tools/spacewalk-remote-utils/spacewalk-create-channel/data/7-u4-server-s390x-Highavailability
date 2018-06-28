@@ -10,10 +10,10 @@ clufter-lib-ccs-0.76.0-1.el7.noarch.rpm
 clufter-lib-general-0.76.0-1.el7.noarch.rpm
 clufter-lib-pcs-0.76.0-1.el7.noarch.rpm
 corosync-2.4.0-9.el7.s390x.rpm
-corosync-qdevice-2.4.0-9.el7.s390x.rpm
-corosync-qnetd-2.4.0-9.el7.s390x.rpm
 corosynclib-2.4.0-9.el7.s390x.rpm
 corosynclib-devel-2.4.0-9.el7.s390x.rpm
+corosync-qdevice-2.4.0-9.el7.s390x.rpm
+corosync-qnetd-2.4.0-9.el7.s390x.rpm
 omping-0.0.4-6.el7.s390x.rpm
 pacemaker-1.1.16-12.el7.s390x.rpm
 pacemaker-cli-1.1.16-12.el7.s390x.rpm
