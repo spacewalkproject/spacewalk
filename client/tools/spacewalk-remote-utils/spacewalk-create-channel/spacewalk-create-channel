@@ -404,7 +404,7 @@ def gather(clear):
                         repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
                         fullDir = GATHER_DIR + repoDir
                         if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
-                            if update_num < 6:
+                            if float(update_num) < 6:
                                 sourceDir = fullDir +  release + "/Packages/"
                             else:
                                 sourceDir = fullDir +  "/Packages/"
