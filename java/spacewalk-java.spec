@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.18
+Version: 2.9.19
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,13 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 02 2018 Jan Dobes <jdobes@redhat.com> 2.9.19-1
+- Utilize deleteVirtualInstanceOnly when deleting a Server, clean unused method
+- Refactoring: avoid ill-named and once-used method
+- Fix removing virtual guests from host servers in System
+  detail->Virtualization table
+- Fix broken equals & hashCode implementation for VirtualInstance, adjust tests
+
 * Mon Jul 02 2018 Jan Dobes <jdobes@redhat.com> 2.9.18-1
 - SystemDetailsEditAction: check management entitlement
 - SSM: check for presence of management entitlement
