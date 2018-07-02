@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.17
+Version: 2.9.18
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,19 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 02 2018 Jan Dobes <jdobes@redhat.com> 2.9.18-1
+- SystemDetailsEditAction: check management entitlement
+- SSM: check for presence of management entitlement
+- Check for presence of management entitlement in System Details and Kickstart
+  pages
+- SystemHardwareAction: hide subscribe channel link for unentitled systems
+- SystemHandler: catch and convert MissingEntitlementException to XMLRPC
+  exceptions
+- ActionManager: throw MissingEntitlementException in hardware and package
+  refresh
+- SystemHardwareAction: hide empty parts in hardware overview
+- SystemHardwareAction: hide UI parts for unentitled systems
+
 * Tue Jun 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.17-1
 - SLES errata have lower case synopsis
 
