@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.19
+Version: 2.9.20
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,19 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jul 03 2018 Jan Dobes <jdobes@redhat.com> 2.9.20-1
+- fix type parameters for java 7
+- Make kernelOptionsPost naming consistent
+- Remove Distro create in favor of a Distro Builder
+- Add kernel options (post) to KickstartableTree
+- refactor: pull creating/updating a cobbler Distro to a helper class
+- refactor: inline updateCobblerFields() method (used only once)
+- fix: remove unneeded save distro.save()
+- refactor: move creating ks metadata to a common method
+- fix: make creating cobbler ks metadata consistent across scenarios
+- refactor: move related cobbler tests to standalone classes
+- Tests for cobbler commands
+
 * Mon Jul 02 2018 Jan Dobes <jdobes@redhat.com> 2.9.19-1
 - Utilize deleteVirtualInstanceOnly when deleting a Server, clean unused method
 - Refactoring: avoid ill-named and once-used method
