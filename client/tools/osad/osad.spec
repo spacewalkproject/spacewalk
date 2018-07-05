@@ -436,6 +436,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 %doc LICENSE
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/logrotate.d/osad
+%attr(644,root,root) %{_sysconfdir}/logrotate.d/osad
 %ghost %attr(600,root,root) %{_var}/log/osad
 %if 0%{?suse_version}
 # provide directories not owned by any package during build
@@ -532,6 +533,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Thu July 05 2018 Laurence Rochfort <laurence.rochfort@oracle.com> 5.11.102-1
+- 1589668 Fix logrotate.d/osad file mode
+
 * Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.102-1
 - remove osad files when packaging only for python3
 - osa-dispatcher is dependent on spacewalk-backend which is in python2
