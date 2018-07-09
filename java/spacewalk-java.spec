@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.20
+Version: 2.9.21
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.21-1
+- get rid of #/usr/bin/env shebang
+
 * Tue Jul 03 2018 Jan Dobes <jdobes@redhat.com> 2.9.20-1
 - fix type parameters for java 7
 - Make kernelOptionsPost naming consistent
