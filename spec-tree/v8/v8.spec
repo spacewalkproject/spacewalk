@@ -185,8 +185,8 @@ chmod -x %{buildroot}%{_includedir}/v8/extensions/*.h
 
 # install Python JS minifier scripts for nodejs
 install -d %{buildroot}%{python_sitelib}
-sed -i 's|/usr/bin/python2.4|/usr/bin/env python|g' tools/jsmin.py
-sed -i 's|/usr/bin/python2.4|/usr/bin/env python|g' tools/js2c.py
+sed -i 's|/usr/bin/python2.4|/usr/bin/python|g' tools/jsmin.py
+sed -i 's|/usr/bin/python2.4|/usr/bin/python|g' tools/js2c.py
 install -p -m0744 tools/jsmin.py %{buildroot}%{python_sitelib}/
 install -p -m0744 tools/js2c.py %{buildroot}%{python_sitelib}/
 chmod -R -x %{buildroot}%{python_sitelib}/*.py*
