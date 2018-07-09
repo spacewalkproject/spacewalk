@@ -27,7 +27,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.102
+Version: 5.11.103
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -533,6 +533,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Mon Jul 09 2018 Laurence Rochfort <tkasparek@redhat.com>
+- 1589668 - Fix logrotate.d/osad file mode
+
 * Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.102-1
 - remove osad files when packaging only for python3
 - osa-dispatcher is dependent on spacewalk-backend which is in python2
