@@ -3,7 +3,7 @@
 Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 License: GPLv2
-Version: 2.9.0
+Version: 2.9.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -226,6 +226,10 @@ fi
 %endif
 
 %changelog
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- get rid of #/usr/bin/env shebang
+- Bumping package versions for 2.9.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
