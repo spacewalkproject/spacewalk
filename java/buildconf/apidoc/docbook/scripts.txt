@@ -68,7 +68,7 @@ client.auth.logout(key)</programlisting>
 <example>
     <title>Ruby Example</title>
     <para>Below is an example of the <function>channel.listAllChannels</function> API call. List of channel labels is printed.</para>
-    <programlisting>#!/usr/bin/env ruby
+    <programlisting>#!/usr/bin/ruby
 require "xmlrpc/client"
 
 @MANAGER_URL = "http://manager.example.com/rpc/api"
