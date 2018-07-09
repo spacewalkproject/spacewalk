@@ -1622,7 +1622,7 @@ class Syncer:
                 h.execute()
                 result = h.fetchall_dict()
                 if result:
-                    for regenerating in h.fetchall_dict():
+                    for regenerating in result:
                         if regenerating['channel_label'] in self.reporegen:
                             self.reporegen.remove(regenerating['channel_label'])
                 for channel in self.reporegen:
