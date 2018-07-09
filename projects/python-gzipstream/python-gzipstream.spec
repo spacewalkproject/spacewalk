@@ -8,7 +8,7 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 2.9.0
+Version: 2.9.1
 Release: 1%{?dist}
 URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-gzipstream
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
@@ -79,6 +79,10 @@ cd ../py3
 %endif
 
 %changelog
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- get rid of #/usr/bin/env shebang
+- Bumping package versions for 2.9.
+
 * Mon Feb 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.6-1
 - mark license for python3 subpackage
 - remove empty section
