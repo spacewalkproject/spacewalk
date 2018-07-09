@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import base64
 try:
     # python2
