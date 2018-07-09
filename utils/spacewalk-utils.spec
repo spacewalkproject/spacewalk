@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.9.3
+Version:	2.9.4
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
+- get rid of #/usr/bin/env shebang
+
 * Thu May 24 2018 Jiri Dostal <jdostal@redhat.com> 2.9.3-1
 - 1533052 - Add FQDN detection to setup and config utilities.
 
