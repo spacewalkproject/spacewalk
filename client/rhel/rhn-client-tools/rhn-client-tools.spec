@@ -91,7 +91,11 @@ Requires: python-gudev
 %endif # 0%{?fedora}
 
 %if 0%{?rhel} || 0%{?fedora}
+%if 0%{?py3_deps}
+Requires: python2-newt
+%else
 Requires: newt-python
+%endif
 %endif
 
 %if 0%{?suse_version}
