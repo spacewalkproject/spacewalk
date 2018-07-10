@@ -117,7 +117,6 @@ Requires: python2-rpm
 Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
 BuildRequires: python2-devel
-BuildRequires: python-unversioned-command
 Requires: python2-hwdata
 BuildRequires: python2-rpm
 BuildRequires: python2-coverage
@@ -129,6 +128,10 @@ BuildRequires: python-devel
 Requires: python-hwdata
 BuildRequires: rpm-python
 BuildRequires: python-coverage
+%endif
+
+%if 0%{?fedora} >= 29
+BuildRequires: python-unversioned-command
 %endif
 
 %description -n python2-%{name}
