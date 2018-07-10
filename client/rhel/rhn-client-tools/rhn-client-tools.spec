@@ -117,6 +117,7 @@ Requires: python2-rpm
 Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
 BuildRequires: python2-devel
+BuildRequires: python-unversioned-command
 Requires: python2-hwdata
 BuildRequires: python2-rpm
 BuildRequires: python2-coverage
