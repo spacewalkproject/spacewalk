@@ -14,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.8
+Version: 2.9.9
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -711,6 +711,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jul 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.9-1
+- be more explicit about which python version we require
+
 * Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.8-1
 - client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
 
