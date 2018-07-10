@@ -336,7 +336,7 @@ make -f Makefile.rhn-client-tools
 %install
 %if 0%{?build_py2}
 make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
-        PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
+        PYTHONPATH=%{python2_sitelib} PYTHONVERSION=%{python_version} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir}
 %endif
 %if 0%{?build_py3}
@@ -370,10 +370,10 @@ install 50-spacewalk-client.preset $RPM_BUILD_ROOT/%{_presetdir}
 
 %if 0%{?build_py2}
 %if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} >= 1140 || 0%{?mageia}
-rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_hal.*
+rm $RPM_BUILD_ROOT%{python2_sitelib}/up2date_client/hardware_hal.*
 %else
-rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_gudev.*
-rm $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/hardware_udev.*
+rm $RPM_BUILD_ROOT%{python2_sitelib}/up2date_client/hardware_gudev.*
+rm $RPM_BUILD_ROOT%{python2_sitelib}/up2date_client/hardware_udev.*
 %endif
 %endif
 
@@ -382,7 +382,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/modules/rhn_*_*.*
 %endif
 %if ! 0%{?rhel} || 0%{?rhel} > 6
 %if 0%{?build_py2}
-rm -rf $RPM_BUILD_ROOT%{python_sitelib}/up2date_client/firstboot
+rm -rf $RPM_BUILD_ROOT%{python2_sitelib}/up2date_client/firstboot
 %endif
 rm -rf $RPM_BUILD_ROOT%{_datadir}/firstboot/
 %endif
@@ -414,7 +414,7 @@ for i in \
 done
 
 %if 0%{?suse_version}
-%py_compile -O %{buildroot}/%{python_sitelib}
+%py_compile -O %{buildroot}/%{python2_sitelib}
 %if 0%{?build_py3}
 %py3_compile -O %{buildroot}/%{python3_sitelib}
 %endif
@@ -480,28 +480,28 @@ make -f Makefile.rhn-client-tools test
 %if 0%{?build_py2}
 %files -n python2-%{name}
 %{_sbindir}/rhn-profile-sync-%{python_version}
-%dir %{python_sitelib}/up2date_client/
-%{python_sitelib}/up2date_client/__init__.*
-%{python_sitelib}/up2date_client/config.*
-%{python_sitelib}/up2date_client/haltree.*
-%{python_sitelib}/up2date_client/hardware*
-%{python_sitelib}/up2date_client/up2dateUtils.*
-%{python_sitelib}/up2date_client/up2dateLog.*
-%{python_sitelib}/up2date_client/up2dateErrors.*
-%{python_sitelib}/up2date_client/up2dateAuth.*
-%{python_sitelib}/up2date_client/rpcServer.*
-%{python_sitelib}/up2date_client/rhnserver.*
-%{python_sitelib}/up2date_client/pkgUtils.*
-%{python_sitelib}/up2date_client/rpmUtils.*
-%{python_sitelib}/up2date_client/debUtils.*
-%{python_sitelib}/up2date_client/rhnPackageInfo.*
-%{python_sitelib}/up2date_client/rhnChannel.*
-%{python_sitelib}/up2date_client/rhnHardware.*
-%{python_sitelib}/up2date_client/transaction.*
-%{python_sitelib}/up2date_client/clientCaps.*
-%{python_sitelib}/up2date_client/capabilities.*
-%{python_sitelib}/up2date_client/rhncli.*
-%{python_sitelib}/up2date_client/pkgplatform.*
+%dir %{python2_sitelib}/up2date_client/
+%{python2_sitelib}/up2date_client/__init__.*
+%{python2_sitelib}/up2date_client/config.*
+%{python2_sitelib}/up2date_client/haltree.*
+%{python2_sitelib}/up2date_client/hardware*
+%{python2_sitelib}/up2date_client/up2dateUtils.*
+%{python2_sitelib}/up2date_client/up2dateLog.*
+%{python2_sitelib}/up2date_client/up2dateErrors.*
+%{python2_sitelib}/up2date_client/up2dateAuth.*
+%{python2_sitelib}/up2date_client/rpcServer.*
+%{python2_sitelib}/up2date_client/rhnserver.*
+%{python2_sitelib}/up2date_client/pkgUtils.*
+%{python2_sitelib}/up2date_client/rpmUtils.*
+%{python2_sitelib}/up2date_client/debUtils.*
+%{python2_sitelib}/up2date_client/rhnPackageInfo.*
+%{python2_sitelib}/up2date_client/rhnChannel.*
+%{python2_sitelib}/up2date_client/rhnHardware.*
+%{python2_sitelib}/up2date_client/transaction.*
+%{python2_sitelib}/up2date_client/clientCaps.*
+%{python2_sitelib}/up2date_client/capabilities.*
+%{python2_sitelib}/up2date_client/rhncli.*
+%{python2_sitelib}/up2date_client/pkgplatform.*
 %endif
 
 %if 0%{?build_py3}
@@ -560,16 +560,16 @@ make -f Makefile.rhn-client-tools test
 %if 0%{?build_py2}
 %files -n python2-rhn-check
 %{_sbindir}/rhn_check-%{python_version}
-%dir %{python_sitelib}/rhn
-%dir %{python_sitelib}/rhn/actions/
-%{python_sitelib}/up2date_client/getMethod.*
+%dir %{python2_sitelib}/rhn
+%dir %{python2_sitelib}/rhn/actions/
+%{python2_sitelib}/up2date_client/getMethod.*
 # actions for rhn_check to run
-%{python_sitelib}/rhn/actions/__init__.*
-%{python_sitelib}/rhn/actions/hardware.*
-%{python_sitelib}/rhn/actions/systemid.*
-%{python_sitelib}/rhn/actions/reboot.*
-%{python_sitelib}/rhn/actions/rhnsd.*
-%{python_sitelib}/rhn/actions/up2date_config.*
+%{python2_sitelib}/rhn/actions/__init__.*
+%{python2_sitelib}/rhn/actions/hardware.*
+%{python2_sitelib}/rhn/actions/systemid.*
+%{python2_sitelib}/rhn/actions/reboot.*
+%{python2_sitelib}/rhn/actions/rhnsd.*
+%{python2_sitelib}/rhn/actions/up2date_config.*
 %endif
 
 %if 0%{?build_py3}
@@ -678,21 +678,21 @@ make -f Makefile.rhn-client-tools test
 
 %if 0%{?build_py2}
 %files -n python2-rhn-setup-gnome
-%{python_sitelib}/up2date_client/messageWindow.*
-%{python_sitelib}/up2date_client/rhnregGui.*
-%{python_sitelib}/up2date_client/gtk_compat.*
-%{python_sitelib}/up2date_client/gui.*
-%{python_sitelib}/up2date_client/progress.*
+%{python2_sitelib}/up2date_client/messageWindow.*
+%{python2_sitelib}/up2date_client/rhnregGui.*
+%{python2_sitelib}/up2date_client/gtk_compat.*
+%{python2_sitelib}/up2date_client/gui.*
+%{python2_sitelib}/up2date_client/progress.*
 %if 0%{?rhel} == 6
 %{_datadir}/firstboot/modules/rhn_register.*
-%{python_sitelib}/up2date_client/firstboot/rhn_login_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_start_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_choose_server_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_choose_channel.*
-%{python_sitelib}/up2date_client/firstboot/rhn_provide_certificate_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_create_profile_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_review_gui.*
-%{python_sitelib}/up2date_client/firstboot/rhn_finish_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_login_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_start_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_choose_server_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_choose_channel.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_provide_certificate_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_create_profile_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_review_gui.*
+%{python2_sitelib}/up2date_client/firstboot/rhn_finish_gui.*
 %endif
 %endif
 
@@ -820,7 +820,7 @@ make -f Makefile.rhn-client-tools test
 - fix dependencies of rhn-client-tools on different platforms
 
 * Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
-- install files into python_sitelib/python3_sitelib
+- install files into python2_sitelib/python3_sitelib
 - let rpmbuild take care of .pyc/.pyo
 - move rhn-setup-gnome files into proper python2/python3 subpackages
 - move rhn-setup files into proper python2/python3 subpackages
