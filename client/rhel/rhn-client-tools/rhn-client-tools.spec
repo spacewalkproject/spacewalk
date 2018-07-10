@@ -14,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.11
+Version: 2.9.12
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -715,6 +715,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Tue Jul 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.12-1
+- python-unversioned-command is available only in Rawhide
+
 * Tue Jul 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.11-1
 - require python-unversioned-command for /usr/bin/python simlink
 
