@@ -312,8 +312,9 @@ class RepoSync(object):
     def __init__(self, channel_label, repo_type=None, url=None, fail=False,
                  filters=None, no_errata=False, sync_kickstart=False, latest=False,
                  metadata_only=False, strict=0, excluded_urls=None, no_packages=False,
-                 log_dir="reposync", log_level=None, force_kickstart=False, force_all_errata=False,
-                 check_ssl_dates=False, force_null_org_content=False, show_packages_only=False):
+                 log_dir="reposync", log_level=None, debug=False, force_kickstart=False,
+                 force_all_errata=False, check_ssl_dates=False, force_null_org_content=False,
+                 show_packages_only=False):
         self.regen = False
         self.fail = fail
         self.filters = filters or []
@@ -332,8 +333,11 @@ class RepoSync(object):
         rhnSQL.initDB()
 
         # setup logging
-        log_filename = channel_label + '.log'
-        log_path = default_log_location + log_dir + '/' + log_filename
+        if debug:
+            log_path = 'stdout'
+        else:
+            log_filename = channel_label + '.log'
+            log_path = default_log_location + log_dir + '/' + log_filename
         if log_level is None:
             log_level = 0
         CFG.set('DEBUG', log_level)
