@@ -66,11 +66,18 @@ log = up2dateLog.initLog()
 def startRhnsd():
     # successful registration.  Try to start rhnsd if it isn't running.
     if os.access("/usr/sbin/rhnsd", os.R_OK|os.X_OK):
-        if os.access("/usr/lib/systemd/system/rhnsd.service", os.R_OK):
+        # test for UsrMerge systemd environment
+        systemd_system_unitdir = "/usr/lib/systemd/system"
+        systemd_systemctl = "/usr/bin/systemcl"
+        if not os.access(systemd_systemctl, os.R_OK|os.X_OK):
+            if os.access("/bin/systemctl", os.R_OK|os.X_OK):
+                systemd_systemctl = "/bin/systemctl"
+                systemd_system_unitdir = "/lib/systemd/system"
+        if os.access("%s/rhnsd.service" % systemd_system_unitdir, os.R_OK):
             # systemd
-            if os.access("/usr/bin/systemctl", os.R_OK|os.X_OK):
-                os.system("/usr/bin/systemctl enable rhnsd > /dev/null");
-                os.system("/usr/bin/systemctl start rhnsd > /dev/null");
+            if os.access(systemd_systemctl, os.R_OK|os.X_OK):
+                os.system("%s enable rhnsd > /dev/null" % systemd_systemctl);
+                os.system("%s start rhnsd > /dev/null" % systemd_systemctl);
             else:
                 print(_("Warning: unable to enable rhnsd with systemd"))
         else:
