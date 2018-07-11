@@ -115,6 +115,8 @@ def main():
     parser.add_option('', '--batch-size', action='store', help="max. batch size for package import (debug only)")
     parser.add_option('-v', '--verbose', action='count',
                       help="Verbose output. Possible to accumulate: -vvv")
+    parser.add_option('', '--debug', action='store_true', dest='enable_debug',
+                      default=False, help="Enable debugging output.")
     (options, args) = parser.parse_args()
 
     log_level = options.verbose
@@ -126,7 +128,10 @@ def main():
     CFG.set("TRACEBACK_MAIL", options.traceback_mail or CFG.TRACEBACK_MAIL)
     if options.email:
         initEMAIL_LOG()
-    rhnLog.initLOG(log_path, log_level)
+    if options.enable_debug:
+        rhnLog.initLOG('stdout', log_level)
+    else:
+        rhnLog.initLOG(log_path, log_level)
     log2disk(0, "Command: %s" % str(sys.argv))
 
     l_params=["no_errata", "sync_kickstart", "fail"]
@@ -240,6 +245,7 @@ def main():
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest,
+                      debug=options.enable_debug,
                       log_level=options.verbose,
                       force_all_errata=options.force_all_errata, show_packages_only=options.show_packages)
         if options.batch_size:
