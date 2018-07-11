@@ -68,7 +68,7 @@ def startRhnsd():
     if os.access("/usr/sbin/rhnsd", os.R_OK|os.X_OK):
         # test for UsrMerge systemd environment
         systemd_system_unitdir = "/usr/lib/systemd/system"
-        systemd_systemctl = "/usr/bin/systemcl"
+        systemd_systemctl = "/usr/bin/systemctl"
         if not os.access(systemd_systemctl, os.R_OK|os.X_OK):
             if os.access("/bin/systemctl", os.R_OK|os.X_OK):
                 systemd_systemctl = "/bin/systemctl"
