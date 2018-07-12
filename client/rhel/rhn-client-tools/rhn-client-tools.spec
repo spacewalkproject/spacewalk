@@ -14,7 +14,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.13
+Version: 2.9.14
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -715,6 +715,9 @@ make -f Makefile.rhn-client-tools test
 %endif
 
 %changelog
+* Thu Jul 12 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.14-1
+- rhn-client-tools: Fix typo in rhnreg
+
 * Wed Jul 11 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.13-1
 - rhn-client-tools: Fix systemd detection for non-UsrMerge systems
 
