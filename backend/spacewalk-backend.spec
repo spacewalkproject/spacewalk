@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.12
+Version: 2.9.13
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Jul 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.13-1
+- don't try to chgrp stdout
+- Add a debug flag to the spacewalk-repo-sync utility
+
 * Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.12-1
 - 1576775 - fix TypeError: 'NoneType' object is not iterable
 
