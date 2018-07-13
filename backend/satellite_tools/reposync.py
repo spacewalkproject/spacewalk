@@ -343,10 +343,11 @@ class RepoSync(object):
         CFG.set('DEBUG', log_level)
         rhnLog.initLOG(log_path, log_level)
         # os.fchown isn't in 2.4 :/
-        if isSUSE():
-            os.system("chgrp www " + log_path)
-        else:
-            os.system("chgrp apache " + log_path)
+        if not debug:
+            if isSUSE():
+                os.system("chgrp www " + log_path)
+            else:
+                os.system("chgrp apache " + log_path)
 
         log2disk(0, "Command: %s" % str(sys.argv))
         log2disk(0, "Sync of channel started.")
