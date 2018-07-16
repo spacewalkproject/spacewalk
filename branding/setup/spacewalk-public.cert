@@ -3,7 +3,7 @@
   <rhn-cert-field name="product">SPACEWALK-001</rhn-cert-field>
   <rhn-cert-field name="owner">Spacewalk Default Organization</rhn-cert-field>
   <rhn-cert-field name="issued">2007-07-13 00:00:00</rhn-cert-field>
-  <rhn-cert-field name="expires">2018-07-13 00:00:00</rhn-cert-field>
+  <rhn-cert-field name="expires">2100-01-01 00:00:00</rhn-cert-field>
   <rhn-cert-field name="slots">20000</rhn-cert-field>
   <rhn-cert-field name="monitoring-slots">20000</rhn-cert-field>
   <rhn-cert-field name="provisioning-slots">20000</rhn-cert-field>
@@ -13,11 +13,15 @@
   <rhn-cert-field name="generation">2</rhn-cert-field>
   <rhn-cert-signature>
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1
+Version: GnuPG v2.0.14 (GNU/Linux)
 
-iEYEABECAAYFAlNg/40ACgkQnnKdrwaUeTIXqwCgmRiTmzFuO7x3bitYPWcJFsZe
-UPgAn0kTzWo7xUGDpedM0No9nEnWa84P
-=FTXc
+iQEcBAABAgAGBQJbTIGcAAoJEC+6VIx7Lfhfo0oH/1stvJ2kP8xQB24/LMZe/br/
+FaX7p6LBH18nHcdbx+WM68gGqryh2T0dJKdt+Pj+ln4wQBhEBz3+QetmvpzpLRoZ
+WebXxC/TK2NknJ2EcmUcnS7rSn6bOFiqpHS4TOk7Nep2ZyiBe8yyAPH6auc9wfIU
+VYKA78Tt5Jf63TMqArRzGrPPvii+9hJcDyR31jrZdfh9PZJUKPhxHDZv7ZBf4t4j
+JhvD/lm7F0NXTKw4iA2W69iJNt1ncDtywDSnEDRFdBSeK99qfE7gi3V05z31CmlX
+Um0MO5wkm3jNSdgtRzf1dPyf/OoNhPC2GG/VXQL6HjlPOaehPQq3AiUIE7+MJlE=
+=HFcx
 -----END PGP SIGNATURE-----
 </rhn-cert-signature>
 </rhn-cert>
