@@ -28,10 +28,10 @@ Requires: %{pythonX}-%{name} = %{version}-%{release}
 # provide rhn directories and no selinux on suse
 BuildRequires: rhn-client-tools
 %else
-%if 0%{?build_py2}
-Requires: libselinux-python
-%else
+%if 0%{?default_py3}
 Requires: python3-libselinux
+%else
+Requires: libselinux-python
 %endif
 %endif
 
