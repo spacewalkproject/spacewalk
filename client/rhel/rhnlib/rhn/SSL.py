@@ -89,6 +89,8 @@ class SSLSocket:
         self._check_closed()
         # Get a context
         self._ctx = SSL.Context(self._ssl_method)
+        self._ctx.set_options(SSL.OP_NO_SSLv2)
+        self._ctx.set_options(SSL.OP_NO_SSLv3)
         if self._trusted_certs:
             # We have been supplied with trusted CA certs
             for f in self._trusted_certs:
