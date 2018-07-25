@@ -2,14 +2,35 @@
 %global build_py3   1
 %endif
 
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?__python2:%global __python2 /usr/bin/python2}
+%{!?__python3:%global __python3 /usr/bin/python3}
+
+%if %{undefined python2_sitelib}
+%global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+
+%if %{undefined python3_sitelib}
+%global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+
+%if %{_vendor} == "debbuild"
+# For making sure we can set the right args for deb distros
+%global is_deb 1
+%endif
+
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
 Version: 2.9.3
 Release: 1%{?dist}
+%if %{_vendor} == "debbuild"
+Group:      python
+Packager:   Spacewalk Project <spacewalk-devel@redhat.com>
+%else
+Group:      Development/Libraries
+%endif
 URL:     https://github.com/spacewalkproject/spacewalk
-Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 
 License: GPLv2
 
@@ -22,6 +43,8 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 
 %package -n python2-rhnlib
 Summary: Python libraries for the Spacewalk project
+
+%if %{_vendor} != "debbuild"
 %if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 BuildRequires: python2-devel
 Requires: python2-pyOpenSSL
@@ -29,6 +52,18 @@ Requires: python2-pyOpenSSL
 BuildRequires: python-devel
 Requires: pyOpenSSL
 %endif
+%endif
+
+%if %{_vendor} == "debbuild"
+BuildRequires: python-dev
+BuildRequires: rpm
+Requires(preun): python-minimal
+Requires(post): python-minimal
+Requires: python-openssl
+Obsoletes: python-rhn
+Conflicts: python-rhn
+%endif
+
 Provides: python2-rhnlib = %{version}-%{release}
 %{?python_provide:%python_provide python2-rhnlib}
 
@@ -50,12 +85,24 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 %if 0%{?build_py3}
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
+
+%if %{_vendor} != "debbuild"
 BuildRequires: python3-devel
 %if 0%{?mageia}
 Requires: python3-OpenSSL
 %else
 Requires: python3-pyOpenSSL
 %endif
+%endif
+
+%if %{_vendor} == "debbuild"
+BuildRequires: python3-dev
+BuildRequires: rpm
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+Requires: python3-openssl
+%endif
+
 %{?python_provide:%python_provide python3-rhnlib}
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2
@@ -71,6 +118,7 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 
 %prep
 %setup -q
+
 if [ ! -e setup.py ]; then
     sed -e 's/@VERSION@/%{version}/' -e 's/@NAME@/%{name}/' setup.py.in > setup.py
 fi
@@ -81,23 +129,47 @@ fi
 
 %build
 #%{__python} setup.py build
-make -f Makefile.rhnlib
+make -f Makefile.rhnlib PYTHON=%{__python2}
+%if 0%{?build_py3}
+make -f Makefile.rhnlib PYTHON=%{__python3}
+%endif
 
 
 %install
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%{__python2} setup.py install %{!?is_deb:-O1}%{?is_deb:--no-compile -O0} --skip-build --root $RPM_BUILD_ROOT %{?is_deb:--install-layout=deb} --prefix=%{_prefix}
 %if 0%{?build_py3}
-%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+%{__python3} setup.py install %{!?is_deb:-O1}%{?is_deb:--no-compile -O0} --skip-build --root $RPM_BUILD_ROOT %{?is_deb:--install-layout=deb} --prefix=%{_prefix}
 %endif
 
 %files -n python2-rhnlib
 %doc ChangeLog COPYING README TODO
-%{python_sitelib}/*
+%{python2_sitelib}/*
 
 %if 0%{?build_py3}
 %files -n python3-rhnlib
 %doc ChangeLog COPYING README TODO
 %{python3_sitelib}/*
+%endif
+
+%if %{_vendor} == "debbuild"
+
+%post -n python2-rhnlib
+# Do late-stage bytecompilation, per debian policy
+pycompile -p python2-rhnlib -V -3.0
+
+%preun -n python2-rhnlib
+# Ensure all *.py[co] files are deleted, per debian policy
+pyclean -p python2-rhnlib
+
+%if 0%{?build_py3}
+%post -n python3-rhnlib
+# Do late-stage bytecompilation, per debian policy
+py3compile -p python3-rhnlib -V -4.0
+
+%preun -n python3-rhnlib
+# Ensure all *.py[co] files are deleted, per debian policy
+py3clean -p python3-rhnlib
+%endif
 %endif
 
 %changelog
