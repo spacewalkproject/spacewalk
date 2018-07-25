@@ -1,49 +1,40 @@
 HOW TO BUILD DEBIAN PACKAGES
 
-Note: Core packages are already in Debian. They are handled differently.
-      See packages-already-in-debian/README
+The client packages are built using debbuild.
 
-python-rhnlib in client/rhel/rhnlib
------------------------------------
-cd client/rhel/rhnlib
-tito build --tgz
-copy rhnlib-2.5.27.tar.gz /tmp/python-rhnlib_2.5.27.orig.tar.gz
-cd -
-cd /tmp
-tar zxvf python-rhnlib_2.5.27.orig.tar.gz
-mv rhnlib_2.5.27 python-rhnlib_2.5.27
-cd -
-cd client/debian
-cp -a rhnlib/* /tmp/python-rhnlib-2.5.27
-cd /tmp/python-rhnlib-2.5.27
-debuild -i -S
-# and if you have configured dupload properly, then:
-dupload -t mentors python-rhnlib_2.5.27-1_source.changes 
-# or if you want unsigned build:
-debuild -us -uc
+The following packages make up the client stack:
+* apt-spacewalk (in client/debian)
+* rhn-client-tools (in client/tools)
+* rhnlib (in client/rhel)
+* rhnsd (in client/rhel)
+* rhncfg (in client/tools)
+* spacewalk-usix (in usix)
 
-Similary for other packages.
+The following external packages are also part of the client stack:
+* python-dmidecode (in client/debian)
+* python-hwdata (in client/debian)
 
-All packages available:
-python-rhnlib in client/rhel/rhnlib
-python-ethtool-0.5 in spec-tree/python-ethtool-0.5
-apt-spacewalk
+Preparation steps:
 
+1. Install debbuild from https://github.com/ascherer/debbuild/releases
 
-apt-spacewalk - instructions are little different:
-1) Create an upstream tarball
-  cd client/debian/apt-spacewalk/src
-  tito build --tgz
-2) Prepare your build dir elsewhere
-  tar xzf apt-spacewalk-$version.tar.gz
-  cd apt-spacewalk-$version/
-  cp -r client/debian/apt-spacewalk/debian ./
-3) Adjust the settings in debian/ directory
-3) Build the package
-  #build source package
-  debuild -i -S
-  #or build binary package
-  debuild -b
+2. Create the debbuild package build tree
+
+mkdir -p ~/debbuild/{SPECS,SOURCES,SDEBS,DEBS,BUILD,BUILDROOT}
+
+To build the non-external packages, these are the following steps:
+
+1. Switch to the directory of the package source (ex. for apt-spacewalk, cd client/debian/apt-spacewalk)
+
+2. Use tito to build tarball (tito build --tgz)
+
+3. Copy the tarball to ~/debbuild/SOURCES and spec to ~/debbuild/SPECS
+
+4. Change to ~/debbuild/SPECS and run "debbuild -ba" on the spec. (ex. for apt-spacewalk, debbuild -ba apt-spacewalk.spec)
+
+For external packages, the only difference is step 2, where you use spectool to fetch the tarball instead.
+For example, for python-hwdata, "spectool -g python-hwdata.spec" is sufficient to get the sources.
+
 
 How to regenerate repo:
 -----------------------

@@ -1,5 +1,0 @@
-python-ethtool (0.7-1) unstable; urgency=low
-
-  * Packaging for Debian main (Closes: #549323). 
-
- -- Bernd Zeimetz <bzed@debian.org>  Fri, 15 Jun 2012 18:48:15 +0200
