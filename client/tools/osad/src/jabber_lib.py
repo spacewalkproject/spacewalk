@@ -652,7 +652,6 @@ class JabberClient(jabber.Client, object):
 
         log_debug(4, "Preparing for TLS handshake")
         ssl = SSLSocket(self._sock, trusted_certs=self.trusted_certs)
-        ssl._ssl_method = SSL.SSL.TLSv1_METHOD
         ssl.ssl_verify_callback = self.ssl_verify_callback
         ssl.init_ssl()
         # Explicitly perform the SSL handshake
