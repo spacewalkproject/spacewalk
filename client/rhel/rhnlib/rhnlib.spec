@@ -6,7 +6,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.9.2
+Version: 2.9.3
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -101,6 +101,9 @@ make -f Makefile.rhnlib
 %endif
 
 %changelog
+* Wed Jul 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- forbid old SSL versions during negotiation
+
 * Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
 
