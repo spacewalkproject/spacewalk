@@ -41,11 +41,14 @@ def installTime(pkg_name, pkg_arch):
     dir = '/var/lib/dpkg/info'
     files = [ '%s.list' % pkg_name,
               '%s:%s.list' % (pkg_name, pkg_arch) ]
+    # In edge cases, pkg_name can include the arch but the .list file does not
+    if ':' in pkg_name:
+        files.append('%s.list' % (pkg_name[:pkg_name.index(':')]))
     for f in files:
         path = os.path.join(dir,f)
         if os.path.isfile(path):
             return os.path.getmtime(path)
-    return None
+    return 0
 
 #FIXME: Using Apt cache might not be an ultimate solution.
 # It could be better to parse /var/lib/dpkg/status manually.
