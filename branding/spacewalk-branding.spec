@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.9.1
+Version:    2.9.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Mon Jul 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
+- remove spacewalk-public.cert also from specfile
+
 * Mon Jul 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
 - remove entitlement certificate as it's not used anymore
 - Bumping package versions for 2.9.
