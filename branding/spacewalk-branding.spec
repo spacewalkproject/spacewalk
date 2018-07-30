@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.9.0
+Version:    2.9.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -120,6 +120,10 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Mon Jul 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- remove entitlement certificate as it's not used anymore
+- Bumping package versions for 2.9.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
 - removed %%%%defattr from specfile
 - removed Group from specfile
