@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.21
+Version: 2.9.22
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jul 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.22-1
+- 1581744 - disable errata updates when modules are present
+- 1581744 - disable API manipulation with packages on servers with modules
+- 1581744 - don't split the message
+
 * Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.21-1
 - get rid of #/usr/bin/env shebang
 
