@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.38
+Version: 5.0.39
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -205,6 +205,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.39-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+- client/rhel/rhnsd: Add Debian init script
+
 * Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.38-1
 - client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
 
