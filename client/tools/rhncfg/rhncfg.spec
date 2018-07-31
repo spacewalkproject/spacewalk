@@ -40,7 +40,7 @@
 %endif
 
 Name: rhncfg
-Version: 5.10.125
+Version: 5.10.126
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -426,6 +426,9 @@ py3clean -p python3-%{name}-actions
 %endif
 
 %changelog
+* Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.126-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+
 * Wed Jul 18 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.125-1
 - 1601754 - require python3 version of dependencies on systems with default py3
 
