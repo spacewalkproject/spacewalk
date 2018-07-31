@@ -38,7 +38,7 @@
 %global pythonrhnroot %{python2_sitelib}/spacewalk
 
 Name:	    spacewalk-usix
-Version:	2.9.0
+Version:	2.9.1
 Release:	1%{?dist}
 Summary:	Spacewalk server and client nano six library
 %if %{_vendor} == "debbuild"
@@ -165,6 +165,10 @@ py3clean -p python3-%{name}
 %endif
 
 %changelog
+* Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+- Bumping package versions for 2.9.
+
 * Thu Mar 01 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - empty %%files section is required for a package to build as a metapackage
 
