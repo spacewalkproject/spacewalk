@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.39
+Version: 5.0.40
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -205,6 +205,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Thu Aug 02 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.40-1
+- 1610286 - don't start as sysv service on systemd systems
+
 * Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.39-1
 - client, usix: Rework how client packaging is done for Debian/Ubuntu
 - client/rhel/rhnsd: Add Debian init script
