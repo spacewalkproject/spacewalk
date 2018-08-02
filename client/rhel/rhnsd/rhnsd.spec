@@ -20,7 +20,7 @@ URL:     https://github.com/spacewalkproject/spacewalk
 
 %if %{_vendor} != "debbuild"
 
-%if 0%{?suse_version} >= 1210 || 0%{?fedora} || 0%{?mageia}
+%if 0%{?suse_version} >= 1210 || 0%{?fedora} || 0%{?mageia} || 0%{?rhel} >= 7
 %{?mageia:BuildRequires: systemd-devel}
 %{?suse_version:BuildRequires: systemd-rpm-macros}
 BuildRequires: systemd
@@ -31,7 +31,7 @@ Requires(post): aaa_base
 Requires(preun): aaa_base
 BuildRequires: sysconfig
 %else
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 7
 Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(post): systemd-sysv
@@ -82,7 +82,7 @@ install -m 0755 rhnsd.init.SUSE $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %if %{_vendor} == "debbuild"
 install -m 0755 rhnsd.init.Debian $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 %endif
-%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8 || 0%{?rhel} >= 7
 rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
@@ -141,7 +141,7 @@ fi
 %service_del_preun rhnsd.service
 %else
 if [ $1 = 0 ] ; then
-    %if 0%{?fedora} || 0%{?mageia}
+    %if 0%{?fedora} || 0%{?mageia} || 0%{?rhel} >= 7
         %systemd_preun rhnsd.service
     %else
     service rhnsd stop >/dev/null 2>&1
@@ -169,7 +169,7 @@ fi
 %service_del_postun rhnsd.service
 %else
 if [ "$1" -ge "1" ]; then
-    %if 0%{?fedora} || 0%{?mageia}
+    %if 0%{?fedora} || 0%{?mageia} || 0%{?rhel} >= 7
     %systemd_postun_with_restart rhnsd.service
     %else
     service rhnsd condrestart >/dev/null 2>&1 || :
@@ -196,7 +196,7 @@ fi
 %dir %{_sysconfdir}/sysconfig/rhn
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
 %{_sbindir}/rhnsd
-%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8 || 0%{?rhel} >= 7
 %{_unitdir}/rhnsd.service
 %else
 %{_initrddir}/rhnsd
