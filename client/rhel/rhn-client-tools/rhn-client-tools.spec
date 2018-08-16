@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.15
+Version: 2.9.16
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -972,6 +972,10 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Thu Aug 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.16-1
+- 1617942 - drop dmidecode dependency on s390x
+- debUtils.py: Fix edge case finding pkg install time on Debian
+
 * Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.15-1
 - client, usix: Rework how client packaging is done for Debian/Ubuntu
 
