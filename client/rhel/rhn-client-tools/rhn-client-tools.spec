@@ -52,7 +52,9 @@ Packager:   Spacewalk Project <spacewalk-devel@redhat.com>
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
-BuildArch: noarch
+#BuildArch: noarch
+# see BZ 1617942 for more info as Requires are written into RPM headers
+# there's no way how to do this dynamicaly based on arch, so splitting arches is the only option
 %if 0%{?suse_version}
 BuildRequires: update-desktop-files
 %endif
