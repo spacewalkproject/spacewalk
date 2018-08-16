@@ -163,7 +163,9 @@ Requires: dbus-python
 
 %if 0%{?py3_deps}
 Requires: python2-rpm
+%if %{_arch} != s390x && %{_arch} != s390
 Requires: python2-dmidecode
+%endif
 Requires: python2-ethtool >= 0.4
 BuildRequires: python2-devel
 Requires: python2-hwdata
@@ -171,7 +173,9 @@ BuildRequires: python2-rpm
 BuildRequires: python2-coverage
 %else
 Requires: rpm-python
+%if %{_arch} != s390x && %{_arch} != s390
 Requires: python-dmidecode
+%endif
 Requires: python-ethtool >= 0.4
 BuildRequires: python-devel
 Requires: python-hwdata
@@ -232,7 +236,9 @@ BuildRequires: python3-devel
 %endif
 
 Requires: python3-rpm
+%if %{_arch} != s390x && %{_arch} != s390
 Requires: python3-dmidecode
+%endif
 Requires: python3-netifaces
 Requires: python3-hwdata
 Requires: python3-rhnlib >= 2.5.78
