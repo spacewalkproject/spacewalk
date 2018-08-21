@@ -46,12 +46,6 @@ try:
 except ImportError:
     netifaces_present = False
 
-try:
-    import dmidecode
-    dmidecode_present = True
-except ImportError:
-    dmidecode_present = False
-
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 # Python 3 translations don't have a ugettext method
@@ -60,6 +54,7 @@ if not hasattr(t, 'ugettext'):
 _ = t.ugettext
 
 import dbus
+import dmidecode
 from up2date_client import up2dateLog
 
 try:
@@ -88,7 +83,7 @@ except ImportError:
 
 # this does not change, we can cache it
 _dmi_data           = None
-_dmi_not_available  = 0 if dmidecode_present else 1
+_dmi_not_available  = 0
 
 def dmi_warnings():
     if not hasattr(dmidecode, 'get_warnings'):
