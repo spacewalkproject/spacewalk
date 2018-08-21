@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.17
+Version: 2.9.18
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -966,6 +966,12 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Tue Aug 21 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.18-1
+- Revert "1617942 - drop dmidecode dependency on s390x" - Spacewalk is
+  supported on x86_64 only
+- Revert "1617942 - split into arch package" - Spacewalk is supported on x86_64
+  only
+
 * Thu Aug 16 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.17-1
 - 1617942 - split into arch package
 
