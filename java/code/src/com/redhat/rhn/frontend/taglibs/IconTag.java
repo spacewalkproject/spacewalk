@@ -81,7 +81,7 @@ public class IconTag extends TagSupport {
         icons.put("header-errata-add", "fa spacewalk-icon-patch-install");
         icons.put("header-errata-del", "fa spacewalk-icon-patch-remove");
         icons.put("header-errata-set", "fa spacewalk-icon-patch-set");
-        icons.put("header-errata-set-add", "fa pacewalk-icon-patchset-install");
+        icons.put("header-errata-set-add", "fa spacewalk-icon-patchset-install");
         icons.put("header-event-history", "fa fa-suitcase");
         icons.put("header-file", "fa fa-file-text-o");
         icons.put("header-folder", "fa fa-folder-open-o");
