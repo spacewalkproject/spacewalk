@@ -64,7 +64,7 @@ Archive and purge the audit-logging tables introduced with Spacewalk 2.0
     <varlistentry>
         <term>-l, --list </term>
         <listitem>
-            <para> List the current sizes of all *_log tables found in the Spacewalk database.</para>
+            <para> List the current number of records in all *_log tables found in the Spacewalk database.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
