@@ -439,6 +439,8 @@ class RepoSync(object):
                 if url.startswith("uln://"):
                     repo_type = "uln"
 
+                is_non_local_repo = (url.find("file:/") < 0)
+
                 repo_plugin = self.load_plugin(repo_type)
 
                 if repo_label:
@@ -489,7 +491,7 @@ class RepoSync(object):
                         self.import_groups(plugin)
                         if repo_type == "yum":
                             self.import_modules(plugin)
-                        ret = self.import_packages(plugin, repo_id, url)
+                        ret = self.import_packages(plugin, repo_id, is_non_local_repo)
                         failed_packages += ret
 
                     if not self.no_errata:
@@ -845,7 +847,7 @@ class RepoSync(object):
         elif notices:
             log(0, "    No new errata to sync.")
 
-    def import_packages(self, plug, source_id, url):
+    def import_packages(self, plug, source_id, is_non_local_repo):
         failed_packages = 0
         if (not self.filters) and source_id:
             h = rhnSQL.prepare("""
@@ -917,8 +919,6 @@ class RepoSync(object):
         else:
             log(0, "    Packages already synced:      %5d" % (num_passed - num_to_process))
             log(0, "    Packages to sync:             %5d" % num_to_process)
-
-        is_non_local_repo = (url.find("file:/") < 0)
 
         downloader = ThreadedDownloader()
         to_download_count = 0
