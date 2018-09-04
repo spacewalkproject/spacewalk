@@ -29,6 +29,9 @@ from up2date_client import up2dateAuth
 from up2date_client import rhnserver
 from up2date_client import up2dateLog
 
+encodestring = base64.encodestring
+if hasattr(base64, 'encodebytes'):
+    encodestring = base64.encodebytes
 
 def _readline(filepath):
     firstline = None
@@ -114,12 +117,12 @@ def report(problem_dir):
         crash_file_data = {'filename': os.path.basename(i),
                            'path': path,
                            'filesize': filesize,
-                           'filecontent': base64.encodestring(bstr("")),
+                           'filecontent': encodestring(bstr("")),
                            'content-encoding': 'base64'}
         if server.abrt.is_crashfile_upload_enabled(systemid) and filesize <= server.abrt.get_crashfile_uploadlimit(systemid):
             f = open(path, 'r')
             try:
-                crash_file_data['filecontent'] = base64.encodestring(bstr(f.read()))
+                crash_file_data['filecontent'] = encodestring(bstr(f.read()))
             finally:
                 f.close()
 
