@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.13
+Version: 2.9.14
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Sep 04 2018 Jan Dobes <jdobes@redhat.com> 2.9.14-1
+- 1624463 - add parser for kickstart directory on local FS
+- 1624463 - refactoring: modify common KSDirParser to KSDirHtmlParser
+- 1624463 - refactoring: get is_non_local_repo earlier
+
 * Fri Jul 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.13-1
 - don't try to chgrp stdout
 - Add a debug flag to the spacewalk-repo-sync utility
