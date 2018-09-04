@@ -110,6 +110,22 @@ class KSDirHtmlParser(KSDirParser):
                     self.dir_content.append({'name': s, 'type': file_type})
 
 
+class KSDirLocalParser(KSDirParser):
+    def __init__(self, base_dir, dir_name):
+        KSDirParser.__init__(self)
+        dir_path = os.path.join(base_dir, dir_name)
+        for dir_item in os.listdir(dir_path):
+            if not dir_item.endswith(".rpm"):
+                dir_item_path = os.path.join(dir_path, dir_item)
+                if os.path.isdir(dir_item_path):
+                    file_type = 'DIR'
+                    dir_item = "%s/" % dir_item
+                else:
+                    file_type = 'FILE'
+                if dir_item not in self.file_blacklist:
+                    self.dir_content.append({'name': dir_item, 'type': file_type})
+
+
 class TreeInfoError(Exception):
     pass
 
@@ -1400,7 +1416,10 @@ class RepoSync(object):
         log(0, "    Gathering all files in kickstart repository...")
         while dirs_queue:
             cur_dir_name = dirs_queue.pop(0)
-            parser = KSDirHtmlParser(plug, cur_dir_name)
+            if is_non_local_repo:
+                parser = KSDirHtmlParser(plug, cur_dir_name)
+            else:
+                parser = KSDirLocalParser(plug.repo.urls[0].replace("file://", ""), cur_dir_name)
             for ks_file in parser.get_content():
                 repo_path = cur_dir_name + ks_file['name']
                 if ks_file['type'] == 'DIR':
