@@ -8,8 +8,20 @@ Spacewalk
 
 Spacewalk is an open source Linux systems management solution.
 It is the upstream community project from which the [Red Hat
-Satellite][RedHatSatellite] and [SUSE Manager][SUSEManager] products
-are derived.
+Satellite 5][RedHatSatellite] and [SUSE Manager][SUSEManager] products
+are derived. 
+
+Spacewalk's capabilities include:
+
+  * Inventory your systems (hardware and software information)
+  * Install and update software on your systems
+  * Collect and distribute your custom software packages into manageable groups
+  * Provision (kickstart) your systems
+  * Manage and deploy configuration files to your systems
+  * Provision virtual guests
+  * Start/stop/configure virtual guests
+  * Distribute content across multiple geographical sites in an efficient manner
+
 For information on how to work with our source repository, please visit [the wiki download page][DownloadIt].
 
 Resources
