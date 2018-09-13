@@ -312,7 +312,7 @@ def getProxySetting():
         if proxyHost[:7] == "http://":
             proxyHost = proxyHost[7:]
         parts = proxyHost.split(':')
-        parts[0] = idn_ascii_to_puny(parts[0])
+        parts[0] = str(idn_ascii_to_puny(parts[0]))
         proxy = ':'.join(parts)
 
     return proxy
