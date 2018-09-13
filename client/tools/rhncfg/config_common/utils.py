@@ -32,7 +32,9 @@ from rhn.i18n import bstr
 
 hashlib_has_usedforsecurity = False
 
-if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
+if not hasattr(inspect, 'getfullargspec'):
+    inspect.getfullargspec = inspect.getargspec
+if 'usedforsecurity' in inspect.getfullargspec(hashlib.new)[0]:
     hashlib_has_usedforsecurity = True
 
 _normpath_re = re.compile("^(%s)+" % os.sep)

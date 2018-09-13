@@ -33,6 +33,9 @@ from config_common import utils
 from config_common.local_config import get as get_config
 from rhn.i18n import bstr, sstr
 
+decodestring = base64.decodestring
+if hasattr(base64, 'decodebytes'):
+    decodestring = base64.decodebytes
 
 class FileProcessor:
     file_struct_fields = {
@@ -77,7 +80,7 @@ class FileProcessor:
         contents = file_struct['file_contents']
 
         if contents and (encoding == 'base64'):
-            contents = base64.decodestring(bstr(contents))
+            contents = decodestring(bstr(contents))
 
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
@@ -222,8 +225,8 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            result = ''.join(diff(temp_file, path,
-                    display_diff=get_config('display_diff'), is_binary=file_struct['is_binary']))
+            result = ''.join(diff(temp_file, path, display_diff=get_config('display_diff'),
+                is_binary=True if file_struct['is_binary'] == 'Y' else False))
 
         if temp_file:
             os.unlink(temp_file)
@@ -240,7 +243,8 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False, is_binary=Fal
     def f_content(path, name, is_binary):
         statinfo = None
         if os.access(path, os.R_OK):
-            f = open(path, 'Ub' if is_binary else 'U')
+            f = open(path, ('rb' if is_binary else 'r') if int(sys.version[0]) == 3 else \
+                ('Ub' if is_binary else 'U'))
             content = f.readlines()
             f.close()
             statinfo = os.stat(path)
