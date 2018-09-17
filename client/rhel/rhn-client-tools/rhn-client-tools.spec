@@ -197,10 +197,6 @@ Requires(preun): python-minimal
 Requires(post): python-minimal
 %endif
 
-%if 0%{?fedora} >= 29
-BuildRequires: python-unversioned-command
-%endif
-
 # The following BuildRequires are for check only
 Requires: rhnlib >= 2.5.78
 
