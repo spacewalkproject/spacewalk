@@ -369,6 +369,7 @@ class CdnSync(object):
 
         if channel in self.kickstart_metadata:
             kickstart_trees = self.kickstart_metadata[channel]
+            excluded_urls.extend(self.cdn_repository_manager.excluded_urls)
 
         if self.no_kickstarts:
             kickstart_repos = self.cdn_repository_manager.get_content_sources_kickstart(channel)

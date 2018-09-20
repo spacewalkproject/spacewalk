@@ -34,6 +34,7 @@ class CdnRepositoryManager(object):
         self.local_mount_point = local_mount_point
         self.repository_tree = CdnRepositoryTree()
         self._populate_repository_tree(client_cert_id=client_cert_id)
+        self.excluded_urls = []
 
         f = None
         try:
@@ -145,7 +146,7 @@ class CdnRepositoryManager(object):
     def get_content_sources(self, channel_label, source=False):
         sources = self.get_content_sources_regular(channel_label, source=source)
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
-        return sources + kickstart_sources
+        return sources + sorted(kickstart_sources)
 
     def check_channel_availability(self, channel_label, no_kickstarts=False):
         """Checks if all repositories for channel are available."""
@@ -160,7 +161,12 @@ class CdnRepositoryManager(object):
 
         for source in sources:
             if not self.check_repository_availability(source['relative_url'], channel_label=channel_label):
-                return False
+                if source.get('ks_tree_label', None):
+                    # don't fail if kickstart is missing, just warn (bz1626797)
+                    log2(0, 0, "WARNING: kickstart tree '%s' is unavailable" % source['ks_tree_label'], stream=sys.stderr)
+                    self.excluded_urls.append(source['relative_url'])
+                else:
+                    return False
         return True
 
     def check_repository_availability(self, relative_url, channel_label=None):
