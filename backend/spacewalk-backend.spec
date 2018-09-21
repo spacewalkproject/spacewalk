@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.15
+Version: 2.9.16
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Sep 21 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.16-1
+- 1626797 - fixed line-too-long (build time failure)
+
 * Fri Sep 21 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.15-1
 - 1626797 - don't fail if kickstart is missing, just warn
 
