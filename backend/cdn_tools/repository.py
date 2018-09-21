@@ -163,7 +163,8 @@ class CdnRepositoryManager(object):
             if not self.check_repository_availability(source['relative_url'], channel_label=channel_label):
                 if source.get('ks_tree_label', None):
                     # don't fail if kickstart is missing, just warn (bz1626797)
-                    log2(0, 0, "WARNING: kickstart tree '%s' is unavailable" % source['ks_tree_label'], stream=sys.stderr)
+                    log2(0, 0, "WARNING: kickstart tree '%s' is unavailable" % source['ks_tree_label'],
+                         stream=sys.stderr)
                     self.excluded_urls.append(source['relative_url'])
                 else:
                     return False
