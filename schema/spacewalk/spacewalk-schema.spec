@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.9.6
+Version:        2.9.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Fri Sep 21 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.7-1
+- 1624826 - added kickstart distribution data for RHEL 8
+
 * Tue Jul 03 2018 Jan Dobes <jdobes@redhat.com> 2.9.6-1
 - Add kernel options (post) to KickstartableTree
 
