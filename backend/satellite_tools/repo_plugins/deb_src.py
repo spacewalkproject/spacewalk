@@ -62,7 +62,7 @@ class DebPackage(object):
 
 class DebRepo(object):
     # url example - http://ftp.debian.org/debian/dists/jessie/main/binary-amd64/
-    def __init__(self, url, cache_dir, pkg_dir):
+    def __init__(self, url, cache_dir, pkg_dir, proxy_a="", proxy_u="", proxy_p=""):
         self.url = url
         parts = url.split('/dists')
         self.base_url = [parts[0]]
@@ -71,7 +71,10 @@ class DebRepo(object):
             self.base_url[0] += '/'
         self.urls = self.base_url
         self.sslclientcert = self.sslclientkey = self.sslcacert = None
-        self.proxy = self.proxy_username = self.proxy_password = None
+        self.proxy = proxy_a
+        self.proxy_username = proxy_u
+        self.proxy_password = proxy_p
+
         self.basecachedir = cache_dir
         if not os.path.isdir(self.basecachedir):
             fileutils.makedirs(self.basecachedir, user='apache', group='apache')
@@ -83,7 +86,18 @@ class DebRepo(object):
     def _download(self, url):
         for _ in range(0, RETRIES):
             try:
-                data = requests.get(url, cert=(self.sslclientcert, self.sslclientkey), verify=self.sslcacert)
+                proxies=""
+                if self.proxy:
+                    proxies = {
+                        'http' : 'http://'+self.proxy,
+                        'https' : 'http://'+self.proxy
+                    }
+                    if self.proxy_username and self.proxy_password:
+                        proxies = {
+                            'http' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
+                            'https' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
+                        }
+                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert, self.sslclientkey), verify=self.sslcacert)
                 if not data.ok:
                     return ''
                 filename = self.basecachedir + '/' + os.path.basename(url)
@@ -190,7 +204,7 @@ class ContentSource(object):
         self.authtoken = None
 
         self.repo = DebRepo(url, os.path.join(CACHE_DIR, self.org, name),
-                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'))
+                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'), self.proxy_addr, self.proxy_user, self.proxy_pass)
 
         self.num_packages = 0
         self.num_excluded = 0
@@ -328,9 +342,9 @@ class ContentSource(object):
         params['checksum_type'] = checksum_type
         params['checksum'] = checksum_value
         params['bytes_range'] = bytes_range
-        params['proxy'] = self.repo.proxy
-        params['proxy_username'] = self.repo.proxy_username
-        params['proxy_password'] = self.repo.proxy_password
+        params['proxy'] = self.proxy_addr
+        params['proxy_username'] = self.proxy_user
+        params['proxy_password'] = self.proxy_pass
         params['http_headers'] = self.repo.http_headers
         # Older urlgrabber compatibility
         params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
