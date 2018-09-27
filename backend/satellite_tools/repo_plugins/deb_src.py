@@ -62,7 +62,7 @@ class DebPackage(object):
 
 class DebRepo(object):
     # url example - http://ftp.debian.org/debian/dists/jessie/main/binary-amd64/
-    def __init__(self, url, cache_dir, pkg_dir, proxy_a="", proxy_u="", proxy_p=""):
+    def __init__(self, url, cache_dir, pkg_dir, proxy_addr="", proxy_user="", proxy_pass=""):
         self.url = url
         parts = url.split('/dists')
         self.base_url = [parts[0]]
@@ -71,9 +71,9 @@ class DebRepo(object):
             self.base_url[0] += '/'
         self.urls = self.base_url
         self.sslclientcert = self.sslclientkey = self.sslcacert = None
-        self.proxy = proxy_a
-        self.proxy_username = proxy_u
-        self.proxy_password = proxy_p
+        self.proxy = proxy_addr
+        self.proxy_username = proxy_user
+        self.proxy_password = proxy_pass
 
         self.basecachedir = cache_dir
         if not os.path.isdir(self.basecachedir):
