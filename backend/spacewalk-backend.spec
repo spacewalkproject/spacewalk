@@ -24,7 +24,7 @@
 %global apache_pkg httpd
 %endif
 
-%if 0%{?suse_version}
+%if 0%{?suse_version} || 0%{?mageia}
 %{!?pylint_check: %global pylint_check 0}
 %global apacheconfd %{_sysconfdir}/apache2/conf.d
 %global apache_user wwwrun
