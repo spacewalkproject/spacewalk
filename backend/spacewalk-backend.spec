@@ -44,7 +44,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.18
+Version: 2.9.19
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -796,6 +796,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.19-1
+- use explicit version of python
+- python2 is not in default build root in Fedora 30+
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.18-1
 - fixed pylint error inconsistent-return-statements
 
