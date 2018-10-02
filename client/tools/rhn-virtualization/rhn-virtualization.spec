@@ -15,7 +15,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.75
+Version:        5.4.76
 Release:        1%{?dist}
 
 License:        GPLv2
@@ -275,6 +275,9 @@ fi
 %endif
 
 %changelog
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.76-1
+- removed old RHEL5 localvdsm which breaks build on mageia
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.75-1
 - fix build on opensuse
 - fix build on mageia
