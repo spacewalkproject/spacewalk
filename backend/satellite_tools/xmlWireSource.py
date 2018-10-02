@@ -79,7 +79,7 @@ class BaseWireSource:
 
         if self._cached_connection_params(handler, url, forcedYN=forcedYN):
             # Already cached
-            return
+            return None
 
         self._set_connection_params(handler, url)
 

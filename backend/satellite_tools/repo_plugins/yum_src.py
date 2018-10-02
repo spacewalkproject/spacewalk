@@ -413,7 +413,7 @@ class ContentSource(object):
                            ('+', includelist2), ... ]
         """
         if filters is None:
-            return
+            return []
 
         selected = []
         excluded = []
@@ -538,10 +538,11 @@ class ContentSource(object):
                 else:
                     return self.repo.grab.urlread(path)
             except URLGrabError:
-                return
+                return None
         finally:
             if os.path.exists(temp_file):
                 os.unlink(temp_file)
+        return None
 
     def repomd_up_to_date(self):
         repomd_old_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
@@ -586,11 +587,13 @@ class ContentSource(object):
             for sub_item in data_item:
                 if sub_item.tag.endswith("location"):
                     return sub_item.attrib.get("href")
+            return None
 
         def get_checksum(data_item):
             for sub_item in data_item:
                 if sub_item.tag.endswith("checksum"):
                     return sub_item.attrib.get("type"), sub_item.text
+            return None
 
         repomd_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
         if not os.path.isfile(repomd_path):

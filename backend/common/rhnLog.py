@@ -118,7 +118,7 @@ def initLOG(log_file="stderr", level=0):
     # At this point, LOG is None and log_file is not None
     # Get a new LOG
     LOG = rhnLog(log_file, level)
-    return 0
+    return
 
 # Convenient macro-type debugging function
 

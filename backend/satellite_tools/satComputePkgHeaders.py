@@ -102,6 +102,7 @@ class Runner:
         else:
             print("Rolling back")
             rhnSQL.rollback()
+        return 0
 
     def _get_packages(self):
         package_ids = {}

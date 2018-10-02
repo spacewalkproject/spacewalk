@@ -159,6 +159,7 @@ class TreeInfoParser(object):
                 for item in self.parser.items(section_name):
                     if item[0] == 'family':
                         return item[1]
+        return None
 
     def get_major_version(self):
         for section_name in self.parser.sections():
@@ -166,6 +167,7 @@ class TreeInfoParser(object):
                 for item in self.parser.items(section_name):
                     if item[0] == 'version':
                         return item[1].split('.')[0]
+        return None
 
     def get_package_dir(self):
         for section_name in self.parser.sections():
@@ -173,6 +175,7 @@ class TreeInfoParser(object):
                 for item in self.parser.items(section_name):
                     if item[0] == 'packagedir':
                         return item[1]
+        return None
 
     def get_addons(self):
         addons_dirs = []

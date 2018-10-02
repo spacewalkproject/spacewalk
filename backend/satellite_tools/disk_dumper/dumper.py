@@ -765,7 +765,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
     def set_iterator(self):
         if not self._channels:
             # Nothing to do
-            return
+            return []
 
         h = rhnSQL.prepare(self._query_list_channels)
         return QueryIterator(statement=h, params=self._channels)

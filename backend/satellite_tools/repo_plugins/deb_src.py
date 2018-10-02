@@ -248,7 +248,7 @@ class ContentSource(object):
                            ('+', includelist2), ... ]
         """
         if filters is None:
-            return
+            return []
 
         selected = []
         excluded = []

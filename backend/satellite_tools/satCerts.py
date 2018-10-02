@@ -110,7 +110,7 @@ def _checkCertMatch_rhnCryptoKey(cert, description, org_id, deleteRowYN=0,
             # match found, nothing to do
             if verbosity:
                 print("Nothing to do: certificate to be pushed matches certificate in database.")
-            return
+            return None
         # there can only be one (bugzilla: 120297)
         rhn_cryptokey_id = int(row['id'])
         # print 'found existing certificate - id:', rhn_cryptokey_id

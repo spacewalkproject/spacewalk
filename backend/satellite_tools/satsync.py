@@ -332,6 +332,7 @@ class Runner:
             # log2email(-1, msg) # redundant
             sendMail()
             return 1
+        return 0
 
     def _step_short(self):
         try:
