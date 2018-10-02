@@ -91,7 +91,7 @@ make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
 %endif
 
 %if 0%{?build_py3}
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhnpush
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' rhnpush
 install -d $RPM_BUILD_ROOT/%{python3_sitelib}
 make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
     MANDIR=%{_mandir} PYTHON_VERSION=%{python3_version}
