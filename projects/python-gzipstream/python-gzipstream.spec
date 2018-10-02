@@ -1,6 +1,4 @@
-%if ! (0%{?fedora} || 0%{?rhel} > 5)
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%endif
+%{!?python2_sitelib: %define python2_sitelib %{python_sitelib}}
 
 %if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
@@ -66,7 +64,7 @@ cd ../py3
 %endif
 
 %files -n python2-gzipstream
-%{python_sitelib}/*
+%{python2_sitelib}/*
 %doc html
 %license LICENSE
 
