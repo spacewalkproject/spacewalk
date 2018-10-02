@@ -26,12 +26,12 @@ import getpass
 # pylint: disable=W0702,W0703
 
 import inspect
+from rhnpush import rhnpush_cache
+from rhn.i18n import sstr
+from up2date_client import rhnserver
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from spacewalk.common.usix import raise_with_tb
-from up2date_client import rhnserver
-from rhn.i18n import sstr
-from rhnpush import rhnpush_cache
 
 if sys.version_info[0] == 3:
     import xmlrpc.client as xmlrpclib

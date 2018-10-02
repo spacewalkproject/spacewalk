@@ -31,7 +31,7 @@ def make_common_attr_equal(object1, object2):
     for attr in object1.__dict__.keys():
 
         # Make sure that the attribute name doesn't begin with "_"
-        if len(attr) < 1 or attr[0] == "_":
+        if not attr or attr[0] == "_":
             continue
 
         # Make sure that object2 has the attribute as well. and that it's not equal to ''.
