@@ -50,7 +50,7 @@ mkdir ../py3
 cp -a . ../py3
 
 %build
-%{__python} setup.py build
+%{__python}2 setup.py build
 %if 0%{?build_py3}
 cd ../py3
 %{__python3} setup.py build
@@ -58,7 +58,7 @@ cd ../py3
 %endif
 
 %install
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python}2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 %if 0%{?build_py3}
 cd ../py3
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix %{_usr}
