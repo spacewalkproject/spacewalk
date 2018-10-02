@@ -136,7 +136,7 @@ def main():
         if not options.channel:
             upload.die(1, "Must specify a channel for --list to work")
         upload.list()
-        return
+        return 0
 
     if options.dir and not options.stdin:
         upload.directory()
@@ -166,20 +166,20 @@ def main():
 
     if options.test:
         upload.test()
-        return
+        return 0
 
     if options.extended_test:
         upload.extended_test()
-        return
+        return 0
 
     if options.header:
         upload.uploadHeaders()
-        return
+        return 0
 
     ret = upload.packages()
     if ret != 0:
         return 1
-
+    return 0
 
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=E1101,W0201,W0632
@@ -466,7 +466,7 @@ class UploadClass(uploadLib.UploadClass):
 
         # self.channels is never None, it always has at least one entry with an empty string.
         if len(self.channels) == 1 and self.channels[0] == '':
-            return
+            return 0
         info = {
             'packages': channel_packages,
             'channels': self.channels
