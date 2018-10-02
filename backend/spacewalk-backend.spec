@@ -49,7 +49,7 @@ Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch: noarch
-Requires: python, rpm-python
+Requires: python2, rpm-python
 # /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
 Requires: /etc/rhn
 Requires: rhnlib >= 2.5.74
@@ -65,6 +65,7 @@ BuildRequires: spacewalk-python2-pylint
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
+BuildRequires: python2
 BuildRequires: python2-spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
