@@ -33,8 +33,8 @@ Support package for spacewalk koan interaction.
 %package -n python2-%{name}
 Summary: Support package for spacewalk koan interaction
 %{?python_provide:%python_provide python2-%{name}}
-BuildRequires:  python
-Requires:       python
+BuildRequires:  python2
+Requires:       python2
 %if 0%{?suse_version}
 # provide directories for filelist check in OBS
 BuildRequires: rhn-client-tools
@@ -71,11 +71,11 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
     MANDIR=%{_mandir}
 %endif
 
-%if 0%{?suse_version}
+%if 0%{?suse_version} && 0%{?build_py2}
 %py_compile -O %{buildroot}/%{python_sitelib}
-%if 0%{?build_py3}
-%py3_compile -O %{buildroot}/%{python3_sitelib}
 %endif
+%if 0%{?suse_version} && 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
 %endif
 
 
