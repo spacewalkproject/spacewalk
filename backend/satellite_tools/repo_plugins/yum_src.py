@@ -153,6 +153,8 @@ class ContentSource(object):
 
             if yb_cfg.has_section(self.name):
                 section_name = self.name
+            elif yb_cfg.has_section(channel_label):
+                section_name = channel_label
             elif yb_cfg.has_section('main'):
                 section_name = 'main'
 
@@ -231,7 +233,7 @@ class ContentSource(object):
             repo.copy_local = 1
 
         if self.proxy_addr:
-            repo.proxy = "http://%s" % self.proxy_addr
+            repo.proxy = self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
