@@ -81,7 +81,7 @@ make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
 %if 0%{?build_py3}
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' rhn-ssl-tool rhn-bootstrap
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' rhn-ssl-tool rhn-bootstrap
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
