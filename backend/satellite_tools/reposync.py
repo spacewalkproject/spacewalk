@@ -838,14 +838,16 @@ class RepoSync(object):
     def upload_updates(self, notices):
         batch = []
 
-        channel_advisory_names = self.list_errata()
+        advisory_update_date = self.list_update_dates()
         for notice in notices:
             notice = self.fix_notice(notice)
 
             # Save advisory names from all repositories
             self.all_errata.add(notice['update_id'])
 
-            if not self.force_all_errata and notice['update_id'] in channel_advisory_names:
+            update_date = advisory_update_date.get(notice['update_id'], '')
+            notice_updated = self._to_db_date(notice['updated'])
+            if not self.force_all_errata and notice_updated == update_date:
                 continue
 
             # pylint: disable=W0703
@@ -1242,6 +1244,8 @@ class RepoSync(object):
             ret = datetime.fromtimestamp(float(date)).isoformat(' ')
         else:
             # we expect to get ISO formated date
+            if len(date) == 10: # YYYY-MM-DD
+                date += " 00:00:00"
             ret = date
         return ret[:19]  # return 1st 19 letters of date, therefore preventing ORA-01830 caused by fractions of seconds
 
@@ -1306,6 +1310,18 @@ class RepoSync(object):
             ret['packages'].append(ipackage)
 
         return ret
+
+    def list_update_dates(self):
+        """List update_date for advisories in channel"""
+        h = rhnSQL.prepare("""select e.advisory_name,
+                                     cast(e.update_date as timestamp without time zone) as update_date
+            from rhnChannelErrata ce
+            inner join rhnErrata e on e.id = ce.errata_id
+            where ce.channel_id = :cid
+        """)
+        h.execute(cid=self.channel['id'])
+        advisories = dict((row['advisory_name'], str(row['update_date'])) for row in h.fetchall_dict() or [])
+        return advisories
 
     def list_errata(self):
         """List advisory names present in channel"""
