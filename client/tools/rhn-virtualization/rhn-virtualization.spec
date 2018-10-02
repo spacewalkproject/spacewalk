@@ -15,7 +15,7 @@
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
-Version:        5.4.74
+Version:        5.4.75
 Release:        1%{?dist}
 
 License:        GPLv2
@@ -282,6 +282,10 @@ fi
 %endif
 
 %changelog
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.75-1
+- fix build on opensuse
+- fix build on mageia
+
 * Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.74-1
 - get rid of #!/usr/bin/env .* shebang
 
