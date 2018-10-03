@@ -168,7 +168,11 @@ Requires: python2-ethtool >= 0.4
 BuildRequires: python2-devel
 Requires: python2-hwdata
 BuildRequires: python2-rpm
+%if 0%{?mageia}
+BuildRequires: python-coverage
+%else
 BuildRequires: python2-coverage
+%endif
 %else
 Requires: rpm-python
 Requires: python-dmidecode
