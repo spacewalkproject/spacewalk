@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.9.1
+Version:	2.9.2
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -117,6 +117,9 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- fix build on mageia
+
 * Thu May 10 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
 - require openscap-scanner on newer versions of RHEL
 - Bumping package versions for 2.9.
