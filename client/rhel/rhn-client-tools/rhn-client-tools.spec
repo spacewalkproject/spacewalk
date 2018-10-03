@@ -831,7 +831,7 @@ make -f Makefile.rhn-client-tools test
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
-%if 0%{?rhel} > 6 || 0%{?fedora} || 0%{?mageia}
+%if 0%{?rhel} > 6 || 0%{?fedora}
 %{_datadir}/icons/hicolor/22x22/apps/up2date.png
 %{_datadir}/icons/hicolor/256x256/apps/up2date.png
 %endif
