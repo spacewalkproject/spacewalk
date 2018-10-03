@@ -39,6 +39,8 @@
 %global python_prefix python
 %endif
 
+%define manzip %{?mageia:xz}%{!?mageia:gz}
+
 %global pythonrhnroot %{python_sitelib}/spacewalk
 
 Name: spacewalk-backend
@@ -466,7 +468,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,%{apache_group}) %dir %{rhnconfigdefaults}
 %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn.conf
 %attr(755,root,root) %{_bindir}/spacewalk-cfg-get
-%{_mandir}/man8/spacewalk-cfg-get.8.gz
+%{_mandir}/man8/spacewalk-cfg-get.8.%{manzip}
 # wsgi stuff
 %dir %{rhnroot}/wsgi
 %{rhnroot}/wsgi/__init__.py*
