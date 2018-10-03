@@ -9,8 +9,8 @@
 
 %global build_py2   1
 
-%if %{_vendor} == "debbuild"
 %{!?_presetdir:%global _presetdir /lib/systemd/system-preset}
+%if %{_vendor} == "debbuild"
 # Bash constructs in scriptlets don't play nice with Debian's default shell, dash
 %global _buildshell /bin/bash
 %endif
