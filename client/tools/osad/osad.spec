@@ -223,7 +223,7 @@ SELinux policy module supporting osa-dispatcher.
 cp prog.init.SUSE prog.init
 %endif
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
-sed -i 's@^#!/usr/bin/python$@#!/usr/bin/python -s@' invocation.py
+sed -i 's@^#!/usr/bin/python2$@#!/usr/bin/python2 -s@' invocation.py
 %endif
 
 %build
@@ -252,7 +252,7 @@ make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_
 %if 0%{?build_py3}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version}
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad-%{python3_version}
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad-%{python3_version}
 %endif
 
 %define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
