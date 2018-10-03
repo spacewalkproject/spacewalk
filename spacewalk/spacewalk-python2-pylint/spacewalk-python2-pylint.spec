@@ -1,5 +1,5 @@
 Name:		spacewalk-python2-pylint
-Version:	2.9.0
+Version:	2.9.1
 Release:	1%{?dist}
 Summary:	Pylint configuration for python2 spacewalk python packages
 
@@ -72,6 +72,10 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.1-1
+- fix build on mageia
+- Bumping package versions for 2.9.
+
 * Mon Feb 12 2018 Eric Herget <eherget@redhat.com> 2.8.6-1
 - fix manpage
 
