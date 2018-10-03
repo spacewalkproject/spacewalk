@@ -31,7 +31,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.104
+Version: 5.11.105
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -537,6 +537,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.105-1
+- disable selinux on mageia
+
 * Wed Jul 25 2018 Tomas Kasparek <tkasparek@redhat.com> 5.11.104-1
 - remove TLSv1 hardcode and let client/server negotiate
 
