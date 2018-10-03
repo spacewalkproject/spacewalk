@@ -3,7 +3,7 @@
 %global default_py3 1
 %endif
 
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8 || 0%{?mageia}
 %global py3_deps   1
 %endif
 
