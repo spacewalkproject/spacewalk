@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.24
+Version: 2.9.25
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -970,6 +970,9 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.25-1
+- dbus package has different name in mageia
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.24-1
 - mageia does not provice 22x22 and 256x256 icons
 
