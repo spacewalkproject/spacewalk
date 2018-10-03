@@ -154,11 +154,15 @@ Requires: newt-python
 Requires: dbus-1-python
 Requires: python-newt
 %else
+%if 0%{?mageia}
+Requires: python-dbus
+%else
 %if 0%{?py3_deps}
 Requires: python2-dbus
 %else
 Requires: dbus-python
 %endif
+%endif # 0%{?mageia}
 %endif # 0%{?suse_version}
 
 %if 0%{?py3_deps}
