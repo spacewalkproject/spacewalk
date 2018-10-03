@@ -40,7 +40,7 @@
 %endif
 
 Name: rhncfg
-Version: 5.10.126
+Version: 5.10.127
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -426,6 +426,10 @@ py3clean -p python3-%{name}-actions
 %endif
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.127-1
+- fix build on mageia
+- 1622961 - avoid deprecated fucntions when running on python3
+
 * Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.126-1
 - client, usix: Rework how client packaging is done for Debian/Ubuntu
 
