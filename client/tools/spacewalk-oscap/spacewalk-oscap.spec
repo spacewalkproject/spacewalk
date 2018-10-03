@@ -18,7 +18,11 @@ License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:	noarch
-BuildRequires:  libxslt
+%if 0%{?mageia}
+BuildRequires: lib64xslt1
+%else
+BuildRequires: libxslt
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 8
 Requires: openscap-utils
 %else

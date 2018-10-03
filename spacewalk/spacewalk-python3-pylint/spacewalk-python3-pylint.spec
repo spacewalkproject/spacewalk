@@ -18,7 +18,11 @@ Requires:	python3-pylint < 1.0
 %endif
 %endif
 BuildRequires:	asciidoc
-BuildRequires:	libxslt
+%if 0%{?mageia}
+BuildRequires: lib64xslt1
+%else
+BuildRequires: libxslt
+%endif
 %if 0%{?rhel} && 0%{?rhel} < 6
 BuildRequires:	docbook-style-xsl
 %endif
