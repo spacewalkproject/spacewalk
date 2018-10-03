@@ -19,7 +19,7 @@ URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 %if 0%{?mageia}
-BuildRequires: lib64xslt1
+BuildRequires: xsltproc
 %else
 BuildRequires: libxslt
 %endif
