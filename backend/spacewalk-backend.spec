@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.20
+Version: 2.9.21
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.21-1
+- mageia uses xz to compress man pages
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.20-1
 - fix build on mageia
 
