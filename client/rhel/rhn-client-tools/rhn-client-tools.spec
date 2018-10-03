@@ -489,7 +489,7 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} \
         PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} %{?is_deb:PLATFORM=deb}
 %endif
 %if 0%{?build_py3}
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py test/*.py
 make -f Makefile.rhn-client-tools %{?is_deb:PLATFORM=deb}
 for g in data/*.glade ; do
         mv $g $g.old

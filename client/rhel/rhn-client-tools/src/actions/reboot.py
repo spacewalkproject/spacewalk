@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 # Client code for Update Agent
 # Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.

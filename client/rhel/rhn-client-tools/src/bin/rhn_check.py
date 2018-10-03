@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Python client for checking periodically for posted actions
 # on the Spacewalk servers.

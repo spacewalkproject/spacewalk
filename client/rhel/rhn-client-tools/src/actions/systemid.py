@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Copyright (c) 1999--2012 Red Hat, Inc.  Distributed under GPLv2.
 #
