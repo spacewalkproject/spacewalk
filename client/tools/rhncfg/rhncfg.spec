@@ -2,7 +2,7 @@
 %global rhnconf %{_sysconfdir}/sysconfig/rhn
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
-%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
 %global build_py3   1
 %global default_py3 1
 %endif
