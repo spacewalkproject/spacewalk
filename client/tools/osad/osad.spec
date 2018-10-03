@@ -31,7 +31,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.105
+Version: 5.11.106
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -537,6 +537,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.106-1
+- use explicit version of python
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.11.105-1
 - disable selinux on mageia
 
