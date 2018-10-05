@@ -359,7 +359,7 @@ Python 2 specific files for rhn-setup.
 Summary: Configure and register an RHN/Spacewalk client
 %{?python_provide:%python_provide python3-rhn-setup}
 Requires: rhn-setup = %{version}-%{release}
-%if 0%{?mageia} || 0%{?debian} || 0%{?ubuntu}
+%if 0%{?mageia} || 0%{?debian} || 0%{?ubuntu} || 0%{?suse_version} >= 1140
 Requires: python3-newt
 %else
 Requires: newt-python3
