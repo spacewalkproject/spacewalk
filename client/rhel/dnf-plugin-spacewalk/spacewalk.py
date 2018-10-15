@@ -242,7 +242,13 @@ class  SpacewalkRepo(dnf.repo.Repo):
         else:
             self.disable()
 
-    def add_http_headers(self, handle):
+        if hasattr(self, '_repo'):
+            # dnf > 3.6.0
+            http_headers = self.create_http_headers()
+            if http_headers:
+                self._repo.setHttpHeaders(http_headers)
+
+    def create_http_headers(self):
         http_headers = []
         for header in self.needed_headers:
             if not header in self.login_info:
@@ -257,12 +263,15 @@ class  SpacewalkRepo(dnf.repo.Repo):
                 http_headers.append("%s: %s" % (header, self.login_info[header]))
         if not self.force_http:
             http_headers.append("X-RHN-Transport-Capability: follow-redirects=3")
-        if http_headers:
-            handle.setopt(librepo.LRO_HTTPHEADER, http_headers)
+
+        return http_headers
 
     def _handle_new_remote(self, destdir, mirror_setup=True):
+        # this function is called only on dnf < 3.6.0 (up to Fedora 29)
         handle = super(SpacewalkRepo, self)._handle_new_remote(destdir, mirror_setup)
-        self.add_http_headers(handle)
+        http_headers = self.create_http_headers()
+        if http_headers:
+            handle.setopt(librepo.LRO_HTTPHEADER, http_headers)
         return handle
 
 
