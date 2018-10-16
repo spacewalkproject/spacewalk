@@ -5,7 +5,7 @@ else
     interpreter=/usr/bin/python
 fi
 
-cat << EOF | $interpreter
+cat << EOF | \${interpreter}
 
 try:  # python 2
     import xmlrpclib
