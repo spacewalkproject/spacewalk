@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.9.3
+Version: 2.9.4
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -110,6 +110,10 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Tue Oct 16 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.4-1
+- spec cleanup (no more builds on Fedora <= 25)
+- fixed plugin for dnf > 3.6.0
+
 * Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
 - client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
 
