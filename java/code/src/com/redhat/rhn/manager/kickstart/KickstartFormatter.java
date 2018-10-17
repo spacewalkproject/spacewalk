@@ -105,6 +105,8 @@ public class KickstartFormatter {
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
     {"rhn_register", "up2date", "rhn_register-gnome", "up2date-gnome"};
+    public static final String[] FRESH_PKG_NAMES_RHEL8 =
+    {"rhn-client-tools", "rhnsd", "dnf-plugin-spacewalk", "rhnlib", "spacewalk-koan"};
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
     private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
@@ -586,7 +588,7 @@ public class KickstartFormatter {
         }
 
         // packages necessary for RHEL 7 and Fedora
-        if (this.ksdata.isRhel7() || this.ksdata.isFedora()) {
+        if (this.ksdata.isRhel7OrGreater() || this.ksdata.isFedora()) {
             buf.append("perl" + NEWLINE);
             buf.append("wget" + NEWLINE);
             buf.append("rhn-setup" + NEWLINE);
