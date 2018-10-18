@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.21
+Version: 2.9.22
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Thu Oct 18 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.22-1
+- 1640156 - correctly recognize Nutanix AHV as virtual guest
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.21-1
 - mageia uses xz to compress man pages
 
