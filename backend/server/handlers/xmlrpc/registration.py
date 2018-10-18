@@ -94,6 +94,8 @@ def parse_smbios(smbios):
         if uuid is None:
             uuid = "flex-guest"
         return (rhnVirtualization.VirtualizationType.VIRTAGE, uuid)
+    elif manufacturer == 'Nutanix' and product == 'AHV' and uuid is not None:
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     else:
         return (None, None)
 
