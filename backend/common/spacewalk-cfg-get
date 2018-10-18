@@ -1,4 +1,4 @@
-#!/usr/bin/python22
+#!/usr/bin/python2
 
 import sys
 from spacewalk.common.rhnConfig import RHNOptions
