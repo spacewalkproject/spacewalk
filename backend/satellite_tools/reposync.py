@@ -1317,13 +1317,13 @@ class RepoSync(object):
     def list_update_dates(self):
         """List update_date for advisories in channel"""
         h = rhnSQL.prepare("""select e.advisory_name,
-                                     cast(e.update_date as timestamp without time zone) as update_date
+                                     e.update_date
             from rhnChannelErrata ce
             inner join rhnErrata e on e.id = ce.errata_id
             where ce.channel_id = :cid
         """)
         h.execute(cid=self.channel['id'])
-        advisories = dict((row['advisory_name'], str(row['update_date'])) for row in h.fetchall_dict() or [])
+        advisories = dict((row['advisory_name'], row['update_date'].strftime("%Y-%m-%d %H:%M:%S")) for row in h.fetchall_dict() or [])
         return advisories
 
     def list_errata(self):
