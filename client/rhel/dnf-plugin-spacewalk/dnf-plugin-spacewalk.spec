@@ -50,6 +50,7 @@ Summary: DNF plugin for Spacewalk
 BuildRequires: python3-devel
 Requires: %{name} = %{version}-%{release}
 Requires: python3-rhn-client-tools >= 2.8.4
+Requires: python3-librepo
 
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
