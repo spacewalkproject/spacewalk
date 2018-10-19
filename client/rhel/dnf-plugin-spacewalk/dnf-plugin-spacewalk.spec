@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.9.4
+Version: 2.9.5
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Fri Oct 19 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
+- librepo dependency is not added automatically
+
 * Tue Oct 16 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.4-1
 - spec cleanup (no more builds on Fedora <= 25)
 - fixed plugin for dnf > 3.6.0
