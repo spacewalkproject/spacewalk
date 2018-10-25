@@ -14,7 +14,7 @@ Summary: Spacewalk plugin for Advanced Packaging Tool
 Packager: Spacewalk Project <spacewalk-devel@redhat.com>
 Group: admin
 %endif
-Version: 1.0.14
+Version: 1.0.15
 Release: 1%{?dist}
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
@@ -107,6 +107,10 @@ esac
 %endif
 
 %changelog
+* Thu Oct 25 2018 Tomas Kasparek <tkasparek@redhat.com> 1.0.15-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+- Move apt-spacewalk to the client/debian/ directory
+
 * Mon Jun 18 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.14-1
 - client/debian: Port apt-spacewalk to be Python 3 ready
 
