@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.25
+Version: 2.9.26
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -970,6 +970,9 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Thu Oct 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.26-1
+- Fix wrong python3-newt dependency name for SUSE
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.25-1
 - dbus package has different name in mageia
 
