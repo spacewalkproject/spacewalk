@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.9.5
+Version:	2.9.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Thu Oct 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.6-1
+- Missing square bracket
+
 * Wed Aug 22 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.5-1
 - make spacewalk-archive-audits help more intuitive
 
