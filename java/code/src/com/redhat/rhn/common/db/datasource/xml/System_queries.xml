@@ -2305,7 +2305,7 @@ DELETE FROM rhnServerCustomDataValue
 
 <callable-mode name="bulk_set_custom_values">
     <query params="key_label, value, set_label, user_id">
-    { call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id) }
+    {:retval = call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id)}
     </query>
 </callable-mode>
 
