@@ -20,6 +20,7 @@ import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
@@ -416,6 +417,15 @@ public class KickstartHelper {
         if (!ksdata.isRhel8()) {
             return true;
         }
+
+        // is AppStream "addon" enabled?
+        for (RepoInfo repo : ksdata.getRepoInfos()) {
+            if (repo.getName().equals("AppStream")) {
+                return true;
+            }
+        }
+
+        // does a child channel contain needed packages?
         Channel channel = ksdata.getChannel();
         Set<Channel> channelsToCheck = ksdata.getChildChannels();
         channelsToCheck.add(channel);
