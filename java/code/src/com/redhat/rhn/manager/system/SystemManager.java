@@ -3170,12 +3170,19 @@ public class SystemManager extends BaseManager {
             String value) {
         CallableMode mode = ModeFactory.getCallableMode("System_queries",
                 "bulk_set_custom_values");
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
         params.put("key_label", keyLabel);
         params.put("value", value);
-        mode.execute(params, new HashMap<String, Integer>());
+
+        Map<String, Integer> out = new HashMap<String, Integer>();
+        out.put("retval", new Integer(Types.NUMERIC));
+
+        Map<String, Object> result = mode.execute(params, out);
+        Long retval = (Long) result.get("retval");
+        log.debug("bulk_set_custom_value returns: " + retval.intValue());
     }
 
     /**
