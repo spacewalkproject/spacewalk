@@ -145,6 +145,15 @@ public class RepoInfo {
     }
 
     /**
+     * Gets the RepoInfo for the AppStream repo
+     * @return the RepoInfo for the AppStream repo
+     */
+    public static RepoInfo appstream() {
+        String name = "AppStream";
+        return create(name, "");
+    }
+
+    /**
      * Returns all the standard addon repos available to RHEL
      * @param tree the kickstartable tree
      * @return the standard repos..

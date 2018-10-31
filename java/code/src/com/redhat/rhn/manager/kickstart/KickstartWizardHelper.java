@@ -204,6 +204,14 @@ public class KickstartWizardHelper {
                 ksdata.setRepoInfos(repos);
             }
         }
+        else if (ksdata.isRhel8()) {
+            Set<RepoInfo> repos = ksdata.getRepoInfos();
+            RepoInfo appstream = RepoInfo.appstream();
+            if (!repos.contains(appstream)) {
+                repos.add(appstream);
+                ksdata.setRepoInfos(repos);
+            }
+        }
         else {
             ksdata.removeCommand("repo", false);
         }
