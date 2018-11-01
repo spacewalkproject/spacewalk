@@ -363,7 +363,7 @@ public class ConfigSystemDto extends BaseDto {
      * @return Whether enabling was a success.
      */
     public boolean isSuccess() {
-        return errorCode == null || errorCode.intValue() != ConfigurationManager.ENABLE_SUCCESS;
+        return errorCode == null || errorCode.intValue() == ConfigurationManager.ENABLE_SUCCESS;
     }
 
     /**
