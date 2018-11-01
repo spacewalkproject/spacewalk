@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.27
+Version: 2.9.28
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Thu Nov 01 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.28-1
+- 1640999 - fix status icons
+- 1640999 - show correct name of the channel provididing rhncfg* packages
+
 * Thu Nov 01 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.27-1
 - 1624837 - suppress warning if AppStream addon is enabled
 - 1624837 - enable appstream by default
