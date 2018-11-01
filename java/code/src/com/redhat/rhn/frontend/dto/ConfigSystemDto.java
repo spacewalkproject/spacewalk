@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.dto;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class ConfigSystemDto extends BaseDto {
     private int results;
     private Integer errorCode;
     private boolean rhnTools;
+    private boolean appStream;
     private Date modified;
 
     //when dealing with single revisions for systems
@@ -136,8 +139,13 @@ public class ConfigSystemDto extends BaseDto {
         return rhnTools;
     }
 
-
-
+    /**
+     * Whether the system is subscribed to an AppStream channel
+     * @return Returns the AppStream
+     */
+    public boolean isAppStream() {
+        return appStream;
+    }
 
 
     /**
@@ -145,6 +153,13 @@ public class ConfigSystemDto extends BaseDto {
      */
     public void setRhnTools(String rhnToolsIn) {
         this.rhnTools = rhnToolsIn.equalsIgnoreCase("Y");
+    }
+
+    /**
+     * @param appStreamIn the AppStrem to set.
+     */
+    public void setAppStream(String appStreamIn) {
+        this.appStream = appStreamIn.equalsIgnoreCase("Y");
     }
 
 
@@ -312,7 +327,13 @@ public class ConfigSystemDto extends BaseDto {
         }
         LocalizationService ls = LocalizationService.getInstance();
         List actions = new ArrayList();
-        displayHelper(actions, rhnTools, ls, "subscribetools");
+        Server server = ServerFactory.lookupById(id);
+        if (server.getOs().startsWith("redhat-release") && server.getRelease().startsWith("8")) {
+            displayHelper(actions, appStream, ls, "subscribeappstream");
+        }
+        else {
+            displayHelper(actions, rhnTools, ls, "subscribetools");
+        }
         displayHelper(actions, rhncfg != NEEDED, ls, "installcfg");
         displayHelper(actions, rhncfgActions != NEEDED, ls, "installcfgactions");
         displayHelper(actions, rhncfgClient != NEEDED, ls, "installcfgclient");
@@ -362,6 +383,8 @@ public class ConfigSystemDto extends BaseDto {
                 return ls.getMessage("summary.jsp.rhntools");
             case ConfigurationManager.ENABLE_ERROR_PACKAGES:
                 return ls.getMessage("summary.jsp.packages");
+            case ConfigurationManager.ENABLE_ERROR_APPSTREAM:
+                return ls.getMessage("summary.jsp.appstream");
             default:
                 return "";
         }

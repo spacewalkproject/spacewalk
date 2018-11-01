@@ -11651,6 +11651,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="targetsystems.jsp.subscribetools">
           <source>Subscribe to RHN Tools channel</source>
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
         </trans-unit>
@@ -11704,6 +11707,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </trans-unit>
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>

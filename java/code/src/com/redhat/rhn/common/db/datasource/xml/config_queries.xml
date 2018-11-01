@@ -428,7 +428,12 @@ SELECT  S.id,
                  FROM  rhnServerChannel SC, rhnChannel C
                 WHERE  S.id = SC.server_id
                   AND  SC.channel_id = C.id
-                  AND  C.label like 'rhn-tools%') is not null then 'Y' else 'N' end AS rhn_tools
+                  AND  C.label like 'rhn-tools%') is not null then 'Y' else 'N' end AS rhn_tools,
+        case when (SELECT  DISTINCT 1
+                 FROM  rhnServerChannel SC, rhnChannel C
+                WHERE  S.id = SC.server_id
+                  AND  SC.channel_id = C.id
+                  AND  C.label like '%appstream%') is not null then 'Y' else 'N' end AS app_stream
   FROM  rhnServer S
  WHERE  S.id IN (%s)
 </query>

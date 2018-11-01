@@ -87,9 +87,13 @@ public class EnableConfigHelper {
 
     private int enableSystem(ConfigSystemDto dto, Server current, Date earliest) {
         //subscribe the system to RhnTools child channel if they need it.
-        if (!dto.isRhnTools()) {
+        boolean canAppstream =  current.getOs().startsWith("redhat-release") && current.getRelease().startsWith("8");
+        if (!dto.isRhnTools() || (canAppstream && !dto.isAppStream())) {
             if (ChannelManager.subscribeToChildChannelWithPackageName(user, current,
                     ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME) == null) {
+                if (canAppstream) {
+                    return ConfigurationManager.ENABLE_ERROR_APPSTREAM;
+                }
                 return ConfigurationManager.ENABLE_ERROR_RHNTOOLS;
             }
         }
