@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.26
+Version: 2.9.27
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,6 +798,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Nov 02 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.27-1
+- Changed 'cp' parameters to work with the symlinks files.
+
 * Fri Nov 02 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.26-1
 - more meaningful variable names
 - Fixes proxy support for deb repos
