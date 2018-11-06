@@ -15,7 +15,7 @@ BuildArch:   noarch
 %if 0%{?build_py3}
 BuildRequires: python3-devel
 Requires: python3-rhnlib
-Requires: python3-pygpgme
+Requires: python3-gpg
 %else
 BuildRequires: python-devel
 Requires: rhnlib >= 2.8.4
