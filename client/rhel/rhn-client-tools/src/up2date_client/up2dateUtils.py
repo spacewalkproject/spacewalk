@@ -38,8 +38,9 @@ else:
             SYSRELVER = 'system-release(releasever)'
             version = sstr(h['version'])
             release = sstr(h['release'])
-            if SYSRELVER in h['providename']:
-                provides = dict(zip(h['providename'], h['provideversion']))
+            if SYSRELVER in (sstr(provide) for provide in h['providename']):
+                provides = dict((sstr(n), sstr(v))
+                                for n,v in zip(h['providename'], h['provideversion']))
                 release = '%s-%s' % (version, release)
                 version = provides[SYSRELVER]
             osVersionRelease = (sstr(h['name']), version, release)
@@ -49,8 +50,9 @@ else:
                 SYSRELVER = 'system-release(releasever)'
                 version = sstr(h['version'])
                 release = sstr(h['release'])
-                if SYSRELVER in h['providename']:
-                    provides = dict(zip(h['providename'], h['provideversion']))
+                if SYSRELVER in (sstr(provide) for provide in h['providename']):
+                    provides = dict((sstr(n), sstr(v))
+                                    for n,v in zip(h['providename'], h['provideversion']))
                     release = '%s-%s' % (version, release)
                     version = provides[SYSRELVER]
                 osVersionRelease = (sstr(h['name']), version, release)
