@@ -256,7 +256,7 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False, is_binary=Fal
             f_time = time.ctime(0)
         if not name:
             name = path
-        return (str(content), name, f_time, statinfo)
+        return (content, name, f_time, statinfo)
 
     (src_content, src_name, src_time, src_stat) = f_content(src, srcname, is_binary)
     (dst_content, dst_name, dst_time, dst_stat) = f_content(dst, dstname, is_binary)
