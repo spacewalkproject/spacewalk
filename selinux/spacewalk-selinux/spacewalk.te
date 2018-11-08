@@ -9,6 +9,7 @@ policy_module(spacewalk,@@VERSION@@)
 gen_tunable(spacewalk_nfs_mountpoint,false)
 
 require {
+    type etc_t;
 	type httpd_t;
 	type tomcat_t;
 	type restorecon_t;
@@ -18,6 +19,7 @@ require {
 	type system_mail_t;
 	type nfs_t;
 	type rpm_var_lib_t;
+	type sudo_exec_t;
 }
 
 type spacewalk_install_log_t;
@@ -145,3 +147,19 @@ optional_policy(`
         ')
         allow tomcat_t cobbler_tmp_t:dir { search };
 ')
+
+# Allow tomcat/httpd to run sudo /usr/bin/rhn-config-satellite.pl successfully.
+allow tomcat_t self:capability { audit_write chown sys_resource };
+allow httpd_t self:capability { audit_write chown sys_resource };
+
+allow tomcat_t self:process setrlimit;
+allow httpd_t self:process setrlimit;
+
+allow tomcat_t sudo_exec_t:file { execute execute_no_trans open read };
+allow httpd_t sudo_exec_t:file { execute execute_no_trans open read };
+
+allow tomcat_t etc_t:file { create link rename setattr unlink write };
+allow httpd_t etc_t:file { create link rename setattr unlink write };
+
+allow tomcat_t etc_t:dir { add_name remove_name write };
+allow httpd_t etc_t:dir { add_name remove_name write };
