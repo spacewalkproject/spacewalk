@@ -97,7 +97,8 @@ class DebRepo(object):
                             'http' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
                             'https' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
                         }
-                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert, self.sslclientkey), verify=self.sslcacert)
+                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert,
+                                    self.sslclientkey), verify=self.sslcacert)
                 if not data.ok:
                     return ''
                 filename = self.basecachedir + '/' + os.path.basename(url)
@@ -204,7 +205,8 @@ class ContentSource(object):
         self.authtoken = None
 
         self.repo = DebRepo(url, os.path.join(CACHE_DIR, self.org, name),
-                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'), self.proxy_addr, self.proxy_user, self.proxy_pass)
+                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'),
+                            self.proxy_addr, self.proxy_user, self.proxy_pass)
 
         self.num_packages = 0
         self.num_excluded = 0
