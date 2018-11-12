@@ -97,8 +97,8 @@ class DebRepo(object):
                             'http' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
                             'https' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
                         }
-                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert,
-                                    self.sslclientkey), verify=self.sslcacert)
+                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert, self.sslclientkey),
+                                    verify=self.sslcacert)
                 if not data.ok:
                     return ''
                 filename = self.basecachedir + '/' + os.path.basename(url)
