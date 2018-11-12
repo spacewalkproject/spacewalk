@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.28
+Version: 2.9.29
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -798,7 +798,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
-* Mon Nov 12 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.28-1
+* Mon Nov 12 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.29-1
 - fixed pylint errors
 
 * Fri Nov 02 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.27-1
