@@ -28,6 +28,7 @@ AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
 %if 0%{?fedora} >= 29
 BuildRequires: python2-devel
+BuildRequires: gcc
 %global __python %{__python2}
 %else
 BuildRequires: python-devel
