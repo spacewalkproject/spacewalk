@@ -48,6 +48,7 @@ def do_filepreservation_list(self, args, doreturn=False):
     else:
         if lists:
             print('\n'.join(sorted(lists)))
+    return None
 
 ####################
 
