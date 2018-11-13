@@ -3,11 +3,7 @@
 %global rhnconf %{_sysconfdir}/rhn
 %global m2crypto m2crypto
 
-%if 0%{?rhel} && 0%{?rhel} < 6
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-%endif
-
-%if 0%{?fedora} >= 23 || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8
 %{!?python3_sitelib: %global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %global python3rhnroot %{python3_sitelib}/spacewalk
 %global build_py3 1
@@ -58,7 +54,7 @@ Requires: rhnlib >= 2.5.74
 # for Debian support
 Requires: %{python_prefix}-debian
 Requires: %{name}-libs >= 1.1.16-1
-%if 0%{?rhel} > 5
+%if 0%{?rhel}
 Requires: pyliblzma
 %endif
 %if 0%{?pylint_check}
@@ -69,7 +65,7 @@ BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
 BuildRequires: python2
 BuildRequires: python2-spacewalk-usix
-%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version} > 1310
+%if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: python2-rhn-client-tools
 BuildRequires: rpm-python
@@ -319,7 +315,7 @@ Requires: rhnlib  >= 2.5.57
 Requires: python2-spacewalk-usix
 Requires: python-requests
 Requires: %{m2crypto}
-%if 0%{?fedora} || 0%{?rhel} > 5
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires: python-requests
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
