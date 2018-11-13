@@ -501,12 +501,14 @@ def get_errata_names(self):
 def get_erratum_id(self, name):
     if name in self.all_errata:
         return self.all_errata[name]['id']
+    return None
 
 
 def get_erratum_name(self, erratum_id):
     for erratum in self.all_errata:
         if self.all_errata[erratum]['id'] == erratum_id:
             return erratum
+    return None
 
 
 def generate_errata_cache(self, force=False):
@@ -638,7 +640,7 @@ def get_package_id(self, name):
     try:
         return set(self.all_packages[name])
     except KeyError:
-        return
+        return None
 
 
 def get_package_name(self, package_id):
@@ -647,7 +649,7 @@ def get_package_name(self, package_id):
     try:
         return self.all_packages_by_id[package_id]
     except KeyError:
-        return
+        return None
 
 
 def clear_system_cache(self):
@@ -795,7 +797,7 @@ def get_system_name(self, system_id):
     try:
         return self.all_systems[system_id]
     except KeyError:
-        return
+        return None
 
 
 def get_org_id(self, name):
@@ -888,7 +890,7 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
     if system:
         system_id = self.get_system_id(system)
         if not system_id:
-            return
+            return None
 
         if subscribed:
             channels = \
