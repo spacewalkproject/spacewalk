@@ -317,6 +317,7 @@ def do_org_list(self, args, doreturn=False):
     else:
         if orgs:
             print('\n'.join(sorted(orgs)))
+    return None
 
 ####################
 
@@ -429,6 +430,7 @@ def complete_org_setsystementitlements(self, text, line, beg, end):
 
     if len(parts) == 2:
         return tab_completer(self.do_org_list('', True), text)
+    return None
 
 
 def do_org_setsystementitlements(self, args):
