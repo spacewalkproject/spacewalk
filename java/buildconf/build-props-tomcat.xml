@@ -1,6 +1,10 @@
 <project name="build-props-tomcat7">
 
     <condition property="tomcat-jars"
+               value="tomcat tomcat-jsp-2.3-api tomcat-servlet-4.0-api tomcat-el-3.0-api" >
+               <available file="${java.lib.dir}/tomcat-servlet-4.0-api.jar" />
+    </condition>
+    <condition property="tomcat-jars"
                value="tomcat tomcat-jsp-2.3-api tomcat-servlet-3.1-api tomcat-el-3.0-api"
                else="tomcat tomcat-jsp-2.2-api tomcat-servlet-3.0-api tomcat-el-2.2-api" >
                <available file="${java.lib.dir}/tomcat-jsp-2.3-api.jar" />
