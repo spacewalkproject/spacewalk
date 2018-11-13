@@ -56,6 +56,9 @@ Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Patch8:         %{name}-Makefile-linux-arm-32.patch
 Patch9:         %{name}-gcc711.patch
+%if 0%{?fedora} >= 29
+BuildRequires: gcc
+%endif
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
