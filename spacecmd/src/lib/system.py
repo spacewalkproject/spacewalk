@@ -966,7 +966,7 @@ def do_system_upgradepackage(self, args):
 
     if len(args) < 2:
         self.help_system_upgradepackage()
-        return
+        return None
 
     # install and upgrade for individual packages are the same
     if not '.*' in args[1:]:
@@ -1011,7 +1011,7 @@ def do_system_upgradepackage(self, args):
             logging.warning('No upgrades available for %s' % system)
 
     if not jobs:
-        return
+        return None
 
     add_separator = False
 
@@ -1039,7 +1039,7 @@ def do_system_upgradepackage(self, args):
     print('Start Time: %s' % options.start_time)
 
     if not self.user_confirm('Upgrade these packages [y/N]:'):
-        return
+        return None
 
     scheduled = 0
     for system in jobs:
@@ -1056,6 +1056,7 @@ def do_system_upgradepackage(self, args):
             logging.error('Failed to schedule %s' % system)
 
     logging.info('Scheduled %i system(s)' % scheduled)
+    return None
 
 ####################
 
@@ -2825,7 +2826,7 @@ def do_system_applyerrata(self, args):
 
     if len(args) < 2:
         self.help_system_applyerrata()
-        return
+        return None
 
     # use the systems applyed in the SSM
     if re.match('ssm', args[0], re.I):
@@ -2838,7 +2839,7 @@ def do_system_applyerrata(self, args):
     errata_list = self.expand_errata(args)
 
     if not errata_list or not systems:
-        return
+        return None
 
     # reconstruct options so we can pass them to do_errata_apply
     opts = []
