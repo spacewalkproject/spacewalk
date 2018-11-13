@@ -52,6 +52,7 @@ def do_errata_list(self, args, doreturn=False):
     else:
         if self.all_errata.keys():
             print('\n'.join(sorted(self.all_errata.keys())))
+    return None
 
 ####################
 
@@ -98,7 +99,7 @@ def do_errata_apply(self, args, only_systems=None):
     # get the start time option
     # skip the prompt if we are running with --yes
     # use "now" if no start time was given
-    if is_interactive(options) and self.options.yes != True:
+    if is_interactive(options) and not self.options.yes:
         options.start_time = prompt_user('Start Time [now]:')
         options.start_time = parse_time_input(options.start_time)
     else:
@@ -490,6 +491,7 @@ def complete_errata_publish(self, text, line, beg, end):
         return self.tab_complete_errata(text)
     elif len(parts) > 2:
         return tab_completer(self.do_softwarechannel_list('', True), text)
+    return None
 
 
 def do_errata_publish(self, args):
@@ -541,7 +543,7 @@ def do_errata_search(self, args, doreturn=False):
 
     if not args:
         self.help_errata_search()
-        return
+        return None
 
     add_separator = False
 
@@ -578,3 +580,4 @@ def do_errata_search(self, args, doreturn=False):
                 map(print_errata_summary, sorted(errata, reverse=True))
         else:
             return []
+    return None
