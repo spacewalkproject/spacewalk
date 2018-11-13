@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -221,6 +221,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-21
+- gcc is not in default buildroot anymore
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-20
 - removed %%%%defattr from specfile
 - removed Group from specfile
