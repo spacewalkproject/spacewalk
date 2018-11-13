@@ -104,8 +104,8 @@ def help_cryptokey_delete(self):
 
 def complete_cryptokey_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_cryptokey_list('', True),
-                             text)
+        return tab_completer(self.do_cryptokey_list('', True), text)
+    return None
 
 
 def do_cryptokey_delete(self, args):
@@ -150,6 +150,7 @@ def do_cryptokey_list(self, args, doreturn=False):
     else:
         if keys:
             print('\n'.join(sorted(keys)))
+    return None
 
 ####################
 
