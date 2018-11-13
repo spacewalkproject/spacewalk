@@ -114,6 +114,7 @@ def do_custominfo_listkeys(self, args, doreturn=False):
     else:
         if keys:
             print('\n'.join(sorted(keys)))
+    return None
 
 ####################
 
