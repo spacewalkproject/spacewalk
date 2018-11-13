@@ -92,6 +92,7 @@ def do_softwarechannel_list(self, args, doreturn=False):
                 if (options.tree):
                     for c in self.list_child_channels(parent=l):
                         print(" |-%s" % c)
+    return None
 
 ####################
 
@@ -129,6 +130,7 @@ def do_softwarechannel_listmanageablechannels(self, args, doreturn=False):
         else:
             for l in sorted(labels):
                 print("%s" % l)
+    return None
 
 ####################
 
@@ -209,7 +211,7 @@ def do_softwarechannel_listsystems(self, args, doreturn=False):
 
     if not args:
         self.help_softwarechannel_listsystems()
-        return
+        return None
 
     channel = args[0]
 
@@ -224,6 +226,7 @@ def do_softwarechannel_listsystems(self, args, doreturn=False):
     else:
         if systems:
             print('\n'.join(sorted(systems)))
+    return None
 
 ####################
 
@@ -249,7 +252,7 @@ def do_softwarechannel_listpackages(self, args, doreturn=False):
 
     if not args:
         self.help_softwarechannel_listpackages()
-        return
+        return None
 
     channel = args[0]
 
@@ -263,6 +266,7 @@ def do_softwarechannel_listpackages(self, args, doreturn=False):
     else:
         if packages:
             print('\n'.join(sorted(packages)))
+    return None
 
 ####################
 
@@ -287,7 +291,7 @@ def do_softwarechannel_listallpackages(self, args, doreturn=False):
 
     if not args:
         self.help_softwarechannel_listallpackages()
-        return
+        return None
 
     channel = args[0]
 
@@ -301,6 +305,7 @@ def do_softwarechannel_listallpackages(self, args, doreturn=False):
     else:
         if packages:
             print('\n'.join(sorted(packages)))
+    return None
 
 ####################
 
@@ -346,7 +351,7 @@ def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
 
     if not args:
         self.help_softwarechannel_listlatestpackages()
-        return
+        return None
 
     channel = args[0]
 
@@ -362,6 +367,7 @@ def do_softwarechannel_listlatestpackages(self, args, doreturn=False):
     else:
         if packages:
             print('\n'.join(sorted(packages)))
+    return None
 
 ####################
 
@@ -435,7 +441,7 @@ def do_softwarechannel_setdetails(self, args):
 
     # allow globbing of software channel names
     channels = filter_results(self.do_softwarechannel_list('', True), args)
-    if len(channels) < 1:
+    if not channels:
         logging.info('No channels matching that label')
         return
 
@@ -1272,6 +1278,7 @@ def complete_softwarechannel_addpackages(self, text, line, beg, end):
                              text)
     elif len(parts) > 2:
         return tab_completer(self.get_package_names(True), text)
+    return None
 
 
 def do_softwarechannel_addpackages(self, args):
@@ -1331,6 +1338,7 @@ def complete_softwarechannel_removeerrata(self, text, line, beg, end):
                              text)
     elif len(parts) > 2:
         return self.tab_complete_errata(text)
+    return None
 
 
 def do_softwarechannel_removeerrata(self, args):
@@ -1425,6 +1433,7 @@ def complete_softwarechannel_removepackages(self, text, line, beg,
             package_names = []
 
         return tab_completer(package_names, text)
+    return None
 
 
 def do_softwarechannel_removepackages(self, args):
@@ -1488,6 +1497,7 @@ def complete_softwarechannel_adderratabydate(self, text, line, beg, end):
     if len(parts) <= 3:
         return tab_completer(self.do_softwarechannel_list('', True),
                              text)
+    return None
 
 
 def do_softwarechannel_adderratabydate(self, args):
@@ -1498,7 +1508,7 @@ def do_softwarechannel_adderratabydate(self, args):
 
     if len(args) != 4:
         self.help_softwarechannel_adderratabydate()
-        return
+        return None
 
     source_channel = args[0]
     dest_channel = args[1]
@@ -1508,12 +1518,12 @@ def do_softwarechannel_adderratabydate(self, args):
     if not re.match(r'\d{8}', begin_date):
         logging.error('%s is an invalid date' % begin_date)
         self.help_softwarechannel_adderratabydate()
-        return
+        return None
 
     if not re.match(r'\d{8}', end_date):
         logging.error('%s is an invalid date' % end_date)
         self.help_softwarechannel_adderratabydate()
-        return
+        return None
 
     # get the errata that are in the given date range
     logging.debug('Retrieving list of errata from source channel')
@@ -1525,7 +1535,7 @@ def do_softwarechannel_adderratabydate(self, args):
 
     if not errata:
         logging.warning('No errata found between the given dates')
-        return
+        return None
 
     if options.publish:
         # Just publish the errata one-by-one, rather than calling
@@ -1542,6 +1552,7 @@ def do_softwarechannel_adderratabydate(self, args):
             source_channel,
             dest_channel,
             ' '.join([e.get('advisory_name') for e in errata])))
+    return None
 
 ####################
 
@@ -1559,6 +1570,7 @@ def complete_softwarechannel_listerratabydate(self, text, line, beg, end):
     if len(parts) <= 3:
         return tab_completer(self.do_softwarechannel_list('', True),
                              text)
+    return None
 
 
 def do_softwarechannel_listerratabydate(self, args):
@@ -1617,6 +1629,7 @@ def complete_softwarechannel_adderrata(self, text, line, beg, end):
         return tab_completer(self.do_softwarechannel_list('', True), text)
     elif len(parts) > 3:
         return self.tab_complete_errata(text)
+    return None
 
 
 def do_softwarechannel_adderrata(self, args):
@@ -1962,7 +1975,7 @@ def do_softwarechannel_regenerateyumcache(self, args):
 
 def is_softwarechannel(self, name):
     if not name:
-        return
+        return None
     return name in self.do_softwarechannel_list(name, True)
 
 
@@ -2014,11 +2027,11 @@ def do_softwarechannel_diff(self, args):
 
     if len(args) != 1 and len(args) != 2:
         self.help_softwarechannel_diff()
-        return
+        return None
 
     source_channel = args[0]
     if not self.check_softwarechannel(source_channel):
-        return
+        return None
 
     target_channel = None
     if len(args) == 2:
@@ -2028,7 +2041,7 @@ def do_softwarechannel_diff(self, args):
         target_channel = self.do_softwarechannel_getcorresponding(
             source_channel)
     if not self.check_softwarechannel(target_channel):
-        return
+        return None
 
     # softwarechannel do not contain references to other components,
     # therefore there is no need to use replace dicts
@@ -2077,11 +2090,11 @@ def do_softwarechannel_errata_diff(self, args):
 
     if len(args) != 1 and len(args) != 2:
         self.help_softwarechannel_errata_diff()
-        return
+        return None
 
     source_channel = args[0]
     if not self.check_softwarechannel(source_channel):
-        return
+        return None
 
     target_channel = None
     if len(args) == 2:
@@ -2091,7 +2104,7 @@ def do_softwarechannel_errata_diff(self, args):
         target_channel = self.do_softwarechannel_getcorresponding(
             source_channel)
     if not self.check_softwarechannel(target_channel):
-        return
+        return None
 
     # softwarechannel do not contain references to other components,
     # therefore there is no need to use replace dicts
@@ -2490,6 +2503,7 @@ def complete_softwarechannel_addrepo(self, text, line, beg, end):
                              text)
     elif len(parts) == 3:
         return tab_completer(self.do_repo_list('', True), text)
+    return None
 
 
 def do_softwarechannel_addrepo(self, args):
@@ -2526,9 +2540,10 @@ def complete_softwarechannel_removerepo(self, text, line, beg, end):
                                                               parts[1])
             repos = [r.get('label') for r in details.get('contentSources')]
         except xmlrpclib.Fault:
-            return
+            return None
 
         return tab_completer(repos, text)
+    return None
 
 
 def do_softwarechannel_removerepo(self, args):
