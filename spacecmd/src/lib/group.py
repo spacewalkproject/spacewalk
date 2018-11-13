@@ -55,6 +55,7 @@ def complete_group_addsystems(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), text)
     elif len(parts) > 2:
         return self.tab_complete_systems(parts[-1])
+    return None
 
 
 def do_group_addsystems(self, args):
@@ -105,6 +106,7 @@ def complete_group_removesystems(self, text, line, beg, end):
         return tab_completer(self.do_group_list('', True), text)
     elif len(parts) > 2:
         return self.tab_complete_systems(parts[-1])
+    return None
 
 
 def do_group_removesystems(self, args):
@@ -271,6 +273,7 @@ def complete_group_restore(self, text, line, beg, end):
         groups = self.do_group_list('', True)
         groups.append('ALL')
         return tab_completer(groups, text)
+    return None
 
 
 def do_group_restore(self, args):
@@ -367,6 +370,7 @@ def do_group_list(self, args, doreturn=False):
     else:
         if groups:
             print('\n'.join(sorted(groups)))
+    return None
 
 ####################
 
@@ -387,7 +391,7 @@ def do_group_listsystems(self, args, doreturn=False):
 
     if not args:
         self.help_group_listsystems()
-        return
+        return None
 
     group = args[0]
 
@@ -403,6 +407,7 @@ def do_group_listsystems(self, args, doreturn=False):
     else:
         if systems:
             print('\n'.join(sorted(systems)))
+    return None
 
 ####################
 
