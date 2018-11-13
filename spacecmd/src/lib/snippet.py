@@ -46,6 +46,7 @@ def do_snippet_list(self, args, doreturn=False):
     else:
         if snippets:
             print('\n'.join(sorted(snippets)))
+    return None
 
 ####################
 
@@ -178,7 +179,7 @@ def do_snippet_update(self, args):
 
     if not args:
         self.help_snippet_update()
-        return
+        return None
 
     return self.do_snippet_create('', update_name=args[0])
 
