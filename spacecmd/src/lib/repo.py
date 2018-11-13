@@ -52,6 +52,7 @@ def do_repo_list(self, args, doreturn=False):
     else:
         if repos:
             print('\n'.join(sorted(repos)))
+    return None
 
 ####################
 
@@ -133,6 +134,7 @@ def complete_repo_addfilters(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_repo_list('', True),
                              text)
+    return None
 
 
 def do_repo_addfilters(self, args):
@@ -149,7 +151,7 @@ def do_repo_addfilters(self, args):
         flag = arg[0]
         repofilter = arg[1:]
 
-        if not (flag == '+' or flag == '-'):
+        if not flag in ('+', '-'):
             logging.error('Each filter must start with + or -')
             return
 
@@ -184,7 +186,7 @@ def do_repo_removefilters(self, args):
         flag = arg[0]
         repofilter = arg[1:]
 
-        if not (flag == '+' or flag == '-'):
+        if not flag ('+', '-'):
             logging.error('Each filter must start with + or -')
             return
 
@@ -221,7 +223,7 @@ def do_repo_setfilters(self, args):
         flag = arg[0]
         repofilter = arg[1:]
 
-        if not (flag == '+' or flag == '-'):
+        if not flag in ('+', '-'):
             logging.error('Each filter must start with + or -')
             return
 
@@ -355,6 +357,7 @@ def complete_repo_rename(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
         return tab_completer(self.do_repo_list('', True),
                              text)
+    return None
 
 
 def do_repo_rename(self, args):
@@ -364,7 +367,7 @@ def do_repo_rename(self, args):
 
     if len(args) != 2:
         self.help_repo_rename()
-        return
+        return None
 
     try:
         details = self.client.channel.software.getRepoDetails(self.session, args[0])
@@ -376,6 +379,7 @@ def do_repo_rename(self, args):
     newname = args[1]
 
     self.client.channel.software.updateRepoLabel(self.session, oldname, newname)
+    return None
 
 ####################
 
@@ -389,6 +393,7 @@ def complete_repo_updateurl(self, text, line, beg, end):
     if len(line.split(' ')) == 2:
         return tab_completer(self.do_repo_list('', True),
                              text)
+    return None
 
 
 def do_repo_updateurl(self, args):
