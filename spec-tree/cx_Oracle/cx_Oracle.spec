@@ -15,6 +15,7 @@
 %endif
 %endif
 
+
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.3
@@ -25,7 +26,12 @@ Prefix: %{_prefix}
 Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
+%if 0%{?fedora} >= 29
+BuildRequires: python2-devel
+%global __python %{__python2}
+%else
 BuildRequires: python-devel
+%endif
 BuildRequires: oracle-%{oracleicname}-devel
 Requires: oracle-%{oracleicname}-basic = %{oracleicver}
 
