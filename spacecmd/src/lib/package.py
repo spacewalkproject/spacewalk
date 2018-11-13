@@ -123,7 +123,7 @@ def help_package_search(self):
 def do_package_search(self, args, doreturn=False):
     if not args:
         self.help_package_search()
-        return
+        return None
 
     fields = ('name:', 'epoch:', 'version:', 'release:',
               'arch:', 'description:', 'summary:')
@@ -152,6 +152,7 @@ def do_package_search(self, args, doreturn=False):
     else:
         if packages:
             print('\n'.join(sorted(packages)))
+    return None
 
 ####################
 
@@ -217,6 +218,7 @@ def do_package_listorphans(self, args, doreturn=False):
     else:
         if packages:
             print('\n'.join(sorted(packages)))
+    return None
 
 ####################
 
