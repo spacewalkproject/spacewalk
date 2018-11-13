@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.9.6
+Version:     2.9.7
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -112,6 +112,29 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Nov 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
+- fix pylint in api.py
+- fix pylint in utils.py
+- fix pylint in system.py
+- fix pylint in kickstart.py
+- fix pylint in activationkey.py
+- fix pylint in configchannel.py
+- fix pylint in cryptokey.py
+- fix pylint in custominfo.py
+- fix pylint in distribution.py
+- fix pylint in errata.py
+- fix pylint in filepreservation.py
+- fix pylint in group.py
+- fix pylint in misc.py
+- fix pylint in org.py
+- fix pylint in package.py
+- fix pylint in repo.py
+- fix pylint in snippet.py
+- fix pylint in softwarechannel.py
+- fixed pylint errors
+- fixed pylint errors
+- fixed pylint errors
+
 * Wed May 30 2018 Jiri Dostal <jdostal@redhat.com> 2.9.6-1
 - Import getfqdn instead gethostname
 
