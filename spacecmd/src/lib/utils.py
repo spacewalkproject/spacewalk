@@ -229,6 +229,7 @@ def editor(template='', delete=False):
         except IOError:
             logging.error('Could not read %s', file_name)
             return ([], '')
+    return None
 
 
 def prompt_user(prompt, noblank=False, multiline=False):
