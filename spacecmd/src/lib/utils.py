@@ -117,8 +117,7 @@ def load_cache(cachefile):
             # If you don't do this then spacecmd will fail with an unhandled
             # exception until the partial file is manually removed
             logging.warning("Loading cache file %s failed", cachefile)
-            logging.warning("Cache generation was probably interrupted," +
-                            "removing corrupt %s", cachefile)
+            logging.warning("Cache generation was probably interrupted, removing corrupt %s", cachefile)
             os.remove(cachefile)
         except IOError:
             logging.error("Couldn't load cache from %s", cachefile)
@@ -210,7 +209,7 @@ def editor(template='', delete=False):
 
     if not success:
         logging.error('No editors found')
-        return ''
+        return ([], '')
 
     if os.path.isfile(file_name) and exit_code == 0:
         try:
@@ -347,7 +346,7 @@ def parse_time_input(userinput=''):
         return xmlrpclib.DateTime(timestamp.timetuple())
 
     logging.error('Invalid time provided')
-    return
+    return None
 
 
 # Compares 2 package objects (dicts) and returns the newest one.
@@ -776,7 +775,7 @@ def get_normalized_text(text, replacedict=None, excludes=None):
                 elif not [e for e in excludes if line.startswith(e)]:
                     normalized_text.append(replace(line, replacedict))
                 else:
-                    logging.debug("excluding line: " + line)
+                    logging.debug("excluding line: %s", line)
     return normalized_text
 
 
