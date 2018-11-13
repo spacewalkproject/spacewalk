@@ -19,7 +19,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Prefix: %{_prefix}
@@ -64,6 +64,9 @@ export ORACLE_HOME=%{oracle_home}
 %doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
+* Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-4
+- gcc is not in default buildroot anymore
+
 * Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-3
 - explicit use of python2 for Fedora 29+
 
