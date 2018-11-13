@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.9.7
+Version:     2.9.8
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -112,6 +112,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Nov 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.8-1
+- fix pylint issues on RHEL7
+
 * Tue Nov 13 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
 - fix pylint in api.py
 - fix pylint in utils.py
