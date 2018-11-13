@@ -209,7 +209,7 @@ def editor(template='', delete=False):
 
     if not success:
         logging.error('No editors found')
-        return ([], '')
+        return ('', '')
 
     if os.path.isfile(file_name) and exit_code == 0:
         try:
@@ -228,8 +228,8 @@ def editor(template='', delete=False):
             return (contents, file_name)
         except IOError:
             logging.error('Could not read %s', file_name)
-            return ([], '')
-    return None
+            return ('', '')
+    return ('', '')
 
 
 def prompt_user(prompt, noblank=False, multiline=False):
