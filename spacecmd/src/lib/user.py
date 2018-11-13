@@ -216,6 +216,7 @@ def do_user_list(self, args, doreturn=False):
     else:
         if users:
             print('\n'.join(sorted(users)))
+    return None
 
 ####################
 
@@ -233,6 +234,7 @@ def do_user_listavailableroles(self, args, doreturn=False):
     else:
         if roles:
             print('\n'.join(sorted(roles)))
+    return None
 
 ####################
 
@@ -250,6 +252,7 @@ def complete_user_addrole(self, text, line, beg, end):
     elif len(parts) == 3:
         return tab_completer(self.do_user_listavailableroles('', True),
                              text)
+    return None
 
 
 def do_user_addrole(self, args):
@@ -283,6 +286,7 @@ def complete_user_removerole(self, text, line, beg, end):
         # only list the roles currently assigned to this user
         roles = self.client.user.listRoles(self.session, parts[1])
         return tab_completer(roles, text)
+    return None
 
 
 def do_user_removerole(self, args):
@@ -391,6 +395,7 @@ def complete_user_addgroup(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(self.do_group_list('', True), parts[-1])
+    return None
 
 
 def do_user_addgroup(self, args):
@@ -427,6 +432,7 @@ def complete_user_adddefaultgroup(self, text, line, beg, end):
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
         return tab_completer(self.do_group_list('', True), parts[-1])
+    return None
 
 
 def do_user_adddefaultgroup(self, args):
@@ -465,6 +471,7 @@ def complete_user_removegroup(self, text, line, beg, end):
         groups = self.client.user.listAssignedSystemGroups(self.session,
                                                            parts[1])
         return tab_completer([g.get('name') for g in groups], parts[-1])
+    return None
 
 
 def do_user_removegroup(self, args):
@@ -505,6 +512,7 @@ def complete_user_removedefaultgroup(self, text, line, beg, end):
         groups = self.client.user.listDefaultSystemGroups(self.session,
                                                           parts[1])
         return tab_completer([g.get('name') for g in groups], parts[-1])
+    return None
 
 
 def do_user_removedefaultgroup(self, args):
@@ -539,7 +547,8 @@ def complete_user_setfirstname(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return
+        return None
+    return None
 
 
 def do_user_setfirstname(self, args):
@@ -572,7 +581,8 @@ def complete_user_setlastname(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return
+        return None
+    return None
 
 
 def do_user_setlastname(self, args):
@@ -605,7 +615,8 @@ def complete_user_setemail(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return
+        return None
+    return None
 
 
 def do_user_setemail(self, args):
@@ -638,7 +649,8 @@ def complete_user_setprefix(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return
+        return None
+    return None
 
 
 def do_user_setprefix(self, args):
@@ -678,7 +690,8 @@ def complete_user_setpassword(self, text, line, beg, end):
     if len(parts) == 2:
         return tab_completer(self.do_user_list('', True), text)
     elif len(parts) > 2:
-        return
+        return None
+    return None
 
 
 def do_user_setpassword(self, args):
