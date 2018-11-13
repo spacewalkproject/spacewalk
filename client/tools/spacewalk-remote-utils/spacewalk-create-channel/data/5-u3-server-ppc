@@ -649,8 +649,8 @@ gcc43-gfortran-4.3.2-7.el5.ppc.rpm
 gcc-c++-4.1.2-44.el5.ppc.rpm
 gcc-gfortran-4.1.2-44.el5.ppc.rpm
 gcc-java-4.1.2-44.el5.ppc.rpm
-gcc-objc-4.1.2-44.el5.ppc.rpm
 gcc-objc++-4.1.2-44.el5.ppc.rpm
+gcc-objc-4.1.2-44.el5.ppc.rpm
 GConf2-2.14.0-9.el5.ppc64.rpm
 GConf2-2.14.0-9.el5.ppc.rpm
 GConf2-devel-2.14.0-9.el5.ppc64.rpm

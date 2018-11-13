@@ -530,8 +530,8 @@ gcc-c++-4.1.2-51.el5.ia64.rpm
 gcc-gfortran-4.1.2-51.el5.ia64.rpm
 gcc-gnat-4.1.2-51.el5.ia64.rpm
 gcc-java-4.1.2-51.el5.ia64.rpm
-gcc-objc-4.1.2-51.el5.ia64.rpm
 gcc-objc++-4.1.2-51.el5.ia64.rpm
+gcc-objc-4.1.2-51.el5.ia64.rpm
 GConf2-2.14.0-9.el5.ia64.rpm
 GConf2-devel-2.14.0-9.el5.ia64.rpm
 gconf-editor-2.16.0-3.el5.ia64.rpm
@@ -2240,8 +2240,8 @@ xmlrpc-2.0.1-3jpp.1.ia64.rpm
 xmlrpc-c-1.16.24-1206.1840.el5.ia64.rpm
 xmlrpc-c-apps-1.16.24-1206.1840.el5.ia64.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.el5.ia64.rpm
-xmlrpc-c-client-1.16.24-1206.1840.el5.ia64.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.el5.ia64.rpm
+xmlrpc-c-client-1.16.24-1206.1840.el5.ia64.rpm
 xmlrpc-c-devel-1.16.24-1206.1840.el5.ia64.rpm
 xmlrpc-javadoc-2.0.1-3jpp.1.ia64.rpm
 xmlsec1-1.2.9-8.1.2.ia64.rpm

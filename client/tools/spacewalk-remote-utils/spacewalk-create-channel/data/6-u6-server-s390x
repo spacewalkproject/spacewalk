@@ -532,8 +532,8 @@ gcc-4.4.7-11.el6.s390x.rpm
 gcc-c++-4.4.7-11.el6.s390x.rpm
 gcc-gfortran-4.4.7-11.el6.s390x.rpm
 gcc-java-4.4.7-11.el6.s390x.rpm
-gcc-objc-4.4.7-11.el6.s390x.rpm
 gcc-objc++-4.4.7-11.el6.s390x.rpm
+gcc-objc-4.4.7-11.el6.s390x.rpm
 GConf2-2.28.0-6.el6.s390.rpm
 GConf2-2.28.0-6.el6.s390x.rpm
 GConf2-devel-2.28.0-6.el6.s390.rpm

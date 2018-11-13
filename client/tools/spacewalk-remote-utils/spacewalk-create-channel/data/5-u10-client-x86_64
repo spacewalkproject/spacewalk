@@ -2031,10 +2031,10 @@ xmlrpc-c-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-c-apps-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.4.el5.x86_64.rpm
-xmlrpc-c-client-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.4.el5.i386.rpm
-xmlrpc-c-client-1.16.24-1206.1840.4.el5.x86_64.rpm
+xmlrpc-c-client-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.4.el5.x86_64.rpm
+xmlrpc-c-client-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlsec1-1.2.9-8.1.2.i386.rpm
 xmlsec1-1.2.9-8.1.2.x86_64.rpm
 xmlsec1-gnutls-1.2.9-8.1.2.i386.rpm

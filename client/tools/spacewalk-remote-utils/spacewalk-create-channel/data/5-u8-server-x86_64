@@ -700,8 +700,8 @@ gcc-c++-4.1.2-52.el5.x86_64.rpm
 gcc-gfortran-4.1.2-52.el5.x86_64.rpm
 gcc-gnat-4.1.2-52.el5.x86_64.rpm
 gcc-java-4.1.2-52.el5.x86_64.rpm
-gcc-objc-4.1.2-52.el5.x86_64.rpm
 gcc-objc++-4.1.2-52.el5.x86_64.rpm
+gcc-objc-4.1.2-52.el5.x86_64.rpm
 GConf2-2.14.0-9.el5.i386.rpm
 GConf2-2.14.0-9.el5.x86_64.rpm
 GConf2-devel-2.14.0-9.el5.i386.rpm
@@ -3104,10 +3104,10 @@ xmlrpc-c-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-c-apps-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.4.el5.x86_64.rpm
-xmlrpc-c-client-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.4.el5.i386.rpm
-xmlrpc-c-client-1.16.24-1206.1840.4.el5.x86_64.rpm
+xmlrpc-c-client-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.4.el5.x86_64.rpm
+xmlrpc-c-client-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-c-devel-1.16.24-1206.1840.4.el5.i386.rpm
 xmlrpc-c-devel-1.16.24-1206.1840.4.el5.x86_64.rpm
 xmlrpc-javadoc-2.0.1-3jpp.1.x86_64.rpm

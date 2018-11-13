@@ -684,8 +684,8 @@ gawk-4.0.2-4.el7_3.1.s390x.rpm
 gcc-4.8.5-16.el7.s390x.rpm
 gcc-c++-4.8.5-16.el7.s390x.rpm
 gcc-gfortran-4.8.5-16.el7.s390x.rpm
-gcc-objc-4.8.5-16.el7.s390x.rpm
 gcc-objc++-4.8.5-16.el7.s390x.rpm
+gcc-objc-4.8.5-16.el7.s390x.rpm
 GConf2-3.2.6-8.el7.s390.rpm
 GConf2-3.2.6-8.el7.s390x.rpm
 gconf-editor-3.0.1-8.el7_1.s390x.rpm

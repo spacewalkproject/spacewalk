@@ -518,8 +518,8 @@ gcc-c++-4.4.4-13.el6.x86_64.rpm
 gcc-gfortran-4.4.4-13.el6.x86_64.rpm
 gcc-gnat-4.4.4-13.el6.x86_64.rpm
 gcc-java-4.4.4-13.el6.x86_64.rpm
-gcc-objc-4.4.4-13.el6.x86_64.rpm
 gcc-objc++-4.4.4-13.el6.x86_64.rpm
+gcc-objc-4.4.4-13.el6.x86_64.rpm
 gc-devel-7.1-10.el6.i686.rpm
 gc-devel-7.1-10.el6.x86_64.rpm
 gcdmaster-1.2.3-4.el6.x86_64.rpm

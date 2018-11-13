@@ -305,8 +305,8 @@ gcc-c++-4.1.2-55.el5.x86_64.rpm
 gcc-gfortran-4.1.2-55.el5.x86_64.rpm
 gcc-gnat-4.1.2-55.el5.x86_64.rpm
 gcc-java-4.1.2-55.el5.x86_64.rpm
-gcc-objc-4.1.2-55.el5.x86_64.rpm
 gcc-objc++-4.1.2-55.el5.x86_64.rpm
+gcc-objc-4.1.2-55.el5.x86_64.rpm
 GConf2-devel-2.14.0-9.el5.i386.rpm
 GConf2-devel-2.14.0-9.el5.x86_64.rpm
 gdbm-devel-1.8.0-28.el5.i386.rpm

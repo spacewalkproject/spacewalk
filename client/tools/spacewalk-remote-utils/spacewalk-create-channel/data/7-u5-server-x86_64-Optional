@@ -2212,8 +2212,8 @@ libpmem-devel-1.3-3.el7.x86_64.rpm
 libpmemlog-debug-1.3-3.el7.x86_64.rpm
 libpmemlog-devel-1.3-3.el7.x86_64.rpm
 libpmemobj-debug-1.3-3.el7.x86_64.rpm
-libpmemobj-devel-1.3-3.el7.x86_64.rpm
 libpmemobj++-devel-1.3-3.el7.x86_64.rpm
+libpmemobj-devel-1.3-3.el7.x86_64.rpm
 libpmempool-debug-1.3-3.el7.x86_64.rpm
 libpmempool-devel-1.3-3.el7.x86_64.rpm
 libpng12-devel-1.2.50-10.el7.i686.rpm

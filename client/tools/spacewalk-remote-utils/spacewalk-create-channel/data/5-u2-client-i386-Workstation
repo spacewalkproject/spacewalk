@@ -173,8 +173,8 @@ gcc-c++-4.1.2-42.el5.i386.rpm
 gcc-gfortran-4.1.2-42.el5.i386.rpm
 gcc-gnat-4.1.2-42.el5.i386.rpm
 gcc-java-4.1.2-42.el5.i386.rpm
-gcc-objc-4.1.2-42.el5.i386.rpm
 gcc-objc++-4.1.2-42.el5.i386.rpm
+gcc-objc-4.1.2-42.el5.i386.rpm
 GConf2-devel-2.14.0-9.el5.i386.rpm
 gdbm-devel-1.8.0-26.2.1.i386.rpm
 gd-devel-2.0.33-9.4.el5_1.1.i386.rpm

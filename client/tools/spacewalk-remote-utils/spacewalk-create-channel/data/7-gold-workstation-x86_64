@@ -714,8 +714,8 @@ gcc-4.8.2-16.el7.x86_64.rpm
 gcc-c++-4.8.2-16.el7.x86_64.rpm
 gcc-gfortran-4.8.2-16.el7.x86_64.rpm
 gcc-gnat-4.8.2-16.el7.x86_64.rpm
-gcc-objc-4.8.2-16.el7.x86_64.rpm
 gcc-objc++-4.8.2-16.el7.x86_64.rpm
+gcc-objc-4.8.2-16.el7.x86_64.rpm
 GConf2-3.2.6-8.el7.i686.rpm
 GConf2-3.2.6-8.el7.x86_64.rpm
 gconf-editor-3.0.1-7.el7.x86_64.rpm
