@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.9.0
+Version: 2.9.1
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -362,6 +362,13 @@ fi
 
 
 %changelog
+* Thu Nov 15 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- fix pylint in rhnAuthProtocol.py
+- fix pylint in rhnProxyAuth.py
+- fix pylint in broker/rhnBroker.py
+- fix pylint in redirect/rhnRedirect.py
+- Bumping package versions for 2.9.
+
 * Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.5-1
 - run pylint on rhel 7 builds
 
