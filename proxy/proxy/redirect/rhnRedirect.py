@@ -171,6 +171,7 @@ class RedirectHandler(SharedHandler):
         else:
             # Otherwise, revert to default behavior.
             return SharedHandler._handleServerResponse(self, status)
+        return None
 
     def __redirectToNextLocation(self, loopProtection=False):
         """ This function will perform a redirection to the next location, as
@@ -318,7 +319,7 @@ class RedirectHandler(SharedHandler):
             Traceback(mail=0)
             return apache.HTTP_SERVICE_UNAVAILABLE
         log_debug(4, "Connected to 3rd party server:",
-                  connection.sock.getpeername())
+                  connection.sock.getpeername()) #pylint: disable=no-member
 
         # Put the request out on the wire.
 
