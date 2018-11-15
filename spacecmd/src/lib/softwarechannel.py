@@ -2359,6 +2359,11 @@ def help_softwarechannel_syncrepos(self):
     print('Sync users repos for a software channel')
     print('')
     print('usage: softwarechannel_syncrepos <CHANNEL ...>')
+    print('Options:')
+    print('    -e/--no-errata : Do not sync errata')
+    print('    -f/--fail : Terminate upon any error')
+    print('    -k/--sync-kickstart : Create kickstartable tree')
+    print('    -l/--latest : Only download latest package versions when repo syncs')
 
 
 def complete_softwarechannel_syncrepos(self, text, line, beg, end):
