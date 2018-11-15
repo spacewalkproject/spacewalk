@@ -40,7 +40,7 @@ import rhnAuthCacheClient
 
 
 sys.path.append('/usr/share/rhn')
-from up2date_client import config # pylint: disable=E0012, C0413
+from up2date_client import config # pylint: disable=E0012, C0413, wrong-import-order
 
 # To avoid doing unnecessary work, keep ProxyAuth object global
 __PROXY_AUTH = None
