@@ -43,7 +43,7 @@ def readSocket(fd, n):
     return result
 
 
-def send(fd, methodname=None, fault=None, *params):
+def send(fd, methodname=None, fault=None, *params): #pylint: disable=bad-option-value, keyword-arg-before-vararg
     if methodname:
         buff = dumps(params, methodname=methodname)
     elif fault:
