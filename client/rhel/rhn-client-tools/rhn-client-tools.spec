@@ -504,7 +504,7 @@ sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' src/actions/*.py src/bin/*.py 
 make -f Makefile.rhn-client-tools %{?is_deb:PLATFORM=deb}
 for g in data/*.glade ; do
         mv $g $g.old
-        gtk-builder-convert $g.old $g
+        python2 /usr/bin/gtk-builder-convert $g.old $g
 done
 sed -i 's/GTK_PROGRESS_LEFT_TO_RIGHT/horizontal/' data/progress.glade
 sed -i 's/GtkComboBox/GtkComboBoxText/; /property name="has_separator"/ d;' data/rh_register.glade
