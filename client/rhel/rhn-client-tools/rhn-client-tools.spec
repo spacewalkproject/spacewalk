@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.30
+Version: 2.9.31
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -978,6 +978,9 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.31-1
+- fix deps on mageia
+
 * Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.30-1
 - use python2 for converting glade xml
 
