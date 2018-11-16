@@ -232,13 +232,13 @@ Requires: python3-pyudev
 %else
 Requires: libgudev
 Requires: python3-dbus
-%if 0%{mageia}
+%if 0%{?mageia}
 Requires: python3-newt
-Requires: python3-gobject
+Requires: python3-gobject3
 %else
 Requires: newt-python3
 Requires: python3-gobject-base
-%endif # 0%{mageia}
+%endif # 0%{?mageia}
 %endif # 0%{?suse_version} >= 1140
 BuildRequires: python3-devel
 %endif
