@@ -19,7 +19,7 @@ Requires:	python2-pylint < 1.0
 %endif
 BuildRequires:	asciidoc
 %if 0%{?mageia}
-%ifarch x86_64
+%if %{_arch} == x86_64
 BuildRequires: lib64xslt1
 %else
 BuildRequires: libxslt1
