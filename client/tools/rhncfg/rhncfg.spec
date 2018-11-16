@@ -40,7 +40,7 @@
 %endif
 
 Name: rhncfg
-Version: 5.10.127
+Version: 5.10.128
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -428,6 +428,9 @@ py3clean -p python3-%{name}-actions
 %endif
 
 %changelog
+* Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.128-1
+- fix python2 compilation on opensuse
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.127-1
 - fix build on mageia
 - 1622961 - avoid deprecated fucntions when running on python3
