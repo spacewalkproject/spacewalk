@@ -1,5 +1,5 @@
 Name:		spacewalk-python3-pylint
-Version:	2.9.1
+Version:	2.9.2
 Release:	1%{?dist}
 Summary:	Pylint configuration for python3 spacewalk python packages
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- fix build on mageia i586
+
 * Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.1-1
 - fix build on mageia
 - Bumping package versions for 2.9.
