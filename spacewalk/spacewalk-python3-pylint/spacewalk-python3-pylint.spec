@@ -19,7 +19,11 @@ Requires:	python3-pylint < 1.0
 %endif
 BuildRequires:	asciidoc
 %if 0%{?mageia}
+%ifarch x86_64
 BuildRequires: lib64xslt1
+%else
+BuildRequires: libxslt1
+%endif
 %else
 BuildRequires: libxslt
 %endif
