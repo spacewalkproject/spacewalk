@@ -167,14 +167,15 @@ Requires: dbus-python
 
 %if 0%{?py3_deps}
 Requires: python2-rpm
-Requires: python2-dmidecode
 Requires: python2-ethtool >= 0.4
 BuildRequires: python2-devel
 Requires: python2-hwdata
 BuildRequires: python2-rpm
 %if 0%{?mageia}
+Requires: python-dmidecode
 BuildRequires: python-coverage
 %else
+Requires: python2-dmidecode
 BuildRequires: python2-coverage
 %endif
 %else
