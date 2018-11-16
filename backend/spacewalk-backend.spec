@@ -9,8 +9,8 @@
 %global build_py3 1
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%{!?pylint_check: %global pylint_check 1}
+%if (0%{?fedora} && 0%{?fedora} <= 29) || 0%{?rhel} >= 7
+%{!?pylint2_check: %global pylint2_check 1}
 %endif
 
 %if 0%{?fedora} || 0%{?rhel}
@@ -57,7 +57,7 @@ Requires: %{name}-libs >= 1.1.16-1
 %if 0%{?rhel}
 Requires: pyliblzma
 %endif
-%if 0%{?pylint_check}
+%if 0%{?pylint2_check}
 BuildRequires: spacewalk-python2-pylint
 %endif
 BuildRequires: /usr/bin/msgfmt
@@ -394,7 +394,7 @@ popd
 cp %{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{pythonrhnroot}/common
 make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
 
-%if 0%{?pylint_check}
+%if 0%{?pylint2_check}
 # check coding style
 export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-python2-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
