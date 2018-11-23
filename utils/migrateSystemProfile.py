@@ -76,7 +76,7 @@ def main():
 
         if not options.to_org_id:
             print "Missing Destination org id"
-            return
+            return 1
         else:
             to_org_id = options.to_org_id or None
 
@@ -104,6 +104,7 @@ def main():
     if DEBUG:
         print "Migration Completed successfully"
     xmlrpc_logout(client, sessionKey)
+    return 0
 
 
 def migrate_system(key, newOrgId, server_ids):
