@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
-Version:        2.9.2
+Version:        2.9.3
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
@@ -93,6 +93,11 @@ service abrtd restart
 %endif
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
+- updated copyright years
+- Regenerating .po and .pot files for spacewalk-abrt
+- Updating .po translations from Zanata
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
 - fixed build on opensuse and mageia
 
