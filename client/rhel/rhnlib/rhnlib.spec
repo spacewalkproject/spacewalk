@@ -21,7 +21,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.9.4
+Version: 2.9.5
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      python
@@ -173,6 +173,9 @@ py3clean -p python3-rhnlib
 %endif
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
+- updated copyright years
+
 * Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
 - client, usix: Rework how client packaging is done for Debian/Ubuntu
 - client/rhel/rhnlib: Makefile.rhnlib: Fix sed to work on debian builds
