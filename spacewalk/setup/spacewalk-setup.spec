@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.9.2
+Version:        2.9.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -123,6 +123,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
+- updated copyright years
+
 * Mon May 28 2018 Jiri Dostal <jdostal@redhat.com> 2.9.2-1
 - 1533052 - Declare variable for use strict
 
