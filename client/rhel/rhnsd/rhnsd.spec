@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.42
+Version: 5.0.43
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -216,6 +216,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.43-1
+- 1091025 - langauges are not needed on systemd
+
 * Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.42-1
 - 1091025 - make package noarch on systemd systems
 - 1091025 - fix building
