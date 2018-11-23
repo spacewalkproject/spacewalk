@@ -24,12 +24,13 @@
 # Myriam Malga <mmalga@redhat.com>, 2007
 # Stephane Raimbault <stephane.raimbault@free.fr>, 2004
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:26+0100\n"
-"PO-Revision-Date: 2016-02-18 07:29-0500\n"
+"PO-Revision-Date: 2018-03-16 11:00+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/spacewalk/"
 "language/fr/)\n"
@@ -38,7 +39,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -2548,9 +2549,3 @@ msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
 "Enregistrez votre système auprès de Spacewalk, Red Hat Satellite ou Red Hat "
 "Network Classic."
-
-#~ msgid "_Finish"
-#~ msgstr "_Terminer"
-
-#~ msgid "_Exit"
-#~ msgstr "_Sortir"

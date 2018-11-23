@@ -12,14 +12,15 @@
 # Miloslav Trmač <mitr@volny.cz>, 2002
 # Miroslav Suchý <msuchy@redhat.com>, 2011-2012
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:26+0100\n"
-"PO-Revision-Date: 2018-02-20 04:54-0500\n"
-"Last-Translator: Zdenek <chmelarz@gmail.com>\n"
+"PO-Revision-Date: 2018-03-16 10:59+0000\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/spacewalk/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -2193,9 +2194,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr ""
-
-#~ msgid "_Finish"
-#~ msgstr "_Dokončit"
-
-#~ msgid "_Exit"
-#~ msgstr "_Ukončit"

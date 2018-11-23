@@ -9,12 +9,13 @@
 # Peter van Egdom <p.van.egdom@gmail.com>, 2003-2007.
 # Petit Gregory <thunderbirds@pandora.be>, 2003.
 # Richard E. van der Luit <nippur@fedoraproject.org>, 2012.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:28+0100\n"
-"PO-Revision-Date: 2015-03-17 08:21-0400\n"
+"PO-Revision-Date: 2018-03-16 11:05+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/fedora/language/"
 "nl/)\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../rhnsd.c:54
 msgid "MINS"

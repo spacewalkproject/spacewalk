@@ -1,10 +1,11 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2016-09-18 08:16-0400\n"
+"PO-Revision-Date: 2018-03-16 04:50+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish\n"
 "Language: pl\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2)\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -39,9 +40,9 @@ msgid "Your system was not found in the RHN database"
 msgstr "Nie odnaleziono systemu w bazie danych usługi RHN"
 
 #: ../server/handlers/xmlrpc/proxy.py:63
-#, fuzzy, python-format
+#, python-format
 msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr "Usługa RHN Proxy nie jest włączona dla profilu serwera: „%s”"
+msgstr "Usługa Spacewalk Proxy nie jest włączona dla profilu serwera: „%s”"
 
 #: ../server/handlers/xmlrpc/proxy.py:83
 msgid "Invalid session key"
@@ -80,14 +81,12 @@ msgid "Invalid system release version requested"
 msgstr "Zażądano nieprawidłowej wersji wydania systemu"
 
 #: ../server/handlers/xmlrpc/registration.py:1059
-#, fuzzy
 msgid "Red Hat Satellite Welcome Message"
-msgstr "Komunikat powitalny usługi Red Hat Network"
+msgstr "Komunikat powitalny usługi Red Hat Satellite"
 
 #: ../server/handlers/xmlrpc/registration.py:1069
-#, fuzzy
 msgid "Red Hat Satellite Privacy Statement"
-msgstr "Oświadczenie o prywatności usługi Red Hat Network"
+msgstr "Oświadczenie o prywatności usługi Red Hat Satellite"
 
 #: ../server/handlers/xmlrpc/registration.py:1090
 msgid "Expected a dictionary as a product argument"
@@ -119,9 +118,8 @@ msgid "Action %s does not belong to server %s"
 msgstr "Działanie %s nie należy do serwera %s"
 
 #: ../server/handlers/xmlrpc/scap.py:89
-#, fuzzy
 msgid "Invalid system_id/action_id pair."
-msgstr "Nieprawidłowe dane uwierzytelniające systemu."
+msgstr "Nieprawidłowa para system_id/action_id."
 
 #: ../server/handlers/xmlrpc/up2date.py:234
 #, python-format
@@ -224,7 +222,7 @@ msgid "System Registered but Inactive"
 msgstr "Zarejestrowano system, ale nie jest aktywny"
 
 #: ../server/rhnChannel.py:2211
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "Invalid Architecture and OS release combination (%s, %s).\n"
@@ -239,10 +237,10 @@ msgstr ""
 "\n"
 "Nieprawidłowe połączenie architektury i wydania systemu operacyjnego (%s, "
 "%s).\n"
-"System został zarejestrowany , ale nie będzie otrzymywał aktualizacji,\n"
+"System został zarejestrowany, ale nie będzie otrzymywał aktualizacji,\n"
 "ponieważ nie jest subskrybowany do kanału. Jeśli jeszcze nie\n"
 "aktywowano produktu do usługi, należy odwiedzić naszą stronę na:\n"
-"  \n"
+" \n"
 "     http://www.redhat.com/apps/activate/\n"
 "\n"
 "…aby aktywować produkt."
@@ -509,7 +507,7 @@ msgid "Unsupported server architecture."
 msgstr "Nieobsługiwana architektura serwera."
 
 #: ../common/rhnException.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "     The anonymous server functionality is no longer available.\n"
@@ -531,8 +529,7 @@ msgstr ""
 "     Proszę odwiedzić https://%(hostname)s/rhn/systems/SystemEntitlements."
 "do\n"
 "     lub zalogować się na https://%(hostname)s i z karty „Przegląd”\n"
-"     wybrać „Zarządzanie subskrypcją”, aby włączyć usługę RHN dla tego "
-"systemu.\n"
+"     wybrać „Zarządzanie subskrypcją”, aby włączyć usługę dla tego systemu.\n"
 "     "
 
 #: ../common/rhnException.py:82
@@ -544,7 +541,7 @@ msgid "Invalid value for entry."
 msgstr "Nieprawidłowa wartość wpisu."
 
 #: ../common/rhnException.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "     This system does not have a valid entitlement for Red Hat Satellite.\n"
@@ -555,12 +552,11 @@ msgid ""
 "     "
 msgstr ""
 "\n"
-"     Ten system nie ma prawidłowej ważności dla usługi Red Hat Network.\n"
+"     Ten system nie ma prawidłowej ważności dla usługi Red Hat Satellite.\n"
 "     Proszę odwiedzić https://%(hostname)s/rhn/systems/SystemEntitlements."
 "do\n"
 "     lub zalogować się na https://%(hostname)s i z karty „Przegląd”\n"
-"     wybrać „Zarządzanie subskrypcją”, aby włączyć usługę RHN dla tego "
-"systemu.\n"
+"     wybrać „Zarządzanie subskrypcją”, aby włączyć usługę dla tego systemu.\n"
 "     "
 
 #: ../common/rhnException.py:90
@@ -604,7 +600,6 @@ msgid "Invalid channel version."
 msgstr "Nieprawidłowa wersja kanału."
 
 #: ../common/rhnException.py:101
-#, fuzzy
 msgid ""
 "\n"
 "     User group membership limits exceeded.\n"
@@ -622,12 +617,11 @@ msgstr ""
 "\n"
 "     Obecne ustawienia konta nie pozwalają na dodawanie kolejnego\n"
 "     konta użytkownika. Proszę zapytać administratora organizacji o konto,\n"
-"     jeśli maksymalna liczba użytkowników mogących subskrybować usługę RHN\n"
+"     jeśli maksymalna liczba użytkowników mogących subskrybować serwer\n"
 "     musi zostać zmieniona.\n"
 "     "
 
 #: ../common/rhnException.py:109
-#, fuzzy
 msgid ""
 "\n"
 "     System group membership limits exceeded.\n"
@@ -646,11 +640,10 @@ msgstr ""
 "     Obecne ustawienia konta nie pozwalają na dodawanie kolejnego\n"
 "     profilu systemu. Proszę zapytać administratora organizacji\n"
 "     o zmodyfikowanie maksymalnej liczby profili systemów, jaka może\n"
-"     subskrybować konto RHN.\n"
+"     subskrybować konto.\n"
 "     "
 
 #: ../common/rhnException.py:117
-#, fuzzy
 msgid ""
 "\n"
 "     Invalid architecture.\n"
@@ -661,7 +654,7 @@ msgstr ""
 "\n"
 "     Nieprawidłowa architektura.\n"
 "\n"
-"     Architektura pakietu nie jest obsługiwana przez usługę Red Hat Network\n"
+"     Architektura pakietu nie jest obsługiwana przez\n"
 "     "
 
 #: ../common/rhnException.py:122
@@ -693,7 +686,6 @@ msgstr ""
 "     "
 
 #: ../common/rhnException.py:131
-#, fuzzy
 msgid ""
 "\n"
 "     The --force rhnpush option is disabled on this server.\n"
@@ -701,7 +693,7 @@ msgid ""
 "     "
 msgstr ""
 "\n"
-"     Na tym serwerze wyłączono opcję „--force rhnpush”. \n"
+"     Na tym serwerze wyłączono opcję „--force rhnpush”.\n"
 "     Proszę skontaktować się z administratorem usługi Satellite po więcej "
 "pomocy.\n"
 "     "
@@ -739,6 +731,9 @@ msgid ""
 "     No matching base channel found for your system.\n"
 "     "
 msgstr ""
+"\n"
+"     Nie odnaleziono pasującego kanału podstawowego dla systemu.\n"
+"     "
 
 #: ../common/rhnException.py:149
 msgid ""
@@ -760,7 +755,7 @@ msgstr "Nie można zrezygnować z subskrypcji podstawowego kanału."
 
 #: ../common/rhnException.py:155
 msgid "Satellite or Proxy channel can not be subscribed."
-msgstr ""
+msgstr "Nie można subskrybować kanału Satellite lub Proxy."
 
 #. 80-90: server group errors
 #: ../common/rhnException.py:158
@@ -815,24 +810,21 @@ msgstr "Naruszono maksymalną długość hasła"
 
 #: ../common/rhnException.py:181
 msgid "This user has read only API access. Action denied."
-msgstr ""
+msgstr "Ten użytkownik ma dostęp do API tylko do odczytu. Odmowa działania."
 
 #: ../common/rhnException.py:183
-#, fuzzy
 msgid "System Name cannot be less than 1 character"
-msgstr "Nazwa systemu nie może być krótsza niż 3 znaki"
+msgstr "Nazwa systemu nie może być krótsza niż 1 znak"
 
 #. 1000-1999: Proxy specific errors:
 #. issued by a Proxy to the client
 #: ../common/rhnException.py:187
-#, fuzzy
 msgid "Spacewalk Proxy error."
-msgstr "Błąd usługi RHN Proxy."
+msgstr "Błąd usługi Spacewalk Proxy."
 
 #: ../common/rhnException.py:188
-#, fuzzy
 msgid "Spacewalk Proxy unable to login."
-msgstr "Nie można zalogować usługi RHN Proxy."
+msgstr "Nie można zalogować usługi Spacewalk Proxy."
 
 #. issued by a Red Hat Server/Satellite to the proxy
 #: ../common/rhnException.py:190
@@ -842,20 +834,22 @@ msgid ""
 "     in the database.\n"
 "     "
 msgstr ""
+"\n"
+"     Identyfikator systemu usługi Spacewalk Proxy nie pasuje do serwera "
+"Spacewalk Proxy\n"
+"     w bazie danych.\n"
+"     "
 
 #: ../common/rhnException.py:194
-#, fuzzy
 msgid "Spacewalk Proxy session token is invalid."
-msgstr "Token sesji usługi RHN Proxy jest nieprawidłowy."
+msgstr "Token sesji usługi Spacewalk Proxy jest nieprawidłowy."
 
 #: ../common/rhnException.py:195
-#, fuzzy
 msgid "Spacewalk Proxy session token has expired."
-msgstr "Token sesji usługi RHN Proxy wygasł."
+msgstr "Token sesji usługi Spacewalk Proxy wygasł."
 
 #. 2000-2999: Red Hat Satellite specific errors:
 #: ../common/rhnException.py:199
-#, fuzzy
 msgid ""
 "\n"
 "      user creation is not allowed via rhn_register;\n"
@@ -863,8 +857,8 @@ msgid ""
 "     "
 msgstr ""
 "\n"
-"     Tworzenie użytkownika usługi RHN Satellite za pomocą polecenia "
-"rhn_register nie jest dozwolone.\n"
+"     tworzenie użytkownika za pomocą polecenia rhn_register nie jest "
+"dozwolone.\n"
 "     Proszę skontaktować się z administratorem systemu w celu utworzenia "
 "konta.\n"
 "     "
@@ -1013,46 +1007,45 @@ msgstr "Nie można porównywać plików różnego typu"
 #. 5000 - 5099: crash reporting errors
 #: ../common/rhnException.py:245
 msgid "Crash information is invalid or incomplete"
-msgstr ""
+msgstr "Informacje o awarii są nieprawidłowe lub niepełne"
 
 #: ../common/rhnException.py:246
 msgid "Crash file information is invalid or incomplete"
-msgstr ""
+msgstr "Plik z informacjami o awarii jest nieprawidłowy lub niepełny"
 
 #: ../common/rhnException.py:247
 msgid "Error composing crash directory path"
-msgstr ""
+msgstr "Błąd podczas składania ścieżki do katalogu awarii"
 
 #: ../common/rhnException.py:248
 msgid "Error composing crash file path"
-msgstr ""
+msgstr "Błąd podczas składania ścieżki do pliku awarii"
 
 #: ../common/rhnException.py:249 ../common/rhnException.py:256
-#, fuzzy
 msgid "Invalid content encoding"
-msgstr "Nieprawidłowy kod elementu"
+msgstr "Nieprawidłowe kodowanie treści"
 
 #: ../common/rhnException.py:250
-#, fuzzy
 msgid "Invalid crash name"
-msgstr "Nieprawidłowa nazwa pakietu"
+msgstr "Nieprawidłowa nazwa awarii"
 
 #: ../common/rhnException.py:251
 msgid "Crash reporting is disabled for this organization"
-msgstr ""
+msgstr "Zgłaszanie awarii jest wyłączone dla tej organizacji"
 
 #. 5100 - 5199: scap results reporting error
 #: ../common/rhnException.py:253
 msgid "SCAP results file transfer is invalid or incomplete"
-msgstr ""
+msgstr "Przesyłanie pliku wyników SCAP jest nieprawidłowe lub niepełne"
 
 #: ../common/rhnException.py:254
 msgid "Error composing directory path for detailed SCAP results"
 msgstr ""
+"Błąd podczas składania ścieżki do katalogu dla szczegółowych wyników SCAP"
 
 #: ../common/rhnException.py:255
 msgid "Error composing file path for detailed SCAP results"
-msgstr ""
+msgstr "Błąd podczas składania ścieżki do pliku dla szczegółowych wyników SCAP"
 
 #: ../common/rhnException.py:303
 msgid ""
@@ -1093,323 +1086,3 @@ msgstr "Informacje o klasie błędu: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Wyjaśnienie: %s"
-
-#~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-#~ msgstr ""
-#~ "Rejestracja się nie powiodła: wyczerpano ważności usług oprogramowania "
-#~ "RHN: %s"
-
-#~ msgid "Invalid Organization Credentials"
-#~ msgstr "Nieprawidłowe dane uwierzytelniające organizacji"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "Użytkownik „%s” nie jest członkiem organizacji %s"
-
-#~ msgid ""
-#~ "\n"
-#~ "  This system has been successfully registered, but the channel "
-#~ "subscriptions\n"
-#~ "  were exhausted\n"
-#~ msgstr ""
-#~ "\n"
-#~ "  Ten system został pomyślnie zarejestrowany, ale wyczerpano subskrypcje\n"
-#~ "  kanałów\n"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "Nie jest prawidłowym krajem: %s"
-
-#~ msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-#~ msgstr ""
-#~ "Niewystarczające uprawnienia subskrypcji dla wydania, architektury (%s, "
-#~ "%s)"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Nieprawidłowa wartość %s (typ %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Nie można pobrać nagłówka pakietu %s"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Nieprawidłowa wartość dla %s w krotce pakietu: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "Nieprawidłowy parametr pakietu %s (%s)"
-
-#~ msgid "Outage mode"
-#~ msgstr "Serwer nie działa"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "Nie można utworzyć nowego wpisu."
-
-#~ msgid "Account limits exceeded."
-#~ msgstr "Przekroczono ograniczenia konta."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "Nieprawidłowy kod rejestracji produktu."
-
-#~ msgid "Invalid Architecture and OS release combination."
-#~ msgstr ""
-#~ "Nieprawidłowe połączenie architektury i wydania systemu operacyjnego."
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "Działanie LDAP się nie powiodło."
-
-#~ msgid ""
-#~ "Backend RPM database failure: can not retrieve requested information."
-#~ msgstr ""
-#~ "Niepowodzenie mechanizmu bazy danych RPM: nie można pobrać żądanych "
-#~ "informacji."
-
-#~ msgid "Server Entry is busy."
-#~ msgstr "Wpis systemu jest zajęty."
-
-#~ msgid "Invalid ORG_ID requested"
-#~ msgstr "Zażądano nieprawidłowego identyfikatora organizacji"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Incompatible architectures.\n"
-#~ "\n"
-#~ "     The architecture of the package you are trying to upload is not\n"
-#~ "     compatible with the channel architecture.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Niezgodne architektury.\n"
-#~ "\n"
-#~ "     Architektura wysyłanego pakietu nie jest\n"
-#~ "     zgodna z architekturą kanału.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Invalid channel.\n"
-#~ "\n"
-#~ "     The channel you have specified does not exist.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Nieprawidłowy kanał.\n"
-#~ "\n"
-#~ "     Podany kanał nie istnieje.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     You are getting this error because RHN has detected an abuse of\n"
-#~ "     service from this system and account. This error is triggered when\n"
-#~ "     your system makes too many connections to Red Hat Network. This\n"
-#~ "     error can not be triggered under a normal use of the Red Hat "
-#~ "Network\n"
-#~ "     service as configured by default on Red Hat Linux.\n"
-#~ "\n"
-#~ "     The Red Hat Network services for this system will remain disabled\n"
-#~ "     until you will reduce the RHN network traffic from your system to\n"
-#~ "     acceptable limits.\n"
-#~ "\n"
-#~ "     Please log into RHN and visit https://%(hostname)s/help/contact.pxt\n"
-#~ "     to contact technical support if you think you have received this\n"
-#~ "     message in error.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Ten błąd występuje, ponieważ usługa RHN wykryła nadużycie\n"
-#~ "     usługi z tego systemu i konta. Ten błąd jest wywoływany, kiedy\n"
-#~ "     system tworzy za dużo połączeń z usługą Red Hat Network. Ten\n"
-#~ "     błąd nie może być wywoływany podczas normalnego używania usługi\n"
-#~ "     Red Hat Network skonfigurowanej domyślnie w systemie Red Hat Linux.\n"
-#~ "\n"
-#~ "     Usługi Red Hat Network dla tego systemu będą wyłączone,\n"
-#~ "     dopóki ruch sieci RHN z systemu nie zostanie zmniejszony do\n"
-#~ "     akceptowalnego poziomu.\n"
-#~ "\n"
-#~ "     Proszę zalogować się w usłudze RHN i odwiedzić https://%(hostname)s/"
-#~ "help/contact.pxt,\n"
-#~ "     aby skontaktować się ze wsparciem technicznym, jeśli ten komunikat\n"
-#~ "     nie powinien się pojawiać.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Demo service currently disabled due to high load. If you would like\n"
-#~ "     to see Red Hat's policies on Demo service, or find out how you can\n"
-#~ "     purchase a subscription service and receive priority download "
-#~ "access,\n"
-#~ "     please go to http://%(hostname)s/preview/index.pxt\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Usługa demonstracyjna jest obecnie wyłączona z powodu dużego\n"
-#~ "     obciążenia. Aby zobaczyć politykę firmy Red Hat w sprawie usługi\n"
-#~ "     demonstracyjnej lub dowiedzieć się, jak zakupić usługę subskrypcji\n"
-#~ "     i otrzymywać priorytetowy dostęp do pobierania, proszę odwiedzić\n"
-#~ "     stronę http://%(hostname)s/preview/index.pxt\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Access to Red Hat Network is currently limited to subscription "
-#~ "customers.\n"
-#~ "     Please try again later.  If you would like to become a subscription\n"
-#~ "     customer, go to https://%(hostname)s/preview/priority_service.pxt "
-#~ "for\n"
-#~ "     more information.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Dostęp do usługi Red Hat Network jest obecnie ograniczony dla "
-#~ "klientów subskrypcji.\n"
-#~ "     Proszę spróbować ponownie później. Aby zostać klientem subskrypcji,\n"
-#~ "     proszę przejść na stronę https://%(hostname)s/preview/"
-#~ "priority_service.pxt\n"
-#~ "     po więcej informacji.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     All available subscriptions for the requested channel have been "
-#~ "exhausted.\n"
-#~ "     Please contact a Red Hat Network Sales associate.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Wyczerpano wszystkie dostępne subskrypcje dla żądanego kanału.\n"
-#~ "     Proszę skontaktować się z przedstawicielem działu sprzedaży Red Hat "
-#~ "Network.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "Registration token unable to entitle system: maximum membership exceeded"
-#~ msgstr ""
-#~ "Token rejestracji nie może upoważnić systemu: przekroczono maksymalną "
-#~ "liczbę członkostw"
-
-#~ msgid "Changing e-mail address is not supported."
-#~ msgstr "Zmiana adresu e-mail nie jest obsługiwana."
-
-#~ msgid "Service for your account has been disabled."
-#~ msgstr "Wyłączono usługę dla konta."
-
-#~ msgid "Email address not validated; service disabled"
-#~ msgstr "Nie sprawdzono poprawności adresu e-mail. Wyłączono usługę"
-
-#~ msgid "Survey not filled out; service disabled"
-#~ msgstr "Nie wypełniono ankiety. Wyłączono usługę"
-
-#~ msgid "Bugzilla erratum import error"
-#~ msgstr "Błąd podczas importowania poprawki z Bugzilli"
-
-#~ msgid "Missing HTTP header information"
-#~ msgstr "Brak informacji o nagłówku HTTP"
-
-#~ msgid "The package's checksum signature does not match the header one"
-#~ msgstr "Podpis sumy kontrolnej pakietu nie zgadza się z podpisem w nagłówku"
-
-#~ msgid "Header information does not match package metainformation"
-#~ msgstr "Informacje o nagłówku nie pasują do metainformacji pakietu"
-
-#~ msgid "Package with a different signature already uploaded"
-#~ msgstr "Już wysłano pakiet o innym podpisie"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "Nie jest pakietem RPM"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Niepodpisany pakiet RPM"
-
-#~ msgid "Incompatible package and channel architectures"
-#~ msgstr "Niezgodne architektury pakietu i kanału"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Niezgodny typ sumy kontrolnej"
-
-#~ msgid "Invalid Entitlement Number"
-#~ msgstr "Nieprawidłowy numer ważności"
-
-#~ msgid ""
-#~ "\n"
-#~ "     RHN Proxy system ID does not match an RHN Proxy Server\n"
-#~ "     in the database. Please contact your designated Red Hat "
-#~ "representative\n"
-#~ "     or visit https://rhn.redhat.com/help/contact.pxt immediately if\n"
-#~ "     experiencing difficulties with the process of enabling or continued\n"
-#~ "     enablement of this RHN Proxy Server.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Identyfikator systemu usługi RHN Proxy nie pasuje do serwera RHN "
-#~ "Proxy\n"
-#~ "     w bazie danych. Proszę skontaktować się z wyznaczonym "
-#~ "przedstawicielem firmy Red Hat\n"
-#~ "     lub odwiedzić stronę https://rhn.redhat.com/help/contact.pxt, jeśli\n"
-#~ "     występują problemy z procesem włączania lub kontynuowanego\n"
-#~ "     włączania tego serwera RHN Proxy.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     RHN Satellite system ID does not match an RHN Satellite Server\n"
-#~ "     in the database. Please contact your designated Red Hat "
-#~ "representative\n"
-#~ "     or visit https://rhn.redhat.com/help/contact.pxt immediately if\n"
-#~ "     experiencing difficulties with the process of enabling or continued\n"
-#~ "     enablement of this RHN Satellite Server.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Identyfikator systemu usługi RHN Satellite nie pasuje do serwera RHN "
-#~ "Satellite\n"
-#~ "     w bazie danych. Proszę skontaktować się z wyznaczonym "
-#~ "przedstawicielem firmy Red Hat\n"
-#~ "     lub odwiedzić stronę https://rhn.redhat.com/help/contact.pxt, jeśli\n"
-#~ "     występują problemy z procesem włączania lub kontynuowanego\n"
-#~ "     włączania tego serwera RHN Satellite.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     This satellite server is not allowed to access the specified "
-#~ "channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Ten serwer usługi Satellite nie ma dostępu do podanego kanału\n"
-#~ "     "
-
-#~ msgid "Access denied to kickstart tree"
-#~ msgstr "Odmowa dostępu do drzewa kickstart"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "Nie można odnaleźć pliku kickstart"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Kickstart tree would not lint, there are packages\n"
-#~ "     missing in the channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Nie można oczyścić drzewa kickstart, brakuje pakietów\n"
-#~ "     w kanale\n"
-#~ "     "
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "Nieprawidłowa nazwa poprawki"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "Nieprawidłowy certyfikat usługi Satellite"
-
-#~ msgid "Missing snapshot for channels"
-#~ msgstr "Brak migawki dla kanałów"
-
-#~ msgid "The speicified item is not present in the input"
-#~ msgstr "Podany element nie jest obecny w wejściu"
-
-#~ msgid "Invalid user role"
-#~ msgstr "Nieprawidłowa rola użytkownika"
-
-#~ msgid "Invalid server group"
-#~ msgstr "Nieprawidłowa grupa serwera"
-
-#~ msgid "Invalid channel family"
-#~ msgstr "Nieprawidłowa rodzina kanału"

@@ -1,19 +1,20 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2018-02-24 11:38-0500\n"
-"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"PO-Revision-Date: 2018-03-16 10:53+0000\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Catalan\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -991,86 +992,3 @@ msgstr "Informació de la classe d'error: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Explicació: %s"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "No és un país vàlid: %s"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Valor no vàlid %s (tipus %s)"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Valor no vàlid per %s a la tupla del paquet: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "El paràmetre del paquet no és vàlid %s (%s)"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "No es pot crear una nova entrada."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "El codi de registrament del producte no és vàlid."
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "L'operació LDAP ha fallat."
-
-#~ msgid ""
-#~ "\n"
-#~ "     Invalid channel.\n"
-#~ "\n"
-#~ "     The channel you have specified does not exist.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Canal no vàlid.\n"
-#~ "\n"
-#~ "     El canal que heu especificat no existeix.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "Registration token unable to entitle system: maximum membership exceeded"
-#~ msgstr ""
-#~ "El testimoni de registrament va ser incapaç de donar el dret del sistema: "
-#~ "es va superar la màxima afiliació"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "No és un paquet RPM"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Paquet RPM sense signar"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Tipus de checksum incompatible"
-
-#~ msgid ""
-#~ "\n"
-#~ "     This satellite server is not allowed to access the specified "
-#~ "channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Aquest servidor de satellite no pot accedir al canal especificat\n"
-#~ "     "
-
-#~ msgid "Access denied to kickstart tree"
-#~ msgstr "Es va denegar l'accés a l'arbre de kickstart"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "No es va poder trobar el fitxer de kickstart"
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "El nom de l'errata no és vàlid"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "El certificat del satellite no és vàlid"
-
-#~ msgid "Missing snapshot for channels"
-#~ msgstr "Falta la instantània per al canal"
-
-#~ msgid "Invalid user role"
-#~ msgstr "El rol de l'usuari no és vàlid"
-
-#~ msgid "Invalid server group"
-#~ msgstr "El grup del servidor no és vàlid"
-
-#~ msgid "Invalid channel family"
-#~ msgstr "La família del canal no és vàlida"

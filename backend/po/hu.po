@@ -6,12 +6,13 @@
 # Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005.
 # Tamas Szanto <tszanto@mol.hu>, 2004.
 # Zoltan Hoppár <hopparz@gmail.com>, 2012.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"PO-Revision-Date: 2018-03-16 10:54+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hungarian <trans-hu@lists.fedoraproject.org>\n"
 "Language: hu\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -958,15 +959,3 @@ msgstr ""
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "Nem érvényes ország: %s"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Érvénytelen érték %s (típus %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Csomag fejlécének letöltése sikertelen %s"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "Érvénytelen csomagparaméter %s (%s)"

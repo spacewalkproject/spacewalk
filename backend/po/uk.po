@@ -8,12 +8,13 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2012.
 # Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
 # Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2016-11-24 10:38-0500\n"
+"PO-Revision-Date: 2018-03-16 12:50+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -50,9 +51,9 @@ msgid "Your system was not found in the RHN database"
 msgstr "Вашої системи не знайдено у базі даних RHN"
 
 #: ../server/handlers/xmlrpc/proxy.py:63
-#, fuzzy, python-format
+#, python-format
 msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr "Проксі-сервіс RHN не включений для профілю сервера: «%s»"
+msgstr "Проксі-сервіс Spacewalk не включений для профілю сервера: «%s»"
 
 #: ../server/handlers/xmlrpc/proxy.py:83
 msgid "Invalid session key"
@@ -91,14 +92,12 @@ msgid "Invalid system release version requested"
 msgstr "Надіслано запит щодо некоректної версії випуску системи"
 
 #: ../server/handlers/xmlrpc/registration.py:1059
-#, fuzzy
 msgid "Red Hat Satellite Welcome Message"
-msgstr "Вітальне повідомлення Red Hat Network"
+msgstr "Вітальне повідомлення Red Hat Satellite"
 
 #: ../server/handlers/xmlrpc/registration.py:1069
-#, fuzzy
 msgid "Red Hat Satellite Privacy Statement"
-msgstr "Угода щодо конфіденційності Red Hat Network"
+msgstr "Угода щодо конфіденційності Red Hat Satellite"
 
 #: ../server/handlers/xmlrpc/registration.py:1090
 msgid "Expected a dictionary as a product argument"
@@ -130,9 +129,8 @@ msgid "Action %s does not belong to server %s"
 msgstr "Дія %s не належить до сервера %s"
 
 #: ../server/handlers/xmlrpc/scap.py:89
-#, fuzzy
 msgid "Invalid system_id/action_id pair."
-msgstr "Некоректні реєстраційні дані системи."
+msgstr "Некоректна пара ідентифікатор системи/ідентифікатор дії."
 
 #: ../server/handlers/xmlrpc/up2date.py:234
 #, python-format
@@ -235,7 +233,7 @@ msgid "System Registered but Inactive"
 msgstr "Систему зареєстровано, але не активовано"
 
 #: ../server/rhnChannel.py:2211
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "Invalid Architecture and OS release combination (%s, %s).\n"
@@ -252,7 +250,7 @@ msgstr ""
 "Вашу систему зареєстровано, але вона не отримуватиме оновлень, оскільки\n"
 "її не підписано на канал. Якщо ви ще не активували ваш продукт\n"
 "для обслуговування, будь ласка, відвідайте наш сайт за адресою:\n"
-"  \n"
+"\n"
 "     http://www.redhat.com/apps/activate/\n"
 "\n"
 "...щоб активувати ваш продукт."
@@ -271,7 +269,7 @@ msgstr ""
 "Вашу систему зареєстровано, але вона не отримуватиме оновлень, оскільки\n"
 "її не вдалося підписати на базовий канал.\n"
 "Будь ласка, зв’яжіться із адміністратором вашої організації, щоб\n"
-"отримати допомогу.\n"
+"отримати допомогу."
 
 #: ../server/rhnChannel.py:2229
 #, python-format
@@ -526,7 +524,7 @@ msgid "Unsupported server architecture."
 msgstr "Непідтримувана архітектура сервера."
 
 #: ../common/rhnException.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "     The anonymous server functionality is no longer available.\n"
@@ -550,7 +548,7 @@ msgstr ""
 "     або увійдіть до системи на сторінці https://%(hostname)s, а потім на "
 "вкладці «Огляд» («Overview»),\n"
 "     виберіть «Керування передплатами» («Subscription Management»), щоб "
-"увімкнути службу RHN для цієї системи.\n"
+"увімкнути службу для цієї системи.\n"
 "     "
 
 #: ../common/rhnException.py:82
@@ -562,7 +560,7 @@ msgid "Invalid value for entry."
 msgstr "Некоректне значення для запису."
 
 #: ../common/rhnException.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "     This system does not have a valid entitlement for Red Hat Satellite.\n"
@@ -573,13 +571,13 @@ msgid ""
 "     "
 msgstr ""
 "\n"
-"     Ця система не має коректної реєстрації у Red Hat Network.\n"
+"     Ця система не має коректної реєстрації у Red Hat Satellite.\n"
 "     Будь ласка, відвідайте https://%(hostname)s/rhn/systems/"
 "SystemEntitlements.do\n"
 "     або увійдіть до системи на сторінці https://%(hostname)s, а потім на "
 "вкладці «Огляд» («Overview»),\n"
 "     виберіть «Керування передплатами» («Subscription Management»), щоб "
-"увімкнути службу RHN для цієї системи.\n"
+"увімкнути службу для цієї системи.\n"
 "     \n"
 "     "
 
@@ -624,7 +622,6 @@ msgid "Invalid channel version."
 msgstr "Некоректна версія каналу."
 
 #: ../common/rhnException.py:101
-#, fuzzy
 msgid ""
 "\n"
 "     User group membership limits exceeded.\n"
@@ -645,11 +642,10 @@ msgstr ""
 "перевірте\n"
 "     разом із адміністратором вашого облікового запису у вашій установі,\n"
 "     чи слід змінювати дозволену максимальну кількість користувачів,\n"
-"     які можуть передплачувати RHN.\n"
+"     які можуть передплачувати послуги сервера.\n"
 "     "
 
 #: ../common/rhnException.py:109
-#, fuzzy
 msgid ""
 "\n"
 "     System group membership limits exceeded.\n"
@@ -671,11 +667,10 @@ msgstr ""
 "     вашого облікового запису в установі, чи слід змінити максимальну "
 "кількість\n"
 "     профілів систем, які можуть працювати у межах передплати вашого "
-"облікового запису RHN.\n"
+"облікового запису.\n"
 "     "
 
 #: ../common/rhnException.py:117
-#, fuzzy
 msgid ""
 "\n"
 "     Invalid architecture.\n"
@@ -686,7 +681,7 @@ msgstr ""
 "\n"
 "     Некоректна архітектура.\n"
 "\n"
-"     Підтримки архітектури пакунка не передбачено у Red Hat Network\n"
+"     Підтримки архітектури пакунка не передбачено у\n"
 "     "
 
 #: ../common/rhnException.py:122
@@ -718,7 +713,6 @@ msgstr ""
 "     "
 
 #: ../common/rhnException.py:131
-#, fuzzy
 msgid ""
 "\n"
 "     The --force rhnpush option is disabled on this server.\n"
@@ -764,6 +758,9 @@ msgid ""
 "     No matching base channel found for your system.\n"
 "     "
 msgstr ""
+"\n"
+"     Для вашої системи не знайдено відповідного базового каналу.\n"
+"     "
 
 #: ../common/rhnException.py:149
 msgid ""
@@ -785,7 +782,7 @@ msgstr "Не можна відписатися від базового кана�
 
 #: ../common/rhnException.py:155
 msgid "Satellite or Proxy channel can not be subscribed."
-msgstr ""
+msgstr "Не вдалося передплатити канал Satellite або Proxy."
 
 #. 80-90: server group errors
 #: ../common/rhnException.py:158
@@ -841,23 +838,22 @@ msgstr "Перевищення максимальної довжини паро�
 #: ../common/rhnException.py:181
 msgid "This user has read only API access. Action denied."
 msgstr ""
+"У цього користувача є доступ лише до читання за допомогою API. Дію "
+"заборонено."
 
 #: ../common/rhnException.py:183
-#, fuzzy
 msgid "System Name cannot be less than 1 character"
-msgstr "Назва системи має складатися із принаймні 3 символів"
+msgstr "Назва системи має складатися із принаймні 1 символу"
 
 #. 1000-1999: Proxy specific errors:
 #. issued by a Proxy to the client
 #: ../common/rhnException.py:187
-#, fuzzy
 msgid "Spacewalk Proxy error."
-msgstr "Помилка проксі-сервера RHN."
+msgstr "Помилка проксі-сервера Spacewalk."
 
 #: ../common/rhnException.py:188
-#, fuzzy
 msgid "Spacewalk Proxy unable to login."
-msgstr "Не вдалося увійти до системи проксі-сервера RHN."
+msgstr "Не вдалося увійти до системи проксі-сервера Spacewalk."
 
 #. issued by a Red Hat Server/Satellite to the proxy
 #: ../common/rhnException.py:190
@@ -867,20 +863,22 @@ msgid ""
 "     in the database.\n"
 "     "
 msgstr ""
+"\n"
+"     Ідентифікатор системи проксі Spacewalk не відповідає запису проксі-"
+"сервера Spacewalk\n"
+"     у базі даних.\n"
+"     "
 
 #: ../common/rhnException.py:194
-#, fuzzy
 msgid "Spacewalk Proxy session token is invalid."
-msgstr "Некоректний ключ сеансу RHN Proxy."
+msgstr "Некоректний ключ сеансу Proxy Spacewalk."
 
 #: ../common/rhnException.py:195
-#, fuzzy
 msgid "Spacewalk Proxy session token has expired."
-msgstr "Строк дії ключа сеансу RHN Proxy вичерпано."
+msgstr "Строк дії ключа сеансу Proxy Spacewalk вичерпано."
 
 #. 2000-2999: Red Hat Satellite specific errors:
 #: ../common/rhnException.py:199
-#, fuzzy
 msgid ""
 "\n"
 "      user creation is not allowed via rhn_register;\n"
@@ -888,8 +886,7 @@ msgid ""
 "     "
 msgstr ""
 "\n"
-"     Створення записів користувачів RHN Satellite за допомогою rhn_register "
-"заборонено;\n"
+"     Створення записів користувачів за допомогою rhn_register заборонено;\n"
 "     будь ласка, зв’яжіться із вашим системним адміністратором для створення "
 "вашого облікового запису.\n"
 "     "
@@ -1038,46 +1035,48 @@ msgstr "Не можна порівнювати файли різних типі�
 #. 5000 - 5099: crash reporting errors
 #: ../common/rhnException.py:245
 msgid "Crash information is invalid or incomplete"
-msgstr ""
+msgstr "Дані щодо аварії є некоректними або неповними"
 
 #: ../common/rhnException.py:246
 msgid "Crash file information is invalid or incomplete"
-msgstr ""
+msgstr "Дані з файла даних аварії є некоректними або неповними"
 
 #: ../common/rhnException.py:247
 msgid "Error composing crash directory path"
-msgstr ""
+msgstr "Помилка під час спроби утворення шляху до каталогу даних аварії"
 
 #: ../common/rhnException.py:248
 msgid "Error composing crash file path"
-msgstr ""
+msgstr "Помилка під час спроби утворення шляху до файла даних аварії"
 
 #: ../common/rhnException.py:249 ../common/rhnException.py:256
-#, fuzzy
 msgid "Invalid content encoding"
-msgstr "Некоректний код запису"
+msgstr "Некоректне кодування даних"
 
 #: ../common/rhnException.py:250
-#, fuzzy
 msgid "Invalid crash name"
-msgstr "Некоректна назва пакунка"
+msgstr "Некоректна назва аварії"
 
 #: ../common/rhnException.py:251
 msgid "Crash reporting is disabled for this organization"
-msgstr ""
+msgstr "Для цієї організації звітування про вади вимкнено"
 
 #. 5100 - 5199: scap results reporting error
 #: ../common/rhnException.py:253
 msgid "SCAP results file transfer is invalid or incomplete"
-msgstr ""
+msgstr "Передавання файла результатів SCAP є некоректним або неповним"
 
 #: ../common/rhnException.py:254
 msgid "Error composing directory path for detailed SCAP results"
 msgstr ""
+"Помилка під час спроби утворення шляху до каталогу для докладних результатів "
+"SCAP"
 
 #: ../common/rhnException.py:255
 msgid "Error composing file path for detailed SCAP results"
 msgstr ""
+"Помилка під час спроби утворення шляху до файла для докладних результатів "
+"SCAP"
 
 #: ../common/rhnException.py:303
 msgid ""
@@ -1121,227 +1120,3 @@ msgstr "Дані помилкового класу: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Пояснення: %s"
-
-#~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-#~ msgstr ""
-#~ "Не вдалося зареєструвати: у програмному забезпеченні RHN вичерпано записи "
-#~ "для реєстрації: %s"
-
-#~ msgid "Invalid Organization Credentials"
-#~ msgstr "Некоректні реєстраційні дані установи"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "Користувач «%s» не є працівником установи %s"
-
-#~ msgid ""
-#~ "\n"
-#~ "  This system has been successfully registered, but the channel "
-#~ "subscriptions\n"
-#~ "  were exhausted\n"
-#~ msgstr ""
-#~ "\n"
-#~ "  Цю систему було успішно зареєстровано, але вичерпано можливості\n"
-#~ "  передплати на канал\n"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "Некоректна країна: %s"
-
-#~ msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-#~ msgstr "Недостані права передплати на випуск, архітектура (%s, %s)"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Некоректне значення %s (тип %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Не вдається отримати заголовок пакунка %s"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Некоректне значення для %s у кортежі пакунка: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "Некоректний параметр пакунка %s (%s)"
-
-#~ msgid "Outage mode"
-#~ msgstr "Режим відсутності"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "Не вдалося створити запис."
-
-#~ msgid "Account limits exceeded."
-#~ msgstr "Перевищено обмеження облікового запису."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "Некоректний код реєстрації продукту."
-
-#~ msgid "Invalid Architecture and OS release combination."
-#~ msgstr "Некоректне поєднання архітектури і випуску операційної системи."
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "Не вдалося виконати дію LDAP."
-
-#~ msgid ""
-#~ "Backend RPM database failure: can not retrieve requested information."
-#~ msgstr ""
-#~ "Помилка бази даних модуля обробки RPM: не вдалося отримати потрібні дані."
-
-#~ msgid "Server Entry is busy."
-#~ msgstr "Запис сервера зайнято."
-
-#~ msgid "Invalid ORG_ID requested"
-#~ msgstr "Надіслано запит на некоректний ORG_ID"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Incompatible architectures.\n"
-#~ "\n"
-#~ "     The architecture of the package you are trying to upload is not\n"
-#~ "     compatible with the channel architecture.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Несумісні архітектури.\n"
-#~ "\n"
-#~ "     Архітектура пакунка, який ви намагаєтеся вивантажити, є\n"
-#~ "     несумісною із архітектурою каналу.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Invalid channel.\n"
-#~ "\n"
-#~ "     The channel you have specified does not exist.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Некоректний канал.\n"
-#~ "\n"
-#~ "     Каналу, який ви вказали, не існує.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Access to Red Hat Network is currently limited to subscription "
-#~ "customers.\n"
-#~ "     Please try again later.  If you would like to become a subscription\n"
-#~ "     customer, go to https://%(hostname)s/preview/priority_service.pxt "
-#~ "for\n"
-#~ "     more information.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Доступ до Red Hat Network зараз обмежено користувачами передплати.\n"
-#~ "     Будь ласка, повторіть спробу пізніше. Якщо ви хочете стати "
-#~ "користувачем\n"
-#~ "     передплати, ознайомтеся із відомостями, які викладено у\n"
-#~ "     https://%(hostname)s/preview/priority_service.pxt\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     All available subscriptions for the requested channel have been "
-#~ "exhausted.\n"
-#~ "     Please contact a Red Hat Network Sales associate.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Усі доступні передплати на запитаний канал вичерпано.\n"
-#~ "     Будь ласка, зв’яжіться зі співробітниками Red Hat Network Sales.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "Registration token unable to entitle system: maximum membership exceeded"
-#~ msgstr ""
-#~ "Не вдалося прив’язати систему реєстраційним ключем: перевищено "
-#~ "максимальну кількість прив’язок"
-
-#~ msgid "Changing e-mail address is not supported."
-#~ msgstr "Підтримки зміни адреси електронної пошти не передбачено."
-
-#~ msgid "Service for your account has been disabled."
-#~ msgstr "Обслуговування вашого облікового запису припинено."
-
-#~ msgid "Email address not validated; service disabled"
-#~ msgstr ""
-#~ "Адреса електронної пошти не пройшла перевірку; обслуговування припинено"
-
-#~ msgid "Survey not filled out; service disabled"
-#~ msgstr "Не заповнено оглядову анкету; обслуговування припинено"
-
-#~ msgid "Bugzilla erratum import error"
-#~ msgstr "Помилка під час спроби імпортування помилок із Bugzilla"
-
-#~ msgid "Missing HTTP header information"
-#~ msgstr "Не вистачає даних заголовка HTTP"
-
-#~ msgid "The package's checksum signature does not match the header one"
-#~ msgstr ""
-#~ "Підпис пакунка контрольною сумою не збігається із вказаним у заголовку"
-
-#~ msgid "Header information does not match package metainformation"
-#~ msgstr "Дані із заголовка не збігаються із метаінформацією пакунка"
-
-#~ msgid "Package with a different signature already uploaded"
-#~ msgstr "Пакунок із іншим підписом уже вивантажено"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "Не є пакунком RPM"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Непідписаний пакунок RPM"
-
-#~ msgid "Incompatible package and channel architectures"
-#~ msgstr "Несумісність архітектур пакунка і каналу"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Несумісний тип контрольної суми"
-
-#~ msgid "Invalid Entitlement Number"
-#~ msgstr "Некоректний реєстраційний номер"
-
-#~ msgid ""
-#~ "\n"
-#~ "     This satellite server is not allowed to access the specified "
-#~ "channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Цьому серверу satellite заборонено доступ до вказаного каналу\n"
-#~ "     "
-
-#~ msgid "Access denied to kickstart tree"
-#~ msgstr "Доступ до ієрархії kickstart заборонено"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "Не вдалося знайти файл kickstart"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Kickstart tree would not lint, there are packages\n"
-#~ "     missing in the channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Ієрархія Kickstart не пройшла перевірки: виявлено\n"
-#~ "     пакунки, яких немає на каналі\n"
-#~ "     "
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "Некоректна назва списку помилок"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "Некоректний сертифікат satellite"
-
-#~ msgid "Missing snapshot for channels"
-#~ msgstr "Не вистачає знімка для каналів"
-
-#~ msgid "The speicified item is not present in the input"
-#~ msgstr "Вказаного запису немає у вхідних даних"
-
-#~ msgid "Invalid user role"
-#~ msgstr "Некоректна роль користувача"
-
-#~ msgid "Invalid server group"
-#~ msgstr "Некоректна група серверів"
-
-#~ msgid "Invalid channel family"
-#~ msgstr "Некоректне сімейство каналів"

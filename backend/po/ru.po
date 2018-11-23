@@ -9,12 +9,13 @@
 # Vladimir Lazarenko <vlad@lazarenko.net>, 2004.
 # Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
 # Yulia <ypoyarko@redhat.com>, 2006-2007,2010.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"PO-Revision-Date: 2018-03-16 10:54+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian <trans-ru@lists.fedoraproject.org>\n"
 "Language: ru\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -967,12 +968,3 @@ msgstr ""
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
-
-#~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-#~ msgstr "Ошибка регистрации: недостаточно полномочий управления RHN"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "Пользователь «%s» не входит в состав организации %s"
-
-#~ msgid "Invalid server group"
-#~ msgstr "Недопустимая группа серверов"

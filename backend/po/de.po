@@ -9,12 +9,13 @@
 # sknirT omiT <moc.tahder@sknirtt>, 2010.
 # Timo Trinks <ttrinks@redhat.com>, 2006.
 # Verena <vfuehrer@redhat.com>, 2004-2005.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"PO-Revision-Date: 2018-03-16 10:53+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: German <trans-de@lists.fedoraproject.org>\n"
 "Language: de\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -1031,148 +1032,3 @@ msgstr "Fehlerklasse-Information: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "Erklärung: %s"
-
-#~ msgid "Invalid Organization Credentials"
-#~ msgstr "Ungültige Organisations-Zugangsdaten"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "der Benutzer '%s' ist nicht Mitglied der Organisation %s"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "Kein gültiges Land: %s"
-
-#~ msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-#~ msgstr "Ungenügende Berechtigung für Release, Arch (%s, %s)"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Ungültiger Wert %s (Typ %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Konnte Paket-Header %s nicht abrufen"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Ungültiger Wert für %s in Pakettupel: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "ungültiger Paketparameter (%s) %s"
-
-#~ msgid "Outage mode"
-#~ msgstr "Nichtverfügbarkeits-Modus"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "Neuer Eintrag kann nicht erstellt werden."
-
-#~ msgid "Account limits exceeded."
-#~ msgstr "Benutzerkonto-Limits überschritten."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "Ungültiger Produktregistrierungs-Code."
-
-#~ msgid "Invalid Architecture and OS release combination."
-#~ msgstr "Ungültige Kombination aus Architektur und OS Version. "
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "LDAP-Vorgang fehlgeschlagen."
-
-#~ msgid ""
-#~ "Backend RPM database failure: can not retrieve requested information."
-#~ msgstr "Abfrage der RPM Datenbank fehlgeschlagen."
-
-#~ msgid "Invalid ORG_ID requested"
-#~ msgstr "Ungültige ORG_ID"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Incompatible architectures.\n"
-#~ "\n"
-#~ "     The architecture of the package you are trying to upload is not\n"
-#~ "     compatible with the channel architecture.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Inkompatible Architekturen.\n"
-#~ "\n"
-#~ "     Die Architektur des Paketes welches Sie hochladen wollten ist nicht\n"
-#~ "     kompatibel mit der Architektur des Channels.\n"
-#~ "     "
-
-#~ msgid ""
-#~ "\n"
-#~ "     Invalid channel.\n"
-#~ "\n"
-#~ "     The channel you have specified does not exist.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "     Ungültiger Channel.\n"
-#~ "\n"
-#~ "     Der angegebene Channel existiert nicht.\n"
-#~ "     "
-
-#~ msgid "Changing e-mail address is not supported."
-#~ msgstr "Ändern der Emailadresse ist nicht unterstützt."
-
-#~ msgid "Service for your account has been disabled."
-#~ msgstr "Der Dienst unter ihrem Zugang wurde eingestellt."
-
-#~ msgid "Email address not validated; service disabled"
-#~ msgstr "Emailadresse wurde nicht überprüft, Service nicht verfügbar"
-
-#~ msgid "Survey not filled out; service disabled"
-#~ msgstr "Umfrage nicht ausgefüllt, Service nicht verfügbar"
-
-#~ msgid "Bugzilla erratum import error"
-#~ msgstr "Fehler beim Import eines Bugzilla Erratum"
-
-#~ msgid "Missing HTTP header information"
-#~ msgstr "Benötigte HTTP Header Informationen konnten nicht gefunden werden"
-
-#~ msgid "The package's checksum signature does not match the header one"
-#~ msgstr ""
-#~ "Die Prüfsumme der Signatur des Paketes stimmt nicht mir derjenigen aus "
-#~ "dem Header überein"
-
-#~ msgid "Header information does not match package metainformation"
-#~ msgstr "Header-Information stimmen nicht mit den Metadaten überein"
-
-#~ msgid "Package with a different signature already uploaded"
-#~ msgstr "Paket mit unterschiedlicher Signatur bereits hochgeladen"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "Kein RPM Paket"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Unsigniertes RPM Paket"
-
-#~ msgid "Incompatible package and channel architectures"
-#~ msgstr "Paket und Channel Architekturen sind nicht kompatibel"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Typ der Prüfsumme nicht kompatibel"
-
-#~ msgid "Invalid Entitlement Number"
-#~ msgstr "Falsche Berechtigungsnummer"
-
-#~ msgid "Access denied to kickstart tree"
-#~ msgstr "Zugriff zum Kickstart-Tree verweigert"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "Kickstart-Datei nicht gefunden"
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "Ungültiger Name des Erratum"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "Satellite-Zertifikat ungültig"
-
-#~ msgid "The speicified item is not present in the input"
-#~ msgstr "Das angegebene Feld existiert nicht in der Eingabe"
-
-#~ msgid "Invalid user role"
-#~ msgstr "Ungültige Benutzerrolle"
-
-#~ msgid "Invalid server group"
-#~ msgstr "Ungültige Servergruppe"
-
-#~ msgid "Invalid channel family"
-#~ msgstr "Ungültige Channel-Familie"

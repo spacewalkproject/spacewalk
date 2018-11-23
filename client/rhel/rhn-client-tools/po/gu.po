@@ -8,12 +8,13 @@
 # Ankit Patel <ankit@redhat.com>, 2004-2007
 # Miroslav Suchý <msuchy@redhat.com>, 2011-2012
 # Jan Dobes <jdobes@redhat.com>, 2016. #zanata
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:26+0100\n"
-"PO-Revision-Date: 2016-02-18 07:34-0500\n"
+"PO-Revision-Date: 2018-03-16 11:01+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Gujarati (http://www.transifex.com/projects/p/spacewalk/"
 "language/gu/)\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -2373,9 +2374,3 @@ msgstr "સ્પેસવૉક/સેટેલાઇટ/Red Hat નેટવ�
 #, fuzzy
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr "સ્પેસવૉક/સેટેલાઇટ/Red Hat નેટવર્કમાં રજીસ્ટર કરો."
-
-#~ msgid "_Finish"
-#~ msgstr "સમાપ્ત (_F)"
-
-#~ msgid "_Exit"
-#~ msgstr "બહાર નીકળો (_E)"

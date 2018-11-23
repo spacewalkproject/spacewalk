@@ -11,13 +11,14 @@
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004-2005
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004-2005, 2012
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:26+0100\n"
-"PO-Revision-Date: 2018-02-24 11:41-0500\n"
+"PO-Revision-Date: 2018-05-13 04:56+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/spacewalk/"
 "language/ca/)\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../src/up2date_client/capabilities.py:94
 #, python-format
@@ -93,7 +94,7 @@ msgstr "Error:"
 
 #: ../src/up2date_client/messageWindow.py:113
 msgid "Yes/No dialog:"
-msgstr "Diàleg si/no:"
+msgstr "Diàleg sí/no:"
 
 #: ../src/up2date_client/rhncli.py:68
 msgid "Show additional output"
@@ -976,7 +977,7 @@ msgstr "No, cancel·la"
 #: ../src/up2date_client/rhnreg_constants.py:315
 #: ../data/rh_register.glade.h:112
 msgid "Yes, Continue"
-msgstr "Si, continua"
+msgstr "Sí, continua"
 
 #: ../src/up2date_client/rhnreg_constants.py:316
 msgid "Press <space> to deselect the option."
@@ -1900,7 +1901,7 @@ msgstr "Voleu registrar ara el vostre sistema? <b>(molt recomanat)</b>"
 
 #: ../data/rh_register.glade.h:39
 msgid "_Yes, I'd like to register now."
-msgstr "_Si, m'agradaria registrar ara."
+msgstr "_Sí, m'agradaria registrar ara."
 
 #: ../data/rh_register.glade.h:40
 msgid "_No, I prefer to register at a later time."
@@ -2495,9 +2496,3 @@ msgstr ""
 #: ../rhn_register.desktop.in.h:3
 msgid "Register to Spacewalk/Red Hat Satellite/Red Hat Network Classic."
 msgstr "Registra a Spacewalk/Red Hat Satellite/Red Hat Network."
-
-#~ msgid "_Finish"
-#~ msgstr "_Finalitza"
-
-#~ msgid "_Exit"
-#~ msgstr "_Surt"

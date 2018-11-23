@@ -7,12 +7,13 @@
 # Milan Kerslager <kerslage@linux.cz>, 2002,2007.
 # Miloslav Trmac <mitr@volny.cz>, 2002.
 # Miroslav Suchý <msuchy@redhat.com>, 2011.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-16 14:32+0100\n"
-"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"PO-Revision-Date: 2018-03-16 10:53+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/fedora/language/"
 "cs/)\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/rhnHandler.py:62
 msgid "Please run rhn_register as root on this client"
@@ -1040,115 +1041,3 @@ msgstr ""
 #, python-format
 msgid "Explanation: %s"
 msgstr ""
-
-#~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-#~ msgstr ""
-#~ "Registrace selhala: Vyčerpány všechny povolení pro službu RHN Software "
-#~ "Management"
-
-#~ msgid "Invalid Organization Credentials"
-#~ msgstr "Neplatné přihlašovací údaje pro organizaci"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "Uživatel `%s' není členem organizace %s"
-
-#~ msgid ""
-#~ "\n"
-#~ "  This system has been successfully registered, but the channel "
-#~ "subscriptions\n"
-#~ "  were exhausted\n"
-#~ msgstr ""
-#~ "\n"
-#~ "  Systém byl úspěšně zaregistrován, ale všechny subscriptions pro kanály\n"
-#~ "  byly vyčerpány\n"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "Neplatná země: %s"
-
-#~ msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-#~ msgstr "Nedostatečná subscription práva pro release, architekturu (%s,%s)"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Neplatná hodnota %s (typ %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Z balíku se nepodařilo získat header %s"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Neplatná hodnota pro %s n-tici balíku: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "Neplatný parametr balíku %s (%s)"
-
-#~ msgid "Outage mode"
-#~ msgstr "Režim výpadku"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "Nelze vytvořit novou položku."
-
-#~ msgid "Account limits exceeded."
-#~ msgstr "Překročen limit účtu."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "Neplatný registrační kód produktu."
-
-#~ msgid "Invalid Architecture and OS release combination."
-#~ msgstr "Neplatná kombinace architektury a operačního systému."
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "LDAP operace selhala."
-
-#~ msgid ""
-#~ "Backend RPM database failure: can not retrieve requested information."
-#~ msgstr "Chyba RPM databáze: Nepodařilo se získat požadovanou informaci."
-
-#~ msgid "Server Entry is busy."
-#~ msgstr "Se záznamem serveru se pracuje."
-
-#~ msgid "Invalid ORG_ID requested"
-#~ msgstr "Požadováno neplatné ID organizace"
-
-#~ msgid ""
-#~ "Registration token unable to entitle system: maximum membership exceeded"
-#~ msgstr ""
-#~ "Registrační token nemůže přiřadit oprávnění systému: překročen maximální "
-#~ "počet oprávnění"
-
-#~ msgid "Changing e-mail address is not supported."
-#~ msgstr "Změna e-mailové adresy není podporována."
-
-#~ msgid "Service for your account has been disabled."
-#~ msgstr "Služba přiřazená vašemu účtu je vypnuta."
-
-#~ msgid "Email address not validated; service disabled"
-#~ msgstr "E-mailová adresa nebyla potvrzena; služba je vypnuta"
-
-#~ msgid "Survey not filled out; service disabled"
-#~ msgstr "Průzkum nebyl vyplněn; služba je vypnuta"
-
-#~ msgid "Bugzilla erratum import error"
-#~ msgstr "Chyba při importu erraty"
-
-#~ msgid "Missing HTTP header information"
-#~ msgstr "Chybí informace v HTTP hlavičce"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "Nejedná se o RPM balík"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Nepodepsaný RPM balík"
-
-#~ msgid "Incompatible package and channel architectures"
-#~ msgstr "Nesouhlasí architektura balíku a kanálu"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Nekompatibilní typ kontrolního součtu"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "Nepodařilo se najít soubor kickstartu"
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "Neplatné jméno erraty"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "Neplatný certifikát satelitu"
