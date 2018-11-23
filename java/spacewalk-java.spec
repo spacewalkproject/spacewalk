@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.29
+Version: 2.9.30
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,11 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.30-1
+- update api version
+- updated copyright years
+- Merging frontend L10N from Zanata
+
 * Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.29-1
 - build with newer servlet on Fedora 29+
 
