@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.9.1
+Version:        2.9.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- Allow tomcat/httpd to run sudo /usr/bin/rhn-config-satellite.pl successfully.
+
 * Thu Apr 26 2018 Jiri Dostal <jdostal@redhat.com> 2.9.1-1
 - [selinux] Really fix pam authentication
 - Bumping package versions for 2.9.
