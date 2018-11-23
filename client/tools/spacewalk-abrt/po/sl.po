@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:31+0100\n"
+"POT-Creation-Date: 2018-11-23 14:35+0100\n"
 
 #: ../src/bin/spacewalk-abrt:39
 msgid "Upload content of the specified problem directory"
