@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.9.4
+Version: 2.9.5
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -70,6 +70,10 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
+- Regenerating .po and .pot files for yum-rhn-plugin
+- Updating .po translations from Zanata
+
 * Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
 - client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
 
