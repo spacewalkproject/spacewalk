@@ -233,7 +233,7 @@ class ContentSource(object):
             repo.copy_local = 1
 
         if self.proxy_addr:
-            repo.proxy = self.proxy_addr
+            repo.proxy = self.proxy_addr if '://' in self.proxy_addr else 'http://' + self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
