@@ -101,6 +101,7 @@ def create_repodata_link(src_path, dst_path):
 def remove_repodata_link(link_path):
     if os.path.exists(link_path):
         return os.unlink(link_path)
+    return None
 
 
 def diff_packages(old, new):
@@ -359,6 +360,7 @@ class ChannelTreeCloner:
         for cloner in self.cloners:
             if cloner.src_label() == src_label:
                 return cloner
+        return None
 
     def create_channels(self, skip_depsolve=False):
         to_create = self.needing_create()
