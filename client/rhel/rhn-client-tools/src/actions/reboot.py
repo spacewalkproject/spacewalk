@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 
 # Client code for Update Agent
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com
 #

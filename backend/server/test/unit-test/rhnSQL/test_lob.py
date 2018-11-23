@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-# Copyright (c) 2005--2016 Red Hat, Inc.
+# Copyright (c) 2005--2018 Red Hat, Inc.
 #
 #
 #
