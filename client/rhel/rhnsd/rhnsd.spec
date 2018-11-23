@@ -193,23 +193,22 @@ if [ -f %{_unitdir}/rhnsd.service ]; then
 fi
 %endif
 
-%if %{_vendor} == "debbuild"
-%files
-%{_datadir}/locale/
-%else
-%files -f %{name}.lang
-%endif
-%dir %{_sysconfdir}/sysconfig/rhn
-%config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
-%{_sbindir}/rhnsd
 %if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8 || 0%{?rhel} >= 7
+%files
 %{_unitdir}/rhnsd.service
 %{_unitdir}/rhnsd.timer
 %else
+%files -f %{name}.lang
+%dir %{_sysconfdir}/sysconfig/rhn
+%config(noreplace) %{_sysconfdir}/sysconfig/rhn/rhnsd
+%{_sbindir}/rhnsd
 %{_initrddir}/rhnsd
 %endif
 %{_mandir}/man8/rhnsd.8*
 %doc LICENSE
+%if %{_vendor} == "debbuild"
+%{_datadir}/locale/
+%endif
 
 %changelog
 * Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.41-1
