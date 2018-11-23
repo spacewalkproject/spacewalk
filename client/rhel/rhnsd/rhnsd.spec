@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.43
+Version: 5.0.44
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -216,6 +216,10 @@ fi
 %endif
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 5.0.44-1
+- Regenerating .po and .pot files for rhnsd
+- Updating .po translations from Zanata
+
 * Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.43-1
 - 1091025 - langauges are not needed on systemd
 
