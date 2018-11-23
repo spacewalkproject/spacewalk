@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 """
 Multi-Org: Script to migrate server from one org to another
 

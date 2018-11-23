@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 """
 Delete Snapshots: Script to delete system snapshots.
 
