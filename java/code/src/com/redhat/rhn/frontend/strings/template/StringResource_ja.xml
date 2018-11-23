@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ ユーザー様
 
-Red Hat ログインが {0} {1} により作成されました。
-Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
-ご使用頂くと、@@PRODUCT_NAME@@ 上でシステムを管理することができます。
-
-  Red Hat ログイン: {2}
-        パスワード: {3}
-        電子メール: {4}
-
-  {5}
-
-重要: ログイン時にパスワードを変更してください。
-
-@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,21 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ ユーザー様
 
-Red Hat ログインが作成されました。
-Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
-ご使用頂くと、@@PRODUCT_NAME@@ 上でシステムを管理することができます。
-
-  Red Hat ログイン: {0}
-        パスワード: {1}
-        電子メール: {2}
-
-  {3}
-重要: ログイン時にパスワードを変更してください。
-
-@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -447,24 +418,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ これは、ご依頼により {0} に自動的に送信される電子メールです。]
 
-ご使用の @@PRODUCT_NAME@@ パスワードがリセットされました。サインインするには、以下に移動してください:
-
-https://{1}/
-
-さらに、以下のユーザー名とパスワードを使用してください:
-
-ユーザー名: {2}
-パスワード: {3}
-
-ログインした後に、パスワードを変更することができます。
-
-ログインに問題がある場合には、@@PRODUCT_NAME@@ 管理者にお問い合わせください。
-
-@@PRODUCT_NAME@@ をご使用いただき、誠にありがとうございます。
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

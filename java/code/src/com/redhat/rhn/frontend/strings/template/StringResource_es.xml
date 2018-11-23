@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Hola,
 
-Un nombre de usuario de Red Hat ha sido creado para usted por {0} {1}. Su nombre de usuario de Red Hat
-, junto con una suscripción activa de Red Hat, le brindan acceso a
- las funciones de administración de sistemas de @@PRODUCT_NAME@@.
-
-Nombre de usuario de Red Hat: {2}
-Contraseña: {3}
-Correo-e: {4}
-
-{5}
-
-Importante: cambie su contraseña una vez entre a RHN.
-
-Gracias por utilizar @@PRODUCT_NAME@@.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Hola,
 
-Un nombre de usuario de Red Hat ha sido creado para usted. Su nombre de usuario de Red Hat
-, junto con una suscripción activa de Red Hat, le brindan acceso a
- las funciones de administración de sistemas de @@PRODUCT_NAME@@.
-
-Nombre de usuario de Red Hat: {0}
-Contraseña: {1}
-Correo-e: {2}
-
-{3}
-
-Importante:  cambie su contraseña una vez entre a RHN.
-
-Gracias por utilizar  @@PRODUCT_NAME@@.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -448,25 +418,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ Este es un correo-e automático enviado a {0} a petición suya. ]
 
-Su contraseña @@PRODUCT_NAME@@ ha sido reconfigurada. Para ingresar, vaya a:
-
-https://{1}/
-
-y utilice el siguiente nombre y contraseña:
-
-Nombre de usuario: {2}
-
-Contraseña: {3}
-
-Una vez haya ingresado, puede cambiar su contraseña.
-
-Si continúa teniendo dificultades para ingresar, contacte a su administrador @@PRODUCT_NAME@@ para obtener ayuda.
-
-Gracias por utilizar  @@PRODUCT_NAME@@.
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

@@ -332,7 +332,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Errata Details Navigation Tabs</context>
         </context-group>
-        
+        <target>Задіяні системи</target>
       </trans-unit>
       <trans-unit id="All">
         <source>All</source>
@@ -402,7 +402,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Anywhere a list of words is delimited</context>
         </context-group>
-        
+        <target>, </target>
       </trans-unit>
       <trans-unit id="Change Email">
         <source>Change Email</source>
@@ -416,7 +416,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        
+        <target>Створити канал програмного забезпечення</target>
       </trans-unit>
       <trans-unit id="Audit">
         <source>Audit</source>
@@ -500,7 +500,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Клонувати помилки</target>
       </trans-unit>
       <trans-unit id="Completed Actions">
         <source>Completed Actions</source>
@@ -514,7 +514,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Канали налаштувань</target>
       </trans-unit>
       <trans-unit id="Create Account">
         <source>Create Account</source>
@@ -528,7 +528,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Нетипові дані щодо системи</target>
       </trans-unit>
       <trans-unit id="date">
         <source>Date</source>
@@ -607,7 +607,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Збереження файлів</target>
       </trans-unit>
       <trans-unit id="Go">
         <source>Go</source>
@@ -621,7 +621,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Ключі GPG і SSL</target>
       </trans-unit>
       <trans-unit id="Help">
         <source>Help</source>
@@ -677,7 +677,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Керування помилками</target>
       </trans-unit>
       <trans-unit id="Management">
         <source>Management</source>
@@ -712,7 +712,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Прив'язка каналів поширення</target>
       </trans-unit>
       <trans-unit id="Monitoring">
         <source>Monitoring</source>
@@ -803,7 +803,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Пошук пакунків</target>
       </trans-unit>
       <trans-unit id="Pending Actions">
         <source>Pending Actions</source>
@@ -824,7 +824,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Налаштування локалі</target>
       </trans-unit>
       <trans-unit id="Profiles">
         <source>Profiles</source>
@@ -866,7 +866,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Керування передплатою</target>
       </trans-unit>
       <trans-unit id="Organization Trusts">
         <source>Organization Trusts</source>
@@ -957,21 +957,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Створити першого користувача</target>
       </trans-unit>
       <trans-unit id="Software Channels">
         <source>Software Channels</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Канали програмного забезпечення</target>
       </trans-unit>
       <trans-unit id="Software Crashes">
         <source>Software Crashes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Аварії програмного забезпечення</target>
       </trans-unit>
       <trans-unit id="Status">
         <source>Status</source>
@@ -985,7 +985,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Збережені профілі</target>
       </trans-unit>
       <trans-unit id="Subscription">
         <source>Subscription</source>
@@ -1020,28 +1020,28 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Системи</target>
       </trans-unit>
       <trans-unit id="Task Schedules">
         <source>Task Schedules</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Плани завдань</target>
       </trans-unit>
       <trans-unit id="Task Engine Status">
         <source>Task Engine Status</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Стан рушія завдань</target>
       </trans-unit>
       <trans-unit id="Show Tomcat Logs">
         <source>Show Tomcat Logs</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
-        
+        <target>Показати журнал Tomcat</target>
       </trans-unit>
       <trans-unit id="testMessage">
         <source>this is a test of the emergency broadcast</source>
@@ -1069,7 +1069,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Traceback Email Notifications</context>
         </context-group>
-        
+        <target>Під час виконання цього запиту сталося таке виключення:</target>
       </trans-unit>
       <trans-unit id="Ungrouped">
         <source>Ungrouped</source>
@@ -1164,7 +1164,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-        
+        <target>.</target>
       </trans-unit>
       <trans-unit id="user.delete">
         <source>Deleted user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1172,7 +1172,7 @@
           <context context-type="sourcefile">/rhn/users/DeleteUser</context>
           <context context-type="paramnotes">Deleted user ssprocket.</context>
         </context-group>
-        
+        <target>Вилучений користувач &lt;strong&gt;{0}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="user.disable">
         <source>Deactivated user &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -1180,14 +1180,14 @@
           <context context-type="sourcefile">/rhn/users/DisableUser</context>
           <context context-type="paramnotes">Deactivated user ssprocket.</context>
         </context-group>
-        
+        <target>Деактивований користувач &lt;strong&gt;{0}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="account.disabled">
         <source>Your account has been deactivated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Login or Logout</context>
         </context-group>
-        
+        <target>Ваш обліковий запис деактивовано.</target>
       </trans-unit>
       <trans-unit id="account.user.disabled">
         <source>Account {0} has been deactivated.</source>
@@ -1604,7 +1604,7 @@
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
-        <target>Вулиця і будинок</target>
+
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
@@ -2185,6 +2185,28 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
         
+      </trans-unit>
+      <trans-unit id="kickstart.invalidchannel.satmessage.appstream">
+        <source>&lt;div style="text-align: left;"&gt;
+&lt;p&gt;To resolve this issue, please check the following things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Is the 'appstream' child software channel for this kickstart profile's base
+channel available to your organization? If it is not, you will need to request
+entitlements for the 'appstream' software channel from your @@PRODUCT_NAME@@ administrator.
+&lt;/li&gt;
+&lt;li&gt;
+Make sure that the 'appstream' child channel for this kickstart profile's base
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+satellite administrator and request a cdn-sync for the appstream channel
+and try again.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="kickstart.initiate">
         <source>Initiate a kickstart</source>
@@ -3372,14 +3394,14 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/DisableUser</context>
         </context-group>
-        
+        <target>Користувача вже деактивовано.</target>
       </trans-unit>
       <trans-unit id="userenable.error.usernotdisabled">
         <source>Only deactivated users can be reactivated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/EnableUser</context>
         </context-group>
-        
+        <target>Активувати можна лише деактивованих користувачів.</target>
       </trans-unit>
       <trans-unit id="userenable.error.sameorg">
         <source>User to reactivate must be in the same organization.</source>
@@ -3430,14 +3452,14 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/InProgressSystems</context>
         </context-group>
-        
+        <target>Не вибрано систем.</target>
       </trans-unit>
       <trans-unit id="systemgroups.none">
         <source>No system groups selected.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/SystemGroupList</context>
         </context-group>
-        
+        <target>Не вибрано груп систем.</target>
       </trans-unit>
       <trans-unit id="systemgroups.create.successmessage">
         <source>System group {0} created.</source>
@@ -3518,7 +3540,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        
+        <target>Архітектура пакунка</target>
       </trans-unit>
       <trans-unit id="summary">
         <source>Summary</source>
@@ -3566,7 +3588,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">
                 /rhn/errata/CreateSubmit.do</context>
         </context-group>
-        
+        <target>Резюме щодо вади</target>
       </trans-unit>
       <trans-unit id="keywords">
         <source>Keywords</source>
@@ -3623,7 +3645,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/patches/PatchList</context>
         </context-group>
-        
+        <target>Не вибрано латок.</target>
       </trans-unit>
       <trans-unit id="timetag.lastcheckin">
         <source>System last check-in:</source>
@@ -3791,7 +3813,7 @@ user before attempting to deactivate their account.</source>
           <context context-type="paramnotes">1 minute</context>
           <context context-type="paramnotes">600 hours</context>
         </context-group>
-        
+        <target>{0} {1}</target>
       </trans-unit>
       <trans-unit id="message.packagerefresh">
         <source>You have successfully scheduled a &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;package profile refresh&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;.</source>
@@ -3937,7 +3959,7 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.FilterEditAction</context>
         </context-group>
-        
+        <target>Немає пакунків для синхронізації.</target>
       </trans-unit>
       <trans-unit id="punctuation.colonwithspace">
         <source>: </source>
@@ -3965,14 +3987,14 @@ user before attempting to deactivate their account.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
-        
+        <target>Профіль системи вилучено.</target>
       </trans-unit>
       <trans-unit id="message.servernotdeleted">
         <source>System profile {0} could not be deleted.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Overview</context>
         </context-group>
-        
+        <target>Не вдалося вилучити профіль системи {0}.</target>
       </trans-unit>
       <trans-unit id="message.servernotdeleted_cobbler">
         <source>System profile {0} could not be deleted. Check cobbler service.</source>

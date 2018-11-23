@@ -238,7 +238,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>
-        <target>状态</target>
+
       </trans-unit>
       <trans-unit id="ssm.nav.status.inprogress">
         <source>In Progress</source>
@@ -1183,14 +1183,8 @@
           <target>清除</target>
         </trans-unit>
       </group>
-      <!-- SUSE Studio -->
-      <trans-unit id="Credentials">
-        <source>Credentials</source>
-        <target>证书</target>
-      </trans-unit>
-      <trans-unit id="Images">
-        <source>Images</source>
-        <target>镜像</target>
+      <trans-unit id="Deployment">
+        <source>Deployment</source>
       </trans-unit>
     </body>
   </file>

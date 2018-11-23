@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Здравствуйте,
 
-Имя входа Red Hat успешно создано с помощью {0} {1}.
-Имя входа Red Hat в совокупности с активной подпиской Red Hat
-обеспечивает доступ к управлению системами в @@PRODUCT_NAME@@.
-
-  Имя пользователя: {2}
-       Пароль: {3}
-       Электронный адрес: {4}
-
-  {5}
-
-Важно! Измените пароль при входе в систему.
-
-Благодарим за выбор @@PRODUCT_NAME@@.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Здравствуйте,
 
-Ваше имя входа Red Hat успешно создано. Имя входа Red Hat
-в совокупности с активной подпиской Red Hat обеспечивает доступ
-к управлению системами в @@PRODUCT_NAME@@.
-
-  Имя пользователя: {0}
-       Пароль: {1}
-     Электронный адрес: {2}
-
-  {3}
-
-Важно! Измените пароль при входе в систему.
-
-Благодарим за выбор @@PRODUCT_NAME@@.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -442,25 +412,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ Это сообщение было создано автоматически для {0}. ]
 
-Пароль @@PRODUCT_NAME@@ был сброшен. Чтобы установить новый пароль, перейдите на:
-
-https://{1}/
-
-и авторизуйтесь:
-
-Пользователь: {2}
-Пароль: {3}
-
-После авторизации вы сможете изменить пароль.
-
-Если вы по-прежнему не можете авторизоваться,
-обратитесь за помощью к администратору @@PRODUCT_NAME@@.
-
-Благодарим за выбор @@PRODUCT_NAME@@.
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

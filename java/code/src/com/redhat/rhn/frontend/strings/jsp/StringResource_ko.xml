@@ -302,36 +302,34 @@
         <target>잘못된 {0}을 입력하셨습니다.</target>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
         <target>{0}는 정수이어야 합니다.</target>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
-        <target>{0}는 long 유형이어야 합니다.</target>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
         <target>{0}는 float 유형이어야 합니다.</target>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
-        <target>{0}는 double 유형이어야 합니다.</target>
       </trans-unit>
       <trans-unit id="errors.unexpected">
         <source>An unexpected error has occurred during the request.</source>
@@ -1442,7 +1440,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. All rights reserved.</target>
+
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -3218,6 +3216,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>다음은 시스템에 설치된 패키지로 해당 채널에 나타나지 않습니다.</target>
       </trans-unit>
+      <trans-unit id="packagelist.jsp.modulespresent">
+          <source>At least one of the channels this system is subscribed to contains modules. If you have activated modules on this system, please refrain from using @@PRODUCT_NAME@@ for package operations. Instead, perform all package actions from the client using dnf.</source>
+      </trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
         <source>Upgradable Packages</source>
@@ -4185,7 +4186,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
-        <target>아래에서 스테이징 컨텐츠를 사용하기 위해 조직을 설정하고 소프트웨어 충돌 보고서를 설정합니다. 충돌 파일 업로드 제한은 음수가 아닌 숫자로 지정합니다. 제로는 제한이 없음을 의미합니다.</target>
+
       </trans-unit>
       <trans-unit id="orgconfig.jsp.description.noteditable">
         <source>Below is your organization configuration listed. See, how staging content, errata e-mail notifications, software crash reporting and SCAP settings are configured.</source>
@@ -4371,7 +4372,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-        <target>다음에는 {0} 조직에 있는 모든 사용자 목록이 있습니다. {0} 조직으로 로그인하여 조직 관리자 권한이 있을 경우에 이러한 사용자의 정보 수정을 위해 액세스할 수 있음에 유의하시기 바랍니다.   </target>
+
       </trans-unit>
       <trans-unit id="orglist.jsp.noOrgs">
         <source>No Organizations.</source>
@@ -4429,9 +4430,7 @@ organization. You may grant or remove the organization administrator role in the
       </trans-unit>
       <trans-unit id="organizations.tip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
-        <target>&lt;strong&gt;힌트:&lt;/strong&gt; 이 조직은  @@PRODUCT_NAME@@에서 기본값으로 설정되어있는 조직입니다. 이 조직에 해당하는 인타이틀먼트는  @@PRODUCT_NAME@@ 인증서 파일과 링크되어 있으므로, 수정할 수 없습니다. 기본값이 아닌 조직에서 인타이틀먼트를
-삭제할 경우, 이러한 인타이틀먼트는 기본값 조직으로 다시 추가되며, 기본값이 아닌 조직에서
-인타이틀먼트를 추가할 경우, 이는 기본값 조직에서 삭제됩니다.    </target>
+
       </trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
         <source>unlimited</source>
@@ -4913,7 +4912,7 @@ organization. You may grant or remove the organization administrator role in the
         <target>&lt;strong&gt;{1}&lt;/strong&gt; 패키지가 &lt;strong&gt;{0}&lt;/strong&gt; 채널로 전달되었습니다.  </target>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
@@ -6077,11 +6076,11 @@ organization. You may grant or remove the organization administrator role in the
         </context-group>
         <trans-unit id="duplicates.jsp.header">
           <source>Duplicate Systems</source>
-          <target>중복 시스템 프로파일 </target>
+
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
           <source>Inactive systems are listed below.</source>
-          <target>비활성 시스템 프로파일이 아래에 표시되어 있습니다.</target>
+
         </trans-unit>
         <trans-unit id="Delete Selected">
           <source>Delete Selected</source>
@@ -6437,7 +6436,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@를 최대로 활용하기 위해 각 시스템에 &lt;strong&gt; 인타이틀먼트&lt;/strong&gt;를 부여해야 합니다. 만약 시스템에 인타이틀먼트를 부여하지 않을 경우, 패키지 설치나 에라타 업데이트와 같은 주요 소프트웨어 관리 작업의 수행이 불가능하게 됩니다.     </target>
+
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para2">
         <source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -6533,8 +6532,7 @@ organization. You may grant or remove the organization administrator role in the
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 시스템이 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트로 성공적으로 설정되었지만 나머지 &lt;strong&gt;{1}&lt;/strong&gt; 시스템에 대해 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트가 부족합니다. &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트가 있는 시스템을 업데이트 인타이틀먼트로 다운그레이드하여 &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트를 확보할 수 있습니다. 또는 &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;에서 추가로 관리 인타이틀먼트를 구매할 수 있습니다. &lt;strong&gt;관리&lt;/strong&gt; 인타이틀먼트를 추가하면 이 시스템을 업그레이드할 수 있습니다.
-    </target>
+
         </trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -6620,14 +6618,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>시스템 검색</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
         <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>시스템 검색 기능은 관리 권한이 있는 모든 시스템을 검색하여 결과를 출력합니다.</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.fieldtosearch">
         <source>Field to Search:</source>
@@ -8355,7 +8353,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>아래의 @@PRODUCT_NAME@@를 설정하십시오. 부모 @@PRODUCT_NAME@@ 서버와 @@PRODUCT_NAME@@ 서버 간의 통신을 위해 HTTP 프록시를 설정하셔야 합니다. http 프록시는 호스트명:포트 형식으로 설정하셔야 하며, 만일 아무런 값도 설정하지 않으신다면 기본 포트인 8080을 사용합니다. 이 @@PRODUCT_NAME@@에 연결하는 클라이언트 시스템마다 HTTP 프록시 설정이 다를 수 있으므로, 나중에 다시 설정 가능합니다. 모니터링 백엔드를 활성화하셨다면, 모니터링 스카웃도 활성화하시거나 또는 모니터링 스카웃을 별개 서버로 설정하셔야 합니다. 모니터링 스카웃을 활성화하셨다면, 모니터링 백엔드도 활성화하셔야 합니다.       </target>
+
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -8471,7 +8469,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-        <target>RHN 참조 가이드 </target>
+
       </trans-unit>
       <trans-unit id="general.jsp.admin_email">
         <source>Administrator Email Address</source>
@@ -9760,7 +9758,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;자료:&lt;/strong&gt; RHN 참조 가이드 킥스타트 부분&lt;/span&gt;</target>
+
       </trans-unit>
       <trans-unit id="kickstartips.jsp.tip">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the IP ranges associated with your organization's kickstart profiles is available &lt;/span&gt;</source>
@@ -10029,7 +10027,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
-        <target>&lt;strong&gt;알림: 호환 불가능한 활성키를 선택하시면 시스템이 킥스타트를 마친 후 RHN에 등록하지 못할 수 있습니다.&lt;/strong&gt;  이 기능을 사용하시기 전에 다중 활성키의 사용방법을 RHN 참조 가이드에서 먼저 읽어보시기 바랍니다.</target>
+
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -10413,7 +10411,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>킥스타트 과정에서 시스템에 설치할 키 또는 인증서를 킥스타트 프로파일에 지정하실 수 있습니다. 시스템에 서명된 패키지를 설치하고, @@PRODUCT_NAME@@ Proxy 서버나 @@PRODUCT_NAME@@ 서버를 통해 시스템을 킥스타트하고 인증된 패키지를 설치하기위해서는 올바른 인증서와 키가 필요합니다. 보다 자세한 정보는 &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys&quot; target=&quot;_blank&quot;&gt;RHN 참조 가이드&lt;/a&gt;를 살펴보시기 바랍니다.   </target>
+
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -10570,7 +10568,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>파일 보관 목록이란 특정 킥스타트시 시스템에 복구될 파일 목록을 말합니다.  킥스타트 프로파일에서 파일 보관 목록을 보실 수 있습니다.  보다 자세한 정보는  &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN 참조 가이드&lt;/a&gt;를 읽어보시기 바랍니다. 조직에서 사용할 수 있도록 다음과 같은 파일 보관 목록이 생성되었습니다:         </target>
+
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -10708,7 +10706,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>이곳에 입력된 파일이나 디렉토리는 킥스타트를 마친 후 보관됩니다. 한줄당 한개의 파일 또는 디렉토가 나열됩니다. &lt;br/&gt;각 목록의 최대 용량은 &lt;strong&gt;1 MB&lt;/strong&gt;로 제한되어 있습니다. 보다 자세한 사항은 &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN 참조 가이드&lt;/a&gt;를 참조하시기 바랍니다.        </target>
+
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>
@@ -11422,7 +11420,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;최근 등록된 시스템&lt;/strong&gt;</target>
+
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered.none">
         <source>&lt;strong&gt;No recently registered systems.&lt;/strong&gt;&lt;p&gt;You have no systems that were registered within the past 30 days. You may view a list of all registered systems at &lt;a href="/rhn/systems/Registered.do"&gt;&lt;strong&gt;Systems &gt; Recently Registered&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;</source>
@@ -11741,7 +11739,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>아래에 기재된 소프트웨어 채널은 사용자 조직에 &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; 인타이틀먼트가 있는 &lt;/a&gt; &lt;strong&gt;더이상 사용되지 않는 채널&lt;/strong&gt;이며 이는 만료되어 더 이상 Red Hat에서 지원하지 않습니다.  </target>
+
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12927,6 +12925,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.history.headerPending">
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
         </trans-unit>
@@ -13534,6 +13535,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN 도구 채널에 등록</target>
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
           <target>rhncfg 패키지 설치 스케줄하기</target>
@@ -13603,6 +13607,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
           <target>RHN 도구 채널에 등록할 수 없습니다.</target>
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
@@ -15589,7 +15596,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>시스템</target>
+
       </trans-unit>
       <trans-unit id="managedsystems.jsp.summary">
         <source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
@@ -16920,15 +16927,15 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
           <source>Copy Latest to Local Sandbox</source>
-          <target>모래 상자에 최근 내용물 복사</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
           <source>Copy Latest to Locally-Managed Files</source>
-          <target>시스템 채널에 최근 내용물 복사</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
           <source>Copy Latest to Centrally-Managed Files</source>
-          <target>중앙 채널에 최근 내용물 복사</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
           <source>{0} file(s) successfully copied to Sandbox</source>
@@ -17281,7 +17288,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
           <source>Task Log</source>
-          <target>작업 기록 </target>
+
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
@@ -17411,6 +17418,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
         </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
@@ -18164,7 +18174,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@에 의해 관리되지 않는 킥스타트 프로파일은 @@PRODUCT_NAME@@ 사용자 인터페이스를 수정할 수 없습니다. 이러한 프로파일을 수정하려면, @@PRODUCT_NAME@@ 서버에 로그인하여 'cobbler profile edit' 명령을 실행합니다. 보다 자세한 내용은 @@PRODUCT_NAME@@ 참조 가이드를 살펴보십시오.  </target>
+
       </trans-unit>
       <trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -19086,7 +19096,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>아래 양식을 작성하여 &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;에서 호스트될 새로운 가상 시스템을 생성하시기 바랍니다.</target>
+
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -22133,7 +22143,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
         <source>No packages found for this criteria.</source>
-        <target>기준과 일치하는 패키지를 찾을 수 없음.  </target>
+
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
@@ -22908,6 +22918,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.clone.select.summary">
         <source>The original state of the target channel will be cloned into the new channel. You will then have the option to select the errata you wish to import into the new channel. Importing an erratum will bring the packages from the target channel referred to by the erratum into the new channel. Selecting all of the errata from the list of potential errata is the same as cloning the current state of the channel. Selecting none of the errata is the same as cloning the original state of the channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
         </context-group>
@@ -23892,7 +23908,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
         <source>A system is inactive if its system has not checked in for:</source>
-        <target>시스템이 연결되지 않은 경우 시스템 프로파일은 비활성화됨: </target>
+
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>
@@ -23947,7 +23963,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="debuginfo.unavailable">
         <source>If available, an appropriate debuginfo package can be synced from the respective debug channel or repository. Note: Not all packages have published debuginfo packages.</source>
-        <target>사용 가능한 경우 적절한 debuginfo 패키지를 Red Hat 고객 포털이나 각각의 debuginfo 자식 채널에서 satellite-sync 명령을 실행하여 다운로드할 수 있습니다. 알림: 모든 패키지가 debuginfo 패키지를 공개하는 것은 아닙니다.</target>
+
       </trans-unit>
       <trans-unit id="debugsource.unavailable">
         <source>If available, an appropriate debugsource package can be synced from the respective debug channel or repository. Note: Not all packages have published debugsource packages.</source>
@@ -23984,36 +24000,18 @@ given channel.</source>
       <trans-unit id="channel.jsp.dependencies.enhances.title">
         <source>Enhances</source>
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -24039,38 +24037,11 @@ given channel.</source>
       <trans-unit id="images.jsp.proxypass">
         <source>Proxy Password:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
       </trans-unit>
-      <trans-unit id="credentials.jsp.susestudio">
-        <source>SUSE Studio</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.summary">
-        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.dispatch">
-        <source>Update Credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.summary">
-        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.dispatch">
-        <source>Delete Credentials</source>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.credentials">
-        <source>delete credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.username">
-        <source>Username</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.apikey">
-        <source>API Key</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.url">
-        <source>URL</source>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
       <trans-unit id="iss.unmapped.org">
         <source>MASTER ORG NOT MAPPED</source>

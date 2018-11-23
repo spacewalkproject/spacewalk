@@ -294,36 +294,34 @@
         <target>{0} એ અમાન્ય છે.</target>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
         <target>{0} એ પૂર્ણાંક હોવો જ જોઈએ.</target>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
-        <target>{0} એ લાંબુ હોવું જ જોઈએ.</target>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
         <target>{0} એ અપૂર્ણાંક હોવો જ જોઈએ.</target>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
-        <target>{0} એ double હોવો જ જોઈએ.</target>
       </trans-unit>
       <trans-unit id="errors.unexpected">
         <source>An unexpected error has occurred during the request.</source>
@@ -1413,7 +1411,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. All rights reserved.</target>
+
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -3185,6 +3183,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/systems/details/packages/ForeignPackages</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="packagelist.jsp.modulespresent">
+          <source>At least one of the channels this system is subscribed to contains modules. If you have activated modules on this system, please refrain from using @@PRODUCT_NAME@@ for package operations. Instead, perform all package actions from the client using dnf.</source>
+      </trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
         <source>Upgradable Packages</source>
@@ -4321,7 +4322,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-        <target>નીચે {0} સંસ્થામાંના બધા વપરાશકર્તાઓની યાદી છે. નોંધ કરો કે તમારે માત્ર વપરાશકર્તાઓની વિગતો સુધારવાનો વપરાશ છે કે જેઓ આ સંસ્થાના સભ્યો છે કે જેમાં તમે વર્તમાનમાં પ્રવેશેલ છો ({0}), અને માત્ર જો તમારી પાસે આ સંસ્થાના સંચાલક વિશેષાધિકારો હોય.</target>
+
       </trans-unit>
       <trans-unit id="orglist.jsp.noOrgs">
         <source>No Organizations.</source>
@@ -4379,10 +4380,7 @@ organization. You may grant or remove the organization administrator role in the
       </trans-unit>
       <trans-unit id="organizations.tip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
-        <target>&lt;strong&gt;ટિપ્પણી:&lt;/strong&gt; આ સંસ્થા એ તમારા @@PRODUCT_NAME@@ ની મૂળભૂત સંસ્થા છે. આ સંસ્થા માટેની ઉમેદવારીઓ તમારી @@PRODUCT_NAME@@ પ્રમાણપત્ર ફાઈલ સાથે કડી થયેલ છે, તેથી તેઓ સુધારી શકાય તેવી નથી. જો તમે ઉપર બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ
-દૂર કરો, તો તે ઉમેદવારીઓ મૂળભૂત સંસ્થામાં પાછી ઉમેરી દેવામાં આવશે,
-અને જો તમે બિન-મૂળભૂત સંસ્થામાંથી ઉમેદવારીઓ ઉમેરો તો તેઓ
-મૂળભૂત સંસ્થામાંથી દૂર કરવામાં આવશે.</target>
+
       </trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
         <source>unlimited</source>
@@ -4860,7 +4858,7 @@ organization. You may grant or remove the organization administrator role in the
         <target>&lt;strong&gt;{1}&lt;/strong&gt; પેકેજ(ઓ) એ ચેનલમાં જવા દબાણ કરેલ હતુ &lt;strong&gt;{0}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
@@ -6266,7 +6264,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-        <target>@@PRODUCT_NAME@@ નું મોટા ભાગનું મેળવવા માટે, દરેક સિસ્ટમની સેવામાં &lt;strong&gt;ઉમેદવારી&lt;/strong&gt; થયેલ હોવી જોઈએ. જો સિસ્ટમની ઉમેદવારી થયેલ નહિં હોય, તો તમે તે સિસ્ટમ માટે મુખ્ય સોફ્ટવેર મેનેજમેન્ટ ક્રિયાઓ કરવા માટે માન્ય હશો નહિં, જેમ કે પેકેજ સ્થાપનો અથવા ત્રુટિસૂચી સુધારાઓ.</target>
+
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para2">
         <source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -6443,14 +6441,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>સિસ્ટમ શોધ</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
         <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>સિસ્ટમ શોધ બધી સિસ્ટમોમાંથી પરિણામો આપશે કે જેનો તમને સંચાલક વપરાશ હોય.</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.fieldtosearch">
         <source>Field to Search:</source>
@@ -8158,7 +8156,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>તમારું @@PRODUCT_NAME@@ સેટેલાઈટ નીચે રૂપરેખાંકિત કરો. HTTP પ્રોક્સી સુયોજનો પિતૃ @@PRODUCT_NAME@@ સર્વર સાથે સેટેલાઈટ સર્વરના સંપર્કવ્યવહાર માટે છે, જો કોઈ હોય તો. http પ્રોક્સી આ સ્વરૂપમાં હોવું જોઈએ: hostname:port, પરંતુ જો કંઈપણ પૂરું પાડવામાં આવેલ નહિં હોય તો 8080 નો મૂળભૂત પોર્ટ પૂરો પાડવામાં આવશે. આ @@PRODUCT_NAME@@ સાથે જોડાવા માટે ક્લાઈન્ટોની સિસ્ટમોના HTTP પ્રોક્સી સુયોજનો અલગ હોઈ શકે, અને પછીથી રૂપરેખાંકિત કરી શકાશે. જો તમે મોનીટરીંગ પાશ્વભાગ સક્રિય કરો, તો તમારે મોનીટરીંગ સ્કાઉટ પણ સક્રિય કરવું જોઈએ, અથવા અલગ સર્વર તરીકે મોનીટરીંગ સ્કાઉટને રૂપરેખાંકિત કરવું જોઈએ. જો તમે મોનીટરીંગ સ્કાઉટ સક્રિય કરો, તો તમારે મોનીટરીંગ પાશ્વભાગને પણ સક્રિય કરવું જ પડશે.</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -8268,7 +8266,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-        <target>RHN સંદર્ભ માર્ગદર્શન</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.admin_email">
         <source>Administrator Email Address</source>
@@ -9469,7 +9467,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;સ્રોત:&lt;/strong&gt; RHN સંદર્ભ માર્ગદર્શન કિકસ્ટાર્ટ વિભાગ&lt;/span&gt;</target>
+
       </trans-unit>
       <trans-unit id="kickstartips.jsp.tip">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the IP ranges associated with your organization's kickstart profiles is available &lt;/span&gt;</source>
@@ -9733,7 +9731,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
-        <target>&lt;strong&gt;નોંધ: બિનસુસંગત સક્રિયકરણ કીઓની પસંદગી સિસ્ટમને તે કિકસ્ટાર્ટ થાય પછી રજીસ્ટર કરવાથી બચાવી શકે છે.&lt;/strong&gt;  આ લક્ષણનો વપરાશ કરવા પહેલાં તમે મલ્ટીપલ સક્રિયકરણ કીઓને વાપરવા માટે RHN સંદર્ભ માર્ગદર્શન વિભાગને રીવ્યુ કરવા માંગશો.</target>
+
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -10095,7 +10093,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>તમે કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમો પર તે કીઓ/પ્રમાણપત્રો સ્થાપિત કરવા માટે તમારી કિકસ્ટાર્ટ રૂપરેખામાં તે કીઓ અને/અથવા પ્રમાણપત્રોનો સંદર્ભ લઈ શકો છો.  સહી થયેલ પેકેજો સ્થાપિત કરવા માટે સિસ્ટમને યોગ્ય કીઓની જરૂર રહેશે, અને @@PRODUCT_NAME@@ પ્રોક્સી સર્વર અથવા @@PRODUCT_NAME@@ સેટેલાઈટ સર્વર દ્વારા કિકસ્ટાર્ટ થાય તેવા યોગ્ય પ્રમાણપત્રની જરૂર રહેશે.  વધુ જાણકારી માટે, &lt;a href=&quot;/rhn/help/reference/en/s3-sm-system-kick-keys.jsp&quot; target=&quot;_blank&quot; &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ</target>
+
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -10251,7 +10249,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>ફાઈલ સાચવણી યાદીઓ ફાઈલોની યાદીઓ છે કે જેઓ ચોક્કસ કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમમાં પુનઃસંગ્રહિત થશે.  તમે કિકસ્ટાર્ટ રૂપરેખામાં ફાઈલ બચાવ યાદીનો સંદર્ભ આપી શકો છો.  વધુ જાણકારી માટે &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; નો સંદર્ભ લો.  નીચેની ફાઈલ બચાવ યાદીઓ તમારી સંસ્થા દ્વારા વપરાશ માટે બનાવાયેલ છે:</target>
+
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -10389,7 +10387,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>અંહિ યાદી થયેલ કોઈપણ ફાઈલો અથવા ડિરેક્ટરીઓ કિકસ્ટાર્ટને અનુસરીને સચવાશે. એક લીટી પ્રતિ ફાઈલો અથવા ડિરેક્ટરીઓની યાદી કરો.&lt;br/&gt;દરેક યાદી એ &lt;strong&gt;1 MB&lt;/strong&gt; ના કુલ માપમાં મર્યાદિત છે.  વધુ જાણકારી માટે &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN સંદર્ભ માર્ગદર્શિકા&lt;/a&gt; જુઓ.</target>
+
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>
@@ -11097,7 +11095,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;છેલ્લે રજીસ્ટર થયેલ સિસ્ટમો&lt;/strong&gt;</target>
+
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered.none">
         <source>&lt;strong&gt;No recently registered systems.&lt;/strong&gt;&lt;p&gt;You have no systems that were registered within the past 30 days. You may view a list of all registered systems at &lt;a href="/rhn/systems/Registered.do"&gt;&lt;strong&gt;Systems &gt; Recently Registered&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;</source>
@@ -11414,7 +11412,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>નીચે યાદી થયેલ સોફ્ટવેર ચેનલો &lt;strong&gt;નિવૃત્ત ચેનલો છે&lt;/strong&gt; કે જેમાં તમારી સંસ્થાની &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;ઉમેદવારી નોંધાયેલ છે&lt;/a&gt; પરંતુ તેઓ લાંબા સમય સુધી Red Hat દ્વારા આધારભૂત નથી કારણ કે તેઓ તેમના 'જીવન-ની-અંતિમ' તારીખે પહોંચી ગયા છે.</target>
+
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -12484,6 +12482,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="system.event.history.headerPending">
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
         </trans-unit>
@@ -13090,6 +13091,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Subscribe to RHN Tools channel</source>
           <target>RHN સાધનો ચેનલમાં ઉમેદવારી નોંધાવો</target>
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
           <target>rhncfg પેકેજ સ્થાપન સુનિશ્ચિત કરો</target>
@@ -13159,6 +13163,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
           <target>RHN સાધનો ચેનલમાં ઉમેદવારી કરી શક્યા નહિં.</target>
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
@@ -15106,7 +15113,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>સિસ્ટમો</target>
+
       </trans-unit>
       <trans-unit id="managedsystems.jsp.summary">
         <source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
@@ -16434,15 +16441,15 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
           <source>Copy Latest to Local Sandbox</source>
-          <target>તાજેતરને સેન્ડબોક્સમાં નકલ કરો</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
           <source>Copy Latest to Locally-Managed Files</source>
-          <target>તાજેતરને સિસ્ટમ ચેનલમાં નકલ કરો</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
           <source>Copy Latest to Centrally-Managed Files</source>
-          <target>તાજેતરને કેન્દ્રિય ચેનલમાં નકલ કરો</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
           <source>{0} file(s) successfully copied to Sandbox</source>
@@ -16795,7 +16802,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
           <source>Task Log</source>
-          <target>ક્રિયાઓનો લોગ</target>
+
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
@@ -16924,6 +16931,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
+        </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
         </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
@@ -17660,7 +17670,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-        <target>કિકસ્ટાર્ટ રૂપરેખાઓ કે જે @@PRODUCT_NAME@@ દ્દારા સંચાલિત થયેલ છે જે @@PRODUCT_NAME@@ UI માં ફેરફાર કરી શકાતુ નથી. આ રૂપરેખાઓને બદલવા માટે, મહેરબાની કરીને @@PRODUCT_NAME@@ સર્વર પર પ્રવેશો અને 'cobbler profile edit' આદેશને ચલાવો. વધારે જાણકારી માટે, @@PRODUCT_NAME@@ સંદર્ભ માર્ગદર્શિકાનો સંપર્ક કરો.</target>
+
       </trans-unit>
       <trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -18564,7 +18574,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>નવી વર્ચ્યુઅલ સિસ્ટમ બનાવવા માટે અને તેને &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; પર યજમાનિત કરવા માટે નીચેનું ફોર્મ મહેરબાની કરીને ભરો</target>
+
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -21447,7 +21457,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
         <source>No packages found for this criteria.</source>
-        <target>આ વિચારધારા માટે પેકેજો મળ્યા નહિં.</target>
+
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
@@ -22196,6 +22206,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.clone.select.summary">
         <source>The original state of the target channel will be cloned into the new channel. You will then have the option to select the errata you wish to import into the new channel. Importing an erratum will bring the packages from the target channel referred to by the erratum into the new channel. Selecting all of the errata from the list of potential errata is the same as cloning the current state of the channel. Selecting none of the errata is the same as cloning the original state of the channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
         </context-group>
@@ -23164,36 +23180,18 @@ given channel.</source>
       <trans-unit id="channel.jsp.dependencies.enhances.title">
         <source>Enhances</source>
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -23219,38 +23217,11 @@ given channel.</source>
       <trans-unit id="images.jsp.proxypass">
         <source>Proxy Password:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
       </trans-unit>
-      <trans-unit id="credentials.jsp.susestudio">
-        <source>SUSE Studio</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.summary">
-        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.dispatch">
-        <source>Update Credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.summary">
-        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.dispatch">
-        <source>Delete Credentials</source>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.credentials">
-        <source>delete credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.username">
-        <source>Username</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.apikey">
-        <source>API Key</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.url">
-        <source>URL</source>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
       <trans-unit id="iss.unmapped.org">
         <source>MASTER ORG NOT MAPPED</source>

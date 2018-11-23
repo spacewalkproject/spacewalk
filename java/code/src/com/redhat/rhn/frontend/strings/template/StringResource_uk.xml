@@ -45,12 +45,9 @@ Red Hat, у поєднанні з активованою передплатою 
 надає вам доступ до керування системами з @@PRODUCT_NAME@@.
 
   Користувач Red Hat: {2}
-       Пароль: {3}
          Адреса електронної пошти: {4}
 
-  {5}
-
-Важливе зауваження: будь ласка, змініть ваш пароль після входу до системи.
+ Будь ласка, перейдіть до {3}, щоб налаштувати ваш пароль і увімкнути обліковий запис.
 
 Дякуємо за те, що скористалися @@PRODUCT_NAME@@.
 {6}</target>
@@ -89,10 +86,9 @@ Red Hat, у поєднанні з активованою передплатою 
 надає вам доступ до керування системами з @@PRODUCT_NAME@@.
 
   Користувач Red Hat: {0}
-       Пароль: {1}
          Адреса електронної пошти: {2}
 
-  {3}
+Будь ласка, перейдіть до {1}, щоб налаштувати ваш пароль і увімкнути ваш обліковий запис.
 
 Важливе зауваження: будь ласка, змініть ваш пароль після входу до системи.
 
@@ -126,6 +122,19 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
+        <target>Доброго дня,
+
+{0} {1} створено ваш обліковий запис Red Hat. Ваш обліковий запис
+Red Hat, у поєднанні з активованою передплатою Red Hat,
+надає вам доступ до керування системами з @@PRODUCT_NAME@@.
+
+  Користувач Red Hat: {2}
+         Адреса електронної пошти: {4}
+
+  {5}
+
+Дякуємо за те, що скористалися @@PRODUCT_NAME@@.
+{6}</target>
       </trans-unit>
       <!-- New User Email -->
       <trans-unit id="email.newuser.subject">
@@ -163,6 +172,19 @@ Thank you for using @@PRODUCT_NAME@@.
               Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team</context>
         </context-group>
+        <target>Доброго дня,
+
+До вашого облікового запису було додано нового користувача.
+
+{0}
+
+Щоб переглянути усіх активних користувачів та облікові записи Red Hat, пов'язані із вашим обліковим записом,
+будь ласка, відвідайте таку сторінку:
+
+  {1}
+
+Дякуємо за те, що користуєтеся @@PRODUCT_NAME@@.
+{2}</target>
       </trans-unit>
       <group>
         <context-group name="ctx">
@@ -279,6 +301,7 @@ click the "Details" tab.
           <context context-type="sourcefile">Taskomatic task: DailySummary.java</context>
           <context context-type="paramnotes">{0} - current time in short format</context>
         </context-group>
+        <target>Щоденний звіт щодо стану @@PRODUCT_NAME@@ для {0}</target>
       </trans-unit>
       <trans-unit id="dailysummary.email.body">
         <source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.

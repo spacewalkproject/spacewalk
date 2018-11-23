@@ -1487,7 +1487,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-        <target>Слишком длинный пароль. Пожалуйста, введите более короткий пароль и попробуйте еще раз.</target>
+
       </trans-unit>
       <trans-unit id="error.password_mismatch">
         <source>Passwords do not match.</source>
@@ -1604,7 +1604,7 @@
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
-        <target>Улица, дом</target>
+
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
@@ -2208,6 +2208,28 @@ available for this kickstart profile to function properly.
 &lt;/div&gt;
 </target>
       </trans-unit>
+      <trans-unit id="kickstart.invalidchannel.satmessage.appstream">
+        <source>&lt;div style="text-align: left;"&gt;
+&lt;p&gt;To resolve this issue, please check the following things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Is the 'appstream' child software channel for this kickstart profile's base
+channel available to your organization? If it is not, you will need to request
+entitlements for the 'appstream' software channel from your @@PRODUCT_NAME@@ administrator.
+&lt;/li&gt;
+&lt;li&gt;
+Make sure that the 'appstream' child channel for this kickstart profile's base
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+satellite administrator and request a cdn-sync for the appstream channel
+and try again.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.initiate">
         <source>Initiate a kickstart</source>
         <context-group name="ctx">
@@ -2527,7 +2549,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
-        <target>Назначено обновление &lt;strong&gt;{0}&lt;/strong&gt; исправления для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
+
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
@@ -2535,7 +2557,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
-        <target>Назначено обновление &lt;strong&gt;{0}&lt;/strong&gt; исправлений для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
@@ -2543,7 +2565,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
-        <target>Исправления &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; назначены для &lt;strong&gt;{1}&lt;/strong&gt; системы</target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
         <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
@@ -2551,7 +2573,7 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
         </context-group>
-        <target>Исправления &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; назначены для &lt;strong&gt;{1}&lt;/strong&gt; систем</target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.nosystems">
         <source>You must select at least one system.</source>
@@ -7029,7 +7051,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
-          <target>Сравнение конфигурации назначено для {0} систем. Это может занять несколько минут.</target>
+
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
           <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
@@ -7037,7 +7059,7 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
         </context-group>
-          <target>Сравнение конфигурации назначено для  {0} систем(ы).</target>
+
       </trans-unit>
       <trans-unit id="configdiff.schedule.error">
         <source>Failed to schedule configuration file compare action</source>
@@ -7844,7 +7866,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>за год</target>
+
       </trans-unit>
       <trans-unit id="allregisteredsystems">
         <source>All Systems</source>
@@ -9411,20 +9433,7 @@ Please check:
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.
         </source>
-        <target>
-Ниже перечислены ошибки, полученные при попытке
-синхронизации дистрибутивов между Spacewalk и Cobbler.
 
-{0}
-
-Проверьте:
-
-/var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat5/catalina.out
-/var/log/cobbler/cobbler.log
-
-Исправьте ошибки, чтобы сохранить возможность установки
-из выбранного дерева кикстарта.</target>
       </trans-unit>
       <trans-unit id="errata.delete.msg">
         <source>Successfully deleted {0} errata.</source>
@@ -9463,7 +9472,7 @@ tree will not be usable for kickstarting.
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
         <source>Password reset information sent to {0}.</source>
-        <target>Новый пароль отправлен {0}.</target>
+
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

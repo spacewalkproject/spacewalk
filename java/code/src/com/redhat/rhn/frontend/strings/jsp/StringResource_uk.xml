@@ -287,7 +287,7 @@
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be less than 4 characters</context>
         </context-group>
-        
+        <target>{0} має містити лише недесяткові значення.</target>
       </trans-unit>
       <trans-unit id="errors.minlength">
         <source>{0} cannot be less than {1} characters.</source>
@@ -295,7 +295,7 @@
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be less than 4 characters</context>
         </context-group>
-        
+        <target>{0} не може бути меншим за {1} символів.</target>
       </trans-unit>
       <trans-unit id="errors.maxlength">
         <source>{0} cannot be greater than {1} characters (Note: double byte chars are not supported).</source>
@@ -303,7 +303,7 @@
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be greater than 4 characters</context>
         </context-group>
-        
+        <target>{0} не може бути більшим за {1} символів (Зауваження: підтримки двобайтових символів не передбачено).</target>
       </trans-unit>
       <trans-unit id="errors.invalid">
         <source>{0} is invalid.</source>
@@ -314,42 +314,41 @@
         <target>{0} є некоректним.</target>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
         <target>{0} має бути цілим числом.</target>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
-        <target>{0} має належати до типу long.</target>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
         <target>{0} має належати до типу float.</target>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
-        <target>{0} має належати до типу double.</target>
       </trans-unit>
       <trans-unit id="errors.unexpected">
         <source>An unexpected error has occurred during the request.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page where an unexpected error occurred.</context>
         </context-group>
+        <target>Під час спроби виконати запит сталася неочікувана помилка.</target>
       </trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
         <source>Help Icon</source>
@@ -364,6 +363,7 @@
         </context-group>
         <trans-unit id="lookup.jsp.title.actionchain">
           <source>We're sorry, but the Action Chain could not be found.</source>
+          <target>Вибачте, але не вдалося знайти ланцюжок дій.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.user">
           <source>We're sorry, but the user could not be found.</source>
@@ -371,218 +371,219 @@
         </trans-unit>
         <trans-unit id="lookup.jsp.title.profile">
           <source>We're sorry, but the system profile could not be found.</source>
-          
+          <target>Вибачте, не вдалося знайти профіль системи.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.channel">
           <source>We're sorry, but the channel could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти канал.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.action">
           <source>We're sorry, but the action could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти дію.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.errata">
           <source>We're sorry, but the erratum could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти список помилок.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.system">
           <source>We're sorry, but the system could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти систему.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.title.crash">
           <source>We're sorry, but the software crash could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти запис аварії програмного забезпечення.</target>
         </trans-unit>
         <trans-unit id="lookup.default.title">
           <source>We're sorry, but a required data object could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти потрібний об'єкт даних.</target>
         </trans-unit>
         <trans-unit id="lookup.configchan.title">
           <source>We're sorry, but the configuration channel could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти канал налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.configfile.title">
           <source>We're sorry, but the configuration file could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти файл налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.configrev.title">
           <source>We're sorry, but the configuration revision could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти модифікацію налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.activationkey.title">
           <source>We're sorry, but the activation key could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти ключ активації.</target>
         </trans-unit>
         <trans-unit id="lookup.servergroup.title">
           <source>We're sorry, but the system group could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти системної групи.</target>
         </trans-unit>
         <trans-unit id="lookup.xccdfscan.title">
           <source>We're sorry, but the XCCDF scan could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти сканування XCCDF.</target>
         </trans-unit>
         <trans-unit id="lookup.scapfile.title">
           <source>We're sorry, but the requested SCAP results file could not be found.</source>
-          
+          <target>Вибачте, але не вдалося знайти потрібного вам файла результатів SCAP.</target>
         </trans-unit>
         <trans-unit id="missing_capabilities.jsp.header">
           <source>Missing Capabilities</source>
-          
+          <target>Не вистачає можливостей</target>
         </trans-unit>
         <trans-unit id="missing_capabilities.jsp.title">
           <source>An operation could not be completed on a system due to a missing capability.</source>
-          
+          <target>Дію не вдалося завершити через те, що у системі не вистачає можливостей.</target>
         </trans-unit>
         <trans-unit id="missing_capabilities.jsp.summary">
           <source>The server &lt;strong&gt;&lt;a href="{0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; does not have the &lt;strong&gt;{2}&lt;/strong&gt; client capability. Please enable the capability before proceeding with the operation.</source>
-          
+          <target>На сервері &lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt;&lt;/strong&gt; не передбачено можливостей клієнта &lt;strong&gt;{2}&lt;/strong&gt;. Будь ласка, увімкніть цю можливість, перш ніж виконувати дію.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.summary">
           <source>This error may have occurred in one of three ways:</source>
-          
+          <target>Причин у цієї помилки може бути три:</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.actionchain.reason1">
           <source>The Action Chain requested does not exist. This is most likely if the Action Chain has been already scheduled and deleted.</source>
+          <target>Потрібного вам запису ланцюжка дій не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.user">
           <source>The user requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам запису користувача не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.activationkey.reason1">
           <source>The activation key requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам ключа активації не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.servergroup.reason1">
           <source>The system group requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібної вам системної групи не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.profile">
           <source>The system profile requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам профілю системи не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.channel">
           <source>The channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам каналу не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.errata">
           <source>The erratum requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам зсписку помилок не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.action">
           <source>The action requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібної вам дії не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.system">
           <source>The system requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібної вам системи не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason1.crash">
           <source>The software crash requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам запису аварійного завершення роботи системи не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.default.reason1">
           <source>The required data object does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам об'єкта даних не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.configchan.reason1">
           <source>The configuration channel requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам каналу налаштувань не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.configfile.reason1">
           <source>The configuration file requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібного вам файла налаштувань не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.configrev.reason1">
           <source>The configuration revision requested does not exist.  This is most likely if you arrived at this page through bookmarks or some other non-hyperlink.</source>
-          
+          <target>Потрібної вам модифікації налаштувань не існує. Ймовірно, ви потрапили на цю сторінку за допомогою закладки або іншого посилання, відмінного від гіперпосилання.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.user">
           <source>You do not have permission to view this user.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього користувача.</target>
         </trans-unit>
         <trans-unit id="lookup.activationkey.reason2">
           <source>You do not have permission to view this activation key.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього ключа активації.</target>
         </trans-unit>
         <trans-unit id="lookup.servergroup.reason2">
           <source>You do not have permission to view this system group.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цієї системної групи.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.profile">
           <source>You do not have permission to view this system profile.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього профілю системи.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.channel">
           <source>You do not have permission to view this channel.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього каналу.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.errata">
           <source>You do not have permission to view this erratum.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього списку помилок.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.action">
           <source>You do not have permission to view this action.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цієї дії.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.system">
           <source>You do not have permission to view this system.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цієї системи.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason2.crash">
           <source>You do not have permission to view this software crash.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього аварійного завершення роботи.</target>
         </trans-unit>
         <trans-unit id="lookup.default.reason2">
           <source>You do not have permission to the required data object.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних потрібного вам об'єкта даних.</target>
         </trans-unit>
         <trans-unit id="lookup.configchan.reason2">
           <source>You do not have permission to view this configuration channel.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього каналу налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.configfile.reason2">
           <source>You do not have permission to view this configuration file.</source>
-          
+          <target>У вас немає прав доступу для перегляду даних цього файла налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.configrev.reason2">
           <source>You do not have permission to view this configuration revision.</source>
-          
+          <target>У вас немає прав доступу для перегляду цієї модифікації налаштувань.</target>
         </trans-unit>
         <trans-unit id="lookup.jsp.reason3">
           <source>You've found an error in our site.</source>
-          
+          <target>Ви натрапили на помилку на нашому сайті.</target>
         </trans-unit>
         <trans-unit id="lookup.issslave.title">
           <source>We're sorry, but the requested slave could not be found</source>
-          
+          <target>Вибачте, не вдалося виявити потрібного вам підлеглого об'єкта</target>
         </trans-unit>
         <trans-unit id="lookup.issslave.reason1">
           <source>No slave with the name {0} is identified on this master.</source>
-          
+          <target>На цій основі не виявлено підлеглого об'єкта із назвою {0}.</target>
         </trans-unit>
         <trans-unit id="lookup.issmaster.title">
           <source>We're sorry, but the requested master could not be found</source>
-          
+          <target>Вибачте, але не вдалося знайти потрібної вам основи</target>
         </trans-unit>
         <trans-unit id="lookup.issmaster.reason1">
           <source>No master with the label {0} is identified to this slave.</source>
-          
+          <target>Для цього підлеглого елемента не виявлено основного елемента із міткою {0}.</target>
         </trans-unit>
         <trans-unit id="lookup.issmaster.local.title">
           <source>We're sorry, but the requested organization could not be found</source>
-          
+          <target>Вибачте, але не вдалося знайти потрібної вам організації</target>
         </trans-unit>
         <trans-unit id="lookup.issmaster.local.reason1">
           <source>No local organization with the ID  {0} exists on this slave.</source>
-          
+          <target>Для цього підлеглого елемента немає локальної організації із ідентифікатором {0}.</target>
         </trans-unit>
         <trans-unit id="lookup.issmasterorg.title">
           <source>We're sorry, but the requested organization could not be found</source>
-          
+          <target>Вибачте, але не вдалося знайти потрібної вам організації</target>
         </trans-unit>
         <trans-unit id="lookup.issmasterorg.reason1">
           <source>No master organization with the ID {0} is identified to this slave.</source>
-          
+          <target>Для цього підлеглого елемента не виявлено основної організації із ідентифікатором {0}.</target>
         </trans-unit>
       </group>
       <trans-unit id="emptyspace.jsp">
@@ -591,7 +592,7 @@
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
         <note>NO TRANSLATION NECSSARY</note>
-        
+        <target> </target>
 </trans-unit>
       <group>
         <context-group name="ctx">
@@ -599,39 +600,39 @@
         </context-group>
         <trans-unit id="permission.jsp.title.deleteuser">
           <source>Cannot delete user.</source>
-          
+          <target>Не вдалося вилучити запис користувача.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.channel">
           <source>Cannot edit channel.</source>
-          
+          <target>Не вдалося виконати редагування каналу.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.package">
           <source>Cannot view package.</source>
-          
+          <target>Не вдалося переглянути пакунок.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.subscribechannel">
           <source>Cannot subscribe to channel.</source>
-          
+          <target>Не вдалося оформити передплату на канал.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.removerole">
           <source>Cannot remove role.</source>
-          
+          <target>Не вдалося вилучити роль.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.disableuser">
           <source>Cannot deactivate user.</source>
-          
+          <target>Не вдалося деактивувати користувача.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.enableuser">
           <source>Cannot reactivate user.</source>
-          
+          <target>Не вдалося повторно активувати користувача.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.userlist">
           <source>Cannot display user list.</source>
-          
+          <target>Не вдалося показати список користувачів.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.lookupuser">
           <source>Cannot view user information.</source>
-          
+          <target>Не вдалося вивести дані щодо користувача.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.acl">
           <source>Permission Error.</source>
@@ -639,80 +640,80 @@
         </trans-unit>
         <trans-unit id="permission.jsp.summary.channel">
           <source>You must be a channel administrator in order to edit a channel.</source>
-          
+          <target>Для доступу до редагування каналу вам слід бути його адміністратором.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.package">
           <source>You cannot view package information for this package.</source>
-          
+          <target>Ви не можете переглядати інформацію щодо цього пакунка.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.subscribechannel">
           <source>You cannot subscribe or unsubscribe systems to this channel.</source>
-          
+          <target>Ви не можете оформлювати і скасовувати передплату систем на цей канал.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.removerole">
           <source>You cannot remove the {0} role from the last {0}.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">You cannot remove the Organization Administrator role from the last Organization Administrator.</context>
           </context-group>
-          
+          <target>Не можна вилучати роль {0} з останнього {0}.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.deleteuser">
           <source>You must be an organization administrator for a satellite to delete a user.</source>
-          
+          <target>Щоб мати змогу вилучати записи користувачів, вам слід бути адміністратором організації для satellite.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.disableuser">
           <source>You must be an organization administrator to deactivate a user.</source>
-          
+          <target>Щоб мати змогу скасовувати активацію користувача, вам слід бути адміністратором організації.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.enableuser">
           <source>You must be an organization administrator to reactivate a user.</source>
-          
+          <target>Щоб мати змогу повторно активувати користувача, вам слід бути адміністратором організації.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.userlist">
           <source>You must be an organization administrator to view this page. Contact your organization administrator to get information on the users in this system.</source>
-          
+          <target>Для того, щоб мати змогу переглядати цю сторінку, вам слід бути адміністратором організації. Зв'яжіться із адміністратором вашої організації, щоб отримати дані щодо користувачів у цій системі.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.lookupuser">
           <source>You must be an organization administrator to view information on users in this organization.</source>
-          
+          <target>Щоб мати змогу переглядати дані щодо користувачів у цій організації, вам слід бути адміністратором організації.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.header">
           <source>You do not have the appropriate permission set to access the requested page. You may have reached this error page in one of several ways:</source>
-          
+          <target>У вас недостатні права для доступу до потрібної вам сторінки. Ця сторінка із повідомленням щодо помилки може з'явитися з таких причин:</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason2">
           <source>Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after 15 minutes of inactivity. To sign in again, click _here_.</context>
           </context-group>
-          
+          <target>Строк дії вашого сеансу роботи у системі вичерпано. З міркувань безпеки @@PRODUCT_NAME@@ перериває сеанс роботи, якщо протягом {0} не спостерігалося активності. Щоб знову увійти до системи, натисніть &lt;a href=&quot;{1}&quot;&gt;тут&lt;/a&gt;.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason3">
           <source>You've found an error in our site. Please contact your Support representative with details of how you received this message.</source>
           <context-group name="ctx">
             <context context-type="paramnotes">You've found an error in our site. Please help us by filling out _this form_ with details of how you received this message.</context>
           </context-group>
-          
+          <target>Вами виявлено помилку на нашому сайті. Будь ласка, зв'яжіться із представником групи підтримки, повідомивши подробиці щодо того, у який спосіб ви отримали це повідомлення.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason4">
           <source>Your browser does not have cookies enabled. The @@PRODUCT_NAME@@ requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
-          
+          <target>У вашому браузері не увімкнено куки. Для забезпечення працездатності @@PRODUCT_NAME@@ потрібні куки. Якщо ви вимкнули їх, будь ласка, увімкніть їх знову для користування сайтом.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.acl.reason5">
           <source>You've done something naughty. Stop it.</source>
-          
+          <target>Ви розбешкетувалися. Припиніть.</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.orglist">
           <source>Can not display Organization List</source>
-          
+          <target>Не можу показати список організацій</target>
         </trans-unit>
         <trans-unit id="permission.jsp.title.orgdetail">
           <source>Can not display Organization Details</source>
-          
+          <target>Не можу показати дані організації</target>
         </trans-unit>
         <trans-unit id="permission.jsp.summary.general">
           <source>You must be an satellite administrator to view this page. Contact your satellite administrator to get information on the organizations in this system.</source>
-          
+          <target>Для перегляду цієї сторінки у вас мають бути права адміністратора Satellite. Зв'яжіться із вашим адміністратором Satellite, щоб отримати інформацію щодо організацій у цій системі.</target>
         </trans-unit>
       </group>
       <trans-unit id="badparam.jsp.title">
@@ -720,42 +721,42 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Помилка під час запиту щодо сторінки</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.summary">
         <source>We could not display the requested page because of a missing parameter.  This error could have occurred several ways:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Нам не вдалося сформувати потрібну вам сторінку, оскільки не вистачає значення якогось параметра. Ця сторінка із повідомленням щодо помилки може з'явитися з таких причин:</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.reason1">
         <source>An incorrect or out-of-date bookmark.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Помилкова або застаріла закладка.</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.reason2">
         <source>An incorrect or out-of-date hyperlink.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Помилкове або застаріле гіперпосилання.</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.reason3">
         <source>Your browser encountered an error handling request parameters.  Continued use of this browser may yield unexpected results.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Під час обробки параметрів запиту у вашому браузері сталася помилка. Якщо ви надалі користуватиметеся цією версією браузера, результати ваших дій можуть бути неочікуваними.</target>
       </trans-unit>
       <trans-unit id="badparam.jsp.reason4">
         <source>You've found an error in our site.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Bad Parameter error page</context>
         </context-group>
-        
+        <target>Вами виявлено помилку на нашому сайті.</target>
       </trans-unit>
       <trans-unit id="404.jsp.title">
         <source>Page Not Found</source>
@@ -772,14 +773,14 @@
               The page you requested, https://rhn.redhat.com/rhn/YourRhn.do, was not found.
           </context>
         </context-group>
-        
+        <target>Потрібної вам сторінки, {0}, не знайдено.</target>
       </trans-unit>
       <trans-unit id="404.jsp.reason1">
         <source>If you typed this address into your browser, double-check the spelling and capitalization. The address you are copying may also be outdated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">404 error page</context>
         </context-group>
-        
+        <target>Якщо ви ввели цю адресу у поле адреси вашого браузера, ще раз перевірте, чи правильно було введено адресу, зокрема зверніть увагу на регістр символів. Якщо адресу було звідкись скопійовано, вона може виявитися застарілою.</target>
       </trans-unit>
       <trans-unit id="404.jsp.reason2">
         <source>If you followed a link, the link may be incorrect or outdated.  Click on the back button in your browser to try a different link, or use the top (or left) navigation bars to find the page you are looking for.</source>
@@ -790,7 +791,7 @@
               link may be incorrect or outdated.
           </context>
         </context-group>
-        
+        <target>Якщо ви перейшли за посиланням, посилання може виявитися помилковим або некоректним. Натисніть кнопку «Назад» у вашому браузері, щоб спробувати інше посилання, або скористайтеся верхньою (або лівою) навігаційною панеллю для пошуку потрібної вам сторінки.</target>
       </trans-unit>
       <trans-unit id="404.jsp.reason3">
         <source>If you used a bookmark, the page may have moved to a different location since the bookmark was created. Use the top (or left) navigation bars to find the page you are looking for, and if you find the document be sure to update your bookmark.</source>
@@ -849,14 +850,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-        
+        <target>Адміністратор організації?*</target>
       </trans-unit>
       <trans-unit id="satadmin.displayname">
         <source>@@PRODUCT_NAME@@ Admin?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
-        
+        <target>Адміністратор @@PRODUCT_NAME@@?</target>
       </trans-unit>
       <trans-unit id="username.nopunc.displayname">
         <source>Username</source>
@@ -973,14 +974,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
-        
+        <target>Останній вхід до системи:</target>
       </trans-unit>
       <trans-unit id="address_record.displayname">
         <source>Address Record:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/EditAddress</context>
         </context-group>
-        
+        <target>Запис адреси:</target>
       </trans-unit>
       <trans-unit id="message.actionArchived">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; action archived.</source>
@@ -992,7 +993,7 @@
             1 action archived.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дію архівовано.</target>
       </trans-unit>
       <trans-unit id="message.actionsArchived">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; actions archived.</source>
@@ -1004,7 +1005,7 @@
             2 actions archived.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дій архівовано.</target>
       </trans-unit>
       <trans-unit id="message.actionCancelled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; action cancelled.</source>
@@ -1014,7 +1015,7 @@
             1 action cancelled.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дію скасовано.</target>
       </trans-unit>
       <trans-unit id="message.actionsCancelled">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; actions cancelled.</source>
@@ -1024,7 +1025,7 @@
             2 actions cancelled.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дій скасовано.</target>
       </trans-unit>
       <trans-unit id="message.actionDeleted">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; action deleted.</source>
@@ -1034,7 +1035,7 @@
             1 action deleted.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дію вилучено.</target>
       </trans-unit>
       <trans-unit id="message.actionsDeleted">
         <source>&lt;strong&gt;{0}&lt;/strong&gt; actions deleted.</source>
@@ -1044,7 +1045,7 @@
             2 actions deleted.
           </context>
         </context-group>
-        
+        <target>&lt;strong&gt;{0}&lt;/strong&gt; дій вилучено.</target>
       </trans-unit>
       <trans-unit id="relogin.jsp.pleasesignin">
         <source>Please Sign In</source>
@@ -1058,7 +1059,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        
+        <target>Обліковий запис @@PRODUCT_NAME@@: </target>
       </trans-unit>
       <trans-unit id="login.jsp.password">
         <source>Password: </source>
@@ -1080,21 +1081,21 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        
+        <target>Вітаємо у @@PRODUCT_NAME@@</target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody1">
         <source>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; is an open source (GPLv2) Linux systems management solution. Below are some links that should prove useful if you have any questions regarding your @@PRODUCT_NAME@@ server. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        
+        <target>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; є рішенням для керування системами Linux з відкритим кодом (GPLv2). Нижче наведено декілька посилань, які стануть у пригоді, якщо у вас виникнуть якісь питання щодо вашого сервера @@PRODUCT_NAME@@. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody2">
         <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href="http://www.spacewalkproject.org/" target="_blank"&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        
+        <target>Щоб дізнатися більше про @@PRODUCT_NAME@@, будь ласка, відвідайте наш вебсайт, &lt;a href=&quot;http://www.spacewalkproject.org/&quot; target=&quot;_blank&quot;&gt; http://www.spacewalkproject.org/&lt;/a&gt;. </target>
       </trans-unit>
       <trans-unit id="login.jsp.satbody3">
         <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href="http://www.spacewalkproject.org/communicate.html" target="_blank"&gt; http://www.spacewalkproject.org/communicate.html&lt;/a&gt;. </source>
@@ -1108,7 +1109,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
-        
+        <target> </target>
       </trans-unit>
       <!-- preferences.jsp -->
       <trans-unit id="preferences.jsp.alt">
@@ -1116,14 +1117,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Піктограма параметрів</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.header">
         <source>Email Notifications</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Сповіщення електронною поштою</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.leadin">
         <source>@@PRODUCT_NAME@@ offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
@@ -1137,14 +1138,14 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Отримувати сповіщення електронною поштою</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.receivetaskonote">
         <source> Receive taskomatic notifications</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Отримувати сповіщення щодо автоматичних завдань</target>
       </trans-unit>
       <trans-unit id="preferences.jsp.listsize">
         <source>@@PRODUCT_NAME@@ List Page Size</source>
@@ -1187,49 +1188,49 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Найкритичніші системи</target>
       </trans-unit>
       <trans-unit id="preferences.critical-systems.description">
         <source> A listing of the systems with the most critical update and health status.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Список систем, стан оновлення або стан працездатності яких є критичним.</target>
       </trans-unit>
       <trans-unit id="preferences.system-groups-widget.name">
         <source>System Groups</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Групи систем</target>
       </trans-unit>
       <trans-unit id="preferences.system-groups-widget.description">
         <source> Preview the overall status of your system groups.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Попередній перегляд загального стану ваших груп систем.</target>
       </trans-unit>
       <trans-unit id="preferences.latest-errata.name">
         <source>Relevant Security Errata</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Відповідні помилки захисту</target>
       </trans-unit>
       <trans-unit id="preferences.latest-errata.description">
         <source> View the most recent security errata applicable to your systems.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Перегляд найсвіжіших даних щодо помилок захисту, які стосуються ваших систем.</target>
       </trans-unit>
       <trans-unit id="preferences.inactive-systems.name">
         <source>Inactive Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
-        
+        <target>Неактивні системи</target>
       </trans-unit>
       <trans-unit id="preferences.inactive-systems.description">
         <source> Lists the registered @@PRODUCT_NAME@@ systems that recently stopped checking in.</source>
@@ -3281,6 +3282,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         
       </trans-unit>
+      <trans-unit id="packagelist.jsp.modulespresent">
+          <source>At least one of the channels this system is subscribed to contains modules. If you have activated modules on this system, please refrain from using @@PRODUCT_NAME@@ for package operations. Instead, perform all package actions from the client using dnf.</source>
+      </trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
         <source>Upgradable Packages</source>
@@ -4976,7 +4980,7 @@ organization. You may grant or remove the organization administrator role in the
         
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
@@ -6472,7 +6476,7 @@ organization. You may grant or remove the organization administrator role in the
         </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
           <source>Software Updates Available</source>
-          <target>доступні оновлення</target>
+
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
@@ -6792,7 +6796,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Складний пошук</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
         <source>Advanced Search will return results from all systems to which you have administrative access.</source>
@@ -6806,21 +6810,21 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Поле для пошуку:</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.wheretosearch">
         <source>Where to Search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Місце для пошуку:</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.searchallsystems">
         <source>Search all systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Шукати серед усіх систем</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.searchSSM">
         <source>Search system set manager</source>
@@ -6834,14 +6838,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Інвертувати результати</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.finegrainedlabel">
         <source>Fine Grained Search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Уточнений пошук:</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.systemname">
         <source>System Name</source>
@@ -6862,14 +6866,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Інвертувати результати пошуку</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.finegrained">
         <source>Fine grained search results</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Уточнені результати пошуку</target>
       </trans-unit>
       <trans-unit id="systemsearch.jsp.noresults">
         <source>No results found.</source>
@@ -6904,14 +6908,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Кількість процесорів</target>
       </trans-unit>
       <trans-unit id="systemsearch_num_of_cpus_gt_column">
         <source>Number of CPUs</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        
+        <target>Кількість процесорів</target>
       </trans-unit>
       <trans-unit id="systemsearch_ram_lt_column">
         <source>RAM</source>
@@ -6933,14 +6937,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        
+        <target>Налаштування @@PRODUCT_NAME@@ — Спостереження</target>
       </trans-unit>
       <trans-unit id="generalconfig.jsp.header2">
         <source>General Monitoring Config</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        
+        <target>Загальні налаштування спостереження</target>
       </trans-unit>
       <trans-unit id="generalconfig.jsp.summary">
         <source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled @@PRODUCT_NAME@@ Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
@@ -6954,7 +6958,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
         </context-group>
-        
+        <target>Оновити налаштування</target>
       </trans-unit>
       <trans-unit id="removeconfirm.jsp.confirmpackageremoval">
         <source>Confirm Package Removal</source>
@@ -6962,7 +6966,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
           <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
         </context-group>
-        
+        <target>Підтвердження вилучення пакунків</target>
       </trans-unit>
       <trans-unit id="removeconfirm.jsp.widgetsummary">
         <source>You may schedule the package removals to take place as soon as possible, or no sooner than a specified time:</source>
@@ -6992,7 +6996,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} вилучення пакунка було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageremovals">
         <source>{0} package removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7000,7 +7004,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} вилучення пакунків було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageupgrade">
         <source>{0} package upgrade has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7008,7 +7012,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} оновлення пакунка було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageupgrades">
         <source>{0} package upgrades have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7016,7 +7020,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} оновлення пакунків було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageinstall">
         <source>{0} package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7024,7 +7028,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} встановлення пакунка було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageinstalls">
         <source>{0} package installs have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7032,14 +7036,14 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} встановлення пакунків було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.systeminstalls">
         <source>Package install has been scheduled for {0} system(s).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/software/packages/TargetSystemsConfirm.do</context>
         </context-group>
-        
+        <target>Встановлення пакунків заплановано для {0} систем.</target>
       </trans-unit>
       <trans-unit id="message.packageverify">
         <source>{0} package verification has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7047,7 +7051,7 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} перевірку пакунка було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.packageverifys">
         <source>{0} package verifications have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
@@ -7055,56 +7059,56 @@ organization. You may grant or remove the organization administrator role in the
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList.do</context>
         </context-group>
-        
+        <target>{0} перевірку пакунків було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchremoval">
         <source>{0} patch removal has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        
+        <target>{0} вилучення латки було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchremovals">
         <source>{0} patch removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        
+        <target>{0} вилучення латок було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchinstall">
         <source>{0} patch install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        
+        <target>{0} встановлення латки було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.patchinstalls">
         <source>{0} patch installs have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
-        
+        <target>{0} встановлення латок було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={1}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{3}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.xccdfeval">
         <source>XCCDF scan has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={0}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/audit/ListScap.do</context>
         </context-group>
-        
+        <target>Сканування XCCDF було &lt;a href=&quot;/rhn/schedule/ActionDetails.do?aid={0}&quot;&gt;заплановано&lt;/a&gt; для &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={1}&quot;&gt;{2}&lt;/a&gt;</target>
       </trans-unit>
       <trans-unit id="message.xccdfeval.ssm">
         <source>XCCDF scan has been scheduled successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
-        
+        <target>Успішно заплановано сканування XCCDF.</target>
       </trans-unit>
       <trans-unit id="message.xccdfdiff.missing">
         <source>XCCDF scan of id={0} could not be found for user {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/audit/scap/Diff.do</context>
         </context-group>
-        
+        <target>Не вдалося знайти сканування XCCDF із id={0} для користувача {1}.</target>
       </trans-unit>
       <trans-unit id="message.entitlement.missing">
         <source>One or more of the selected systems lack the {0} entitlement.</source>
@@ -7118,7 +7122,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/ssm/audit/ScheduleXccdf.do</context>
         </context-group>
-        
+        <target>Дію не заплановано.</target>
       </trans-unit>
       <trans-unit id="message.capability.missing">
         <source>One or more of the selected systems lack the {0} client-capability.</source>
@@ -7132,21 +7136,21 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        
+        <target>Додати віддалену команду для вилучення пакунка</target>
       </trans-unit>
       <trans-unit id="installconfirm.jsp.runremotecommand">
         <source>Add Remote Command To Package Install</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        
+        <target>Додати віддалену команду для встановлення пакунка</target>
       </trans-unit>
       <trans-unit id="upgradeconfirm.jsp.runremotecommand">
         <source>Add Remote Command To Package Upgrade</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
         </context-group>
-        
+        <target>Додати віддалену команду для оновлення пакунка</target>
       </trans-unit>
       <!-- PROBE EDIT PAGE -->
       <trans-unit id="download.jsp.header">
@@ -7154,14 +7158,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
         </context-group>
-        
+        <target>Отримати пакунки</target>
       </trans-unit>
       <trans-unit id="download.jsp.download">
         <source>Download Selected Packages Now!</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/DownloadConfirm.do</context>
         </context-group>
-        
+        <target>Отримати позначені пакунки зараз!</target>
       </trans-unit>
       <trans-unit id="repo.jsp.channels">
         <source>Channels</source>
@@ -7182,7 +7186,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/UpgradeConfirm.do</context>
         </context-group>
-        
+        <target>Підтвердження оновлення пакунків</target>
       </trans-unit>
       <trans-unit id="upgradeconfirm.jsp.widgetsummary">
         <source>You may schedule the package upgrades to take place as soon as possible, or no sooner than a specified time:</source>
@@ -13125,6 +13129,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
           
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
           
@@ -13874,6 +13881,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Subscribe to RHN Tools channel</source>
           
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
           
@@ -13943,6 +13953,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
           
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
@@ -17750,6 +17763,9 @@ any of these revisions.  Are you sure you want to do this?</source>
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           
+        </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
         </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
@@ -23339,6 +23355,12 @@ given channel.</source>
         </context-group>
         
       </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="channel.clone.clonefrom">
         <source>Clone From</source>
         <context-group name="ctx">
@@ -24413,46 +24435,19 @@ given channel.</source>
         <source>Enhances</source>
         
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
         
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
-        <target>Вибрати зображення</target>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
-        
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-        <target>Назва</target>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-        <target>Версія</target>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-        <target>Архітектура</target>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-        <target>Тип</target>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-        
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-        
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
-        
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -24486,49 +24481,12 @@ given channel.</source>
         <source>Proxy Password:</source>
         <target>Пароль до проксі:</target>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-        <target>Скасувати</target>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
         
       </trans-unit>
-      <trans-unit id="credentials.jsp.susestudio">
-        <source>SUSE Studio</source>
-        
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.summary">
-        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
-        
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.dispatch">
-        <source>Update Credentials</source>
-        
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.summary">
-        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
-        
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.dispatch">
-        <source>Delete Credentials</source>
-        
-      </trans-unit>
-      <trans-unit id="toolbar.delete.credentials">
-        <source>delete credentials</source>
-        
-      </trans-unit>
-      <trans-unit id="credentials.jsp.username">
-        <source>Username</source>
-        <target>Користувач</target>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.apikey">
-        <source>API Key</source>
-        <target>Ключ до API</target>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.url">
-        <source>URL</source>
-        <target>Адреса</target>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
       <trans-unit id="iss.unmapped.org">
         <source>MASTER ORG NOT MAPPED</source>

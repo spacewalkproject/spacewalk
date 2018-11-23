@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>您好，
 
-已经由 {0} {1} 为您创建了红帽登录。您的
-红帽登录以及一个激活的红帽订阅为您在 @@PRODUCT_NAME@@ 提供
-了管理系统的功能。
-
-  红帽登录： {2}
-      密码：{3}
-   电子邮件：{4}
-
-  {5}
-
-重要信息：在登录后请改变您的密码。
-
-感谢您使用 @@PRODUCT_NAME@@。
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>您好，
 
-已经为您创建了一个红帽登录。您的
-红帽登录以及一个激活的红帽订阅为您在 @@PRODUCT_NAME@@ 提供
-了管理系统的功能。
-
-  红帽登录： {0}
-      密码：{1}
-   电子邮件：{2}
-
-  {3}
-
-重要信息：在登录后请改变您的密码。
-
-感谢您使用 @@PRODUCT_NAME@@。
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -449,25 +419,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ 这是根据您的要求自动发送给 {0} 的电子邮件。 ]
 
-您的 @@PRODUCT_NAME@@ 密码已被重置。请访问
-
-https://{1}/
-
-并使用以下用户名和密码登录：
-
-用户名：{2}
-密码：{3}
-
-登录后可以更改密码。
-
-如果您登录仍有问题，
-请联络您的 @@PRODUCT_NAME@@ 管理员获得进一步的支持。
-
-感谢您使用 @@PRODUCT_NAME@@。
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

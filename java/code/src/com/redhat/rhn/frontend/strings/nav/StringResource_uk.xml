@@ -238,7 +238,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>
-        <target>Стан</target>
+        <target>Журнал завдань</target>
       </trans-unit>
       <trans-unit id="ssm.nav.status.inprogress">
         <source>In Progress</source>
@@ -1183,14 +1183,8 @@
           <target>Спорожнити</target>
         </trans-unit>
       </group>
-      <!-- SUSE Studio -->
-      <trans-unit id="Credentials">
-        <source>Credentials</source>
-        <target>Реєстраційні дані</target>
-      </trans-unit>
-      <trans-unit id="Images">
-        <source>Images</source>
-        <target>Образи</target>
+      <trans-unit id="Deployment">
+        <source>Deployment</source>
       </trans-unit>
     </body>
   </file>

@@ -211,7 +211,7 @@
         </context-group>
         <trans-unit id="yes">
           <source>Yes</source>
-          <target>Si</target>
+          <target>Sí</target>
         </trans-unit>
         <trans-unit id="no">
           <source>No</source>
@@ -2051,6 +2051,28 @@ will need to make them available for this kickstart profile to function properly
 &lt;li&gt;
 Are the packages listed above available in this kickstart's base channel? If not, you will need to make them
 available for this kickstart profile to function properly.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="kickstart.invalidchannel.satmessage.appstream">
+        <source>&lt;div style="text-align: left;"&gt;
+&lt;p&gt;To resolve this issue, please check the following things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Is the 'appstream' child software channel for this kickstart profile's base
+channel available to your organization? If it is not, you will need to request
+entitlements for the 'appstream' software channel from your @@PRODUCT_NAME@@ administrator.
+&lt;/li&gt;
+&lt;li&gt;
+Make sure that the 'appstream' child channel for this kickstart profile's base
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+satellite administrator and request a cdn-sync for the appstream channel
+and try again.
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
@@ -8219,7 +8241,7 @@ tree will not be usable for kickstarting.
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
         <source>Password reset information sent to {0}.</source>
-        <target>La nova contrasenya es va enviar a {0}.</target>
+
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

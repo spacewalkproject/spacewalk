@@ -312,36 +312,34 @@
         <target>{0} 是無效的。</target>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
         <target>{0} 必須是整數。</target>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
-        <target>{0} 必須是長整數。</target>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
         <target>{0} 必須是符點數。</target>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
-        <target>{0} 必須是雙精倍數。</target>
       </trans-unit>
       <trans-unit id="errors.unexpected">
         <source>An unexpected error has occurred during the request.</source>
@@ -1462,7 +1460,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>版權所有 &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. 保留所有權利。</target>
+
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -3278,6 +3276,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
         <target>以下套件已安裝至本系統上，並且不存在其任何頻道中。</target>
       </trans-unit>
+      <trans-unit id="packagelist.jsp.modulespresent">
+          <source>At least one of the channels this system is subscribed to contains modules. If you have activated modules on this system, please refrain from using @@PRODUCT_NAME@@ for package operations. Instead, perform all package actions from the client using dnf.</source>
+      </trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
         <source>Upgradable Packages</source>
@@ -4250,7 +4251,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
-        <target>以下部分中您將會配置您的組織，以使用 staging 內容並設定軟體當機報告。當機檔案上傳限制必須是正數，零則代表無限制。</target>
+
       </trans-unit>
       <trans-unit id="orgconfig.jsp.description.noteditable">
         <source>Below is your organization configuration listed. See, how staging content, errata e-mail notifications, software crash reporting and SCAP settings are configured.</source>
@@ -4436,7 +4437,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-        <target>以下是 {0} 組織中，所有使用者的清單。請注意，只有在登入 {0} 組織，並擁有組織管理員角色後，您才可以修改這些使用者的詳細資料。</target>
+
       </trans-unit>
       <trans-unit id="orglist.jsp.noOrgs">
         <source>No Organizations.</source>
@@ -4490,10 +4491,7 @@ organization. You may grant or remove the organization administrator role in the
       </trans-unit>
       <trans-unit id="organizations.tip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
-        <target>&lt;strong&gt;提示：&lt;/strong&gt;這組織是您 @@PRODUCT_NAME@@ 的預設組織。此組織的權利與您 @@PRODUCT_NAME@@ 的憑證檔相連結，所以是不能修改的。如果您從以上非預設
-的組織移除了權利，這些權利將會被加回預設的組織中，
-同時如果您從非預設的組織中加入權利，它們也會
-從預設組織中被扣除。</target>
+
       </trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
         <source>unlimited</source>
@@ -4976,7 +4974,7 @@ organization. You may grant or remove the organization administrator role in the
         <target>&lt;strong&gt;{1}&lt;/strong&gt; 個套件已推至頻道 &lt;strong&gt;{0}&lt;/strong&gt;。</target>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
@@ -5243,7 +5241,7 @@ organization. You may grant or remove the organization administrator role in the
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;安全性警告：&lt;/strong&gt; 儲存在這個網頁上的資訊能被網路上的所有人看見。欲取得更多資訊及防護策略，請查看〈&lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;Cobbler 文件&lt;/a&gt;〉。</target>
+
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
@@ -5597,11 +5595,11 @@ organization. You may grant or remove the organization administrator role in the
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.singular">
           <source>{0} system has been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
-          <target>已排程重新啟動 {0} 部系統。</target>
+
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.plural">
           <source>{0} systems have been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
-          <target>已排程重新啟動 {0} 部系統。</target>
+
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.queued.singular">
             <source>{0} system reboot has been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
@@ -6195,11 +6193,11 @@ organization. You may grant or remove the organization administrator role in the
         </context-group>
         <trans-unit id="duplicates.jsp.header">
           <source>Duplicate Systems</source>
-          <target>複製系統設定檔</target>
+
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
           <source>Inactive systems are listed below.</source>
-          <target>非啟用的系統設定檔顯示在下方。</target>
+
         </trans-unit>
         <trans-unit id="Delete Selected">
           <source>Delete Selected</source>
@@ -6446,7 +6444,7 @@ organization. You may grant or remove the organization administrator role in the
         </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
           <source>Software Updates Available</source>
-          <target>可用的更新</target>
+
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
@@ -6583,7 +6581,7 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-        <target>若要善用 @@PRODUCT_NAME@@，每台系統都必須對每項服務「&lt;strong&gt;享有權利&lt;/strong&gt;」。如果系統並未享有權利，您就不能為這台系統進行主要的軟體管理工作，例如安裝套件或套用勘誤升級。</target>
+
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para2">
         <source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -6679,8 +6677,7 @@ organization. You may grant or remove the organization administrator role in the
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; 部系統已成功被設置為擁有 &lt;strong&gt;管理（Management）&lt;/strong&gt;權利，不過您沒有足夠的 &lt;strong&gt;管理&lt;/strong&gt; 權利以供剩下的 &lt;strong&gt;{1}&lt;/strong&gt; 部系統使用。您可透過將擁有 &lt;strong&gt;管理&lt;/strong&gt; 權利的系統降級為「Updated」權利，以將 &lt;strong&gt;管理&lt;/strong&gt; 權利釋出，或是您亦可透過 &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt; 購買額外管理權利。當您取得了更多 &lt;strong&gt;Management&lt;/strong&gt; 權利之後，您便可以升級這些系統。
-    </target>
+
         </trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -6766,14 +6763,14 @@ organization. You may grant or remove the organization administrator role in the
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>系統搜尋</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
         <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>系統搜尋會傳回所有您擁有管理員權限之系統的結果。</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.fieldtosearch">
         <source>Field to Search:</source>
@@ -8504,7 +8501,7 @@ organization management tools if you choose to remove this role from your login.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>請在下方設定您的 @@PRODUCT_NAME@@。HTTP 代理設定是給 @@PRODUCT_NAME@@ 伺服器和父 @@PRODUCT_NAME@@ 伺服器進行通訊用的（若使用情況為此的話）。HTTP 代理必須使用「主機名稱:連接埠」這個格式，但如果您不設定連接埠的話，系統將會使用預設的 8080 通訊埠。用戶端系統連上此 @@PRODUCT_NAME@@ 上的 HTTP 代理設定可以是不同的，並能在稍後設定。若您啟用了「監控後端（Monitoring Backend）」，您也應該啟用「監控偵測（Monitoring Scout）」，或將「監控偵測」設置為一台獨立的伺服器。如果您啟用了「監控偵測」的話，您也必須啟用「監控後端」。</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -8623,7 +8620,7 @@ administrator privileges.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-        <target>RHN 參考指南</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.admin_email">
         <source>Administrator Email Address</source>
@@ -9944,7 +9941,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;資源：&lt;/strong&gt;《RHN 參考指南‧Kickstart》&lt;/span&gt;</target>
+
       </trans-unit>
       <trans-unit id="kickstartips.jsp.tip">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the IP ranges associated with your organization's kickstart profiles is available &lt;/span&gt;</source>
@@ -10213,7 +10210,7 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
-        <target>&lt;strong&gt;注意：選擇不相容的啟動金鑰會讓系統在 kickstart 之後，無法正確地註冊。&lt;/strong&gt;您可以在使用這功能之前，檢視《RHN 參考指南》中有關使用多啟動金鑰一節。</target>
+
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -10598,7 +10595,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>您可以在 kickstart 設定檔中，參照這些金鑰與（或）憑證，好在 kickstart 過程中，安裝這些金鑰/憑證。系統需要正確的金鑰才可安裝經過數位簽章的套件，並修正透過 @@PRODUCT_NAME@@ 代理伺服器或 @@PRODUCT_NAME@@ 伺服器來安裝的 kickstart 憑證。欲取得更多資訊，請參閱《&lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys&quot; target=&quot;_blank&quot; &gt;RHN 參考指南&lt;/a&gt;》。</target>
+
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -10756,7 +10753,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>檔案保留清單列出了在使用特定 kickstart 安裝系統時，需要保留的檔案。您可以讓 kickstart 設定檔參照一份檔案保留清單。欲知更多詳情，請參閱《&lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN 參考指南&lt;/a&gt;》。以下檔案保留清單已建立，以供您的組織使用：</target>
+
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -10896,7 +10893,7 @@ For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_g
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>本處列出的所有檔案或目錄都會在 kickstart 之後被保留。每一行代表一個檔案或目錄。&lt;br/&gt;每個清單的大小限制為&lt;strong&gt;1 MB&lt;/strong&gt;。欲知更多詳情，請參閱《&lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;RHN 參考指南&lt;/a&gt;》。</target>
+
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>
@@ -11618,7 +11615,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;近期註冊的系統&lt;/strong&gt;</target>
+
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered.none">
         <source>&lt;strong&gt;No recently registered systems.&lt;/strong&gt;&lt;p&gt;You have no systems that were registered within the past 30 days. You may view a list of all registered systems at &lt;a href="/rhn/systems/Registered.do"&gt;&lt;strong&gt;Systems &gt; Recently Registered&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;</source>
@@ -11938,7 +11935,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>以下列出的軟體頻道是您組織&lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;享有權利&lt;/a&gt;，但由於已經達到「產品週期盡頭」，因此不再由 Red Hat 所支援的「&lt;strong&gt;退役頻道&lt;/strong&gt;」。</target>
+
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -13136,6 +13133,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
           <target>請注意這部系統含有 &lt;a href=&quot;{0}&quot;&gt;{1} 件等待處理的事件&lt;/a&gt;。</target>
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
           <target>這部系統沒有事件紀錄。</target>
@@ -13889,6 +13889,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>Subscribe to RHN Tools channel</source>
           <target>訂閱 RHN Tools 頻道</target>
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
           <target>排程 rhncfg 的套件安裝</target>
@@ -13958,6 +13961,9 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
           <target>無法訂閱 RHN Tools 頻道。</target>
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
@@ -15951,7 +15957,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>系統</target>
+
       </trans-unit>
       <trans-unit id="managedsystems.jsp.summary">
         <source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
@@ -17284,15 +17290,15 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
           <source>Copy Latest to Local Sandbox</source>
-          <target>將最近的複製至隔離區</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
           <source>Copy Latest to Locally-Managed Files</source>
-          <target>將最近的複製至系統頻道</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
           <source>Copy Latest to Centrally-Managed Files</source>
-          <target>將最近的複製至中央頻道</target>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
           <source>{0} file(s) successfully copied to Sandbox</source>
@@ -17645,7 +17651,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
           <source>Task Log</source>
-          <target>工作日誌</target>
+
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
@@ -17798,6 +17804,9 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>非預期的 Cobbler 錯誤，請檢查伺服器和 Cobbler 的日誌。</target>
         </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
+        </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
           <source>Tag Systems</source>
@@ -17873,7 +17882,7 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
           <source>Script does not seem to be doing anything.</source>
-          <target>script 似乎沒有任何作用。</target>
+
         </trans-unit>
         <!-- Errata -->
         <trans-unit id="ssm.patches.list.header">
@@ -18602,7 +18611,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-        <target>非 @@PRODUCT_NAME@@ 所管理的 Kickstart 設定檔無法在 @@PRODUCT_NAME@@ UI 中進行編輯。若要編輯這些設定檔，請登入 @@PRODUCT_NAME@@ 伺服器，並執行「cobbler profile edit」這項指令。欲取得更多相關資訊，請參閱 @@PRODUCT_NAME@@ 參考指南。</target>
+
       </trans-unit>
       <trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -19524,7 +19533,7 @@ The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should alwa
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>請填出下列的表格以在 &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;/&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt; 上建立一個新的虛擬系統</target>
+
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -22584,7 +22593,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
         <source>No packages found for this criteria.</source>
-        <target>沒發現與您的搜尋準則相符的套件。</target>
+
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
@@ -23208,10 +23217,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target>&lt;strong&gt; 提示：&lt;/strong&gt;
-          sha1 提供了最廣泛的客戶端相容性。sha-256 提供了較高的安全性，
-          不過僅與較新的客戶端相容：Fedora 11 與更新版本，或是 Enterprise Linux 6 和更新版本。Yum 軟體庫的校驗碼類型「None」（無）僅支援 RHEL 3 與 RHEL 4。
-         </target>
+
       </trans-unit>
       <trans-unit id="channel.edit.jsp.summary">
         <source>Channel Summary</source>
@@ -23390,6 +23396,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.clone.select.summary">
         <source>The original state of the target channel will be cloned into the new channel. You will then have the option to select the errata you wish to import into the new channel. Importing an erratum will bring the packages from the target channel referred to by the erratum into the new channel. Selecting all of the errata from the list of potential errata is the same as cloning the current state of the channel. Selecting none of the errata is the same as cloning the original state of the channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
         </context-group>
@@ -23689,7 +23701,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
         </context-group>
-        <target>新建使用者時，可能會為每位使用者建立預設的系統群組，這群組名稱會與使用者一樣。當不同的使用者要在一個組織中管理不同的系統群組時，這很有用。</target>
+
       </trans-unit>
       <trans-unit id="extauth.sg.default_sg">
         <source>Create a user default System Group</source>
@@ -24411,7 +24423,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
         <source>A system is inactive if its system has not checked in for:</source>
-        <target>若系統在這段時間內未被簽入，系統設定檔將會無效：</target>
+
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>
@@ -24466,7 +24478,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="debuginfo.unavailable">
         <source>If available, an appropriate debuginfo package can be synced from the respective debug channel or repository. Note: Not all packages have published debuginfo packages.</source>
-        <target>您亦可透過 Red Hat 客戶入口網站下載可用的適當 debuginfo 套件，或藉由在相應的 debuginfo 子頻道中執行 satellite-sync 指令來取得。請注意：並非所有套件皆發行了 debuginfo 套件。</target>
+
       </trans-unit>
       <trans-unit id="debugsource.unavailable">
         <source>If available, an appropriate debugsource package can be synced from the respective debug channel or repository. Note: Not all packages have published debugsource packages.</source>
@@ -24511,36 +24523,18 @@ given channel.</source>
         <source>Enhances</source>
         <target>增強</target>
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -24566,38 +24560,11 @@ given channel.</source>
       <trans-unit id="images.jsp.proxypass">
         <source>Proxy Password:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
       </trans-unit>
-      <trans-unit id="credentials.jsp.susestudio">
-        <source>SUSE Studio</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.summary">
-        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.dispatch">
-        <source>Update Credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.summary">
-        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.dispatch">
-        <source>Delete Credentials</source>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.credentials">
-        <source>delete credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.username">
-        <source>Username</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.apikey">
-        <source>API Key</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.url">
-        <source>URL</source>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
       <trans-unit id="iss.unmapped.org">
         <source>MASTER ORG NOT MAPPED</source>

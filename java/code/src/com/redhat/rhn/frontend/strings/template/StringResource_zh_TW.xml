@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>您好。
 
-您的 Red Hat 登入帳號已經由 {0} {1} 為您建立完成。您的 Red
-Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
-來存取系統管理功能。
-
-Red Hat 登入帳號：{2}
-       密碼：{3}
-         電子郵件地址：{4}
-
-  {5}
-
-重要：請在登入後更改您的密碼。
-
-感謝您使用 @@PRODUCT_NAME@@。
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>您好。
 
-您的 Red Hat 登入帳號已經建立完成。您的 Red
-Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
-來存取系統管理功能。
-
-  Red Hat 登入帳號：{0}
-       密碼：{1}
-         電子郵件地址：{2}
-
-  {3}
-
-重要：請在登入後更改您的密碼。
-
-感謝您使用 @@PRODUCT_NAME@@。
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -448,25 +418,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-【這是根據您的要求，自動發給 {0} 的信件。】
 
-您的 @@PRODUCT_NAME@@ 密碼已經重設。要登入的話，請連上：:
-
-https://{1}/
-
-並使用以下使用者名稱與密碼：
-
-使用者名稱：{2}
-使用者密碼：{3}
-
-登入後，請變更密碼。
-
-如果您仍有登入上的問題，請聯絡 @@PRODUCT_NAME@@
-管理者尋求幫助。
-
-謝謝您使用 @@PRODUCT_NAME@@。
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>
