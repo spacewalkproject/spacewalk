@@ -18,6 +18,10 @@ License: GPLv2
 Source0: %{name}-%{version}.tar.gz
 URL:     https://github.com/spacewalkproject/spacewalk
 
+%if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8 || 0%{?rhel} >= 7
+BuildArch: noarch
+%endif
+
 %if %{_vendor} != "debbuild"
 
 %if 0%{?suse_version} >= 1210 || 0%{?fedora} || 0%{?mageia} || 0%{?rhel} >= 7
