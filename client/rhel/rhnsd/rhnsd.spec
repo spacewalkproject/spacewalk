@@ -91,11 +91,11 @@ rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
-%endif
-
+%else
 # find_lang not available on debbuild; we'll work around this below
 %if %{_vendor} != "debbuild"
 %find_lang %{name}
+%endif
 %endif
 
 # These will not work with debbuild
@@ -108,6 +108,7 @@ install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
 %if 0%{?fedora} || 0%{?suse_version} >= 1210 || 0%{?mageia} || 0%{?ubuntu} >= 1504 || 0%{?debian} >= 8 || 0%{?rhel} >= 7
 rm -f $RPM_BUILD_ROOT/%{_sysconfdir}/sysconfig/rhn/rhnsd
 rm -f $RPM_BUILD_ROOT/%{_sbindir}/rhnsd
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/locale
 %endif
 
 
