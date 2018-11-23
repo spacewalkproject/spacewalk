@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.9.6
+Version:	2.9.7
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,11 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
+- fix shebangs to unversioned python
+- fix pylint in migrateSystemProfile.py
+- fix pylint in cloneByDate.py
+
 * Thu Oct 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.6-1
 - Missing square bracket
 
