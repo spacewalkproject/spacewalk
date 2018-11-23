@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:32+0100\n"
+"POT-Creation-Date: 2018-11-23 14:32+0100\n"
 "PO-Revision-Date: 2018-03-16 10:54+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
@@ -26,28 +26,70 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Zanata 4.6.2\n"
 
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
+#: ../server/apacheAuth.py:67
+#, python-format
+msgid "incomplete proxy authentication token: %s"
+msgstr "不完全なプロキシ認証トークンです: %s"
+
+#: ../server/apacheAuth.py:85
+#, python-format
+msgid "Sent proxy signature %s does not match ours %s."
+msgstr "送信されたプロキシ署名 %s がこちら側の %s と一致しません。"
+
+#: ../server/apacheAuth.py:120
+msgid "declined proxy authentication"
+msgstr "プロキシ認証が拒否されました"
+
+#: ../server/apacheRequest.py:59
+#, python-format
+msgid "Invalid request received (%s)."
+msgstr "無効な要求を受け取りました (%s)。"
+
+#: ../server/apacheRequest.py:120
+#, python-format
+msgid ""
+"IMPORTANT MESSAGE FOLLOWS:\n"
+"%s"
 msgstr ""
+"重要なメッセージです:\n"
+"%s"
 
-#: ../server/rhnHandler.py:75
+#: ../server/apacheRequest.py:149
 #, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr "システムプロファイルに対してサービスが有効になっていません: 「%s」"
+msgid ""
+"While running '%s': caught\n"
+"%s : %s\n"
+msgstr ""
+"「%s」の実行中: 次をキャッチしました\n"
+"%s : %s\n"
 
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#: ../server/apacheRequest.py:602
 #, python-format
-msgid "Invalid RPM package %s requested"
-msgstr "無効な RPM パッケージ %s を要求しています"
-
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr "パッケージが見つかりません"
+msgid "Invalid URI %s"
+msgstr "無効な URI %s"
 
 #: ../server/handlers/applet/applet.py:78
 msgid "Your system was not found in the RHN database"
 msgstr "システムが RHN データベース内には見つかりませんでした。"
+
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
+msgstr "ISS がこの Satellite では無効になっています。"
+
+#: ../server/handlers/sat/auth.py:50
+#, python-format
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr "サーバー「%s」は ISS に有効になっていません。"
+
+#: ../server/handlers/xmlrpc/errata.py:62
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr "パッケージ名が期待されています、次ではありません: %s"
+
+#: ../server/handlers/xmlrpc/errata.py:113
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr "パッケージが期待されています、 次ではありません: %s"
 
 #: ../server/handlers/xmlrpc/proxy.py:63
 #, fuzzy, python-format
@@ -62,63 +104,6 @@ msgstr "無効なセッションキー"
 #: ../server/handlers/xmlrpc/proxy.py:91
 msgid "This server ID no longer exists"
 msgstr "このサーバー ID は既になくなりました"
-
-#: ../server/handlers/xmlrpc/registration.py:202
-msgid "Required data missing"
-msgstr "必要なデータが足りません"
-
-#: ../server/handlers/xmlrpc/registration.py:206
-msgid "Required members missing"
-msgstr "必要なメンバーが足りません"
-
-#: ../server/handlers/xmlrpc/registration.py:215
-msgid "Attempt to register a system to an invalid username"
-msgstr "システムを無効なユーザー名に登録しようとしています"
-
-#: ../server/handlers/xmlrpc/registration.py:223
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-"\n"
-"                   %s アカウントは本サーバー上では非アクティブになっていま"
-"す。\n"
-"                   組織の管理者にお問い合わせください。"
-
-#: ../server/handlers/xmlrpc/registration.py:827
-msgid "Invalid system release version requested"
-msgstr "無効なシステムリリースバージョンを要求しています"
-
-#: ../server/handlers/xmlrpc/registration.py:1059
-#, fuzzy
-msgid "Red Hat Satellite Welcome Message"
-msgstr "Red Hat Network のようこそメッセージ"
-
-#: ../server/handlers/xmlrpc/registration.py:1069
-#, fuzzy
-msgid "Red Hat Satellite Privacy Statement"
-msgstr "Red Hat Network プライバシーステートメント"
-
-#: ../server/handlers/xmlrpc/registration.py:1090
-msgid "Expected a dictionary as a product argument"
-msgstr "製品の引数としてディクショナリが期待されています"
-
-#: ../server/handlers/xmlrpc/registration.py:1300
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr "無効な値 '%s' − %s (%s)"
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr "パッケージ名が期待されています、次ではありません: %s"
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr "パッケージが期待されています、 次ではありません: %s"
 
 #: ../server/handlers/xmlrpc/queue.py:434
 #, python-format
@@ -140,14 +125,97 @@ msgstr "無効なシステム認証情報です。"
 msgid "Invalid value %s (%s)"
 msgstr "無効な値  %s (%s)"
 
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr "ISS がこの Satellite では無効になっています。"
+#: ../server/handlers/xmlrpc/registration.py:204
+msgid "Required data missing"
+msgstr "必要なデータが足りません"
 
-#: ../server/handlers/sat/auth.py:50
+#: ../server/handlers/xmlrpc/registration.py:208
+msgid "Required members missing"
+msgstr "必要なメンバーが足りません"
+
+#: ../server/handlers/xmlrpc/registration.py:217
+msgid "Attempt to register a system to an invalid username"
+msgstr "システムを無効なユーザー名に登録しようとしています"
+
+#: ../server/handlers/xmlrpc/registration.py:225
 #, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr "サーバー「%s」は ISS に有効になっていません。"
+msgid ""
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr ""
+"\n"
+"                   %s アカウントは本サーバー上では非アクティブになっていま"
+"す。\n"
+"                   組織の管理者にお問い合わせください。"
+
+#: ../server/handlers/xmlrpc/registration.py:829
+msgid "Invalid system release version requested"
+msgstr "無効なシステムリリースバージョンを要求しています"
+
+#: ../server/handlers/xmlrpc/registration.py:1061
+#, fuzzy
+msgid "Red Hat Satellite Welcome Message"
+msgstr "Red Hat Network のようこそメッセージ"
+
+#: ../server/handlers/xmlrpc/registration.py:1071
+#, fuzzy
+msgid "Red Hat Satellite Privacy Statement"
+msgstr "Red Hat Network プライバシーステートメント"
+
+#: ../server/handlers/xmlrpc/registration.py:1092
+msgid "Expected a dictionary as a product argument"
+msgstr "製品の引数としてディクショナリが期待されています"
+
+#: ../server/handlers/xmlrpc/registration.py:1302
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr "無効な値 '%s' − %s (%s)"
+
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
+msgstr "null org にあるパッケージを管理する権限が与えられていません"
+
+#: ../server/importlib/userAuth.py:103
+#, python-format
+msgid "You are not allowed to manage packages in the %s org"
+msgstr "%s org 内のパッケージの管理は許可されていません"
+
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr "管理に関する作業を行う許可がありません"
+
+#: ../server/importlib/userAuth.py:144
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr ""
+"チャンネル %s の管理は許可されていないか、 またはこのチャンネルは存在していま"
+"せん"
+
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr "システムプロファイルに対してサービスが有効になっていません: 「%s」"
+
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr "無効な RPM パッケージ %s を要求しています"
+
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr "パッケージが見つかりません"
+
+#: ../server/rhnServer/server_class.py:97
+#, python-format
+msgid "Architecture `%s' is not supported"
+msgstr "アーキテクチャ `%s' はサポートされていません"
 
 #: ../server/rhnServer/server_token.py:77
 #, python-format
@@ -194,123 +262,6 @@ msgstr "キックスタートセッションの不一致です"
 #: ../server/rhnServer/server_token.py:849
 msgid "Stacking of re-registration tokens is not supported"
 msgstr "再登録トークンの積み重ねには対応していません"
-
-#: ../server/rhnServer/server_class.py:97
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr "アーキテクチャ `%s' はサポートされていません"
-
-#: ../server/rhnChannel.py:1926
-#, python-format
-msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
-msgstr ""
-"ご使用のアカウントには (release='%(release)s', "
-"arch='%(arch)s')%(www_activation)s に一致するチャンネルのいずれにもアクセスが"
-"ありません。"
-
-#: ../server/rhnChannel.py:1936
-msgid ""
-"\n"
-"If you have a registration number, please register with it first at http://"
-"www.redhat.com/apps/activate/ and then try again.\n"
-"\n"
-msgstr ""
-"\n"
-"登録番号をお持ちの場合は、 まずその番号を http://www.redhat.com/apps/"
-"activate/ にて登録してからやり直してください。\n"
-"\n"
-
-#: ../server/rhnChannel.py:1946
-#, python-format
-msgid "Insufficient subscription permissions for release (%s, %s"
-msgstr "リリース (%s, %s にはサブスクリプションパーミッションが足りません。"
-
-#. Various messages that can be reused
-#.
-#. bretm 02/07/2007 -- when we have better old-client documentation, probably
-#. will be safe to get rid of all this crap
-#: ../server/rhnChannel.py:2210 ../server/rhnChannel.py:2221
-#: ../server/rhnChannel.py:2236
-msgid "System Registered but Inactive"
-msgstr "システムは登録されていますが非アクティブになっています"
-
-#: ../server/rhnChannel.py:2211
-#, fuzzy, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it is not subscribed to a channel. If you have not yet\n"
-"activated your product for service, please visit our website at:\n"
-"\n"
-"     http://www.redhat.com/apps/activate/\n"
-"\n"
-"...to activate your product."
-msgstr ""
-"\n"
-"アーキテクチャとオペレーティングシステムのリリースの組み合わせ (%s、 %s)\n"
-"が無効です。 システムは登録されていますが、 チャンネルにサブスクライブされ"
-"て\n"
-"いないため更新は行われません。 製品のアクティベートをまだ行っていない場合は\n"
-"次の Web サイトに行き製品のアクティベートを行ってください。\n"
-"  \n"
-"     http://www.redhat.com/apps/activate/\n"
-"\n"
-"  "
-
-#: ../server/rhnChannel.py:2222
-#, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it could not be subscribed to a base channel.\n"
-"Please contact your organization administrator for assistance.\n"
-msgstr ""
-"\n"
-"アーキテクチャとオペレーティングシステムのリリースの組み合わせ (%s、 %s)\n"
-"が無効です。 システムは登録されていますが、 ベースチャンネルにサブスクライ"
-"ブ\n"
-"させることができなかったため更新は行われません。 詳細については組織の管理者"
-"に\n"
-"お問い合わせください。\n"
-
-#: ../server/rhnChannel.py:2229
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but is not yet entitled\n"
-"  to service.  To entitle this system to service, login to the web site at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"  このシステムは正常に登録されていますが、 エンタイトルメントがまだ付与されて"
-"いません。\n"
-"  システムにエンタイトルメントを付与するには次の Web サイトにログインしてくだ"
-"さい。\n"
-"\n"
-"  %(entitlement_url)s\n"
-
-#: ../server/rhnChannel.py:2237
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but no service entitlements\n"
-"  were available.  To entitle this system to service, login to the web site "
-"at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"  このシステムは正常に登録されていますが、 利用できるエンタイトルメントがあり"
-"ませんでした。\n"
-"  システムにエンタイトルメントを付与するには次の Web サイトにログインしてくだ"
-"さい。\n"
-"\n"
-"  %(entitlement_url)s\n"
 
 #: ../server/rhnUser.py:289 ../server/rhnUser.py:292
 msgid "Invalid username/password combination"
@@ -372,78 +323,117 @@ msgstr "ユーザー名は少なくとも %d 文字以上の長さにしてく�
 msgid "Cannot register usernames ending with %s"
 msgstr "%s で終わるユーザー名は登録できません"
 
-#: ../server/apacheAuth.py:67
-#, python-format
-msgid "incomplete proxy authentication token: %s"
-msgstr "不完全なプロキシ認証トークンです: %s"
-
-#: ../server/apacheAuth.py:85
-#, python-format
-msgid "Sent proxy signature %s does not match ours %s."
-msgstr "送信されたプロキシ署名 %s がこちら側の %s と一致しません。"
-
-#: ../server/apacheAuth.py:120
-msgid "declined proxy authentication"
-msgstr "プロキシ認証が拒否されました"
-
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr "null org にあるパッケージを管理する権限が与えられていません"
-
-#: ../server/importlib/userAuth.py:103
-#, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr "%s org 内のパッケージの管理は許可されていません"
-
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr "管理に関する作業を行う許可がありません"
-
-#: ../server/importlib/userAuth.py:144
+#: ../server/rhnChannel.py:1938
 #, python-format
 msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
+"Your account does not have access to any channels matching "
+"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
-"チャンネル %s の管理は許可されていないか、 またはこのチャンネルは存在していま"
-"せん"
+"ご使用のアカウントには (release='%(release)s', "
+"arch='%(arch)s')%(www_activation)s に一致するチャンネルのいずれにもアクセスが"
+"ありません。"
 
-#: ../server/apacheRequest.py:59
+#: ../server/rhnChannel.py:1948
+msgid ""
+"\n"
+"If you have a registration number, please register with it first at http://"
+"www.redhat.com/apps/activate/ and then try again.\n"
+"\n"
+msgstr ""
+"\n"
+"登録番号をお持ちの場合は、 まずその番号を http://www.redhat.com/apps/"
+"activate/ にて登録してからやり直してください。\n"
+"\n"
+
+#: ../server/rhnChannel.py:1958
 #, python-format
-msgid "Invalid request received (%s)."
-msgstr "無効な要求を受け取りました (%s)。"
+msgid "Insufficient subscription permissions for release (%s, %s"
+msgstr "リリース (%s, %s にはサブスクリプションパーミッションが足りません。"
 
-#: ../server/apacheRequest.py:120
+#. Various messages that can be reused
+#.
+#. bretm 02/07/2007 -- when we have better old-client documentation, probably
+#. will be safe to get rid of all this crap
+#: ../server/rhnChannel.py:2222 ../server/rhnChannel.py:2233
+#: ../server/rhnChannel.py:2248
+msgid "System Registered but Inactive"
+msgstr "システムは登録されていますが非アクティブになっています"
+
+#: ../server/rhnChannel.py:2223
+#, fuzzy, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it is not subscribed to a channel. If you have not yet\n"
+"activated your product for service, please visit our website at:\n"
+"\n"
+"     http://www.redhat.com/apps/activate/\n"
+"\n"
+"...to activate your product."
+msgstr ""
+"\n"
+"アーキテクチャとオペレーティングシステムのリリースの組み合わせ (%s、 %s)\n"
+"が無効です。 システムは登録されていますが、 チャンネルにサブスクライブされ"
+"て\n"
+"いないため更新は行われません。 製品のアクティベートをまだ行っていない場合は\n"
+"次の Web サイトに行き製品のアクティベートを行ってください。\n"
+"  \n"
+"     http://www.redhat.com/apps/activate/\n"
+"\n"
+"  "
+
+#: ../server/rhnChannel.py:2234
 #, python-format
 msgid ""
-"IMPORTANT MESSAGE FOLLOWS:\n"
-"%s"
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it could not be subscribed to a base channel.\n"
+"Please contact your organization administrator for assistance.\n"
 msgstr ""
-"重要なメッセージです:\n"
-"%s"
+"\n"
+"アーキテクチャとオペレーティングシステムのリリースの組み合わせ (%s、 %s)\n"
+"が無効です。 システムは登録されていますが、 ベースチャンネルにサブスクライ"
+"ブ\n"
+"させることができなかったため更新は行われません。 詳細については組織の管理者"
+"に\n"
+"お問い合わせください。\n"
 
-#: ../server/apacheRequest.py:149
+#: ../server/rhnChannel.py:2241
 #, python-format
 msgid ""
-"While running '%s': caught\n"
-"%s : %s\n"
+"\n"
+"  This system has been successfully registered, but is not yet entitled\n"
+"  to service.  To entitle this system to service, login to the web site at:\n"
+"\n"
+"  %(entitlement_url)s\n"
 msgstr ""
-"「%s」の実行中: 次をキャッチしました\n"
-"%s : %s\n"
+"\n"
+"  このシステムは正常に登録されていますが、 エンタイトルメントがまだ付与されて"
+"いません。\n"
+"  システムにエンタイトルメントを付与するには次の Web サイトにログインしてくだ"
+"さい。\n"
+"\n"
+"  %(entitlement_url)s\n"
 
-#: ../server/apacheRequest.py:602
+#: ../server/rhnChannel.py:2249
 #, python-format
-msgid "Invalid URI %s"
-msgstr "無効な URI %s"
-
-#: ../common/rhnTB.py:205
-#, python-format
-msgid "ERROR: %s %s: %s"
+msgid ""
+"\n"
+"  This system has been successfully registered, but no service entitlements\n"
+"  were available.  To entitle this system to service, login to the web site "
+"at:\n"
+"\n"
+"  %(entitlement_url)s\n"
 msgstr ""
-
-#: ../common/rhnTB.py:207
-#, python-format
-msgid "TRACEBACK: %s"
-msgstr ""
+"\n"
+"  このシステムは正常に登録されていますが、 利用できるエンタイトルメントがあり"
+"ませんでした。\n"
+"  システムにエンタイトルメントを付与するには次の Web サイトにログインしてくだ"
+"さい。\n"
+"\n"
+"  %(entitlement_url)s\n"
 
 #. 0-999: Red Hat client/client-like interaction errors:
 #: ../common/rhnException.py:53
@@ -1116,3 +1106,13 @@ msgstr "エラークラス情報: %s\n"
 #, python-format
 msgid "Explanation: %s"
 msgstr "説明: %s"
+
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
+msgstr ""
