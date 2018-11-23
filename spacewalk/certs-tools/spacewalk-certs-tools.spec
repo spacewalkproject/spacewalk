@@ -15,7 +15,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 License: GPLv2
-Version: 2.9.1
+Version: 2.9.2
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -123,6 +123,9 @@ ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 %endif
 
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- updated copyright years
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.1-1
 - use explicit version of python
 - Bumping package versions for 2.9.
