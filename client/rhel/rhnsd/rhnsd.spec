@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.40
+Version: 5.0.41
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -212,6 +212,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.41-1
+- 1091025 - replace rhnsd with systemd.timer
+
 * Thu Aug 02 2018 Tomas Kasparek <tkasparek@redhat.com> 5.0.40-1
 - 1610286 - don't start as sysv service on systemd systems
 
