@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:26+0100\n"
+"POT-Creation-Date: 2018-11-23 14:33+0100\n"
 "PO-Revision-Date: 2018-03-16 11:04+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Telugu (http://www.transifex.com/projects/p/spacewalk/"
@@ -44,7 +44,7 @@ msgstr "కక్షిదారు %sకి మద్దతివ్వటా�
 msgid "%s was not found"
 msgstr "%s కనుగొనబడలేదు"
 
-#: ../src/up2date_client/debUtils.py:59 ../src/up2date_client/rpmUtils.py:116
+#: ../src/up2date_client/debUtils.py:62 ../src/up2date_client/rpmUtils.py:116
 msgid "Getting list of packages installed on the system"
 msgstr "కంప్యూటరులో సంస్థాపించబడ్డ ప్యాకేజీల జాబితాను పొందుతోంది"
 
@@ -96,6 +96,14 @@ msgstr "దోషం:"
 #: ../src/up2date_client/messageWindow.py:113
 msgid "Yes/No dialog:"
 msgstr "అవును/కాదు డైలాగ్:"
+
+#: ../src/up2date_client/rhnChannel.py:102
+msgid "Unable to Locate SystemId"
+msgstr "SystemIdను గుర్తించలేక పోయింది"
+
+#: ../src/up2date_client/rhnChannel.py:119
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "ఈ కంప్యూటరు ఒక చానలుతో కూడి ఉండేదాకా నవీకరించలేదు."
 
 #: ../src/up2date_client/rhncli.py:68
 msgid "Show additional output"
@@ -188,13 +196,272 @@ msgstr "ఒక దోషం సంభవించింది"
 msgid "See /var/log/up2date for more information"
 msgstr "అధిక సమాచారం కోసం /var/log/up2date చూడు"
 
-#: ../src/up2date_client/rhnChannel.py:102
-msgid "Unable to Locate SystemId"
-msgstr "SystemIdను గుర్తించలేక పోయింది"
+#: ../src/up2date_client/rhnreg.py:82
+#, fuzzy
+msgid "Warning: unable to enable rhnsd with systemd"
+msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
 
-#: ../src/up2date_client/rhnChannel.py:119
-msgid "This system may not be updated until it is associated with a channel."
-msgstr "ఈ కంప్యూటరు ఒక చానలుతో కూడి ఉండేదాకా నవీకరించలేదు."
+#: ../src/up2date_client/rhnreg.py:88
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
+
+#: ../src/up2date_client/rhnregGui.py:147
+#: ../src/up2date_client/rhnregGui.py:164
+msgid "Notice"
+msgstr "గమనించు"
+
+#: ../src/up2date_client/rhnregGui.py:157
+#: ../src/up2date_client/rhnregGui.py:171
+#: ../src/up2date_client/rhnreg_constants.py:245
+msgid "Warning"
+msgstr "హెచ్చరిక"
+
+#: ../src/up2date_client/rhnregGui.py:272
+msgid "There was an error while applying your choice."
+msgstr "మీ యిచ్చాన్ని ఆపాదించుటకు వొక దోషము యెదురైంది."
+
+#: ../src/up2date_client/rhnregGui.py:291
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు. కేవలం https మరియూ http మాత్రమే అనుమతించబడతాయి."
+
+#: ../src/up2date_client/rhnregGui.py:305
+#, fuzzy
+msgid ""
+"You will not be able to successfully register this system without contacting "
+"a Spacewalk server."
+msgstr "మీరు Red Hat నెట్వర్కు సేవికను సంప్రదించకుండా ఈ సిస్టమ్‌ను నమోదు చేయలేరు."
+
+#: ../src/up2date_client/rhnregGui.py:325
+msgid "Cannot contact selected server"
+msgstr "ఎంపికచేసిన సేవికను సంప్రదించలేదు"
+
+#: ../src/up2date_client/rhnregGui.py:326
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr "'%s.' యందలి శాటిలైట్ లేదా ప్రోక్సిని సంప్రదించలేదు"
+
+#: ../src/up2date_client/rhnregGui.py:328
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+"ఆ స్థానం - '%s' సరైనదో కాదో రెండుసార్లు-పరిశీలించు? కాక పోతే, మీరు దాన్ని సరిచేసి మళ్లీ ప్రయత్నించండి."
+
+#: ../src/up2date_client/rhnregGui.py:331
+msgid "Make sure the network connection on this system is operational."
+msgstr "ఈ కంప్యూటరులో నెట్వర్కు అనుసంధానం.క్రియాశీలమైందోకాదో నిర్ధారించుకోండి."
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, fuzzy
+msgid "There was an error communicating with Spacewalk server."
+msgstr "Red Hat నెట్వర్కుతో సంప్రదిస్తున్నప్పుడు ఒక దోషం ఉంది."
+
+#: ../src/up2date_client/rhnregGui.py:342
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr "సర్వరు ఔటేజ్ స్థితిలో ఉండవచ్చు. తర్వాత అనుసంధించటానికి ప్రయత్నించండి."
+
+#: ../src/up2date_client/rhnregGui.py:344
+msgid "You may be running a client that is incompatible with the server."
+msgstr "మీరు సర్వరుతీ అనురూపతలేని కక్షిదారుని ఉపయోగిస్తూ ఉండవచ్చు."
+
+#: ../src/up2date_client/rhnregGui.py:377
+#, fuzzy, python-format
+msgid ""
+"Please enter your account information for the <b>%s</b> Spacewalk server:"
+msgstr "<b>%s</b> Red Hat నెట్వర్కు శాటిలైట్ కొరకు మీ ఖాతా సమాచారమును ప్రవేశపెట్టండి:"
+
+#: ../src/up2date_client/rhnregGui.py:416
+msgid "You must enter a login."
+msgstr "మీరు తప్పక ఒక ప్రవేశా ఇవ్వాలి."
+
+#: ../src/up2date_client/rhnregGui.py:422
+msgid "You must enter a password."
+msgstr "మీరు తప్పక ఒక అనుమతిపదాన్ని ప్రవేశపెట్టాలి."
+
+#: ../src/up2date_client/rhnregGui.py:435
+msgid "There was an error while logging in."
+msgstr "లాగిన్ అగుటలో అక్కడ వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:462
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "నమోదు సర్వరుతో సంప్రదిస్తున్నప్పటి దోషం.  ఆ సమాచారం:\n"
+
+#: ../src/up2date_client/rhnregGui.py:603
+msgid "There was an error while assembling information for the profile."
+msgstr "ప్రొఫైల్ కొరకు సమాచారమును సమీకరించుటలో అక్కడ వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:624
+msgid "Error running hardware profile"
+msgstr "హార్డువేరు రూపం ఉపయోగించటంలో దోషం నడుస్తోంది"
+
+#: ../src/up2date_client/rhnregGui.py:655
+msgid "There was an error while populating the profile."
+msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
+
+#: ../src/up2date_client/rhnregGui.py:675
+msgid "You must choose a name for this profile."
+msgstr "మీరు తప్పక ఈ రూపానికి ఒక పేరును ఎన్నుకోవాలి."
+
+#: ../src/up2date_client/rhnregGui.py:689
+msgid "There was an error while creating the profile."
+msgstr "ప్రొఫైల్‌ను సృష్టించుటలో అక్కడు వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:700
+msgid "Registering system and sending profile information.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:719
+msgid "Registering System"
+msgstr "కంప్యూటరును నమోదుచేస్తోంది"
+
+#: ../src/up2date_client/rhnregGui.py:734
+#: ../src/up2date_client/rhnregGui.py:739
+#: ../src/up2date_client/rhnregGui.py:744
+#: ../src/up2date_client/rhnregGui.py:748 ../src/up2date_client/tui.py:989
+#: ../src/up2date_client/tui.py:993 ../src/up2date_client/tui.py:997
+#: ../src/up2date_client/tui.py:1001
+msgid "Problem registering system:\n"
+msgstr "సమస్య నమోదు విధానం:\n"
+
+#: ../src/up2date_client/rhnregGui.py:751
+#, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+"సమకుర్చిన సంస్థాపక సంఖ్య [ %s ] విలువైనది కాదు. దయచేసి ముందలి స్క్రీనుకి వెళ్లి దాన్ని స్థిరపరచండి."
+
+#: ../src/up2date_client/rhnregGui.py:761 ../src/up2date_client/tui.py:1007
+msgid "Problem registering system."
+msgstr "సమస్యని నమోదుచేసే విధానం"
+
+#: ../src/up2date_client/rhnregGui.py:771 ../src/up2date_client/tui.py:1012
+msgid "Problem writing out system id to disk."
+msgstr "సమస్యని రాసే విధానం id నుండీ డిస్కుకి."
+
+#: ../src/up2date_client/rhnregGui.py:777
+msgid "There was a problem registering this system."
+msgstr "ఈ విధానాన్ని నమోదు చేయటంలో ఒక ఇబ్బంది ఉంది"
+
+#: ../src/up2date_client/rhnregGui.py:790
+msgid "Sending hardware information"
+msgstr "హార్డువేరు సమాచారాన్ని పంపుతోం:"
+
+#: ../src/up2date_client/rhnregGui.py:795
+msgid "Problem sending hardware information."
+msgstr "దోషాన్ని చదివే హార్డువేరు సమాచారం:"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print("gh270")
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:819
+msgid "Sending package information"
+msgstr "ప్యాకేజీ సమాచారాన్ని పంపుతోంది"
+
+#: ../src/up2date_client/rhnregGui.py:824
+msgid "Problem sending package information."
+msgstr "ప్యాకేజీ సమాచారాన్ని పంపటంలో ఇబ్బంది."
+
+#: ../src/up2date_client/rhnregGui.py:856 ../src/up2date_client/tui.py:1061
+#, python-format
+msgid ""
+"Could not open %s\n"
+"%s is not enabled.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:910
+msgid "There was an error while installing the certificate."
+msgstr "ధృవీకరణపత్రమును సంస్థాపించుటలో అక్కడ వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:936
+msgid "You must select a certificate."
+msgstr "మీరు తప్పక ఒక దృవీకరణ పత్రాన్ని ఎన్నికోవాలి."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:966
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr "అక్కడ ఒక SSL దోషం ఉంది. ఇది మీరు తీసుకున్న ఫైలు ధృవీకృత ఫైలు కాకపోవటంవల్ల."
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:974
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr "కొత్త ధృవీకరణని సంస్థాపించుతున్నప్పుడు కొంత తప్పయ్యింది:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1027
+#: ../src/up2date_client/rhnregGui.py:1028
+#: ../src/up2date_client/rhnregGui.py:1029
+msgid "unknown"
+msgstr "తెలియని"
+
+#: ../src/up2date_client/rhnregGui.py:1133
+msgid "There was an error getting the list of hardware."
+msgstr "హార్డువేరు యొక్క జాబితాను పొందుటలో అక్కడ వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:1145 ../src/up2date_client/tui.py:788
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1149
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../src/up2date_client/rhnregGui.py:1194
+msgid "There was an error building the list of packages."
+msgstr "ప్యాకేజీల యొక్క జాబితాను నిర్మించుటలో అక్కడ వొక దోషము వుంది."
+
+#: ../src/up2date_client/rhnregGui.py:1209
+msgid "Package"
+msgstr "ప్యాకేజీ"
+
+#: ../src/up2date_client/rhnregGui.py:1214
+msgid "Arch"
+msgstr "Arch"
+
+#: ../src/up2date_client/rhnregGui.py:1221
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr "మీ కంప్యూటరులో RPM ప్యాకేజీల జాబితా.సంస్థాపించబడుతోంది  దయచేసి వేచిఉండండి."
+
+#: ../src/up2date_client/rhnregGui.py:1252
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"మీ ఆకృతీకరణను లోడ్ చేయటంలో ఒక దోషం ఉంది.  దాన్ని నిర్ధారించుకోండి\n"
+"మీరు /etc/sysconfig/rhnని చదవగలుగుతారు."
+
+#: ../src/up2date_client/rhnregGui.py:1294
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"మీ ఆకృతిని భద్రపరచటంలో ఒక దోషం. దాన్ని నిర్ధారించండి\n"
+"మీ సొంతంగా %s."
+
+#: ../src/up2date_client/rhnregGui.py:1324
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+"ఈ దోషం సంభవించకూడదు. మీరు ఈ ప్రక్రమ అభివృద్ధిలో మాకు సహకరించ దలచుకోపోతే, దయచేసి ఒక బగ్ ని "
+"ugzilla.redhat.com లో ఫైల్ చేయండి. '%s' యొక్క సంభంధిత భాగాలతో ఫైలు చేయటం చాలా ఉపకరిస్తుంది. "
+"ధన్యవాదాలు!"
 
 #: ../src/up2date_client/rhnreg_constants.py:19
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -758,12 +1025,6 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "పెద్ద దోషం"
 
-#: ../src/up2date_client/rhnreg_constants.py:245
-#: ../src/up2date_client/rhnregGui.py:157
-#: ../src/up2date_client/rhnregGui.py:171
-msgid "Warning"
-msgstr "హెచ్చరిక"
-
 #: ../src/up2date_client/rhnreg_constants.py:246
 #, fuzzy, python-format
 msgid ""
@@ -926,267 +1187,6 @@ msgstr "అవును, కొనసాగించు"
 #: ../src/up2date_client/rhnreg_constants.py:316
 msgid "Press <space> to deselect the option."
 msgstr "ఐచ్ఛికాన్ని ఎన్నుకోకపోవటానికి <space>ని నొక్కండి."
-
-#: ../src/up2date_client/rhnregGui.py:147
-#: ../src/up2date_client/rhnregGui.py:164
-msgid "Notice"
-msgstr "గమనించు"
-
-#: ../src/up2date_client/rhnregGui.py:272
-msgid "There was an error while applying your choice."
-msgstr "మీ యిచ్చాన్ని ఆపాదించుటకు వొక దోషము యెదురైంది."
-
-#: ../src/up2date_client/rhnregGui.py:291
-msgid "You specified an invalid protocol. Only https and http are allowed."
-msgstr "మీరు విలువలేని చట్టాన్ని తెలిపారు. కేవలం https మరియూ http మాత్రమే అనుమతించబడతాయి."
-
-#: ../src/up2date_client/rhnregGui.py:305
-#, fuzzy
-msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Spacewalk server."
-msgstr "మీరు Red Hat నెట్వర్కు సేవికను సంప్రదించకుండా ఈ సిస్టమ్‌ను నమోదు చేయలేరు."
-
-#: ../src/up2date_client/rhnregGui.py:325
-msgid "Cannot contact selected server"
-msgstr "ఎంపికచేసిన సేవికను సంప్రదించలేదు"
-
-#: ../src/up2date_client/rhnregGui.py:326
-#, python-format
-msgid "We could not contact the Satellite or Proxy at '%s.'"
-msgstr "'%s.' యందలి శాటిలైట్ లేదా ప్రోక్సిని సంప్రదించలేదు"
-
-#: ../src/up2date_client/rhnregGui.py:328
-#, python-format
-msgid ""
-"Double-check the location - is '%s' correct? If not, you can correct it and "
-"try again."
-msgstr ""
-"ఆ స్థానం - '%s' సరైనదో కాదో రెండుసార్లు-పరిశీలించు? కాక పోతే, మీరు దాన్ని సరిచేసి మళ్లీ ప్రయత్నించండి."
-
-#: ../src/up2date_client/rhnregGui.py:331
-msgid "Make sure the network connection on this system is operational."
-msgstr "ఈ కంప్యూటరులో నెట్వర్కు అనుసంధానం.క్రియాశీలమైందోకాదో నిర్ధారించుకోండి."
-
-#: ../src/up2date_client/rhnregGui.py:341
-#, fuzzy
-msgid "There was an error communicating with Spacewalk server."
-msgstr "Red Hat నెట్వర్కుతో సంప్రదిస్తున్నప్పుడు ఒక దోషం ఉంది."
-
-#: ../src/up2date_client/rhnregGui.py:342
-msgid "The server may be in outage mode. You may have to try connecting later."
-msgstr "సర్వరు ఔటేజ్ స్థితిలో ఉండవచ్చు. తర్వాత అనుసంధించటానికి ప్రయత్నించండి."
-
-#: ../src/up2date_client/rhnregGui.py:344
-msgid "You may be running a client that is incompatible with the server."
-msgstr "మీరు సర్వరుతీ అనురూపతలేని కక్షిదారుని ఉపయోగిస్తూ ఉండవచ్చు."
-
-#: ../src/up2date_client/rhnregGui.py:377
-#, fuzzy, python-format
-msgid ""
-"Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr "<b>%s</b> Red Hat నెట్వర్కు శాటిలైట్ కొరకు మీ ఖాతా సమాచారమును ప్రవేశపెట్టండి:"
-
-#: ../src/up2date_client/rhnregGui.py:416
-msgid "You must enter a login."
-msgstr "మీరు తప్పక ఒక ప్రవేశా ఇవ్వాలి."
-
-#: ../src/up2date_client/rhnregGui.py:422
-msgid "You must enter a password."
-msgstr "మీరు తప్పక ఒక అనుమతిపదాన్ని ప్రవేశపెట్టాలి."
-
-#: ../src/up2date_client/rhnregGui.py:435
-msgid "There was an error while logging in."
-msgstr "లాగిన్ అగుటలో అక్కడ వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:462
-msgid ""
-"There was an error communicating with the registration server.  The message "
-"was:\n"
-msgstr "నమోదు సర్వరుతో సంప్రదిస్తున్నప్పటి దోషం.  ఆ సమాచారం:\n"
-
-#: ../src/up2date_client/rhnregGui.py:603
-msgid "There was an error while assembling information for the profile."
-msgstr "ప్రొఫైల్ కొరకు సమాచారమును సమీకరించుటలో అక్కడ వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:624
-msgid "Error running hardware profile"
-msgstr "హార్డువేరు రూపం ఉపయోగించటంలో దోషం నడుస్తోంది"
-
-#: ../src/up2date_client/rhnregGui.py:655
-msgid "There was an error while populating the profile."
-msgstr "ఆ రూపాన్ని ప్రసన్నం చేయటంలో ఒక దోషం."
-
-#: ../src/up2date_client/rhnregGui.py:675
-msgid "You must choose a name for this profile."
-msgstr "మీరు తప్పక ఈ రూపానికి ఒక పేరును ఎన్నుకోవాలి."
-
-#: ../src/up2date_client/rhnregGui.py:689
-msgid "There was an error while creating the profile."
-msgstr "ప్రొఫైల్‌ను సృష్టించుటలో అక్కడు వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:700
-msgid "Registering system and sending profile information.  Please wait."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:719
-msgid "Registering System"
-msgstr "కంప్యూటరును నమోదుచేస్తోంది"
-
-#: ../src/up2date_client/rhnregGui.py:734
-#: ../src/up2date_client/rhnregGui.py:739
-#: ../src/up2date_client/rhnregGui.py:744
-#: ../src/up2date_client/rhnregGui.py:748 ../src/up2date_client/tui.py:989
-#: ../src/up2date_client/tui.py:993 ../src/up2date_client/tui.py:997
-#: ../src/up2date_client/tui.py:1001
-msgid "Problem registering system:\n"
-msgstr "సమస్య నమోదు విధానం:\n"
-
-#: ../src/up2date_client/rhnregGui.py:751
-#, python-format
-msgid ""
-"The installation number [ %s ] provided is not a valid installation number. "
-"Please go back to the previous screen and fix it."
-msgstr ""
-"సమకుర్చిన సంస్థాపక సంఖ్య [ %s ] విలువైనది కాదు. దయచేసి ముందలి స్క్రీనుకి వెళ్లి దాన్ని స్థిరపరచండి."
-
-#: ../src/up2date_client/rhnregGui.py:761 ../src/up2date_client/tui.py:1007
-msgid "Problem registering system."
-msgstr "సమస్యని నమోదుచేసే విధానం"
-
-#: ../src/up2date_client/rhnregGui.py:771 ../src/up2date_client/tui.py:1012
-msgid "Problem writing out system id to disk."
-msgstr "సమస్యని రాసే విధానం id నుండీ డిస్కుకి."
-
-#: ../src/up2date_client/rhnregGui.py:777
-msgid "There was a problem registering this system."
-msgstr "ఈ విధానాన్ని నమోదు చేయటంలో ఒక ఇబ్బంది ఉంది"
-
-#: ../src/up2date_client/rhnregGui.py:790
-msgid "Sending hardware information"
-msgstr "హార్డువేరు సమాచారాన్ని పంపుతోం:"
-
-#: ../src/up2date_client/rhnregGui.py:795
-msgid "Problem sending hardware information."
-msgstr "దోషాన్ని చదివే హార్డువేరు సమాచారం:"
-
-#. #            for row in range(self.regPackageArea.n_rows):
-#. #                rowData = self.regPackageArea.get_row_data(row)
-#. #                if rowData[0] == 1:
-#. #                    selection.append(rowData[1])
-#. #            print("gh270")
-#. #            selectedPackages = []
-#. #            for pkg in packageList:
-#. #                if pkg[0] in selection:
-#. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:819
-msgid "Sending package information"
-msgstr "ప్యాకేజీ సమాచారాన్ని పంపుతోంది"
-
-#: ../src/up2date_client/rhnregGui.py:824
-msgid "Problem sending package information."
-msgstr "ప్యాకేజీ సమాచారాన్ని పంపటంలో ఇబ్బంది."
-
-#: ../src/up2date_client/rhnregGui.py:856 ../src/up2date_client/tui.py:1061
-#, python-format
-msgid ""
-"Could not open %s\n"
-"%s is not enabled.\n"
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:910
-msgid "There was an error while installing the certificate."
-msgstr "ధృవీకరణపత్రమును సంస్థాపించుటలో అక్కడ వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:936
-msgid "You must select a certificate."
-msgstr "మీరు తప్పక ఒక దృవీకరణ పత్రాన్ని ఎన్నికోవాలి."
-
-#. TODO Modify rhnlib to raise a unique exception for the not a
-#. cert file case.
-#: ../src/up2date_client/rhnregGui.py:966
-msgid ""
-"There was an SSL error. This could be because the file you picked was not a "
-"certificate file."
-msgstr "అక్కడ ఒక SSL దోషం ఉంది. ఇది మీరు తీసుకున్న ఫైలు ధృవీకృత ఫైలు కాకపోవటంవల్ల."
-
-#. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:974
-msgid "Something went wrong while installing the new certificate:\n"
-msgstr "కొత్త ధృవీకరణని సంస్థాపించుతున్నప్పుడు కొంత తప్పయ్యింది:\n"
-
-#: ../src/up2date_client/rhnregGui.py:1027
-#: ../src/up2date_client/rhnregGui.py:1028
-#: ../src/up2date_client/rhnregGui.py:1029
-msgid "unknown"
-msgstr "తెలియని"
-
-#: ../src/up2date_client/rhnregGui.py:1133
-msgid "There was an error getting the list of hardware."
-msgstr "హార్డువేరు యొక్క జాబితాను పొందుటలో అక్కడ వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:1145 ../src/up2date_client/tui.py:788
-#, python-format
-msgid "%d MHz"
-msgstr "%d MHz"
-
-#: ../src/up2date_client/rhnregGui.py:1149
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../src/up2date_client/rhnregGui.py:1194
-msgid "There was an error building the list of packages."
-msgstr "ప్యాకేజీల యొక్క జాబితాను నిర్మించుటలో అక్కడ వొక దోషము వుంది."
-
-#: ../src/up2date_client/rhnregGui.py:1209
-msgid "Package"
-msgstr "ప్యాకేజీ"
-
-#: ../src/up2date_client/rhnregGui.py:1214
-msgid "Arch"
-msgstr "Arch"
-
-#: ../src/up2date_client/rhnregGui.py:1221
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "మీ కంప్యూటరులో RPM ప్యాకేజీల జాబితా.సంస్థాపించబడుతోంది  దయచేసి వేచిఉండండి."
-
-#: ../src/up2date_client/rhnregGui.py:1252
-msgid ""
-"There was an error loading your configuration.  Make sure that\n"
-"you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"మీ ఆకృతీకరణను లోడ్ చేయటంలో ఒక దోషం ఉంది.  దాన్ని నిర్ధారించుకోండి\n"
-"మీరు /etc/sysconfig/rhnని చదవగలుగుతారు."
-
-#: ../src/up2date_client/rhnregGui.py:1294
-#, python-format
-msgid ""
-"There was an error saving your configuration. Make sure that\n"
-"you own %s."
-msgstr ""
-"మీ ఆకృతిని భద్రపరచటంలో ఒక దోషం. దాన్ని నిర్ధారించండి\n"
-"మీ సొంతంగా %s."
-
-#: ../src/up2date_client/rhnregGui.py:1324
-#, python-format
-msgid ""
-"This error shouldn't have happened. If you'd like to help us improve this "
-"program, please file a bug at bugzilla.redhat.com. Including the relevant "
-"parts of '%s' would be very helpful. Thanks!"
-msgstr ""
-"ఈ దోషం సంభవించకూడదు. మీరు ఈ ప్రక్రమ అభివృద్ధిలో మాకు సహకరించ దలచుకోపోతే, దయచేసి ఒక బగ్ ని "
-"ugzilla.redhat.com లో ఫైల్ చేయండి. '%s' యొక్క సంభంధిత భాగాలతో ఫైలు చేయటం చాలా ఉపకరిస్తుంది. "
-"ధన్యవాదాలు!"
-
-#: ../src/up2date_client/rhnreg.py:75
-#, fuzzy
-msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
-
-#: ../src/up2date_client/rhnreg.py:81
-msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "హెచ్చరిక: chkconfigతో rhnsdని సాధ్యంచేయటం కుదరదు"
 
 #: ../src/up2date_client/rpcServer.py:56
 msgid "Error: Server Unavailable. Please try later."
@@ -1384,10 +1384,6 @@ msgstr ""
 "యెన్‌టైటిల్మెంట్‌ను\n"
 "    తప్పించుటకు పనఃప్రయత్నించవచ్చును."
 
-#: ../src/bin/rhn_check.py:428
-msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
-msgstr "ఒకటి కన్నా యెక్కువ rhn_check సంభవాన్ని నడుపుటకు ప్రయత్నిస్తోంది. ఇప్పటికేవుంది.\n"
-
 #: ../src/bin/rhn-profile-sync.py:37
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
@@ -1406,6 +1402,10 @@ msgstr "హార్డువేర్ రూపాన్ని నవీకర�
 #: ../src/bin/rhn-profile-sync.py:52
 msgid "Updating virtualization profile..."
 msgstr "వాస్తవీకరణ రూపాన్ని ఆకృతీకరిస్తోంది..."
+
+#: ../src/bin/rhn_check.py:428
+msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
+msgstr "ఒకటి కన్నా యెక్కువ rhn_check సంభవాన్ని నడుపుటకు ప్రయత్నిస్తోంది. ఇప్పటికేవుంది.\n"
 
 #: ../src/bin/rhn_register.py:38
 msgid "Do not attempt to use X"

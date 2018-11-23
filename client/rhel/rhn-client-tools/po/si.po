@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-16 14:26+0100\n"
+"POT-Creation-Date: 2018-11-23 14:33+0100\n"
 "PO-Revision-Date: 2018-03-16 11:04+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Sinhala (http://www.transifex.com/projects/p/spacewalk/"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "%s was not found"
 msgstr "%s සොයාගත නොහැකි විය"
 
-#: ../src/up2date_client/debUtils.py:59 ../src/up2date_client/rpmUtils.py:116
+#: ../src/up2date_client/debUtils.py:62 ../src/up2date_client/rpmUtils.py:116
 msgid "Getting list of packages installed on the system"
 msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු ඇසුරුම් ලයිස්තුව ලබා ගනිමින්"
 
@@ -96,6 +96,14 @@ msgstr "දෝශයකි:"
 #: ../src/up2date_client/messageWindow.py:113
 msgid "Yes/No dialog:"
 msgstr "ඔව්/නැත දෙබස:"
+
+#: ../src/up2date_client/rhnChannel.py:102
+msgid "Unable to Locate SystemId"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:119
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "ඕඩයක් සමඟ නිසි ලෙස සම්බන්ධ වන තුරු පද්ධතිය නවීකරණය නොවනු ඇත."
 
 #: ../src/up2date_client/rhncli.py:68
 msgid "Show additional output"
@@ -188,13 +196,276 @@ msgstr "දෝශයක් ඇතිවිය:"
 msgid "See /var/log/up2date for more information"
 msgstr "වැඩි විස්තර සඳහා /var/log/up2date බලන්න"
 
-#: ../src/up2date_client/rhnChannel.py:102
-msgid "Unable to Locate SystemId"
+#: ../src/up2date_client/rhnreg.py:82
+#, fuzzy
+msgid "Warning: unable to enable rhnsd with systemd"
+msgstr "අවවාදයයි: chkconfig සමඟ rhnsd සක්‍රීය කිරීමට නොහැකි විය"
+
+#: ../src/up2date_client/rhnreg.py:88
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "අවවාදයයි: chkconfig සමඟ rhnsd සක්‍රීය කිරීමට නොහැකි විය"
+
+#: ../src/up2date_client/rhnregGui.py:147
+#: ../src/up2date_client/rhnregGui.py:164
+msgid "Notice"
+msgstr "දැන්වීමයි"
+
+#: ../src/up2date_client/rhnregGui.py:157
+#: ../src/up2date_client/rhnregGui.py:171
+#: ../src/up2date_client/rhnreg_constants.py:245
+msgid "Warning"
+msgstr "අවවාදයයි"
+
+#: ../src/up2date_client/rhnregGui.py:272
+msgid "There was an error while applying your choice."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:291
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි. https සහ http හට ඉඩ දී තිබේ"
+
+#: ../src/up2date_client/rhnregGui.py:305
+msgid ""
+"You will not be able to successfully register this system without contacting "
+"a Spacewalk server."
 msgstr ""
 
-#: ../src/up2date_client/rhnChannel.py:119
-msgid "This system may not be updated until it is associated with a channel."
-msgstr "ඕඩයක් සමඟ නිසි ලෙස සම්බන්ධ වන තුරු පද්ධතිය නවීකරණය නොවනු ඇත."
+#: ../src/up2date_client/rhnregGui.py:325
+msgid "Cannot contact selected server"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:326
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr "අප හට Satellite හෝ '%s' තිබෙන ප්‍රොක්සිය සම්බන්ධ කර ගත නොහැක"
+
+#: ../src/up2date_client/rhnregGui.py:328
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+"ස්ථානය - '%s' බව නැවත පරීක්‍ෂා කරගන්න. එස්ව නොමැති නම් එය නිවැරදි කර නැවත උත්සහ කරන්න"
+
+#: ../src/up2date_client/rhnregGui.py:331
+msgid "Make sure the network connection on this system is operational."
+msgstr "ඔබේ පරිගණකයේ ජාල සම්බන්ධතාවය නිසියාකාරව සිදුවෙන බව ප්‍රත්‍යක්‍ෂ කරගන්න"
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, fuzzy
+msgid "There was an error communicating with Spacewalk server."
+msgstr "Red Hat Network සමඟ සන්නිවේදනය කිරීමේදී දෝශයක් ඇති විය"
+
+#: ../src/up2date_client/rhnregGui.py:342
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr "සේවා දායකය ක්‍රියාවිරහිත ආකාරයෙන් පවතී. ඔබ හට පසුව සම්බන්ධ වීමට උත්සහ කල හැක"
+
+#: ../src/up2date_client/rhnregGui.py:344
+msgid "You may be running a client that is incompatible with the server."
+msgstr "ඇතැම්විට ඔබ විසින් සේවා දායකය සමඟ නොගැලපෙන සේවා ග්‍රාහකයක් ක්‍රියාත්මක කර ඇත."
+
+#: ../src/up2date_client/rhnregGui.py:377
+#, fuzzy, python-format
+msgid ""
+"Please enter your account information for the <b>%s</b> Spacewalk server:"
+msgstr ""
+"%s Red Hat Network Satellite සඳහා ඔබේ පිවිසුම් තොරතුරු ඇතුල් කරන්න:\n"
+"\n"
+
+#: ../src/up2date_client/rhnregGui.py:416
+msgid "You must enter a login."
+msgstr "ඔබ විසින් පිවිසුමක් ඇතුලත් කලයුතුමය"
+
+#: ../src/up2date_client/rhnregGui.py:422
+msgid "You must enter a password."
+msgstr "ඔබ විසින් රහස්පදය ඇතුලත් කල යුතුමය"
+
+#: ../src/up2date_client/rhnregGui.py:435
+msgid "There was an error while logging in."
+msgstr "ඇතුලට පිවිසීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:462
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
+
+#: ../src/up2date_client/rhnregGui.py:603
+msgid "There was an error while assembling information for the profile."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:624
+msgid "Error running hardware profile"
+msgstr "දෘඪාංග පැතිකඩ ක්‍රියාත්මක කිරීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:655
+msgid "There was an error while populating the profile."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:675
+msgid "You must choose a name for this profile."
+msgstr "මෙම පැතිකඩ සඳහා ඔබ විසින් නමක් තෝරාගත යුතුමය."
+
+#: ../src/up2date_client/rhnregGui.py:689
+msgid "There was an error while creating the profile."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:700
+msgid "Registering system and sending profile information.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:719
+msgid "Registering System"
+msgstr "පද්ධතිය ලියාපදිංචි කරමින්"
+
+#: ../src/up2date_client/rhnregGui.py:734
+#: ../src/up2date_client/rhnregGui.py:739
+#: ../src/up2date_client/rhnregGui.py:744
+#: ../src/up2date_client/rhnregGui.py:748 ../src/up2date_client/tui.py:989
+#: ../src/up2date_client/tui.py:993 ../src/up2date_client/tui.py:997
+#: ../src/up2date_client/tui.py:1001
+msgid "Problem registering system:\n"
+msgstr "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය:\n"
+
+#: ../src/up2date_client/rhnregGui.py:751
+#, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+"ඔබ විසින් සපයා ඇති ග්‍රාහක අංකය [ %s ] වලංගු ග්‍රාහක අංකයක් නොවේ. කරුණාකර පෙර තිරය වෙත "
+"ගොස් මෙය නිවැරදි කරන්න."
+
+#: ../src/up2date_client/rhnregGui.py:761 ../src/up2date_client/tui.py:1007
+msgid "Problem registering system."
+msgstr "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:771 ../src/up2date_client/tui.py:1012
+msgid "Problem writing out system id to disk."
+msgstr "පද්ධතියේ හඳුනා ගැනීමේ අංකය තැටිය මත ලිවීමේදී දෝශයක් ඇතිවිය."
+
+#: ../src/up2date_client/rhnregGui.py:777
+msgid "There was a problem registering this system."
+msgstr "මෙම පද්ධතිය ලියාපදිංචි කිරීමේදී දෝශයක් ඇති විය"
+
+#: ../src/up2date_client/rhnregGui.py:790
+msgid "Sending hardware information"
+msgstr "දෘඪාංග තොරතුරු යවමින්"
+
+#: ../src/up2date_client/rhnregGui.py:795
+msgid "Problem sending hardware information."
+msgstr "දෘඪාංග තොරතුරු යැවීමේදී දෝශයක් ඇතිවිය."
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print("gh270")
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:819
+msgid "Sending package information"
+msgstr "ඇසුරුම් තොරතුරු යවමින්"
+
+#: ../src/up2date_client/rhnregGui.py:824
+msgid "Problem sending package information."
+msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:856 ../src/up2date_client/tui.py:1061
+#, python-format
+msgid ""
+"Could not open %s\n"
+"%s is not enabled.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:910
+msgid "There was an error while installing the certificate."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:936
+msgid "You must select a certificate."
+msgstr "ඔබ විසින් සහතිකයක් තෝරාගත යුතුවේ"
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:966
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+"මෙහි SSL දෝශයක් ඇති විය. ඇතැම් විට ඔබ විසින් තෝරාගනු ලැබූ ගොනුව සහතිකපත් ගොනුවක් නොවීම මීට හේතු "
+"විය හැක."
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:974
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr "නව සහතිකය ස්ථාපනයේදී යම්කිසි දෙයක් වරදී ඇත:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1027
+#: ../src/up2date_client/rhnregGui.py:1028
+#: ../src/up2date_client/rhnregGui.py:1029
+msgid "unknown"
+msgstr "හඳුනා නොගත්"
+
+#: ../src/up2date_client/rhnregGui.py:1133
+msgid "There was an error getting the list of hardware."
+msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
+
+#: ../src/up2date_client/rhnregGui.py:1145 ../src/up2date_client/tui.py:788
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1149
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: ../src/up2date_client/rhnregGui.py:1194
+msgid "There was an error building the list of packages."
+msgstr "ඇසුරුම ස්ථාපනය කරන විටදී භයානක දෝශයක් ඇති විය:"
+
+#: ../src/up2date_client/rhnregGui.py:1209
+msgid "Package"
+msgstr "ඇසුරුම"
+
+#: ../src/up2date_client/rhnregGui.py:1214
+msgid "Arch"
+msgstr "සබැඳියාව"
+
+#: ../src/up2date_client/rhnregGui.py:1221
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු RPM ලයිස්තුව සැකසෙමින් පවතී.  කරුණාකර රැඳී සිටින්න."
+
+#: ../src/up2date_client/rhnregGui.py:1252
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"ඔබේ මානකරණය රුවන විටදී දෝශයක් ඇතිවිය.  ඔබ හට\n"
+" /etc/sysconfig/rhn කියවීම සඳහා පිවිසීමට හැකියාව තිබෙන බව තහවුරු කරගන්න."
+
+#: ../src/up2date_client/rhnregGui.py:1294
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"ඔබේ මානකරණය ගබඩා කිරීමේදී දෝශයක් ඇතිවිය.\n"
+"ඔබ සතුව %s තිබෙන බවට තහවුරු කරගන්න.."
+
+#: ../src/up2date_client/rhnregGui.py:1324
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+"මෙය සිදුවිය හැකි දෝශයක් නොවේ. මෙම වැඩසටහන වැඩිදියුණු කිරීමට අප හට උදව් වීමට කැමති නම්, "
+"කරුණාකර  bugzilla.redhat.com හී දෝශය සටහන් කරන්න. '%s' හි කොටස් සමඟ වාර්තා කරන්නේ නම් "
+"එය වඩාත් ප්‍රයෝජනවත් වනු ඇත. ස්තූතියි!"
 
 #: ../src/up2date_client/rhnreg_constants.py:19
 msgid "Copyright © 2006--2014 Red Hat, Inc. All rights reserved."
@@ -746,12 +1017,6 @@ msgstr ""
 msgid "Fatal Error"
 msgstr "භයානක දෝශයකි"
 
-#: ../src/up2date_client/rhnreg_constants.py:245
-#: ../src/up2date_client/rhnregGui.py:157
-#: ../src/up2date_client/rhnregGui.py:171
-msgid "Warning"
-msgstr "අවවාදයයි"
-
 #: ../src/up2date_client/rhnreg_constants.py:246
 #, fuzzy, python-format
 msgid ""
@@ -896,271 +1161,6 @@ msgstr "ඔව්, දිගටම කරගෙන යන්න"
 #: ../src/up2date_client/rhnreg_constants.py:316
 msgid "Press <space> to deselect the option."
 msgstr "තෝරාගෙන විකල්පය ඉවත් කිරීමට <space> ඔබන්න."
-
-#: ../src/up2date_client/rhnregGui.py:147
-#: ../src/up2date_client/rhnregGui.py:164
-msgid "Notice"
-msgstr "දැන්වීමයි"
-
-#: ../src/up2date_client/rhnregGui.py:272
-msgid "There was an error while applying your choice."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:291
-msgid "You specified an invalid protocol. Only https and http are allowed."
-msgstr "ඔබ විසින් සපයා ඇත්තේ සාවද්‍ය වාහකයෙකි. https සහ http හට ඉඩ දී තිබේ"
-
-#: ../src/up2date_client/rhnregGui.py:305
-msgid ""
-"You will not be able to successfully register this system without contacting "
-"a Spacewalk server."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:325
-msgid "Cannot contact selected server"
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:326
-#, python-format
-msgid "We could not contact the Satellite or Proxy at '%s.'"
-msgstr "අප හට Satellite හෝ '%s' තිබෙන ප්‍රොක්සිය සම්බන්ධ කර ගත නොහැක"
-
-#: ../src/up2date_client/rhnregGui.py:328
-#, python-format
-msgid ""
-"Double-check the location - is '%s' correct? If not, you can correct it and "
-"try again."
-msgstr ""
-"ස්ථානය - '%s' බව නැවත පරීක්‍ෂා කරගන්න. එස්ව නොමැති නම් එය නිවැරදි කර නැවත උත්සහ කරන්න"
-
-#: ../src/up2date_client/rhnregGui.py:331
-msgid "Make sure the network connection on this system is operational."
-msgstr "ඔබේ පරිගණකයේ ජාල සම්බන්ධතාවය නිසියාකාරව සිදුවෙන බව ප්‍රත්‍යක්‍ෂ කරගන්න"
-
-#: ../src/up2date_client/rhnregGui.py:341
-#, fuzzy
-msgid "There was an error communicating with Spacewalk server."
-msgstr "Red Hat Network සමඟ සන්නිවේදනය කිරීමේදී දෝශයක් ඇති විය"
-
-#: ../src/up2date_client/rhnregGui.py:342
-msgid "The server may be in outage mode. You may have to try connecting later."
-msgstr "සේවා දායකය ක්‍රියාවිරහිත ආකාරයෙන් පවතී. ඔබ හට පසුව සම්බන්ධ වීමට උත්සහ කල හැක"
-
-#: ../src/up2date_client/rhnregGui.py:344
-msgid "You may be running a client that is incompatible with the server."
-msgstr "ඇතැම්විට ඔබ විසින් සේවා දායකය සමඟ නොගැලපෙන සේවා ග්‍රාහකයක් ක්‍රියාත්මක කර ඇත."
-
-#: ../src/up2date_client/rhnregGui.py:377
-#, fuzzy, python-format
-msgid ""
-"Please enter your account information for the <b>%s</b> Spacewalk server:"
-msgstr ""
-"%s Red Hat Network Satellite සඳහා ඔබේ පිවිසුම් තොරතුරු ඇතුල් කරන්න:\n"
-"\n"
-
-#: ../src/up2date_client/rhnregGui.py:416
-msgid "You must enter a login."
-msgstr "ඔබ විසින් පිවිසුමක් ඇතුලත් කලයුතුමය"
-
-#: ../src/up2date_client/rhnregGui.py:422
-msgid "You must enter a password."
-msgstr "ඔබ විසින් රහස්පදය ඇතුලත් කල යුතුමය"
-
-#: ../src/up2date_client/rhnregGui.py:435
-msgid "There was an error while logging in."
-msgstr "ඇතුලට පිවිසීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:462
-msgid ""
-"There was an error communicating with the registration server.  The message "
-"was:\n"
-msgstr "ලියාපදිංචිකරණ සේවා දායකය හා සම්බන්ධ වීමේදී දෝශයක් ඇතිවිය.  පණිවිඩය වනුයේ:\n"
-
-#: ../src/up2date_client/rhnregGui.py:603
-msgid "There was an error while assembling information for the profile."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:624
-msgid "Error running hardware profile"
-msgstr "දෘඪාංග පැතිකඩ ක්‍රියාත්මක කිරීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:655
-msgid "There was an error while populating the profile."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:675
-msgid "You must choose a name for this profile."
-msgstr "මෙම පැතිකඩ සඳහා ඔබ විසින් නමක් තෝරාගත යුතුමය."
-
-#: ../src/up2date_client/rhnregGui.py:689
-msgid "There was an error while creating the profile."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:700
-msgid "Registering system and sending profile information.  Please wait."
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:719
-msgid "Registering System"
-msgstr "පද්ධතිය ලියාපදිංචි කරමින්"
-
-#: ../src/up2date_client/rhnregGui.py:734
-#: ../src/up2date_client/rhnregGui.py:739
-#: ../src/up2date_client/rhnregGui.py:744
-#: ../src/up2date_client/rhnregGui.py:748 ../src/up2date_client/tui.py:989
-#: ../src/up2date_client/tui.py:993 ../src/up2date_client/tui.py:997
-#: ../src/up2date_client/tui.py:1001
-msgid "Problem registering system:\n"
-msgstr "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය:\n"
-
-#: ../src/up2date_client/rhnregGui.py:751
-#, python-format
-msgid ""
-"The installation number [ %s ] provided is not a valid installation number. "
-"Please go back to the previous screen and fix it."
-msgstr ""
-"ඔබ විසින් සපයා ඇති ග්‍රාහක අංකය [ %s ] වලංගු ග්‍රාහක අංකයක් නොවේ. කරුණාකර පෙර තිරය වෙත "
-"ගොස් මෙය නිවැරදි කරන්න."
-
-#: ../src/up2date_client/rhnregGui.py:761 ../src/up2date_client/tui.py:1007
-msgid "Problem registering system."
-msgstr "පද්ධතිය ලියාපදිංචි කිරීමේදී ගැටළුවක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:771 ../src/up2date_client/tui.py:1012
-msgid "Problem writing out system id to disk."
-msgstr "පද්ධතියේ හඳුනා ගැනීමේ අංකය තැටිය මත ලිවීමේදී දෝශයක් ඇතිවිය."
-
-#: ../src/up2date_client/rhnregGui.py:777
-msgid "There was a problem registering this system."
-msgstr "මෙම පද්ධතිය ලියාපදිංචි කිරීමේදී දෝශයක් ඇති විය"
-
-#: ../src/up2date_client/rhnregGui.py:790
-msgid "Sending hardware information"
-msgstr "දෘඪාංග තොරතුරු යවමින්"
-
-#: ../src/up2date_client/rhnregGui.py:795
-msgid "Problem sending hardware information."
-msgstr "දෘඪාංග තොරතුරු යැවීමේදී දෝශයක් ඇතිවිය."
-
-#. #            for row in range(self.regPackageArea.n_rows):
-#. #                rowData = self.regPackageArea.get_row_data(row)
-#. #                if rowData[0] == 1:
-#. #                    selection.append(rowData[1])
-#. #            print("gh270")
-#. #            selectedPackages = []
-#. #            for pkg in packageList:
-#. #                if pkg[0] in selection:
-#. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:819
-msgid "Sending package information"
-msgstr "ඇසුරුම් තොරතුරු යවමින්"
-
-#: ../src/up2date_client/rhnregGui.py:824
-msgid "Problem sending package information."
-msgstr "ඇසුරුම් ලැයිස්තුව යැවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:856 ../src/up2date_client/tui.py:1061
-#, python-format
-msgid ""
-"Could not open %s\n"
-"%s is not enabled.\n"
-msgstr ""
-
-#: ../src/up2date_client/rhnregGui.py:910
-msgid "There was an error while installing the certificate."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:936
-msgid "You must select a certificate."
-msgstr "ඔබ විසින් සහතිකයක් තෝරාගත යුතුවේ"
-
-#. TODO Modify rhnlib to raise a unique exception for the not a
-#. cert file case.
-#: ../src/up2date_client/rhnregGui.py:966
-msgid ""
-"There was an SSL error. This could be because the file you picked was not a "
-"certificate file."
-msgstr ""
-"මෙහි SSL දෝශයක් ඇති විය. ඇතැම් විට ඔබ විසින් තෝරාගනු ලැබූ ගොනුව සහතිකපත් ගොනුවක් නොවීම මීට හේතු "
-"විය හැක."
-
-#. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:974
-msgid "Something went wrong while installing the new certificate:\n"
-msgstr "නව සහතිකය ස්ථාපනයේදී යම්කිසි දෙයක් වරදී ඇත:\n"
-
-#: ../src/up2date_client/rhnregGui.py:1027
-#: ../src/up2date_client/rhnregGui.py:1028
-#: ../src/up2date_client/rhnregGui.py:1029
-msgid "unknown"
-msgstr "හඳුනා නොගත්"
-
-#: ../src/up2date_client/rhnregGui.py:1133
-msgid "There was an error getting the list of hardware."
-msgstr "පැතිකඩ හැසිරවීමේදී දෝශයක් ඇතිවිය"
-
-#: ../src/up2date_client/rhnregGui.py:1145 ../src/up2date_client/tui.py:788
-#, python-format
-msgid "%d MHz"
-msgstr "%d MHz"
-
-#: ../src/up2date_client/rhnregGui.py:1149
-#, python-format
-msgid "%s MB"
-msgstr "%s MB"
-
-#: ../src/up2date_client/rhnregGui.py:1194
-msgid "There was an error building the list of packages."
-msgstr "ඇසුරුම ස්ථාපනය කරන විටදී භයානක දෝශයක් ඇති විය:"
-
-#: ../src/up2date_client/rhnregGui.py:1209
-msgid "Package"
-msgstr "ඇසුරුම"
-
-#: ../src/up2date_client/rhnregGui.py:1214
-msgid "Arch"
-msgstr "සබැඳියාව"
-
-#: ../src/up2date_client/rhnregGui.py:1221
-msgid "Building a list of RPM packages installed on your system.  Please wait."
-msgstr "ඔබේ පද්ධතිය තුල ස්ථාපනය කල යුතු RPM ලයිස්තුව සැකසෙමින් පවතී.  කරුණාකර රැඳී සිටින්න."
-
-#: ../src/up2date_client/rhnregGui.py:1252
-msgid ""
-"There was an error loading your configuration.  Make sure that\n"
-"you have read access to /etc/sysconfig/rhn."
-msgstr ""
-"ඔබේ මානකරණය රුවන විටදී දෝශයක් ඇතිවිය.  ඔබ හට\n"
-" /etc/sysconfig/rhn කියවීම සඳහා පිවිසීමට හැකියාව තිබෙන බව තහවුරු කරගන්න."
-
-#: ../src/up2date_client/rhnregGui.py:1294
-#, python-format
-msgid ""
-"There was an error saving your configuration. Make sure that\n"
-"you own %s."
-msgstr ""
-"ඔබේ මානකරණය ගබඩා කිරීමේදී දෝශයක් ඇතිවිය.\n"
-"ඔබ සතුව %s තිබෙන බවට තහවුරු කරගන්න.."
-
-#: ../src/up2date_client/rhnregGui.py:1324
-#, python-format
-msgid ""
-"This error shouldn't have happened. If you'd like to help us improve this "
-"program, please file a bug at bugzilla.redhat.com. Including the relevant "
-"parts of '%s' would be very helpful. Thanks!"
-msgstr ""
-"මෙය සිදුවිය හැකි දෝශයක් නොවේ. මෙම වැඩසටහන වැඩිදියුණු කිරීමට අප හට උදව් වීමට කැමති නම්, "
-"කරුණාකර  bugzilla.redhat.com හී දෝශය සටහන් කරන්න. '%s' හි කොටස් සමඟ වාර්තා කරන්නේ නම් "
-"එය වඩාත් ප්‍රයෝජනවත් වනු ඇත. ස්තූතියි!"
-
-#: ../src/up2date_client/rhnreg.py:75
-#, fuzzy
-msgid "Warning: unable to enable rhnsd with systemd"
-msgstr "අවවාදයයි: chkconfig සමඟ rhnsd සක්‍රීය කිරීමට නොහැකි විය"
-
-#: ../src/up2date_client/rhnreg.py:81
-msgid "Warning: unable to enable rhnsd with chkconfig"
-msgstr "අවවාදයයි: chkconfig සමඟ rhnsd සක්‍රීය කිරීමට නොහැකි විය"
 
 #: ../src/up2date_client/rpcServer.py:56
 msgid "Error: Server Unavailable. Please try later."
@@ -1343,10 +1343,6 @@ msgid ""
 "    requiring a Management entitlement."
 msgstr ""
 
-#: ../src/bin/rhn_check.py:428
-msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
-msgstr ""
-
 #: ../src/bin/rhn-profile-sync.py:37
 msgid ""
 "You need to register this system by running `rhn_register` before using this "
@@ -1366,6 +1362,10 @@ msgstr "දෘඪාංග පැතිකඩ නවීකරණය කරමි
 #: ../src/bin/rhn-profile-sync.py:52
 msgid "Updating virtualization profile..."
 msgstr "අථත්‍යකරණ පැතිකඩ නවීකරණය කරමින්..."
+
+#: ../src/bin/rhn_check.py:428
+msgid "Attempting to run more than one instance of rhn_check. Exiting.\n"
+msgstr ""
 
 #: ../src/bin/rhn_register.py:38
 msgid "Do not attempt to use X"
