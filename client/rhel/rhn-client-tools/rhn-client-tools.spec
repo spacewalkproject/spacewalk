@@ -43,7 +43,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.9.33
+Version: 2.10.0
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
