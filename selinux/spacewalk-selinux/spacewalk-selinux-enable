@@ -46,12 +46,19 @@ for selinuxvariant in mls strict targeted
         /usr/bin/rhn-sudo-ssl-tool /var/www/html/pub /usr/sbin/tanukiwrapper \
         /var/lib/rhn/kickstarts
 
-/usr/sbin/setsebool -P httpd_enable_cgi 1
-/usr/sbin/setsebool -P httpd_can_network_connect 1
-/usr/sbin/setsebool -P httpd_can_sendmail 1
-/usr/sbin/setsebool -P tomcat_read_rpm_db 1
-/usr/sbin/setsebool -P nis_enabled 1
-/usr/sbin/setsebool -P domain_kernel_load_modules 1
+for sebool in \
+    httpd_enable_cgi \
+    httpd_can_network_connect \
+    httpd_can_sendmail \
+    tomcat_read_rpm_db \
+    nis_enabled \
+    domain_kernel_load_modules
+do
+    if semanage boolean --list -n 2>/dev/null | grep -q "^\<$sebool\>"
+    then
+        semanage boolean --modify --on $sebool
+    fi
+done
 
 if [ -z "$RUN_PURE" ] ; then
 	for dir in mount_point kickstart_mount_point; do
