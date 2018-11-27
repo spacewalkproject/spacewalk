@@ -51,6 +51,7 @@ for sebool in \
     httpd_can_network_connect \
     httpd_can_sendmail \
     tomcat_read_rpm_db \
+    tomcat_can_network_connect_db \
     nis_enabled \
     domain_kernel_load_modules
 do
