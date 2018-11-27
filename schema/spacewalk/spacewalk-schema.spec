@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Nov 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- added Fedora 29 keys
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.8-1
 - updated copyright years
 
