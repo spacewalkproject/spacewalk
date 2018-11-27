@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.9.2
+Version:        2.9.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Nov 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
+- allow tomcat connect to database
+- don't print error when selinux boolean doesn't exist
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
 - Allow tomcat/httpd to run sudo /usr/bin/rhn-config-satellite.pl successfully.
 
