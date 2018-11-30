@@ -24,9 +24,11 @@ Requires: dnf-plugins-core
 Requires: librepo >= 1.7.15
 %if 0%{?fedora}
 Obsoletes: yum-rhn-plugin < 2.7
+Requires: dnf >= 4.0.9
 %endif
 %if 0%{?rhel} >= 8
 Provides: yum-rhn-plugin = %{version}
+Requires: dnf >= 4.0.9
 %endif
 
 %description
