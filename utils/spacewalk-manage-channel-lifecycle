@@ -320,14 +320,24 @@ def build_channel_labels(source):
             sys.exit(1)
     elif options.promote:
         # get the phase label from the channel label
-        current_phase = get_current_phase(source)
-        if current_phase:
-            next_phase = get_next_phase(current_phase)
+        match = re.search('^(\w+)-', source)
+        if match:
+            current_phase = match.group(1)
+            # Check to see if the source channel is in our phase list
+            # if so, select the next label in phase list
+            # otherwise, it's a base channel, use the first in list
+            if current_phase in phases:
+                next_phase = get_next_phase(current_phase)
 
-            # replace the name of the phase in the destination label
-            destination = re.sub('^%s' % current_phase, next_phase, source)
+                # replace the name of the phase in the destination label
+                destination = re.sub('^%s' % current_phase,
+                                     '%s' % next_phase,
+                                     source)
+            else:
+                destination = '%s-%s' % (phases[0], source)
         else:
-            destination = '{phase}{dlm}{src}'.format(phase=phases[0], dlm=options.delimiter, src=source)
+            logging.error('Invalid channel label: %s' % source)
+            sys.exit(1)
     elif options.rollback:
         # strip off the archive prefix when rolling back
         destination = re.sub('archive{dlm}\d{{8}}{dlm}'.format(dlm=options.delimiter), '', source)
