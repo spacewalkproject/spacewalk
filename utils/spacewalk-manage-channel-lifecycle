@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 #
 # Licensed under the GNU General Public License Version 3
 #
@@ -187,7 +187,7 @@ def channel_exists(channel, quiet=False):
 
 def merge_channels(source_label, dest_label):
     if dest_label.startswith('rhel') and not options.tolerant:
-        logging.error("Destination label starts with 'rhel'.  Aborting!")
+        logging.error("Destination lablel starts with 'rhel'.  Aborting!")
         logging.error("Pass --tolerant to override this")
         sys.exit(1)
 
@@ -320,14 +320,24 @@ def build_channel_labels(source):
             sys.exit(1)
     elif options.promote:
         # get the phase label from the channel label
-        current_phase = get_current_phase(source)
-        if current_phase:
-            next_phase = get_next_phase(current_phase)
+        match = re.search('^(\w+)-', source)
+        if match:
+            current_phase = match.group(1)
+            # Check to see if the source channel is in our phase list
+            # if so, select the next label in phase list
+            # otherwise, it's a base channel, use the first in list
+            if current_phase in phases:
+                next_phase = get_next_phase(current_phase)
 
-            # replace the name of the phase in the destination label
-            destination = re.sub('^%s' % current_phase, next_phase, source)
+                # replace the name of the phase in the destination label
+                destination = re.sub('^%s' % current_phase,
+                                     '%s' % next_phase,
+                                     source)
+            else:
+                destination = '%s-%s' % (phases[0], source)
         else:
-            destination = '{phase}{dlm}{src}'.format(phase=phases[0], dlm=options.delimiter, src=source)
+            logging.error('Invalid channel label: %s' % source)
+            sys.exit(1)
     elif options.rollback:
         # strip off the archive prefix when rolling back
         destination = re.sub('archive{dlm}\d{{8}}{dlm}'.format(dlm=options.delimiter), '', source)
@@ -379,7 +389,7 @@ option_list = [
     Option('', '--no-children', help="don't operate on child channels",
            action='store_true'),
     Option('-P', '--phases', default='',
-           help='comma-separated list of phases [default: dev,test,prod]'),
+           help='comma-separated list of phases [default: dev,test,prod'),
     Option('-u', '--username', help='Spacewalk username'),
     Option('-p', '--password', help='Spacewalk password'),
     Option('-s', '--server',
@@ -544,16 +554,9 @@ if parent_dest in all_channel_labels:
     merge_channels(parent_source, parent_dest)
 else:
     # channel doesn't exist, clone it from the original
-    # let's check if there's a parent for the original channel and if so, clone it in the right place
-    new_parent_source = client.channel.software.getDetails(session,parent_source)['parent_channel_label']
-    new_parent_dest = ""
-    if new_parent_source:
-        (new_parent_source, new_parent_dest) = build_channel_labels(new_parent_source)
-    
     details = {'label': parent_dest,
                'name': parent_dest,
-               'summary': parent_dest,
-               'parent_label': new_parent_dest}
+               'summary': parent_dest}
 
     clone_channel(parent_source, details)
 
