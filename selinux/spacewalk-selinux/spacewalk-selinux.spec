@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.9.3
+Version:        2.9.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Thu Dec 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.4-1
+- 1527380 - allow tomcat to read cobbler data
+- allow tomcat to use nfs files
+
 * Tue Nov 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
 - allow tomcat connect to database
 - don't print error when selinux boolean doesn't exist
