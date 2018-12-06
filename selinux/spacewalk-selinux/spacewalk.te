@@ -146,6 +146,14 @@ optional_policy(`
 
 optional_policy(`
         gen_require(`
+                type cobbler_var_lib_t;
+        ')
+        allow httpd_t cobbler_var_lib_t:dir { read };
+        allow tomcat_t cobbler_var_lib_t:dir { read };
+')
+
+optional_policy(`
+        gen_require(`
                 type cobbler_tmp_t;
         ')
         allow tomcat_t cobbler_tmp_t:dir { search };
