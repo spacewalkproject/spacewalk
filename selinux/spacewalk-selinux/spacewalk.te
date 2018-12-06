@@ -82,6 +82,9 @@ tunable_policy(`spacewalk_nfs_mountpoint',`
 	manage_files_pattern(httpd_t, nfs_t, nfs_t)
 	manage_lnk_files_pattern(httpd_t, nfs_t, nfs_t)
 	manage_dirs_pattern(httpd_t, nfs_t, nfs_t)
+	manage_files_pattern(tomcat_t, nfs_t, nfs_t)
+	manage_lnk_files_pattern(tomcat_t, nfs_t, nfs_t)
+	manage_dirs_pattern(tomcat_t, nfs_t, nfs_t)
 	read_lnk_files_pattern(restorecon_t, nfs_t, nfs_t)
 ')
 
