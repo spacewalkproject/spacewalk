@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -113,6 +113,10 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Mon Dec 10 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1637980 - use new api for http headers
+- Bumping package versions for 2.10
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.6-1
 - updated copyright years
 
