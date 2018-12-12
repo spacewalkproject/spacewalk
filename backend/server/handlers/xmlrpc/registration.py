@@ -65,23 +65,12 @@ def parse_smbios(smbios):
     elif manufacturer == 'Bochs' and product == 'Bochs' and uuid is not None:
         # Bochs, Bochs is a virtual SUSE KVM machine
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'Red Hat' and product == 'KVM' and uuid is not None:
+    elif manufacturer == 'Red Hat' and product in ('KVM', 'RHEV Hypervisor', 'OpenStack Compute') and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif (manufacturer == 'Red Hat' and product == 'RHEV Hypervisor' and uuid is
-          not None):
+    elif product == 'OpenStack Nova' and (manufacturer in ('Fedora Project', 'RDO Project') or
+            manufacturer and manufacturer.startswith('Red Hat')) and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer and manufacturer.startswith('Red Hat') and product == 'OpenStack Nova' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer and manufacturer == 'RDO Project' and product == 'OpenStack Nova' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer and manufacturer == 'Fedora Project' and product == 'OpenStack Nova' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'oVirt' and product == 'oVirt Node' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'oVirt' and product == 'RHEV Hypervisor' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif (manufacturer == 'Red Hat' and product == 'OpenStack Compute' and uuid
-            is not None):
+    elif manufacturer == 'oVirt' and product in ('oVirt Node', 'RHEV Hypervisor') and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif manufacturer == 'Microsoft Corporation' and \
             product == 'Virtual Machine':
