@@ -58,37 +58,30 @@ def parse_smbios(smbios):
         uuid = smbios['smbios.system.uuid']
         uuid = uuid.replace('-', '')
 
-    if vendor == "QEMU" and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'QEMU' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'Bochs' and product == 'Bochs' and uuid is not None:
-        # Bochs, Bochs is a virtual SUSE KVM machine
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'Red Hat' and product in ('KVM', 'RHEV Hypervisor', 'OpenStack Compute') and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif product == 'OpenStack Nova' and (manufacturer in ('Fedora Project', 'RDO Project') or
-            manufacturer and manufacturer.startswith('Red Hat')) and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'oVirt' and product in ('oVirt Node', 'RHEV Hypervisor') and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
-    elif manufacturer == 'Microsoft Corporation' and \
-            product == 'Virtual Machine':
-        if uuid is None:
-            uuid = "flex-guest"
-        return (rhnVirtualization.VirtualizationType.HYPERV, uuid)
-    elif serial.startswith('VMware-'):
-        if uuid is None:
-            uuid = "flex-guest"
-        return (rhnVirtualization.VirtualizationType.VMWARE, uuid)
-    elif manufacturer == 'HITACHI' and product.endswith(' HVM LPAR'):
-        if uuid is None:
-            uuid = "flex-guest"
-        return (rhnVirtualization.VirtualizationType.VIRTAGE, uuid)
-    elif manufacturer == 'Nutanix' and product == 'AHV' and uuid is not None:
-        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    virttype = None
+    if uuid is not None and (
+            vendor == "QEMU"
+            or manufacturer == 'QEMU'
+            or (manufacturer == 'Bochs' and product == 'Bochs') # Bochs is a virtual SUSE KVM machine
+            or (manufacturer == 'Red Hat' and product in ('KVM', 'RHEV Hypervisor', 'OpenStack Compute'))
+            or (product == 'OpenStack Nova' and (manufacturer in ('Fedora Project', 'RDO Project') or
+                manufacturer and manufacturer.startswith('Red Hat')))
+            or (manufacturer == 'oVirt' and product in ('oVirt Node', 'RHEV Hypervisor'))
+            or (manufacturer == 'Nutanix' and product == 'AHV')):
+        virttype = rhnVirtualization.VirtualizationType.QEMU
     else:
-        return (None, None)
+        if manufacturer == 'Microsoft Corporation' and product == 'Virtual Machine':
+            virttype = rhnVirtualization.VirtualizationType.HYPERV
+        elif serial.startswith('VMware-'):
+            virttype = rhnVirtualization.VirtualizationType.VMWARE
+        elif manufacturer == 'HITACHI' and product.endswith(' HVM LPAR'):
+            virttype = rhnVirtualization.VirtualizationType.VIRTAGE
+        if uuid is None:
+            uuid = "flex-guest"
+
+    if virttype:
+        return (virttype, uuid)
+    return (None, None)
 
 
 class Registration(rhnHandler):
