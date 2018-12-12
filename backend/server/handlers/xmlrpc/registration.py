@@ -78,6 +78,8 @@ def parse_smbios(smbios):
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif manufacturer == 'oVirt' and product == 'oVirt Node' and uuid is not None:
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
+    elif manufacturer == 'oVirt' and product == 'RHEV Hypervisor' and uuid is not None:
+        return (rhnVirtualization.VirtualizationType.QEMU, uuid)
     elif (manufacturer == 'Red Hat' and product == 'OpenStack Compute' and uuid
             is not None):
         return (rhnVirtualization.VirtualizationType.QEMU, uuid)
