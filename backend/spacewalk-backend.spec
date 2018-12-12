@@ -42,7 +42,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -794,6 +794,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Dec 12 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- group virtualization types together
+- group products together to make list smaller
+- 1651354 - recognize RHV 4.x guests as virtual
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.33-1
 - fixing newline error in translation
 
