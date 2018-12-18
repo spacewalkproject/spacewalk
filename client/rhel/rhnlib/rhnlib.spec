@@ -21,7 +21,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      python
@@ -173,6 +173,9 @@ py3clean -p python3-rhnlib
 %endif
 
 %changelog
+* Tue Dec 18 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1652859 - python3 http.client does not contain _set_hostport()
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
 - updated copyright years
 
