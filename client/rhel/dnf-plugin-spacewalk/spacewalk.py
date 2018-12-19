@@ -222,7 +222,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
         try:
             self.gpgkey = get_gpg_key_urls(channel['gpg_key_url'])
         except InvalidGpgKeyLocation as e:
-            logger.warn(GPG_KEY_REJECTED, dnf.i18n.ucd(e))
+            logger.warning(GPG_KEY_REJECTED, dnf.i18n.ucd(e))
             self.gpgkey = []
         if channel['version'] != opts.get('cached_version'):
             self.metadata_expire = 1
