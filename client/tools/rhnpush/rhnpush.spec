@@ -8,7 +8,7 @@
 %{!?pylint3_check: %global pylint3_check 1}
 %endif
 
-%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%if ! ( 0%{?fedora} >= 28  || 0%{?rhel} >= 8 )
 %global build_py2   1
 %endif
 
