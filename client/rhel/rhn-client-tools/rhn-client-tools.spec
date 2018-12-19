@@ -461,6 +461,7 @@ BuildRequires: python2
 Requires: gtk3
 %if 0%{?suse_version}
 Requires: python3-gobject
+BuildRequires: python2-xml
 %else
 %if 0%{?mageia}
 Requires: python3-gobject3
@@ -584,7 +585,9 @@ for i in \
 done
 
 %if 0%{?suse_version}
+%if 0%{?build_py2}
 %py_compile -O %{buildroot}/%{python2_sitelib}
+%endif
 %if 0%{?build_py3}
 %py3_compile -O %{buildroot}/%{python3_sitelib}
 %endif
