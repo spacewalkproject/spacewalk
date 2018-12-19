@@ -7,7 +7,9 @@
 %global py3_deps   1
 %endif
 
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
 %global build_py2   1
+%endif
 
 %{!?_presetdir:%global _presetdir /lib/systemd/system-preset}
 %if %{_vendor} == "debbuild"
