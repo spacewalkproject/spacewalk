@@ -18,7 +18,7 @@ Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.118
+Version:       5.5.119
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
@@ -134,6 +134,9 @@ spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_site
 %endif
 
 %changelog
+* Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.119-1
+- don't skip python2 subpackages on mageia
+
 * Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.118-1
 - 1627438 - don't build python2 packages on new Fedoras
 
