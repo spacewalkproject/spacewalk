@@ -457,6 +457,7 @@ Requires: rhn-setup-gnome = %{version}-%{release}
 # gtk-builder-convert
 %if %{_vendor} != "debbuild"
 BuildRequires: gtk2-devel
+BuildRequires: python2
 Requires: gtk3
 %if 0%{?suse_version}
 Requires: python3-gobject
