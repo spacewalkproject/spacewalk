@@ -24,7 +24,7 @@ class TestConfig(unittest.TestCase):
         pass
 
     def tearDown(self):
-        config.cfg == None
+        config.cfg = None
         testutils.restoreConfig()
 
     def testEmptyInit(self):
