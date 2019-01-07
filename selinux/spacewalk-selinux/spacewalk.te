@@ -175,27 +175,3 @@ allow httpd_t etc_t:file { create link rename setattr unlink write };
 allow tomcat_t etc_t:dir { add_name remove_name write };
 allow httpd_t etc_t:dir { add_name remove_name write };
 
-# temporary workaround for BZ#1640255 / Fedora 29
-# remove once it's fixed
-optional_policy(`
-        gen_require(`
-                type sssd_t;
-                type groupadd_t;
-                type useradd_t;
-                type sssd_var_lib_t;
-                class file map;
-                class process signal;
-        ')
-
-#       ============= groupadd_t ==============
-        allow groupadd_t sssd_t:process signal;
-        allow groupadd_t sssd_var_lib_t:file map;
-        sssd_manage_lib_files(groupadd_t);
-        sssd_read_pid_files(groupadd_t);
-
-#       ============= groupadd_t ==============
-        allow useradd_t sssd_t:process signal;
-        allow useradd_t sssd_var_lib_t:file map;
-        sssd_manage_lib_files(useradd_t);
-        sssd_read_pid_files(useradd_t);
-')
