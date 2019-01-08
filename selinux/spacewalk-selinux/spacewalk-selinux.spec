@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.10.6
+Version:        2.10.7
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Jan 08 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
+- fixed jabberd selinux on Fedora 29
+
 * Mon Jan 07 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
 - removed workaround for BZ#1640255
 
