@@ -21,7 +21,7 @@ JAVA_DOC_SRC_VERSION := 8
 JAVA_DOC_SRC_PATH := ../java/code/src/
 JAVA_DOC_SUBPKGS := "com"
 JAVA_DOC_DIR := javadoc
-JAVA_DOC_CLASSPATH := "../java/lib/*:../java/build/build-lib/*"
+JAVA_DOC_CLASSPATH := "../java/lib/*:../java/build/build-lib/*:/usr/share/java/*"
 #JAVA_DOC_EXTRA_ARGS := -tag "todo:X:" -tag "xmlrpc.param:X:" -tag "xmlrpc.returntype:X:" -tag "xmlrpc.doc:X:" -tag "xmlrpc.namespace:X:" -tag "xmlrpc.ignore:X:" "-Xdoclint:none"
 JAVA_DOC_EXTRA_ARGS := -tag "todo:X:" -tag "xmlrpc.param:X:" -tag "xmlrpc.returntype:X:" -tag "xmlrpc.doc:X:" -tag "xmlrpc.namespace:X:" -tag "xmlrpc.ignore:X:"
 
