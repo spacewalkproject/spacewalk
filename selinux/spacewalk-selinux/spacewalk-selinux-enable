@@ -53,6 +53,7 @@ for sebool in \
     tomcat_read_rpm_db \
     tomcat_can_network_connect_db \
     nis_enabled \
+    domain_can_mmap_files \
     domain_kernel_load_modules
 do
     if semanage boolean --list -n 2>/dev/null | grep -q "^\<$sebool\>"
