@@ -123,6 +123,7 @@ schema-docs
     # 2017-10-19.
     wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download -O oraschemadoc-0.31.tar.gz
     tar xvzf oraschemadoc-0.31.tar.gz
+    # or `git clone https://github.com/pvanek/oraschemadoc oraschemadoc-0.31` if sourceforge has an outage
     chmod a+x oraschemadoc-0.31/oraschemadoc.py
     # Run the schema-visualization tool
     # NOTE: user/pass/db from /etc/rhn/rhn.conf db_user, db_password, db_name
