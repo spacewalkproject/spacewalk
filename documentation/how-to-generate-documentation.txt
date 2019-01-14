@@ -2,16 +2,9 @@ Generated documentation is available to users at this url:
 
 https://spacewalkproject.github.io/documentation.html
 
-It used to be available here, but no longer - http://spacewalk.redhat.com/documentation/
-
-The documentation available here used to be stored in SVN, not our
-spacewalk.github repo, and auto-pulled into whatever serves content
-at the above url.  The SVN repo was this one:
-svn checkout svn+ssh://svn.rhndev.redhat.com/svn/rhn-svn/branches/spacewalk_web/LIVE/documentation
-
-As of Spacewalk 2.7, the documentation is now stored in a separate
+Documentation is stored in a separate
 git repo and pulled into whatever servers content at the documentation
-url.  This github repo is:
+url. This github repo is:
 git clone git@github.com:spacewalkproject/spacewalkproject.github.io.git
 
 
