@@ -1242,6 +1242,8 @@ class RepoSync(object):
 
     @staticmethod
     def _to_db_date(date):
+        if date is None:
+            return None
         ret = ""
         if date.isdigit():
             ret = datetime.fromtimestamp(float(date)).isoformat(' ')
