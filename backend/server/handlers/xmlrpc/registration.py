@@ -63,6 +63,7 @@ def parse_smbios(smbios):
             vendor == "QEMU"
             or manufacturer == 'QEMU'
             or (manufacturer == 'Bochs' and product == 'Bochs') # Bochs is a virtual SUSE KVM machine
+            or (manufacturer == 'RDO' and product == 'OpenStack Compute') # Openstack compute
             or (manufacturer == 'Red Hat' and product in ('KVM', 'RHEV Hypervisor', 'OpenStack Compute'))
             or (product == 'OpenStack Nova' and (manufacturer in ('Fedora Project', 'RDO Project') or
                 manufacturer and manufacturer.startswith('Red Hat')))
