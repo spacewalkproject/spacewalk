@@ -122,7 +122,7 @@ class ConfigFile:
                 # possibly split value into a list
                 values = value.split(";")
                 if key in ['proxyUser', 'proxyPassword']:
-                    value = str(value.encode(locale.getpreferredencoding()))
+                    value = sstr(value.encode(locale.getpreferredencoding()))
                 elif len(values) == 1:
                     try:
                         value = int(value)

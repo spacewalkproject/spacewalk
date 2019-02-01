@@ -155,8 +155,8 @@ class HTTPProxyConnection(HTTPConnection):
             return
         # Authenticated proxy
         userpass = "%s:%s" % (self.__username, self.__password)
-        enc_userpass = base64.encodestring(userpass).replace("\n", "")
-        self.putheader("Proxy-Authorization", "Basic %s" % enc_userpass)
+        enc_userpass = base64.encodestring(i18n.bstr(userpass)).replace(i18n.bstr("\n"), i18n.bstr(""))
+        self.putheader("Proxy-Authorization", "Basic %s" % i18n.sstr(enc_userpass))
 
     def _set_hostport(self, host, port):
         (self.host, self.port) = self._get_hostport(host, port)
