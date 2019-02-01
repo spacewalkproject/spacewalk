@@ -44,7 +44,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.10.4
+Version: 2.10.5
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -983,6 +983,9 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Fri Feb 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- 1666099 - python3 is picky about bytes and string
+
 * Thu Jan 10 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
 - Revert "1627438 - don't build python2 packages on new Fedoras"
 
