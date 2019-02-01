@@ -192,7 +192,7 @@ if [ -d /root/ssl-build ] ; then
     echo "    * copying ssl-build"
     mkdir -p $DIR/ssl-build
     # NOTE: cp -a == cp -pRd
-    cp -fsLrp /root/ssl-build/* $DIR/ssl-build 2> /dev/null
+    ls -lR /root/ssl-build/ > $DIR/ssl-build/ls-lR.txt 2> /dev/null
 fi
 
 # /etc/sudoers
