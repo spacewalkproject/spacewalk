@@ -243,8 +243,7 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False, is_binary=Fal
     def f_content(path, name, is_binary):
         statinfo = None
         if os.access(path, os.R_OK):
-            f = open(path, ('rb' if is_binary else 'r') if int(sys.version[0]) == 3 else \
-                ('Ub' if is_binary else 'U'))
+            f = open(path, ('r' if int(sys.version[0]) == 3 else 'U') + ('b' if is_binary else ''))
             content = [sstr(i) for i in f.readlines()]
             f.close()
             statinfo = os.stat(path)
