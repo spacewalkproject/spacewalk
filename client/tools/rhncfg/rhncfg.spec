@@ -40,7 +40,7 @@
 %endif
 
 Name: rhncfg
-Version: 5.10.129
+Version: 5.10.130
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -428,6 +428,9 @@ py3clean -p python3-%{name}-actions
 %endif
 
 %changelog
+* Mon Feb 04 2019 Michael Mraka <michael.mraka@redhat.com> 5.10.130-1
+- Resolves: rhbz#1645005 - unified_diff takes list, not string as a paremeter
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.129-1
 - updated copyright years
 
