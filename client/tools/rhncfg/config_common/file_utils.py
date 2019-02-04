@@ -245,7 +245,7 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False, is_binary=Fal
         if os.access(path, os.R_OK):
             f = open(path, ('rb' if is_binary else 'r') if int(sys.version[0]) == 3 else \
                 ('Ub' if is_binary else 'U'))
-            content = f.readlines()
+            content = [sstr(i) for i in f.readlines()]
             f.close()
             statinfo = os.stat(path)
             f_time = time.ctime(statinfo.st_mtime)
