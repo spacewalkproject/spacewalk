@@ -42,7 +42,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.3
+Version: 2.10.4
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -794,6 +794,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Feb 05 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- 1646942 - openscap rule identifiers can exceed 100 chars
+
 * Fri Feb 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - 1671466 - store only file list not their content
 
