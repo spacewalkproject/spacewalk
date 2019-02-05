@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.10.3
+Version:        2.10.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Tue Feb 05 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- 1646942 - openscap rule identifiers can exceed 100 chars
+
 * Mon Jan 07 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - remove also associated sequences
 
