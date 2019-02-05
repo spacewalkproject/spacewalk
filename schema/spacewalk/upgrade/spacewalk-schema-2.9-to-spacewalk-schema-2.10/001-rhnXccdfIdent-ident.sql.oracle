@@ -1,0 +1,1 @@
+alter table rhnXccdfIdent modify identifier varchar2(255);
