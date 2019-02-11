@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.10.1
+Version:	2.10.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -95,6 +95,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Feb 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- Fix typo in spacewalk-manage-channel-lifecycle
+
 * Mon Nov 26 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - added Fedora 29 and Spacewalk 2.9 channels
 - Bumping package versions for 2.10
