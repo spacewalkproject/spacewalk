@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.1
+Version: 2.10.2
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Feb 12 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- Extra semicolon leads to "SQL command not properly ended" with Oracle
+
 * Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - 1654647 - Capture return bind var from bulk_set_custom_value calls.
 
