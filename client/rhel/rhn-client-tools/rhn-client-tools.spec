@@ -44,7 +44,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.10.5
+Version: 2.10.6
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -983,6 +983,10 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Tue Feb 12 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- Add ability to work behind http proxies
+- Fix clean-up of Config singleton to allow new config path
+
 * Fri Feb 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
 - 1666099 - python3 is picky about bytes and string
 
