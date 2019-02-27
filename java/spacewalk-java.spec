@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.2
+Version: 2.10.3
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Feb 27 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- 1647122 - don't modify kickstart child channel list
+
 * Tue Feb 12 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - Extra semicolon leads to "SQL command not properly ended" with Oracle
 
