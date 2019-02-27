@@ -40,6 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -427,7 +428,8 @@ public class KickstartHelper {
 
         // does a child channel contain needed packages?
         Channel channel = ksdata.getChannel();
-        Set<Channel> channelsToCheck = ksdata.getChildChannels();
+        // copy child channel set otherwise you'd modify it as an unwanted side effect
+        Set<Channel> channelsToCheck = new HashSet<Channel>(ksdata.getChildChannels());
         channelsToCheck.add(channel);
 
         for (String pkgName : KickstartFormatter.FRESH_PKG_NAMES_RHEL8) {
