@@ -222,8 +222,8 @@ def addCachedRepos(conduit):
             repo.baseurl = urls
             repo.urls = repo.baseurl
             repo.name = reponame
-            updateRHNRepoOptions(conduit, repo)
             repo.enable()
+            updateRHNRepoOptions(conduit, repo)
             if not repos.findRepos(repo.id):
                 repos.add(repo)
 
