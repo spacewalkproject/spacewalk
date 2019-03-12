@@ -166,7 +166,7 @@ that message is transported via jabber protocol to OSAD agent on the clients.
 
 %package -n python2-osa-dispatcher
 Summary: OSA dispatcher
-%if 0%{?fedora} >= 28
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 BuildRequires: python2-devel
 Requires: python2
 %else
