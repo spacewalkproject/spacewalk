@@ -66,8 +66,12 @@ BuildRequires: python-dev
 Requires(preun): python-minimal
 Requires(post): python-minimal
 %else
+%if 0%{?fedora} || 0%{?rhel}
+BuildRequires: python2-devel
+%else
 BuildRequires: python-devel
 %endif
+%endif # %{_vendor} == "debbuild"
 
 %description -n python2-%{name}
 Library for writing code that runs on Python 2 and 3
