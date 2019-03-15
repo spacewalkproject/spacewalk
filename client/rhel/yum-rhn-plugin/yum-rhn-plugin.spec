@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Fri Mar 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- rhnplugin: disable cached repo if required
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
 - Regenerating .po and .pot files for yum-rhn-plugin
 - Updating .po translations from Zanata
