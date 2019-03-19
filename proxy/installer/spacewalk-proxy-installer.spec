@@ -9,7 +9,7 @@
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 License: GPLv2
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -109,6 +109,9 @@ spacewalk-python2-pylint .
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- no pylint2 on Fedora 30+
+
 * Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.6-1
 - Update to use newly separated spacewalk-python[2|3]-pylint packages
 
