@@ -15,7 +15,7 @@
 
 Name:		python-hwdata
 Version:	2.3.7
-Release:	1%{?dist}.1
+Release:	1%{?dist}.2
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 License:	GPLv2
@@ -117,6 +117,9 @@ pylint-3 hwdata.py example.py || :
 %endif # with python3
 
 %changelog
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.3.7-1.2
+- rebuild with python2 enabled
+
 * Fri Mar 23 2018 Miroslav Suchý <msuchy@redhat.com> 2.3.7-1
 - remove python2 subpackage for F30+
 
