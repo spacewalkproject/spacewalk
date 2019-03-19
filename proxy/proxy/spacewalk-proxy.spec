@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.10.1
+Version: 2.10.2
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -362,6 +362,9 @@ fi
 
 
 %changelog
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- set python version
+
 * Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - no pylint2 on Fedora 30+
 
