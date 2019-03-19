@@ -9,7 +9,7 @@ Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRequires: python
+BuildRequires: python2
 BuildArch: noarch
 Requires: httpd
 %if 0%{?pylint_check}
@@ -143,7 +143,7 @@ Spacewalk Proxy components.
 Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
 Requires: spacewalk-backend >= 1.7.24
 Requires: rhnlib >= 2.5.56
-Requires: python
+Requires: python2
 Requires: rhnpush >= 5.5.74
 # proxy isn't Python 3 yet
 Requires: python2-rhnpush
