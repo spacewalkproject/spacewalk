@@ -25,7 +25,6 @@ Requires: openssl rpm-build
 Requires: tar
 Requires: /usr/bin/sudo
 BuildRequires: docbook-utils
-BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
 Obsoletes: rhns-certs-tools < 5.3.0
 # can not provides = %{version} since some old packages expect > 3.6.0
@@ -44,6 +43,8 @@ Requires: spacewalk-backend-libs >= 0.8.28
 %if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
+BuildRequires: python2-rpm-macros
+BuildRequires: python2
 
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
