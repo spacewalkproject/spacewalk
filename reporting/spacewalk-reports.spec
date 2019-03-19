@@ -6,7 +6,7 @@ Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch: noarch
-Requires: python
+Requires: python2
 Requires: spacewalk-branding
 BuildRequires: /usr/bin/docbook2man
 
