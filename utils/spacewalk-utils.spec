@@ -61,10 +61,6 @@ Generic utilities that may be run against a Spacewalk server.
 %prep
 %setup -q
 
-%if  0%{?rhel} && 0%{?rhel} < 6
-%define pod2man POD2MAN=pod2man
-%endif
-
 %build
 make all %{?pod2man}
 
