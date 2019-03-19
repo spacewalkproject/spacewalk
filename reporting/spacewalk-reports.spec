@@ -1,7 +1,7 @@
 Name: spacewalk-reports
 Summary: Script based reporting
 License: GPLv2
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ install *.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 %endif
 
 %changelog
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- set python version
+
 * Tue Jun 26 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
 - Fix system-currency report
 - Bumping package versions for 2.9.
