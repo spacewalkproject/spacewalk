@@ -17,6 +17,8 @@
                                 <dataSource type="com.redhat.satellite.search.config.translator.C3P0DataSourceFactory">
                                                 <property name="driverClass" value="${search.connection.driver_class}"/>
                                                 <property name="jdbcUrl" value="${search.connection.driver_proto}:${db_name}"/>
+                                                <property name="maxIdleTime" value="${search.connection.max_idle_time}"/>
+                                                <property name="maxIdleTimeExcessConnections" value="${search.connection.max_idle_time_excess_connections}"/>
                                                 <property name="user" value="${db_user}"/>
                                                 <property name="password" value="${db_password}"/>
                         <property name="connectionCustomizerClassName" value="com.redhat.satellite.search.config.translator.RhnConnectionCustomizer" />
