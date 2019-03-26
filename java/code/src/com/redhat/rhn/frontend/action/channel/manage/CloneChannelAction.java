@@ -30,6 +30,8 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
@@ -98,8 +100,13 @@ public class CloneChannelAction extends RhnAction {
 
         // add all children
         for (ChannelTreeNode channel : channelTree) {
-            if (!subscribableCids.contains(channel.getId()) || channel.isParent() ||
-                    !subscribableCids.contains(channel.getParentId())) {
+            if (!subscribableCids.contains(channel.getId()) || channel.isParent()) {
+                continue;
+            }
+            if (!subscribableCids.contains(channel.getParentId())) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                           new ActionMessage("message.channelcloned.error.parent", channel.getName()));
+                addErrors(request, errors);
                 continue;
             }
             nameToId.put(channel.getName(), channel.getId());
