@@ -661,4 +661,12 @@
   </query>
 </mode>
 
+<mode name="lookup_xccdftestresult_id">
+  <query params="action_scap_id">
+  SELECT id
+    FROM rhnXccdfTestResult
+   WHERE action_scap_id = :action_scap_id
+  </query>
+</mode>
+
 </datasource_modes>
