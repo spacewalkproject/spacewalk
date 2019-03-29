@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.9.30
+Version: 2.9.31
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Fri Mar 29 2019 Michael Mraka <michael.mraka@redhat.com> 2.9.31-1
+- Extra semicolon leads to "SQL command not properly ended" with Oracle
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.30-1
 - update api version
 - updated copyright years
