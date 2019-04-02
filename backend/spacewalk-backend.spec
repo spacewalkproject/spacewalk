@@ -42,7 +42,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.5
+Version: 2.10.6
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -794,6 +794,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Apr 02 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- 1692383 - import packages from all collections not just first one
+
 * Mon Feb 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
 - Add Google Compute Engine as virtualization type for registration
 - Add Acropolis Hypervisor as virtualization type for registration
