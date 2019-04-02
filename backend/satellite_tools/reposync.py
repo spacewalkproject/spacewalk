@@ -714,78 +714,78 @@ class RepoSync(object):
         e['channels'].append({'label': self.channel_label})
 
         for collection in notice['pkglist']:
-          for pkg in collection['packages']:
-            param_dict = {
-                'name': pkg['name'],
-                'version': pkg['version'],
-                'release': pkg['release'],
-                'arch': pkg['arch'],
-                'channel_id': int(self.channel['id']),
-            }
-            if pkg['epoch'] == '0':
-                epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
-            elif pkg['epoch'] is None or pkg['epoch'] == '':
-                epochStatement = "pevr.epoch is NULL"
-            else:
-                epochStatement = "pevr.epoch = :epoch"
-                param_dict['epoch'] = pkg['epoch']
-            if self.org_id:
-                param_dict['org_id'] = self.org_id
-                orgStatement = "= :org_id"
-            else:
-                orgStatement = "is NULL"
-
-            h = rhnSQL.prepare("""
-                            select p.id, pevr.epoch, c.checksum, c.checksum_type
-                              from rhnPackage p
-                              join rhnPackagename pn on p.name_id = pn.id
-                              join rhnpackageevr pevr on p.evr_id = pevr.id
-                              join rhnpackagearch pa on p.package_arch_id = pa.id
-                              join rhnArchType at on pa.arch_type_id = at.id
-                              join rhnChecksumView c on p.checksum_id = c.id
-                              join rhnChannelPackage cp on p.id = cp.package_id
-                             where pn.name = :name
-                               and p.org_id %s
-                               and pevr.version = :version
-                               and pevr.release = :release
-                               and pa.label = :arch
-                               and %s
-                               and at.label = 'rpm'
-                               and cp.channel_id = :channel_id
-                        """ % (orgStatement, epochStatement))
-            h.execute(**param_dict)
-            cs = h.fetchone_dict() or None
-
-            if not cs:
-                if 'epoch' in param_dict:
-                    epoch = str(param_dict['epoch']) + ":"
+            for pkg in collection['packages']:
+                param_dict = {
+                    'name': pkg['name'],
+                    'version': pkg['version'],
+                    'release': pkg['release'],
+                    'arch': pkg['arch'],
+                    'channel_id': int(self.channel['id']),
+                }
+                if pkg['epoch'] == '0':
+                    epochStatement = "(pevr.epoch is NULL or pevr.epoch = '0')"
+                elif pkg['epoch'] is None or pkg['epoch'] == '':
+                    epochStatement = "pevr.epoch is NULL"
                 else:
-                    epoch = ""
-                log(2, "No checksum found for %s-%s%s-%s.%s."
-                       " Skipping Package" % (param_dict['name'],
-                                              epoch,
-                                              param_dict['version'],
-                                              param_dict['release'],
-                                              param_dict['arch']))
-                continue
+                    epochStatement = "pevr.epoch = :epoch"
+                    param_dict['epoch'] = pkg['epoch']
+                if self.org_id:
+                    param_dict['org_id'] = self.org_id
+                    orgStatement = "= :org_id"
+                else:
+                    orgStatement = "is NULL"
 
-            newpkgs = []
-            for oldpkg in e['packages']:
-                if oldpkg['package_id'] != cs['id']:
-                    newpkgs.append(oldpkg)
+                h = rhnSQL.prepare("""
+                                select p.id, pevr.epoch, c.checksum, c.checksum_type
+                                  from rhnPackage p
+                                  join rhnPackagename pn on p.name_id = pn.id
+                                  join rhnpackageevr pevr on p.evr_id = pevr.id
+                                  join rhnpackagearch pa on p.package_arch_id = pa.id
+                                  join rhnArchType at on pa.arch_type_id = at.id
+                                  join rhnChecksumView c on p.checksum_id = c.id
+                                  join rhnChannelPackage cp on p.id = cp.package_id
+                                 where pn.name = :name
+                                   and p.org_id %s
+                                   and pevr.version = :version
+                                   and pevr.release = :release
+                                   and pa.label = :arch
+                                   and %s
+                                   and at.label = 'rpm'
+                                   and cp.channel_id = :channel_id
+                            """ % (orgStatement, epochStatement))
+                h.execute(**param_dict)
+                cs = h.fetchone_dict() or None
 
-            package = importLib.IncompletePackage().populate(pkg)
-            package['epoch'] = cs['epoch']
-            package['org_id'] = self.org_id
+                if not cs:
+                    if 'epoch' in param_dict:
+                        epoch = str(param_dict['epoch']) + ":"
+                    else:
+                        epoch = ""
+                    log(2, "No checksum found for %s-%s%s-%s.%s."
+                           " Skipping Package" % (param_dict['name'],
+                                                  epoch,
+                                                  param_dict['version'],
+                                                  param_dict['release'],
+                                                  param_dict['arch']))
+                    continue
 
-            package['checksums'] = {cs['checksum_type']: cs['checksum']}
-            package['checksum_type'] = cs['checksum_type']
-            package['checksum'] = cs['checksum']
+                newpkgs = []
+                for oldpkg in e['packages']:
+                    if oldpkg['package_id'] != cs['id']:
+                        newpkgs.append(oldpkg)
 
-            package['package_id'] = cs['id']
-            newpkgs.append(package)
+                package = importLib.IncompletePackage().populate(pkg)
+                package['epoch'] = cs['epoch']
+                package['org_id'] = self.org_id
 
-            e['packages'] = newpkgs
+                package['checksums'] = {cs['checksum_type']: cs['checksum']}
+                package['checksum_type'] = cs['checksum_type']
+                package['checksum'] = cs['checksum']
+
+                package['package_id'] = cs['id']
+                newpkgs.append(package)
+
+                e['packages'] = newpkgs
 
         # Empty package list in original metadata
         if not e['packages'] and not notice['pkglist'][0]['packages']:
