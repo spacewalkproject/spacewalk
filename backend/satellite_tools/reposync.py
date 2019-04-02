@@ -713,7 +713,8 @@ class RepoSync(object):
             e['packages'] = existing_errata['packages']
         e['channels'].append({'label': self.channel_label})
 
-        for pkg in notice['pkglist'][0]['packages']:
+        for collection in notice['pkglist']:
+          for pkg in collection['packages']:
             param_dict = {
                 'name': pkg['name'],
                 'version': pkg['version'],
