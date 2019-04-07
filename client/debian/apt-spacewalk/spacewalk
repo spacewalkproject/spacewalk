@@ -19,6 +19,7 @@
 from __future__ import print_function
 
 import sys
+import os
 import re
 import hashlib
 
@@ -223,11 +224,25 @@ class spacewalk_method(pkg_acquire_method):
         self.__init_headers()
         self.__make_conn()
 
-        self.conn.request("GET", "/" + document, headers = self.http_headers)
+        hdrs = self.http_headers;
+        # check is partially downloaded file present
+        if os.path.isfile(self.filename):
+            fsize = os.stat(self.filename).st_size
+            if fsize > 0:
+                # resume aborted download by requesting tail of the file
+                # using Range HTTP header
+                hdrs['Range'] = 'bytes=' + str(fsize) + '-'
+
+        self.conn.request("GET", "/" + document, headers = hdrs)
         self.status(URI = self.uri, Message = 'Waiting for headers')
 
         res = self.conn.getresponse()
-        if res.status != 200:
+
+        if      res.status == 200:
+            f = open(self.filename, "wb")
+        elif    res.status == 206:
+            f = open(self.filename, "ab")
+        else:
             self.uri_failure({'URI': self.uri,
                               'Message': str(res.status) + '  ' + res.reason,
                               'FailReason': 'HttpError' + str(res.status)})
@@ -241,22 +256,30 @@ class spacewalk_method(pkg_acquire_method):
                         'Size': res.getheader('content-length'),
                         'Last-Modified': res.getheader('last-modified')})
 
-        f = open(self.filename, "w")
-        hash_sha256 = hashlib.sha256()
-        hash_md5 = hashlib.md5()
         while True:
             data = res.read(4096)
             if not len(data):
                 break
-            hash_sha256.update(data)
-            hash_md5.update(data)
             f.write(data)
         res.close()
         f.close()
 
+        f = open(self.filename, "r")
+        hash_sha256 = hashlib.sha256()
+        hash_md5 = hashlib.md5()
+        fsize = 0
+        while True:
+            data = f.read(4096)
+            if not len(data):
+                break
+            fsize += len(data)
+            hash_sha256.update(data)
+            hash_md5.update(data)
+        f.close()
+
         self.uri_done({'URI': self.uri,
                        'Filename': self.filename,
-                       'Size': res.getheader('content-length'),
+                       'Size': str(fsize),
                        'Last-Modified': res.getheader('last-modified'),
                        'MD5-Hash': hash_md5.hexdigest(),
                        'MD5Sum-Hash': hash_md5.hexdigest(),
