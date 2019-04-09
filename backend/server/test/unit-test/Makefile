@@ -14,4 +14,4 @@ all:	$(addprefix test-,$(TESTS))
 
 test-%:
 	@echo Running $*
-	PYTHONPATH=$(PYTHONPATH):../../../ python $*
+	PYTHONPATH=$(PYTHONPATH):../../../ python2 $*

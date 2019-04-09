@@ -31,6 +31,7 @@
 
 %if  0%{?fedora} >= 28  || 0%{?rhel} >= 8
 %global python_prefix python2
+%global __python /usr/bin/python2
 %else
 %global python_prefix python
 %endif
