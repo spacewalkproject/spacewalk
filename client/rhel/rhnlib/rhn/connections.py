@@ -197,7 +197,7 @@ class HTTPSConnection(HTTPConnection):
             raise socket.error("Unable to connect to the host and port specified")
 
         self.sock = SSL.SSLSocket(sock, self.trusted_certs)
-        self.sock.init_ssl()
+        self.sock.init_ssl(self.host)
 
 class HTTPSProxyResponse(HTTPResponse):
     def begin(self):

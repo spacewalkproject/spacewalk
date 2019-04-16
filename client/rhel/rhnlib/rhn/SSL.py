@@ -82,7 +82,7 @@ class SSLSocket:
             raise ValueError("Unable to read certificate file %s" % file)
         self._trusted_certs.append(file.encode("utf-8"))
 
-    def init_ssl(self):
+    def init_ssl(self, server_name=None):
         """
         Initializes the SSL connection.
         """
@@ -109,6 +109,10 @@ class SSLSocket:
 
         # Init the connection
         self._connection = SSL.Connection(self._ctx, self._sock)
+        # Set server name if defined. This allows connections to
+        # SNI-enabled servers
+        if server_name is not None:
+            self._connection.set_tlsext_host_name(server_name)
         # Place the connection in client mode
         self._connection.set_connect_state()
 
