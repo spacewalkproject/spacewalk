@@ -21,7 +21,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.10.2
+Version: 2.10.3
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      python
@@ -173,6 +173,9 @@ py3clean -p python3-rhnlib
 %endif
 
 %changelog
+* Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- Added SNI support for clients
+
 * Fri Feb 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - 1666099 - python3 is picky about bytes and string
 
