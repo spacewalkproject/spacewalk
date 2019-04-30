@@ -1,7 +1,7 @@
 %define release_name Smile
 
 Name:           spacewalk
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -170,6 +170,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- Bumping package versions for 2.10
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
