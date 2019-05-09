@@ -64,7 +64,7 @@ class DebRepo(object):
     # url example - http://ftp.debian.org/debian/dists/jessie/main/binary-amd64/
     def __init__(self, url, cache_dir, pkg_dir, proxy_addr="", proxy_user="", proxy_pass=""):
         self.url = url
-        parts = url.split('/dists')
+        parts = url.rsplit('/dists/', 1)
         self.base_url = [parts[0]]
         # Make sure baseurl ends with / and urljoin will work correctly
         if self.base_url[0][-1] != '/':
