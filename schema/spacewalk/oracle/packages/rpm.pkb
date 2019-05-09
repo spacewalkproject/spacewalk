@@ -89,23 +89,61 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
         two := str2;
 
         <<segment_loop>>
-        while one is not null and two is not null
+        while one is not null or two is not null
         loop
             declare
                 segm1 VARCHAR2(32767);
                 segm2 VARCHAR2(32767);
+                onechar CHAR(1);
+                twochar CHAR(1);
             begin
                 --DBMS_OUTPUT.PUT_LINE('Params: ' || one || ',' || two);
                 -- Throw out all non-alphanum characters
-                while one is not null and not isalphanum(one)
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                while one is not null and not isalphanum(one) and onechar != '~' and onechar != '^'
                 loop
                     one := substr(one, 2);
                 end loop;
-                while two is not null and not isalphanum(two)
+                while two is not null and not isalphanum(two) and twochar != '~' and twochar != '^'
                 loop
                     two := substr(two, 2);
                 end loop;
                 --DBMS_OUTPUT.PUT_LINE('new params: ' || one || ',' || two);
+
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                --DBMS_OUTPUT.PUT_LINE('new chars: ' || onechar || ',' || twochar);
+                /* handle the tilde separator, it sorts before everything else */
+                if (onechar = '~' or twochar = '~')
+                then
+                    if (onechar != '~' or onechar is null) then return 1; end if;
+                    if (twochar != '~' or twochar is null) then return -1; end if;
+                    --DBMS_OUTPUT.PUT_LINE('passed tilde chars: ' || onechar || ',' || twochar);
+                    one := substr(one, 2);
+                    two := substr(two, 2);
+                    continue;
+                end if;
+
+                /*
+                 * Handle caret separator. Concept is the same as tilde,
+                 * except that if one of the strings ends (base version),
+                 * the other is considered as higher version.
+                 */
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                if (onechar = '^' or twochar = '^')
+                then
+                    if (one is null) then return -1; end if;
+                    if (two is null) then return 1; end if;
+                    if (onechar != '^' or onechar is null) then return 1; end if;
+                    if (twochar != '^' or twochar is null) then return -1; end if;
+                    one := substr(one, 2);
+                    two := substr(two, 2);
+                    continue;
+                end if;
+
+                if (not (one is not null and two is not null)) then exit segment_loop; end if;
 
                 str1 := one;
                 str2 := two;

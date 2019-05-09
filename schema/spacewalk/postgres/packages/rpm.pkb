@@ -1,4 +1,4 @@
--- oracle equivalent source sha1 c73458c284caf1ab77c10bc1a40ba90efca2ee71
+-- oracle equivalent source sha1 276bc9ab3be100b72db8298f04bbbcb7f40130f5
 -- create schema rpm;
 
 --update pg_setting
@@ -69,22 +69,67 @@ $$ language 'plpgsql';
         two := str2;
 
         <<segment_loop>>
-        while one <> '' and two <> ''
+        while one <> '' or two <> ''
         loop
             declare
                 segm1 VARCHAR;
                 segm2 VARCHAR;
+                onechar CHAR(1);
+                twochar CHAR(1);
             begin
-                --DBMS_OUTPUT.PUT_LINE('Params: ' || one || ',' || two);
+                --raise notice 'Params: %, %',  one, two;
                 -- Throw out all non-alphanum characters
-                while one <> '' and not rpm.isalphanum(one)
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                while one <> '' and not rpm.isalphanum(one) and onechar != '~' and onechar != '^'
                 loop
                     one := substr(one, 2);
                 end loop;
-                while two <> '' and not rpm.isalphanum(two)
+                while two <> '' and not rpm.isalphanum(two) and twochar != '~' and twochar != '^'
                 loop
                     two := substr(two, 2);
                 end loop;
+                --raise notice 'new params: %, %', one, two;
+
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                --raise notice 'new chars 1: %, %', onechar, twochar;
+                /* handle the tilde separator, it sorts before everything else */
+                if (onechar = '~' or twochar = '~')
+                then
+                    if (onechar != '~') then return 1; end if;
+                    if (twochar != '~') then return -1; end if;
+                    --raise notice 'passed tilde chars: %, %', onechar, twochar;
+                    one := substr(one, 2);
+                    two := substr(two, 2);
+                    continue;
+                end if;
+
+                /*
+                 * Handle caret separator. Concept is the same as tilde,
+                 * except that if one of the strings ends (base version),
+                 * the other is considered as higher version.
+                 */
+                onechar := substr(one, 1, 1);
+                twochar := substr(two, 1, 1);
+                --raise notice 'new chars 2: %, %', onechar, twochar;
+                if (onechar = '^' or twochar = '^')
+                then
+                    if (one = '') then return -1; end if;
+                    --raise notice 'passed caret chars 1: %, %', onechar, twochar;
+                    if (two = '') then return 1; end if;
+                    --raise notice 'passed caret chars 2: %, %', onechar, twochar;
+                    if (onechar != '^') then return 1; end if;
+                    --raise notice 'passed caret chars 3: %, %', onechar, twochar;
+                    if (twochar != '^') then return -1; end if;
+                    --raise notice 'passed caret chars 4: %, %', onechar, twochar;
+                    one := substr(one, 2);
+                    two := substr(two, 2);
+                    continue;
+                end if;
+
+                if (not (one <> '' and two <> '')) then exit segment_loop; end if;
+
                 str1 := one;
                 str2 := two;
                 if str1 <> '' and rpm.isdigit(str1)
