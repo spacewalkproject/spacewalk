@@ -28,13 +28,15 @@ DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-versions = ( "7", "6", "5", "4", "3", "2.1" )
+versions = ( "8", "7", "6", "5", "4", "3", "2.1" )
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
-             "ComputeNode", "WebServer", "Workstation")
-arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64")
+             "ComputeNode", "WebServer", "Workstation",
+             "BaseOS", "AppStream", )                                   # RHEL 8
+arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64", "ppc64le")
 updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11" )
 subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation", "ResilientStorage",
-            "ScalableFileSystem", "LoadBalancer", "HighAvailability") #RHEL 5 yum repos on the discs
+            "ScalableFileSystem", "LoadBalancer", "HighAvailability",   # RHEL 5 yum repos on the discs
+            "CRB", "RT", )                                              # RHEL 8
 extras = ("Extras", "Supplementary") #things shipped on other cds
 
 
@@ -446,6 +448,23 @@ def gather(clear):
                         #do optional
                         fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s-optional/%s/os/" % (version, version, update_num, release, arch)
                         saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, 'optional'))
+
+                    elif float(version) == 8:
+                        if update == "GOLD":
+                            update_num = "0"
+                        else:
+                            update_num = update.replace("U","") #strip the U
+                        # RHEL-8/8.0.0/BaseOs/x86_64/os/
+                        repoDir = "RHEL-%s/%s.%s.0/%s/%s/os/" % (version, version, update_num, release, arch)
+                        fullDir = GATHER_DIR + repoDir
+
+                        created = saveRpmList(fullDir + "Packages/", DATA_DIR + getFileName(version, update,release, arch))
+
+                        if created and release == "BaseOS":
+                            for subrepo in subrepos + extras:
+                                fullDir = GATHER_DIR + "RHEL-%s/%s.%s.0/%s/%s/os/Packages/" % (version, version, update_num, subrepo, arch)
+                                saveRpmList(fullDir, DATA_DIR + getFileName(version, update,release, arch, subrepo))
+
 
 
 def saveRpmList(source, filename):
