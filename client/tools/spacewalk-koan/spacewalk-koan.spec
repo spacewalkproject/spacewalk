@@ -11,7 +11,7 @@
 
 Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -113,6 +113,9 @@ make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_si
 %endif
 
 %changelog
+* Tue May 21 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1703706 - require commands we use in merge-rd.sh
+
 * Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.1-1
 - fixed build on mageia
 - fixed py_compile on opensuse 15
