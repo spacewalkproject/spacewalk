@@ -43,7 +43,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.7
+Version: 2.10.8
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -795,6 +795,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue May 21 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
+- Correct issue with dists in url hostname
+
 * Tue Apr 09 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
 - use explicit version for python
 
