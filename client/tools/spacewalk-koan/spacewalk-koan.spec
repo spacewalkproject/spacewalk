@@ -19,6 +19,15 @@ URL:            https://github.com/spacewalkproject/spacewalk
 BuildArch:      noarch
 Requires:       %{pythonX}-%{name} = %{version}-%{release}
 Requires:       koan20
+# dd, du
+Requires:       coreutils
+Requires:       cpio
+Requires:       e2fsprogs
+# gzip, zcat
+Requires:       gzip
+Requires:       tar
+# mount, umount
+Requires:       util-linux
 Requires:       xz
 Conflicts: rhn-kickstart
 Conflicts: rhn-kickstart-common
