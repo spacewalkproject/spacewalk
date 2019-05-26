@@ -37,6 +37,8 @@ def processCommandline(argv):
             help='If we should log in or not. Default is to log in.'),
         Option('--nologin', action='store_false', dest='login',
             help='If we should log in or not. Default is to log in.'),
+        Option('--json', action='store_true', dest='json',
+            help='Format output in json format suitable to pipe to other tools(e.g., jq)'),
     ]
     optionParser = OptionParser(
         usage="Usage: %s --server=<server> [--login] [--user=<user>] [--password=<password>]" % sys.argv[0],
@@ -92,7 +94,11 @@ if __name__ == '__main__':
 
     try:
         result = getattr(client, params[0])(*params[1:])
-        sys.stdout.write(str(result) + '\n')
+        if options.json:
+            import json
+            sys.stdout.write(json.dumps(result))
+        else:
+            sys.stdout.write(str(result) + '\n')
     except xmlrpclib.Fault:
         sys.stderr.write('Fault returned from XML RPC Server: %s\n' % str(sys.exc_info()[1]))
         sys.exit(1)

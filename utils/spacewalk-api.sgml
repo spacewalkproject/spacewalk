@@ -63,6 +63,12 @@ Call Spacawalk API from command line.
             <para>If you do not specify this and unless --nologin is specified, you will be prompted for your password.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--json</term>
+        <listitem>
+            <para>Format output through json dumper suitable for other tools (e.g., jq).</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
