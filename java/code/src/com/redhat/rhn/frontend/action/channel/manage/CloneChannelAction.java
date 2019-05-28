@@ -106,7 +106,6 @@ public class CloneChannelAction extends RhnAction {
             if (!subscribableCids.contains(channel.getParentId())) {
                 errors.add(ActionMessages.GLOBAL_MESSAGE,
                            new ActionMessage("message.channelcloned.error.parent", channel.getName()));
-                addErrors(request, errors);
                 continue;
             }
             nameToId.put(channel.getName(), channel.getId());
@@ -128,6 +127,9 @@ public class CloneChannelAction extends RhnAction {
         // set default radio button
         form.set(EditChannelAction.CLONE_TYPE, CURRENT);
 
+        if (!errors.isEmpty()) {
+            addErrors(request, errors);
+        }
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }
