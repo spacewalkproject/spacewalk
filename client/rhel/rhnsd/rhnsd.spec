@@ -202,6 +202,7 @@ fi
 %files
 %{_unitdir}/rhnsd.service
 %{_unitdir}/rhnsd.timer
+%{_presetdir}/10-rhnsd.preset
 %else
 %files -f %{name}.lang
 %dir %{_sysconfdir}/sysconfig/rhn
