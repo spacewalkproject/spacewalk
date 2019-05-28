@@ -68,6 +68,7 @@ public class ScapAction extends Action {
             SelectMode m = ModeFactory.getMode("scap_queries", "lookup_xccdftestresult_id");
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("action_scap_id", scapActionDetails.getId());
+            params.put("server_id", server.getId());
             DataResult<Map<String, Long>> dr = m.execute(params);
             Long xccdfDetailId = dr.get(0).get("id");
             retval.append("</br>");

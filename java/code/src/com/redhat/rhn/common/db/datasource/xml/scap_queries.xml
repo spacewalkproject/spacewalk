@@ -662,10 +662,11 @@
 </mode>
 
 <mode name="lookup_xccdftestresult_id">
-  <query params="action_scap_id">
+  <query params="action_scap_id, server_id">
   SELECT id
     FROM rhnXccdfTestResult
    WHERE action_scap_id = :action_scap_id
+     AND server_id = :server_id
   </query>
 </mode>
 
