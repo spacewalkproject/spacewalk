@@ -13,7 +13,7 @@
   <attribute name="url">
     <simpleType baseType="string">
       <minLength value="1" />
-      <maxLength value="512" />
+      <maxLength value="2048" />
     </simpleType>
   </attribute>
 
