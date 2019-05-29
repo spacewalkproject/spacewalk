@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.5
+Version: 2.10.6
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,10 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed May 29 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- 1688743 - find proper result detail for a given server
+- 1678857 - show all errors at once
+
 * Thu Mar 28 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
 - 1688743 - don't mix scapActionDetail and xccdfTestResult ids
 
