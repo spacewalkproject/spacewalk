@@ -633,7 +633,9 @@ class RepoSync(object):
                                where channel_id = :cid
                                  and comps_type_id = (select id from rhnCompsType where label = :ctype)""")
         if h.execute(cid=self.channel['id'], ctype=comps_type):
-            old_checksum = getFileChecksum('sha256', os.path.join(CFG.MOUNT_POINT, h.fetchone()[0]))
+            comps_path = os.path.join(CFG.MOUNT_POINT, h.fetchone()[0])
+            if os.path.isfile(comps_path):
+                old_checksum = getFileChecksum('sha256', comps_path)
 
         src = fileutils.decompress_open(filename)
         dst = open(abspath, "w")
