@@ -29,7 +29,7 @@ from rhn.connections import idn_puny_to_unicode
 from spacewalk.server import rhnPackage, rhnSQL, rhnChannel
 from spacewalk.common.usix import raise_with_tb
 from spacewalk.common import fileutils, rhnLog, rhnCache, rhnMail
-from spacewalk.common.rhnLib import isSUSE
+from spacewalk.common.rhnLib import isSUSE, utc
 from spacewalk.common.checksum import getFileChecksum
 from spacewalk.common.rhnConfig import CFG, initCFG
 from spacewalk.common.rhnException import rhnFault
@@ -612,8 +612,9 @@ class RepoSync(object):
         if notices:
             self.upload_updates(notices)
 
-    def copy_metadata_file(self, filename, comps_type, relative_dir):
+    def copy_metadata_file(self, plug, filename, comps_type, relative_dir):
         old_checksum = None
+        db_timestamp = datetime.fromtimestamp(0.0, utc)
         basename = os.path.basename(filename)
         log(0, '')
         log(0, "  Importing %s file %s." % (comps_type, basename))
@@ -628,12 +629,13 @@ class RepoSync(object):
                 abspath = abspath.rstrip(suffix)
                 relativepath = relativepath.rstrip(suffix)
 
-        h = rhnSQL.prepare("""select relative_filename
+        h = rhnSQL.prepare("""select relative_filename, last_modified
                                 from rhnChannelComps
                                where channel_id = :cid
                                  and comps_type_id = (select id from rhnCompsType where label = :ctype)""")
         if h.execute(cid=self.channel['id'], ctype=comps_type):
-            comps_path = os.path.join(CFG.MOUNT_POINT, h.fetchone()[0])
+            (db_filename, db_timestamp) = h.fetchone()
+            comps_path = os.path.join(CFG.MOUNT_POINT, db_filename)
             if os.path.isfile(comps_path):
                 old_checksum = getFileChecksum('sha256', comps_path)
 
@@ -644,37 +646,51 @@ class RepoSync(object):
         src.close()
         if old_checksum and old_checksum != getFileChecksum('sha256', abspath):
             self.regen = True
+
+        repoDataKey = 'group' if comps_type == 'comps' else comps_type
+        file_timestamp = plug.repo.repoXML.repoData[repoDataKey].timestamp
+        last_modified = datetime.fromtimestamp(float(file_timestamp), utc)
+
+
+        if db_timestamp >= last_modified:
+            # already have newer data, skip updating
+            return abspath
+
         # update or insert
         hu = rhnSQL.prepare("""update rhnChannelComps
                                   set relative_filename = :relpath,
-                                      modified = current_timestamp
+                                      modified = current_timestamp,
+                                      last_modified = :last_modified
                                 where channel_id = :cid
                                   and comps_type_id = (select id from rhnCompsType where label = :ctype)""")
-        hu.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type)
+        hu.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type,
+                   last_modified=last_modified)
 
         hi = rhnSQL.prepare("""insert into rhnChannelComps
-                              (id, channel_id, relative_filename, comps_type_id)
+                              (id, channel_id, relative_filename, last_modified, comps_type_id)
                               (select sequence_nextval('rhn_channelcomps_id_seq'),
                                       :cid,
                                       :relpath,
+                                      :last_modified,
                               (select id from rhnCompsType where label = :ctype)
                                  from dual
                                 where not exists (select 1 from rhnChannelComps
                                     where channel_id = :cid
                                     and comps_type_id = (select id from rhnCompsType where label = :ctype)))""")
-        hi.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type)
+        hi.execute(cid=self.channel['id'], relpath=relativepath, ctype=comps_type,
+                   last_modified=last_modified)
         return abspath
 
     def import_groups(self, plug):
         groupsfile = plug.get_groups()
         if groupsfile:
-            abspath = self.copy_metadata_file(groupsfile, 'comps', relative_comps_dir)
+            abspath = self.copy_metadata_file(plug, groupsfile, 'comps', relative_comps_dir)
             plug.groupsfile = abspath
 
     def import_modules(self, plug):
         modulesfile = plug.get_modules()
         if modulesfile:
-            self.copy_metadata_file(modulesfile, 'modules', relative_modules_dir)
+            self.copy_metadata_file(plug, modulesfile, 'modules', relative_modules_dir)
 
     def _populate_erratum(self, notice):
         advisory = notice['update_id'] + '-' + notice['version']
