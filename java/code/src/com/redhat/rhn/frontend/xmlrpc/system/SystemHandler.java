@@ -2888,7 +2888,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
-                                          List<Integer> errataIds, boolean allowModules) {
+                                          List<Integer> errataIds, Boolean allowModules) {
         return scheduleApplyErrata(loggedInUser, serverIds, errataIds, null, allowModules);
     }
 
@@ -2936,7 +2936,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds, List<Integer> errataIds,
-                                          Date earliestOccurrence, boolean allowModules) {
+                                          Date earliestOccurrence, Boolean allowModules) {
 
         // we need long values to pass to ErrataManager.applyErrataHelper
         List<Long> longServerIds = new ArrayList<Long>();
@@ -3024,7 +3024,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid, List<Integer> errataIds,
-                                          boolean allowModules) {
+                                          Boolean allowModules) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
@@ -3077,7 +3077,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid, List<Integer> errataIds,
-                                          Date earliestOccurrence, boolean allowModules) {
+                                          Date earliestOccurrence, Boolean allowModules) {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
@@ -3418,7 +3418,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
-                                         List<Integer> packageIds, Date earliestOccurrence, boolean allowModules) {
+                                         List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
@@ -3474,7 +3474,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public Long schedulePackageInstall(User loggedInUser, final Integer sid,
-                                       List<Integer> packageIds, Date earliestOccurrence, boolean allowModules) {
+                                       List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
 
         List<Integer> sids = new ArrayList<Integer>();
         sids.add(sid);
@@ -3547,7 +3547,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public Long[] schedulePackageInstallByNevra(User loggedInUser, List<Integer> sids, List<Map<String,
-            String>> packageNevraList, Date earliestOccurrence, boolean allowModules) {
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
@@ -3620,7 +3620,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public Long schedulePackageInstallByNevra(User loggedInUser, final Integer sid, List<Map<String,
-            String>> packageNevraList, Date earliestOccurrence, boolean allowModules) {
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
 
         List<Integer> sids = new ArrayList<Integer>();
         sids.add(sid);
@@ -3675,7 +3675,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public Long[] schedulePackageRemove(User loggedInUser, List<Integer> sids,
-                                        List<Integer> packageIds, Date earliestOccurrence, boolean allowModules) {
+                                        List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
@@ -3730,7 +3730,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype int actionId - The action id of the scheduled action
      */
     public int schedulePackageRemove(User loggedInUser, Integer sid,
-                                     List<Integer> packageIds, Date earliestOccurrence, boolean allowModules) {
+                                     List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
 
         List<Integer> sids = new ArrayList<Integer>();
         sids.add(sid);
@@ -3803,7 +3803,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public Long[] schedulePackageRemoveByNevra(User loggedInUser, List<Integer> sids, List<Map<String,
-            String>> packageNevraList, Date earliestOccurrence, boolean allowModules) {
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
@@ -3876,7 +3876,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype #array_single("int", "actionId")
      */
     public int schedulePackageRemoveByNevra(User loggedInUser, final Integer sid, List<Map<String,
-            String>> packageNevraList, Date earliestOccurrence, boolean allowModules) {
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
 
         List<Integer> sids = new ArrayList<Integer>();
         sids.add(sid);
