@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.7
+Version: 2.10.8
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -754,6 +754,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Jun 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
+- Increase repo source url max lenght in frontend
+
 * Tue Jun 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
 - 1690490 - fix API to use objects as params
 
