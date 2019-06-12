@@ -460,7 +460,7 @@ class AuthLocalBackend:
         return rhnCache.delete(rkey)
 
     def _compute_key(self, key):
-        return os.path.join(self._cache_prefix, str(key))
+        return os.path.join(self._cache_prefix, os.path.basename(str(key)))
 
     def __len__(self):
         pass
