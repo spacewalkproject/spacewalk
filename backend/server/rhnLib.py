@@ -32,7 +32,7 @@ def computeSignature(*fields):
     m = hashlib.new('sha256')
     for i in fields:
         # use str(i) since some of the fields may be non-string
-        m.update(str(i))
+        m.update(str(i) + "\n")
     return base64.encodestring(m.digest()).rstrip()
 
 
