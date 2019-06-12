@@ -591,7 +591,8 @@ class BrokerHandler(SharedHandler):
         """ Authentication / authorize the channel """
 
         log_debug(2, token, channel)
-        self.clientServerId = token['X-RHN-Server-ID']
+        # make sure server-id does not contain path
+        self.clientServerId = token['X-RHN-Server-ID'].split("/")[-1]
 
         cachedToken = self.proxyAuth.get_client_token(self.clientServerId)
         if not cachedToken:
