@@ -412,6 +412,7 @@ class Package(IncompletePackage):
         'path': StringType,
         'md5sum': StringType,       # xml dumps < 3.5
         'sigmd5': StringType,
+        'multi_arch': StringType,
         # These attributes are lists of objects
         'files': [File],
         'requires': [Dependency],

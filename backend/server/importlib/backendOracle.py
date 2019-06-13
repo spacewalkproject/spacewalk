@@ -202,6 +202,7 @@ class OracleBackend(Backend):
                   'header_start': DBint(),
                   'header_end': DBint(),
                   'last_modified': DBdateTime(),
+                  'multi_arch': DBstring(16),
               },
               pk=['org_id', 'name_id', 'evr_id', 'package_arch_id',
                   'checksum_id'],
