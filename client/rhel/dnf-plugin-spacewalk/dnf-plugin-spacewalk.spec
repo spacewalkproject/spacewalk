@@ -11,7 +11,7 @@
 
 Summary: DNF plugin for Spacewalk
 Name: dnf-plugin-spacewalk
-Version: 2.10.2
+Version: 2.10.3
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -113,6 +113,9 @@ install -m 644 actions/errata.py %{buildroot}%{python3_sitelib}/rhn/actions/
 %endif
 
 %changelog
+* Wed Jun 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- 1701222 - ignore broken json cache
+
 * Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - 1660552 - report and fail gracefully if not root
 - logger.warn() has been obsoleted
