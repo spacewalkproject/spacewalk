@@ -186,6 +186,9 @@ class Spacewalk(dnf.Plugin):
         except (FileNotFoundError, IOError) as e:
             if e.errno != errno.ENOENT:
                 raise
+        except json.decoder.JSONDecodeError as e:
+            pass        # ignore broken json and recreate it later
+
         return {}
 
     def _write_channels_file(self, var):
