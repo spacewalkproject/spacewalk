@@ -430,13 +430,6 @@ class BrokerHandler(SharedHandler):
             # XXX: there has to be a more elegant way to do this
             return None
 
-        # --- LOCAL GET:
-        localFlist = CFG.PROXY_LOCAL_FLIST or []
-
-        if reqaction not in localFlist:
-            # Not an action we know how to handle
-            return None
-
         # kickstarts don't auth...
         if req_type in ['$RHN', 'GET-REQ']:
             # --- AUTH. CHECK:
@@ -454,6 +447,13 @@ class BrokerHandler(SharedHandler):
             else:
                 # Not a local channel
                 return None
+
+        # --- LOCAL GET:
+        localFlist = CFG.PROXY_LOCAL_FLIST or []
+
+        if reqaction not in localFlist:
+            # Not an action we know how to handle
+            return None
 
         # We have a match; we'll try to serve packages from the local
         # repository
