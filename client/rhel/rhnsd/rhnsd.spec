@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.44
+Version: 5.0.45
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -217,6 +217,9 @@ fi
 %endif
 
 %changelog
+* Thu Jun 20 2019 Michael Mraka <michael.mraka@redhat.com> 5.0.45-1
+- Create 10-rhnsd.preset
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 5.0.44-1
 - Regenerating .po and .pot files for rhnsd
 - Updating .po translations from Zanata
