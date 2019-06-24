@@ -106,7 +106,6 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %{_bindir}/spacecmd
 %{python_sitelib}/spacecmd/
 %ghost %config %{_sysconfdir}/spacecmd.conf
-%dir %{_sysconfdir}/bash_completion.d
 %{_sysconfdir}/bash_completion.d/spacecmd
 %doc src/doc/README src/doc/COPYING
 %doc %{_mandir}/man1/spacecmd.1.gz
