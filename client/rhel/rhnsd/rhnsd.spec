@@ -91,6 +91,8 @@ rm $RPM_BUILD_ROOT/%{_initrddir}/rhnsd
 mkdir -p $RPM_BUILD_ROOT/%{_unitdir}
 install -m 0644 rhnsd.service $RPM_BUILD_ROOT/%{_unitdir}/
 install -m 0644 rhnsd.timer $RPM_BUILD_ROOT/%{_unitdir}/
+mkdir -p $RPM_BUILD_ROOT/%{_presetdir}
+install -m 0644 10-rhnsd.preset $RPM_BUILD_ROOT/%{_presetdir}/10-rhnsd.preset
 %else
 # find_lang not available on debbuild; we'll work around this below
 %if %{_vendor} != "debbuild"
