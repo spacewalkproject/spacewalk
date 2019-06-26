@@ -315,10 +315,7 @@ class Server:
         # need at least 3 chars for it to maybe be ok...
         if len(uri) < 3 or uri[0:2] != "//":
             raise MalformedURIError
-        if type != None:
-            self._type = type.lower()
-        else:
-            self._type = type
+        self._type = type.lower()
         if self._type not in ("http", "https"):
             raise IOError("unsupported XML-RPC protocol")
         self._host, self._handler = splithost(uri)

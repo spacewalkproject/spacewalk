@@ -686,8 +686,6 @@ class BaseOutput:
         elif self.encoding == self.ENCODE_GPG:
             # XXX: fix me.
             raise NotImplementedError(self.transfer, self.encoding)
-            encoding_name = self.encodings[self.ENCODE_GPG][0]
-            self.set_header("Content-Encoding", encoding_name)
 
         # Content-Transfer-Encoding header
         if self.transfer == self.TRANSFER_BINARY:

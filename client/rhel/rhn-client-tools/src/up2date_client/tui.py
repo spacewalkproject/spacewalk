@@ -689,10 +689,6 @@ class OSReleaseWindow:
             return msgbox
         return msgbox
 
-        if self.limited_updates_button.selected():
-            #TODO: warn
-            return msgbox
-
     def saveResults(self):
         # if limited updates save the channel and selction
         # for future use
