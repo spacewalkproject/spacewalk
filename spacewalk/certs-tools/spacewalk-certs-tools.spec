@@ -11,6 +11,8 @@
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+%{!?python2_sitelib: %global python2_sitelib %python_sitelib}
+%{!?python2_version: %global python2_version %python_version}
 
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
@@ -79,7 +81,7 @@ sed -i 's|etc/httpd/conf|etc/apache2|g' ssl-howto.txt
 %install
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version} \
+    PYTHONPATH=%{python2_sitelib} PYTHONVERSION=%{python2_version} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
 %if 0%{?build_py3}
 sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' rhn-ssl-tool rhn-bootstrap
@@ -88,7 +90,7 @@ make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
 %endif
 
-%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python2_version}}
 ln -s rhn-ssl-tool%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-ssl-tool
 ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 
@@ -112,9 +114,9 @@ ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 %endif
 
 %files -n python2-%{name}
-%{python_sitelib}/certs
-%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python_version}
-%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python_version}
+%{python2_sitelib}/certs
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python2_version}
+%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python2_version}
 
 %if 0%{?build_py3}
 %files -n python3-%{name}
