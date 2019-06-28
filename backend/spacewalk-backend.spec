@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.10
+Version: 2.10.11
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -800,6 +800,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Jun 28 2019 Tomas Kasparek <tkasparek@redhat.com> 2.10.11-1
+- fixed python macro usage in backend
+
 * Tue Jun 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.10-1
 - 1715387 - do not overwrite comps and module data with older versions
 
