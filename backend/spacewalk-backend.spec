@@ -38,7 +38,10 @@
 
 %define manzip %{?mageia:xz}%{!?mageia:gz}
 
-%global pythonrhnroot %{python_sitelib}/spacewalk
+%{!?python2_sitelib: %global python2_sitelib %python_sitelib}
+%{!?python2_version: %global python2_version %python_version}
+
+%global pythonrhnroot %{python2_sitelib}/spacewalk
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
@@ -65,6 +68,7 @@ BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
 BuildRequires: python2
+BuildRequires: python2-rpm-macros
 BuildRequires: python2-spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} > 1310
 BuildRequires: rhnlib >= 2.5.74
@@ -243,6 +247,7 @@ Libraries required by both Spacewalk server and Spacewalk client tools.
 Summary: Spacewalk client tools libraries for Fedora 23
 BuildRequires: python2-devel
 BuildRequires: python3-devel
+BuildRequires: python3-rpm-macros
 Conflicts: %{name} < 1.7.0
 %if 0%{?suse_version}
 Requires:       python3-base
@@ -393,11 +398,11 @@ popd
 
 %check
 cp %{pythonrhnroot}/common/usix.py $RPM_BUILD_ROOT%{pythonrhnroot}/common
-make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} test || :
+make -f Makefile.backend PYTHONPATH=$RPM_BUILD_ROOT%{python2_sitelib} test || :
 
 %if 0%{?pylint2_check}
 # check coding style
-export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/lib/rhn:/usr/share/rhn
+export PYTHONPATH=$RPM_BUILD_ROOT%{python2_sitelib}:/usr/lib/rhn:/usr/share/rhn
 spacewalk-python2-pylint $RPM_BUILD_ROOT%{pythonrhnroot}/common \
                          $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_exporter \
                          $RPM_BUILD_ROOT%{pythonrhnroot}/satellite_tools \
