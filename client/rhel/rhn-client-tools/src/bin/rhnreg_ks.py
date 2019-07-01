@@ -20,8 +20,8 @@
 #
 #
 
+import subprocess
 import sys
-import os
 from rhn.connections import idn_puny_to_unicode
 from rhn.i18n import bstr, sstr
 
@@ -205,10 +205,9 @@ class RegisterKsCli(rhncli.RhnCli):
 
     @staticmethod
     def __runRhnCheck(verbose):
-        if verbose:
-            os.system("/usr/sbin/rhn_check %s" % '-' + ('v' * verbose))
-        else:
-            os.system("/usr/sbin/rhn_check")
+        rc = subprocess.call(["/usr/sbin/rhn_check"] + ["-" + ('v' * verbose)] * bool(verbose))
+        if rc != 0:
+            sys.exit(rc)
 
 if __name__ == "__main__":
     cli = RegisterKsCli()
