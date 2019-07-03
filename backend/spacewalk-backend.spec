@@ -42,7 +42,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.9.34
+Version: 2.9.35
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -794,6 +794,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Jul 03 2019 Michael Mraka <michael.mraka@redhat.com> 2.9.35-1
+- 1710351 - set field boundaries in signature token
+
 * Wed Jan 23 2019 Michael Mraka <michael.mraka@redhat.com> 2.9.34-1
 - don't fail when parsing None as date
 
