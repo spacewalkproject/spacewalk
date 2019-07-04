@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 License:        GPLv2
@@ -62,6 +62,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 04 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1638498 - force UTF8 charset for database
+
 * Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.4-1
 - Extension is enough for spacewalk-setup-postgresql
 
