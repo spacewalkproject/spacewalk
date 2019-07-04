@@ -1,4 +1,8 @@
-%{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
+%if 0%{?fedora} || 0%{?rhel} >= 7
+%global sbinpath %{_sbindir}
+%else
+%global sbinpath /sbin
+%endif
 
 Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
