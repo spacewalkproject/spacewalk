@@ -126,10 +126,10 @@ create() {
     postgresql_service enable
 
     if [ ! -d "$PG_DATA/base" ] ; then
+        PGHOME=$(getent passwd postgres | awk -F: '{print $6}')
         if /usr/sbin/selinuxenabled; then
             SEMODE=$(/usr/sbin/getenforce)
             if [ "$SEMODE" = 'Permissive' -o "$SEMODE" = 'Enforcing' ]; then
-                PGHOME=$(getent passwd postgres | awk -F: '{print $6}')
                 RCONOUT=$(/sbin/restorecon -Rnv $PGHOME)
                 if [ -n "$RCONOUT" ]; then
                     echo
@@ -143,6 +143,7 @@ create() {
                 fi
             fi
         fi
+        echo -e 'LC_CTYPE=en_US.UTF-8\nexport LC_CTYPE' >$PGHOME/.i18n
         postgresql_service initdb
     fi
 
