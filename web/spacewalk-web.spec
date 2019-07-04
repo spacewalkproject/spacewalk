@@ -7,7 +7,7 @@
 Name: spacewalk-web
 Summary: Spacewalk Web site - Perl modules
 License: GPLv2
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 URL:          https://github.com/spacewalkproject/spacewalk/
 Source0:      https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -150,6 +150,9 @@ install -m 755 modules/dobby/scripts/check-database-space-usage.sh $RPM_BUILD_RO
 %doc LICENSE
 
 %changelog
+* Thu Jul 04 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1412200 - corrected sbin path on RHEL7
+
 * Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
 - update api version
 
