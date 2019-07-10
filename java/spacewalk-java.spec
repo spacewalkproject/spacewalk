@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.9
+Version: 2.10.10
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -756,6 +756,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Jul 10 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.10-1
+- fixed buildrequires on Fedora 30
+
 * Mon Jul 08 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.9-1
 - 1717071 - appstream repos are not synced to cobbler
 
