@@ -99,9 +99,11 @@ Obsoletes:     tomcat6-el-1.0-api <= 6.0.18
 Obsoletes:     velocity-dvsl <= 1.0
 BuildRequires: apache-commons-codec
 BuildRequires: apache-commons-discovery
+BuildRequires: apache-commons-dbcp
 BuildRequires: apache-commons-el
 BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
+BuildRequires: apache-commons-pool
 # spelling checker is only for Fedoras (no aspell in RHEL6)
 BuildRequires: aspell aspell-en libxslt
 BuildRequires: ehcache-core
