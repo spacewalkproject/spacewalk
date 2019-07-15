@@ -65,6 +65,13 @@ from __future__ import print_function
 import os
 import sys
 import tempfile
+try:
+    from rhn.i18n import bstr, sstr
+except ImportError:
+    def sstr(s):
+        return s
+    def bstr(s):
+        return s
 
 DEFAULT_CLIENT_CONFIG_OVERRIDES = 'client-config-overrides.txt'
 
@@ -110,7 +117,7 @@ def readConfigFile(configFile):
     d = {}
 
     for line in fin.readlines():
-        kv = _parseConfigLine(line)
+        kv = _parseConfigLine(sstr(line))
         if kv:
             d[kv[0]] = kv[1]
     return d
@@ -131,21 +138,21 @@ def mapNewSettings(configFile, dnew):
 
     # write to temp file
     for line in fin.readlines():
-        kv = _parseConfigLine(line)
+        kv = _parseConfigLine(sstr(line))
         if not kv:
             # not a setting, write the unaltered line
-            fo.write(line)
+            fo.write(bstr(line))
         else:
             # it's a setting, populate from the dictionary
             if kv[0] in dnew:
                 if dnew[kv[0]] != kv[1]:
-                    fo.write('%s=%s\n' % (kv[0], dnew[kv[0]]))
+                    fo.write(bstr('%s=%s\n' % (kv[0], dnew[kv[0]])))
                     changedYN = 1
                 else:
-                    fo.write(line)
+                    fo.write(bstr(line))
             # it's a setting but not being mapped
             else:
-                fo.write(line)
+                fo.write(bstr(line))
     fin.close()
 
     if changedYN:
