@@ -217,13 +217,20 @@ fi
 
 def getUp2dateScriptsSh():
     return """\
+for cmd in /usr/bin/python /usr/bin/python2 /usr/libexec/platform-python /usr/bin/python3
+do
+    if [ -x $cmd ] ; then
+        PYTHON=$cmd
+        break
+    fi
+done
 echo "* running the update scripts"
 if [ -f "/etc/sysconfig/rhn/rhn_register" ] ; then
     echo "  . rhn_register config file"
-    /usr/bin/python -u client_config_update.py /etc/sysconfig/rhn/rhn_register ${CLIENT_OVERRIDES}
+    $PYTHON -u client_config_update.py /etc/sysconfig/rhn/rhn_register ${CLIENT_OVERRIDES}
 fi
 echo "  . up2date config file"
-/usr/bin/python -u client_config_update.py /etc/sysconfig/rhn/up2date ${CLIENT_OVERRIDES}
+$PYTHON -u client_config_update.py /etc/sysconfig/rhn/up2date ${CLIENT_OVERRIDES}
 
 """
 
