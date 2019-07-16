@@ -715,26 +715,33 @@ public class ErrataFactory extends HibernateFactory {
     public static Errata lookupByAdvisory(String advisory, Org org) {
         Session session = null;
         Errata retval = null;
+        List retlist = null;
         //  try {
         //look for a published errata first
         session = HibernateFactory.getSession();
-        retval = (Errata) session.getNamedQuery("PublishedErrata.findByAdvisoryName")
+        retlist = session.getNamedQuery("PublishedErrata.findByAdvisoryName")
                 .setParameter("advisory", advisory)
                 .setParameter("org", org)
-                .uniqueResult();
+                .setFirstResult(0)
+                .setMaxResults(1)
+                .list();
         //if nothing was found, check the unpublished errata table
-        if (retval == null) {
-            retval = (Errata)
-                    session.getNamedQuery("UnpublishedErrata.findByAdvisoryName")
+        if (retlist.isEmpty()) {
+            retlist = session.getNamedQuery("UnpublishedErrata.findByAdvisoryName")
                     .setParameter("advisory", advisory)
                     .setParameter("org", org)
-                    .uniqueResult();
+                    .setFirstResult(0)
+                    .setMaxResults(1)
+                    .list();
         }
         //      }
         //      catch (HibernateException e) {
         //          throw new
         //            HibernateRuntimeException("Error looking up errata by advisory name");
         //       }
+        if (!retlist.isEmpty()) {
+            retval = (Errata) retlist.get(0);
+        }
         return retval;
     }
 
