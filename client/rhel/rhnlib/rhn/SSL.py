@@ -112,7 +112,7 @@ class SSLSocket:
         # Set server name if defined. This allows connections to
         # SNI-enabled servers
         if server_name is not None:
-            self._connection.set_tlsext_host_name(server_name)
+            self._connection.set_tlsext_host_name(server_name.encode("utf8"))
         # Place the connection in client mode
         self._connection.set_connect_state()
 
