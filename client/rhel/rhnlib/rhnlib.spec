@@ -21,7 +21,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.10.4
+Version: 2.10.5
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      python
@@ -173,6 +173,9 @@ py3clean -p python3-rhnlib
 %endif
 
 %changelog
+* Wed Aug 07 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- fixing traceback on python3
+
 * Wed Jun 26 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
 - removed dead code reported by covscan
 
