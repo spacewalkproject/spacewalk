@@ -175,7 +175,7 @@ class RegisterKsCli(rhncli.RhnCli):
         except IOError:
             e = sys.exc_info()[1]
             sys.stderr.write(sstr(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
-        RegisterKsCli.__runRhnCheck(self.options.verbose)
+        return RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod
     def __generateProfileName(hardwareList):
@@ -205,10 +205,11 @@ class RegisterKsCli(rhncli.RhnCli):
 
     @staticmethod
     def __runRhnCheck(verbose):
+        cmd = "/usr/sbin/rhn_check"
         if verbose:
-            os.system("/usr/sbin/rhn_check %s" % '-' + ('v' * verbose))
-        else:
-            os.system("/usr/sbin/rhn_check")
+            cmd += ' -' + ('v' * verbose)
+        ret = os.system(cmd)
+        return ret >> 8
 
 if __name__ == "__main__":
     cli = RegisterKsCli()
