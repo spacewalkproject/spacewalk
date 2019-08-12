@@ -71,7 +71,20 @@ ORDER BY UPPER(NAME)
            AND EXISTS (SELECT 1
                          FROM rhnServerFeaturesView SFV
                         WHERE SFV.server_id = SGM.server_id
-                          AND SFV.label = 'ftr_system_grouping')) AS SERVER_COUNT
+                          AND SFV.label = 'ftr_system_grouping')) AS SERVER_COUNT,
+        (SELECT CASE MAX(CASE E.advisory_type
+            WHEN 'Security Advisory' THEN 3
+            WHEN 'Bug Fix Advisory' THEN 2
+            WHEN 'Product Enhancement Advisory' THEN 1 END)
+          WHEN 3 THEN 'Security Advisory'
+          WHEN 2 THEN 'Bug Fix Advisory'
+          WHEN 1 THEN 'Product Enhancement Advisory' END type_value
+                       from rhnErrata E inner join
+                            rhnServerNeededCache SNPC on E.id = SNPC.errata_id inner join
+                            rhnServerGroupMembers SGM on SGM.server_id = SNPC.server_id inner join
+                            rhnServerFeaturesView SFV on SGM.server_id = SFV.server_id
+                       where sgm.server_group_id = SG.id
+                         AND SFV.label = 'ftr_system_grouping') as MOST_SEVERE_ERRATA
       FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
      WHERE UMSG.user_id = :user_id
        AND UMSG.server_group_id = SG.id
