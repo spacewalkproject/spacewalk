@@ -476,7 +476,7 @@ class RepoSync(object):
 
                 (ca_cert_file, client_cert_file, client_key_file) = (None, None, None)
                 if repo_id is not None:
-                    keys = rhnSQL.fetchall_dict("""
+                    h = rhnSQL.execute("""
                         select k1.description as ca_cert_name, k1.key as ca_cert, k1.org_id as ca_cert_org,
                                k2.description as client_cert_name, k2.key as client_cert, k2.org_id as client_cert_org,
                                k3.description as client_key_name, k3.key as client_key, k3.org_id as client_key_org
@@ -487,6 +487,14 @@ class RepoSync(object):
                              rhncryptokey k3 on csssl.ssl_client_key_id = k3.id
                         where cs.id = :repo_id
                         """, repo_id=int(repo_id))
+                    keys = []
+                    while True:
+                        row = h.fetchone_dict()
+                        if row is None:
+                            break
+                        for col in ['ca_cert', 'client_cert', 'client_key']:
+                            row[col] = rhnSQL.read_lob(row[col])
+                        keys.append(row)
                     if keys:
                         ssl_set = get_single_ssl_set(keys, check_dates=self.check_ssl_dates)
                         if ssl_set:

@@ -814,7 +814,14 @@ class CdnSync(object):
             ORDER BY ck.description
         """)
         h.execute()
-        return h.fetchall_dict() or []
+        data = []
+        while True:
+            row = h.fetchone_dict()
+            if row is None:
+                break;
+            row['key'] = rhnSQL.read_lob(row['key'])
+            data.append(row)
+        return data
 
     def print_cdn_certificates_info(self, repos=False):
         keys = self._get_cdn_certificate_keys_and_certs()
