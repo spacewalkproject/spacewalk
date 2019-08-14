@@ -818,7 +818,7 @@ class CdnSync(object):
         while True:
             row = h.fetchone_dict()
             if row is None:
-                break;
+                break
             row['key'] = rhnSQL.read_lob(row['key'])
             data.append(row)
         return data
