@@ -8,6 +8,7 @@ Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 Patch2: escaping_string_serialization.path
+Patch3: xxe.patch
 %if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 BuildRequires: jboss-servlet-2.5-api
@@ -32,6 +33,7 @@ a simple xmlrpc library for java
 %patch0 -p1
 %patch1 -p0
 %patch2 -p0
+%patch3 -p0
 rm lib/javax.servlet.jar
 build-jar-repository -p lib/ %third_party_jars
 
