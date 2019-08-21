@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: LGPL
 URL: http://xmlrpc.sourceforge.net
 Source0: %{name}-%{version}.tar.gz
@@ -54,6 +54,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_javadir}
 
 %changelog
+* Wed Aug 21 2019 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-20
+- 1555429 - do not download external entities
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-19
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup
