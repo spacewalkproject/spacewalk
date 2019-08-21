@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.11
+Version: 2.10.12
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -756,6 +756,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Aug 21 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.12-1
+- Fix to display right errata status in System Group view
+
 * Wed Jul 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.11-1
 - 1727809 - prefer errata from this org
 
