@@ -68,7 +68,8 @@ CREATE TABLE rhnPackage
     header_start     NUMBER
                          DEFAULT (-1) NOT NULL,
     header_end       NUMBER
-                         DEFAULT (-1) NOT NULL
+                         DEFAULT (-1) NOT NULL,
+    multi_arch       VARCHAR2(16)
 )
 ENABLE ROW MOVEMENT
 ;
