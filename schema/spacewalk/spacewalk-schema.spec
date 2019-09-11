@@ -3,7 +3,7 @@
 Name:           spacewalk-schema
 Summary:        SQL schema for Spacewalk server
 
-Version:        2.10.7
+Version:        2.10.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -89,6 +89,9 @@ install -m 755 schema-source-sanity-check.pl $RPM_BUILD_ROOT%{_bindir}/schema-so
 %attr(755,root,root) %{_bindir}/schema-source-sanity-check.pl
 
 %changelog
+* Wed Sep 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
+- added schema upgrade script and schema changes for 'Multi-Arch' header
+
 * Wed May 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
 - upgrade scripts for rpm tilde and caret sorting
 - reimplemented tilde and caret sorting for rpm versioning
