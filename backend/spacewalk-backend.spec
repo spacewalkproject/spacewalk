@@ -45,7 +45,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.16
+Version: 2.10.17
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -799,6 +799,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Wed Sep 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.17-1
+- added the 'multi_arch' DB column...
+
 * Tue Sep 10 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.16-1
 - 1720690 - build_time is a timestamp without timezone
 
