@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.10.2
+Version: 2.10.3
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- python2_sitelib is in python2-rpm-macros
+
 * Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - use python2 macro for sitelib
 
