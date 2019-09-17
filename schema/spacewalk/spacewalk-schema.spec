@@ -12,7 +12,7 @@ Url:            https://github.com/spacewalkproject/spacewalk/
 BuildArch:      noarch
 
 BuildRequires:  perl(Digest::SHA)
-BuildRequires:  python
+BuildRequires:  python2
 BuildRequires:  /usr/bin/pod2man
 Requires:       %{sbinpath}/restorecon
 Obsoletes:      rhn-satellite-schema <= 5.1.0
