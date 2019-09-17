@@ -8,7 +8,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -116,6 +116,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- hardlink has moved to /usr/bin in Fedora 31
+
 * Fri Mar 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
 - 1365569 - Update SELinux to allow httpd to read systemid file
 
