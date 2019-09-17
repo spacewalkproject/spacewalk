@@ -7,7 +7,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -107,6 +107,9 @@ rpm -ql jabberd | xargs -n 1 %{sbinpath}/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- hardlink has moved to /usr/bin in Fedora 31
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - removed Group from specfile
 - removed BuildRoot from specfiles
