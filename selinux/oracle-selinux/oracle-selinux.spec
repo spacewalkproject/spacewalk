@@ -20,7 +20,7 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.42
+Version:         0.1.23.43
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 License:         GPLv2+
@@ -216,6 +216,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 0.1.23.43-1
+- hardlink has moved to /usr/bin in Fedora 31
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1.23.42-1
 - removed Group from specfile
 
