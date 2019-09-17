@@ -10,7 +10,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 35%{?dist}
+Release: 36%{?dist}
 
 Requires:      antlr
 Requires:      regexp
@@ -117,6 +117,9 @@ fi
 %{_javadocdir}/%{name}-0.4
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 0.4-36
+- there's no checkstyle on Fedora 31
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4-35
 - remove install/clean section initial cleanup
 - removed Group from specfile
