@@ -39,7 +39,7 @@ software updates.
 make -f Makefile.yum-rhn-plugin
 
 %install
-make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} PYTHONPATH=%{python_sitelib}
+make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RPM_BUILD_ROOT MANPATH=%{_mandir} PYTHONPATH=%{python2_sitelib}
 
 %find_lang %{name}
 
@@ -66,7 +66,7 @@ fi
 %dir /var/lib/up2date
 %{_mandir}/man*/*
 %{_datadir}/yum-plugins/*
-%{python_sitelib}/rhn/actions/*
+%{python2_sitelib}/rhn/actions/*
 %doc LICENSE
 
 %changelog
