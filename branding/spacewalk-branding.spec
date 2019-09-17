@@ -17,7 +17,7 @@
 %endif
 
 Name:       spacewalk-branding
-Version:    2.10.0
+Version:    2.10.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -119,6 +119,9 @@ rm -rf %{buildroot}
 %{wwwdocroot}/css/*.less
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- workaround non-executable lessc
+
 * Mon Jul 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
 - remove spacewalk-public.cert also from specfile
 
