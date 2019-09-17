@@ -104,7 +104,11 @@ install -p -m 644 %{modulename}-nofcontext.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 # Hardlink identical policy module packages together
-/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%define hardlink /usr/sbin/hardlink
+%if 0%{?fedora} >= 31
+%define hardlink /usr/bin/hardlink
+%endif
+%{hardlink} -cv %{buildroot}%{_datadir}/selinux
 
 # Install oracle-nofcontext-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
