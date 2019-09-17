@@ -66,7 +66,7 @@ rm -f java/code/src/com/redhat/rhn/branding/strings/StringPackage.java
 jar -cf java-branding.jar -C java/code/src com
 
 # Compile less into css
-lessc --include-path=/usr/share css/spacewalk.less > css/spacewalk.css
+node /usr/bin/lessc --include-path=/usr/share css/spacewalk.less > css/spacewalk.css
 
 %install
 rm -rf %{buildroot}
