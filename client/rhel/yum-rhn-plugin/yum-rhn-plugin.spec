@@ -10,6 +10,7 @@ BuildArch: noarch
 %endif
 %if 0%{?fedora} >= 28 || 0%{?mageia}
 BuildRequires: python2
+BuildRequires: python2-rpm-macros
 %else
 BuildRequires: python
 %endif
