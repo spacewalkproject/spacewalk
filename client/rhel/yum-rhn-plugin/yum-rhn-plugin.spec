@@ -1,6 +1,6 @@
 Summary: Spacewalk support for yum
 Name: yum-rhn-plugin
-Version: 2.10.1
+Version: 2.10.2
 Release: 1%{?dist}
 License: GPLv2
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -70,6 +70,9 @@ fi
 %doc LICENSE
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- use python2 macro for sitelib
+
 * Fri Mar 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - rhnplugin: disable cached repo if required
 
