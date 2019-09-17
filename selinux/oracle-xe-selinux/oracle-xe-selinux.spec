@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.47
+Version:         10.2.0.48
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 License:         GPLv2+
@@ -145,6 +145,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 10.2.0.48-1
+- hardlink has moved to /usr/bin in Fedora 31
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 10.2.0.47-1
 - removed Group from specfile
 
