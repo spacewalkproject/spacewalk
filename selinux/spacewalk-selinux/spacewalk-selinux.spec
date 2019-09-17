@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.10.8
+Version:        2.10.9
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -120,6 +120,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.9-1
+- hardlink has moved to /usr/bin in Fedora 31
+
 * Fri Jan 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
 - allow cobbler to access gpg
 
