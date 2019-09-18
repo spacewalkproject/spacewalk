@@ -10,7 +10,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 36%{?dist}
+Release: 37%{?dist}
 
 Requires:      antlr
 Requires:      regexp
