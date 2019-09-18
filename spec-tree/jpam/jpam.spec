@@ -70,7 +70,7 @@ Javadoc for %{name}.
 %patch5 -p1
 
 rm -Rfv tools/*.jar
-build-jar-repository -p tools/ ant antlr commons-beanutils commons-collections commons-logging regexp junit %{checkstyle_jar}
+build-jar-repository -p tools/ ant antlr commons-beanutils commons-collections commons-logging regexp junit %{?checkstyle_jar}
 
 %build
 export JAVA_HOME=%{java_home}
