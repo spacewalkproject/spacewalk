@@ -395,17 +395,20 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 my @spinning_pattern = split /\n/, <<EOF;
- (°-  ·  ·  ·  ·  ·
- (°<  ·  ·  ·  ·  ·
-    (°-  ·  ·  ·  ·
-    (°<  ·  ·  ·  ·
-       (°-  ·  ·  ·
-       (°<  ·  ·  ·
-          (°-  ·  ·
-          (°<  ·  ·
-             (°-  ·
-             (°<  ·
-                (°-
+ [    ]
+ [=   ]
+ [==  ]
+ [=== ]
+ [ ===]
+ [  ==]
+ [   =]
+ [    ]
+ [   =]
+ [  ==]
+ [ ===]
+ [=== ]
+ [==  ]
+ [=   ]
 EOF
 
 my $spinning_pattern_maxlength = 0;
