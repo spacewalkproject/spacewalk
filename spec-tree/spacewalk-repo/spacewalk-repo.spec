@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -143,6 +143,9 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-nightly-client
 
 %changelog
+* Thu Sep 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10-5
+- include java-packages repo for Fedora 31
+
 * Mon Nov 26 2018 Michael Mraka <michael.mraka@redhat.com> 2.10-4
 - update spacewalk repos and keys
 
