@@ -99,6 +99,21 @@ REPO
 
 %endif
 
+%if 0%{?fedora} >= 31
+
+        cat >$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-java.repo <<REPO
+
+[group_spacewalkproject-java-packages]
+name=Copr repo for java-packages owned by @spacewalkproject
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@spacewalkproject/java-packages/custom-1-x86_64/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-java-packages
+gpgcheck=1
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+REPO
+%endif
+
 # install gpg keys
 install -d 755 $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg
 grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
@@ -113,12 +128,12 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-nightly.repo
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-%{version}
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-nightly
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?fedora} >= 31
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-java.repo
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-java-packages
+%endif
 %if 0%{?rhel} == 6
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-epel6-addons
-%endif
 %endif
 
 %files -n spacewalk-client-repo
