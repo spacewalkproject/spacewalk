@@ -1083,7 +1083,7 @@ EOQ
     }
 
     if (not $opts->{"skip-db-diskspace-check"}) {
-        system_or_exit(['python', SHARED_DIR .
+        system_or_exit(['python2', SHARED_DIR .
             '/embedded_diskspace_check.py', '/var/lib/pgsql/data', '12288'], 14,
             'There is not enough space available for the embedded database.');
     }
