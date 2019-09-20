@@ -121,7 +121,11 @@ modules.
 
 %package sql-postgresql
 Summary: Postgresql backend for Spacewalk
+%if 0%{?fedora} || 0%{?rhel} >= 8
+Requires: python2-psycopg2
+%else
 Requires: python-psycopg2 >= 2.0.14-2
+%endif
 Requires: python2-spacewalk-usix
 Provides: %{name}-sql-virtual = %{version}-%{release}
 
