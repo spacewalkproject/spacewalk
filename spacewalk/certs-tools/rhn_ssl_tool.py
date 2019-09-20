@@ -1272,7 +1272,7 @@ def main():
     """
 
     def writeError(e):
-        sys.stderr.write(bstr('\nERROR: %s\n' % e))
+        sys.stderr.write('\nERROR: %s\n' % e)
 
     ret = 0
     try:
