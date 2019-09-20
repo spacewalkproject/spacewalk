@@ -17,7 +17,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 License: GPLv2
-Version: 2.10.3
+Version: 2.10.4
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -126,6 +126,9 @@ ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 %endif
 
 %changelog
+* Fri Sep 20 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- sys.stderr.write() expects string not bytes
+
 * Mon Jul 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - 1728416 - python3 compatible file operations
 - 1728416 - check which python is available
