@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.10.4
+Version:	2.10.5
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,10 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Sep 23 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- added Fedora 30 repos
+- removed EOLed channels
+
 * Thu Jul 04 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
 - 1457040 - add command line argument --ssl-city=<SSL_CITY>
 
