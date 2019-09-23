@@ -45,7 +45,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.18
+Version: 2.10.19
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -804,6 +804,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Mon Sep 23 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.19-1
+- spacewalk-repo-sync needs old yum module
+
 * Fri Sep 20 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.18-1
 - use python2 postgresql driver on Fedora
 
