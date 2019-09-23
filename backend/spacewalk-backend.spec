@@ -311,6 +311,7 @@ Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python2-gzipstream
 Requires: python2-rhn-client-tools
+Requires: yum < 4.0
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
