@@ -156,6 +156,10 @@ mkdir_mount_points($config_opts->{'mount_point'},
 setup_sudoers();
 
 
+if (!$opts{'skip-rpm-lock'}) {
+    Spacewalk::Setup::lock_rpm_version()
+}
+
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
 

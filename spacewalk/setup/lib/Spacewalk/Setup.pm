@@ -106,6 +106,7 @@ sub parse_options {
             "skip-selinux-test",
             "skip-fqdn-test",
             "skip-python-test",
+            "skip-rpm-lock",
             "skip-updates-install",
             "skip-db-install",
             "skip-db-diskspace-check",
@@ -363,6 +364,21 @@ sub system_or_exit {
   }
 
   return 1;
+}
+
+sub lock_rpm_version {
+  print loc("** Package installation: Locking required rpm versions.\n");
+
+  my $os_name = qx{rpm -qf /etc/redhat-release --qf '%{name}' 2>/dev/null};
+  my $os_version = qx{rpm -qf /etc/redhat-release --qf '%{version}' 2>/dev/null};
+
+  if ($os_name =~ /^fedora/) {
+      system('dnf versionlock -q add quartz-1.8.4');
+      if ($os_version >= 31) {
+          system('dnf versionlock -q add yum-3.4.3 gpgme-1.12.0 python*-gpg-1.12.0');
+      }
+  }
+  return 0;
 }
 
 sub upgrade_stop_services {
