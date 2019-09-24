@@ -1,7 +1,7 @@
 %define move_yum_conf_back 1
 %define auto_sitelib 1
 %define yum_updatesd 0
-%define disable_check 0
+%define disable_check 1
 %define yum_cron_systemd 1
 %define yum_makecache_systemd 1
 
@@ -64,7 +64,7 @@ BuildRequires: bash-completion
 Summary: RPM package installer/updater/manager
 Name: yum
 Version: 3.4.3
-Release: 521%{?dist}
+Release: 521.0%{?dist}
 License: GPLv2+
 Source0: http://yum.baseurl.org/download/3.4/%{name}-%{version}.tar.gz
 Source1: yum.conf.fedora
