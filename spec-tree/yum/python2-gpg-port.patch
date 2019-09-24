@@ -1,0 +1,333 @@
+diff --git a/test/gpg/key.pub b/test/gpg/key.pub
+new file mode 100644
+index 0000000..00b3220
+--- /dev/null
++++ b/test/gpg/key.pub
+@@ -0,0 +1,30 @@
++-----BEGIN PGP PUBLIC KEY BLOCK-----
++
++mQENBFl4tiQBCADax2HrOug4wNlLirwTIKjuCgWq8fGq161gE9X5NxsRK98lB1gi
++LcfruKXPwaB52ZC+K0iouSGpEO9ncPuzea3gXciYofW67JKnI7DnSDSxO64kwh2Z
++KMCwhzy4veyfdZqO4XZ4rLFesSCKK8ik0ynhS4ArPyZHDEEho3tyHc6tVcHd/WBB
++eCiNBX3S3qdAncg64SYmESvS5IQeljFabI9Z5QLGq6TFcArArd9dnBGQQgghzsV2
++ckpkubhwIPAxJN4iBGH5yD1eywXpKsgfIWDHUZ9XutM190sF2L9ExKqXDdEQ9CAf
++5lTD3wuYrCNWbb6D/yyTrpB20TbsjgzqYdCTABEBAAG0FUpvZSBEb2UgPGpvZUBk
++b2UuY29tPokBVAQTAQgAPhYhBEF6Dm5VVmp1W+fWjDi7G17VhlQXBQJZeLYkAhsD
++BQkDwmcABQsJCAcCBhUICQoLAgQWAgMBAh4BAheAAAoJEDi7G17VhlQXM8wIAM/9
++uScli1xOD70WpkP+O4oK2I2+TWti5crp0BOS1VG3EUrKyqFt3dUIJ78nzbtoJFei
++9VZJQyDfnsXdrjBdX29tbsa0ECmM/RLbYHaBSdsoR2EV/jfDERUISlg7wx1lhg+n
++RlbbGycdFQJXB3F110w5NRm+Yo0AbkLEWzuNeopKDokf1c1EI2+E1pLABePth6KN
++25VcC0Q6FyuB4+6JLURr7ia1MIJ6NsBiTY1LVbjlDBkUcGWGNhpu5rUGgUC4R6fS
++BIhpWUaWcaRIrjLE+GPq/QZQXsglUIReBcLiWFpfv7W/To3u7bh5p/YwvYnctzpi
++Pk1l10mCTCcuMwYfjp25AQ0EWXi2JAEIALMm4bWHD2ruDtKC9FNJVOwCz4bTzvyd
++TYIlerEgwJ7PhW8FrhCltqBgOOCIqLWWhEkCSC9E1xc+X9qwSc7UcMRqKsCPjave
++v5z+O6dGOVmpah/FZpSvYkRr6E6yKJ2k+VuFig/UOeW6/MMvf1e/mSa6jsGY4Wt5
++TXBoXULtyNu6z7o26Er8pkl1nqaI6IKNJv0ry2t/xI1mhSxvPRD756J8GTfbQLsv
++Ijjs+qBLA6pEcntXOQBug/Cj9diRYBLDUE8UmIZQEFTIvqle0FBEuZ8hZlC9WyJ4
++/9FxKrWA8VynMHTYHMj69XtMPPRJ3djIxWM4WDccYv8OwtbV3MfPpIEAEQEAAYkB
++PAQYAQgAJhYhBEF6Dm5VVmp1W+fWjDi7G17VhlQXBQJZeLYkAhsMBQkDwmcAAAoJ
++EDi7G17VhlQX3GkIAJzDJT5eb4/iutl0Rs/6zWcimCVYTUSquHMb/GkoOffsEwV+
++nkaUgqXtjFNKQ4SwhVnupeyfLpw+8YvieJMZifDbo7a/LxlXRyzUzr4gEiO71x+B
++YxgiEtQRPw8YgGXiIaphRudgTyYK1cVYzkU6ehaRPbMnsdcovZFHVCLHUcSuTiuh
++Ruq9l5+FvMoYWWZkZUUpGn79zVXfDQNRPVlSKM3mJuocPGS5kxfVn9pLKN00je3+
++SUIv2KtoARGaSVC5fIGOL2Pk7hj39qiMjF4eCAXxf9jAAy59FPZny+Yh4cK4haPz
++QjSEdU0DPh5K6uFuaz2DfHMMu4N0iVgtelwmorA=
++=MDgQ
++-----END PGP PUBLIC KEY BLOCK-----
+diff --git a/test/gpg/repomd.xml b/test/gpg/repomd.xml
+new file mode 100644
+index 0000000..d7a8027
+--- /dev/null
++++ b/test/gpg/repomd.xml
+@@ -0,0 +1,69 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<repomd xmlns="http://linux.duke.edu/metadata/repo" xmlns:rpm="http://linux.duke.edu/metadata/rpm">
++  <revision>1499286698</revision>
++  <data type="primary">
++    <checksum type="sha256">880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e</checksum>
++    <open-checksum type="sha256">9d4a10310a4092bde6231253f62976337f4e4fa3ab5cdda001e141a156a9dffb</open-checksum>
++    <location href="repodata/880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e-primary.xml.gz"/>
++    <timestamp>1499286654</timestamp>
++    <size>14750183</size>
++    <open-size>134514273</open-size>
++  </data>
++  <data type="filelists">
++    <checksum type="sha256">b429c60a20974912547de94994db64e87fd7ec20fe9acca47da30fc5ba42ce96</checksum>
++    <open-checksum type="sha256">af9579b55eba28eb19b98e763b7269e47de59645091b75dbb5cb3649afda0d1e</open-checksum>
++    <location href="repodata/b429c60a20974912547de94994db64e87fd7ec20fe9acca47da30fc5ba42ce96-filelists.xml.gz"/>
++    <timestamp>1499286654</timestamp>
++    <size>40663907</size>
++    <open-size>582650352</open-size>
++  </data>
++  <data type="other">
++    <checksum type="sha256">070edd188871859175cfae62fb963038f8ae0b108dec1445f71d620ea7f788c9</checksum>
++    <open-checksum type="sha256">ad63825978f1dcffbeeba4946e0dc0eb05c749ad57a89a1b938a06e82475f53c</open-checksum>
++    <location href="repodata/070edd188871859175cfae62fb963038f8ae0b108dec1445f71d620ea7f788c9-other.xml.gz"/>
++    <timestamp>1499286654</timestamp>
++    <size>7610619</size>
++    <open-size>100013004</open-size>
++  </data>
++  <data type="primary_db">
++    <checksum type="sha256">00bf6ab375bd31ddb0df2789417d17f38ac72a091ea39ec37d7ddeb64ccaffb2</checksum>
++    <open-checksum type="sha256">ed291593c267db9c0ff530b504acd00018afd080ceead5a709020014fe783fbf</open-checksum>
++    <location href="repodata/00bf6ab375bd31ddb0df2789417d17f38ac72a091ea39ec37d7ddeb64ccaffb2-primary.sqlite.bz2"/>
++    <timestamp>1499286679</timestamp>
++    <size>28398595</size>
++    <open-size>138588160</open-size>
++    <database_version>10</database_version>
++  </data>
++  <data type="filelists_db">
++    <checksum type="sha256">192a4d58517814a4130f009abb7fc0899e06d63f78bc55f8e2429250acea6457</checksum>
++    <open-checksum type="sha256">7c84685dff9dd1f3f7c9f81aad84ba57f97631822a6fd8d481df12e1b985b6e1</open-checksum>
++    <location href="repodata/192a4d58517814a4130f009abb7fc0899e06d63f78bc55f8e2429250acea6457-filelists.sqlite.bz2"/>
++    <timestamp>1499286698</timestamp>
++    <size>41798451</size>
++    <open-size>265166848</open-size>
++    <database_version>10</database_version>
++  </data>
++  <data type="other_db">
++    <checksum type="sha256">9e940b3015a8adef4956f3989ebb83c52268fdeabb00de3ebf30b1fd3a808335</checksum>
++    <open-checksum type="sha256">399d8fa532962c21d81a3b5d4245e7662b0a44362fe58b3d594eae9b33835891</open-checksum>
++    <location href="repodata/9e940b3015a8adef4956f3989ebb83c52268fdeabb00de3ebf30b1fd3a808335-other.sqlite.bz2"/>
++    <timestamp>1499286676</timestamp>
++    <size>11963226</size>
++    <open-size>85381120</open-size>
++    <database_version>10</database_version>
++  </data>
++  <data type="group">
++    <checksum type="sha256">e4d5d691a5a9b53222cd8e8c3d5c99f042fdec7a27e39570a08c866e90882ec4</checksum>
++    <location href="repodata/e4d5d691a5a9b53222cd8e8c3d5c99f042fdec7a27e39570a08c866e90882ec4-comps-Everything.x86_64.xml"/>
++    <timestamp>1499286608</timestamp>
++    <size>1895236</size>
++  </data>
++  <data type="group_gz">
++    <checksum type="sha256">9fa6d1959b8b0a97eb8827ee899bba8ebfdb197daa29e621815d73167b2eeb8e</checksum>
++    <open-checksum type="sha256">e4d5d691a5a9b53222cd8e8c3d5c99f042fdec7a27e39570a08c866e90882ec4</open-checksum>
++    <location href="repodata/9fa6d1959b8b0a97eb8827ee899bba8ebfdb197daa29e621815d73167b2eeb8e-comps-Everything.x86_64.xml.gz"/>
++    <timestamp>1499286654</timestamp>
++    <size>453974</size>
++    <open-size>1895236</open-size>
++  </data>
++</repomd>
+diff --git a/test/gpg/repomd.xml.asc b/test/gpg/repomd.xml.asc
+new file mode 100644
+index 0000000..6ca7833
+--- /dev/null
++++ b/test/gpg/repomd.xml.asc
+@@ -0,0 +1,11 @@
++-----BEGIN PGP SIGNATURE-----
++
++iQEzBAABCAAdFiEEQXoOblVWanVb59aMOLsbXtWGVBcFAll40LIACgkQOLsbXtWG
++VBddBwgAtqPnVmtcPBvOt4/ulA2KXMOz8g24xgNejn/oDAVAs+opIIZmOX4xQWXU
++jeujEw6IiagsW1pwP4lLyNRkH49hWzlU0q/5WPg7BaHzOk20nq6fKtQU4u+uKK8/
++ODCsaRzKwQkHAPL9oXkFZUEMRZ9y4+IiEbTwFgvIuueE9fz5gALzwSlU3SH9917C
++Mjxi7ofhP/0jmvMH4Bb795cQ/mxuCFT8zUCl/qZ+XQSJoVPA9oE9BToItU+Ib2AM
++l1N61Werbw9Q9y1gGUqIGKywZpZQTJuxAYtpIQOZGSgJBA7k4YdluXBS2cab6U1g
++WzAc8sn9PtxWULCsBjCkPDzTAlkZyA==
++=vgbx
++-----END PGP SIGNATURE-----
+diff --git a/test/pubringtests.py b/test/pubringtests.py
+new file mode 100644
+index 0000000..271e573
+--- /dev/null
++++ b/test/pubringtests.py
+@@ -0,0 +1,43 @@
++import unittest
++import gpg
++import os
++import shutil
++import tempfile
++
++from yum import misc
++
++PWD = os.path.dirname(os.path.abspath(__file__))
++KEYDIR = '%s/gpg' % PWD
++KEYFILE = '%s/key.pub' % KEYDIR
++REPOMD = '%s/repomd.xml' % KEYDIR
++SIGFILE = '%s/repomd.xml.asc' % KEYDIR
++KEYID = '38BB1B5ED5865417'
++FPR = '417A0E6E55566A755BE7D68C38BB1B5ED5865417'
++
++class PubringTests(unittest.TestCase):
++    def setUp(self):
++        self.gpgdir = tempfile.mkdtemp()
++        with open(KEYFILE) as f:
++            info = misc.getgpgkeyinfo(f.read())
++        hexkeyid = misc.keyIdToRPMVer(info['keyid']).upper()
++        self.imported = misc.import_key_to_pubring(info['raw_key'], hexkeyid,
++                                                   gpgdir=self.gpgdir)
++        self.ctx = gpg.Context()
++
++    def tearDown(self):
++        shutil.rmtree(self.gpgdir)
++
++    def testImportKey(self):
++        self.assertTrue(self.imported)
++        key = list(self.ctx.keylist())[0].subkeys[0]
++        self.assertEqual(key.fpr, FPR)
++
++    def testKeyids(self):
++        ids = misc.return_keyids_from_pubring(self.gpgdir)
++        self.assertEqual(ids[0], KEYID)
++        self.assertTrue(len(ids) == 1)
++
++    def testValid(self):
++        with open(SIGFILE) as s, open(REPOMD) as r:
++            valid = misc.valid_detached_sig(s, r, self.gpgdir)
++        self.assertTrue(valid)
+diff --git a/yum/misc.py b/yum/misc.py
+index d61531e..57ddb58 100644
+--- a/yum/misc.py
++++ b/yum/misc.py
+@@ -18,6 +18,7 @@ import constants
+ import pgpmsg
+ import tempfile
+ import glob
++import gpg
+ import pwd
+ import fnmatch
+ import bz2
+@@ -36,11 +37,6 @@ except ImportError:
+ from rpmUtils.miscutils import stringToVersion, flagToString
+ from stat import *
+ try:
+-    import gpgme
+-    import gpgme.editutil
+-except ImportError:
+-    gpgme = None
+-try:
+     import hashlib
+     _available_checksums = set(['md5', 'sha1', 'sha256', 'sha384', 'sha512'])
+ except ImportError:
+@@ -543,27 +539,22 @@ def keyInstalled(ts, keyid, timestamp):
+ 
+ def import_key_to_pubring(rawkey, keyid, cachedir=None, gpgdir=None, make_ro_copy=True):
+     # FIXME - cachedir can be removed from this method when we break api
+-    if gpgme is None:
+-        return False
+     
+     if not gpgdir:
+         gpgdir = '%s/gpgdir' % cachedir
+     
+     if not os.path.exists(gpgdir):
++        if os.geteuid() != 0:
++            return False
+         os.makedirs(gpgdir)
+     
+-    key_fo = StringIO(rawkey) 
+     os.environ['GNUPGHOME'] = gpgdir
+     # import the key
+-    ctx = gpgme.Context()
+     fp = open(os.path.join(gpgdir, 'gpg.conf'), 'wb')
+     fp.write('')
+     fp.close()
+-    ctx.import_(key_fo)
+-    key_fo.close()
+-    # ultimately trust the key or pygpgme is definitionally stupid
+-    k = ctx.get_key(keyid)
+-    gpgme.editutil.edit_trust(ctx, k, gpgme.VALIDITY_ULTIMATE)
++    with gpg.Context() as ctx:
++        ctx.op_import(rawkey)
+     
+     if make_ro_copy:
+ 
+@@ -572,6 +563,10 @@ def import_key_to_pubring(rawkey, keyid, cachedir=None, gpgdir=None, make_ro_cop
+             os.makedirs(rodir, mode=0755)
+             for f in glob.glob(gpgdir + '/*'):
+                 basename = os.path.basename(f)
++                # Skip the gpg-agent files
++                if (basename.startswith('private-keys-v') or
++                        basename == 'S.gpg-agent'):
++                    continue
+                 ro_f = rodir + '/' + basename
+                 shutil.copy(f, ro_f)
+                 os.chmod(ro_f, 0755)
+@@ -591,11 +586,11 @@ preserve-permissions
+     return True
+     
+ def return_keyids_from_pubring(gpgdir):
+-    if gpgme is None or not os.path.exists(gpgdir):
++    if not os.path.exists(gpgdir):
+         return []
+ 
+     os.environ['GNUPGHOME'] = gpgdir
+-    ctx = gpgme.Context()
++    ctx = gpg.Context()
+     keyids = []
+     for k in ctx.keylist():
+         for subkey in k.subkeys:
+@@ -607,9 +602,6 @@ def return_keyids_from_pubring(gpgdir):
+ def valid_detached_sig(sig_file, signed_file, gpghome=None):
+     """takes signature , file that was signed and an optional gpghomedir"""
+ 
+-    if gpgme is None:
+-        return False
+-
+     if gpghome:
+         if not os.path.exists(gpghome):
+             return False
+@@ -624,25 +616,14 @@ def valid_detached_sig(sig_file, signed_file, gpghome=None):
+     else:
+         signed_text = open(signed_file, 'r')
+     plaintext = None
+-    ctx = gpgme.Context()
++    ctx = gpg.Context()
+ 
+     try:
+-        sigs = ctx.verify(sig, signed_text, plaintext)
+-    except gpgme.GpgmeError, e:
++        ctx.verify(signed_text, sig, plaintext)
++    except (gpg.errors.GPGMEError, gpg.errors.BadSignatures):
+         return False
+     else:
+-        if not sigs:
+-            return False
+-        # is there ever a case where we care about a sig beyond the first one?
+-        thissig = sigs[0]
+-        if not thissig:
+-            return False
+-
+-        if thissig.validity in (gpgme.VALIDITY_FULL, gpgme.VALIDITY_MARGINAL,
+-                                gpgme.VALIDITY_ULTIMATE):
+-            return True
+-
+-    return False
++        return True
+ 
+ def getCacheDir(tmpdir='/var/tmp', reuse=True, prefix='yum-'):
+     """return a path to a valid and safe cachedir - only used when not running
+diff --git a/yum/yumRepo.py b/yum/yumRepo.py
+index a663176..f99f5d1 100644
+--- a/yum/yumRepo.py
++++ b/yum/yumRepo.py
+@@ -1712,9 +1712,6 @@ Insufficient space in download directory %s
+ 
+         if self.repo_gpgcheck and not self._override_sigchecks:
+ 
+-            if misc.gpgme is None:
+-                raise URLGrabError(-1, 'pygpgme is not working so repomd.xml can not be verified for %s' % (self))
+-
+             sigfile = self.cachedir + '/repomd.xml.asc'
+             try:
+                 result = self._getFile(relative='repodata/repomd.xml.asc',
+diff --git a/yum/misc.py b/yum/misc.py
+index cc617b3..06b368e 100644
+--- a/yum/misc.py
++++ b/yum/misc.py
+@@ -561,11 +561,12 @@ def import_key_to_pubring(rawkey, keyid, cachedir=None, gpgdir=None, make_ro_cop
+         if not os.path.exists(rodir):
+             os.makedirs(rodir, mode=0755)
+             for f in glob.glob(gpgdir + '/*'):
+-                basename = os.path.basename(f)
+-                # Skip the gpg-agent files
+-                if (basename.startswith('private-keys-v') or
+-                        basename == 'S.gpg-agent'):
++                if not os.path.isfile(f):
++                    # This is needed as gpg-agent puts some dirs/sockets in the
++                    # gpgdir (we don't need to copy them anyway), see:
++                    # https://www.gnupg.org/faq/whats-new-in-2.1.html
+                     continue
++                basename = os.path.basename(f)
+                 ro_f = rodir + '/' + basename
+                 shutil.copy(f, ro_f)
+                 os.chmod(ro_f, 0755)

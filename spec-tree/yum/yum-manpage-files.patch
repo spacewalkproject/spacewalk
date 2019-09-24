@@ -1,0 +1,83 @@
+commit 102915d4d402493c48d434ae1d1756225c4468e0
+Author: James Antill <james@and.org>
+Date:   Mon Jun 14 01:15:21 2010 -0400
+
+    Port manpage files path fixups.
+
+diff --git a/docs/yum.8 b/docs/yum.8
+index d5ede0a..3bdb408 100644
+--- a/docs/yum.8
++++ b/docs/yum.8
+@@ -568,7 +568,7 @@ option in yum.conf. For a plugin to work, the following conditions must be met:
+ 1. The plugin module file must be installed in the plugin path as just
+ described.
+ .LP
+-2. The global \fBplugins\fP option in /etc/yum/yum.conf must be set to `1'.
++2. The global \fBplugins\fP option in /etc/yum.conf must be set to `1'.
+ .LP
+ 3. A configuration file for the plugin must exist in
+ /etc/yum/pluginconf.d/<plugin_name>.conf and the \fBenabled\fR setting in this
+@@ -584,9 +584,9 @@ configuration options.
+ .PP
+ .SH "FILES"
+ .nf
+-/etc/yum/yum.conf
++/etc/yum.conf
+ /etc/yum/version-groups.conf
+-/etc/yum/repos.d/
++/etc/yum.repos.d/
+ /etc/yum/pluginconf.d/
+ /var/cache/yum/
+ .fi 
+diff --git a/docs/yum.conf.5 b/docs/yum.conf.5
+index ca36103..42815b9 100644
+--- a/docs/yum.conf.5
++++ b/docs/yum.conf.5
+@@ -4,10 +4,10 @@
+ \fByum.conf\fR \- Configuration file for \fByum(8)\fR.
+ .SH "DESCRIPTION"
+ .LP
+-Yum uses a configuration file at \fB/etc/yum/yum.conf\fR.
++Yum uses a configuration file at \fB/etc/yum.conf\fR.
+ .LP
+ Additional configuration files are also read from the directories set by the
+-\fBreposdir\fR option (default is `/etc/yum/repos.d').
++\fBreposdir\fR option (default is `/etc/yum.repos.d').
+ See the \fBreposdir\fR option below for further details.
+ 
+ .SH "PARAMETERS"
+@@ -42,10 +42,10 @@ of headers and packages after successful installation.  Default is '1'
+ .IP
+ \fBreposdir\fR
+ A list of directories where yum should look for .repo files which define
+-repositories to use. Default is `/etc/yum/repos.d'. Each
++repositories to use. Default is `/etc/yum.repos.d'. Each
+ file in this directory should contain one or more repository sections as
+ documented in \fB[repository] options\fR below. These will be merged with the
+-repositories defined in /etc/yum/yum.conf to form the complete set of
++repositories defined in /etc/yum.conf to form the complete set of
+ repositories that yum will use.
+ 
+ .IP
+@@ -745,8 +745,8 @@ for any given command. Defaults to False.
+ 
+ .SH "URL INCLUDE SYNTAX"
+ .LP
+-The inclusion of external configuration files is supported for /etc/yum/yum.conf
+-and the .repo files in the /etc/yum/repos.d directory. To include a URL, use a
++The inclusion of external configuration files is supported for /etc/yum.conf
++and the .repo files in the /etc/yum.repos.d directory. To include a URL, use a
+ line of the following format:
+ 
+ include=url://to/some/location
+@@ -812,8 +812,8 @@ data in any value.
+ 
+ .SH "FILES"
+ .nf
+-/etc/yum/yum.conf
+-/etc/yum/repos.d/
++/etc/yum.conf
++/etc/yum.repos.d/
+ /etc/yum/pluginconf.d/
+ /etc/yum/protected.d
+ /etc/yum/vars

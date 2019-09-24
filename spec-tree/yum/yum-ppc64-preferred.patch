@@ -1,0 +1,13 @@
+diff -ru yum-3.4.3-orig/rpmUtils/arch.py yum-3.4.3/rpmUtils/arch.py
+--- yum-3.4.3-orig/rpmUtils/arch.py	2011-06-28 17:01:10.009680846 -0400
++++ yum-3.4.3/rpmUtils/arch.py	2011-06-28 17:01:31.849916539 -0400
+@@ -3,7 +3,7 @@
+ import ctypes
+ import struct
+ 
+-_ppc64_native_is_best = False
++_ppc64_native_is_best = True
+ 
+ # dict mapping arch -> ( multicompat, best personality, biarch personality )
+ multilibArches = { "x86_64":  ( "athlon", "x86_64", "athlon" ),
+Only in yum-3.4.3/rpmUtils: arch.py~

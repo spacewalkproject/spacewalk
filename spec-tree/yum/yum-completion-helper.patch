@@ -1,0 +1,11 @@
+diff -up yum-3.4.3/completion-helper.py.old yum-3.4.3/completion-helper.py
+--- yum-3.4.3/completion-helper.py.old	2012-08-22 17:00:47.444104234 +0200
++++ yum-3.4.3/completion-helper.py	2012-08-22 17:00:57.954647525 +0200
+@@ -70,6 +70,7 @@ def get_pattern(extcmds):
+ 
+ def main(args):
+     base = cli.YumBaseCli()
++    base.setCacheDir = lambda *x: True # use the system cachedir
+     base.yum_cli_commands.clear()
+     base.registerCommand(GroupsCompletionCommand())
+     base.registerCommand(ListCompletionCommand())
