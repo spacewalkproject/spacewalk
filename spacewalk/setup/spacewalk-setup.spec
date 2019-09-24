@@ -22,6 +22,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildArch:      noarch
 %if 0%{?fedora}
 Requires:       perl-interpreter
+Requires:       dnf-command(versionlock)
 %else
 Requires:       perl
 %endif
