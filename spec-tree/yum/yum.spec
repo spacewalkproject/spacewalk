@@ -64,7 +64,7 @@ BuildRequires: bash-completion
 Summary: RPM package installer/updater/manager
 Name: yum
 Version: 3.4.3
-Release: 521.0%{?dist}
+Release: 521.1%{?dist}
 License: GPLv2+
 Source0: http://yum.baseurl.org/download/3.4/%{name}-%{version}.tar.gz
 Source1: yum.conf.fedora
@@ -497,6 +497,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Sep 24 2019 Michael Mraka <michael.mraka@redhat.com> 3.4.3-521.1
+- yum rebuild for spacewalkproject.org
+
 * Mon Feb 11 2019 Kevin Fenzi <kevin@scrye.com> - 3.4.3-521
 - Fix FTBFS by explicitly using python2. Fixes bug #1606775
 
