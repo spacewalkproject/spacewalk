@@ -93,7 +93,7 @@ BuildRequires: python2-rpm, rpm >= 0:4.4.2
 BuildRequires: python2-iniparse
 BuildRequires: python2-urlgrabber >= 3.9.0-8
 BuildRequires: yum-metadata-parser >= 1.1.0
-BuildRequires: python2-gpg
+BuildRequires: python2-gpg = 1.12.0
 # End of CheckRequires
 Conflicts: pirut < 1.1.4
 Requires: python2 >= 2.4
@@ -101,7 +101,7 @@ Requires: python2-rpm, rpm >= 0:4.4.2
 Requires: python2-iniparse
 Requires: python2-urlgrabber >= 3.9.0-8
 Requires: yum-metadata-parser >= 1.1.0
-Requires: python2-gpg
+Requires: python2-gpg = 1.12.0
 # rawhide is >= 0.5.3-7.fc18 ... as this is added.
 Requires: pyliblzma
 # Not really a suggests anymore, due to metadata using it.
