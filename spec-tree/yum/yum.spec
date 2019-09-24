@@ -78,6 +78,7 @@ Patch21: yum-completion-helper.patch
 Patch22: yum-deprecated.patch
 Patch23: python2-gpg-port.patch
 
+Conflicts: yum > 4.0
 URL: http://yum.baseurl.org/
 BuildArchitectures: noarch
 BuildRequires: python2-devel
