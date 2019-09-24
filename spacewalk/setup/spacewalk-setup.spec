@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.10.2
+Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -124,6 +124,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Sep 24 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- lock required rpm versions during spacewalk-setup
+
 * Fri Sep 20 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - set expected python version
 - set progressbar back to standard one
