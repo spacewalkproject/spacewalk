@@ -31,7 +31,7 @@
 %if  0%{?fedora} >= 28  || 0%{?rhel} >= 8
 %global python_prefix python2
 %global __python /usr/bin/python2
-%global m2crypto python-m2crypto
+%global m2crypto python2-m2crypto
 %else
 %global python_prefix python
 %endif
@@ -327,7 +327,7 @@ Requires: python2-spacewalk-usix
 Requires: python2-requests
 Requires: %{m2crypto}
 %if 0%{?fedora} || 0%{?rhel}
-BuildRequires: python-requests
+BuildRequires: python2-requests
 %endif
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
