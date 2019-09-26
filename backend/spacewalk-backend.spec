@@ -31,6 +31,7 @@
 %if  0%{?fedora} >= 28  || 0%{?rhel} >= 8
 %global python_prefix python2
 %global __python /usr/bin/python2
+%global m2crypto python-m2crypto
 %else
 %global python_prefix python
 %endif
@@ -323,7 +324,7 @@ Requires: %{name}-xml-export-libs
 Requires: cobbler20
 Requires: rhnlib  >= 2.5.57
 Requires: python2-spacewalk-usix
-Requires: python-requests
+Requires: python2-requests
 Requires: %{m2crypto}
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires: python-requests
