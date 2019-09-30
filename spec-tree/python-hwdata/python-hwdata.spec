@@ -15,7 +15,7 @@
 
 Name:		python-hwdata
 Version:	2.3.7
-Release:	1%{?dist}.2
+Release:	1%{?dist}.3
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 License:	GPLv2
@@ -53,7 +53,9 @@ This is the Python 2 build of the module.
 Summary:	Python bindings to hwdata package
 
 BuildRequires:	python3-devel
+%if ! 0%{?rhel} > 8
 BuildRequires:	python3-pylint
+%endif
 Requires:	hwdata
 
 %{?python_provide:%python_provide python3-hwdata}
