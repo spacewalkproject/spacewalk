@@ -40,10 +40,10 @@ to run OpenSCAP scan from Spacewalk or Red Hat Satellite server.
 Summary:	OpenSCAP plug-in for rhn-check
 %{?python_provide:%python_provide python2-%{name}}
 Requires:       %{name} = %{version}-%{release}
-Requires:       rhnlib >= 2.8.3
+Requires:       rhnlib >= 2.10.0
 Requires:       python2-rhn-check >= 2.8.4
 BuildRequires:	python-devel
-BuildRequires:	rhnlib >= 2.8.3
+BuildRequires:	rhnlib >= 2.10.0
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
 %endif
@@ -53,10 +53,10 @@ Python 2 specific files for %{name}.
 Summary:	OpenSCAP plug-in for rhn-check
 %{?python_provide:%python_provide python3-%{name}}
 Requires:       %{name} = %{version}-%{release}
-Requires:       python3-rhnlib >= 2.8.3
+Requires:       python3-rhnlib >= 2.10.0
 Requires:       python3-rhn-check >= 2.8.4
 BuildRequires:	python3-devel
-BuildRequires:	python3-rhnlib >= 2.8.3
+BuildRequires:	python3-rhnlib >= 2.10.0
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
 %endif
