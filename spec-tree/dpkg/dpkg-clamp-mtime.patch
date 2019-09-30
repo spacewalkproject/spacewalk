@@ -1,0 +1,29 @@
+clamp-mtime only available in tar 1.28 but we may distar it in epel7
+
+
+man tar
+      --clamp-mtime
+              Only set time when the file is more recent than what was given with --mtime.
+
+--- ./scripts/Dpkg/Source/Archive.pm.orig	2018-09-23 14:50:58.650262327 +0100
++++ ./scripts/Dpkg/Source/Archive.pm	2018-09-23 14:51:10.640395035 +0100
+@@ -52,7 +52,7 @@ sub create {
+     # Call tar creation process
+     $spawn_opts{delete_env} = [ 'TAR_OPTIONS' ];
+     $spawn_opts{exec} = [ $Dpkg::PROGTAR, '-cf', '-', '--format=gnu', '--sort=name',
+-                          '--mtime', "\@$mtime", '--clamp-mtime', '--null',
++                          '--mtime', "\@$mtime", '--null',
+                           '--numeric-owner', '--owner=0', '--group=0',
+                           @{$opts{options}}, '-T', '-' ];
+     *$self->{pid} = spawn(%spawn_opts);
+--- ./dpkg-deb/build.c.orig	2018-09-23 14:50:06.952690066 +0100
++++ ./dpkg-deb/build.c	2018-09-23 14:50:22.771865176 +0100
+@@ -450,7 +450,7 @@ tarball_pack(const char *dir, filenames_
+ 
+     command_init(&cmd, TAR, "tar -cf");
+     command_add_args(&cmd, "tar", "-cf", "-", "--format=gnu",
+-                           "--mtime", mtime, "--clamp-mtime", NULL);
++                           "--mtime", mtime, NULL);
+     /* Mode might become a positional argument, pass it before -T. */
+     if (mode)
+       command_add_args(&cmd, "--mode", mode, NULL);
