@@ -3,7 +3,7 @@
 
 Name:           dpkg
 Version:        1.18.25
-Release:        5%{?dist}
+Release:        5.1%{?dist}
 Summary:        Package maintenance system for Debian Linux
 Group:          System Environment/Base
 # The entire source code is GPLv2+ with exception of the following
@@ -35,9 +35,9 @@ BuildRequires: perl-version
 BuildRequires: perl-interpreter
 %endif
 BuildRequires: perl-devel
-BuildRequires: perl-generators
+BuildRequires: perl-generators < 1.10-7.module
 BuildRequires: perl-Time-Piece
-BuildRequires: perl(Digest)
+BuildRequires: perl-Digest < 1.17-395.module
 # for /usr/bin/pod2man
 %if 0%{?fedora} > 18
 BuildRequires: perl-podlators
