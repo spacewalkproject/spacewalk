@@ -473,6 +473,9 @@ create_logfile
 
 
 %changelog
+* Mon Sep 30 2019 Michael Mraka <michael.mraka@redhat.com> 1.18.25-5.1
+- rebuilt for spacewalkproject.org
+
 * Sun Sep 23 2018 Sérgio Basto <sergio@serjux.com> - 1.18.25-5
 - Revert "Bundle a version of tar to make it compatible in EL7"
 - Keep BR: perl(Digest)
