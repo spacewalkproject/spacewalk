@@ -10,15 +10,11 @@ BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
-%if 0%{?fedora} && 0%{?fedora} >= 24
+%if 0%{?fedora}
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-%if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:  perl-interpreter
-%else
-BuildRequires:  perl
-%endif
 BuildRequires:  perl-generators
 # Run-time:
 # bytes not used at tests
