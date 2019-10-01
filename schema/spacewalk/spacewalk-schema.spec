@@ -11,7 +11,11 @@ License:        GPLv2
 Url:            https://github.com/spacewalkproject/spacewalk/
 BuildArch:      noarch
 
+%if 0%{?rhel} == 8
+BuildRequires:  perl(Digest::SHA) < 6.02-1.module
+%else
 BuildRequires:  perl(Digest::SHA)
+%endif
 BuildRequires:  python2
 BuildRequires:  /usr/bin/pod2man
 Requires:       %{sbinpath}/restorecon
