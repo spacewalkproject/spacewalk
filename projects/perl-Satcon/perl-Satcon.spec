@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.10.2
+Version:        2.10.3
 Release:        1%{?dist}
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -63,6 +63,9 @@ make test
 %{_bindir}/*
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- workaround RHEL8 buildrequires modules issue
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - fixed buildrequires on RHEL8
 - simplified Fedora requires
