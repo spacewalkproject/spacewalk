@@ -12,12 +12,16 @@ BuildRequires: oracle-instantclient11.2-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-%if 0%{?fedora} && 0%{?fedora} > 26
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  perl-interpreter
 %else
 BuildRequires:  perl
 %endif
+%if 0%{?rhel} == 8
+BuildRequires:  perl-generators < 1.10-7.module
+%else
 BuildRequires:  perl-generators
+%endif
 BuildRequires:  perl(strict)
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
