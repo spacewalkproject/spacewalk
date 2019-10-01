@@ -71,8 +71,13 @@ BuildRequires: python2
 BuildRequires: python2-rpm-macros
 BuildRequires: python2-spacewalk-usix
 %if 0%{?fedora} || 0%{?rhel} || 0%{?suse_version} > 1310
+%if 0%{?rhel} == 8
+BuildRequires: rhnlib <= 2.10.0
+BuildRequires: python2-rhn-client-tools <= 2.10.0
+%else
 BuildRequires: rhnlib >= 2.5.74
 BuildRequires: python2-rhn-client-tools
+%endif
 BuildRequires: rpm-python
 BuildRequires: %{python_prefix}-crypto
 BuildRequires: %{python_prefix}-debian
