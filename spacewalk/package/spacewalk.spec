@@ -17,8 +17,8 @@ Summary: Spacewalk Systems Management Application with Oracle database backend
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 
-BuildRequires:  python
-Requires:       python >= 2.3
+BuildRequires:  python2
+Requires:       python2 >= 2.3
 Requires:       spacewalk-setup
 
 # Java
