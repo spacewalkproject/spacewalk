@@ -44,7 +44,7 @@
 
 Summary: Support programs and libraries for Red Hat Satellite or Spacewalk
 Name: rhn-client-tools
-Version: 2.10.8
+Version: 2.10.9
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -985,6 +985,9 @@ py3clean -p python3-rhn-setup-gnome
 
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.9-1
+- python2-dbus is not necessary on RHEL8 server
+
 * Thu Aug 08 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
 - return a non-zero exit status on errors in rhn_check
 
