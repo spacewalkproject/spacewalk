@@ -10,7 +10,7 @@ BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
-%if 0%{?fedora} || 0%{rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
