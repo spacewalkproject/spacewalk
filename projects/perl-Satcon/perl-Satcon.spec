@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.10.0
+Version:        2.10.1
 Release:        1%{?dist}
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -59,6 +59,10 @@ make test
 %{_bindir}/*
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- fixed buildrequires on RHEL8
+- simplified Fedora requires
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
