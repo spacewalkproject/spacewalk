@@ -16,8 +16,11 @@ BuildArch:  noarch
 Requires:        java-headless >= 1:1.8.0
 BuildRequires:   java-1.8.0-openjdk-devel
 BuildRequires:   ant
-%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
+%if 0%{?fedora} >= 20 || 0%{?rhel} == 7
 BuildRequires: javapackages-tools
+%endif
+%if 0%{?rhel} == 8
+BuildRequires: javapackages-tools > javapackages-tools-5.3.0-2.module
 %endif
 
 %description
