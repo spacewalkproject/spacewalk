@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:		spacewalk-oscap
-Version:	2.10.1
+Version:	2.10.2
 Release:	1%{?dist}
 Summary:	OpenSCAP plug-in for rhn-check
 
@@ -119,6 +119,9 @@ make -f Makefile.spacewalk-oscap install PREFIX=$RPM_BUILD_ROOT PYTHONPATH=%{pyt
 %endif
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- workaround RHEL8 buildrequires modules issue
+
 * Mon Sep 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - require current rhnlib
 
