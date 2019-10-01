@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.10.1
+Version:     2.10.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -111,6 +111,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- use python3 for spacecmd on RHEL8
+
 * Wed Jun 26 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - 1375611 - do not own /etc/bash_completion.d
 
