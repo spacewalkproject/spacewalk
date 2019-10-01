@@ -26,13 +26,9 @@ Prefix: %{_prefix}
 Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
-%if 0%{?fedora} >= 29
+BuildRequires: python2-rpm-macros
 BuildRequires: python2-devel
 BuildRequires: gcc
-%global __python %{__python2}
-%else
-BuildRequires: python-devel
-%endif
 BuildRequires: oracle-%{oracleicname}-devel
 Requires: oracle-%{oracleicname}-basic = %{oracleicver}
 
@@ -52,11 +48,11 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %build
 export ORACLE_HOME=%{oracle_home}
-env CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+env CFLAGS="$RPM_OPT_FLAGS" %{__python2} setup.py build
 
 %install
 export ORACLE_HOME=%{oracle_home}
-%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+%{__python2} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
 
