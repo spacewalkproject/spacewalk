@@ -159,7 +159,9 @@ Requires: python-newt
 Requires: python-dbus
 %else
 %if 0%{?py3_deps}
+%if ! 0%{?rhel} >= 8
 Requires: python2-dbus
+%endif
 %else
 Requires: dbus-python
 %endif
