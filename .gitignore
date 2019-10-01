@@ -48,3 +48,5 @@ web/rpm-build
 web/rhn-web-*.tar.gz
 sqlnet.log
 *.tar.gz
+*.tar.xz
+*.zip
