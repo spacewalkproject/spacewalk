@@ -1,26 +1,19 @@
 Name:           perl-Term-Size 
-Version:        0.207
-Release:        14%{?dist}.2
+Version:        0.209
+Release:        4%{?dist}
 License:        GPL+ or Artistic 
 Summary:        Simple way to get terminal size 
-Source0:        http://search.cpan.org/CPAN/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
-Url:            http://search.cpan.org/dist/Term-Size
-# see http://rt.cpan.org/Public/Bug/Display.html?id=38594
-Patch0:         %{name}-0.207-perlio.patch
+Source0:        https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
+Url:            https://metacpan.org/release/Term-Size
 # Build
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-%if 0%{?fedora} && 0%{?fedora} > 26
 BuildRequires:  perl-interpreter
-%else
-BuildRequires:  perl
-%endif
 BuildRequires:  perl-devel
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
-BuildRequires:  perl(AutoLoader)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
@@ -45,7 +38,6 @@ Term::Size::pixels uses units of pixels.
 
 %prep
 %setup -q -n Term-Size-%{version}
-%patch0 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
@@ -66,15 +58,38 @@ make test
 %{_mandir}/man3/*
 
 %changelog
-* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207-14.2
-- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
-  27
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.209-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
-* Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207-14.1
-- 1440818 - add a patch and fix package version
+* Fri May 31 2019 Jitka Plesnikova <jplesnik@redhat.com> - 0.209-3
+- Perl 5.30 rebuild
 
-* Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 0.207.1-14
-- new package built with tito
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.209-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Thu Aug 23 2018 Jitka Plesnikova <jplesnik@redhat.com> - 0.209-1
+- 0.209 bump
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 0.207-20
+- Perl 5.28 rebuild
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Sun Jun 04 2017 Jitka Plesnikova <jplesnik@redhat.com> - 0.207-16
+- Perl 5.26 rebuild
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.207-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
 * Sun May 15 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.207-14
 - Perl 5.24 rebuild
