@@ -3,7 +3,7 @@
 %global default_py3 1
 %endif
 
-%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%if ( 0%{?rhel} && 0%{?rhel} < 8 )
 %global build_py2   1
 %endif
 
@@ -43,7 +43,11 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       rhnlib
 Requires:       python2-rhn-check >= 2.8.4
 BuildRequires:	python-devel
+%if 0%{?rhel} >= 8
 BuildRequires:	rhnlib <= 2.10.0
+%else
+BuildRequires:	rhnlib
+%endif
 %description -n python2-%{name}
 Python 2 specific files for %{name}.
 %endif
@@ -56,7 +60,11 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       python3-rhnlib
 Requires:       python3-rhn-check >= 2.8.4
 BuildRequires:	python3-devel
+%if 0%{?rhel} >= 8
 BuildRequires:	python3-rhnlib <= 2.10.0
+%else
+BuildRequires:	python3-rhnlib
+%endif
 %description -n python3-%{name}
 Python 3 specific files for %{name}.
 %endif
