@@ -1,6 +1,6 @@
 Name:           perl-Term-Size 
 Version:        0.209
-Release:        4%{?dist}.1
+Release:        4%{?dist}.2
 License:        GPL+ or Artistic 
 Summary:        Simple way to get terminal size 
 Source0:        https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
@@ -62,6 +62,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Oct 02 2019 Michael Mraka <michael.mraka@redhat.com> 0.209-4.2
+- workaround RHEL8 buildrequires module issue
+- rebased to ver 0.209
+
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.209-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
