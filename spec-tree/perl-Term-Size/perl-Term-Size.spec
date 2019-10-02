@@ -1,6 +1,6 @@
 Name:           perl-Term-Size 
 Version:        0.209
-Release:        4%{?dist}
+Release:        4%{?dist}.1
 License:        GPL+ or Artistic 
 Summary:        Simple way to get terminal size 
 Source0:        https://cpan.metacpan.org/authors/id/F/FE/FERREIRA/Term-Size-%{version}.tar.gz
@@ -18,6 +18,10 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
+%if 0%{?rhel} == 8
+BuildRequires:  perl-generators < 1.10-7.module
+BuildRequires:  perl(Exporter) < 5.72-1000.module
+%endif
 # Tests only
 BuildRequires:  perl(Test::More)
 # Optional tests only
