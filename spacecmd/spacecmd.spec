@@ -3,7 +3,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} >= 7
+%if 0%{?fedora} || 0%{?rhel} == 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.10.3
+Version:     2.10.4
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
