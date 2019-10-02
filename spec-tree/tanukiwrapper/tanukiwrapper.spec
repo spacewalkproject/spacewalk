@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -227,6 +227,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 02 2019 Michael Mraka <michael.mraka@redhat.com> 3.2.3-22
+- workaround RHEL8 buildrequires module issue
+
 * Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-21
 - gcc is not in default buildroot anymore
 
