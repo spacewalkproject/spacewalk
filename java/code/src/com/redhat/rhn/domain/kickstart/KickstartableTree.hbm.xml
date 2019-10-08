@@ -100,6 +100,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         order by k.label
                         ]]>
     </query>
+    <query name="KickstartableTree.findBase">
+        <![CDATA[select k from com.redhat.rhn.domain.kickstart.KickstartableTree as k,
+                        com.redhat.rhn.domain.channel.Channel as c
+                        where c.id = k.channel
+                          and c.parentChannel is null
+                        order by k.label
+                        ]]>
+    </query>
 
     <query name="KickstartableTree.findByCobblerIdOrXenId">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
@@ -122,9 +130,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="KickstartableTree.getUnsyncedKickstartTrees">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
-                        where k.cobblerId is null
-                          and k.label not like '%-appstream-%'
+        <![CDATA[select k from com.redhat.rhn.domain.kickstart.KickstartableTree as k,
+                        com.redhat.rhn.domain.channel.Channel as c
+                        where c.id = k.channel
+                          and k.cobblerId is null
+                          and c.parentChannel is null
                         order by k.label]]>
     </query>
 

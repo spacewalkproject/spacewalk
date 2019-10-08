@@ -763,7 +763,7 @@ public class KickstartFactory extends HibernateFactory {
      * @return list of kickstart trees
      */
     public static List <KickstartableTree> lookupKickstartTrees() {
-        String query = "KickstartableTree.findAll";
+        String query = "KickstartableTree.findBase";
         return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, false);
     }
 
