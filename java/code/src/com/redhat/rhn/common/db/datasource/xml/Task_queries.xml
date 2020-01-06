@@ -272,7 +272,7 @@ SELECT id, channel_label, client, reason, force, bypass_filters, next_action
    <query params="">
 <!-- DISTINCT makes the DELETE faster for postgresql (no difference for oracle) -->
     DELETE FROM rhnPackageChangeLogData
-        WHERE id NOT IN ( SELECT DISTINCT changelog_data_id FROM rhnPackageChangeLogRec )
+        WHERE id NOT EXISTS ( SELECT DISTINCT 1 FROM rhnPackageChangeLogRec WHERE rhnPackageChangeLogRec.changelog_data_id = rhnPackageChangeLogData.id  )
    </query>
 </write-mode>
 
