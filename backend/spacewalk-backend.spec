@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.10.24
+Version: 2.10.25
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -808,6 +808,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Jan 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.25-1
+- 1767449 - excluded package can be pulled back by following include filter
+
 * Thu Oct 03 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.24-1
 - there are actually no python2-rhn-* packages in RHEL8 modules
 
