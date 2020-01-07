@@ -292,8 +292,6 @@ class ContentSource(object):
             rawpkglist = self._filter_packages(rawpkglist, filters)
             rawpkglist = self._get_package_dependencies(self.repo.getPackageSack(), rawpkglist)
 
-            # do not pull in dependencies if they're explicitly excluded
-            rawpkglist = self._filter_packages(rawpkglist, filters, True)
             self.num_excluded = self.num_packages - len(rawpkglist)
 
         return rawpkglist
@@ -322,8 +320,6 @@ class ContentSource(object):
             pkglist = self._filter_packages(pkglist, filters)
             pkglist = self._get_package_dependencies(self.repo.getPackageSack(), pkglist)
 
-            # do not pull in dependencies if they're explicitly excluded
-            pkglist = self._filter_packages(pkglist, filters, True)
             self.num_excluded = self.num_packages - len(pkglist)
         to_return = []
         for pack in pkglist:
@@ -409,7 +405,7 @@ class ContentSource(object):
         return filters
 
     @staticmethod
-    def _filter_packages(packages, filters, exclude_only=False):
+    def _filter_packages(packages, filters):
         """ implement include / exclude logic
             filters are: [ ('+', includelist1), ('-', excludelist1),
                            ('+', includelist2), ... ]
@@ -419,7 +415,7 @@ class ContentSource(object):
 
         selected = []
         excluded = []
-        if exclude_only or filters[0][0] == '-':
+        if filters[0][0] == '-':
             # first filter is exclude, start with full package list
             # and then exclude from it
             selected = packages
@@ -429,8 +425,6 @@ class ContentSource(object):
         for filter_item in filters:
             sense, pkg_list = filter_item
             if sense == '+':
-                if exclude_only:
-                    continue
                 # include
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
                     excluded, pkg_list)
