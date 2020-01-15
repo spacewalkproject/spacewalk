@@ -560,7 +560,7 @@ public class KickstartFormatter {
         if (this.ksdata.getIgnoreMissing()) {
             opts = opts + SPACE + IGNORE_MISSING;
         }
-        if (this.ksdata.getNoBase()) {
+        if (this.ksdata.getNoBase() && !this.ksdata.isRhel8() && !this.ksdata.isFedora()) {
             opts = opts + SPACE + NO_BASE;
         }
         return PACKAGES + SPACE + opts + NEWLINE;
