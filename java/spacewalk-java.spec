@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.10.14
+Version: 2.10.15
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -756,6 +756,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Jan 15 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.15-1
+- 1790638 - --nobase option was removed in version F22
+
 * Tue Oct 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.14-1
 - 1757198 - ignore kickstarttrees for child channels
 
