@@ -1,0 +1,11 @@
+diff '--exclude=CVS' '--exclude=.svn' -ur ../xmlrpc-orig/source/redstone/xmlrpc/XmlRpcParser.java ../xmlrpc/source/redstone/xmlrpc/XmlRpcParser.java
+--- source/redstone/xmlrpc/XmlRpcParser.java	2020-01-16 14:18:28.294284905 +0100
++++ source/redstone/xmlrpc/XmlRpcParser.java	2020-01-16 14:21:57.985203925 +0100
+@@ -135,6 +135,7 @@
+                 {
+                     reader = XMLReaderFactory.createXMLReader();
+                     reader.setEntityResolver(new DummyEntityResolver());
++                    reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                 }
+                 catch ( SAXException e )
+                 {
