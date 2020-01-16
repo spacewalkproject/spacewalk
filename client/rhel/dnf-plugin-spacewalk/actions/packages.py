@@ -350,7 +350,7 @@ def _package_tup2obj(q, tup):
         query['epoch'] = int(epoch)
     if arch is not None and len(arch) > 0:
         query['arch'] = arch
-    pkgs = q.filter(**query).run()
+    pkgs = q.filter(**query).latest().run()
     if pkgs:
         return pkgs[0]
     return None
