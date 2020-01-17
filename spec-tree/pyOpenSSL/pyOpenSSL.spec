@@ -8,7 +8,7 @@
 Summary: Python wrapper module around the OpenSSL library
 Name: pyOpenSSL
 Version: 18.0.0
-Release: 1%{?dist}
+Release: 1%{?dist}.1
 Source0: https://files.pythonhosted.org/packages/source/p/pyOpenSSL/pyOpenSSL-%{version}.tar.gz
 
 BuildArch: noarch
@@ -108,6 +108,9 @@ rm doc/_build/html/.buildinfo
 %doc CHANGELOG.rst examples doc/_build/html
 
 %changelog
+* Fri Jan 17 2020 Michael Mraka <michael.mraka@redhat.com> 18.0.0-1.1
+- fixed unversioned sitelib macro
+
 * Mon Jun 11 2018 Tomáš Mráz <tmraz@redhat.com> - 18.0.0-1
 - New upstream release 18.0.0
 
