@@ -94,8 +94,8 @@ rm doc/_build/html/.buildinfo
 %if %{with python2}
 %files -n python2-pyOpenSSL
 %license LICENSE
-%{python_sitelib}/OpenSSL/
-%{python_sitelib}/pyOpenSSL-*.egg-info
+%{python2_sitelib}/OpenSSL/
+%{python2_sitelib}/pyOpenSSL-*.egg-info
 %endif
 
 %files -n python3-pyOpenSSL
