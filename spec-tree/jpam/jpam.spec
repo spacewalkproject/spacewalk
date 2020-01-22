@@ -10,7 +10,7 @@ Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 38%{?dist}
+Release: 39%{?dist}
 
 Requires:      antlr
 Requires:      regexp
@@ -117,6 +117,9 @@ fi
 %{_javadocdir}/%{name}-0.4
 
 %changelog
+* Wed Jan 22 2020 Michael Mraka <michael.mraka@redhat.com> 0.4-39
+- removed RHEL8 workaround
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 0.4-38
 - workaround RHEL8 buildrequires modules issue
 
