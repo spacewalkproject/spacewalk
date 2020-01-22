@@ -26,13 +26,6 @@ BuildRequires: regexp
 BuildRequires: checkstyle
 %define checkstyle_jar checkstyle
 %endif
-%if 0%{?rhel} == 8
-BuildRequires: antlr-tool < 2.7.7-56.module
-BuildRequires: junit < 4.12-9.module
-BuildRequires: regexp < 1.5-26.module
-BuildRequires: apache-commons-collections < 3.2.2-10.module
-BuildRequires: javapackages-tools < 5.3.0-2.module
-%endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
 Requires:      apache-commons-beanutils
 Requires:      apache-commons-collections
