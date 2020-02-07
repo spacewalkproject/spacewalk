@@ -1,5 +1,5 @@
 %{!?python2_sitelib: %define python2_sitelib %{python_sitelib}}
-%{!?__python2: %define __python2 /usr/lib/python2}
+%define __python /usr/lib/python2
 
 %if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
