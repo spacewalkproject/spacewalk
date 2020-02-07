@@ -31,7 +31,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.109
+Version: 5.11.110
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -541,6 +541,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 5.11.110-1
+- use python2 build macros
+
 * Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 5.11.109-1
 - hardlink has moved to /usr/bin in Fedora 31
 
