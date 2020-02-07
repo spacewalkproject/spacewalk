@@ -1184,6 +1184,7 @@ class RepoSync(object):
             if treeinfo:
                 try:
                     treeinfo_parser = TreeInfoParser(treeinfo)
+                    treeinfo_path = path
                     break
                 except TreeInfoError:
                     pass
@@ -1204,6 +1205,7 @@ class RepoSync(object):
         fileutils.createPath(os.path.join(CFG.MOUNT_POINT, ks_path))
         # Make sure images are included
         to_download = set()
+        to_download.add(treeinfo_path)
         for repo_path in treeinfo_parser.get_images():
             local_path = os.path.join(CFG.MOUNT_POINT, ks_path, repo_path)
             # TODO: better check
