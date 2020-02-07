@@ -1,4 +1,5 @@
 %{!?python2_sitelib: %define python2_sitelib %{python_sitelib}}
+%{!?__python2: %define __python2 %{__python}}
 
 %if 0%{?fedora} || 0%{?suse_version} > 1320
 %global build_py3   1
@@ -48,7 +49,7 @@ mkdir ../py3
 cp -a . ../py3
 
 %build
-%{__python}2 setup.py build
+%{__python2} setup.py build
 %if 0%{?build_py3}
 cd ../py3
 %{__python3} setup.py build
@@ -56,7 +57,7 @@ cd ../py3
 %endif
 
 %install
-%{__python}2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 %if 0%{?build_py3}
 cd ../py3
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix %{_usr}
