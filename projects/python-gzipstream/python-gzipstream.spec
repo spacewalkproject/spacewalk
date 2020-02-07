@@ -7,7 +7,7 @@
 
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Version: 2.10.3
+Version: 2.10.4
 Release: 1%{?dist}
 URL:        https://github.com/spacewalkproject/spacewalk/wiki/Projects_python-gzipstream
 Source0:    https://github.com/spacewalkproject/spacewalk/archive/python-gzipstream-%{version}.tar.gz
@@ -79,6 +79,9 @@ cd ../py3
 %endif
 
 %changelog
+* Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- hardcode __python value to overwrite error
+
 * Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - use python2 build macros
 
