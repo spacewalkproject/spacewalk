@@ -86,7 +86,7 @@ only poll the Spacewalk Server from time to time.
 Summary: Open Source Architecture Daemon
 %{?python_provide:%python_provide python2-%{name}}
 Requires: %{name} = %{version}-%{release}
-Requires: python
+Requires: python2
 Requires: rhnlib >= 2.8.3
 Requires: spacewalk-usix
 Requires: jabberpy
@@ -95,7 +95,7 @@ Requires: python2-osa-common = %{version}
 %if 0%{?rhel} && 0%{?rhel} <= 5
 Requires: python-hashlib
 %endif
-BuildRequires: python-devel
+BuildRequires: python2-devel
 %description -n python2-%{name}
 Python 2 specific files for %{name}
 %endif
@@ -227,14 +227,14 @@ sed -i 's@^#!/usr/bin/python2$@#!/usr/bin/python2 -s@' invocation.py
 %endif
 
 %build
-make -f Makefile.osad all PYTHONPATH=%{python_sitelib}
+make -f Makefile.osad all PYTHONPATH=%{python2_sitelib}
 
 %if 0%{?include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 %if 0%{?fedora} || 0%{?rhel} >= 7
 cat osa-dispatcher-selinux/%{modulename}.te.fedora17 >> osa-dispatcher-selinux/%{modulename}.te
 %endif
-%if 0%{?fedora} >= 26
+%if 0%{?fedora} >= 26 || 0%{?rhel} >= 8
 cat osa-dispatcher-selinux/%{modulename}.te.fedora26 >> osa-dispatcher-selinux/%{modulename}.te
 %endif
 for selinuxvariant in %{selinux_variants}
@@ -248,17 +248,17 @@ done
 %install
 install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
-        PYTHONPATH=%{python_sitelib} PYTHONVERSION=%{python_version}
+        PYTHONPATH=%{python2_sitelib} PYTHONVERSION=%{python2_version}
 %if 0%{?build_py3}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} INITDIR=%{_initrddir} \
         PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version}
 sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' $RPM_BUILD_ROOT/usr/sbin/osad-%{python3_version}
 %endif
 
-%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python2_version}}
 ln -s osad%{default_suffix} $RPM_BUILD_ROOT/usr/sbin/osad
 # osa-dispatcher is python2 even on Fedora
-ln -s osa-dispatcher-%{python_version} $RPM_BUILD_ROOT/usr/sbin/osa-dispatcher
+ln -s osa-dispatcher-%{python2_version} $RPM_BUILD_ROOT/usr/sbin/osa-dispatcher
 
 mkdir -p %{buildroot}%{_var}/log/rhn
 touch %{buildroot}%{_var}/log/osad
@@ -302,8 +302,8 @@ install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildro
 %endif
 
 %if ! 0%{?build_py2}
-rm -rf $RPM_BUILD_ROOT/%{python_sitelib}/osad/osad*
-rm -f $RPM_BUILD_ROOT/usr/sbin/osad-%{python_version}
+rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/osad/osad*
+rm -f $RPM_BUILD_ROOT/usr/sbin/osad-%{python2_version}
 %endif
 
 %clean
@@ -454,11 +454,11 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 
 %if 0%{?build_py2}
 %files -n python2-%{name}
-%attr(755,root,root) %{_sbindir}/osad-%{python_version}
-%dir %{python_sitelib}/osad
-%{python_sitelib}/osad/osad.py*
-%{python_sitelib}/osad/osad_client.py*
-%{python_sitelib}/osad/osad_config.py*
+%attr(755,root,root) %{_sbindir}/osad-%{python2_version}
+%dir %{python2_sitelib}/osad
+%{python2_sitelib}/osad/osad.py*
+%{python2_sitelib}/osad/osad_client.py*
+%{python2_sitelib}/osad/osad_config.py*
 %endif
 
 %if 0%{?build_py3}
@@ -499,10 +499,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files -n python2-osa-dispatcher
-%attr(755,root,root) %{_sbindir}/osa-dispatcher-%{python_version}
-%dir %{python_sitelib}/osad
-%{python_sitelib}/osad/osa_dispatcher.py*
-%{python_sitelib}/osad/dispatcher_client.py*
+%attr(755,root,root) %{_sbindir}/osa-dispatcher-%{python2_version}
+%dir %{python2_sitelib}/osad
+%{python2_sitelib}/osad/osa_dispatcher.py*
+%{python2_sitelib}/osad/dispatcher_client.py*
 
 %if 0%{?build_py3}
 %files -n python3-osa-dispatcher
@@ -515,9 +515,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %files -n python2-osa-common
-%{python_sitelib}/osad/__init__.py*
-%{python_sitelib}/osad/jabber_lib.py*
-%{python_sitelib}/osad/rhn_log.py*
+%{python2_sitelib}/osad/__init__.py*
+%{python2_sitelib}/osad/jabber_lib.py*
+%{python2_sitelib}/osad/rhn_log.py*
 
 %if 0%{?build_py3}
 %files -n python3-osa-common
