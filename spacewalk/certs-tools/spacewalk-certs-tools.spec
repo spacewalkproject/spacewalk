@@ -11,6 +11,7 @@
 %endif
 
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+%{!?__python2: %define __python2 /usr/lib/python2}
 %{!?python2_sitelib: %global python2_sitelib %python_sitelib}
 %{!?python2_version: %global python2_version %python_version}
 
@@ -46,6 +47,7 @@ Requires: spacewalk-backend-libs >= 0.8.28
 Requires: python-hashlib
 %endif
 BuildRequires: python2-rpm-macros
+BuildRequires: python2-devel
 BuildRequires: python2
 
 %description -n python2-%{name}
