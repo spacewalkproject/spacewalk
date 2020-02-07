@@ -15,6 +15,7 @@ License: GPLv2
 BuildArch: noarch
 %if (0%{?fedora} > 27 || 0%{?rhel} > 7)
 BuildRequires: python2-devel
+BuildRequires: python2-rpm-macros
 %else
 BuildRequires: python-devel
 %endif
