@@ -1,4 +1,4 @@
-%define release_name Smile
+%define release_name FourtyTwo
 
 Name:           spacewalk
 Version:        2.10.2
