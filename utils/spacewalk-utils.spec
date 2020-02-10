@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.10.5
+Version:	2.10.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Feb 10 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- require real yum not dnf alias
+
 * Mon Sep 23 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
 - added Fedora 30 repos
 - removed EOLed channels
