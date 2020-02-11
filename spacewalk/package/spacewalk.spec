@@ -1,7 +1,7 @@
 %define release_name FourtyTwo
 
 Name:           spacewalk
-Version:        2.10.2
+Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -170,6 +170,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue Feb 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- let's change release name after 10 years
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
 - require python2
 
