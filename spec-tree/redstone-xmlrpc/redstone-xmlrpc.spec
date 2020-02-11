@@ -1,7 +1,7 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: LGPL
 URL: http://xmlrpc.sourceforge.net
 Source0: %{name}-%{version}.tar.gz
@@ -56,6 +56,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_javadir}
 
 %changelog
+* Tue Feb 11 2020 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-21
+- 1791164 - disable external entity parsing
+
 * Wed Aug 21 2019 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-20
 - 1555429 - do not download external entities
 
