@@ -103,7 +103,7 @@ REPO
 
 [group_spacewalkproject-python-packages]
 name=Copr repo for python-packages owned by @spacewalkproject
-baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/epel-8-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/epel-8-x86_64/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
@@ -138,7 +138,7 @@ REPO
 
 [group_spacewalkproject-python-packages]
 name=Copr repo for python-packages owned by @spacewalkproject
-baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/fedora-$releasever-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/%{reposubdir}-\$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
