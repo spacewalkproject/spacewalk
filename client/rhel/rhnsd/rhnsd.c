@@ -48,9 +48,6 @@ static int write_pid (const char *file);
 static void print_version (FILE *stream, struct argp_state *state);
 void (*argp_program_version_hook) (FILE *, struct argp_state *) = print_version;
 
-/* Current rhn_check pid */
-pid_t rhn_check_pid;
-
 /* Definitions of arguments for argp functions.  */
 static const struct argp_option options[] =
 {
@@ -147,14 +144,8 @@ int main (int argc, char **argv)
     if (!foreground) {
 	int i;
 
-	    pid_t pid;
-        pid = fork();
-        if (pid < 0)
-	        exit (EXIT_FAILURE);
-
-        if (pid > 0)
-            exit(EXIT_SUCCESS);
-
+	if (fork ())
+	    exit (0);
 
 	for (i = 0; i < getdtablesize(); i++)
 	    close (i);
@@ -166,16 +157,10 @@ int main (int argc, char **argv)
 	    close(devnull);
 	}
 
-        pid = fork();
-        if (pid < 0)
-            exit (EXIT_FAILURE);
+	if (fork ())
+	    exit (0);
 
-        if (pid > 0)
-            exit(EXIT_SUCCESS);
-
-        if (setsid() < 0)
-            exit(EXIT_FAILURE);
-	umask(0);
+	setsid();
 
 	chdir ("/");
 
@@ -273,13 +258,11 @@ Written by %s.\n\
 static void termination_handler (int signum)
 {
     syslog(LOG_NOTICE, "Exiting");
-    /* Send SIGTERM to current running rhn_check
-     * and wait for it to exit. */
-    kill(rhn_check_pid, SIGTERM);
-    wait(NULL);
+
     /* Clean up pid file.  */
     unlink (_PATH_RHNDPID);
-    exit(EXIT_SUCCESS);
+
+    exit (EXIT_SUCCESS);
 }
 
 /* Returns 1 if the process in pid file FILE is running, 0 if not.  */
@@ -309,8 +292,12 @@ static int write_pid (const char *file)
     FILE *fp;
 
     fp = fopen (file, "w");
-    if (fp == NULL)
-	return -1;
+    if (fp == NULL) {
+        return -1;
+    } else if (chmod (file, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) != 0) {
+        fclose(fp);
+        return -1;
+    }
 
     fprintf (fp, "%d\n", getpid ());
     if (fflush (fp) || ferror (fp)) {
@@ -397,6 +384,9 @@ static int rhn_do_action(void)
 	/* close the read end of the pipe */
 	close(fds[0]);
 
+	/* close syslog file descriptor */
+	closelog();
+
 	/* redirect stdout */
 	if (fds[1] != STDOUT_FILENO) {
 	    dup2(fds[1], STDOUT_FILENO);
@@ -406,12 +396,14 @@ static int rhn_do_action(void)
 	/* make sure this child has a stderr */
 	dup2(STDOUT_FILENO, STDERR_FILENO);
 
+	/* open a new syslog connection for the child */
+	openlog("rhnsd", LOG_CONS | LOG_ODELAY | LOG_PID, LOG_DAEMON);
+
 	/* syslog for safekeeping */
-	syslog(LOG_NOTICE, "running program %s with PID %d", RHN_CHECK, getpid());
+	syslog(LOG_DEBUG, "running program %s", RHN_CHECK);
 
         unset_signal_handlers ();
         /* exec binary helper */
-        rhn_check_pid = getpid();
         args[0] = RHN_CHECK;
         execv(RHN_CHECK, args);
 
@@ -421,7 +413,6 @@ static int rhn_do_action(void)
                strerror(errno));
         exit(errno);
     } else if (child > 0) {
-        set_signal_handlers();
 	int ret = 1;
 	char *buf, buffer[10];
 	int bufsize = 0;

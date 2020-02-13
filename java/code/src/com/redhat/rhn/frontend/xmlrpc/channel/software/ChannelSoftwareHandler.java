@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,8 +47,6 @@ import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidChannelArchException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
@@ -601,6 +599,40 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Allows to modify channel attributes
      * @param loggedInUser The current user
+     * @param channelLabel label of channel to be modified
+     * @param details map of channel attributes to be changed
+     * @return 1 if edit was successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Allows to modify channel attributes
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("int", "channelId", "channel id")
+     * @xmlrpc.param
+     *  #struct("channel_map")
+     *      #prop_desc("string", "checksum_label", "new channel repository checksum label
+     *          (optional)")
+     *      #prop_desc("string", "name", "new channel name (optional)")
+     *      #prop_desc("string", "summary", "new channel summary (optional)")
+     *      #prop_desc("string", "description", "new channel description (optional)")
+     *      #prop_desc("string", "maintainer_name", "new channel maintainer name
+     *          (optional)")
+     *      #prop_desc("string", "maintainer_email", "new channel email address
+     *          (optional)")
+     *      #prop_desc("string", "maintainer_phone", "new channel phone number (optional)")
+     *      #prop_desc("string", "gpg_key_url", "new channel gpg key url (optional)")
+     *      #prop_desc("string", "gpg_key_id", "new channel gpg key id (optional)")
+     *      #prop_desc("string", "gpg_key_fp", "new channel gpg key fingerprint
+     *          (optional)")
+     *  #struct_end()
+     *@xmlrpc.returntype #return_int_success()
+     */
+    public int setDetails(User loggedInUser, String channelLabel, Map<String, String> details) {
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        return setDetails(loggedInUser, channel.getId().intValue(), details);
+    }
+
+    /**
+     * Allows to modify channel attributes
+     * @param loggedInUser The current user
      * @param channelId id of channel to be modified
      * @param details map of channel attributes to be changed
      * @return 1 if edit was successful, exception thrown otherwise
@@ -630,8 +662,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int setDetails(User loggedInUser, Integer channelId, Map<String,
             String> details) {
-        Channel channel = lookupChannelById(loggedInUser, channelId.longValue());
+        channelAdminPermCheck(loggedInUser);
 
+        Channel channel = lookupChannelById(loggedInUser, channelId.longValue());
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("checksum_label");
         validKeys.add("name");
@@ -647,48 +680,83 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         UpdateChannelCommand ucc = new UpdateChannelCommand(loggedInUser, channel);
 
-        if (details.containsKey("checksum_label")) {
-            ucc.setChecksumLabel(details.get("checksum_label"));
-        }
+        setChangedValues(ucc, details);
+
+        ucc.update(channelId.longValue());
+        return 1;
+    }
+
+    /**
+     * Set the values to the command.
+     * @param command CreateChannelCommand command
+     * @param details Map Key/value pairs of changed values
+     */
+    private void setChangedValues(CreateChannelCommand command, Map<String, String> details) {
 
         if (details.containsKey("name")) {
-            ucc.setName(details.get("name"));
+            command.setName(details.get("name"));
+        }
+
+        if (details.containsKey("label")) {
+            command.setLabel(details.get("label"));
+        }
+
+        if (details.containsKey("parent_label")) {
+            command.setParentLabel(details.get("parent_label"));
+        }
+
+        if (details.containsKey("arch_label")) {
+            command.setArchLabel(details.get("arch_label"));
+        }
+
+        if (details.containsKey("checksum")) {
+            command.setChecksumLabel(details.get("checksum"));
+        }
+        else if (details.containsKey("checksum_label")) {
+            command.setChecksumLabel(details.get("checksum_label"));
         }
 
         if (details.containsKey("summary")) {
-            ucc.setSummary(details.get("summary"));
+            command.setSummary(details.get("summary"));
         }
 
         if (details.containsKey("description")) {
-            ucc.setDescription(details.get("description"));
-        }
-
-        if (details.containsKey("maintainer_name")) {
-            ucc.setMaintainerName(details.get("maintainer_name"));
-        }
-
-        if (details.containsKey("maintainer_email")) {
-            ucc.setMaintainerEmail(details.get("maintainer_email"));
-        }
-
-        if (details.containsKey("maintainer_phone")) {
-            ucc.setMaintainerPhone(details.get("maintainer_phone"));
+            command.setDescription(details.get("description"));
         }
 
         if (details.containsKey("gpg_key_url")) {
-            ucc.setGpgKeyUrl(details.get("gpg_key_url"));
+            command.setGpgKeyUrl(details.get("gpg_key_url"));
+        }
+        else if (details.containsKey("gpg_url")) {
+            command.setGpgKeyUrl(details.get("gpg_url"));
         }
 
         if (details.containsKey("gpg_key_id")) {
-            ucc.setGpgKeyId(details.get("gpg_key_id"));
+            command.setGpgKeyId(details.get("gpg_key_id"));
+        }
+        else if (details.containsKey("gpg_id")) {
+            command.setGpgKeyId(details.get("gpg_id"));
         }
 
         if (details.containsKey("gpg_key_fp")) {
-            ucc.setGpgKeyFp(details.get("gpg_key_fp"));
+            command.setGpgKeyFp(details.get("gpg_key_fp"));
+        }
+        else if (details.containsKey("gpg_fingerprint")) {
+            command.setGpgKeyFp(details.get("gpg_fingerprint"));
         }
 
-       ucc.update(channelId.longValue());
-        return 1;
+        if (details.containsKey("maintainer_name")) {
+            command.setMaintainerName(details.get("maintainer_name"));
+        }
+
+        if (details.containsKey("maintainer_email")) {
+            command.setMaintainerEmail(details.get("maintainer_email"));
+        }
+
+        if (details.containsKey("maintainer_phone")) {
+            command.setMaintainerPhone(details.get("maintainer_phone"));
+        }
+
     }
 
 
@@ -701,10 +769,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param archLabel Architecture label
      * @param parentLabel Parent Channel label (may be null)
      * @param checksumType checksum type for this channel
-     * @param gpgKey a map consisting of
-     *      <li>string url</li>
-     *      <li>string id</li>
-     *      <li>string fingerprint</li>
+     * @param gpgKey a map consisting of string url, string id, string fingerprint
      * @return 1 if creation of channel succeeds.
      * @since 10.9
      * @throws PermissionCheckFailureException  thrown if user does not have
@@ -1366,7 +1431,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         HashSet<Errata> errataToRemove = new HashSet<Errata>();
 
         for (String erratumName : errataNames) {
-            Errata erratum = ErrataManager.lookupByAdvisory(erratumName);
+            Errata erratum = ErrataManager.lookupByAdvisory(erratumName,
+                    loggedInUser.getOrg());
 
             if (erratum != null) {
                 errataToRemove.add(erratum);
@@ -1607,8 +1673,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public List<Map<String, Object>> listErrata(User loggedInUser, String channelLabel)
         throws NoSuchChannelException {
-        List<Map<String, Object>> list = listErrata(loggedInUser, channelLabel, "", "");
-        return list;
+        return listErrata(loggedInUser, channelLabel, "", "");
     }
 
     /**
@@ -1687,9 +1752,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
 
-        List<Map<String, Object>> errata =
-                ChannelManager.listErrataForDates(channel, startDate, endDate);
-        return errata;
+        return ChannelManager.listErrataForDates(channel, startDate, endDate);
     }
 
     /**
@@ -1927,6 +1990,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public int clone(User loggedInUser, String originalLabel,
             Map<String, String> channelDetails, Boolean originalState) {
 
+        channelAdminPermCheck(loggedInUser);
         // confirm that the user only provided valid keys in the map
         Set<String> validKeys = new HashSet<String>();
         validKeys.add("name");
@@ -1944,89 +2008,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
         validKeys.add("checksum");
         validateMap(validKeys, channelDetails);
 
-        channelAdminPermCheck(loggedInUser);
-
-        String name = channelDetails.get("name");
-        String label = channelDetails.get("label");
-        String parentLabel = channelDetails.get("parent_label");
-        String archLabel = channelDetails.get("arch_label");
-        String summary = channelDetails.get("summary");
-        String description = channelDetails.get("description");
-        String checksum = channelDetails.get("checksum");
-
-        if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
-            throw new DuplicateChannelLabelException(label);
-        }
-
         Channel originalChan = lookupChannelByLabel(loggedInUser.getOrg(), originalLabel);
 
-        ChannelArch arch = null;
-        if (archLabel != null && archLabel.length() > 0) {
+        CloneChannelCommand ccc = new CloneChannelCommand(originalState, originalChan);
 
-            arch = ChannelFactory.lookupArchByName(archLabel);
-            if (arch == null) {
-                throw new InvalidChannelArchException(archLabel);
-            }
-        }
-        else {
-            arch = originalChan.getChannelArch();
-        }
+        ccc.setUser(loggedInUser);
+        setChangedValues(ccc, channelDetails);
 
-        if (checksum == null) {
-            checksum = originalChan.getChecksumTypeLabel();
-        }
-
-        String gpgUrl, gpgId, gpgFingerprint;
-        if (channelDetails.containsKey("gpg_key_url") ||
-                channelDetails.containsKey("gpg_url") ||
-                channelDetails.containsKey("gpg_key_id") ||
-                channelDetails.containsKey("gpg_id") ||
-                channelDetails.containsKey("gpg_key_fp") ||
-                channelDetails.containsKey("gpg_fingerprint")) {
-            // if one of the GPG information was set, use it
-            if (channelDetails.get("gpg_key_url") == null) {
-                gpgUrl = channelDetails.get("gpg_url");
-            }
-            else {
-                gpgUrl = channelDetails.get("gpg_key_url");
-            }
-            if (channelDetails.get("gpg_key_id") == null) {
-                gpgId = channelDetails.get("gpg_id");
-            }
-            else {
-                gpgId = channelDetails.get("gpg_key_id");
-            }
-            if (channelDetails.get("gpg_key_fp") == null) {
-                gpgFingerprint = channelDetails.get("gpg_fingerprint");
-            }
-            else {
-                gpgFingerprint = channelDetails.get("gpg_key_fp");
-            }
-        }
-        else {
-            // copy GPG info from the original channel
-            gpgUrl = originalChan.getGPGKeyUrl();
-            gpgId = originalChan.getGPGKeyId();
-            gpgFingerprint = originalChan.getGPGKeyFp();
-        }
-
-        CloneChannelCommand helper = new CloneChannelCommand(originalState.booleanValue(),
-                originalChan);
-        helper.setName(name);
-        helper.setArchLabel(arch.getLabel());
-        helper.setDescription(description);
-        helper.setGpgKeyFp(gpgFingerprint);
-        helper.setGpgKeyId(gpgId);
-        helper.setGpgKeyUrl(gpgUrl);
-        helper.setLabel(label);
-        if (parentLabel != null) {
-            helper.setParentLabel(parentLabel);
-        }
-        helper.setUser(loggedInUser);
-        helper.setSummary(summary);
-        helper.setChecksumLabel(checksum);
-
-        Channel clone = helper.create();
+        Channel clone = ccc.create();
         return clone.getId().intValue();
     }
 
@@ -2039,7 +2028,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Role channelRole = RoleFactory.lookupByLabel("channel_admin");
         Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
         if (!loggedInUser.hasRole(channelRole) && !loggedInUser.hasRole(orgAdminRole)) {
-            throw new PermissionException("Only Org Admins and Channel Admins can clone " +
+            throw new PermissionException("Only Org Admins and Channel Admins can clone or update " +
                     "channels.");
         }
     }
@@ -2073,8 +2062,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
             throw new PermissionCheckFailureException();
         }
 
-        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser, mergeFrom
-                .getErratas(), mergeTo, mergeFrom);
+        Set<Errata> mergedErrata = mergeErrataToChannel(loggedInUser, new HashSet(mergeFrom
+                .getErratas()), mergeTo, mergeFrom);
 
         return mergedErrata.toArray();
     }
@@ -2160,10 +2149,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         // make sure our errata exist in the "from" channel
         for (String erratumName : errataNames) {
-            Errata toMerge = ErrataManager.lookupByAdvisory(erratumName);
+            Errata toMerge = ErrataManager.lookupByAdvisory(erratumName,
+                    loggedInUser.getOrg());
 
             for (Errata erratum : sourceErrata) {
-                if (erratum.getAdvisoryName() == toMerge.getAdvisoryName()) {
+                if (erratum.getAdvisoryName().equals(toMerge.getAdvisoryName())) {
                     errataToMerge.add(toMerge);
                     break;
                 }
@@ -2488,9 +2478,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
          repoCmd.store();
 
-         ContentSource repo = ChannelFactory.lookupContentSourceByOrgAndLabel(
-                 loggedInUser.getOrg(), label);
-         return repo;
+         return ChannelFactory.lookupContentSourceByOrgAndLabel(loggedInUser.getOrg(), label);
      }
 
    /**
@@ -2851,6 +2839,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *    #prop_desc("Boolean", "sync-kickstart", "Create kickstartable tree - Optional")
      *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
      *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
+     *    #prop_desc("Boolean", "latest", "Only download latest packages - Optional")
      *  #struct_end()
      * @xmlrpc.returntype  #return_int_success()
      */
@@ -2904,6 +2893,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *    #prop_desc("Boolean", "sync-kickstart", "Create kickstartable tree - Optional")
      *    #prop_desc("Boolean", "no-errata", "Do not sync errata - Optional")
      *    #prop_desc("Boolean", "fail", "Terminate upon any error - Optional")
+     *    #prop_desc("Boolean", "latest", "Only download latest packages - Optional")
      *  #struct_end()
      * @xmlrpc.returntype  #return_int_success()
      */
@@ -2958,10 +2948,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         ContentSource cs = lookupContentSourceByLabel(label, loggedInUser.getOrg());
 
-        List<ContentSourceFilter> result =
-            ChannelFactory.lookupContentSourceFiltersById(cs.getId());
-
-        return result;
+        return ChannelFactory.lookupContentSourceFiltersById(cs.getId());
     }
 
     /**

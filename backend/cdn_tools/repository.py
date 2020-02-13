@@ -1,4 +1,4 @@
-# Copyright (c) 2016 Red Hat, Inc.
+# Copyright (c) 2016--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -34,6 +34,7 @@ class CdnRepositoryManager(object):
         self.local_mount_point = local_mount_point
         self.repository_tree = CdnRepositoryTree()
         self._populate_repository_tree(client_cert_id=client_cert_id)
+        self.excluded_urls = []
 
         f = None
         try:
@@ -145,7 +146,7 @@ class CdnRepositoryManager(object):
     def get_content_sources(self, channel_label, source=False):
         sources = self.get_content_sources_regular(channel_label, source=source)
         kickstart_sources = self.get_content_sources_kickstart(channel_label)
-        return sources + kickstart_sources
+        return sources + sorted(kickstart_sources)
 
     def check_channel_availability(self, channel_label, no_kickstarts=False):
         """Checks if all repositories for channel are available."""
@@ -160,7 +161,13 @@ class CdnRepositoryManager(object):
 
         for source in sources:
             if not self.check_repository_availability(source['relative_url'], channel_label=channel_label):
-                return False
+                if source.get('ks_tree_label', None):
+                    # don't fail if kickstart is missing, just warn (bz1626797)
+                    log2(0, 0, "WARNING: kickstart tree '%s' is unavailable" % source['ks_tree_label'],
+                         stream=sys.stderr)
+                    self.excluded_urls.append(source['relative_url'])
+                else:
+                    return False
         return True
 
     def check_repository_availability(self, relative_url, channel_label=None):
@@ -240,11 +247,13 @@ class CdnRepositoryManager(object):
         backend = SQLBackend()
         self.unlink_all_repos(channel_label, custom_only=True)
         repos = self.list_associated_repos(channel_label)
+        changed = 0
         if delete_repos:
             for to_delete in delete_repos:
                 if to_delete in repos:
                     repos.remove(to_delete)
                     log(0, "Removing repository '%s' from channel." % to_delete)
+                    changed += 1
                 else:
                     log2(0, 0, "WARNING: Repository '%s' is not attached to channel." % to_delete, stream=sys.stderr)
         if add_repos:
@@ -252,6 +261,7 @@ class CdnRepositoryManager(object):
                 if to_add not in repos:
                     repos.append(to_add)
                     log(0, "Attaching repository '%s' to channel." % to_add)
+                    changed += 1
                 else:
                     log2(0, 0, "WARNING: Repository '%s' is already attached to channel." % to_add, stream=sys.stderr)
 
@@ -266,7 +276,7 @@ class CdnRepositoryManager(object):
         else:
             # Make sure everything is unlinked
             self.unlink_all_repos(channel_label)
-        return len(repos)
+        return changed
 
     @staticmethod
     def unlink_all_repos(channel_label, custom_only=False):
@@ -363,11 +373,11 @@ class CdnRepositoryTree(object):
     def _browse_node(self, node, keys):
         """Recursive function going through tree."""
         # Return leaf
-        if not keys:
-            if not isinstance(node, dict):
-                return node
-            else:
-                raise CdnRepositoryNotFoundError()
+        is_leaf = not isinstance(node, dict)
+        if is_leaf and not keys:
+            return node
+        elif (is_leaf and keys) or (not is_leaf and not keys):
+            raise CdnRepositoryNotFoundError()
         step = keys[0]
         to_check = [x for x in node.keys() if x in self.VARIABLES or x == step]
         # Remove first step in path, create new list
@@ -388,13 +398,28 @@ class CdnRepositoryTree(object):
 
         raise CdnRepositoryNotFoundError()
 
+    @staticmethod
+    def normalize_url(url):
+        """Splits repository URL, removes redundant characters and returns list with directory names."""
+        path = []
+        for part in url.split('/'):
+            if part == '..':
+                if path:
+                    del path[-1]
+                else:
+                    # Can't go upper in directory structure, keep it in path
+                    path.append(part)
+            elif part and part != '.':
+                path.append(part)
+
+        return path
+
     def find_repository(self, url):
         """Finds matching repository in tree.
            url is relative CDN url - e.g. /content/dist/rhel/server/6/6Server/x86_64/os"""
-
-        path = [x for x in url.split('/') if x]
         node = self.root
         try:
+            path = self.normalize_url(url)
             found = self._browse_node(node, path)
         except CdnRepositoryNotFoundError:
             raise CdnRepositoryNotFoundError("ERROR: Repository '%s' was not found." % url)

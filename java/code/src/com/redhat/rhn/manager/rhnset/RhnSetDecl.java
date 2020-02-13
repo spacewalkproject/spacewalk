@@ -515,7 +515,6 @@ public class RhnSetDecl {
             builder.append(o);
         }
 
-        String customName = base.getLabel() + builder.toHashCode();
-        return customName;
+        return base.getLabel() + builder.toHashCode();
     }
 }

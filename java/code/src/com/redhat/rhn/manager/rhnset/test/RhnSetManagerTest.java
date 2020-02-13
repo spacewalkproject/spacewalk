@@ -56,6 +56,7 @@ public class RhnSetManagerTest extends RhnBaseTestCase {
     /**
      * Creates an RhnSet then verifies that it was stored in the db
      * by trying to fetch it again.
+     * @throws Exception something bad happened
      */
     public void testCreateDeleteRhnSet() throws Exception {
         String label = "test_rhn_set_label";
@@ -142,6 +143,7 @@ public class RhnSetManagerTest extends RhnBaseTestCase {
 
     /**
      * Testing the store method of RhnSetManager
+     * @throws Exception something bad happened
      */
     public void testStore() throws Exception {
         String label = "test_rhn_set_label_store";

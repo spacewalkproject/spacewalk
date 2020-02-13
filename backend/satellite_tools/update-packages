@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # wrapper for Script to update pacakge paths and gpg key ids.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # Authors: Pradeep Kilambi
 #

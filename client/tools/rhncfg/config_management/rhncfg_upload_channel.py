@@ -14,7 +14,6 @@
 #
 
 import os
-import string
 
 from config_common import handler_base, utils, cfg_exceptions
 from config_common.rhn_log import log_debug, log_error, die

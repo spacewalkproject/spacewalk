@@ -72,9 +72,7 @@ public class PackageEvrComparableTest extends RhnBaseTestCase {
 
     private PackageEvr create(String evr) {
         String[] values = split(evr);
-        PackageEvr result = PackageEvrFactory.lookupOrCreatePackageEvr(
-                values[0], values[1], values[2]);
-        return result;
+        return PackageEvrFactory.lookupOrCreatePackageEvr(values[0], values[1], values[2]);
     }
 
     private String[] split(String evr) {

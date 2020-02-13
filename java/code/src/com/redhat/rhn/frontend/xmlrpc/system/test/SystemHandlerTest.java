@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,22 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.xmlrpc.system.test;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
@@ -111,22 +127,6 @@ import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * SystemHandlerTest
@@ -1273,11 +1273,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         cpu.setModel("model_string");
         cpu.setStepping("stepping_string");
 
-        CPUArch arch = new CPUArch();
-        arch.setName("i986");
-        arch.setLabel("i986");
-        arch.setCreated(new Date());
-        TestUtils.saveAndReload(arch);
+        CPUArch arch = ServerFactory.lookupCPUArchByName("x86_64");
 
         cpu.setServer(server);
         cpu.setArch(arch);

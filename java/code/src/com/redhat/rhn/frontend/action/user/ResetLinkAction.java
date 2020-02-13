@@ -33,7 +33,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
 /**
- * ResetLinkAction, responds to /ResetLink?token=<hash>
+ * ResetLinkAction, responds to {@literal /ResetLink?token=<hash>}
  * Its job is to validate the token, log in the affected user, and redirect them to
  * the change-your-password-NOW page
  *

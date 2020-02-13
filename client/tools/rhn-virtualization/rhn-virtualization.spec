@@ -2,19 +2,27 @@
 %define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
 %define cron_dir %{_sysconfdir}/cron.d
 
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virtualization
+Version:        5.4.76
+Release:        1%{?dist}
 
-Group:          System Environment/Base
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 
-Version:        5.4.57
-Release:        1%{?dist}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
-BuildRequires:  python
 %if 0%{?suse_version}
 # make chkconfig work in OBS
 BuildRequires: sysconfig syslog
@@ -24,15 +32,14 @@ BuildRequires: sysconfig syslog
 rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
 virtual machine guest images.
 
-%package common
+%if 0%{?build_py2}
+%package -n python2-%{name}-common
 Summary: Files needed by rhn-virtualization-host
-Group: System Environment/Base
-%if 0%{?fedora} >= 23
-Requires: python3-spacewalk-usix
-%else
+%{?python_provide:%python_provide python2-%{name}-common}
+Obsoletes: %{name}-common < 5.4.62
+Requires: python2-rhn-client-tools
 Requires: spacewalk-usix
-%endif
-Requires: rhn-client-tools
+BuildRequires: python
 %if 0%{?suse_version}
 # aaa_base provide chkconfig
 Requires: aaa_base
@@ -41,68 +48,117 @@ BuildRequires: rhn-client-tools rhn-check
 %else
 Requires: chkconfig
 %endif
-
-%description common
+%description -n python2-%{name}-common
 This package contains files that are needed by the rhn-virtualization-host
 package.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-common
+Summary: Files needed by rhn-virtualization-host
+%{?python_provide:%python_provide python3-%{name}-common}
+Obsoletes: %{name}-common < 5.4.62
+Requires: python3-spacewalk-usix
+Requires: python3-rhn-client-tools
+BuildRequires: python3-devel
+%description -n python3-%{name}-common
+This package contains files that are needed by the rhn-virtualization-host
+package.
+%endif
 
 %package host
 Summary: RHN/Spacewalk Virtualization support specific to the Host system
-Group: System Environment/Base
-Requires: libvirt-python
-Requires: rhn-virtualization-common = %{version}-%{release}
+Requires: %{pythonX}-%{name}-host = %{version}-%{release}
 %if 0%{?suse_version}
 Requires: cron
-Requires: python-curl
 %else
 Requires: /usr/sbin/crond
-Requires: python-pycurl
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 6
-# in RHEL5 we need libvirt, but in RHEV@RHEL5 there should not be libvirt
-# as there is vdsm and bunch of other packages, but we have no clue how to
-# distinguish those two scenarios
-%else
-Requires: libvirt
 %endif
 
 %description host
 This package contains code for RHN's and Spacewalk's Virtualization support 
 that is specific to the Host system (a.k.a. Dom0).
 
+%if 0%{?build_py2}
+%package -n python2-%{name}-host
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
+Requires: %{name}-host = %{version}-%{release}
+Requires: libvirt-python
+Requires: python2-%{name}-common = %{version}-%{release}
+%if 0%{?suse_version}
+Requires: python-curl
+%else
+Requires: python-pycurl
+%endif
+%description -n python2-%{name}-host
+Python 2 files for %{name}-host.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-host
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
+Requires: %{name}-host = %{version}-%{release}
+Requires: libvirt-python3
+Requires: python3-%{name}-common = %{version}-%{release}
+Requires: python3-pycurl
+%description -n python3-%{name}-host
+Python 3 files for %{name}-host.
+%endif
 
 %prep
 %setup -q
-%if 0%{?suse_version}
-cp scripts/rhn-virtualization-host.SUSE scripts/rhn-virtualization-host
-%endif
 
 %build
 make -f Makefile.rhn-virtualization
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} install
-%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 5)
-find $RPM_BUILD_ROOT -name "localvdsm*" -exec rm -f '{}' ';'
+%if 0%{?build_py2}
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
+        PYTHONPATH=%{python_sitelib} install
+sed -i 's,@PYTHON@,python,; s,@PYTHONPATH@,%{python_sitelib},;' \
+        $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host \
+        $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
 %endif
+
+%if 0%{?build_py3}
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT PKGDIR0=%{_initrddir} \
+        PYTHONPATH=%{python3_sitelib} install
+        sed -i 's,@PYTHON@,python3,; s,@PYTHONPATH@,%{python3_sitelib},;' \
+                $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host \
+                $RPM_BUILD_ROOT/%{cron_dir}/rhn-virtualization.cron
+%endif
+
+%if 0%{?suse_version}
+rm -f $RPM_BUILD_ROOT/%{_initrddir}/rhn-virtualization-host
+%if 0%{?build_py2}
+%py_compile -O %{buildroot}/%{python_sitelib}
+%endif
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
-
-%post host
-/sbin/chkconfig --add rhn-virtualization-host
 %if 0%{?suse_version}
-/sbin/service cron try-restart ||:
-%else
-/sbin/service crond condrestart
-%endif
+%post host
 if [ -d /proc/xen ]; then
     # xen kernel is running
     # change the default template to the xen version
-    sed -i 's@^IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-kvm-template.xml@IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/studio-xen-template.xml@' /etc/sysconfig/rhn/image.cfg
+    sed -i 's@^IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/kvm-template.xml@IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/xen-template.xml@' /etc/sysconfig/rhn/image.cfg
+fi
+
+%else
+
+%post host
+/sbin/chkconfig --add rhn-virtualization-host
+/sbin/service crond condrestart
+if [ -d /proc/xen ]; then
+    # xen kernel is running
+    # change the default template to the xen version
+    sed -i 's@^IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/kvm-template.xml@IMAGE_CFG_TEMPLATE=/etc/sysconfig/rhn/xen-template.xml@' /etc/sysconfig/rhn/image.cfg
 fi
 
 %preun host
@@ -111,51 +167,183 @@ if [ $1 = 0 ]; then
 fi
 
 %postun host
-%if 0%{?suse_version}
-/sbin/service cron try-restart ||:
-%else
 /sbin/service crond condrestart
 %endif
 
-%files common
-%dir %{rhn_dir}/virtualization
-%{rhn_dir}/virtualization/__init__.py*
-%{rhn_dir}/virtualization/batching_log_notifier.py*
-%{rhn_dir}/virtualization/constants.py*
-%{rhn_dir}/virtualization/errors.py*
-%{rhn_dir}/virtualization/notification.py*
-%{rhn_dir}/virtualization/util.py*
+%if 0%{?build_py2}
+%files -n python2-%{name}-common
+%{python_sitelib}/virtualization/__init__.py*
+%{python_sitelib}/virtualization/batching_log_notifier.py*
+%{python_sitelib}/virtualization/constants.py*
+%{python_sitelib}/virtualization/errors.py*
+%{python_sitelib}/virtualization/notification.py*
+%{python_sitelib}/virtualization/util.py*
 %doc LICENSE
+%if 0%{?suse_version}
+%dir %{python_sitelib}/virtualization
+%endif
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-common
+%{python3_sitelib}/virtualization/__init__.py*
+%{python3_sitelib}/virtualization/batching_log_notifier.py*
+%{python3_sitelib}/virtualization/constants.py*
+%{python3_sitelib}/virtualization/errors.py*
+%{python3_sitelib}/virtualization/notification.py*
+%{python3_sitelib}/virtualization/util.py*
+%doc LICENSE
+%dir %{python3_sitelib}/virtualization/__pycache__
+%{python3_sitelib}/virtualization/__pycache__/__init__.*
+%{python3_sitelib}/virtualization/__pycache__/batching_log_notifier.*
+%{python3_sitelib}/virtualization/__pycache__/constants.*
+%{python3_sitelib}/virtualization/__pycache__/errors.*
+%{python3_sitelib}/virtualization/__pycache__/notification.*
+%{python3_sitelib}/virtualization/__pycache__/util.*
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/virtualization
+%endif
+%endif
 
 %files host
 %if 0%{?suse_version}
 %dir %{rhn_conf_dir}
+%else
+%{_initrddir}/rhn-virtualization-host
 %endif
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
-%{_initrddir}/rhn-virtualization-host
 %config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
-%{rhn_dir}/virtualization/domain_config.py*
-%{rhn_dir}/virtualization/domain_control.py*
-%{rhn_dir}/virtualization/domain_directory.py*
-%{rhn_dir}/virtualization/get_config_value.py*
-%{rhn_dir}/virtualization/init_action.py*
-%{rhn_dir}/virtualization/poller.py*
-%{rhn_dir}/virtualization/schedule_poller.py*
-%{rhn_dir}/virtualization/poller_state_cache.py*
-%{rhn_dir}/virtualization/start_domain.py*
-%{rhn_dir}/virtualization/state.py*
-%{rhn_dir}/virtualization/support.py*
-%{rhn_dir}/actions/virt.py*
-%{rhn_dir}/actions/image.py*
-%if 0%{?suse_version} || (0%{?rhel} && 0%{?rhel} < 6)
-%{rhn_dir}/virtualization/localvdsm.py*
-%endif
-%{rhn_conf_dir}/studio-*-template.xml
+%{rhn_conf_dir}/*-template.xml
 %config(noreplace) %{rhn_conf_dir}/image.cfg
 %doc LICENSE
 
+%if 0%{?build_py2}
+%files -n python2-%{name}-host
+%{python_sitelib}/virtualization/domain_config.py*
+%{python_sitelib}/virtualization/domain_control.py*
+%{python_sitelib}/virtualization/domain_directory.py*
+%{python_sitelib}/virtualization/get_config_value.py*
+%{python_sitelib}/virtualization/init_action.py*
+%{python_sitelib}/virtualization/poller.py*
+%{python_sitelib}/virtualization/schedule_poller.py*
+%{python_sitelib}/virtualization/poller_state_cache.py*
+%{python_sitelib}/virtualization/start_domain.py*
+%{python_sitelib}/virtualization/state.py*
+%{python_sitelib}/virtualization/support.py*
+%{python_sitelib}/rhn/actions/virt.py*
+%{python_sitelib}/rhn/actions/image.py*
+%if 0%{?suse_version}
+%dir %{python_sitelib}/rhn
+%dir %{python_sitelib}/rhn/actions
+%endif
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-host
+%{python3_sitelib}/virtualization/domain_config.py*
+%{python3_sitelib}/virtualization/domain_control.py*
+%{python3_sitelib}/virtualization/domain_directory.py*
+%{python3_sitelib}/virtualization/get_config_value.py*
+%{python3_sitelib}/virtualization/init_action.py*
+%{python3_sitelib}/virtualization/poller.py*
+%{python3_sitelib}/virtualization/schedule_poller.py*
+%{python3_sitelib}/virtualization/poller_state_cache.py*
+%{python3_sitelib}/virtualization/start_domain.py*
+%{python3_sitelib}/virtualization/state.py*
+%{python3_sitelib}/virtualization/support.py*
+%{python3_sitelib}/rhn/actions/virt.py*
+%{python3_sitelib}/rhn/actions/image.py*
+%{python3_sitelib}/virtualization/__pycache__/domain_config.*
+%{python3_sitelib}/virtualization/__pycache__/domain_control.*
+%{python3_sitelib}/virtualization/__pycache__/domain_directory.*
+%{python3_sitelib}/virtualization/__pycache__/get_config_value.*
+%{python3_sitelib}/virtualization/__pycache__/init_action.*
+%{python3_sitelib}/virtualization/__pycache__/poller.*
+%{python3_sitelib}/virtualization/__pycache__/schedule_poller.*
+%{python3_sitelib}/virtualization/__pycache__/poller_state_cache.*
+%{python3_sitelib}/virtualization/__pycache__/start_domain.*
+%{python3_sitelib}/virtualization/__pycache__/state.*
+%{python3_sitelib}/virtualization/__pycache__/support.*
+%{python3_sitelib}/rhn/actions/__pycache__/virt.*
+%{python3_sitelib}/rhn/actions/__pycache__/image.*
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn
+%dir %{python3_sitelib}/rhn/actions
+%dir %{python3_sitelib}/rhn/actions/__pycache__
+%endif
+%endif
+
 %changelog
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.76-1
+- removed old RHEL5 localvdsm which breaks build on mageia
+
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.75-1
+- fix build on opensuse
+- fix build on mageia
+
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.74-1
+- get rid of #!/usr/bin/env .* shebang
+
+* Tue Jun 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.73-1
+- Rewrite of the client code (image.py)
+
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.72-1
+- don't build python2 subpackages on systems with default python3
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.4.71-1
+- use python3 for rhel8 in rhn-virtualization
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.4.70-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Fri Nov 03 2017 Jan Dobes 5.4.69-1
+- simplify status check
+
+* Fri Nov 03 2017 Jan Dobes 5.4.68-1
+- open cache file in binary mode
+
+* Fri Nov 03 2017 Jan Dobes 5.4.67-1
+- fixing traceback from poller.py on Python 3
+
+* Thu Nov 02 2017 Jan Dobes 5.4.66-1
+- fixing a bytes-like object is required, not 'str'
+
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.65-1
+- rhn-virtualization: do not install sys-v init script on SUSE
+- rhn-virtualization: add missing dirs to filelist for SUSE and enable build
+  for Tumbleweed
+
+* Wed Oct 18 2017 Jan Dobes 5.4.64-1
+- rhn-virtualization - removing usage of string module not available in Python
+  3
+
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.63-1
+- virt modules (and deps) are now in standard python path
+
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.62-1
+- install files into python_sitelib/python3_sitelib
+- move rhn-virtualization-host files into proper python2/python3 subpackages
+- move rhn-virtualization-common files into proper python2/python3 subpackages
+- split rhn-virtualization-host into python2/python3 specific packages
+- split rhn-virtualization into python2/python3 specific packages
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.61-1
+- purged changelog entries for Spacewalk 2.0 and older
+
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.60-1
+- precompile py3 bytecode on Fedora 23+
+- use standard brp-python-bytecompile
+
+* Tue Jul 18 2017 Michael Mraka <michael.mraka@redhat.com> 5.4.59-1
+- move version and release before sources
+
+* Mon Jul 17 2017 Jan Dobes 5.4.58-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Wed Feb 15 2017 Tomas Kasparek <tkasparek@redhat.com> 5.4.57-1
 - require spacewalk-usix indead of spacewalk-backend-usix
 
@@ -203,106 +391,4 @@ fi
 
 * Wed Feb 06 2013 Jan Pazdziora 5.4.43-1
 - support studio KVM image type
-
-* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 5.4.42-1
-- no use of /var/lock/subsys/ anymore
-
-* Fri Aug 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.4.41-1
-- don't include localvdsm.py on fedora
-
-* Fri Aug 10 2012 Milan Zazrivec <mzazrivec@redhat.com> 5.4.40-1
-- fix file inclusion on a fedora build
-
-* Fri Aug 10 2012 Jan Pazdziora 5.4.39-1
-- 820862 - fix traceback on a fat rhev-3 host
-
-* Fri Jul 13 2012 Stephen Herr <sherr@redhat.com> 5.4.38-1
-- Automatic commit of package [rhn-virtualization] release [5.4.37-1].
-- 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
-
-* Thu Jul 12 2012 Stephen Herr <sherr@redhat.com> 5.4.37-1
-- 839776 - rhn-profile-sync exits with status 1 if libvirtd is not running
-
-* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 5.4.36-1
-- Add support for studio image deployments (client) (jrenner@suse.de)
-- %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
-
-* Tue Mar 27 2012 Stephen Herr <sherr@redhat.com> 5.4.35-1
-- 807028 - rhn-virtualization-host should not delete chkconfig settings on
-  upgrade (sherr@redhat.com)
-
-* Fri Mar 02 2012 Jan Pazdziora 5.4.34-1
-- Update the copyright year info.
-
-* Mon Feb 27 2012 Jan Pazdziora 5.4.33-1
-- 796658 - we need R/W connection to do domain operations
-  (mzazrivec@redhat.com)
-
-* Thu Jan 26 2012 Jan Pazdziora 5.4.32-1
-- 781421 - sys.stderr.write could not handle decoded unicode
-  (msuchy@redhat.com)
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.31-1
-- update copyright info
-
-* Mon Oct 31 2011 Miroslav Suchý 5.4.30-1
-- fix vm-state poller (ug@suse.de)
-
-* Thu Oct 27 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.29-1
-- 742811 - domain_directory: R/O access to libvirtd is sufficient
-
-* Wed Oct 26 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.28-1
-- 742811 - don't open RW connection to libvirt unless necessary
-
-* Wed Oct 26 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.4.27-1
-- 742811 - RHEV: handle no-guests situation correctly
-
-* Wed Oct 05 2011 Martin Minar <mminar@redhat.com> 5.4.26-1
-- 742811 - check for running vdsm only (colin.coe@gmail.com)
-
-* Fri Aug 12 2011 Miroslav Suchý 5.4.25-1
-- fix syntax errors
-
-* Thu Aug 11 2011 Miroslav Suchý 5.4.24-1
-- do not mask original error by raise in execption
-
-* Thu May 19 2011 Miroslav Suchý 5.4.23-1
-- simplify spec
-- rhn-virtualization-host.noarch: E: incoherent-subsys /etc/rc.d/init.d/rhn-
-  virtualization-host rhn-virtualization
-- fix spelling error
-
-* Fri Apr 15 2011 Jan Pazdziora 5.4.22-1
-- build rhn-virtualization on SUSE (mc@suse.de)
-
-* Fri Apr 08 2011 Miroslav Suchý 5.4.21-1
-- update copyright years (msuchy@redhat.com)
-
-* Thu Mar 10 2011 Miroslav Suchý <msuchy@redhat.com> 5.4.20-1
-- 683546 - optparse isn't friendly to translations in unicode
-
-* Wed Jan 05 2011 Miroslav Suchý <msuchy@redhat.com> 5.4.19-1
-- 656241 - require libvirt
-- Updating the copyright years to include 2010. (jpazdziora@redhat.com)
-
-* Mon Dec 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.18-1
-- 657516 - print nice warning if libvirtd is not running
-
-* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.17-1
-- removed unused imports
-
-* Sat Nov 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.16-1
-- If libvirtd is not running do not throw traceback (msuchy@redhat.com)
-
-* Tue Nov 02 2010 Jan Pazdziora 5.4.15-1
-- Update copyright years in the rest of the repo.
-
-* Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.4.14-1
-- add parameter cache_only to all client actions (msuchy@redhat.com)
-
-* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.4.13-1
-- 591609 - 'Unknown' is not a valid virt. guest state
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.4.12-1
-- Removing usused imports from rhn-virtualization/actions/virt.
 

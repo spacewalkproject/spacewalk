@@ -81,11 +81,7 @@ public class ArchType extends BaseDomainHelper {
 
         ArchType archType = (ArchType) o;
 
-        if (id != null ? !id.equals(archType.id) : archType.id != null) {
-            return false;
-        }
-
-        return true;
+        return id != null ? id.equals(archType.id) : archType.id == null;
     }
 
     /** {@inheritDoc} */

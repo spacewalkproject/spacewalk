@@ -176,3 +176,9 @@
 .spacewalk-icon-unknown-system:before {
 	content: "\e633";
 }
+.spacewalk-icon-security-advisory:before {
+  content: "\e900";
+}
+.spacewalk-icon-enhancement-advisory:before {
+  content: "\e901";
+}

@@ -27,9 +27,10 @@ import com.redhat.rhn.frontend.html.HtmlTag;
 
 /**
  * RhnHiddenTag: renders a hidden-input entity, insures value is htmlEscaped
- *
+ * <p>
+ * {@literal
  * <input name="prev_filter_value" type="hidden" value="908238940"/>
- *
+ * }
  */
 
 public class RhnHiddenTag extends TagSupport {

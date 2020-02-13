@@ -136,6 +136,7 @@ public class ChildChannelAction extends RhnAction {
      *
      * @param user    user making the request
      * @param request http request to grab the user submitted data from
+     * @return the number of changes stored
      */
     protected int processList(User user, HttpServletRequest request) {
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013--2015 Red Hat, Inc.
+ * Copyright (c) 2013--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,8 +47,16 @@ public class IconTag extends TagSupport {
         icons.put("action-pending", "fa fa-clock-o fa-1-5x");
         icons.put("action-running", "fa fa-exchange fa-1-5x text-info");
         icons.put("errata-bugfix", "fa fa-bug fa-1-5x");
-        icons.put("errata-enhance", "fa fa-1-5x spacewalk-icon-enhancement");
-        icons.put("errata-security", "fa fa-shield fa-1-5x");
+        icons.put("errata-enhance", "fa fa-1-1x spacewalk-icon-enhancement-advisory");
+        icons.put("errata-security", "fa spacewalk-icon-security-advisory fa-1-1x");
+        icons.put("errata-security-low", "fa spacewalk-icon-security-advisory fa-1-1x " +
+                "errata-low");
+        icons.put("errata-security-moderate", "fa spacewalk-icon-security-advisory " +
+                "fa-1-1x errata-moderate");
+        icons.put("errata-security-important", "fa spacewalk-icon-security-advisory " +
+                "fa-1-1x errata-important");
+        icons.put("errata-security-critical", "fa spacewalk-icon-security-advisory " +
+                "fa-1-1x errata-critical");
         icons.put("event-type-errata", "fa spacewalk-icon-patches");
         icons.put("event-type-package", "fa spacewalk-icon-packages");
         icons.put("event-type-preferences", "fa fa-cog");
@@ -73,7 +81,7 @@ public class IconTag extends TagSupport {
         icons.put("header-errata-add", "fa spacewalk-icon-patch-install");
         icons.put("header-errata-del", "fa spacewalk-icon-patch-remove");
         icons.put("header-errata-set", "fa spacewalk-icon-patch-set");
-        icons.put("header-errata-set-add", "fa pacewalk-icon-patchset-install");
+        icons.put("header-errata-set-add", "fa spacewalk-icon-patchset-install");
         icons.put("header-event-history", "fa fa-suitcase");
         icons.put("header-file", "fa fa-file-text-o");
         icons.put("header-folder", "fa fa-folder-open-o");
@@ -240,7 +248,7 @@ public class IconTag extends TagSupport {
     }
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     public int doStartTag() throws JspException {
         if (!icons.containsKey(type)) {

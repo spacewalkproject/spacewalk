@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014--2015 Red Hat, Inc.
+ * Copyright (c) 2014--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -68,6 +68,7 @@ public class SystemHistoryEventAction extends RhnAction {
             request.setAttribute("earliestaction", event.getCreated());
             request.setAttribute("actionnotes", event.getDetails());
             request.setAttribute("failed", false);
+            request.setAttribute("pickedup", false);
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         ActionFormatter af = action.getFormatter();
@@ -79,6 +80,8 @@ public class SystemHistoryEventAction extends RhnAction {
                 requestContext.getCurrentUser()));
         request.setAttribute("failed",
                 serverAction.getStatus().equals(ActionFactory.STATUS_FAILED));
+        request.setAttribute("pickedup",
+                serverAction.getStatus().equals(ActionFactory.STATUS_PICKEDUP));
         if (!serverAction.getStatus().equals(ActionFactory.STATUS_COMPLETED) &&
                 !serverAction.getStatus().equals(ActionFactory.STATUS_FAILED)) {
             request.setAttribute("referrerLink", "Pending.do");

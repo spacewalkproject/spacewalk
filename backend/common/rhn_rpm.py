@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@ import os
 import sys
 import struct
 import tempfile
+import functools
 
 import rpm
 
@@ -24,6 +25,7 @@ from spacewalk.common.usix import raise_with_tb
 from spacewalk.common.usix import next as usix_next
 from spacewalk.common import checksum
 from spacewalk.common.rhn_pkg import A_Package, InvalidPackageError
+from rhn.i18n import sstr
 
 # bare-except and broad-except
 # pylint: disable=W0702,W0703
@@ -81,7 +83,10 @@ class RPM_Header:
         self._extract_signatures()
 
     def __getitem__(self, name):
-        return self.hdr[name]
+        item = self.hdr[name]
+        if isinstance(item, bytes):
+            item = sstr(item)
+        return item
 
     def __setitem__(self, name, item):
         self.hdr[name] = item
@@ -90,7 +95,10 @@ class RPM_Header:
         del self.hdr[name]
 
     def __getattr__(self, name):
-        return getattr(self.hdr, name)
+        item = getattr(self.hdr, name)
+        if isinstance(item, bytes):
+            item = sstr(item)
+        return item
 
     def __len__(self):
         return len(self.hdr)
@@ -439,7 +447,11 @@ def sortRPMs(rpms):
     helper = [(get_package_header(x), x) for x in rpms]
 
     # Sort the list using the headers as a comparison
-    helper.sort(lambda x, y: hdrLabelCompare(x[0], y[0]))
+    sort_cmp=lambda x, y: hdrLabelCompare(x[0], y[0])
+    try:
+        helper.sort(sort_cmp)
+    except TypeError:
+        helper.sort(key=functools.cmp_to_key(sort_cmp))
 
     # Extract the rpm names now
     return [x[1] for x in helper]

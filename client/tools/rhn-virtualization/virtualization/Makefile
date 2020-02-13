@@ -1,6 +1,6 @@
 PYTHON=python
 PYFILES = $(wildcard *.py)
-PKGDIR = /usr/share/rhn/virtualization
+PKGDIR = $(PYTHONPATH)/virtualization
 
 all: 
 	echo "Nothing to do"
@@ -13,5 +13,3 @@ install:
 	for p in $(PYFILES) ; do \
 		install -m 644 $$p $(DESTDIR)/$(PKGDIR)/$$p; \
 	done
-	$(PYTHON) -c "import compileall; compileall.compile_dir('$(DESTDIR)/$(PKGDIR)', 1, '$(PYDIR)', 1)"
-	$(PYTHON) -O -c "import compileall; compileall.compile_dir('$(DESTDIR)/$(PKGDIR)', 1, '$(PYDIR)', 1)"

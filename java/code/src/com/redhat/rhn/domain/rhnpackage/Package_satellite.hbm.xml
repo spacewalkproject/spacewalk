@@ -138,7 +138,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
    <query name="Package.findOtherArches">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p
-                where p.packageName = :name and
+                where p.packageName = :name and p.org = :org and
                   p.packageEvr = :evr and p.packageArch != :arch]]>
     </query>
 

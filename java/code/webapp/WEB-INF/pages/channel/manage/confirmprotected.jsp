@@ -39,7 +39,7 @@
          sortable="true"
          headerkey="org.trust.org"
          sortattr="name">
-            <a href="/rhn/multiorg/OrgTrustDetails.do?oid=${current.org.id}"> ${current.org.name}
+            <a href="/rhn/multiorg/OrgTrustDetails.do?oid=${current.org.id}"> ${fn:escapeXml(current.org.name)}
 </a>
       </rl:column>
       <rl:column

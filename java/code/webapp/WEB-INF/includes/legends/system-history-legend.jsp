@@ -4,7 +4,7 @@
 <%@ include file="/WEB-INF/includes/legends/system-history-type-legend.jsp" %>
 
 <div class="sideleg">
-  <h4><bean:message key="system-hisotry-legend.jsp.status.title" /></h4>
+  <h4><bean:message key="system-history-legend.jsp.status.title" /></h4>
   <ul>
     <li><rhn:icon type="action-ok" /><bean:message key="system-history-legend.status.jsp.ok" /></li>
     <li><rhn:icon type="action-failed" /><bean:message key="system-history-legend.jsp.status.failed" /></li>

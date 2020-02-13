@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Encapsulates data needed for a SsmPowerManagementAction.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class SsmPowerManagementEvent implements EventMessage {
 

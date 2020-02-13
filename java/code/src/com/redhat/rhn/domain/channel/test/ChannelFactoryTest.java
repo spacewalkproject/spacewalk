@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -154,7 +154,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
 
     /**
      * TODO: need to fix this test when we put errata management back in.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testChannelsWithClonableErrata() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
@@ -196,7 +196,6 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertEquals(user.getOrg(), c.getOrg());
 
         //Lookup a channel in a different org
-        return; //no need to test in sat since we have only one org.
     }
 
     public void testIsGloballySubscribable() throws Exception {
@@ -299,6 +298,7 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
      * original's package list like a real clone would. It is only useful for
      * testing purposes.
      * @param original Channel to be cloned
+     * @param user the user
      * @return a test cloned channel
      */
     public static Channel createTestClonedChannel(Channel original, User user) {
@@ -374,7 +374,11 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user);
         assertNotNull(channels);
-        assertEquals(1, channels.size());
+        int size = channels.size();
+        createTestChannel(user);
+        channels = ChannelFactory.listAllBaseChannels(user);
+        assertNotNull(channels);
+        assertEquals(size + 1, channels.size());
     }
 
     public void testLookupPackageByFileName() throws Exception {

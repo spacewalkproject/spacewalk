@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -173,11 +173,9 @@ def getHeader(productName, activation_keys, org_gpg_key,
               overrides, hostname, orgCACert, isRpmYN,
               using_ssl, using_gpg,
               allow_config_actions, allow_remote_commands, up2dateYN, pubname):
-    #2/14/06 wregglej 181407 If the org_gpg_key option has the path to the file
-    #in it, remove it. It will cause the $FETCH to fail.
-    path_list = os.path.split(org_gpg_key)
-    if path_list[0] and path_list[0] != '':
-        org_gpg_key = path_list[1]
+    # 11/22/16 options.gpg_key is now a comma-separated list of path.
+    # Removing paths from options.gpg_key
+    org_gpg_key = ",".join([os.path.basename(gpg_key) for gpg_key in org_gpg_key.split(",")])
 
     if not activation_keys:
         exit_call = "exit 1"
@@ -219,13 +217,20 @@ fi
 
 def getUp2dateScriptsSh():
     return """\
+for cmd in /usr/bin/python /usr/bin/python2 /usr/libexec/platform-python /usr/bin/python3
+do
+    if [ -x $cmd ] ; then
+        PYTHON=$cmd
+        break
+    fi
+done
 echo "* running the update scripts"
 if [ -f "/etc/sysconfig/rhn/rhn_register" ] ; then
     echo "  . rhn_register config file"
-    /usr/bin/python -u client_config_update.py /etc/sysconfig/rhn/rhn_register ${CLIENT_OVERRIDES}
+    $PYTHON -u client_config_update.py /etc/sysconfig/rhn/rhn_register ${CLIENT_OVERRIDES}
 fi
 echo "  . up2date config file"
-/usr/bin/python -u client_config_update.py /etc/sysconfig/rhn/up2date ${CLIENT_OVERRIDES}
+$PYTHON -u client_config_update.py /etc/sysconfig/rhn/up2date ${CLIENT_OVERRIDES}
 
 """
 

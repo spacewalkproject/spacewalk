@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2008--2012 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -289,11 +289,9 @@ Name: $NAME
 $(if [ -n "$EPOCH" ]; then echo "Epoch: $EPOCH"; fi)
 Version: $VERSION
 Release: $RELEASE
-Group: $GROUP
 License: GPL
 BuildArch: $ARCH
 Source: %{name}-%{version}.tar.gz
-BuildRoot: /var/tmp/%{name}-%{version}-root
 Summary: $SUMMARY
 Packager: $PACKAGER
 Vendor: $VENDOR
@@ -325,7 +323,6 @@ rm -rf \$RPM_BUILD_ROOT
 `generate_section "$PREUN" preun`
 
 %files
-%defattr(-,root,root)
 `echo -e $filesect`
 EOF
 

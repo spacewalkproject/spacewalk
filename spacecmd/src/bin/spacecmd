@@ -25,12 +25,18 @@ import logging
 import os
 import re
 import sys
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 import codecs
 import locale
-from ConfigParser import SafeConfigParser
-from optparse import Option, OptionParser
-from socket import gethostname
+import argparse
+try: # python 3
+    from configparser import SafeConfigParser
+except ImportError: # python 2
+    from ConfigParser import SafeConfigParser
+from socket import getfqdn
 
 _INTRO = '''Welcome to spacecmd, a command-line interface to Spacewalk.
 
@@ -48,29 +54,34 @@ if __name__ == '__main__':
     if not sys.stdout.isatty():
         sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
-    optionsTable = [
-        Option('-u', '--username', action='store',
-               help='use this username to connect to the server'),
-        Option('-p', '--password', action='store',
-               help='use this password to connect to the server'),
-        Option('-s', '--server', action='store',
-               help='connect to this server [default: local hostname]'),
-        Option('--nossl', action='store_true',
-               help='use HTTP instead of HTTPS'),
-        Option('--nohistory', action='store_true',
-               help='do not store command history'),
-        Option('-y', '--yes', action='store_true',
-               help='answer yes for all questions'),
-        Option('-q', '--quiet', action='store_true',
-               help='print only error messages'),
-        Option('-d', '--debug', action='count',
-               help='print debug messages (can be passed multiple times)'),
-    ]
+    usage = '%(prog)s [options] [command]'
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument('-c', '--config',
+                         help='config file to use [default: ~/.spacecmd/config]')
+    parser.add_argument('-u', '--username',
+                        help='use this username to connect to the server')
+    parser.add_argument('-p', '--password',
+                        help='use this password to connect to the server')
+    parser.add_argument('-s', '--server',
+                        help='connect to this server [default: local hostname]')
+    parser.add_argument('--nossl', action='store_true',
+                        help='use HTTP instead of HTTPS')
+    parser.add_argument('--nohistory', action='store_true',
+                        help='do not store command history')
+    parser.add_argument('-y', '--yes', action='store_true',
+                        help='answer yes for all questions')
+    parser.add_argument('-q', '--quiet', action='store_true',
+                        help='print only error messages')
+    parser.add_argument('-d', '--debug', action='count', default=0,
+                        help='print debug messages (can be passed multiple times)')
+    parser.add_argument('command', nargs='*',
+                        help=argparse.SUPPRESS)
 
-    usage = 'usage: %prog [options] [command]'
-
-    parser = OptionParser(option_list=optionsTable, usage=usage)
-    (options, args) = parser.parse_args()
+    options = parser.parse_args()
+    if options.command:
+        args = options.command
+    else:
+        args = []
 
     # determine the logging level
     if options.debug:
@@ -105,26 +116,35 @@ if __name__ == '__main__':
     if shell.options.server:
         shell.config['server'] = shell.options.server
     else:
-        shell.config['server'] = gethostname()
+        shell.config['server'] = getfqdn()
 
+    # don't automatically create config files passed via --config
+    if shell.options.config:
+        if not os.path.isfile(shell.options.config):
+            logging.error('Config file %s does not exist.', shell.options.config)
+            sys.exit(1)
+    else:
     # create an empty configuration file if one's not present
-    if not os.path.isfile(user_conf_file):
-        try:
-            # create ~/.spacecmd
-            if not os.path.isdir(conf_dir):
-                logging.debug('Creating %s', conf_dir)
-                os.mkdir(conf_dir, 0700)
+        if not os.path.isfile(user_conf_file):
+            try:
+                # create ~/.spacecmd
+                if not os.path.isdir(conf_dir):
+                    logging.debug('Creating %s', conf_dir)
+                    os.mkdir(conf_dir, int('0700', 8))
 
-            # create a template configuration file
-            logging.debug('Creating configuration file: %s', user_conf_file)
-            handle = open(user_conf_file, 'w')
-            handle.write('[spacecmd]\n')
-            handle.close()
-        except IOError:
-            logging.error('Could not create %s', user_conf_file)
+                # create a template configuration file
+                logging.debug('Creating configuration file: %s', user_conf_file)
+                handle = open(user_conf_file, 'w')
+                handle.write('[spacecmd]\n')
+                handle.close()
+            except IOError:
+                logging.error('Could not create %s', user_conf_file)
 
     # load options from configuration files
-    files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file])
+    if shell.options.config:
+        files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file, shell.options.config])
+    else:
+        files_read = config.read([_SYSTEM_CONF_FILE, user_conf_file])
 
     for item in files_read:
         logging.debug('Read configuration from %s', item)
@@ -139,7 +159,7 @@ if __name__ == '__main__':
             command = args[0]
 
             if len(args) > 1:
-                command += ' %s' % ' '.join('%s' % s for s in args[1:])
+                command += ' %s' % ' '.join('%s' % s if not True in [ c.isspace() for c in s ] else "'%s'" % s for s in args[1:])
 
             # run the command
             precmd = shell.precmd(command)
@@ -148,16 +168,16 @@ if __name__ == '__main__':
             shell.print_result(shell.onecmd(precmd), precmd)
         except KeyboardInterrupt:
             print
-            print 'User Interrupt'
+            print('User Interrupt')
         except UnknownCallException:
             sys.exit(1)
-        except Exception, detail:
+        except Exception as detail:
             # get the relevant part of a XML-RPC fault
             if isinstance(detail, xmlrpclib.Fault):
                 detail = detail.faultString
 
             if shell.options.debug:
-                # print the traceback when debugging
+                # print(the traceback when debugging)
                 logging.exception(detail)
             else:
                 logging.error(detail)
@@ -165,7 +185,7 @@ if __name__ == '__main__':
             sys.exit(1)
     else:
         if not shell.options.quiet:
-            print _INTRO
+            print(_INTRO)
 
         if not shell.do_login(''):
             sys.exit(1)
@@ -180,7 +200,7 @@ if __name__ == '__main__':
                 sys.exit(0)
             except UnknownCallException:
                 pass
-            except Exception, detail:
+            except Exception as detail:
                 # get the relevant part of a XML-RPC fault
                 if isinstance(detail, xmlrpclib.Fault):
                     detail = detail.faultString
@@ -190,7 +210,7 @@ if __name__ == '__main__':
                         shell.session = ''
 
                 if shell.options.debug:
-                    # print the traceback when debugging
+                    # print(the traceback when debugging)
                     logging.exception(detail)
                 else:
                     logging.error(detail)

@@ -57,8 +57,7 @@ public class SsmOperationManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("user_id", user.getId());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -79,8 +78,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("status", SsmOperationStatus.IN_PROGRESS.getText());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -101,8 +99,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("status", SsmOperationStatus.COMPLETED.getText());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -133,14 +130,14 @@ public class SsmOperationManager extends BaseManager {
 
     /**
      * Creates a new operation, defaulting the status to "in progress".
-     * <p/>
+     * <p>
      * For efficiency, this call assumes the following:
      * <ul>
      * <li>The set of servers that are taking place in the operation are already in the
      * database as an RhnSet (the name of set is passed into this call).</li>
      * <li>The server ID is stored in the first element (i.e. "element" in the set table).
      * </ul>
-     * <p/>
+     * <p>
      * This should be a safe assumption since, at very least, if all servers are taking
      * place in the operation they are already in the SSM RhnSet. If only a subset
      * is needed, a nested select can be used to drop them into a new set, preventing
@@ -232,8 +229,7 @@ public class SsmOperationManager extends BaseManager {
         params.put("op_id", operationId);
 
         // list of maps of server_id -> <id>
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**

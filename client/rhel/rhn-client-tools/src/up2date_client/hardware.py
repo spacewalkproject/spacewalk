@@ -1,5 +1,5 @@
 #
-# Copyright (c) 1999--2016 Red Hat, Inc.
+# Copyright (c) 1999--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -57,12 +57,16 @@ import dbus
 import dmidecode
 from up2date_client import up2dateLog
 
-try: # F13 and EL6
-    from up2date_client.hardware_gudev import get_devices, get_computer_info
+try:
+    from up2date_client.hardware_udev import get_devices, get_computer_info
     using_gudev = 1
 except ImportError:
-    from up2date_client.hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
-    using_gudev = 0
+    try: # F13 and EL6
+        from up2date_client.hardware_gudev import get_devices, get_computer_info
+        using_gudev = 1
+    except ImportError:
+        from up2date_client.hardware_hal import check_hal_dbus_status, get_hal_computer, read_hal
+        using_gudev = 0
 
 # Some systems don't have the _locale module installed
 try:
@@ -562,10 +566,10 @@ def findHostByRoute():
             vals = info.split('=')
             if len(vals) <= 1:
                 continue
-            strippedstring = vals[0].strip()
-            vals[0] = strippedstring
-            if vals[0] == "HOSTNAME":
-                hostname = ''.join(vals[1:]).strip()
+            if vals[0].strip() == "HOSTNAME":
+                # /etc/sysconfig/network is of shell syntax,
+                # so values can be quoted
+                hostname = ''.join(vals[1:]).strip('"\' \t\n')
                 break
 
     if hostname == None or hostname == 'localhost.localdomain':
@@ -738,7 +742,7 @@ def read_network_interfaces():
                             netmask_bits += 16
                         else:
                             # remove '0b' from begin and find last '1' in the string
-                            netmask_bits += 16 - 1 - bin(int(two_octets, 16))[2:].rindex('1')
+                            netmask_bits += 1 + bin(int(two_octets.split('/')[0], 16))[2:].rindex('1')
 
                     ip6_list.append({
                             'scope':   scope,

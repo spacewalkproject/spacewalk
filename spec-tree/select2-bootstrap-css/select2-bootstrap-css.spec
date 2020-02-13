@@ -6,14 +6,12 @@
 
 Name:           select2-bootstrap-css
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CSS to make Select2 fit in with Bootstrap 3.
 
-Group:          Applications/Internet
 License:        MIT
 URL:            http://fk.github.io/select2-bootstrap-css/
 Source0:        https://github.com/t0m/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -34,7 +32,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/javascript/select2/select2-bootstrap.css
 %if 0%{?suse_version}
 %dir %{apachedocroot}/javascript
@@ -42,6 +39,11 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.3.0-6
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 1.3.0-5
 - select2-bootstrap-css: build on openSUSE
 

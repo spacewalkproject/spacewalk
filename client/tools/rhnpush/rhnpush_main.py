@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,7 @@ import os
 import random
 import sys
 import time
+# pylint: disable=W0402
 from optparse import Option, OptionParser
 
 # pylint: disable=F0401,E0611
@@ -39,11 +40,11 @@ from rhn.connections import idn_ascii_to_puny
 
 from rhn import rpclib
 from rhn.i18n import sstr
+from rhnpush import rhnpush_confmanager, uploadLib, rhnpush_v2
+from rhnpush.utils import tupleify_urlparse
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
 
-from rhnpush.utils import tupleify_urlparse
-from rhnpush import rhnpush_confmanager, uploadLib, rhnpush_v2
 
 if sys.version_info[0] == 3:
     import urllib.parse as urlparse
@@ -135,7 +136,7 @@ def main():
         if not options.channel:
             upload.die(1, "Must specify a channel for --list to work")
         upload.list()
-        return
+        return 0
 
     if options.dir and not options.stdin:
         upload.directory()
@@ -165,20 +166,20 @@ def main():
 
     if options.test:
         upload.test()
-        return
+        return 0
 
     if options.extended_test:
         upload.extended_test()
-        return
+        return 0
 
     if options.header:
         upload.uploadHeaders()
-        return
+        return 0
 
     ret = upload.packages()
     if ret != 0:
         return 1
-
+    return 0
 
 class UploadClass(uploadLib.UploadClass):
     # pylint: disable=E1101,W0201,W0632
@@ -465,7 +466,7 @@ class UploadClass(uploadLib.UploadClass):
 
         # self.channels is never None, it always has at least one entry with an empty string.
         if len(self.channels) == 1 and self.channels[0] == '':
-            return
+            return 0
         info = {
             'packages': channel_packages,
             'channels': self.channels

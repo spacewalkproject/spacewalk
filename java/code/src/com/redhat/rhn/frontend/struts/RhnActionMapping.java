@@ -75,10 +75,7 @@ public class RhnActionMapping extends ActionMapping {
      * @return true if postRequired attribute is present and set to "true", false otherwise
      */
     public boolean postRequired() {
-        if (postRequired != null && postRequired.equals("true")) {
-            return true;
-        }
-        return false;
+        return postRequired != null && postRequired.equals("true");
     }
 
     /**
@@ -99,9 +96,6 @@ public class RhnActionMapping extends ActionMapping {
      * @return true if postRequiredIfSubmitted attribute is present and set to "true"
      */
     public boolean postRequiredIfSubmitted() {
-        if (postRequiredIfSubmitted != null && postRequiredIfSubmitted.equals("true")) {
-            return true;
-        }
-        return false;
+        return postRequiredIfSubmitted != null && postRequiredIfSubmitted.equals("true");
     }
 }

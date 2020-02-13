@@ -137,7 +137,7 @@ public class SHA256Crypt {
      * @param key - The key to encode
      * @param s - The salt
      * @return Returns a string in the form of "$1$salt$encodedkey"
-     * @throws SHA256CryptException
+     * @throws SHA256CryptException SHA256Crypt exception
      */
     public static String crypt(String key, String s) {
         final byte[] keyBytes = key.getBytes();

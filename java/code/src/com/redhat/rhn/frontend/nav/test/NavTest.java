@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,6 +15,10 @@
 
 package com.redhat.rhn.frontend.nav.test;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.StopWatch;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.frontend.nav.DepthGuard;
 import com.redhat.rhn.frontend.nav.NavCache;
 import com.redhat.rhn.frontend.nav.NavDigester;
@@ -29,16 +33,13 @@ import com.redhat.rhn.frontend.nav.TopnavRenderer;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.StopWatch;
-import org.apache.log4j.Logger;
-
 public class NavTest extends RhnBaseTestCase {
     private static Logger log = Logger.getLogger(NavTest.class);
 
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         TestUtils.disableLocalizationLogging();
@@ -149,11 +150,11 @@ public class NavTest extends RhnBaseTestCase {
             NavDigester.buildTree(TestUtils.findTestData("sitenav.xml"));
 
         NavTreeIndex nti = new NavTreeIndex(nt);
-        String lastPath = "/rhn/help/dispatcher/release_notes";
-        String curPath = "/rhn/help/dispatcher/reference_guide";
+        String lastPath = "/rhn/help/displatcher/release_notes";
+        String curPath = "/rhn/apidoc/handlers/PackagesProviderHandler.jsp";
         nti.computeActiveNodes(curPath, lastPath);
         NavNode bestNode = nti.getBestNode();
-        assertEquals("/rhn/help/about.do", bestNode.getPrimaryURL());
+        assertEquals("/rhn/apidoc/index.jsp", bestNode.getPrimaryURL());
     }
 
     public void testMatchByDir() throws Exception {

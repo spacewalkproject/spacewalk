@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,6 +42,19 @@ public class PackageEvrFactoryTest extends RhnBaseTestCase {
 
     /**
      * Test method to create a test PackageEvr
+     * @param epoch the epoch
+     * @param version the version
+     * @param release the release
+     * @return Returns a test PackageEvr
+     */
+    public static PackageEvr createTestPackageEvr(String epoch,
+                                                  String version,
+                                                  String release) {
+        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version, release);
+    }
+
+    /**
+     * Test method to create a test PackageEvr
      * @return Returns a test PackageEvr
      */
     public static PackageEvr createTestPackageEvr() {
@@ -49,6 +62,6 @@ public class PackageEvrFactoryTest extends RhnBaseTestCase {
         String version = "1.0.0";
         String release = "1";
 
-        return PackageEvrFactory.lookupOrCreatePackageEvr(epoch, version, release);
+        return createTestPackageEvr(epoch, version, release);
     }
 }

@@ -57,8 +57,8 @@ class rpmPackage(IncompletePackage):
             val = header[field]
             if f == 'build_time':
                 if type(val) in (IntType, LongType):
-                    # A UNIX timestamp
-                    val = localtime(val)
+                    # A UNIX timestamp without timezone => UTC timezone
+                    val = gmtime(val)
             if f == 'payload_size':
                 if val is None:
                     # use longarchivesize header field for rpms with archive > 4GB
@@ -142,6 +142,7 @@ class rpmBinaryPackage(Package, rpmPackage):
         'sigpgp': None,
         'siggpg': None,
         'package_id': None,
+        'multi_arch': None,
     })
 
     def populate(self, header, size, checksum_type, checksum, path=None, org_id=None,

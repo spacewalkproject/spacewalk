@@ -81,7 +81,7 @@ public class ServerActionTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a ServerAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupServerAction() throws Exception {
         Action newA = ActionFactoryTest.createAction(UserTestUtils.createUser("testUser",
@@ -98,10 +98,10 @@ public class ServerActionTest extends RhnBaseTestCase {
 
     /**
      * Create a new ServerAction
-     * @param newS
-     * @param newA
+     * @param newS new server
+     * @param newA new action
      * @return ServerAction created
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static ServerAction createServerAction(Server newS, Action newA)
         throws Exception {

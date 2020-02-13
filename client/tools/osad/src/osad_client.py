@@ -30,11 +30,9 @@ else:
     from rhn_log import log_debug
     import jabber_lib
 
-
 class Client(jabber_lib.JabberClient):
 
     RHN_CHECK_CMD = '/usr/sbin/rhn_check'
-    rhncheckPID = None
 
     def __init__(self, *args, **kwargs):
         jabber_lib.JabberClient.__init__(self, *args, **kwargs)
@@ -201,6 +199,7 @@ class Client(jabber_lib.JabberClient):
         # Checkin
         run_check = self._config.get('run_rhn_check')
         log_debug(3, "run_rhn_check:", run_check)
+
         if not self._config.get('run_rhn_check'):
             log_debug(0, "Pretend that command just ran")
         else:
@@ -257,7 +256,7 @@ class Client(jabber_lib.JabberClient):
         log_debug(3, "About to execute:", args)
         oldumask = os.umask(int("0077", 8))
         os.umask(oldumask | int("0022", 8))
-        Client.rhncheckPID = self._rhn_check_process = Popen(args)
+        self._rhn_check_process = Popen(args)
         os.umask(oldumask)
         log_debug(0, "executed %s with pid %d" % (args[0], self._rhn_check_process.pid))
 

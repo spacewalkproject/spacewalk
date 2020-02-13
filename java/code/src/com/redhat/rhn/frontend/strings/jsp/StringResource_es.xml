@@ -312,36 +312,40 @@
         <target>{0} no es válido.</target>
       </trans-unit>
       <trans-unit id="errors.integer">
-        <source>{0} must be an integer.</source>
+        <source>{0} must be a whole number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be an integer.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
         <target>{0} debe ser un entero.</target>
       </trans-unit>
-      <trans-unit id="errors.long">
-        <source>{0} must be a long.</source>
+      <trans-unit id="errors.integer.minmax">
+        <source>{0} must be a whole number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a long.</context>
+          <context context-type="paramnotes">Count must be a whole number.</context>
         </context-group>
-        <target>{0} debe ser largo.</target>
       </trans-unit>
       <trans-unit id="errors.float">
-        <source>{0} must be a float.</source>
+        <source>{0} must be a decimal number.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a float.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
         <target>{0} debe ser flotante.</target>
       </trans-unit>
-      <trans-unit id="errors.double">
-        <source>{0} must be a double.</source>
+      <trans-unit id="errors.float.minmax">
+        <source>{0} must be a decimal number between {1} and {2}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required format fields</context>
-          <context context-type="paramnotes">Count must be a double.</context>
+          <context context-type="paramnotes">Count must be a decimal number.</context>
         </context-group>
-        <target>{0} debe ser doble.</target>
+      </trans-unit>
+      <trans-unit id="errors.unexpected">
+        <source>An unexpected error has occurred during the request.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page where an unexpected error occurred.</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="toolbar.jsp.helpicon.alt">
         <source>Help Icon</source>
@@ -829,6 +833,12 @@
           <context context-type="sourcefile">500 error page</context>
         </context-group>
         <target>Ayúdenos a corregir este problema y contáctenos con los detalles sobre cómo recibió este mensaje. </target>
+      </trans-unit>
+      <trans-unit id="common.jsp.noscript">
+          <source>Some features require JavaScript in order to work properly. Make sure you enable JavaScript in your browser.</source>
+          <context-group name="ctx">
+              <context context-type="sourcefile">All pages</context>
+          </context-group>
       </trans-unit>
       <trans-unit id="orgadmin.displayname">
         <source>Org Admin?*</source>
@@ -1450,7 +1460,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/footer.jsp</context>
         </context-group>
-        <target>Copyright &amp;#169; 2002&amp;#x2012;14 Red Hat, Inc. All rights reserved.</target>
+
       </trans-unit>
       <trans-unit id="footer.jsp.legalStatement">
         <source>Legal statement</source>
@@ -2614,7 +2624,7 @@ del rol de Administrador de la organización.</target>
       </trans-unit>
       <trans-unit id="actions.jsp.totalnote">
         <source>
-          Note: For multi-system scheduled actions, the ability to cancel individual 
+          Note: For multi-system scheduled actions, the ability to cancel individual
           systems means that the number of clients mentioned in the Action column may not match the number in Total.
         </source>
         <context-group name="ctx">
@@ -3266,6 +3276,9 @@ del rol de Administrador de la organización.</target>
           <context context-type="sourcefile">/rhn/systems/details/packages/ForeignPackages</context>
         </context-group>
         <target>Los siguientes paquetes están instalados en este sistema y no están presentes en ninguno de sus canales.</target>
+      </trans-unit>
+      <trans-unit id="packagelist.jsp.modulespresent">
+          <source>At least one of the channels this system is subscribed to contains modules. If you have activated modules on this system, please refrain from using @@PRODUCT_NAME@@ for package operations. Instead, perform all package actions from the client using dnf.</source>
       </trans-unit>
       <!-- upgradable.jsp -->
       <trans-unit id="upgradable.jsp.header">
@@ -4239,7 +4252,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgConfigDetails.do</context>
         </context-group>
-        <target>Abajo usted configura su organización para usar el contenido en el contenido de ensayo y establecer el reporte de fallos de software. El límite de carga del archivo de fallos es un número negativo, cero significa no límite.</target>
+
       </trans-unit>
       <trans-unit id="orgconfig.jsp.description.noteditable">
         <source>Below is your organization configuration listed. See, how staging content, errata e-mail notifications, software crash reporting and SCAP settings are configured.</source>
@@ -4425,7 +4438,7 @@ del rol de Administrador de la organización.</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/UserList</context>
         </context-group>
-        <target>La siguiente es una lista de todos los usuarios de la organización {0}. Tenga en cuenta que solo podrá modificar los detalles de los usuarios que sean miembros de la organización {0}; además, usted deberá tener los privilegios de administrador de la organización.</target>
+
       </trans-unit>
       <trans-unit id="orglist.jsp.noOrgs">
         <source>No Organizations.</source>
@@ -4483,10 +4496,7 @@ administrador de la organización en la sección &quot;Roles&quot; de la pestañ
       </trans-unit>
       <trans-unit id="organizations.tip">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization.</source>
-        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; Esta es la organización predeterminada de su @@PRODUCT_NAME@@. Los derechos para esta organización están vinculados a su archivo de certificado de @@PRODUCT_NAME@@ y por lo tanto, no se pueden modificar.
-Si elimina derechos de una organización no predeterminada, esos derechos se volverán a agregar a la organización predeterminada.
 
-Asimismo, si añade derechos de una organización no predeterminada, esos derechos se deducen  de la organización predeterminada.</target>
       </trans-unit>
       <trans-unit id="softwareEntitlements.unlimited">
         <source>unlimited</source>
@@ -4829,6 +4839,12 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         </context-group>
         <target>Tipo de recomendación&lt;span class=&quot;required-form-field&quot;&gt;*&lt;/span&gt;:</target>
       </trans-unit>
+      <trans-unit id="errata.create.jsp.advisoryseverity">
+        <source>Advisory Severity:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/manage/Create.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="errata.create.jsp.product">
         <source>Product&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
         <context-group name="ctx">
@@ -4963,7 +4979,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <target>&lt;strong&gt;{1}&lt;/strong&gt; paquete fue añadido al canal &lt;strong&gt;{0}&lt;/strong&gt;.</target>
       </trans-unit>
       <trans-unit id="errata.channel.intersection.summary">
-        <source>The channel &lt;strong&gt;{1}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{0}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
+        <source>The channel &lt;strong&gt;{0}&lt;/strong&gt; has the following packages in common with &lt;strong&gt;{1}&lt;/strong&gt;. If the version of the package from the erratum is newer than the one in your channel, you will have the opportunity to update the channel when you publish this erratum.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/manage/ErrataChannelIntersection.do</context>
         </context-group>
@@ -5225,12 +5241,12 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <target>El identificador utilizado para especificar este sistema en el servidor de administración de energía. Opcional porque no todos los tipos de administración de energía necesitan este campo. Este campo puede también utilizarse para pasar opciones adicionales del 'Agente de valla'. Por ejemplo, si utiliza un servidor IPMI que requiere el protocolo Lanplus ( y este identificador del sistema era  &quot;System&quot;'), entonces puede establecer un identificador de sistema de &quot;-P System&quot; para  instruir  a fence_ipmilan para que use el protocolo Lanplus para este sistema. Consulte la documentación del 'agente de valla' para obtener opciones adicionales.</target>
         </trans-unit>
         <trans-unit id="provisioning.powermanagement.security_warning">
-          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See &lt;a href="https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications"&gt;cobbler documentation&lt;/a&gt; for more information and mitigation strategies.</source>
+          <source>&lt;strong&gt;SECURITY WARNING:&lt;/strong&gt; Information saved on this page is available to anyone on the network. See cobbler documentation for more information and mitigation strategies.</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/PowerManagement</context>
             <context context-type="sourcefile">/rhn/systems/ssm/provisioning/PowerManagementConfiguration</context>
           </context-group>
-          <target>&lt;strong&gt;ADVERTENCIA DE SEGURIDAD:&lt;/strong&gt;La información guardada en esta página está disponible para cualquier persona en la red. Para obtener más información sobre estrategias de mitigación, consulte  &lt;a href=&quot;https://fedorahosted.org/cobbler/wiki/PowerManagement#Important:SecurityImplications&quot;&gt;cobbler documentation&lt;/a&gt;.</target>
+
         </trans-unit>
         <trans-unit id="ssm.overview.misc">
           <source>Misc</source>
@@ -5583,12 +5599,18 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <target>Programar reinicio de sistemas</target>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.singular">
-          <source>{0} system reboot has been scheduled.</source>
-          <target>El reinicio del sistema {0} ha sido programado.</target>
+          <source>{0} system has been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
+
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.success.plural">
-          <source>{0} systems reboot has been scheduled.</source>
-          <target>{0} reinicio de  sistemas ha sido programado.</target>
+          <source>{0} systems have been &lt;a href="/rhn/schedule/PendingActions.do"&gt;scheduled&lt;/a&gt; to reboot at {1}.</source>
+
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.singular">
+            <source>{0} system reboot has been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
+        </trans-unit>
+        <trans-unit id="ssm.misc.reboot.message.queued.plural">
+            <source>{0} system reboots have been added to the Action Chain &lt;a href="/rhn/schedule/ActionChain.do?id={1}"&gt;{2}&lt;/a&gt;.</source>
         </trans-unit>
         <trans-unit id="ssm.misc.reboot.message.error.noselect">
           <source>Please select at least one system for reboot.</source>
@@ -6175,12 +6197,12 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <context context-type="sourcefile">/rhn/systems/DuplicateIPList.do pages</context>
         </context-group>
         <trans-unit id="duplicates.jsp.header">
-          <source>Duplicate System Profiles</source>
-          <target>Duplicar perfiles del sistema</target>
+          <source>Duplicate Systems</source>
+
         </trans-unit>
         <trans-unit id="duplicate.jsp.message">
-          <source>Inactive system profiles are highlighted below.</source>
-          <target>Los perfiles inactivos del sistema están resaltados a continuación.</target>
+          <source>Inactive systems are listed below.</source>
+
         </trans-unit>
         <trans-unit id="Delete Selected">
           <source>Delete Selected</source>
@@ -6425,17 +6447,19 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
           <source>Updates:</source>
           <target>Actualizaciones:</target>
         </trans-unit>
-        <trans-unit id="systemgroup.details.criticalupdates">
-          <source>critical updates available</source>
-          <target>Actualizaciones críticas disponibles</target>
-        </trans-unit>
         <trans-unit id="systemgroup.details.someupdates">
-          <source>updates available</source>
-          <target>Actualizaciones disponibles</target>
+          <source>Software Updates Available</source>
+
         </trans-unit>
         <trans-unit id="systemgroup.details.noupdates">
           <source>No applicable errata</source>
           <target>Ninguna errata aplicable</target>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.critical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.updates.noncritical">
+          <source>&lt;strong&gt;&lt;a href="{0}"&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.none">
           <source>(none)</source>
@@ -6460,6 +6484,9 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <trans-unit id="systemgroup.details.systems">
           <source>Systems:</source>
           <target>Sistemas:</target>
+        </trans-unit>
+        <trans-unit id="systemgroup.details.systems.systems">
+          <source>{0} System(s)</source>
         </trans-unit>
         <trans-unit id="systemgroup.details.name">
           <source>Name:</source>
@@ -6559,7 +6586,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/SystemEntitlements</context>
         </context-group>
-        <target>Para sacar el mayor provecho de @@PRODUCT_NAME@@, cada sistema debe tener &lt;strong&gt;derecho&lt;/strong&gt; al servicio. Si un sistema no tiene derechos de servicios, usted no podrá ejecutar tareas administrativas clave en esos sistemas, tales como instalaciones de paquetes o actualizaciones de erratas.</target>
+
       </trans-unit>
       <trans-unit id="systementitlements.jsp.para2">
         <source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -6655,8 +6682,7 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <trans-unit id="system_entitlements.setToManagementEntitled.failure">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.
     </source>
-          <target>&lt;strong&gt;{0}&lt;/strong&gt; sistema(s) fueron configurados correctamente con derechos de &lt;strong&gt;administración&lt;/strong&gt;, pero no tiene suficientes derechos de &lt;strong&gt;administración&lt;/strong&gt; para los &lt;strong&gt;{1}&lt;/strong&gt; sistema(s) que queda(n). Puede liberar derechos de &lt;strong&gt;administración&lt;/strong&gt; revirtiendo máquinas con derechos de &lt;strong&gt;administración&lt;/strong&gt; a un derecho de actualización o puede comprar derechos de administración adicionales en &lt;a href=&quot;https://www.redhat.com/apps/commerce/rhn/&quot;&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. Después de que tenga derechos de &lt;strong&gt;administración&lt;/strong&gt; adicionales podrá actualizar estos sistemas.
-     </target>
+
         </trans-unit>
         <trans-unit id="system_entitlements.unentitle.success">
           <source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -6742,14 +6768,14 @@ Asimismo, si añade derechos de una organización no predeterminada, esos derech
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>Búsqueda de sistema</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.summary">
         <source>Advanced Search will return results from all systems to which you have administrative access.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
-        <target>La búsqueda de sistema retorna resultados de todos los sistemas a los cuales usted tiene acceso administrativo.</target>
+
       </trans-unit>
       <trans-unit id="systemsearch.jsp.fieldtosearch">
         <source>Field to Search:</source>
@@ -8482,7 +8508,7 @@ organización si decide borrar este rol de su inicio de sesión.
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/GeneralConfig.do</context>
         </context-group>
-        <target>Configure a continuación su Satélite de @@PRODUCT_NAME@@. Los parámetros proxy HTTP sirven para permitir la comunicación entre el servidor de @@PRODUCT_NAME@@ y el servidor principal de @@PRODUCT_NAME@@, si éste existe. El proxy http debe seguir el formato: hostname:port. Si no se proporciona ningún otro puerto, se usará el puerto 8080. Los parámetros proxy HTTP utilizados para que los sistemas de clientes puedan conectarse a este @@PRODUCT_NAME@@ pueden ser diferentes y serán configurados posteriormente. Si activa el segundo plano de monitorización, deberá también activar el explorador de monitorización, o configurar el explorador de monitorización como un servidor independiente. Si activa el explorador de monitorización también deberá activar el segundo plano de monitorización.</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.org.header">
         <source>@@PRODUCT_NAME@@ Organizations</source>
@@ -8597,11 +8623,11 @@ y puede asignar o eliminar privilegios de administrador de Satélite
         <target>Ir a usuarios</target>
       </trans-unit>
       <trans-unit id="general.jsp.org.tbl.link4">
-        <source>RHN Reference Guide</source>
+        <source>Getting Started Guide</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Orgs.do</context>
         </context-group>
-        <target>Guía de referencia de RHN</target>
+
       </trans-unit>
       <trans-unit id="general.jsp.admin_email">
         <source>Administrator Email Address</source>
@@ -9903,13 +9929,6 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         </context-group>
         <target>Actualizar orden</target>
       </trans-unit>
-      <trans-unit id="kickstartscript.order.noscript">
-        <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the kickstart script ordering to succeed. Please enable Javascript in order to continue.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/kickstart/Scripts</context>
-        </context-group>
-        <target>&lt;strong&gt;Advertencia:&lt;/strong&gt; Se requiere Javascript para que se pueda realizar el ordenamiento del script kickstart. Habilite  Javascript para continuar.</target>
-      </trans-unit>
       <trans-unit id="kickstartips.jsp.baremetal_summary">
         <source>&lt;p&gt; In order to kickstart "bare metal systems", you will need to provide them with a boot image that is compatible with the version of the operating system you are kickstarting to via boot CD. &lt;/p&gt; &lt;p&gt; Once these systems have booted using the appropriate image, you will need to provide a kickstart file. You may use the following URL in your Boot CD or in your PXE configuration to provide these systems with the kickstart file associated with this kickstart profile:&lt;/p&gt;</source>
         <context-group name="ctx">
@@ -9925,11 +9944,11 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <target>Kickstart en sistemas vacíos</target>
       </trans-unit>
       <trans-unit id="kickstartips.jsp.resource">
-        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Resource:&lt;/strong&gt; The RHN Reference Guide Kickstart section&lt;/span&gt;</source>
+        <source>&lt;span class="small-text"&gt;&lt;strong&gt;Resource:&lt;/strong&gt; The Getting Started Guide Kickstart section&lt;/span&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/KickstartIpRangeEdit</context>
         </context-group>
-        <target>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Recurso:&lt;/strong&gt; Sección kickstart de la Guía de referencia de RHN&lt;/span&gt;</target>
+
       </trans-unit>
       <trans-unit id="kickstartips.jsp.tip">
         <source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the IP ranges associated with your organization's kickstart profiles is available &lt;/span&gt;</source>
@@ -10194,11 +10213,11 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <target>Actualizar llaves de activación</target>
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.note">
-        <source>&lt;strong&gt;Note: The selection of incompatible activation keys can prevent a system from registering properly after it is kickstarted.&lt;/strong&gt;  You'll want to review the RHN Reference Guide section on using multiple activation keys before making use of this feature.</source>
+        <source>&lt;strong&gt;Note: The selection of incompatible activation keys can prevent a system from registering properly after it is kickstarted.&lt;/strong&gt;  You'll want to review the Getting Started Guide section on using multiple activation keys before making use of this feature.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ActivationKeysEdit.do</context>
         </context-group>
-        <target>&lt;strong&gt;Nota: la selección de llaves de activación incompatibles puede resultar en la imposibilidad de registrar apropiadamente un sistema tras de iniciar la instalación a través de kickstart.&lt;/strong&gt; Revise la sección sobre cómo utilizar llaves de activación múltiple en la Guía de referencia de RHN antes de hacer uso de esta funcionalidad.</target>
+
       </trans-unit>
       <trans-unit id="kickstart.activationkeys.jsp.warning">
         <source>&lt;strong&gt;Warning:&lt;/strong&gt; Any child channel subscriptions associated with this profile will be overridden if any activation keys are selected above. If you wish to associate activation keys with this profile, please use an activation key to specify child channel subscriptions.</source>
@@ -10576,11 +10595,14 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <target>No hay llaves públicas o certificados SSL definidos.</target>
       </trans-unit>
       <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>
+You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.
+A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.
+For more information, see the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
-        <target>Puede hacer referencia a estas llaves y/o certificados en sus perfiles Kickstart para que sean instalados en los sistemas durante el inicio de instalación a través de Kickstart. El sistema necesitará las llaves para instalar paquetes firmados y el certificado correcto para ser iniciados a través de una instalación Kickstart por un @@PRODUCT_NAME@@ Proxy Server o un @@PRODUCT_NAME@@ Server. Para más  información, consulte la &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys&quot; target=&quot;_blank&quot; &gt;Guía de referencia  RHN&lt;/a&gt;. </target>
+
       </trans-unit>
       <trans-unit id="keys.jsp.toolbar">
         <source>GPG Public Keys and SSL Certificates</source>
@@ -10730,11 +10752,15 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <target>Preservación de archivos</target>
       </trans-unit>
       <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>
+        File preservation lists are lists of files that will be restored to a system during a particular kickstart.
+        You can reference a file preservation list in a kickstart profile.
+        For more information refer to the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;.
+        The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-        <target>Las listas de preservación de archivos son las listas de los archivos que serán restaurados en el sistema durante un determinado inicio de instalación mediante Kickstart. Usted puede hacer referencia a una lista de archivos de preservación en el perfil Kickstart. Para obtener más información,  consulte la &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;Guía de referencia RHN &lt;/a&gt;.  Las siguientes listas de preservación de archivos han sido creadas para ser usadas por su organización:</target>
+
       </trans-unit>
       <trans-unit id="preservationlistdeleteconfirm.jsp.summary">
         <source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -10870,11 +10896,11 @@ Tenga en cuenta que podría ser necesario configurar manualmente estos scripts. 
         <target>Crear lista de preservación de archivos Kickstart</target>
       </trans-unit>
       <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve" target="_blank" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/dispatcher/getting_started_guide" target="_blank" &gt;Getting Started Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
-        <target>Cualquier archivo o directorio listado aquí será preservado tras el inicio a través de Kickstart. Liste un archivo o directorio por línea. &lt;br/&gt;Cada lista está limitada a un total de &lt;strong&gt;1 MB&lt;/strong&gt;. Para más  información, consulte la &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_blank&quot; &gt;Guía de referencia RHN&lt;/a&gt;.</target>
+
       </trans-unit>
       <trans-unit id="softwareedit.jsp.summary1">
         <source>You can modify the software this kickstart profile will deploy below.</source>
@@ -11592,11 +11618,11 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <target>&lt;strong&gt;Ningún sistema crítico.&lt;/strong&gt; &lt;p&gt;Ninguno de sus sistemas está en estado crítico. &lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered">
-        <source>&lt;strong&gt;Recently Registered Systems&lt;/strong&gt;</source>
+        <source>Recently Registered Systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
-        <target>&lt;strong&gt;Sistemas recientemente registrados&lt;/strong&gt;</target>
+
       </trans-unit>
       <trans-unit id="yourrhn.jsp.recentlyregistered.none">
         <source>&lt;strong&gt;No recently registered systems.&lt;/strong&gt;&lt;p&gt;You have no systems that were registered within the past 30 days. You may view a list of all registered systems at &lt;a href="/rhn/systems/Registered.do"&gt;&lt;strong&gt;Systems &gt; Recently Registered&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;</source>
@@ -11639,6 +11665,12 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>
         <target>Erratas de seguridad relevante</target>
+      </trans-unit>
+      <trans-unit id="errata.sev.label.unspecified">
+        <source>Unspecified</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/YourRhn.do</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="errata.sev.label.low">
         <source>Low</source>
@@ -11910,7 +11942,7 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
       </trans-unit>
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization is entitled to but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <target>Los canales de software listados a continuación son los &lt;strong&gt;canales jubilados&lt;/strong&gt; sobre los cuales su organización &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; tiene derechos&lt;/a&gt;, pero que ya no son soportados por Red Hat puesto que han alcanzado la vida útil.</target>
+
       </trans-unit>
       <trans-unit id="channels.manage.jsp.toolbar">
         <source>Software Channel Management</source>
@@ -13108,6 +13140,9 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <source>Please note that this system has &lt;a href="{0}"&gt;{1} pending event(s)&lt;/a&gt;.</source>
           <target>Observe que este sistema tiene &lt;a href=&quot;{0}&quot;&gt;{1} evento(s) pendiente(s) &lt;/a&gt;.</target>
         </trans-unit>
+        <trans-unit id="system.event.history.actionsWithoutDetails">
+          <source>Events marked with a star (*) happened within a different organization: migrate the system back to the original organization to access event details.</source>
+        </trans-unit>
         <trans-unit id="system.event.history.noevent">
           <source>No event history for this system.</source>
           <target>No hay evento de historia  para este sistema</target>
@@ -13183,6 +13218,15 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <source>Failed</source>
           <target>Falló</target>
         </trans-unit>
+        <trans-unit id="system.event.failwarning">
+          <source>Forcibly changing status of Picked Up action is potentially &lt;strong&gt;dangerous&lt;/strong&gt;. Are you sure you want to continue?</source>
+        </trans-unit>
+        <trans-unit id="system.event.faildescription">
+          <source>Description for the action</source>
+        </trans-unit>
+        <trans-unit id="system.event.failheader">
+          <source>Confirm Event Status Change</source>
+        </trans-unit>
         <trans-unit id="system.event.details.pickup">
           <source>The client picked up this action on {0}</source>
           <target>El cliente recogió esta acción el: {0}.</target>
@@ -13221,6 +13265,12 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
         <trans-unit id="system.event.returnIcon">
           <source>Return to history list</source>
           <target>Volver a la lista de historial</target>
+        </trans-unit>
+        <trans-unit id="system.event.failActionButton">
+          <source>Set to Failed</source>
+        </trans-unit>
+        <trans-unit id="system.event.failconfirm">
+          <source>Confirm</source>
         </trans-unit>
         <trans-unit id="system.event.rescheduleButton">
           <source>Reschedule</source>
@@ -13364,9 +13414,8 @@ la &lt;strong&gt;Guía de administración del sistema Red Hat Enterprise Linux.&
           <source>System Event</source>
           <target>Evento de sistemas</target>
         </trans-unit>
-        <trans-unit id="system-hisotry-legend.jsp.status.title">
+        <trans-unit id="system-history-legend.jsp.status.title">
           <source>Event Status Legend</source>
-          <target>Leyenda de estatus de evento</target>
         </trans-unit>
         <trans-unit id="system-history-legend.status.jsp.ok">
           <source>Complete</source>
@@ -13847,6 +13896,9 @@ Esto puede tener algún efecto en los archivos de configuración que se implemen
           <source>Subscribe to RHN Tools channel</source>
           <target>Suscribir al canal de herramientas de RHN</target>
         </trans-unit>
+        <trans-unit id="targetsystems.jsp.subscribeappstream">
+          <source>Subscribe to AppStream channel</source>
+        </trans-unit>
         <trans-unit id="targetsystems.jsp.installcfg">
           <source>Schedule rhncfg package install</source>
           <target>Programar instalación de paquete rhncfg</target>
@@ -13916,6 +13968,9 @@ Esto puede tener algún efecto en los archivos de configuración que se implemen
         <trans-unit id="summary.jsp.rhntools">
           <source>Could not subscribe to the RHN Tools channel.</source>
           <target>No se pudo suscribir al canal de herramientas de RHN.</target>
+        </trans-unit>
+        <trans-unit id="summary.jsp.appstream">
+          <source>Could not subscribe to the AppStream channel.</source>
         </trans-unit>
         <trans-unit id="summary.jsp.packages">
           <source>Could not schedule rhncfg* package installations.</source>
@@ -15330,13 +15385,6 @@ centralmente de este archivo, {2}; a continuación encontrará una lista de sist
         </context-group>
         <target>&lt;strong&gt;Consejo&lt;/strong&gt; '644' para los archivos de texto y '755' para los directorios y ejecutables permitirá acceso o ejecución global (pero no modificaciones).</target>
       </trans-unit>
-      <trans-unit id="filedetails.jsp.tip.macros">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; A full listing of the available macros is listed in the &lt;a href="{0}"&gt;RHN Reference Guide&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/configuration/FileDetails.do</context>
-        </context-group>
-        <target>&lt;strong&gt;Consejo:&lt;/strong&gt; una lista completa de todos los macros disponibles se encuentra en la &lt;a href=&quot;{0}&quot;&gt;Guía de referencia de RHN&lt;/a&gt;.</target>
-      </trans-unit>
       <trans-unit id="filedetails.jsp.tip.upload">
         <source>&lt;strong&gt;Tip:&lt;/strong&gt; Please note that the maximum allowed size for configuration files is &lt;strong&gt;{0}&lt;/strong&gt;.</source>
         <context-group name="ctx">
@@ -15917,7 +15965,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/system/ManagedSystems.do</context>
         </context-group>
-        <target>Sistemas</target>
+
       </trans-unit>
       <trans-unit id="managedsystems.jsp.summary">
         <source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
@@ -17249,16 +17297,16 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <target>Borrar archivos</target>
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_sandbox">
-          <source>Copy Latest to Sandbox</source>
-          <target>Copiar más reciente al entorno de prueba</target>
+          <source>Copy Latest to Local Sandbox</source>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_local">
-          <source>Copy Latest to System Channel</source>
-          <target>Copiar más reciente a canal del sistema</target>
+          <source>Copy Latest to Locally-Managed Files</source>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.copy_to_global">
-          <source>Copy Latest to Central Channel</source>
-          <target>Copiar más reciente al canal central</target>
+          <source>Copy Latest to Centrally-Managed Files</source>
+
         </trans-unit>
         <trans-unit id="sdc.config.file_list.sandbox.success">
           <source>{0} file(s) successfully copied to Sandbox</source>
@@ -17610,8 +17658,8 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
         </context-group>
         <trans-unit id="ssm.operations.viewlog.header">
-          <source>Tasks Log</source>
-          <target>Registro de tareas</target>
+          <source>Task Log</source>
+
         </trans-unit>
         <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
@@ -17707,6 +17755,9 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
           <source>Group name on the target system is not specified.</source>
           <target>Nombre de grupo en el sistema de destino no está especificado.</target>
         </trans-unit>
+        <trans-unit id="ssm.operations.provisioning.remotecommand.form.timeout.max">
+          <source>Timeout value specified exceeds max value of 2147483647.</source>
+        </trans-unit>
         <trans-unit id="ssm.operations.provisioning.remotecommand.form.script_body.missing">
           <source>No script has been specified.</source>
           <target>No se ha especificado ningún script.</target>
@@ -17760,6 +17811,9 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         <trans-unit id="ssm.provisioning.powermanagement.cobbler_error">
           <source>Unexpected Cobbler error, please check server and Cobbler logs.</source>
           <target>Error inesperado de Cobbler, por favor revise el servidor y los registros de Cobbler. </target>
+        </trans-unit>
+        <trans-unit id="ssm.overview.management.notice">
+          <source>At least one system in the set does not have the management entitlement: some actions will not be available.</source>
         </trans-unit>
         <!-- SSM Tag Systems -->
         <trans-unit id="ssm.operations.provisioning.tagsystems.header">
@@ -17836,7 +17890,7 @@ concerniente con esas revisiones. ¿Está seguro que es ésto lo que desea hacer
         </trans-unit>
         <trans-unit id="stringutil.scriptcheck.error.noscript">
           <source>Script does not seem to be doing anything.</source>
-          <target>El script no parece estar haciendo nada.</target>
+
         </trans-unit>
         <!-- Errata -->
         <trans-unit id="ssm.patches.list.header">
@@ -18561,11 +18615,11 @@ para suscribir los sistemas a los canales de software durante el inicio de insta
         <target>No se garantiza a los perfiles no administrados de @@PRODUCT_NAME@@ registrar sistemas en @@PRODUCT_NAME@@ después de iniciar la instalación a través de Kickstart. Revise los Kickstart (haga clic en el nombre de perfil) para confirmar si su sistema reaparecerá o no en la lista de sistemas de @@PRODUCT_NAME@@ después del inicio de instalación a través de Kickstart.</target>
       </trans-unit>
       <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
-        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler profile edit' command.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
         </context-group>
-        <target>Perfiles Kickstart que no son administrados por @@PRODUCT_NAME@@ no se pueden editar en la interfaz de usuario de @@PRODUCT_NAME@@. Para modificar estos perfiles, por favor ingrese en el servidor de @@PRODUCT_NAME@@ y ejecute el comando 'cobbler profile edit'. Para obtener más información, consulte la Guía de referencia de @@PRODUCT_NAME@@.</target>
+
       </trans-unit>
       <trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
@@ -19487,7 +19541,7 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
         </context-group>
-        <target>Por favor complete el formulario dado a continuación para crear un nuevo sistema virtual a ser hospedado en &lt;img src=&quot;/img/rhn-listicon-system.gif&quot;&gt; &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={0}&quot;&gt;{1}&lt;/a&gt;</target>
+
       </trans-unit>
       <trans-unit id="virtualization.provision.first.jsp.header2">
         <source>Define the Virtual System</source>
@@ -19761,6 +19815,12 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         </context-group>
         <target>Gestor de múltiples sistemas</target>
       </trans-unit>
+      <trans-unit id="view-log.jsp.header">
+        <source>System Set Manager Task Log</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Set Manager header</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ssm.jsp.imgAlt">
         <source>System Set</source>
         <context-group name="ctx">
@@ -19937,10 +19997,6 @@ La ruta del árbol, el RPM Kickstart, el canal base y la generación del instala
         <trans-unit id="common.config.rank.jsp.warning">
           <source>&lt;strong&gt;Warning:&lt;/strong&gt; You have just selected new configuration channel(s) to subscribe this system to. This system will &lt;strong&gt;not&lt;/strong&gt; be subscribed to these channels until you confirm the subscriptions by determining their ranks and clicking on "{0}" below. </source>
           <target>&lt;strong&gt;Advertencia:&lt;/strong&gt; Usted ha seleccionado uno o más canales de configuración para suscribir el sistema. Este sistema &lt;strong&gt;no&lt;/strong&gt; será suscrito a estos canales hasta que usted confirme la suscripción determinando los rangos y haciendo clic en &quot;{0}&quot;.</target>
-        </trans-unit>
-        <trans-unit id="common.config.rank.jsp.warning.noscript">
-          <source>&lt;strong&gt;Warning:&lt;/strong&gt; Javascript is required for the subscription and channel ranking operations to succeed. Please enable Javascript in order to continue on to these tasks.</source>
-          <target>&lt;strong&gt;Advertencia:&lt;/strong&gt; se requiere Javascript para las operaciones de selección de rango y suscripción. Por favor active Javascript para continuar con estas tareas.</target>
         </trans-unit>
         <trans-unit id="common.config.rank.jsp.error.nojavascript">
           <source>Please enable Javascript before ordering your channel subscriptions.</source>
@@ -22325,111 +22381,53 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="help.jsp.about.summary">
-        <source>@@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network. Through a simple user interface, administrators can perform patch management, updates, monitoring, and maintenance. And because @@PRODUCT_NAME@@ is Web-based, it can be accessed from anywhere. @@PRODUCT_NAME@@ or Proxy server options provide advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.</source>
+        <source>
+        @@PRODUCT_NAME@@ allows administrators to efficiently manage the systems on their network.
+        Through a simple user interface, administrators can perform patch management, updates, and maintenance.
+        @@PRODUCT_NAME@@ provides advanced capabilities and the ability to get updates directly from Red Hat with even greater levels of security and reduced network bandwidth.
+        </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.modules">
-        <source>Modules</source>
+
+      <trans-unit id="help.jsp.about.overview">
+        <source>Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.modulessummary">
-        <source>@@PRODUCT_NAME@@ currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive @@PRODUCT_NAME@@ services and functionality. &lt;a href="http://www.redhat.com/software/rhn/purchase/" target="_blank"&gt;Learn more&lt;/a&gt;.</source>
+      <trans-unit id="help.jsp.about.overviewsummary">
+        <source>
+        All @@PRODUCT_NAME@@ functionality (system profiles, reporting data, application server, etc.)
+        is stored locally on the customer's network. This provides customers with the ability to take their
+        @@PRODUCT_NAME@@ solution off of the public internet if desired, and also allows for greater
+        optimization and control of their systems.
+        By using a @@PRODUCT_NAME@@ Proxy server in conjunction with the @@PRODUCT_NAME@@ server,
+        the customer's individual systems connect to a locally hosted Proxy.
+        The Proxy aggregates data and performs some tasks locally, communicating with the central @@PRODUCT_NAME@@ servers.
+        All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.update">
-        <source>Update Module</source>
+      <trans-unit id="help.jsp.about.5_8">
+        <source>About Red Hat Satellite 5.8</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.updatesummary">
-        <source>Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and &lt;a href="http://www.redhat.com/rhn/rhndetails/update/" target="_blank"&gt;more&lt;/a&gt;.</source>
+      <trans-unit id="help.jsp.about.5_8summary">
+        <source>
+        Uniquely for Red Hat Satellite 5.8, this version has been re-tooled to communicate with the successor to the
+        Red Hat Network (RHN) - the Red Hat Customer Portal and Content Delivery Network (CDN).
+        Red Hat Satellite 5.8 now synchronizes content exclusively from the CDN, and no content is synchronized from RHN.
+        </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/about</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="help.jsp.about.management">
-        <source>Management Module</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.managementsummary">
-        <source>The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with @@PRODUCT_NAME@@), and &lt;a href="http://www.redhat.com/rhn/rhndetails/management/" target="_blank"&gt;more&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.provisioning">
-        <source>Provisioning Module</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.provisioningsummary">
-        <source>The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and &lt;a href="http://www.redhat.com/rhn/rhndetails/provisioning/" target="_blank"&gt;more&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.architectures">
-        <source>Architectures</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.architecturessummary">
-        <source>@@PRODUCT_NAME@@ has three types of architectures:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.hosted">
-        <source>Hosted model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.hostedsummary">
-        <source>The customer's indivdual systems connect with RHN via the internet and exchange packages and information with the central RHN servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.proxy">
-        <source>Proxy model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.proxysummary">
-        <source>The customer's individual systems connect to a locally hosted (on the customer network) @@PRODUCT_NAME@@ Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central @@PRODUCT_NAME@@ servers. All information stored in the @@PRODUCT_NAME@@ database is kept on the @@PRODUCT_NAME@@ servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.satellite">
-        <source>@@PRODUCT_NAME@@ model</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.about.satellitesummary">
-        <source>All @@PRODUCT_NAME@@ functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The @@PRODUCT_NAME@@ Server connects with @@PRODUCT_NAME@@ over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their @@PRODUCT_NAME@@ solution off the public internet if desired, and also allows for greater optimization and control of your systems.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/help/about</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="help.jsp.refguide">
-        <source>@@PRODUCT_NAME@@ Reference Guide</source>
-        <target>Guía de referencia de @@PRODUCT_NAME@@</target>
-      </trans-unit>
+
       <trans-unit id="help.jsp.helpdesk">
         <source>Welcome to the Help Desk</source>
         <target>¡Bienvenido a soporte técnico!</target>
@@ -22437,10 +22435,6 @@ given channel.</source>
       <trans-unit id="help.jsp.translation">
         <source>(Translations available)</source>
         <target>(Traducciones disponibles)</target>
-      </trans-unit>
-      <trans-unit id="help.jsp.detailed">
-        <source>Detailed instructions for using RHN service.</source>
-        <target>Instrucciones detalladas para utilizar el servicio de RHN.</target>
       </trans-unit>
       <trans-unit id="help.jsp.install">
         <source>Detailed information regarding @@PRODUCT_NAME@@ server and its installation. </source>
@@ -22606,7 +22600,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.addemptylist">
         <source>No packages found for this criteria.</source>
-        <target>No se encontró ningún paquete para este criterio.</target>
+
       </trans-unit>
       <trans-unit id="channel.jsp.package.addmessage">
         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
@@ -22635,7 +22629,7 @@ given channel.</source>
         <target>Comparar paquetes</target>
       </trans-unit>
       <trans-unit id="channel.jsp.package.comparemessage">
-        <source>You can compare the packages in this channel with another channel. Select the channel which you would like to compare from the list below, and click 'View Packages'.</source>
+        <source>Compare packages in the current channel with packages from another channel. Only the latest version of packages will be compared. Choose a channel from the list below then select 'View Packages'.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.package.compareto">
         <source>Compare to</source>
@@ -23231,10 +23225,7 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
-        <target>&lt;strong&gt; Consejo:&lt;/strong&gt;
-          sha1 ofrece la más amplia compatibilidad con clientes. sha-256 ofrece seguridad superior,
-          pero es compatible únicamente con clientes más recientes: Fedora 11 y más recientes, o Linux 6 empresarial y más recientes. El tipo de verificación de repositorio  Yum 'None' recibe soporte únicamente para RHEL 3 y  RHEL 4.
-         </target>
+
       </trans-unit>
       <trans-unit id="channel.edit.jsp.summary">
         <source>Channel Summary</source>
@@ -23413,6 +23404,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.clone.select.summary">
         <source>The original state of the target channel will be cloned into the new channel. You will then have the option to select the errata you wish to import into the new channel. Importing an erratum will bring the packages from the target channel referred to by the erratum into the new channel. Selecting all of the errata from the list of potential errata is the same as cloning the current state of the channel. Selecting none of the errata is the same as cloning the original state of the channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.clone.noavailable">
+        <source>No channels to clone from available</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Clone.do</context>
         </context-group>
@@ -23708,11 +23705,11 @@ given channel.</source>
         <target>Creación de usuario</target>
       </trans-unit>
       <trans-unit id="extauth.sg.message">
-        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is usefull, when different users shall administer different groups of systems within one organization.</source>
+        <source>When creating new users, a default System Group may be created for every single user, that would have the same name as the user. This is useful, when different users shall administer different groups of systems within one organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/SystemGroupConfig.do</context>
         </context-group>
-        <target>Al crear nuevos usuarios , el grupo de sistemas predeterminado puede crearse para cada usuario , que desee tener el mismo nombre de usuario. Esto es útil cuando diferentes usuarios deben administrar  grupos de sistemas diferentes dentro de una organización. </target>
+
       </trans-unit>
       <trans-unit id="extauth.sg.default_sg">
         <source>Create a user default System Group</source>
@@ -24009,12 +24006,11 @@ given channel.</source>
         </context-group>
         <target>Crear frecuencia</target>
       </trans-unit>
-      <trans-unit id="schedule.edit.jsp.editschedule">
-        <source>Edit Schedule</source>
+      <trans-unit id="schedule.edit.jsp.updateschedule">
+        <source>Update Schedule</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/ScheduleDetail.do</context>
         </context-group>
-        <target>Modificar programación</target>
       </trans-unit>
       <trans-unit id="schedule.delete.jsp.deleteschedule">
         <source>Delete Schedule</source>
@@ -24434,8 +24430,8 @@ given channel.</source>
         <target>6 meses</target>
       </trans-unit>
       <trans-unit id="duplicate-ip.jsp.inactive.header">
-        <source>A system profile is inactive if its system has not checked in for:</source>
-        <target>Un perfil del sistema es inactivo si su sistema no ha: </target>
+        <source>A system is inactive if its system has not checked in for:</source>
+
       </trans-unit>
       <trans-unit id="schedule.header">
         <source>Select a schedule:</source>
@@ -24481,13 +24477,19 @@ given channel.</source>
         <source>DebugInfo Package</source>
         <target>Paquete debuginfo</target>
       </trans-unit>
+      <trans-unit id="debugsource.header">
+        <source>DebugSource Package</source>
+      </trans-unit>
       <trans-unit id="debuginfo.external">
         <source>Note:  A local debuginfo rpm could not be found.  The above links to an external FTP server and may not be valid.</source>
         <target>Nota:  No se encontró un RPM de debuginfo local. Puede ser que los enlaces de arriba a servidor FTP externo no sean válidos.</target>
       </trans-unit>
       <trans-unit id="debuginfo.unavailable">
-        <source>If available, an appropriate debuginfo package can be downloaded from the Red Hat Customer Portal or by running the satellite-sync command from the respective debuginfo child channel. Note: Not all packages have published debuginfo packages.</source>
-        <target>Si está disponible, puede descargar el paquete apropiado de debuginfo desde el Portal del cliente de Red Hat o al ejecutar el comando satellite-sync del respectivo canal hijo debuginfo. Nota: No todos los paquetes tienen paquetes debuginfo publicados.</target>
+        <source>If available, an appropriate debuginfo package can be synced from the respective debug channel or repository. Note: Not all packages have published debuginfo packages.</source>
+
+      </trans-unit>
+      <trans-unit id="debugsource.unavailable">
+        <source>If available, an appropriate debugsource package can be synced from the respective debug channel or repository. Note: Not all packages have published debugsource packages.</source>
       </trans-unit>
       <trans-unit id="channel.jsp.changelog.title">
         <source>Change Log</source>
@@ -24529,36 +24531,18 @@ given channel.</source>
         <source>Enhances</source>
         <target>Mejora</target>
       </trans-unit>
-      <!-- SUSE Studio -->
+      <!-- Image deployment -->
       <trans-unit id="image.deploy">
         <source>Image Deployment</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.title">
-        <source>Select an Image</source>
+      <trans-unit id="images.jsp.image">
+        <source>Image</source>
       </trans-unit>
-      <trans-unit id="images.jsp.select.summary">
-        <source>Please choose from the images below to create a new virtual system.</source>
+      <trans-unit id="images.jsp.imageurl">
+        <source>Image URL&lt;span class="required-form-field"&gt;*&lt;/span&gt;:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.name">
-        <source>Name</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.version">
-        <source>Version</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.arch">
-        <source>Architecture</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.type">
-        <source>Type</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.noimages">
-        <source>No Images</source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.title">
-        <source>Image Deployment: </source>
-      </trans-unit>
-      <trans-unit id="images.jsp.deploy.summary">
-        <source>Please submit the form to schedule the deployment of image &lt;span id="image-string"&gt;&lt;/span&gt;.</source>
+      <trans-unit id="images.jsp.imageurl.placeholder">
+        <source>Specify qcow2 image by URL</source>
       </trans-unit>
       <trans-unit id="images.jsp.vmsetup">
         <source>Virtual Machine Setup</source>
@@ -24584,38 +24568,14 @@ given channel.</source>
       <trans-unit id="images.jsp.proxypass">
         <source>Proxy Password:</source>
       </trans-unit>
-      <trans-unit id="images.jsp.cancel">
-        <source>Cancel</source>
-      </trans-unit>
       <trans-unit id="images.jsp.dispatch">
-        <source>Schedule Deployment</source>
+        <source>Schedule Image Deployment</source>
       </trans-unit>
-      <trans-unit id="credentials.jsp.susestudio">
-        <source>SUSE Studio</source>
+      <trans-unit id="images.jsp.error.noimage">
+        <source>The image URL is mandatory, please specify a qcow2 image by URL.</source>
       </trans-unit>
-      <trans-unit id="credentials.jsp.edit.summary">
-        <source>External system or API credentials associated with your @@PRODUCT_NAME@@ account are listed below.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.edit.dispatch">
-        <source>Update Credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.summary">
-        <source>These external system or API credentials will be deleted. This action cannot be undone.</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.delete.dispatch">
-        <source>Delete Credentials</source>
-      </trans-unit>
-      <trans-unit id="toolbar.delete.credentials">
-        <source>delete credentials</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.username">
-        <source>Username</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.apikey">
-        <source>API Key</source>
-      </trans-unit>
-      <trans-unit id="credentials.jsp.url">
-        <source>URL</source>
+      <trans-unit id="iss.unmapped.org">
+        <source>MASTER ORG NOT MAPPED</source>
       </trans-unit>
       <trans-unit id="iss.slave.name">
         <source>Slave Fully-Qualified Domain Name</source>
@@ -24826,6 +24786,9 @@ given channel.</source>
           <source>No local organizations available</source>
           <target>No hay organizaciones disponibles</target>
         </trans-unit>
+        <trans-unit id="iss.error.slave.exists">
+          <source>Slave with domain name {0} already defined</source>
+        </trans-unit>
       </group>
       <group>
         <context-group name="ctx">
@@ -24944,6 +24907,10 @@ given channel.</source>
           <source>This master did not export any of its organizations to this slave</source>
           <target>Este maestro no exportó ninguna de sus organizaciones a este esclavo</target>
         </trans-unit>
+        <trans-unit id="iss.error.master.exists">
+          <source>Master with domain name {0} already defined</source>
+        </trans-unit>
+
       </group>
       <group>
         <context-group name="ctx">

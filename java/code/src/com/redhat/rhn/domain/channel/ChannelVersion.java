@@ -98,7 +98,8 @@ public class ChannelVersion {
 
     /**
      * Private contructor, nobody should be instantiating one of these directly.
-     *
+     * @param nameIn the name
+     * @param versionIn the version
      */
     protected ChannelVersion(String nameIn, String versionIn) {
         name = nameIn;

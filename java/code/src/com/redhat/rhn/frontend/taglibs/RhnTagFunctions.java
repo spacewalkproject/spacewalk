@@ -24,7 +24,8 @@ import com.redhat.rhn.common.util.StringUtil;
 
 /**
  * RhnTagFunctions - class to encapsulate the set of static methods that
- * a JSP can interact with.  See rhn-taglib.tld for list of <function> definitions
+ * a JSP can interact with.  See rhn-taglib.tld for list of {@literal <function>}
+ * definitions
  * @version $Rev$
  */
 public class RhnTagFunctions {
@@ -80,9 +81,12 @@ public class RhnTagFunctions {
      * This is exclusively used by the el expressions in
      * various jsp pages. For this to work you'd have to
      * add
-     *  <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+     * <p>
+     * {@literal <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>}
      *  to the top of your jsp page
+     * <p>
      *  The you can say
+     * <p>
      * ${rhn:localize("rhn.foo.bar")} to get the localized value
      * @param messageId the message id to localize on
      * @return the i18ned string...
@@ -96,9 +100,12 @@ public class RhnTagFunctions {
      * This is exclusively used by the el expressions in
      * various jsp pages. For this to work you'd have to
      * add
-     *  <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+     * <p>
+     * {@literal <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>}
      *  to the top of your jsp page
+     * <p>
      *  The you can say
+     * <p>
      * ${rhn:localizeWithParams("rhn.foo.bar","param0|param1")} to get the localized value
      * The method parameter 'param' takes a list of key parameters  seperated by a '|'.
      * It is rather unfortunate for it to take a '|' instead of taking a String[]

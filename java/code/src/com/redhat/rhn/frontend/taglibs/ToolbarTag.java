@@ -26,12 +26,11 @@ import com.redhat.rhn.manager.acl.AclManager;
 /**
  * The ToolbarTag generates a toolbar showing the page title, optional
  * help link, and action buttons to the right of the page.
+ * <pre>{@literal
+ *   <rhn:toolbar base="h1" img="/img/somegraphic.gif">
+ * }</pre>
  * <p>
- * <pre>
- * &lt;rhn:toolbar base="h1" img="/img/somegraphic.gif"&gt;
- * </pre>
- * <p>
- * Basic Attributes:<br />
+ * Basic Attributes:<br>
  * <ul>
  * <li>base - base html tag for wrapping the toolbar.
  * <li>icon - name of the icon (css class) to be displayed to the left of the page title
@@ -41,7 +40,7 @@ import com.redhat.rhn.manager.acl.AclManager;
  * <li>helpUrl - link to the help pages.
  * </ul>
  * <P>
- * Action Attributes:<br />
+ * Action Attributes:<br>
  * <ul>
  * <li>create button
  *     <ul>
@@ -480,7 +479,7 @@ public class ToolbarTag extends TagSupport {
 
     /**
      * {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     @Override
     public int doStartTag() throws JspException {

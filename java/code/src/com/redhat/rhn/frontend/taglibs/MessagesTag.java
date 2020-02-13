@@ -37,7 +37,7 @@ public class MessagesTag extends TagSupport {
     private HtmlTag baseTag;
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     public int doStartTag() throws JspException {
         JspWriter out = null;
@@ -64,7 +64,7 @@ public class MessagesTag extends TagSupport {
         try {
             out = pageContext.getOut();
             out.print(baseTag.renderCloseTag());
-            removeMessagesFromSession(out);
+            removeMessagesFromSession();
             return (EVAL_PAGE);
         }
         catch (Exception e) {
@@ -72,7 +72,7 @@ public class MessagesTag extends TagSupport {
         }
     }
 
-    private void removeMessagesFromSession(JspWriter out) {
+    private void removeMessagesFromSession() {
         HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
         HttpSession session = request.getSession();
         session.removeAttribute(Globals.MESSAGE_KEY);

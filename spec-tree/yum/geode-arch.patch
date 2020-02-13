@@ -1,0 +1,16 @@
+diff --git a/rpmUtils/arch.py b/rpmUtils/arch.py
+index b493b6a..27c6d53 100644
+--- a/rpmUtils/arch.py
++++ b/rpmUtils/arch.py
+@@ -15,7 +15,7 @@ arches = {
+     # ia32
+     "athlon": "i686",
+     "i686": "i586",
+-    "geode": "i586",
++    "geode": "i686",
+     "i586": "i486",
+     "i486": "i386",
+     "i386": "noarch",
+-- 
+1.6.2.5
+

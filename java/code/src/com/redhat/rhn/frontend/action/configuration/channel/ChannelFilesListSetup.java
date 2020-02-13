@@ -33,9 +33,7 @@ public class ChannelFilesListSetup extends BaseSetListAction {
     protected DataResult getDataResult(RequestContext ctx, PageControl pc) {
         User user = ctx.getCurrentUser();
         ConfigChannel cc = ConfigActionHelper.getChannel(ctx.getRequest());
-        DataResult dr = ConfigurationManager.getInstance().
-            listCurrentFiles(user, cc, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listCurrentFiles(user, cc, pc);
     }
 
     protected void processRequestAttributes(RequestContext rctx) {

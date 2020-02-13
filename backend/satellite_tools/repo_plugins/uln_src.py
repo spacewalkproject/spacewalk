@@ -32,10 +32,13 @@ DEFAULT_UP2DATE_URL = "linux-update.oracle.com"
 
 class ContentSource(yum_ContentSource):
 
-    def __init__(self, url, name):
+    def __init__(self, url, name, org="1", channel_label="", no_mirrors=False, ca_cert_file=None,
+                 client_cert_file=None, client_key_file=None):
         if url[:6] != "uln://":
             raise RhnSyncException("url format error, url must start with uln://")
-        yum_ContentSource.__init__(self, url, name, ULNSRC_CONF)
+        yum_ContentSource.__init__(self, url, name, yumsrc_conf=ULNSRC_CONF, org=org, channel_label=channel_label,
+                                   no_mirrors=no_mirrors, ca_cert_file=ca_cert_file, client_cert_file=client_cert_file,
+                                   client_key_file=client_key_file)
         self.uln_url = None
         self.uln_user = None
         self.uln_pass = None
@@ -67,6 +70,7 @@ class ContentSource(yum_ContentSource):
         s.addServerList(slist)
         self.key = s.auth.login(self.uln_user, self.uln_pass)
 
+    # pylint: disable=arguments-differ
     def setup_repo(self, repo, *args, **kwargs):
         repo.http_headers = {'X-ULN-Api-User-Key': self.key}
         yum_ContentSource.setup_repo(self, repo, *args, **kwargs)

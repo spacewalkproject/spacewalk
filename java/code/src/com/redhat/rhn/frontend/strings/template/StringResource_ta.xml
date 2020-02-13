@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>வணக்கம்,
 
-{0} {1}ஆல் ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
-Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது,
-@@PRODUCT_NAME@@இல் கணினிகளை மேலாண்மை செய்ய அணுக உதவுகிறது.
-
-  Red Hat புகுபதிவு: {2}
-       கடவுச்சொல்: {3}
-         மின்னஞ்சல்: {4}
-
-  {5}
-
-முக்கியமானது: பதிவு செய்த பின் கடவுச்சொல்லை மாற்றவும்.
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>வணக்கம்,
 
-ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள
-Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat பதிவானது,
-@@PRODUCT_NAME@@இல் கணினிகளை மேலாண்மை செய்ய அணுக உதவுகிறது.
-
-  Red Hat புகுபதிவு: {0}
-       கடவுச்சொல்: {1}
-         மின்னஞ்சல்: {2}
-
-  {3}
-
-முக்கியமானது: பதிவு செய்த பின் கடவுச்சொல்லை மாற்றவும்.
-
-@@PRODUCT_NAME@@ஐ பயன்படுத்தியதற்கு நன்றி.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,

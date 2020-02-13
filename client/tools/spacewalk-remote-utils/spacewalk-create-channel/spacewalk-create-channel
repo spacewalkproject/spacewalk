@@ -28,13 +28,15 @@ DATA_DIR = "./data/"
 DATA_DIR_RHN = "/usr/share/rhn/channel-data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-versions = ( "7", "6", "5", "4", "3", "2.1" )
+versions = ( "8", "7", "6", "5", "4", "3", "2.1" )
 releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop", "Appliance",
-             "ComputeNode", "WebServer", "Workstation")
-arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64")
+             "ComputeNode", "WebServer", "Workstation",
+             "BaseOS", "AppStream", )                                   # RHEL 8
+arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64", "ppc64", "ppc64le")
 updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U10", "U11" )
 subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation", "ResilientStorage",
-            "ScalableFileSystem", "LoadBalancer", "HighAvailability") #RHEL 5 yum repos on the discs
+            "ScalableFileSystem", "LoadBalancer", "HighAvailability",   # RHEL 5 yum repos on the discs
+            "CRB", "RT", )                                              # RHEL 8
 extras = ("Extras", "Supplementary") #things shipped on other cds
 
 
@@ -257,12 +259,12 @@ def populate(client, auth, srcChannel, newChannel, newChannelName, filename, par
         print("Skipping %s packages based off of skip list" % str(skip_num))
 
     while len(ids_to_add) > 0:
-        print('%d of %d' % (pack_num-len(ids_to_add), pack_num),
-              sys.stdout.flush())
+        sys.stdout.write('%d of %d' % (pack_num-len(ids_to_add), pack_num))
+        sys.stdout.flush()
         client.channel.software.addPackages(auth, newChannel, ids_to_add[:bundleSize])
         del ids_to_add[:bundleSize]
-        print('%s\r' % ' '*20, sys.stdout.flush())
-
+        sys.stdout.write('%s\r' % (' ' * 20))
+        sys.stdout.flush()
 
     print("Successfully pushed %s packages out of %d" % (str(pack_num), len(fileList)))
 
@@ -404,7 +406,7 @@ def gather(clear):
                         repoDir = "RHEL-%s/%s.%s/%s/%s/os/" % (version, version, update_num, release, arch)
                         fullDir = GATHER_DIR + repoDir
                         if not saveRpmList(fullDir +  release + "/listing", DATA_DIR + getFileName(version, update,release, arch)):
-                            if update_num < 6:
+                            if float(update_num) < 6:
                                 sourceDir = fullDir +  release + "/Packages/"
                             else:
                                 sourceDir = fullDir +  "/Packages/"
@@ -446,6 +448,23 @@ def gather(clear):
                         #do optional
                         fullDir = GATHER_DIR + "RHEL-%s/%s.%s/%s-optional/%s/os/" % (version, version, update_num, release, arch)
                         saveRpmList(fullDir + "/Packages/", DATA_DIR + getFileName(version, update,release, arch, 'optional'))
+
+                    elif float(version) == 8:
+                        if update == "GOLD":
+                            update_num = "0"
+                        else:
+                            update_num = update.replace("U","") #strip the U
+                        # RHEL-8/8.0.0/BaseOs/x86_64/os/
+                        repoDir = "RHEL-%s/%s.%s.0/%s/%s/os/" % (version, version, update_num, release, arch)
+                        fullDir = GATHER_DIR + repoDir
+
+                        created = saveRpmList(fullDir + "Packages/", DATA_DIR + getFileName(version, update,release, arch))
+
+                        if created and release == "BaseOS":
+                            for subrepo in subrepos + extras:
+                                fullDir = GATHER_DIR + "RHEL-%s/%s.%s.0/%s/%s/os/Packages/" % (version, version, update_num, subrepo, arch)
+                                saveRpmList(fullDir, DATA_DIR + getFileName(version, update,release, arch, subrepo))
+
 
 
 def saveRpmList(source, filename):

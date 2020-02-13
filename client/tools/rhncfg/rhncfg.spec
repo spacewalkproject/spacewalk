@@ -2,97 +2,285 @@
 %global rhnconf %{_sysconfdir}/sysconfig/rhn
 %global client_caps_dir %{rhnconf}/clientCaps.d
 
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 ) || 0%{?ubuntu} || 0%{?debian}
+%global build_py2   1
+%endif
+
+# ------------------------------- Python macros for debian ----------------------------------------
+%{!?__python2:%global __python2 /usr/bin/python2}
+%{!?__python3:%global __python3 /usr/bin/python3}
+
+%if %{undefined python2_version}
+%global python2_version %(%{__python2} -Esc "import sys; sys.stdout.write('{0.major}.{0.minor}'.format(sys.version_info))")
+%endif
+
+%if %{undefined python3_version}
+%global python3_version %(%{__python3} -Ic "import sys; sys.stdout.write(sys.version[:3])")
+%endif
+
+%if %{undefined python2_sitelib}
+%global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+
+%if %{undefined python3_sitelib}
+%global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+# --------------------------- End Python macros for debian ----------------------------------------
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
+%if %{_vendor} == "debbuild"
+# Bash constructs in scriptlets don't play nice with Debian's default shell, dash
+%global _buildshell /bin/bash
+%endif
+
 Name: rhncfg
+Version: 5.10.132
+Release: 1%{?dist}
+%if %{_vendor} == "debbuild"
+Group:      admin
+Packager:   Spacewalk Project <spacewalk-devel@redhat.com>
+%endif
 Summary: Spacewalk Configuration Client Libraries
-Group:   Applications/System
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 5.10.105
-Release: 1%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
-BuildRequires: python
-Requires: python
-%if 0%{?fedora} >= 23
-Requires: python3-rhnlib
-Requires: python3-spacewalk-usix
-%else
-Requires: rhnlib
-Requires: spacewalk-usix
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 6
-Requires: rhn-client-tools >= 0.4.20-86
-%else
-%if 0%{?el6}
-Requires: rhn-client-tools >= 1.0.0-51
-%else
-# who knows what version we need? Let's just hope it's up to date enough.
-Requires: rhn-client-tools
-%endif
-%endif
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-hashlib
-%endif
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 
+%if %{_vendor} != "debbuild"
 %if 0%{?suse_version}
 # provide rhn directories and no selinux on suse
 BuildRequires: rhn-client-tools
 %else
+%if 0%{?build_py2}
 Requires: libselinux-python
+%else
+Requires: python3-libselinux
+%endif
+%endif
+%endif
+
+
+%if %{_vendor} == "debbuild"
+%if 0%{?build_py2}
+Requires: python-selinux
+%endif
+%if 0%{?build_py3}
+Requires: python3-selinux
+%endif
 %endif
 
 %description
 The base libraries and functions needed by all rhncfg-* packages.
 
+%if 0%{?build_py2}
+%package -n python2-%{name}
+Summary: Spacewalk Configuration Client Libraries
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python
+Requires: rhnlib >= 2.8.3
+Requires: spacewalk-usix
+Requires: python2-rhn-client-tools >= 2.8.4
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
+BuildRequires: python
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python-minimal
+Requires(post): python-minimal
+%endif
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Spacewalk Configuration Client Libraries
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: python3
+Requires: python3-rhnlib >= 2.8.3
+Requires: python3-spacewalk-usix
+Requires: python3-rhn-client-tools >= 2.8.4
+BuildRequires: python3
+%if %{_vendor} != "debbuild"
+BuildRequires: python3-rpm-macros
+%endif
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+%endif
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
+
+
 %package client
 Summary: Spacewalk Configuration Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-%{name}-client = %{version}-%{release}
 
 %description client
 A command line interface to the client features of the RHN Configuration
 Management system.
 
+%if 0%{?build_py2}
+%package -n python2-%{name}-client
+Summary: Spacewalk Configuration Client
+%{?python_provide:%python_provide python2-%{name}-client}
+Requires: %{name}-client = %{version}-%{release}
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python-minimal
+Requires(post): python-minimal
+%endif
+%description -n python2-%{name}-client
+Python 2 specific files for %{name}-client.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-client
+Summary: Spacewalk Configuration Client
+%{?python_provide:%python_provide python3-%{name}-client}
+Requires: %{name}-client = %{version}-%{release}
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+%endif
+%description -n python3-%{name}-client
+Python 3 specific files for %{name}-client.
+%endif
+
+
 %package management
 Summary: Spacewalk Configuration Management Client
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
+Requires: %{pythonX}-%{name}-management = %{version}-%{release}
 
 %description management
 A command line interface used to manage Spacewalk configuration.
 
+%if 0%{?build_py2}
+%package -n python2-%{name}-management
+Summary: Spacewalk Configuration Management Client
+%{?python_provide:%python_provide python2-%{name}-management}
+Requires: %{name}-management = %{version}-%{release}
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python-minimal
+Requires(post): python-minimal
+%endif
+%description -n python2-%{name}-management
+Python 2 specific files for python2-%{name}-management.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-management
+Summary: Spacewalk Configuration Management Client
+%{?python_provide:%python_provide python3-%{name}-management}
+Requires: %{name}-management = %{version}-%{release}
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+%endif
+%description -n python3-%{name}-management
+Python 2 specific files for python3-%{name}-management.
+%endif
+
+
 %package actions
 Summary: Spacewalk Configuration Client Actions
-Group:   Applications/System
 Requires: %{name} = %{version}-%{release}
-Requires: %{name}-client
+Requires: %{pythonX}-%{name}-actions = %{version}-%{release}
 
 %description actions
 The code required to run configuration actions scheduled via the RHN Classic website or Red Hat Satellite or Spacewalk.
+
+%if 0%{?build_py2}
+%package -n python2-%{name}-actions
+Summary: Spacewalk Configuration Client Actions
+%{?python_provide:%python_provide python2-%{name}-actions}
+Requires: %{name}-actions = %{version}-%{release}
+Requires: python2-%{name}-client
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python-minimal
+Requires(post): python-minimal
+%endif
+%description -n python2-%{name}-actions
+Python 2 specific files for python2-%{name}-actions.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}-actions
+Summary: Spacewalk Configuration Client Actions
+%{?python_provide:%python_provide python3-%{name}-actions}
+Requires: %{name}-actions = %{version}-%{release}
+Requires: python3-%{name}-client
+%if %{_vendor} == "debbuild"
+# For scriptlets
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+%endif
+%description -n python3-%{name}-actions
+Python 3 specific files for python2-%{name}-actions.
+%endif
 
 %prep
 %setup -q
 
 %build
 make -f Makefile.rhncfg all
-%if 0%{?fedora} >= 23
-    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
-%endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    MANDIR=%{_mandir}
+install -d $RPM_BUILD_ROOT/%{python2_sitelib}
+%if 0%{?build_py2}
+make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python2_sitelib} \
+    MANDIR=%{_mandir} PYTHONVERSION=%{python2_version}
+%endif
+%if 0%{?build_py3}
+    install -d $RPM_BUILD_ROOT/%{python3_sitelib}
+    sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' config_*/*.py actions/*.py
+    make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
+        MANDIR=%{_mandir} PYTHONVERSION=%{python3_version}
+%endif
 mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/rhncfg/backups
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/spool/rhn
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/log
 touch $RPM_BUILD_ROOT/%{_localstatedir}/log/rhncfg-actions
 
+# create links to default script version
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python2_version}}
+for i in \
+    /usr/bin/rhncfg-client \
+    /usr/bin/rhncfg-manager \
+    /usr/bin/rhn-actions-control \
+; do
+    ln -s $(basename "$i")%{default_suffix} "$RPM_BUILD_ROOT$i"
+done
+
+%if 0%{?suse_version}
+%if 0%{?build_py2}
+%py_compile -O %{buildroot}/%{python2_sitelib}
+%endif
+%if 0%{?build_py3}
+%py3_compile -O %{buildroot}/%{python3_sitelib}
+%endif
+%endif
+
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ -f %{_localstatedir}/log/rhncfg-actions ]
@@ -101,36 +289,247 @@ chown root %{_localstatedir}/log/rhncfg-actions
 chmod 600 %{_localstatedir}/log/rhncfg-actions
 fi
 
+
+%if %{_vendor} == "debbuild"
+# Debian requires:
+# post: Do bytecompilation after install
+# preun: Remove any *.py[co] files
+
+%if 0%{?build_py2}
+%post -n python2-%{name}
+pycompile python2-%{name} -V -3.0
+
+%preun -n python2-%{name}
+pyclean -p python2-%{name}
+
+%post -n python2-%{name}-client
+pycompile python2-%{name}-client -V -3.0
+
+%preun -n python2-%{name}-client
+pyclean -p python2-%{name}-client
+
+%post -n python2-%{name}-management
+pycompile python2-%{name}-management -V -3.0
+
+%preun -n python2-%{name}-management
+pyclean -p python2-%{name}-management
+
+%post -n python2-%{name}-actions
+pycompile python2-%{name}-actions -V -3.0
+
+%preun -n python2-%{name}-actions
+pyclean -p python2-%{name}-actions
+%endif
+
+%if 0%{?build_py3}
+%post -n python3-%{name}
+py3compile python3-%{name} -V -4.0
+
+%preun -n python3-%{name}
+py3clean -p python3-%{name}
+
+%post -n python3-%{name}-client
+py3compile python3-%{name}-client -V -4.0
+
+%preun -n python3-%{name}-client
+py3clean -p python3-%{name}-client
+
+%post -n python3-%{name}-management
+py3compile python3-%{name}-management -V -4.0
+
+%preun -n python3-%{name}-management
+py3clean -p python3-%{name}-management
+
+%post -n python3-%{name}-actions
+py3compile python3-%{name}-actions -V -4.0
+
+%preun -n python3-%{name}-actions
+py3clean -p python3-%{name}-actions
+%endif
+%endif
+
 %files
 %if 0%{?suse_version}
 %dir %{_sharedstatedir}
 %endif
 %dir %{_sharedstatedir}/rhncfg
-%dir %{_localstatedir}/spool/rhn
-%{rhnroot}/config_common
+# This could be easily packaged as a directory with the %dir flag,
+# but for whatever reason debbuild just refuses to behave.
+%{_localstatedir}/spool/rhn
 %{_sharedstatedir}/rhncfg/backups
 %doc LICENSE
 
+%if 0%{?build_py2}
+%files -n python2-%{name}
+%{python2_sitelib}/config_common
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/config_common
+%endif
+
 %files client
-%{rhnroot}/config_client
 %{_bindir}/rhncfg-client
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-client.conf
 %{_mandir}/man8/rhncfg-client.8*
 
+%if 0%{?build_py2}
+%files -n python2-%{name}-client
+%{python2_sitelib}/config_client
+%{_bindir}/rhncfg-client-%{python2_version}
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-client
+%{python3_sitelib}/config_client
+%{_bindir}/rhncfg-client-%{python3_version}
+%endif
+
 %files management
-%{rhnroot}/config_management
 %{_bindir}/rhncfg-manager
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-manager.conf
 %{_mandir}/man8/rhncfg-manager.8*
 
+%if 0%{?build_py2}
+%files -n python2-%{name}-management
+%{python2_sitelib}/config_management
+%{_bindir}/rhncfg-manager-%{python2_version}
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-management
+%{python3_sitelib}/config_management
+%{_bindir}/rhncfg-manager-%{python3_version}
+%endif
+
 %files actions
-%{rhnroot}/actions
 %{_bindir}/rhn-actions-control
 %config(noreplace) %{client_caps_dir}/*
 %{_mandir}/man8/rhn-actions-control.8*
 %ghost %attr(600,root,root) %{_localstatedir}/log/rhncfg-actions
 
+%if 0%{?build_py2}
+%files -n python2-%{name}-actions
+%{python2_sitelib}/rhn/actions
+%{_bindir}/rhn-actions-control-%{python2_version}
+%if 0%{?suse_version}
+%dir %{python2_sitelib}/rhn
+%endif
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}-actions
+%{python3_sitelib}/rhn/actions
+%{_bindir}/rhn-actions-control-%{python3_version}
+%if 0%{?suse_version}
+%dir %{python3_sitelib}/rhn
+%endif
+%endif
+
 %changelog
+* Mon Feb 04 2019 Michael Mraka <michael.mraka@redhat.com> 5.10.132-1
+- make filemod more readable
+
+* Mon Feb 04 2019 Michael Mraka <michael.mraka@redhat.com> 5.10.131-1
+- 1665858 - diff expects string not bytes
+
+* Mon Feb 04 2019 Michael Mraka <michael.mraka@redhat.com> 5.10.130-1
+- Resolves: rhbz#1645005 - unified_diff takes list, not string as a paremeter
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.129-1
+- updated copyright years
+
+* Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.128-1
+- fix python2 compilation on opensuse
+
+* Wed Oct 03 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.127-1
+- fix build on mageia
+- 1622961 - avoid deprecated fucntions when running on python3
+
+* Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.126-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+
+* Wed Jul 18 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.125-1
+- 1601754 - require python3 version of dependencies on systems with default py3
+
+* Mon May 14 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.124-1
+- 1577138 - when loading a file take into account if it's binary or not
+- 1572652 - do not report that files differ due to python3 octal number
+  represenatation
+
+* Mon May 14 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.123-1
+- require python3-libselinux on python3 only OS
+
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.122-1
+- don't build python2 subpackages on systems with default python3
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.10.121-1
+- use python3 on rhel8 in rhncfg
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.10.120-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Tue Jan 02 2018 Jiri Dostal <jdostal@redhat.com> 5.10.119-1
+- 1528252 - Add --config option to rhncfg-manager and rhncfg-client.
+
+* Tue Dec 12 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.118-1
+- 1498813 - add better handling of interrupted system calls
+
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.117-1
+- rhncfg: add missing dirs to filelist for SUSE and enable py3 build on
+  Tumbleweed
+
+* Wed Oct 18 2017 Jan Dobes 5.10.116-1
+- rhncfg - unused string import
+
+* Thu Oct 12 2017 Eric Herget <eherget@redhat.com> 5.10.115-1
+- 1474872 - rhncfg-manager download-channel failed during download utf8
+
+* Fri Oct 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.114-1
+- write in binary mode
+- import method from standard path
+
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.113-1
+- 1498813 - store output in the action file so partial output can arrive to
+  server
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+- 1494389 - Revert "1260527 - fix Python 2.4 syntax (RHEL5)"
+
+* Thu Oct 05 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.112-1
+- install files into python_sitelib/python3_sitelib
+- move rhncfg-actions files into proper python2/python3 subpackages
+- move rhncfg-management files into proper python2/python3 subpackages
+- move rhncfg-client files into proper python2/python3 subpackages
+- move rhncfg files into proper python2/python3 subpackages
+- split rhncfg-actions into python2/python3 specific packages
+- split rhncfg-management into python2/python3 specific packages
+- split rhncfg-client into python2/python3 specific packages
+- split rhncfg into python2/python3 specific packages
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.111-1
+- purged changelog entries for Spacewalk 2.0 and older
+
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.110-1
+- precompile py3 bytecode on Fedora 23+
+- use standard brp-python-bytecompile
+
+* Mon Aug 07 2017 Eric Herget <eherget@redhat.com> 5.10.109-1
+- another pass to update copyright year
+
+* Wed Aug 02 2017 Tomas Kasparek <tkasparek@redhat.com> 5.10.108-1
+- 1455513 - print different message if file does not exist
+- 1455513 - print a name of file which does not exist during diff
+- 1455513 - tell user which file differs
+
+* Tue Aug 01 2017 Michael Mraka <michael.mraka@redhat.com> 5.10.107-1
+- move version and release before sources
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 5.10.106-1
+- update copyright year
+
 * Tue May 16 2017 Laurence Rochfort <laurence.rochfort@oracle.com>
 - PR 543 - Add password config option to rhncfg-manager.
 
@@ -370,324 +769,4 @@ fi
 
 * Mon Jan 28 2013 Stephen Herr <sherr@redhat.com> 5.10.40-1
 - 903534 - Web UI config diff always shows 'binary files differ'
-
-* Fri Nov 30 2012 Jan Pazdziora 5.10.39-1
-- 879299 - statinfo needs to be defined even if file does not exist
-
-* Tue Nov 20 2012 Stephen Herr <sherr@redhat.com> 5.10.38-1
-- 878216 - fixing typo in manpage
-
-* Tue Nov 20 2012 Stephen Herr <sherr@redhat.com> 5.10.37-1
-- 878216 - make rhncfg diff output configurable
-
-* Tue Oct 30 2012 Jan Pazdziora 5.10.36-1
-- Update the copyright year.
-- fix for bz#869626 use st_mode, st_uid of dst Signed-off-by: Paresh Mutha
-  <pmutha@redhat.com>
-
-* Mon Oct 22 2012 Jan Pazdziora 5.10.35-1
-- Revert "Revert "Revert "get_server_capability() is defined twice in osad and
-  rhncfg, merge and move to rhnlib and make it member of rpclib.Server"""
-
-* Tue Aug 07 2012 Tomas Kasparek <tkasparek@redhat.com> 5.10.34-1
-- 840250 - If there's symlink in file deployment path it will be created
-
-* Mon Jul 09 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.33-1
-- check symlink not target file existence
-
-* Thu Jun 28 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.32-1
-- 765816 - value of selinux context is important
-
-* Mon Jun 04 2012 Stephen Herr <sherr@redhat.com> 5.10.31-1
-- 824707 - make /var/log/rhncfg-actions have 600 permissions
-
-* Fri Jun 01 2012 Stephen Herr <sherr@redhat.com> 5.10.30-1
-- 824707 - rhncfg-actions should not log the diff of files that are not
-  readable by all
-- %%defattr is not needed since rpm 4.4
-
-* Mon May 14 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.29-1
-- 820517 - fixed command synopsis
-- 805449 - honor rhncfg-specific settings
-
-* Thu Mar 08 2012 Miroslav Suchý 5.10.28-1
-- accept server name without protocol
-
-* Fri Mar 02 2012 Jan Pazdziora 5.10.27-1
-- Update the copyright year info.
-
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 5.10.26-1
-- we are now just GPL
-
-* Sun Jan 15 2012 Aron Parsons <aronparsons@gmail.com> 5.10.25-1
-- add a --disable-selinux option to 'rhncfg-manager upload-channel'
-  (aronparsons@gmail.com)
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.24-1
-- update copyright info
-
-* Wed Dec 14 2011 Jan Pazdziora 5.10.23-1
-- Fixing SyntaxError: ('invalid syntax', ...
-
-* Tue Dec 13 2011 Miroslav Suchý 5.10.22-1
-- 765816 - Added the option --selinux-context to rhncfg-manager which allows to
-  overwrite the SELinux context from a file (mmello@redhat.com)
-
-* Wed Nov 30 2011 Miroslav Suchý 5.10.21-1
-- handle fs objects without selinux context correctly
-
-* Mon Nov 21 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.20-1
-- 627490 - fixed cross device symlink backup
-
-* Mon Oct 24 2011 Jan Pazdziora 5.10.19-1
-- 743121 - don't report differences containing invalid UTF-8
-  (mzazrivec@redhat.com)
-
-* Wed Oct 19 2011 Milan Zazrivec <mzazrivec@redhat.com> 5.10.18-1
-- 743424 - rhncfg-client diff: do not fail when not a valid symlink
-
-* Mon Oct 10 2011 Jan Pazdziora 5.10.17-1
-- 743424 - rhncfg-client diff: don't traceback on missing symlink
-  (mzazrivec@redhat.com)
-
-* Thu Sep 29 2011 Miroslav Suchý 5.10.16-1
-- add save_traceback even into this branch
-
-* Fri Sep 23 2011 Martin Minar <mminar@redhat.com> 5.10.15-1
-- Fix `rhncfg-client verify' traceback for missing symlinks
-  (Joshua.Roys@gtri.gatech.edu)
-
-* Thu Aug 18 2011 Michael Mraka <michael.mraka@redhat.com> 5.10.14-1
-- 731284 - is_selinux_enabled is not defined on RHEL4
-
-* Fri Aug 12 2011 Miroslav Suchý 5.10.13-1
-- add proto, server_name and server_list to local_config overrides
-- None has not iteritems() method
-
-* Thu Aug 11 2011 Miroslav Suchý 5.10.12-1
-- True and False constants are defined since python 2.4
-- do not mask original error by raise in execption
-
-* Thu Aug 04 2011 Jan Pazdziora 5.10.11-1
-- 508936 - rhn-actions-control honor the allowed-actions/scripts/run for remote
-  commands (mmello@redhat.com)
-
-* Mon Aug 01 2011 Miroslav Suchý 5.10.10-1
-- get server_name from config only if it was not set on command line
-- remove rhn_rpc.py
-
-* Fri Jul 15 2011 Miroslav Suchý 5.10.9-1
-- optparse is here since python 2.3 - remove optik (msuchy@redhat.com)
-
-* Thu Jun 16 2011 Jan Pazdziora 5.10.8-1
-- Creating the /var/spool/rhn in %build.
-
-* Thu Jun 16 2011 Jan Pazdziora 5.10.7-1
-- temp script file customizable dedicated directory (matteo.sessa@dbmsrl.com)
-
-* Tue May 31 2011 Jan Pazdziora 5.10.6-1
-- Fix python import (matteo.sessa@dbmsrl.com)
-
-* Tue May 10 2011 Jan Pazdziora 5.10.5-1
-- remove unused import, fix indentation and a minor typo (iartarisi@suse.cz)
-- fix usage documentation messages for topdir and dest-file (iartarisi@suse.cz)
-
-* Fri May 06 2011 Jan Pazdziora 5.10.4-1
-- 702524 - Fixed python traceback when deploying a file with permission set to
-  000 (mmello@redhat.com)
-
-* Fri Apr 29 2011 Jan Pazdziora 5.10.3-1
-- 699966 - added --ignore-missing option in rhncfg-manager to ignore missing
-  local files when adding or uploading files (mmello@redhat.com)
-
-* Fri Apr 15 2011 Jan Pazdziora 5.10.2-1
-- add missing directories to filelist (mc@suse.de)
-- build rhncfg build on SUSE (mc@suse.de)
-- 683200 - ca is now unicode, check for basestring, which is parent for both
-  str and unicode type (msuchy@redhat.com)
-- 683200 - set the protocol correctly (msuchy@redhat.com)
-- 683200 - server_name and server_list should contain just hostname, not url
-  (msuchy@redhat.com)
-- 683200 - if value is int ConfigParser fails with interpolation
-  (msuchy@redhat.com)
-- 683200 - variable %proto is not used in up2date_cfg (msuchy@redhat.com)
-- removing .rhncfgrc - it is not packed, probably forgotten for long time
-  (msuchy@redhat.com)
-- add () if you want to get result of function (msuchy@redhat.com)
-
-* Wed Apr 13 2011 Miroslav Suchý 5.10.1-1
-- bump up version (msuchy@redhat.com)
-
-* Wed Apr 13 2011 Miroslav Suchý 5.9.55-1
-- code cleanup
-* Wed Apr 13 2011 Miroslav Suchý 5.9.54-1
-- dead code - module up2date_config_parser is not used any more
-- dead code - get_up2date_config() is not used any more
-- 695723, 683200 - use up2date_client.config instead of own parser
-  (utils.get_up2date_config)
-
-* Mon Apr 11 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.53-1
-- fixed moved imports
-- don't make link target absolute
-- 683264 - fixed extraneous directory creation via rhncfg-manager
-
-* Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.52-1
-- fixed symlink deployment via rhn_check
-- 683264 - rootdir is / when called from rhn_check
-
-* Fri Apr 08 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.51-1
-- don't rollback transaction if symlink already exists
-- fixed traceback during rollback
-- don't fail if link points to directory
-
-* Thu Mar 24 2011 Jan Pazdziora 5.9.50-1
-- 688461 - try/except is workaround of BZ 690238 (msuchy@redhat.com)
-- 688461 - fixed python exception when comparing files using web UI and SELinux
-  disabled in RHEL6 (mmello@redhat.com)
-
-* Tue Feb 15 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.49-1
-- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
-- 676317 - handle fs objects without selinux context correctly
-  (mzazrivec@redhat.com)
-- 628920 - older Satellites do not send selinux_ctx (msuchy@redhat.com)
-- 675164 - do not traceback if file do not differ (msuchy@redhat.com)
-- Revert "Revert "get_server_capability() is defined twice in osad and rhncfg,
-  merge and move to rhnlib and make it member of rpclib.Server""
-  (msuchy@redhat.com)
-
-* Tue Feb 01 2011 Tomas Lestach <tlestach@redhat.com> 5.9.48-1
-- Revert "get_server_capability() is defined twice in osad and rhncfg, merge
-  and move to rhnlib and make it member of rpclib.Server" (tlestach@redhat.com)
-
-* Fri Jan 28 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.47-1
-- get_server_capability() is defined twice in osad and rhncfg, merge and move
-  to rhnlib and make it member of rpclib.Server
-
-* Thu Jan 20 2011 Tomas Lestach <tlestach@redhat.com> 5.9.46-1
-- updating Copyright years for year 2011 (tlestach@redhat.com)
-- 628920 - rhel4 does not support selinux (msuchy@redhat.com)
-
-* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.45-1
-- fixed TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
-
-* Fri Jan 07 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.44-1
-- fixed NameError: global name 'os' is not defined
-- 634963 - satellites <= 5.4 do not send modified value
-
-* Thu Jan 06 2011 Michael Mraka <michael.mraka@redhat.com> 5.9.43-1
-- 637833 - reused shared file deploy code
-- 637833 - moved file deploy code into shared module
-
-* Mon Jan 03 2011 Tomas Lestach <tlestach@redhat.com> 5.9.42-1
-- 634963 - adding extra colon (tlestach@redhat.com)
-
-* Mon Jan 03 2011 Miroslav Suchý <msuchy@redhat.com> 5.9.41-1
-- 634963 - indicate change in selinux, ownership or file mode (even if diff is
-  empty)
-- do not fail if diff do not differ
-- do diff directly in memory
-- Updating the copyright years to include 2010. (jpazdziora@redhat.com)
-
-* Thu Dec 23 2010 Jan Pazdziora 5.9.40-1
-- make _make_stat_info public method (msuchy@redhat.com)
-- create new function get_raw_file_info for case, when we do not need file on
-  disk (msuchy@redhat.com)
-
-* Wed Dec 22 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.39-1
-- if file is excluded skip also deploy preparation
-- use difflib instead of external diff command
-- made exception block more readable
-- 664677 - fixed directory deployment under --topdir
-- 664677 - fixed symlink deployment under --topdir 
-
-* Mon Dec 20 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.38-1
-- 628846 - fixed symlink info
-
-* Wed Dec 08 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.37-1
-- import Fault, ResponseError and ProtocolError directly from xmlrpclib
-
-* Wed Dec 01 2010 Lukas Zapletal 5.9.36-1
-- 644985 - SELinux context cleared from RHEL4 rhncfg-client
-- Correcting indentation for rhn_main.py
-
-* Fri Nov 26 2010 Jan Pazdziora 5.9.35-1
-- 656895 - fixing other instances of two-parameter utils.startswith.
-- 656895 - Need to call startswith on string.
-
-* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.34-1
-- removed unused imports
-
-* Tue Nov 02 2010 Jan Pazdziora 5.9.33-1
-- Update copyright years in the rest of the repo.
-
-* Fri Oct 29 2010 Jan Pazdziora 5.9.32-1
-- removed unused class RepoPlainFile (michael.mraka@redhat.com)
-- removed unused class RepoAlreadyExists (michael.mraka@redhat.com)
-- removed unused class PathNotPresent (michael.mraka@redhat.com)
-- removed unused class MalformedRepository (michael.mraka@redhat.com)
-- removed unused class FileNotInRepo (michael.mraka@redhat.com)
-- after ClientTemplatedDocument removal rhncfg_template.py is empty; removing
-  (michael.mraka@redhat.com)
-- removed unused class ClientTemplatedDocument (michael.mraka@redhat.com)
-- removed unused class BackupFileMissing (michael.mraka@redhat.com)
-
-* Mon Oct 25 2010 Jan Pazdziora 5.9.31-1
-- 645795 - making script actions (within rhncfg) work with RHEL 4 by using
-  popen2 if subprocess is not available (jsherril@redhat.com)
-
-* Fri Oct 22 2010 Jan Pazdziora 5.9.30-1
-- 628920 - Fixed an rhcfg-manager-diff  issue where files were not being
-  properly checked (paji@redhat.com)
-- startswith(), endswith() are builtin functions since RHEL4
-  (michael.mraka@redhat.com)
-
-* Mon Oct 18 2010 Jan Pazdziora 5.9.29-1
-- 643157 - fix for the prev commit on RHEL 4 clients the method has to return a
-  value... (paji@redhat.com)
-- 643157 - Fix to get symlinks work with rhel 4 clients (paji@redhat.com)
-
-* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.28-1
-- replaced local copy of compile.py with standard compileall module
-
-* Wed Aug 04 2010 Milan Zazrivec <mzazrivec@redhat.com> 5.9.27-1
-- 604615 - don't traceback if server does not send selinux_ctx
-
-* Tue Aug 03 2010 Partha Aji <paji@redhat.com> 5.9.26-1
-- Made the upload_channel and download_channel calls deal with symlinks
-  (paji@redhat.com)
-
-* Mon Aug 02 2010 Partha Aji <paji@redhat.com> 5.9.25-1
-- Added diff and get functionaliity for rhncfg-manager (paji@redhat.com)
-- Changes to rhncfg verify and diff to get symlinks working (paji@redhat.com)
-
-* Thu Jul 29 2010 Partha Aji <paji@redhat.com> 5.9.24-1
-- Made the diff in operation rhncfg client work with symlinks (paji@redhat.com)
-- Config Management schema update + ui + symlinks (paji@redhat.com)
-- Config Client changes to get symlinks to work (paji@redhat.com)
-- code style - whitespace expansion (msuchy@redhat.com)
-- code style - expand tabs to space (msuchy@redhat.com)
-- let declare that we own directory where rhncfg put backup files
-  (msuchy@redhat.com)
-
-* Tue Jul 20 2010 Miroslav Suchý <msuchy@redhat.com> 5.9.23-1
-- add parameter cache_only to all client actions (msuchy@redhat.com)
-
-* Wed May 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.22-1
-- 593563 - fixed debug rutines according to checksum changes
-
-* Tue May 18 2010 Miroslav Suchý <msuchy@redhat.com> 5.9.21-1
-- 515637 - add newline at the end so solaris will not strip last line
-- 515637 - add newline at the end of file
-- Add new rhncfg-client verify --only option to manpage
-  (joshua.roys@gtri.gatech.edu)
-- 587285 - provide a useful error message when lsetfilecon fails
-  (joshua.roys@gtri.gatech.edu)
-- Add an 'only' mode of operation to rhncfg-client verify
-  (joshua.roys@gtri.gatech.edu)
-- Make rhncfg-client verify use lstat (joshua.roys@gtri.gatech.edu)
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 5.9.20-1
-- More support for symlinks in rhncfg tools
-- Add selinux output to rhncfg-client verify
-- 566664 - handle null SELinux contexts in config uploads
 

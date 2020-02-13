@@ -126,7 +126,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
 
         while (mapIter.hasNext()) {
             RhnSetElement elem = mapIter.next();
-            if (diffmap.get(elem) == "original") {
+            if (diffmap.get(elem).equals("original")) {
                 removed.add(elem);
             }
         }
@@ -204,7 +204,7 @@ public abstract class BaseSetOperateOnDiffAction extends RhnSetAction {
      *
      * This iterator is then 'diffed' against the items in the RhnSet
      * to determine what should be added vs removed.
-     *
+     * @param <T> The iterator operates on Identifiable types
      * @param ctx to fetch info from
      * @return Iterator containing Identifiable objects.
      */

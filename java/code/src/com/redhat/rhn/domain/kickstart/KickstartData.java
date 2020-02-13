@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -785,6 +785,16 @@ public class KickstartData {
     }
 
     /**
+     * @return if this kickstart profile is rhel 8 installer type
+     */
+    public boolean isRhel8() {
+        if (getInstallType() != null) {
+            return getInstallType().isRhel8();
+        }
+        return false;
+    }
+
+    /**
      * @return if this kickstart profile is rhel 7 installer type
      */
     public boolean isRhel7() {
@@ -1074,7 +1084,7 @@ public class KickstartData {
 
     /**
      * Convenience method to get the Channel associated with this profile
-     * KickstartData -> KickstartDefault -> KickstartTree -> Channel
+     * {@literal KickstartData -> KickstartDefault -> KickstartTree -> Channel}
      * @return Channel object associated with this KickstartData
      */
     public Channel getChannel() {

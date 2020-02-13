@@ -5,26 +5,29 @@
 %endif
 %global rhnroot %{_datadir}/rhn
 
+%if 0%{?fedora}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+%define __python /usr/lib/python2
+%{!?python2_sitelib: %global python2_sitelib %python_sitelib}
+%{!?python2_version: %global python2_version %python_version}
+
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
-Group: Applications/Internet
 License: GPLv2
-Version: 2.7.1
+Version: 2.10.7
 Release: 1%{?dist}
 URL:      https://github.com/spacewalkproject/spacewalk
 Source0:  https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+Requires: %{pythonX}-%{name} = %{version}-%{release}
 Requires: openssl rpm-build
-Requires: rhn-client-tools
 Requires: tar
-Requires: spacewalk-backend-libs >= 0.8.28
 Requires: /usr/bin/sudo
-%if 0%{?rhel} && 0%{?rhel} <= 5
-Requires: python-hashlib
-%endif
 BuildRequires: docbook-utils
-BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
 Obsoletes: rhns-certs-tools < 5.3.0
 # can not provides = %{version} since some old packages expect > 3.6.0
@@ -34,6 +37,34 @@ Provides:  rhns-certs-tools = 5.3.0
 %description
 This package contains tools to generate the SSL certificates required by 
 Spacewalk.
+
+%package -n python2-%{name}
+Summary: Spacewalk SSL Key/Cert Tool
+Requires: %{name} = %{version}-%{release}
+Requires: python2-rhn-client-tools
+Requires: spacewalk-backend-libs >= 0.8.28
+%if 0%{?rhel} && 0%{?rhel} <= 5
+Requires: python-hashlib
+%endif
+BuildRequires: python2-rpm-macros
+BuildRequires: python2-devel
+BuildRequires: python2
+
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Spacewalk SSL Key/Cert Tool
+Requires: %{name} = %{version}-%{release}
+Requires: python3-rhn-client-tools
+Requires: python3-spacewalk-backend-libs
+BuildRequires: python3-rpm-macros
+BuildRequires: python3
+
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
@@ -50,18 +81,24 @@ sed -i 's|etc/httpd/conf|etc/apache2|g' ssl-howto.txt
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+    PYTHONPATH=%{python2_sitelib} PYTHONVERSION=%{python2_version} \
     MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
-chmod 755 $RPM_BUILD_ROOT/%{rhnroot}/certs/{rhn_ssl_tool.py,client_config_update.py,rhn_bootstrap.py}
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' rhn-ssl-tool rhn-bootstrap
+make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+    PYTHONPATH=%{python3_sitelib} PYTHONVERSION=%{python3_version} \
+    MANDIR=%{_mandir} PUB_BOOTSTRAP_DIR=%{pub_bootstrap_dir}
+%endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python2_version}}
+ln -s rhn-ssl-tool%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-ssl-tool
+ln -s rhn-bootstrap%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhn-bootstrap
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%dir %{rhnroot}/certs
-%{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
 %attr(755,root,root) %{rhnroot}/certs/update-ca-cert-trust.sh
@@ -78,7 +115,84 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{pub_bootstrap_dir}
 %endif
 
+%files -n python2-%{name}
+%{python2_sitelib}/certs
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python2_version}
+%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python2_version}
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{python3_sitelib}/certs
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool-%{python3_version}
+%attr(755,root,root) %{_bindir}/rhn-bootstrap-%{python3_version}
+%endif
+
 %changelog
+* Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
+- hardcode __python value to overwrite error
+
+* Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- use python2 build macros
+
+* Fri Sep 20 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- sys.stderr.write() expects string not bytes
+
+* Mon Jul 15 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- 1728416 - python3 compatible file operations
+- 1728416 - check which python is available
+
+* Thu Jun 27 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- fixed python macro usage
+
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- Fixed buildrequires for RHEL8
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- updated copyright years
+
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.1-1
+- use explicit version of python
+- Bumping package versions for 2.9.
+
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.8-1
+- Updating copyright years for 2018
+
+* Tue Feb 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.7-1
+- options are not defined
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Thu Dec 14 2017 Eric Herget <eherget@redhat.com> 2.8.5-1
+- 1456471 - PR570 - Using own certificates for installer
+- 1456471 - PR570 - [RFE] Using own certifications for installer (CA, private
+  key)
+
+* Fri Oct 27 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- python3 is missing in buildroot on Fedora 25
+
+* Wed Oct 25 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- python3 compatibility fixes
+
+* Fri Oct 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- made code python3 compatible
+- install files into python_sitelib/python3_sitelib
+- splitted spacewalk-certs-tools into python2/python3 specific packages
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- use standard brp-python-bytecompile
+- Bumping package versions for 2.8.
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- update copyright year
+
+* Thu Jun 22 2017 Grant Gainey 2.7.2-1
+- Allow passing multiple GPG keys to rhn-bootstrap
+
 * Tue May 16 2017 Grant Gainey 2.7.1-1
 - 1030013 - fix minor typos in bootstrap.sh
 - Remove unused imports.
@@ -153,125 +267,4 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Aug 06 2013 Tomas Kasparek <tkasparek@redhat.com> 2.1.1-1
 - Branding clean-up of proxy stuff in cert-tools dir
 - Bumping package versions for 2.1.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.8-1
-- updating copyright years
-
-* Wed Jun 26 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.7-1
-- product name fix
-
-* Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.6-1
-- simplify product name logic
-
-* Tue Jun 25 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
-- minor branding cleanup
-
-* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.4-1
-- branding fixes in man pages
-- more branding cleanup
-
-* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.3-1
-- rebranding RHN Proxy to Red Hat Proxy
-- rebrading RHN Satellite to Red Hat Satellite
-
-* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.2-1
-- misc branding clean up
-
-* Mon Mar 25 2013 Jan Dobes <jdobes@redhat.com> 1.10.1-1
-- Adding sudo Requires for spacewalk-certs-tools package
-- Bumping package versions for 1.9
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-
-* Thu Feb 28 2013 Jan Pazdziora 1.9.5-1
-- Removing the dsn parameter from initDB, removing support for --db option.
-
-* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.4-1
-- Updating copyright for 2012
-
-* Mon Feb 11 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.3-1
-- cleanup old CVS files
-
-* Tue Jan 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
-- tar isn't installed by default on Fedora 18
-
-* Wed Oct 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
-- 862349 - create rpms compatible with RHEL5
-
-* Wed Oct 31 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
-- download CA cert via http
-
-* Tue Oct 30 2012 Jan Pazdziora 1.8.3-1
-- Update the copyright year.
-
-* Wed Jul 04 2012 Jan Pazdziora 1.8.2-1
-- 693290 - observe the --set-hostname parameter.
-- %%defattr is not needed since rpm 4.4
-
-* Wed Mar 21 2012 Jan Pazdziora 1.8.1-1
-- Always regenerate server.pem for jabberd.
-
-* Fri Mar 02 2012 Jan Pazdziora 1.7.3-1
-- Update the copyright year info.
-
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
-- we are now just GPL
-
-* Fri Feb 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
-- code cleanup
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.7-1
-- update copyright info
-
-* Wed Oct 19 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.6-1
-- removed dead function getCertValidityRange()
-- removed dead function getCertValidityDates()
-- removed dead function getExistingOverridesConfig()
-
-* Fri Sep 30 2011 Jan Pazdziora 1.6.5-1
-- 689939 - allow rhn-ssl-tool to work with --set-hostname='*.example.com'.
-
-* Wed Aug 24 2011 Miroslav Suchý 1.6.4-1
-- if subjectAltName is used, hostname must be present in dNSName
-
-* Tue Aug 23 2011 Miroslav Suchý 1.6.3-1
-- do not fail if --set-cname is not specified
-
-* Mon Aug 22 2011 Miroslav Suchý 1.6.2-1
-- ability to generate multihost ssl certificate
-
-* Fri Aug 19 2011 Miroslav Suchý 1.6.1-1
-- code cleanup
-
-* Tue Jul 19 2011 Jan Pazdziora 1.5.3-1
-- Updating the copyright years.
-
-* Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.2-1
-- 704979 - use https:// for fetching org ca cert
-
-* Fri Apr 15 2011 Jan Pazdziora 1.5.1-1
-- support zypper in bootstrap script and allow multiple GPG keys (mc@suse.de)
-
-* Fri Apr 08 2011 Miroslav Suchý 1.4.1-1
-- Bumping package versions for 1.4 (tlestach@redhat.com)
-- updating Copyright years for year 2011 (tlestach@redhat.com)
-
-* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
-- fixed rpmlint errors
-- Updating the copyright years to include 2010.
-
-* Wed Nov 24 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
-- removed unused imports
-
-* Tue Nov 02 2010 Jan Pazdziora 1.2.2-1
-- Update copyright years in the rest of the repo.
-
-* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.1-1
-- replaced local copy of compile.py with standard compileall module
-- removed dead code
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
 

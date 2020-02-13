@@ -1,54 +1,81 @@
-%define rhnroot %{_datadir}/rhn
-
-%if 0%{?fedora}
-%{!?pylint_check: %global pylint_check 1}
+%if (0%{?fedora} && 0%{?fedora} <= 29) || 0%{?rhel} >= 7
+%{!?pylint2_check: %global pylint2_check 1}
 %endif
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%global build_py3   1
+%global default_py3 1
+%{!?pylint3_check: %global pylint3_check 1}
+%endif
+
+# we need python2 libs for server!
+%global build_py2   1
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:          rhnpush
-Group:         Applications/System
+Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.104
+Version:       5.5.120
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
-Requires:      rpm-python
-BuildRequires: spacewalk-backend-libs > 1.8.33
-BuildRequires: python-devel
-
-%if 0%{?fedora} >= 23
-Requires:      python3-rhnlib
-Requires:      python3-spacewalk-backend-libs
-Requires:      python3-spacewalk-usix
-%else
-Requires:      rhnlib >= 2.5.74
-Requires:      spacewalk-backend-libs >= 1.7.17
-Requires:      spacewalk-usix
-%endif
-
-Requires:      rhn-client-tools
-%if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 0.6
-%endif
-%if 0%{?suse_version}
-# provides rhn directories for filelist check in OBS
-BuildRequires:      rhn-client-tools
-%endif
+Requires:      %{pythonX}-%{name} = %{version}-%{release}
 BuildRequires: docbook-utils, gettext
-
-%if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires:  rhn-client-tools
-
+%if 0%{?build_py2} && 0%{?pylint2_check}
+BuildRequires:  spacewalk-python2-pylint
 %endif
-
-Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
+%if 0%{?build_py3} && 0%{?pylint3_check}
+BuildRequires:  spacewalk-python3-pylint
+%endif
 
 %description
 rhnpush uploads package headers to the Spacewalk or Red Hat Satellite
 servers into specified channels and allows for several other channel
 management operations relevant to controlling what packages are available
 per channel.
+
+%if 0%{?build_py2}
+%package -n python2-%{name}
+Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
+%{?python_provide:%python_provide python2-%{name}}
+Requires: %{name} = %{version}-%{release}
+%if 0%{?fedora} >= 28
+Requires: python2-rpm
+BuildRequires: python2-devel
+%else
+Requires: rpm-python
+BuildRequires: python-devel
+%endif
+Requires: rhnlib >= 2.8.3
+Requires: python2-rhn-client-tools
+Requires: spacewalk-backend-libs >= 1.7.17
+Requires: spacewalk-usix
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python2-rhn-client-tools
+%description -n python2-%{name}
+Python 2 specific files for rhnpush.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
+%{?python_provide:%python_provide python3-%{name}}
+Requires: %{name} = %{version}-%{release}
+Requires: rpm-python3
+Requires: python3-rhnlib >= 2.8.3
+Requires: python3-rhn-client-tools
+Requires: python3-spacewalk-backend-libs
+Requires: python3-spacewalk-usix
+BuildRequires: spacewalk-backend-libs > 1.8.33
+BuildRequires: python3-devel
+BuildRequires: python3-rhn-client-tools
+BuildRequires: python3-rpm-macros
+%description -n python3-%{name}
+Python 3 specific files for rhnpush.
+%endif
+
 
 %prep
 %setup -q
@@ -57,44 +84,118 @@ per channel.
 make -f Makefile.rhnpush all
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
-    MANDIR=%{_mandir}
-%if  0%{?rhel} && 0%{?rhel} < 6
-rm -fv $RPM_BUILD_ROOT%{_bindir}/solaris2mpm
-rm -fv $RPM_BUILD_ROOT%{rhnroot}/rhnpush/solaris2mpm.py*
-rm -fv $RPM_BUILD_ROOT%{_mandir}/man8/solaris2mpm.8*
+install -d $RPM_BUILD_ROOT/%{python_sitelib}
+%if 0%{?build_py2}
+make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python_sitelib} \
+    MANDIR=%{_mandir} PYTHON_VERSION=%{python_version}
 %endif
 
-%if 0%{?fedora} >= 23
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' $RPM_BUILD_ROOT%{_bindir}/rhnpush
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python2|#!/usr/bin/python3|' rhnpush
+install -d $RPM_BUILD_ROOT/%{python3_sitelib}
+make -f Makefile.rhnpush install PREFIX=$RPM_BUILD_ROOT ROOT=%{python3_sitelib} \
+    MANDIR=%{_mandir} PYTHON_VERSION=%{python3_version}
 %endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s rhnpush%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/rhnpush
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
-%if 0%{?pylint_check} && 0%{?fedora} >= 25
 # check coding style
-export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}:/usr/share/rhn
-spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+%if 0%{?build_py2} && 0%{?pylint2_check}
+export PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python_sitelib}
+%endif
+%if 0%{?build_py3} && 0%{?pylint3_check}
+export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib}
+spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_sitelib}
 %endif
 
 %files
-%dir %{rhnroot}/rhnpush
-%{rhnroot}/rhnpush/*
-%attr(755,root,root) %{_bindir}/rhnpush
-%attr(755,root,root) %{_bindir}/rpm2mpm
+%{_bindir}/rhnpush
+%{_bindir}/rpm2mpm
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
 %{_mandir}/man8/rhnpush.8*
-%if 0%{?fedora} || 0%{?rhel} > 5 || 0%{?suse_version}
-%attr(755,root,root) %{_bindir}/solaris2mpm
-%{_mandir}/man8/solaris2mpm.8*
-%endif
 %doc COPYING
 
+%if 0%{?build_py2}
+%files -n python2-%{name}
+%attr(755,root,root) %{_bindir}/rhnpush-%{python_version}
+%{python_sitelib}/rhnpush/
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%attr(755,root,root) %{_bindir}/rhnpush-%{python3_version}
+%{python3_sitelib}/rhnpush/
+%endif
+
 %changelog
+* Thu Jan 10 2019 Michael Mraka <michael.mraka@redhat.com> 5.5.120-1
+- Revert "1627438 - don't build python2 packages on new Fedoras"
+
+* Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.119-1
+- don't skip python2 subpackages on mageia
+
+* Wed Dec 19 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.118-1
+- 1627438 - don't build python2 packages on new Fedoras
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.117-1
+- updated copyright years
+
+* Fri Nov 16 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.116-1
+- run pylint2 on only on Fedora <= 29
+
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.115-1
+- let filehandles be closed automatically
+- fixed pylint errors
+- fixed pylint error inconsistent-return-statements
+- use explicit version of python
+
+* Tue Apr 03 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.114-1
+- rhnpush is needed on python2 due to spacewalk-proxy
+
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.113-1
+- disable pylint warnings discovered by run on python3
+- run pylint 2/3 depending on environment
+- don't build python2 subpackages on systems with default python3
+
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.112-1
+- be compliant with new packaging guidelines when requiring python2 packages
+- require python3-devel for building on python3
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 5.5.111-1
+- use python3 on rhel8 in rhnpush
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 5.5.110-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.5.109-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.108-1
+- run pylint on all Fedoras
+- simplified Makefile
+- modules are now in standard sitelib path
+- install files into python_sitelib/python3_sitelib
+- move rhnpush files into proper python2/python3 subpackages
+- split rhnpush into python2/python3 specific packages
+
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.107-1
+- precompile py3 bytecode on Fedora 23+
+- use standard brp-python-bytecompile
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 5.5.106-1
+- update copyright year
+
+* Thu May 25 2017 Michael Mraka <michael.mraka@redhat.com> 5.5.105-1
+- fixed pylint warnings disabled python3 pylint on Fedora 26+ for now
+- removed outdated solaris2mpm script
+
 * Fri Mar 24 2017 Ondrej Gajdusek <ogajduse@redhat.com> 5.5.104-1
 - Disabling Pylint in Fedora<25 to prevent weird err
 

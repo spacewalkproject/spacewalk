@@ -3,7 +3,7 @@
 #   - RHN certificate
 #   - SSL CA certificate
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -110,7 +110,7 @@ def _checkCertMatch_rhnCryptoKey(cert, description, org_id, deleteRowYN=0,
             # match found, nothing to do
             if verbosity:
                 print("Nothing to do: certificate to be pushed matches certificate in database.")
-            return
+            return None
         # there can only be one (bugzilla: 120297)
         rhn_cryptokey_id = int(row['id'])
         # print 'found existing certificate - id:', rhn_cryptokey_id

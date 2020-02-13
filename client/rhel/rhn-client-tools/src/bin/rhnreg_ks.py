@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Registration client for the Spacewalk for useage with kickstart
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
@@ -31,8 +31,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
-
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import rhnreg
 from up2date_client import hardware
@@ -177,7 +175,7 @@ class RegisterKsCli(rhncli.RhnCli):
         except IOError:
             e = sys.exc_info()[1]
             sys.stderr.write(sstr(_("Warning: Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg))
-        RegisterKsCli.__runRhnCheck(self.options.verbose)
+        return RegisterKsCli.__runRhnCheck(self.options.verbose)
 
     @staticmethod
     def __generateProfileName(hardwareList):
@@ -207,10 +205,11 @@ class RegisterKsCli(rhncli.RhnCli):
 
     @staticmethod
     def __runRhnCheck(verbose):
+        cmd = "/usr/sbin/rhn_check"
         if verbose:
-            os.system("/usr/sbin/rhn_check %s" % '-' + ('v' * verbose))
-        else:
-            os.system("/usr/sbin/rhn_check")
+            cmd += ' -' + ('v' * verbose)
+        ret = os.system(cmd)
+        return ret >> 8
 
 if __name__ == "__main__":
     cli = RegisterKsCli()

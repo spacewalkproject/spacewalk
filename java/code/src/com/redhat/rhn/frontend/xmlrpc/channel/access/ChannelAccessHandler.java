@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,6 +18,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAccessValueException;
@@ -54,7 +55,11 @@ public class ChannelAccessHandler extends BaseHandler {
         throws FaultException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-        verifyChannelAdmin(loggedInUser, channel);
+        // This can be set for null-org channels by channel admin
+        if ((channel.getOrg() != null) || (!loggedInUser.hasRole(
+                RoleFactory.CHANNEL_ADMIN))) {
+            verifyChannelAdmin(loggedInUser, channel);
+        }
 
         channel.setGloballySubscribable(false, loggedInUser.getOrg());
         ChannelFactory.save(channel);
@@ -83,7 +88,11 @@ public class ChannelAccessHandler extends BaseHandler {
         throws FaultException {
 
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
-        verifyChannelAdmin(loggedInUser, channel);
+        // This can be set for null-org channels by channel admin
+        if ((channel.getOrg() != null) || (!loggedInUser.hasRole(
+                RoleFactory.CHANNEL_ADMIN))) {
+            verifyChannelAdmin(loggedInUser, channel);
+        }
 
         channel.setGloballySubscribable(true, loggedInUser.getOrg());
         ChannelFactory.save(channel);

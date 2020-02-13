@@ -2,18 +2,16 @@
 
 Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
-Group: Applications/Internet
 License: GPLv2
-Version: 2.7.5
+Version: 2.10.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# git clone https://github.com/spacewalkproject/spacewalk.git
 # cd search-server
 # make test-srpm
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 #Requires: apache-ibatis-sqlmap
@@ -94,6 +92,12 @@ Spacewalk Server.
 %prep
 %setup -n %{name}-%{version}
 
+# disable crash dumps in IBM java (OpenJDK have them off by default)
+if java -version 2>&1 | grep -q IBM ; then
+    sed -i '/#wrapper\.java\.additional\.[0-9]=-Xdump:none/ { s/^#//; }' \
+        src/config/search/rhn_search_daemon.conf
+fi
+
 %install
 rm -fr ${RPM_BUILD_ROOT}
 ant -Djar.version=%{version} install
@@ -135,7 +139,6 @@ sed -i 's/nutch-2008-12-01_04-01-21.jar/apache-nutch-1.9.jar/' $RPM_BUILD_ROOT%{
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 %if 0%{?suse_version} >= 1210
@@ -223,6 +226,28 @@ fi
 %endif
 
 %changelog
+* Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1703076 - Add search server JDBC idle time config options to rhn_search.conf
+
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- get rid of #/usr/bin/env shebang
+- Bumping package versions for 2.9.
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Thu Sep 21 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- 1483503 - disable ibm java coredumps in tanukiwrapper
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Mon Jul 17 2017 Jan Dobes 2.7.6-1
+- Remove more fedorahosted links
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.5-1
 - recompile all packages with the same (latest) version of java
 
@@ -371,190 +396,4 @@ fi
 
 * Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 2.1.1-1
 - removed trailing whitespaces
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.6-1
-- updating copyright years
-
-* Thu Jul 04 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
-- making spacewalk-search build-able on F19
-
-* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.4-1
-- more branding cleanup
-
-* Tue Mar 26 2013 Jan Pazdziora 1.10.3-1
-- Use to_timestamp instead of to_date which should bring the second precision
-  to PostgreSQL.
-
-* Thu Mar 21 2013 Jan Pazdziora 1.10.2-1
-- proper quoting for the zero length test
-
-* Tue Mar 05 2013 Jan Pazdziora 1.10.1-1
-- To match backend processing of the config files, do not strip comments from
-  values.
-
-* Thu Feb 14 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
-- fixed systemd services description
-
-* Tue Feb 05 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
-- added systemd service for rhn-search
-
-* Mon Feb 04 2013 Tomas Lestach <tlestach@redhat.com> 1.9.3-1
-- remove unnecessary cast
-- 905872 - fix errata search by CVE
-
-* Wed Jan 23 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.2-1
-- use path compatible with slf4j >= 1.6
-
-* Fri Nov 23 2012 Jan Pazdziora 1.9.1-1
-- Store search indexes in /var.
-
-* Tue Oct 30 2012 Jan Pazdziora 1.8.6-1
-- Update the copyright year.
-
-* Fri Jun 29 2012 Jan Pazdziora 1.8.5-1
-- 836374 - add support for external PostgreSQL database in search server.
-
-* Thu Jun 28 2012 Tomas Lestach <tlestach@redhat.com> 1.8.4-1
-- search needs quartz < 2.0 as well
-
-* Thu May 31 2012 Jan Pazdziora 1.8.3-1
-- Start indexing XCCDF idents.
-
-* Fri Apr 27 2012 Jan Pazdziora 1.8.2-1
-- 816299 - Updating default config files with additional options for heapdump
-  directory (sherr@redhat.com)
-
-* Sat Mar 17 2012 Miroslav Suchý 1.8.1-1
-- 521248 - correctly spell MHz (msuchy@redhat.com)
-- Bumping package versions for 1.8. (jpazdziora@redhat.com)
-
-* Fri Mar 02 2012 Jan Pazdziora 1.7.3-1
-- Update the copyright year info.
-
-* Mon Jan 30 2012 Tomas Lestach <tlestach@redhat.com> 1.7.2-1
-- increase max clause count when getting BooleanQuery exception
-  (tlestach@redhat.com)
-
-* Wed Jan 18 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
-- 747037 - disable connects to svn.terracotta.org from rhn-search
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.8-1
-- update copyright info
-
-* Mon Dec 05 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.7-1
-- IPv6: create indexes for correct data
-
-* Wed Nov 30 2011 Martin Minar <mminar@redhat.com> 1.6.6-1
-- jakarta-oro package in Fedora 16 no longer provides oro dependency. Let's
-  require jakarta-oro instead of oro. (mminar@redhat.com)
-
-* Mon Oct 24 2011 Jan Pazdziora 1.6.5-1
-- 745102 - fixing typo.
-
-* Thu Oct 13 2011 Miroslav Suchý 1.6.4-1
-- 745102 - display IPv6 from networkinfo in SDC and in system search
-
-* Fri Sep 30 2011 Jan Pazdziora 1.6.3-1
-- 621531 - update startup scripts to use the new /usr/share/rhn/config-defaults
-  location.
-- 621531 - update search Configuration to use the new /usr/share/rhn/config-
-  defaults location.
-- 621531 - move /etc/rhn/search to /usr/share/rhn/config-defaults (search).
-
-* Fri Sep 30 2011 Jan Pazdziora 1.6.2-1
-- 621531 - fixing comment - the search server uses /etc/rhn/search, not
-  /etc/rhn/default.
-
-* Fri Jul 22 2011 Jan Pazdziora 1.6.1-1
-- We only support version 14 and newer of Fedora, removing conditions for old
-  versions.
-
-* Tue Jul 19 2011 Jan Pazdziora 1.5.2-1
-- Updating the copyright years.
-
-* Wed May 04 2011 Tomas Lestach <tlestach@redhat.com> 1.5.1-1
-- 648640 - introduce errata analyzer for rhn-search (tlestach@redhat.com)
-- Bumping package versions for 1.5 (msuchy@redhat.com)
-
-* Mon Feb 07 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
-- don't duplicate files from spacewalk-search.jar on filesystem
-- move config.xml back to jar
-- add @ to db_name only for oracle (PG)
-- fixed package and errata search in PG
-- made service rhn-search cleanindex queries work on PG
-- added potgresql jdbc to rhn-search path
-
-* Wed Jan 26 2011 Tomas Lestach <tlestach@redhat.com> 1.3.7-1
-- remove exceptions from method declarations that aren't thrown
-  (tlestach@redhat.com)
-- remove unused imports in rhn-search (tlestach@redhat.com)
-
-* Tue Jan 18 2011 Tomas Lestach <tlestach@redhat.com> 1.3.6-1
-- no traceback, when searching on a server with no packages or errata
-  (tlestach@redhat.com)
-
-* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.5-1
-- replace jakarta-commons-logging with apache-commons-logging on F14
-  (tlestach@redhat.com)
-
-* Wed Jan 12 2011 Tomas Lestach <tlestach@redhat.com> 1.3.4-1
-- f14 build requires apache-commons-logging instead of jakarta-commons-logging
-  (tlestach@redhat.com)
-
-* Tue Jan 11 2011 Tomas Lestach <tlestach@redhat.com> 1.3.3-1
-- change rhn-search library path to use oracle-instantclient11.x
-  (tlestach@redhat.com)
-
-* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com> 1.3.2-1
-- add UUID to the server index in the search server (aparsons@redhat.com)
-
-* Fri Dec 10 2010 Aron Parsons <aparsons@redhat.com>
-- add UUID to the server index in the search server (aparsons@redhat.com)
-
-* Mon Nov 15 2010 Jan Pazdziora 1.2.4-1
-- Adding PostgreSQL JDBC driver on the search daemon classpath
-  (lzap+git@redhat.com)
-
-* Tue Sep 14 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.3-1
-- don't fail if service is already running
-- removign srcjars from search
-
-* Wed Sep 01 2010 Partha Aji <paji@redhat.com> 1.2.2-1
-- 518664 - Made spacewalk search deal with other locales (paji@redhat.com)
-
-* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
-- Updated rhn-search to include config.xml on the filesystem (paji@redhat.com)
-- Update the database manager to include connection configs (paji@redhat.com)
-- Fixed build.xml to not include config.xml in the build (paji@redhat.com)
-- fixing quartz ivy version for search server (jsherril@redhat.com)
-
-* Tue Aug 10 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.6-1
-- 537502 - fixing issue where searching for something that had no results would
-  return an error saying index needed to be generated (jsherril@redhat.com)
-
-* Fri Jul 30 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
-- adding slf4j jar runtime dependencies (tlestach@redhat.com)
-- correct the path to oci (mzazrivec@redhat.com)
-- changes due to simple-core gets packaged separatelly (tlestach@redhat.com)
-
-* Wed Jul 28 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.4-1
-- build ConnectionURL from db_* values in rhn.conf
-- set java.library.path for search to be able to find oci library
-
-* Tue Jul 27 2010 Jan Pazdziora 1.1.3-1
-- hibernate.connection.url is now created dynamicaly from db_* variables
-  (michael.mraka@redhat.com)
-- code optimization (michael.mraka@redhat.com)
-- updated the ivy repo url for search server (shughes@redhat.com)
-
-* Mon Jun 21 2010 Jan Pazdziora 1.1.2-1
-- 576953 - fixing errata search case sensitivity and not searching on partial
-  cve name (jsherril@redhat.com)
-- removing some dead code from the search server (jsherril@redhat.com)
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
 

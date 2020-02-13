@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -239,6 +239,7 @@ class Channel(Information):
         'description': StringType,
         'last_modified': DateType,
         'comps_last_modified': DateType,
+        'modules_last_modified': DateType,
         'gpg_key_url': StringType,
         'product_name_id': IntType,
         'channel_product_id': IntType,
@@ -411,6 +412,7 @@ class Package(IncompletePackage):
         'path': StringType,
         'md5sum': StringType,       # xml dumps < 3.5
         'sigmd5': StringType,
+        'multi_arch': StringType,
         # These attributes are lists of objects
         'files': [File],
         'requires': [Dependency],
@@ -519,6 +521,7 @@ class Erratum(Information):
         'bugs': [Bug],
         'cve': [StringType],
         'errata_from': StringType,
+        'severity_id': IntType
     }
 
 

@@ -237,6 +237,7 @@
             <form-property name="advisoryRelease" type="java.lang.String"/>
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
+            <form-property name="advisorySeverityLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
             <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="buglistId" type="java.lang.String"/>
@@ -248,6 +249,7 @@
             <form-property name="keywords" type="java.lang.String"/>
             <form-property name="refersTo" type="java.lang.String"/>
             <form-property name="notes" type="java.lang.String"/>
+            <form-property name="advisorySeverity" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="errataEditForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -256,6 +258,7 @@
             <form-property name="advisoryRelease" type="java.lang.String"/>
             <form-property name="advisoryType" type="java.lang.String"/>
             <form-property name="advisoryTypeLabels" type="java.util.List"/>
+            <form-property name="advisorySeverityLabels" type="java.util.List"/>
             <form-property name="product" type="java.lang.String"/>
             <form-property name="errataFrom" type="java.lang.String"/>
             <form-property name="topic" type="java.lang.String"/>
@@ -264,6 +267,7 @@
             <form-property name="keywords" type="java.lang.String"/>
             <form-property name="refersTo" type="java.lang.String"/>
             <form-property name="notes" type="java.lang.String"/>
+            <form-property name="advisorySeverity" type="java.lang.Integer"/>
         </form-bean>
         <form-bean name="extAuthForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -883,7 +887,11 @@
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
               <form-property name="submitted" type="java.lang.Boolean"/>
     </form-bean>
-
+    <form-bean name="failActionForm"
+               type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+               <form-property name="submitted" type="java.lang.Boolean"/>
+               <form-property name="description" type="java.lang.String"/>
+    </form-bean>
     <form-bean name="systemHardwareForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
                <form-property name="sid" type="java.lang.Long"/>
@@ -1058,6 +1066,7 @@
 
     <form-bean name="deployImageForm"
                type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+      <form-property name="image_url" type="java.lang.String" />
       <form-property name="vcpus" type="java.lang.Long" />
       <form-property name="mem_mb" type="java.lang.Long" />
       <form-property name="bridge" type="java.lang.String" />
@@ -2601,6 +2610,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/systems/overview.jsp"/>
+        <forward name="ssm-list-systems"
+                 path="/systems/ssm/ListSystems.do"/>
         <forward name="YourRhn"
                  path="/YourRhn.do"
                  redirect="true" />
@@ -2822,7 +2833,7 @@
         type="com.redhat.rhn.frontend.action.systems.sdc.ProxyClientsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.SystemAclHandler"/>
-        <set-property property="acls" value="user_role(org_admin); system_feature(ftr_proxy_capable) or system_is_proxy(); org_channel_family(rhn-proxy) or system_is_proxy(); child_channel_candidate(rhn-proxy) or system_is_proxy(); not system_is_satellite(); system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)"/>
+        <set-property property="acls" value="system_is_proxy()"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/sdc/proxyclients.jsp" />
     </action>
@@ -2889,6 +2900,8 @@
         <set-property property="postRequiredIfSubmitted" value="true" />
         <forward name="default"
                  path="/WEB-INF/pages/systems/grouplist.jsp"/>
+        <forward name="ssm-list-systems"
+                 path="/systems/ssm/ListSystems.do"/>
     </action>
 
     <action path="/systems/SystemEntitlements"
@@ -3245,6 +3258,18 @@
                  path="/WEB-INF/pages/systems/sdc/delete_confirm.jsp"/>
         <forward name="success"
                  path="/systems/Overview.do" redirect="true"/>
+    </action>
+    <action path="/systems/details/history/FailEventConfirmation"
+              scope="request"
+              input="/WEB-INF/pages/systems/sdc/fail_event_confirm.jsp"
+              type="com.redhat.rhn.frontend.action.systems.sdc.SystemFailEventAction"
+              name="failActionForm"
+              className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+          <set-property property="postRequiredIfSubmitted" value="true" />
+          <forward name="default"
+                   path="/WEB-INF/pages/systems/sdc/fail_event_confirm.jsp"/>
+          <forward name="confirm"
+                   path="/systems/details/history/History.do"/>
     </action>
 
     <action path="/systems/details/history/Event"
@@ -8186,7 +8211,7 @@
      </action>
 
     <!-- Image Deployment -->
-    <action path="/systems/details/virtualization/Images"
+    <action path="/systems/details/virtualization/Deployment"
             scope="request"
             name="deployImageForm"
             parameter="dispatch"
@@ -8195,34 +8220,10 @@
       <set-property property="postRequiredIfSubmitted" value="true" />
       <set-property property="acls" value="not system_is_virtual(); system_has_management_entitlement()" />
       <forward name="default"
-               path="/WEB-INF/pages/systems/details/virtualization/images/images.jsp" />
+               path="/WEB-INF/pages/systems/details/virtualization/images/deployment.jsp" />
       <forward name="submitted"
                redirect="true"
-               path="/systems/details/virtualization/Images.do" />
-    </action>
-
-    <action path="/account/Credentials"
-            scope="request"
-            input="/WEB-INF/pages/credentials/edit.jsp"
-            type="com.redhat.rhn.frontend.action.user.UserCredentialsEditAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-      <set-property property="postRequiredIfSubmitted" value="true" />
-      <forward name="default"
-               path="/WEB-INF/pages/credentials/edit.jsp" />
-    </action>
-
-    <action path="/account/DeleteCredentials"
-            scope="request"
-            input="/WEB-INF/pages/credentials/delete.jsp"
-            type="com.redhat.rhn.frontend.action.user.UserCredentialsDeleteAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-            parameter="dispatch">
-      <set-property property="postRequiredIfSubmitted" value="true" />
-      <forward name="default"
-               path="/WEB-INF/pages/credentials/delete.jsp" />
-      <forward name="success"
-               redirect="true"
-               path="/account/Credentials.do" />
+               path="/systems/details/virtualization/Deployment.do" />
     </action>
 
     <action path="/systems/ExtraPackagesSystems"

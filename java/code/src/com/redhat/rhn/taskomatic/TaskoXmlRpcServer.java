@@ -88,7 +88,7 @@ public class TaskoXmlRpcServer {
     /**
      * Stops the server
      *
-     * @throws IOException
+     * @throws RuntimeException when it catches IOException
      */
     public void stop() {
         try {

@@ -170,7 +170,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         Errata errata = ErrataFactory.lookupById(pubid);
         assertTrue(errata instanceof PublishedErrata);
         assertEquals(pubid, errata.getId());
-        errata = ErrataFactory.lookupByAdvisory(pubname);
+        errata = ErrataFactory.lookupByAdvisory(pubname, user.getOrg());
         assertTrue(errata instanceof PublishedErrata);
         assertEquals(pubname, errata.getAdvisoryName());
 
@@ -178,7 +178,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         errata = ErrataFactory.lookupById(unpubid);
         assertTrue(errata instanceof UnpublishedErrata);
         assertEquals(unpubid, errata.getId());
-        errata = ErrataFactory.lookupByAdvisory(unpubname);
+        errata = ErrataFactory.lookupByAdvisory(unpubname, user.getOrg());
         assertTrue(errata instanceof UnpublishedErrata);
         assertEquals(unpubid, errata.getId());
     }
@@ -249,7 +249,7 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
      * Create an Errata for testing and commit it to the DB.
      * @param orgId the Org who owns this Errata
      * @return Errata created
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Errata createTestErrata(Long orgId) throws Exception {
         Errata e = ErrataFactory.createPublishedErrata();

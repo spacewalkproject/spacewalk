@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -587,6 +587,10 @@ public class DownloadFile extends DownloadAction {
                 diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
                     "/" + child.getComps().getRelativeFilename();
             }
+            else if (path.endsWith("/modules.yaml")) {
+                diskPath = Config.get().getString(ConfigDefaults.MOUNT_POINT) +
+                    "/" + child.getModules().getRelativeFilename();
+            }
             else {
                 String[] split = StringUtils.split(path, '/');
                 if (split[0].equals("repodata")) {
@@ -676,14 +680,12 @@ public class DownloadFile extends DownloadAction {
     }
 
     private StreamInfo getStream(byte[] text, String type) {
-        ByteArrayStreamInfo stream = new ByteArrayStreamInfo(type, text);
-        return stream;
+        return new ByteArrayStreamInfo(type, text);
     }
 
     private StreamInfo getStreamForPath(String path, String type) {
         File file = new File(path);
-        FileStreamInfo stream = new FileStreamInfo(type, file);
-        return stream;
+        return new FileStreamInfo(type, file);
     }
 
 
@@ -801,9 +803,7 @@ public class DownloadFile extends DownloadAction {
             log.debug("chunk size: " + chunk.length);
             log.debug("read chunk into byte array.  returning ByteArrayStreamInfo");
         }
-        ByteArrayStreamInfo stream = new
-            ByteArrayStreamInfo(CONTENT_TYPE_OCTET_STREAM, chunk);
-        return stream;
+        return new ByteArrayStreamInfo(CONTENT_TYPE_OCTET_STREAM, chunk);
     }
 
 }

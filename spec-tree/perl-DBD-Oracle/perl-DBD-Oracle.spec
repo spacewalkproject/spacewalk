@@ -1,21 +1,27 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 4%{?dist}
+Release: 7%{?dist}
 License:  GPL+ or Artistic
-Group: Development/Libraries
 Source0: DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
 Url: http://www.cpan.org
-BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: oracle-instantclient11.2-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
+%if 0%{?rhel} == 8
+BuildRequires:  perl-generators < 1.10-7.module
+%else
 BuildRequires:  perl-generators
+%endif
 BuildRequires:  perl(strict)
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -52,21 +58,31 @@ perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.4.0
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 %files
-%defattr(-,root,root)
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/DBD/
 %{_mandir}/man3/*
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 1.62-7
+- workaround RHEL8 buildrequires modules issue
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.62-6
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 1.62-5
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
 * Tue Mar 28 2017 Michael Mraka <michael.mraka@redhat.com> 1.62-4
 - since Fedora 25 perl is not in default buildroot
 

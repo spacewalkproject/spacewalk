@@ -3,7 +3,7 @@
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
   do
-    if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+    if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
       /usr/sbin/semodule -s ${selinuxvariant} \
         -i /usr/share/selinux/${selinuxvariant}/oracle-port.pp \
         -i /usr/share/selinux/${selinuxvariant}/oracle-nofcontext.pp > /dev/null 2>&1 \

@@ -28,7 +28,7 @@ public class ProfileTypeTest extends RhnBaseTestCase {
 
     /**
      * Test Equals method
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testEquals() throws Exception {
         ProfileType ptype1 = lookupByLabel("normal");
@@ -50,7 +50,7 @@ public class ProfileTypeTest extends RhnBaseTestCase {
      * second level cache in hibernate. Turn on sql output
      * in the hibernate.properties file and make sure that
      * we're not going to the db twice
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testFindByLabel() throws Exception {
         ProfileType r1 = lookupByLabel("normal");
@@ -61,9 +61,9 @@ public class ProfileTypeTest extends RhnBaseTestCase {
 
     /**
      * Helper method to get a ProfileType by label
-     * @param label
+     * @param label the label
      * @return Returns the ProfileType corresponding to label
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static ProfileType lookupByLabel(String label) throws Exception {
         Session session = HibernateFactory.getSession();

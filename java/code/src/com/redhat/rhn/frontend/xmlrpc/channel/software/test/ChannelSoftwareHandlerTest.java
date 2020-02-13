@@ -456,6 +456,34 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         channelDetailsEquality(c, result);
     }
 
+    public void testSetDetails() throws Exception {
+        ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
+        addRole(admin, RoleFactory.CHANNEL_ADMIN);
+        Channel c = ChannelFactoryTest.createTestChannel(admin);
+        assertNotNull(c);
+        assertNull(c.getParentChannel());
+
+        Channel  result = csh.getDetails(admin, c.getLabel());
+
+        Map<String, String> details = new HashMap<>();
+        details.put("checksum_label", "sha256");
+        details.put("name", "new-name");
+        details.put("summary", "new-summary");
+        details.put("description", "new-dsc");
+        details.put("maintainer_name", "foo");
+        details.put("maintainer_email", "foo@bar.com");
+        details.put("maintainer_phone", "+18098098");
+        details.put("gpg_key_url", "http://gpg.url");
+        details.put("gpg_key_id", "AE1234BC");
+        details.put("gpg_key_fp", " CA20 8686 2BD6 9DFC 65F6 ECC4 2191 80CD DB42 A60E");
+        csh.setDetails(admin, c.getLabel(), details);
+
+        channelDetailsEquality(c, result);
+
+        result = csh.getDetails(admin, c.getId().intValue());
+        channelDetailsEquality(c, result);
+    }
+
    public void testGetChannelLastBuildById() throws Exception {
        ChannelSoftwareHandler csh = new ChannelSoftwareHandler();
        addRole(admin, RoleFactory.CHANNEL_ADMIN);

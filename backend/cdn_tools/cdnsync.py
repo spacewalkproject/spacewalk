@@ -1,4 +1,4 @@
-# Copyright (c) 2016 Red Hat, Inc.
+# Copyright (c) 2016--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -132,18 +132,23 @@ class CdnSync(object):
             from rhnChannelFamilyPermissions cfp inner join
                  rhnChannelFamily cf on cfp.channel_family_id = cf.id inner join
                  rhnChannelFamilyMembers cfm on cf.id = cfm.channel_family_id inner join
-                 rhnChannel c on cfm.channel_id = c.id inner join
-                 rhnChannelContentSource ccs on ccs.channel_id = c.id inner join
-                 rhnContentSource cs on ccs.source_id = cs.id
-            where cs.org_id is null
+                 rhnChannel c on cfm.channel_id = c.id
+            where c.org_id is null
+              or (c.org_id is not null and 
+                  exists (
+                          select cs.id
+                          from rhnContentSource cs inner join
+                               rhnChannelContentSource ccs on ccs.source_id = cs.id
+                          where ccs.channel_id = c.id
+                            and cs.org_id is null
+                         )
+                 )
+            order by c.org_id nulls first, label
         """)
         h.execute()
         channels = h.fetchall_dict() or []
         self.synced_channels = {}
         for channel in channels:
-            # Channel mappings missing, don't evaluate channels coming from them as synced
-            if not channel['org_id'] and not channel['label'] in self.channel_metadata:
-                continue
             # Custom channel repositories not available, don't mark as synced
             if channel['org_id']:
                 repos = self.cdn_repository_manager.list_associated_repos(channel['label'])
@@ -245,7 +250,7 @@ class CdnSync(object):
                 return False
         else:
             if label not in self.channel_metadata:
-                log2(0, 0, "ERROR: Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
+                log2(1, 1, "WARNING: Channel '%s' not found in channel metadata mapping." % label, stream=sys.stderr)
                 return False
             elif label not in self.channel_to_family:
                 log2(0, 0, "ERROR: Channel '%s' not found in channel family mapping." % label, stream=sys.stderr)
@@ -341,22 +346,22 @@ class CdnSync(object):
 
     def _create_yum_repo(self, repo_source):
         repo_label = self.cdn_repository_manager.get_content_source_label(repo_source)
-        repo_plugin = yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
-                                            str(repo_label), org=None, no_mirrors=True)
         try:
             keys = self.cdn_repository_manager.get_repository_crypto_keys(repo_source['relative_url'])
         except CdnRepositoryNotFoundError:
-            log2(1, 1, "ERROR: No SSL certificates were found for repository '%s'" % repo_source['relative_url'],
-                 stream=sys.stderr)
-            return repo_plugin
-        if len(keys) >= 1:
+            keys = []
+            log2(1, 1, "WARNING: Repository '%s' was not found." % repo_source['relative_url'], stream=sys.stderr)
+        if keys:
             (ca_cert_file, client_cert_file, client_key_file) = reposync.write_ssl_set_cache(
                 keys[0]['ca_cert'], keys[0]['client_cert'], keys[0]['client_key'])
-            repo_plugin.set_ssl_options(ca_cert_file, client_cert_file, client_key_file)
         else:
-            log2(1, 1, "ERROR: No valid SSL certificates were found for repository '%s'."
+            (ca_cert_file, client_cert_file, client_key_file) = (None, None, None)
+            log2(1, 1, "WARNING: No valid SSL certificates were found for repository '%s'."
                  % repo_source['relative_url'], stream=sys.stderr)
-        return repo_plugin
+        return yum_src.ContentSource(self.mount_point + str(repo_source['relative_url']),
+                                     str(repo_label), org=None, no_mirrors=True,
+                                     ca_cert_file=ca_cert_file, client_cert_file=client_cert_file,
+                                     client_key_file=client_key_file)
 
     def _sync_channel(self, channel):
         excluded_urls = []
@@ -364,6 +369,7 @@ class CdnSync(object):
 
         if channel in self.kickstart_metadata:
             kickstart_trees = self.kickstart_metadata[channel]
+            excluded_urls.extend(self.cdn_repository_manager.excluded_urls)
 
         if self.no_kickstarts:
             kickstart_repos = self.cdn_repository_manager.get_content_sources_kickstart(channel)
@@ -372,6 +378,12 @@ class CdnSync(object):
         log(0, "======================================")
         log(0, "| Channel: %s" % channel)
         log(0, "======================================")
+
+        # Print note if channel is already EOL
+        if self._is_channel_eol(channel):
+            log(0, "NOTE: This channel reached end-of-life on %s." %
+                datetime.strptime(self.channel_metadata[channel]['eol'], "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d"))
+
         log(0, "Sync of channel started.")
         log2disk(0, "Please check 'cdnsync/%s.log' for sync log of this channel." % channel, notimeYN=True)
         sync = reposync.RepoSync(channel,
@@ -437,15 +449,13 @@ class CdnSync(object):
 
         # if we have not_available channels log the error immediately
         if not_available:
-            msg = "ERROR: these channels either do not exist or are not available:\n  " + "\n  ".join(not_available)
+            msg = "ERROR: these channels either do not exist or are not available for synchronization:\n  " + \
+                  "\n  ".join(not_available)
             error_messages.append(msg)
 
-            # BZ 1434913 - let user know satellite may not be activated if all channels are in not_available
-            if not available:
-                msg = "WARNING: Is your Red Hat Satellite activated for CDN?\n"
-                msg += "(to see details about currently used SSL certificates for accessing CDN:"
-                msg += " /usr/bin/cdn-sync --cdn-certs)"
-                error_messages.append(msg)
+        # BZ 1434913 - let user know if system is not activated if no available channels
+        if not available:
+            error_messages.extend(self._msg_array_if_not_activated())
 
         # Need to update channel metadata
         self._update_channels_metadata([ch for ch in channels if ch in self.channel_metadata])
@@ -479,15 +489,21 @@ class CdnSync(object):
     def setup_repos_and_sync(self, channels=None, add_repos=None, delete_repos=None):
         # Fix format of relative url
         if add_repos:
-            for index, repo in enumerate(add_repos):
+            repos = set()
+            for repo in add_repos:
                 repo = repo.replace(CFG.CDN_ROOT, '')
-                repo = os.path.join('/', repo)
-                add_repos[index] = repo
+                repo_dirs = self.cdn_repository_manager.repository_tree.normalize_url(repo)
+                repo = os.path.join('/', '/'.join(repo_dirs))
+                repos.add(repo)
+            add_repos = list(repos)
         if delete_repos:
-            for index, repo in enumerate(delete_repos):
+            repos = set()
+            for repo in delete_repos:
                 repo = repo.replace(CFG.CDN_ROOT, '')
-                repo = os.path.join('/', repo)
-                delete_repos[index] = repo
+                repo_dirs = self.cdn_repository_manager.repository_tree.normalize_url(repo)
+                repo = os.path.join('/', '/'.join(repo_dirs))
+                repos.add(repo)
+            delete_repos = list(repos)
         # We need single custom channel
         if not channels or len(channels) > 1:
             raise CustomChannelSyncError("Single custom channel needed.")
@@ -496,24 +512,24 @@ class CdnSync(object):
         if add_repos and not self._can_add_repos(db_channel, add_repos):
             raise CustomChannelSyncError("Unable to attach requested repositories to this channel.")
         # Add custom repositories to custom channel
-        new_repos_count = self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
-                                                                                     add_repos=add_repos)
-        if new_repos_count:
-            # Add to synced channels if there are any repos
-            if channel not in self.synced_channels:
-                self.synced_channels[channel] = db_channel['org_id']
-            error_messages = self.sync(channels=channels)
-        else:
-            log(0, "No repositories attached to channel. Skipping sync.")
-            error_messages = None
-
-        return error_messages
+        changed = self.cdn_repository_manager.assign_repositories_to_channel(channel, delete_repos=delete_repos,
+                                                                             add_repos=add_repos)
+        # Add to synced channels and sync if there are any changed repos
+        if changed and channel not in self.synced_channels:
+            self.synced_channels[channel] = db_channel['org_id']
+        return self.sync(channels=channels)
 
     def count_packages(self, channels=None):
         start_time = datetime.now()
         reposync.clear_ssl_cache()
         # Both entitled channels and custom channels with null-org repositories.
-        channel_list = self._list_available_channels() + [c for c in self.synced_channels if self.synced_channels[c]]
+        channel_list = self._list_available_channels()
+        if not channel_list:
+            error_messages = self._msg_array_if_not_activated()
+            if error_messages:
+                log(0, "\n".join(error_messages))
+                sys.exit(1)
+        channel_list.extend([c for c in self.synced_channels if self.synced_channels[c]])
 
         # Only some channels specified by parameter
         if channels:
@@ -667,10 +683,14 @@ class CdnSync(object):
                                         "Please, check /var/log/rhn/cdnsync.log for details")
 
     def _channel_line_format(self, channel, longest_label):
-        if channel in self.synced_channels:
-            status = 'p'
+        if self._is_channel_eol(channel):
+            eol_status = "EOL"
         else:
-            status = '.'
+            eol_status = ""
+        if channel in self.synced_channels:
+            sync_status = 'p'
+        else:
+            sync_status = '.'
         try:
             packages_number = open(constants.CDN_REPODATA_ROOT + '/' + channel + "/packages_num", 'r').read()
         # pylint: disable=W0703
@@ -689,14 +709,35 @@ class CdnSync(object):
         offset = longest_label - len(channel)
         space += " " * offset
 
-        return "    %s %s%s%6s packages %9s" % (status, channel, space, packages_number, packages_size)
+        return "%3s %s %s%s%6s packages %9s" % (eol_status, sync_status, channel, space,
+                                                packages_number, packages_size)
+
+    def _is_channel_eol(self, channel):
+        if channel in self.channel_metadata:
+            if 'eol' in self.channel_metadata[channel] and self.channel_metadata[channel]['eol']:
+                if datetime.now() > datetime.strptime(self.channel_metadata[channel]['eol'], "%Y-%m-%d %H:%M:%S"):
+                    return True
+        return False
+
+    def _print_unmapped_channels(self):
+        unmapped_channels = [ch for ch in self.synced_channels if not self.synced_channels[ch]
+                             and ch not in self.channel_metadata]
+        if unmapped_channels:
+            log(0, "Previously synced channels not available to update from CDN:")
+            for channel in sorted(unmapped_channels):
+                log(0, "    p %s" % channel)
 
     def print_channel_tree(self, repos=False):
         channel_tree, not_available_channels = self._tree_available_channels()
 
         if not channel_tree:
-            log(1, "WARNING: No available channels from channel mappings were found. "
-                   "Is %s package installed and your %s activated?" % (constants.MAPPINGS_RPM_NAME, PRODUCT_NAME))
+            error_messages = self._msg_array_if_not_activated()
+            if not error_messages:
+                log(0, "WARNING: No available channels from channel mappings were found. "
+                       "Is %s package installed?" % constants.MAPPINGS_RPM_NAME)
+            else:
+                log(0, "\n".join(error_messages))
+                sys.exit(1)
 
         available_base_channels = [x for x in sorted(channel_tree) if x not in not_available_channels]
         custom_cdn_channels = [ch for ch in self.synced_channels if self.synced_channels[ch]]
@@ -706,6 +747,7 @@ class CdnSync(object):
         log(0, "p = previously imported/synced channel")
         log(0, ". = channel not yet imported/synced")
         log(0, "? = package count not available (try to run cdn-sync --count-packages)")
+        log(0, "EOL = channel reached end-of-life")
 
         log(0, "Entitled base channels:")
         if not available_base_channels:
@@ -724,7 +766,7 @@ class CdnSync(object):
         # print information about child channels
         for channel in sorted(channel_tree):
             # Print only if there are any child channels
-            if len(channel_tree[channel]) > 0:
+            if channel_tree[channel]:
                 log(0, "%s:" % channel)
                 for child in sorted(channel_tree[channel]):
                     log(0, "%s" % self._channel_line_format(child, longest_label))
@@ -745,6 +787,9 @@ class CdnSync(object):
                 for path in sorted(paths):
                     log(0, "        %s" % path)
 
+        # Previously synced null-org channels not available in cdn-sync-mappings
+        self._print_unmapped_channels()
+
     def clear_cache(self):
         # Clear packages outside channels from DB and disk
         log(0, "Cleaning imported packages outside channels.")
@@ -756,7 +801,8 @@ class CdnSync(object):
         log(0, "Cleaning orphaned CDN repositories in DB.")
         self.cdn_repository_manager.cleanup_orphaned_repos()
 
-    def print_cdn_certificates_info(self, repos=False):
+    @staticmethod
+    def _get_cdn_certificate_keys_and_certs():
         h = rhnSQL.prepare("""
             SELECT ck.id, ck.description, ck.key
             FROM rhnCryptoKeyType ckt,
@@ -768,11 +814,21 @@ class CdnSync(object):
             ORDER BY ck.description
         """)
         h.execute()
-        keys = h.fetchall_dict() or []
+        data = []
+        while True:
+            row = h.fetchone_dict()
+            if row is None:
+                break
+            row['key'] = rhnSQL.read_lob(row['key'])
+            data.append(row)
+        return data
+
+    def print_cdn_certificates_info(self, repos=False):
+        keys = self._get_cdn_certificate_keys_and_certs()
         if not keys:
             log2(0, 0, "No SSL certificates were found. Is your %s activated for CDN?"
                  % PRODUCT_NAME, stream=sys.stderr)
-            return
+            sys.exit(1)
 
         for key in keys:
             log(0, "======================================")
@@ -806,6 +862,78 @@ class CdnSync(object):
                     for repo in sorted(provided_repos):
                         log(0, "    %s" % repo)
             log(0, "")
+
+    def print_eol_channel_list(self):
+        available_channels = self._list_available_channels()
+
+        # Filter only channels with EOL date defined
+        eol_channels = {}
+        for channel in available_channels:
+            if 'eol' in self.channel_metadata[channel] and self.channel_metadata[channel]['eol']:
+                eol_channels[channel] = datetime.strptime(self.channel_metadata[channel]['eol'], "%Y-%m-%d %H:%M:%S")
+
+        if eol_channels:
+            longest_label = len(max(eol_channels, key=len))
+        else:
+            longest_label = 0
+
+        already_eol_channels = []
+        notyet_eol_channels = []
+
+        # Split into 2 channel groups based on current date
+        for channel in eol_channels:
+            if datetime.now() > eol_channels[channel]:
+                already_eol_channels.append(channel)
+            else:
+                notyet_eol_channels.append(channel)
+
+        # Print these channel groups, sorted by date
+        def print_channel_line(ch):
+            if ch in self.synced_channels:
+                sync_status = 'p'
+            else:
+                sync_status = '.'
+            space = " "
+            offset = longest_label - len(ch)
+            space += " " * offset
+            log(0, "    %s %s%s%s" % (sync_status, channel, space, eol_channels[channel].strftime("%Y-%m-%d")))
+
+        log(0, "p = previously imported/synced channel")
+        log(0, ". = channel not yet imported/synced")
+        log(0, "Channels reached end-of-life already:")
+        if not already_eol_channels:
+            log(0, "      NONE")
+        for channel in sorted(already_eol_channels, key=lambda channel: eol_channels[channel]):
+            print_channel_line(channel)
+        log(0, "Channels not reached end-of-life yet:")
+        if not notyet_eol_channels:
+            log(0, "      NONE")
+        for channel in sorted(notyet_eol_channels, key=lambda channel: eol_channels[channel]):
+            print_channel_line(channel)
+
+        # Previously synced null-org channels not available in cdn-sync-mappings
+        self._print_unmapped_channels()
+
+    def _msg_array_if_not_activated(self):
+        error_messages = []
+        keys = self._get_cdn_certificate_keys_and_certs()
+        if not keys:
+            error_messages.append("ERROR: Your %s is not activated for CDN\n"
+                                  "(to see details about currently used SSL certificates for accessing CDN:"
+                                  " /usr/bin/cdn-sync --cdn-certs)" % PRODUCT_NAME)
+        else:
+            found_valid_key = False
+            for key in keys:
+                if not found_valid_key:
+                    if (constants.CA_CERT_NAME == key['description']
+                            or constants.CLIENT_CERT_PREFIX in key['description']):
+                        if verify_certificate_dates(str(key['key'])):
+                            found_valid_key = True
+            if not found_valid_key:
+                error_messages.append("ERROR: Your %s has no valid SSL certificates for accessing CDN\n"
+                                      "(to see details about currently used SSL certificates for accessing CDN:"
+                                      " /usr/bin/cdn-sync --cdn-certs)" % PRODUCT_NAME)
+        return error_messages
 
     # Append additional messages and send email
     def send_email(self, additional_messages):

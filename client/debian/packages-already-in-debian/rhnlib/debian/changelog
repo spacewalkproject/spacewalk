@@ -1,5 +1,0 @@
-rhnlib (2.5.52-1) unstable; urgency=low
-
-  * Initial release (Closes: #597490)
-
- -- Bernd Zeimetz <bzed@debian.org>  Fri, 15 Jun 2012 17:25:38 +0200

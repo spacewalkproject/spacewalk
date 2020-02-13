@@ -14,7 +14,6 @@
 #
 
 import sys
-sys.path.append("/usr/share/rhn/")
 from virtualization import support, errors
 
 __rhnexport__ = [

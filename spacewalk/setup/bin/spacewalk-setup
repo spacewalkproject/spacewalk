@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,7 +51,21 @@ push @skip, Spacewalk::Setup::EMBEDDED_DB_ANSWERS
 Spacewalk::Setup::load_answer_file(\%opts, \%answers, \@skip);
 my $product_name = $answers{'product_name'} || 'Spacewalk';
 
+# Try to get the FQDN or SSL verification will likely fail.
+# Fallback to shortname
+# Net::Domain::hostfqdn() is broken. Use hostname command instead.
+my $hostname = `hostname --fqdn`;
+chomp($hostname);
+$answers{hostname} ||= $hostname;
 $answers{hostname} ||= Sys::Hostname::hostname;
+
+if (not $opts{"skip-fqdn-test"} and
+    not (lc($answers{hostname}) eq $answers{hostname})) {
+    print Spacewalk::Setup::loc(
+    "ERROR: Hostname '$answers{hostname}' of this server contains uppercase letters.
+    It can cause Spacewalk Proxy communications (through jabberd) to fail.\n");
+    exit 4;
+}
 
 if (not defined $opts{"clear-db"} and defined $answers{"clear-db"} and
     $answers{"clear-db"} =~ /Y/i){
@@ -141,6 +155,10 @@ mkdir_mount_points($config_opts->{'mount_point'},
         $config_opts->{'kickstart_mount_point'});
 setup_sudoers();
 
+
+if (!$opts{'skip-rpm-lock'}) {
+    Spacewalk::Setup::lock_rpm_version()
+}
 
 print Spacewalk::Setup::loc("* Configuring apache SSL virtual host.\n");
 setup_mod_ssl(\%opts, \%answers);
@@ -468,27 +486,48 @@ sub setup_ssl_certs {
   my ($password_1, $password_2);
 
   unless ($answers->{"ssl-password"}) {
-    do {
-      ($password_1, $password_2) = (undef, undef); # clear previous passwords
-      Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-        -question => "CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_1,
-          -password => 1,
-         );
+    unless ($opts{"skip-ssl-ca-generation"})
+    {
+      do {
+        ($password_1, $password_2) = (undef, undef); # clear previous passwords
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password_1,
+            -password => 1,
+           );
 
-      Spacewalk::Setup::ask(
-        -noninteractive => $opts{"non-interactive"},
-          -question => "Re-enter CA certificate password",
-          -test => \&valid_ssl_cert_password,
-          -answer => \$password_2,
-          -password => 1,
-         );
-    } until (passwords_match($password_1, $password_2));
-
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+            -question => "Re-enter CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password_2,
+            -password => 1,
+           );
+      } until (passwords_match($password_1, $password_2));
+    } else{
+      do{
+	$password_1 = undef;
+        Spacewalk::Setup::ask(
+          -noninteractive => $opts{"non-interactive"},
+          -question => "CA certificate password",
+            -test => \&valid_ssl_cert_password,
+            -answer => \$password_1,
+            -password => 1,
+           );
+      } until (check_ca_key($password_1)==0);
+    }
     $answers->{"ssl-password"} ||= $password_1;
   };
+
+  Spacewalk::Setup::ask(
+      -noninteractive => $opts{"non-interactive"},
+      -question => "Cname alias of the machine (comma seperated)",
+      -test => sub { my $text = shift;
+                     return length($text) <= 128 },
+      -answer => \$answers->{"ssl-set-cnames"},
+     );
 
   Spacewalk::Setup::ask(
       -noninteractive => $opts{"non-interactive"},
@@ -573,18 +612,25 @@ sub setup_ssl_certs {
   $answers->{'ssl-server-rpm'} ||= 'rhn-org-httpd-ssl-key-pair-' . $system_name;
   $answers->{'ssl-dir'} ||= '/root/ssl-build';
 
-  print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
+  unless ($opts->{"skip-ssl-ca-generation"}) {
+    print Spacewalk::Setup::loc("** SSL: Generating CA certificate.\n");
 
-  generate_ca_cert(-dir => $answers->{'ssl-dir'},
-                   -password => $answers->{'ssl-password'},
-                   '-set-country' => $answers->{'ssl-set-country'},
-                   '-set-state' => $answers->{'ssl-set-state'},
-                   '-set-city' => $answers->{'ssl-set-city'},
-                   '-set-org' => $answers->{'ssl-set-org'},
-                   '-set-org-unit' => $answers->{'ssl-set-org-unit'},
-                   '-set-common-name' => $answers->{'ssl-set-common-name'},
-                   '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
-                  );
+    generate_ca_cert(-dir => $answers->{'ssl-dir'},
+                     -password => $answers->{'ssl-password'},
+                     '-set-country' => $answers->{'ssl-set-country'},
+                     '-set-state' => $answers->{'ssl-set-state'},
+                     '-set-city' => $answers->{'ssl-set-city'},
+                     '-set-org' => $answers->{'ssl-set-org'},
+                     '-set-org-unit' => $answers->{'ssl-set-org-unit'},
+                     '-set-common-name' => $answers->{'ssl-set-common-name'},
+                     '-cert-expiration' => $answers->{'ssl-ca-cert-expiration'},
+                    );
+  } else {
+    check_ca_cert();
+    print Spacewalk::Setup::loc("** SSL: Generating CA rpm from present CA cert.\n");
+
+    generate_ca_rpm(-dir => $answers->{'ssl-dir'});
+  }
 
   print Spacewalk::Setup::loc("** SSL: Deploying CA certificate.\n");
 
@@ -604,6 +650,7 @@ sub setup_ssl_certs {
                        '-cert-expiration' => $answers->{'ssl-server-cert-expiration'},
                        '-set-email' => $answers->{'ssl-set-email'},
                        '-set-hostname' => $answers->{'hostname'},
+                       '-set-cnames' => $answers->{'ssl-set-cnames'},
                       );
 
   print Spacewalk::Setup::loc("** SSL: Storing SSL certificates.\n");
@@ -655,6 +702,16 @@ sub generate_ca_cert {
   return;
 }
 
+sub generate_ca_rpm {
+  my %params = validate(@_, {dir => 1});
+
+  my @opts = ( "--gen-ca", "--rpm-only", "--dir=$params{dir}" );
+
+  Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 35, 'Could not generate CA certificate.');
+
+  return;
+}
+
 sub generate_server_cert {
   my %params = validate(@_, {
                              dir => 1,
@@ -667,6 +724,7 @@ sub generate_server_cert {
                              'cert-expiration' => 1,
                              'set-email' => 1,
                              'set-hostname' => 1,
+                             'set-cnames' => 0,
                             });
 
   $params{'cert-expiration'} *= 365;
@@ -676,7 +734,16 @@ sub generate_server_cert {
   foreach my $name (keys %params) {
     next unless ($params{$name});
 
-    push @opts, qq(--$name=$params{$name});
+    if ($name eq "set-cnames") {
+      foreach my $alias (split(/\s*,\s*/, $params{$name})) {
+        chomp($alias);
+        next if length($alias) <= 0;
+        push @opts, qq(--set-cname=$alias);
+      }
+    }
+    else {
+      push @opts, qq(--$name=$params{$name});
+    }
   }
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-ssl-tool', @opts], 36, 'Could not generate server certificate.');
@@ -966,6 +1033,15 @@ sub setup_users_and_groups {
     }
 
     return 1;
+}
+
+sub check_ca_key{
+  my $password = shift;
+  return Spacewalk::Setup::system_debug('/usr/bin/rhn-ssl-tool',"--check-key", "--password=$password");
+}
+
+sub check_ca_cert{
+  return Spacewalk::Setup::system_debug('/usr/bin/rhn-ssl-tool',"--check-cert");
 }
 
 sub valid_multiple_email {

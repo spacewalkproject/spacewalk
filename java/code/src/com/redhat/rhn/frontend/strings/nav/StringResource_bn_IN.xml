@@ -73,13 +73,6 @@
           <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="guest.unlimited.hosts">
-        <source>Virtualization Platform Hosts</source>
-        <target>ভার্চুয়ালাইজেশন প্ল্যাটফর্ম হোস্ট</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Virtualization Entitlements Navigation</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="guests.without.hosts">
         <source>Guests Without Hosts</source>
         <target>হোস্ট বিহীন গেস্ট সিস্টেম</target>
@@ -144,8 +137,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="ssm.nav.status">
-        <source>Status</source>
-        <target>অবস্থা</target>
+        <source>Task Log</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>
@@ -931,13 +923,6 @@
         <target>বেস চ্যানেল</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Software Channel Entitlements">
-        <source>Software Channel Entitlements</source>
-        <target>সফ্টওয়্যার চ্যানেল এনটাইটেলমেন্ট</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="activation-keys.nav.activated_systems">

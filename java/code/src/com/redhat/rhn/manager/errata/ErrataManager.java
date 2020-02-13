@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -137,10 +138,11 @@ public class ErrataManager extends BaseManager {
      * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
+     * @param org User organization
      * @return list of erratas found
      */
-    public static List lookupErrataByIdentifier(String identifier) {
-        return ErrataFactory.lookupByIdentifier(identifier);
+    public static List lookupErrataByIdentifier(String identifier, Org org) {
+        return ErrataFactory.lookupByIdentifier(identifier, org);
     }
 
     /**
@@ -263,8 +265,7 @@ public class ErrataManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
-        DataResult result = makeDataResult(params, elabParams, null, m);
-        return result;
+        return makeDataResult(params, elabParams, null, m);
     }
 
     /**
@@ -280,8 +281,7 @@ public class ErrataManager extends BaseManager {
         params.put("type", type);
         Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
-        DataResult result = makeDataResult(params, elabParams, null, m);
-        return result;
+        return makeDataResult(params, elabParams, null, m);
     }
 
     /**
@@ -297,8 +297,7 @@ public class ErrataManager extends BaseManager {
         params.put("type", ErrataFactory.ERRATA_TYPE_SECURITY);
         Map<String, Object> elabParams = new HashMap<String, Object>();
         elabParams.put("user_id", user.getId());
-        DataResult result = makeDataResult(params, elabParams, null, m);
-        return result;
+        return makeDataResult(params, elabParams, null, m);
     }
 
     /**
@@ -310,8 +309,7 @@ public class ErrataManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Errata_queries", "channel_errata_for_list");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", cid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
 
@@ -717,10 +715,11 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns the errata with the given advisory name
      * @param advisoryName The advisory name of the errata you're looking for
+     * @param org User organization
      * @return Returns the requested Errata
      */
-    public static Errata lookupByAdvisory(String advisoryName) {
-        return ErrataFactory.lookupByAdvisory(advisoryName);
+    public static Errata lookupByAdvisory(String advisoryName, Org org) {
+        return ErrataFactory.lookupByAdvisory(advisoryName, org);
     }
 
     /**
@@ -859,8 +858,7 @@ public class ErrataManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
         params.put("org_id", user.getOrg().getId());
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -873,8 +871,7 @@ public class ErrataManager extends BaseManager {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -887,8 +884,7 @@ public class ErrataManager extends BaseManager {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -901,8 +897,7 @@ public class ErrataManager extends BaseManager {
 
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", eid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -937,6 +932,51 @@ public class ErrataManager extends BaseManager {
     }
 
     /**
+     * Returns a list of l10n-ed advisory severity types available for an errata
+     * @return l10n-ed advisory severity labels
+     */
+    public static List<String> advisorySeverityLabels() {
+        List<String> advSeverityLabels = new ArrayList<String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        advSeverityLabels.add(ls.getMessage(Severity.CRITICAL_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.IMPORTANT_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.MODERATE_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.LOW_LABEL));
+        advSeverityLabels.add(ls.getMessage(Severity.UNSPECIFIED_LABEL));
+        return advSeverityLabels;
+    }
+
+    /**
+     * Returns untranslated severity labels
+     * @return Untranslated advisory severity labels
+     */
+    public static Map<String, String> advisorySeverityUntranslatedLabels() {
+        Map<String, String> labelMap = new HashMap<String, String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        labelMap.put(Severity.CRITICAL_LABEL, ls.getMessage(Severity.CRITICAL_LABEL));
+        labelMap.put(Severity.IMPORTANT_LABEL, ls.getMessage(Severity.IMPORTANT_LABEL));
+        labelMap.put(Severity.MODERATE_LABEL, ls.getMessage(Severity.MODERATE_LABEL));
+        labelMap.put(Severity.LOW_LABEL, ls.getMessage(Severity.LOW_LABEL));
+        labelMap.put(Severity.UNSPECIFIED_LABEL, ls.getMessage(Severity.UNSPECIFIED_LABEL));
+        return labelMap;
+    }
+
+    /**
+     * Returns a list of advisory severity ranks available for an errata
+     * @return advisory severity ranks
+     */
+    public static List<Integer> advisorySeverityRanks() {
+        List<Integer> advSeverityRankss = new ArrayList<Integer>();
+        // get ranks for all of 4 severities we define, plus 'unspecified' for null value
+        advSeverityRankss.add(Severity.getById(0).getRank());
+        advSeverityRankss.add(Severity.getById(1).getRank());
+        advSeverityRankss.add(Severity.getById(2).getRank());
+        advSeverityRankss.add(Severity.getById(3).getRank());
+        advSeverityRankss.add(Severity.UNSPECIFIED_RANK); // dummy rank for 'unspecified'
+        return advSeverityRankss;
+    }
+
+    /**
      * Stores an errata to the db
      * @param errataIn The errata to store.
      */
@@ -948,21 +988,19 @@ public class ErrataManager extends BaseManager {
      * Sees if there is an errata with the same advisory name as the errata with eid
      * @param eid The id of the errata you're checking
      * @param name The advisory name you're checking
+     * @param org User organization
      * @return Returns true if no other errata exists with the same advisoryName, false
      * otherwise.
      */
-    public static boolean advisoryNameIsUnique(Long eid, String name) {
-        Errata e = lookupByAdvisory(name);
+    public static boolean advisoryNameIsUnique(Long eid, String name, Org org) {
+        Errata e = lookupByAdvisory(name, org);
         //If we can't find an errata, then the advisoryName is unique
         if (e == null) {
             return true;
         }
         //If the errata we found is the same as the one we are checking for,
         //then we don't care. return false.
-        if (e.getId().equals(eid)) {
-            return true;
-        }
-        return false;
+        return e.getId().equals(eid);
     }
 
     /**
@@ -1267,7 +1305,7 @@ public class ErrataManager extends BaseManager {
      * Finds the errata ids issued between start and end dates.
      * @param start String start date
      * @param end String end date
-     * @return errata ids issued between start -> end
+     * @return errata ids issued between {@literal start -> end}
      */
     public static List<Long> listErrataIdsIssuedBetween(String start, String end) {
         String mode = "issued_between";
@@ -1438,11 +1476,11 @@ public class ErrataManager extends BaseManager {
      * @param user the requesting user
      * @return list of errata ids that were published into channel
      */
-    public static List<Long> cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
+    public static Set<Long> cloneChannelErrata(List<ErrataOverview> toClone, Long toCid,
             User user) {
         List<OwnedErrata> owned = ErrataFactory
                 .listPublishedOwnedUnmodifiedClonedErrata(user.getOrg().getId());
-        List<Long> eids = new ArrayList<Long>();
+        Set<Long> eids = new HashSet<Long>();
 
         // add published, cloned, owned errata to mapping. we want the oldest owned
         // clone to reuse. listPublishedOwnedUnmodifiedClonedErrata orders by created,

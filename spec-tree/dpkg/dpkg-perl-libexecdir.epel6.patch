@@ -1,0 +1,20 @@
+--- ./scripts/Makefile.in.orig	2015-04-10 01:37:03.000000000 +0100
++++ ./scripts/Makefile.in	2015-07-02 04:16:51.404577510 +0100
+@@ -415,7 +415,7 @@ bin_SCRIPTS = \
+ 	dpkg-source \
+ 	dpkg-vendor
+ 
+-changelogdir = $(pkglibdir)/parsechangelog
++changelogdir = $(pkglibexecdir)/parsechangelog
+ changelog_SCRIPTS = \
+ 	changelog/debian
+ 
+@@ -516,7 +516,7 @@ do_perl_subst = $(AM_V_GEN) \
+ 		sed -e "s:^\#![[:space:]]*/usr/bin/perl:\#!$(PERL):" \
+ 		    -e "s:\$$CONFDIR[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]:\$$CONFDIR='$(pkgconfdir)':" \
+ 		    -e "s:\$$ADMINDIR[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]:\$$ADMINDIR='$(admindir)':" \
+-		    -e "s:\$$LIBDIR[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]:\$$LIBDIR='$(pkglibdir)':" \
++		    -e "s:\$$LIBDIR[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]:\$$LIBDIR='$(pkglibexecdir)':" \
+ 		    -e "s:\$$DATADIR[[:space:]]*=[[:space:]]*['\"][^'\"]*['\"]:\$$DATADIR='$(pkgdatadir)':" \
+ 		    -e "s:\$$PROGVERSION[[:space:]]*=[[:space:]]*['\"][^'\"]*[\"']:\$$PROGVERSION='$(PACKAGE_VERSION)':"
+ 

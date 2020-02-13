@@ -41,7 +41,6 @@ import com.redhat.rhn.domain.user.User;
  * entries.
  *
  * @author ggainey
- * @Rev:
  *
  */
 public class ResetPasswordFactory extends HibernateFactory {
@@ -171,9 +170,8 @@ public class ResetPasswordFactory extends HibernateFactory {
      * @return URL leading to ResetLink on 'this' machine, with the token of interest
      */
     public static String generateLink(ResetPassword rp) {
-        String link = "https://" + ConfigDefaults.get().getHostname() +
+        return "https://" + ConfigDefaults.get().getHostname() +
                       "/rhn/ResetLink.do?token=" + rp.getToken();
-        return link;
     }
 
     /**

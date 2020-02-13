@@ -55,12 +55,12 @@ public class Config {
     /**
      * The default directory in which to look for config files
      */
-    public static final String DEFAULT_CONF_DIR = "/etc/rhn";
+    private static final String DEFAULT_CONF_DIR = "/etc/rhn";
 
     /**
      * The directory in which to look for default config values
      */
-    public static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
+    private static final String DEFAULT_DEFAULT_CONF_DIR = "/usr/share/rhn/config-defaults";
 
     /**
      * The system property containing the configuration directory.
@@ -217,8 +217,8 @@ public class Config {
                 result = configValues.getProperty(ns + "." + property);
             }
             else {
-                for (int i = 0; i < prefixOrder.length; i++) {
-                    result = configValues.getProperty(prefixOrder[i] + "." + property);
+                for (String prefix : prefixOrder) {
+                    result = configValues.getProperty(prefix + "." + property);
                     if (result != null) {
                         break;
                     }
@@ -348,8 +348,8 @@ public class Config {
         // get the job done for an integer as a String.
 
 
-        for (int i = 0; i < TRUE_VALUES.length; i++) {
-            if (TRUE_VALUES[i].equalsIgnoreCase(value)) {
+        for (String trueValue : TRUE_VALUES) {
+            if (trueValue.equalsIgnoreCase(value)) {
                 if (logger.isDebugEnabled()) {
                     logger.debug("getBoolean() - Returning true: " + value);
                 }
@@ -369,8 +369,8 @@ public class Config {
         // need to check the possible true values
         // tried to use BooleanUtils, but that didn't
         // get the job done for an integer as a String.
-        for (int i = 0; i < TRUE_VALUES.length; i++) {
-            if (TRUE_VALUES[i].equalsIgnoreCase(b)) {
+        for (String trueValue : TRUE_VALUES) {
+            if (trueValue.equalsIgnoreCase(b)) {
                 configValues.setProperty(s, "1");
 
                 // get out we're done here
@@ -390,9 +390,9 @@ public class Config {
                 logger.error("Unable to list files in path : " + path);
                 return;
             }
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().endsWith((".conf"))) {
-                    fileList.add(files[i]);
+            for (File file : files) {
+                if (file.getName().endsWith((".conf"))) {
+                    fileList.add(file);
                 }
             }
         }
@@ -424,8 +424,7 @@ public class Config {
      * Parse all of the added files.
      */
     public void parseFiles() {
-        for (Iterator<File> i = fileList.iterator(); i.hasNext();) {
-            File curr = i.next();
+        for (File curr : fileList) {
 
             Properties props = new Properties();
             try {

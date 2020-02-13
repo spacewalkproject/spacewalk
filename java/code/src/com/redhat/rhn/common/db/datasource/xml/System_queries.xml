@@ -533,10 +533,10 @@ ORDER BY  UPPER(COALESCE(X.name, '(none)')), X.id
     <query params="uid">
         SELECT s1.id,
                s1.name,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'C' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) critical,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'I' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) important,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'M' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) moderate,
-               sum(case when (substr(errata.synopsis, 1, 1) = 'L' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) low,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'C' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) critical,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'I' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) important,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'M' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) moderate,
+               sum(case when (upper(substr(errata.synopsis, 1, 1)) = 'L' and errata.advisory_type = 'Security Advisory') then 1 else 0 end) low,
                sum(case when errata.advisory_type = 'Bug Fix Advisory' then 1 else 0 end) bug,
                sum(case when errata.advisory_type = 'Product Enhancement Advisory' then 1 else 0 end) enhancement
          FROM rhnServer S1
@@ -1023,45 +1023,64 @@ ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
 
 <mode name="virtual_servers" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
   <query params="user_id">
-  SELECT
- DISTINCT VI.id,
-          VI.host_system_id,
-          VI.virtual_system_id,
-          VI.uuid,
-         COALESCE(VII.name, '(none)') AS NAME,
-         COALESCE(VIS.name, '(unknown)') AS STATE_NAME,
-         (SELECT 1
-            FROM rhnServerFeaturesView SFV
-            WHERE (   SFV.server_id = VI.virtual_system_id
-                  OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
-              AND SFV.label = 'ftr_system_grouping') AS selectable,
-     ( select S.name from rhnServer S
-            where
-                 (VI.uuid IS NULL
-                   AND S.id = VI.host_system_id)
-               OR S.id = VI.virtual_system_id
-       ) as SERVER_NAME,
-       ( select TYPE.label
-                from rhnServerGroupMembers SGM,
-                                rhnServerGroup GRP,
-                                rhnServerGroupType TYPE
-                where sgm.server_id = VI.host_system_id
-                                                and grp.id = sgm.server_group_id
-                                                and grp.group_type = type.id
-                                                and VI.virtual_system_id is null
-                                                and type.label = 'virtualization_host'
-       ) as virt_entitlement,
-     COALESCE(((SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = VI.virtual_system_id)), 0 ) as accessible,
-         rhn_channel.user_role_check((select channel_id from rhnServerOverview where server_id = VI.virtual_system_id), :user_id, 'subscribe') AS subscribable
-     FROM rhnVirtualInstance VI
-         LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
-         LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.state = VIS.id
+SELECT DISTINCT VI.id,
+    VI.host_system_id,
+    VI.virtual_system_id,
+    VI.uuid,
+    COALESCE(VII.NAME, '(none)') AS NAME,
+    COALESCE(VIS.NAME, '(unknown)') AS STATE_NAME,
+    (SELECT 1
+        FROM rhnServerFeaturesView SFV
+        WHERE (SFV.server_id = VI.virtual_system_id OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
+            AND SFV.label = 'ftr_system_grouping'
+    ) AS selectable,
+    (SELECT S.NAME
+        FROM rhnServer S
+        WHERE (VI.uuid IS NULL AND S.id = VI.host_system_id) OR S.id = VI.virtual_system_id
+    ) AS server_name,
+    (SELECT TYPE.label
+        FROM rhnServerGroupMembers SGM,
+            rhnServerGroup GRP,
+            rhnServerGroupType TYPE
+        WHERE sgm.server_id = VI.host_system_id
+            AND grp.id = sgm.server_group_id
+            AND grp.group_type = type.id
+            AND VI.virtual_system_id IS NULL
+            AND type.label = 'virtualization_host'
+    ) AS virt_entitlement,
+    COALESCE(
+        (SELECT 1
+            FROM rhnUserServerPerms USP
+            WHERE USP.user_id = :user_id
+                AND ((USP.server_id = VI.virtual_system_id) OR (USP.server_id = VI.host_system_id AND VI.uuid IS NULL))
+    ), 0) AS accessible,
+    rhn_channel.user_role_check(
+        (SELECT channel_id
+            FROM rhnServerOverview
+            WHERE server_id = VI.virtual_system_id
+        ), :user_id, 'subscribe'
+    ) AS subscribable
+
+    FROM rhnVirtualInstance VI
+        LEFT OUTER JOIN rhnVirtualInstanceInfo VII ON VI.id = VII.instance_id
+        LEFT OUTER JOIN rhnVirtualInstanceState VIS ON VII.STATE = VIS.id
+
     WHERE EXISTS (SELECT 1
-                  FROM rhnUserServerPerms USP
-                  WHERE USP.user_id = :user_id
-                        AND (USP.server_id = VI.host_system_id
-                        OR USP.server_id = VI.virtual_system_id))
-  ORDER BY VI.host_system_id, VI.uuid DESC
+        FROM rhnUserServerPerms USP
+        WHERE USP.user_id = :user_id
+            AND (USP.server_id = VI.host_system_id OR USP.server_id = VI.virtual_system_id)
+        )
+        OR (VI.uuid IS NULL AND VI.host_system_id IN (
+            SELECT VI2.host_system_id
+            FROM rhnVirtualInstance VI2
+            WHERE VI2.virtual_system_id IN (
+                SELECT server_id
+                FROM rhnUserServerPerms
+                WHERE rhnUserServerPerms.user_id = :user_id
+            )
+        ))
+
+    ORDER BY VI.host_system_id,VI.uuid DESC
   </query>
   <elaborator name="virtual_system_overview"/>
   <elaborator name="system_config_files_with_diffs" />
@@ -2001,15 +2020,17 @@ select s.id as id,
 
 <mode name="system_events_history"
   class="com.redhat.rhn.frontend.dto.SystemEventDto">
-  <query params="sid">
+  <query params="sid, oid">
 select event_id as id,
-       to_char(created, 'YYYY-MM-DD HH24:MI:SS') created,
-       to_char(picked_up, 'YYYY-MM-DD HH24:MI:SS') picked_up,
-       to_char(completed, 'YYYY-MM-DD HH24:MI:SS') completed,
-       summary,
-       history_type,
-       history_type_name,
-       history_status
+       to_char(all_events.created, 'YYYY-MM-DD HH24:MI:SS') created,
+       to_char(all_events.picked_up, 'YYYY-MM-DD HH24:MI:SS') picked_up,
+       to_char(all_events.completed, 'YYYY-MM-DD HH24:MI:SS') completed,
+       all_events.summary,
+       all_events.history_type,
+       all_events.history_type_name,
+       all_events.history_status,
+       case when action_details.org_id != :oid then 0
+         else 1 end as history_visible
   from (select SH.id event_id,
                SH.summary summary,
                to_timestamp(NULL, NULL) as created,
@@ -2040,8 +2061,10 @@ select event_id as id,
            and ATYPE.id = A.action_type
            and AStat.id = SA.status
            and AStat.id IN (1, 2, 3)
-       ) X
-order by completed desc, picked_up desc, created desc, event_id desc
+       ) all_events
+  left join rhnaction action_details on event_id = action_details.id
+order by completed desc, picked_up desc, all_events.created desc, event_id desc
+
   </query>
 </mode>
 
@@ -2063,8 +2086,7 @@ select SA.action_id as ID,
                AType.label as history_type,
                AType.name as history_type_name,
                A.prerequisite as prereq_aid,
-               A.name as action_name,
-               1 as selectable
+               A.name as action_name
           from rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A left outer join
@@ -2076,7 +2098,7 @@ select SA.action_id as ID,
            and AType.id = A.action_type
            and AStat.id = SA.status
            and AStat.id = 0
-order by scheduled_for desc, id desc
+order by scheduled_for desc, prereq_aid nulls first
   </query>
 </mode>
 
@@ -2093,8 +2115,7 @@ select SA.action_id as ID,
                AType.label as history_type,
                AType.name as history_type_name,
                A.prerequisite as prereq_aid,
-               A.name as action_name,
-               1 as selectable
+               A.name as action_name
           from rhnActionType AType,
                rhnActionStatus AStat,
                rhnAction A left outer join
@@ -2107,7 +2128,7 @@ select SA.action_id as ID,
            and AStat.id = SA.status
            and AStat.id = 0
            and exists (select 1 from rhnset where user_id = :user_id and label = :set_label and element = SA.action_id)
-order by scheduled_for desc, id desc
+order by scheduled_for desc, prereq_aid nulls first
   </query>
 </mode>
 
@@ -2188,6 +2209,45 @@ select a.id
   </query>
 </mode>
 
+<mode name="count_systems_in_set_without_entitlement">
+  <query params="user_id, set_label, entitlement_label">
+    SELECT COUNT(*) as count
+      FROM rhnSet
+        LEFT JOIN rhnServerEntitlementView ON rhnSet.element = rhnServerEntitlementView.server_id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        (rhnServerEntitlementView.is_base IS NULL OR rhnServerEntitlementView.is_base = 'Y') AND
+        (rhnServerEntitlementView.label IS NULL OR rhnServerEntitlementView.label &lt;&gt; :entitlement_label)
+  </query>
+</mode>
+
+<mode name="count_systems_in_set_without_feature">
+  <query params="user_id, set_label, feature_label">
+    SELECT COUNT(*) as count
+      FROM rhnSet
+      WHERE
+        rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND (
+          SELECT COUNT(*)
+            FROM rhnServerFeaturesView
+            WHERE rhnSet.element = rhnServerFeaturesView.server_id
+              AND rhnServerFeaturesView.label = :feature_label
+        ) = 0
+  </query>
+</mode>
+
+<mode name="entitled_systems_in_set" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, set_label">
+    SELECT rhnServer.id, rhnServer.name
+      FROM rhnServerEntitlementView
+        JOIN rhnSet ON rhnServerEntitlementView.server_id = rhnSet.element
+        JOIN rhnServer ON rhnServerEntitlementView.server_id = rhnServer.id
+      WHERE rhnSet.user_id = :user_id AND
+        rhnSet.label = :set_label AND
+        rhnServerEntitlementView.label IN (%s)
+  </query>
+</mode>
+
 <mode name="systems_in_set_with_tag">
   <query params="user_id, tag_id">
 SELECT * FROM (
@@ -2245,7 +2305,7 @@ DELETE FROM rhnServerCustomDataValue
 
 <callable-mode name="bulk_set_custom_values">
     <query params="key_label, value, set_label, user_id">
-    { call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id) }
+    {:retval = call rhn_server.bulk_set_custom_value(:key_label, :value, :set_label, :user_id)}
     </query>
 </callable-mode>
 

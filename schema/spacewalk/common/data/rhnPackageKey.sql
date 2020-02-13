@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2015 Red Hat, Inc.
+-- Copyright (c) 2008--2018 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -87,6 +87,21 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 -- Fedora 24 (secondary)
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (sequence_nextval('rhn_pkey_id_seq'), 'b8635eeb030d5aed', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 25
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'FDB19C98', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 26
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '64DAB85D', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 27
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), 'F5282EE4', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 28
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '9DB62FB1', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
+-- Fedora 29
+insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
+(sequence_nextval('rhn_pkey_id_seq'), '429476B4', lookup_package_key_type('gpg'), lookup_package_provider('Fedora'));
 
 -- CentOS
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values

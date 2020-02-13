@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 """
 Delete Snapshots: Script to delete system snapshots.
 
 This script using the XMLRPC APIs will connect to the Satellite and
 list or delete system snapshots based on the parameters given by the user.
 
-Copyright (c) 2009--2015 Red Hat, Inc.  Distributed under GPL.
+Copyright (c) 2009--2018 Red Hat, Inc.  Distributed under GPL.
 Author: Brad Buckingham <bbuckingham@redhat.com>
 
 """
@@ -298,7 +298,7 @@ def listSnapshots(systemId, snapshots):
       This will include:
         system id, # snapshots, date of oldest snapshot, date of newest snapshot
     """
-    if len(snapshots) > 0:
+    if snapshots:
         # obtain the dates of the oldest and newest snapshot...
         #
         # the dates will be in dateTime.iso8601 format

@@ -39,13 +39,18 @@
         <c:when test="${current.isVirtualHost && current.hostSystemId != 0}">
           <img src="/img/channel_parent_node.gif"/>
           <bean:message key="virtuallist.jsp.host"/>:
-          <a href="/rhn/systems/details/Overview.do?sid=${current.hostSystemId}">
-            <c:out value="${current.serverName}" escapeXml="true"/>
-          </a>
-          <bean:message key="virtuallist.jsp.hoststatus" arg0="${current.countActiveInstances}" arg1="${current.countTotalInstances}"/>
-          <c:if test="${current.virtEntitlement != null}">
-            (<a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid=${current.hostSystemId}"><bean:message key="virtuallist.jsp.viewall"/></a>)
-          </c:if>
+          <c:choose>
+            <c:when test="${current.accessible}">
+              <a href="/rhn/systems/details/Overview.do?sid=${current.hostSystemId}">
+                <c:out value="${current.serverName}" escapeXml="true" />
+              </a>
+              <bean:message key="virtuallist.jsp.hoststatus" arg0="${current.countActiveInstances}" arg1="${current.countTotalInstances}"/>
+              (<a href="/rhn/systems/details/virtualization/VirtualGuestsList.do?sid=${current.hostSystemId}"><bean:message key="virtuallist.jsp.viewall"/></a>)
+            </c:when>
+            <c:otherwise>
+              <c:out value="${current.serverName}" escapeXml="true" />
+            </c:otherwise>
+          </c:choose>
         </c:when>
         <c:when test="${current.isVirtualHost}">
           <img src="/img/channel_parent_node.gif"/>

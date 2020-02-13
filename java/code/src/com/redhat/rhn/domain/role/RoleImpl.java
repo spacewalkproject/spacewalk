@@ -43,7 +43,10 @@ public class RoleImpl extends BaseDomainHelper implements Role {
         return this.id;
     }
 
-    /** Setter for id */
+    /**
+     * Setter for id
+     * @param idIn the id
+     */
     protected void setId(Long idIn) {
         this.id = idIn;
     }

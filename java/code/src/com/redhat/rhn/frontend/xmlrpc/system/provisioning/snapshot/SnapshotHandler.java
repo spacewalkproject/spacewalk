@@ -97,10 +97,6 @@ public class SnapshotHandler extends BaseHandler {
             endDate = (Date)dateDetails.get("endDate");
         }
 
-        if ((startDate == null) && (endDate != null)) {
-            // TODO: throw exception...This is an invalid combination...
-        }
-
         return ServerFactory.listSnapshots(server.getOrg(), server, startDate, endDate);
     }
 
@@ -185,10 +181,6 @@ public class SnapshotHandler extends BaseHandler {
             endDate = (Date)dateDetails.get("endDate");
         }
 
-        if ((startDate == null) && (endDate != null)) {
-            // TODO: throw exception...This is an invalid combination...
-        }
-
         ServerFactory.deleteSnapshots(loggedInUser.getOrg(), startDate, endDate);
         return 1;
     }
@@ -236,10 +228,6 @@ public class SnapshotHandler extends BaseHandler {
         }
         if (dateDetails.containsKey("endDate")) {
             endDate = (Date)dateDetails.get("endDate");
-        }
-
-        if ((startDate == null) && (endDate != null)) {
-            // TODO: throw exception...This is an invalid combination...
         }
 
         ServerFactory.deleteSnapshots(loggedInUser.getOrg(), server, startDate, endDate);

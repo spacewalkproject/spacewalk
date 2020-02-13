@@ -123,6 +123,7 @@ public class MockMail implements Mail {
 
     /**
     * Set the expected number of times send() will be called
+    * @param count the expected count
     */
     public void setExpectedSendCount(int count) {
         expectedSendCount = count;
@@ -130,6 +131,7 @@ public class MockMail implements Mail {
 
     /**
     * Get the subject so we can verify against it
+    * @return the subject
     */
     public String getSubject() {
         return subject;
@@ -137,6 +139,7 @@ public class MockMail implements Mail {
 
     /**
     * Get the body so we can verify against it
+    * @return the body
     */
     public String getBody() {
         return body;

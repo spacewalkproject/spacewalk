@@ -117,7 +117,7 @@ public class ResetPassword extends BaseDomainHelper {
     }
 
     /**
-     * @return true if CREATED < (now - expiration-hours)
+     * @return true {@literal if CREATED < (now - expiration-hours)}
      */
     public boolean isExpired() {
         Calendar now = Calendar.getInstance();

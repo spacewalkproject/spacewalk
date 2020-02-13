@@ -28,22 +28,21 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * The RecurringEventPicker
+ * The RecurringEventPicker<br>
  *
  * to use this simply add this to your jsp:
- *
+ * <pre>{@literal
  *     <jsp:include page="/WEB-INF/pages/common/fragments/repeat-task-picker.jspf">
  *       <jsp:param name="widget" value="date"/>
  *     </jsp:include>
- *
- *
- *     Then in your action, simply do:
- *
+ * }</pre>
+ * then in your action, simply do:
+ * <pre>
  *       RecurringEventPicker picker = RecurringEventPicker.prepopulatePicker(
  *               request, "date", oldCronExpr);
  *       call picker.getCronExpr() to get the given cron expression (if submitted)
  *       call picker.isDisabled() to see if it is disabled or not
- *
+ * </pre>
  *
  * @version $Rev$
  */
@@ -137,7 +136,7 @@ public class RecurringEventPicker {
     /**
      * while we could just rely on the ordering and numbering of getWeekdays,
      *  I figured it would be best to not rely on the numbers being what we want.
-     * @return List of day names in order from Sunday -> Saturday
+     * @return List of day names in order from {@literal Sunday -> Saturday}
      */
     public String[] getDayNames() {
         String[] days = DateFormatSymbols.getInstance(

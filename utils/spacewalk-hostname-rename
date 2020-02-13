@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2010--2015 Red Hat, Inc.
+# Copyright (c) 2010--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -67,7 +67,7 @@ IPADDR_REGEX="($IPV4ADDR_REGEX)|($IPV6ADDR_REGEX)"
 
 function echo_usage {
     echo "Usage:"
-    echo "   $(basename $0) <IP_ADDRESS> [ --ssl-country=<SSL_COUNTRY> --ssl-state=<SSL_STATE> --ssl-org=<SSL_ORG> --ssl-orgunit=<SSL_ORGUNIT> --ssl-email=<SSL_EMAIL> --ssl-ca-password=<SSL_CA_PASSWORD>]"
+    echo "   $(basename $0) <IP_ADDRESS> [ --ssl-country=<SSL_COUNTRY> --ssl-state=<SSL_STATE> --ssl-city=<SSL_CITY> --ssl-org=<SSL_ORG> --ssl-orgunit=<SSL_ORGUNIT> --ssl-email=<SSL_EMAIL> --ssl-ca-password=<SSL_CA_PASSWORD>]"
     echo "   $(basename $0) { -h | --help }"
     exit 1
 }
@@ -147,6 +147,15 @@ function initial_system_hostname_check {
         return 1
     fi
 
+    # We should attempt to get the FQDN otherwise SSL verification will likely fail
+    FQDN=$(hostname --fqdn)
+    if [ ! -z "$FQDN" -a "$FQDN" != " " ]
+    then
+	HOSTNAME=$FQDN
+    else
+	echo_err "Warning: The host's FQDN could not be determined. A FQDN is needed for correct SSL configuration. Falling back to short hostname."
+    fi
+
     return 0
 }
 
@@ -223,6 +232,7 @@ function re-generate_server_ssl_certificate {
             SUBJECT_PATTERN='[[:space:]]*Subject: C=\(..*\), ST=\(..*\), O=\(..*\), OU=\(..*\), CN=\(..*\)\/emailAddress=\(..*\)'
             SSL_COUNTRY_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\1/"`
             SSL_STATE_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\2/"`
+            SSL_CITY_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\2/"`
             SSL_ORG_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\3/"`
             SSL_ORGUNIT_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\4/"`
             SSL_EMAIL_OLD=`echo $SUBJECT | sed "s/$SUBJECT_PATTERN/\6/"`
@@ -244,6 +254,14 @@ function re-generate_server_ssl_certificate {
         else
             read -e -p " Enter State [$SSL_STATE_OLD] : "
             SSL_STATE=${REPLY:-$SSL_STATE_OLD}
+        fi
+        # CITY
+        if [ -n "${CML_SSL_CITY+x}" ]
+        then
+            SSL_CITY=${CML_SSL_CITY}
+        else
+            read -e -p " Enter City [$SSL_CITY_OLD] : "
+            SSL_CITY=${REPLY:-$SSL_CITY_OLD}
         fi
         # ORGANIZATION
         if [ -n "${CML_SSL_ORG+x}" ]
@@ -287,6 +305,7 @@ function re-generate_server_ssl_certificate {
             --dir="$SSL_BUILD_DIR" \
             --set-country="$SSL_COUNTRY" \
             --set-state="$SSL_STATE" \
+            --set-city="$SSL_CITY" \
             --set-org="$SSL_ORG" \
             --set-org-unit="$SSL_ORGUNIT" \
             --set-common-name="${HOSTNAME}" \
@@ -295,6 +314,7 @@ function re-generate_server_ssl_certificate {
             --dir="$SSL_BUILD_DIR" \
             --set-country="$SSL_COUNTRY" \
             --set-state="$SSL_STATE" \
+            --set-city="$SSL_CITY" \
             --set-org="$SSL_ORG" \
             --set-org-unit="$SSL_ORGUNIT" \
             --set-common-name="${HOSTNAME}" \
@@ -304,6 +324,7 @@ function re-generate_server_ssl_certificate {
             --dir="$SSL_BUILD_DIR" \
             --set-country="$SSL_COUNTRY" \
             --set-state="$SSL_STATE" \
+            --set-city="$SSL_CITY" \
             --set-org="$SSL_ORG" \
             --set-org-unit="$SSL_ORGUNIT" \
             --set-email="$SSL_EMAIL" \
@@ -313,6 +334,7 @@ function re-generate_server_ssl_certificate {
             --dir="$SSL_BUILD_DIR" \
             --set-country="$SSL_COUNTRY" \
             --set-state="$SSL_STATE" \
+            --set-city="$SSL_CITY" \
             --set-org="$SSL_ORG" \
             --set-org-unit="$SSL_ORGUNIT" \
             --set-email="$SSL_EMAIL" \
@@ -371,6 +393,7 @@ while [ $# -ge 1 ]; do
 
             --ssl-country=*) CML_SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
             --ssl-state=*) CML_SSL_STATE=$(echo $1 | cut -d= -f2-);;
+            --ssl-city=*) CML_SSL_CITY=$(echo $1 | cut -d= -f2-);;
             --ssl-org=*) CML_SSL_ORG=$(echo $1 | cut -d= -f2-);;
             --ssl-orgunit=*) CML_SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
             --ssl-email=*) CML_SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
@@ -394,13 +417,14 @@ fi
 
 # if the user has set one of these params,
 # he wants to re-generate SSL certificate
-for ssl_var in ${CML_SSL_COUNTRY} ${CML_SSL_STATE} ${CML_SSL_ORG} ${CML_SSL_ORGUNIT} ${CML_SSL_EMAIL} ${CML_SSL_CA_PASSWORD}
+for ssl_var in ${CML_SSL_COUNTRY} ${CML_SSL_STATE} ${CML_SSL_CITY} ${CML_SSL_ORG} ${CML_SSL_ORGUNIT} ${CML_SSL_EMAIL} ${CML_SSL_CA_PASSWORD}
 do
     [ -n "${ssl_var}" ] && CML_NEW_SSL_CERT_REQUEST=1
 done
 
 echo "=============================================" | tee -a $LOG
 echo "hostname: $HOSTNAME" | tee -a $LOG
+echo "FQDN: $(hostname --fqdn)" | tee -a $LOG
 echo "ip: $IP" | tee -a $LOG
 echo "=============================================" | tee -a $LOG
 

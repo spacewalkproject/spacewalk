@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Utility for archiving information from a running Spacewalk/Satellite5 system
 # prior to a final shutdown.
 #
-# Copyright (c) 2015 Red Hat, Inc.
+# Copyright (c) 2015--2018 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,

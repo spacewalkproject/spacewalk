@@ -33,7 +33,7 @@ public class ServerUuidTest extends RhnBaseTestCase {
 
     /**
      * Simple test to exercise codepaths in ServerUuid class
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testServerUuid() throws Exception {
         ServerUuid su1 = createTestServerUuid();
@@ -45,7 +45,8 @@ public class ServerUuidTest extends RhnBaseTestCase {
 
     /**
      * Helper method to create a test ServerUuid object
-     * @throws Exception
+     * @throws Exception something bad happened
+     * @return the created ServerUuid object
      */
     public static ServerUuid createTestServerUuid() throws Exception {
         ServerUuid su = new ServerUuid();

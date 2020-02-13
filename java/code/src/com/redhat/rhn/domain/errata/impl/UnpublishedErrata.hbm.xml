@@ -39,6 +39,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <many-to-one name="org" class="com.redhat.rhn.domain.org.Org"
             column="org_id"/>
+        <many-to-one
+                name="severity"
+                class="com.redhat.rhn.domain.errata.Severity"
+                column="severity_id"/>
         <set name="bugs" lazy="true" inverse="true"
             cascade="all">
             <key column="errata_id"/>
@@ -76,11 +80,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
     <query name="UnpublishedErrata.findByAdvisoryName">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrata as e
-                 where e.advisoryName = :advisory]]>
+                 where e.advisoryName = :advisory and (e.org = :org or org is null)]]>
     </query>
     <query name="UnpublishedErrata.findByAdvisory">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedErrata as e
-                 where e.advisory = :advisory]]>
+                 where e.advisory = :advisory and (e.org = :org or org is null)]]>
     </query>
     <query name="UnpublishedClonedErrata.findByOriginal">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.UnpublishedClonedErrata as c

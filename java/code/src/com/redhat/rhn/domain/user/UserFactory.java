@@ -84,12 +84,10 @@ public  class UserFactory extends HibernateFactory {
      */
     private static State loadState(String label) {
         Session session = HibernateFactory.getSession();
-        State state = (State) session.getNamedQuery("UserState.lookupByLabel")
-                .setParameter("label", label)
+        return (State) session.getNamedQuery("UserState.lookupByLabel").setParameter("label", label)
                 //Retrieve from cache if there
                 .setCacheable(true)
                 .uniqueResult();
-        return state;
     }
 
     /**
@@ -177,8 +175,7 @@ public  class UserFactory extends HibernateFactory {
      */
     public static User lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        User u = (User)session.get(UserImpl.class, id);
-        return u;
+        return (User)session.get(UserImpl.class, id);
     }
 
 

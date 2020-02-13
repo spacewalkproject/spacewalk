@@ -24,16 +24,18 @@
 # unused argument
 # pylint: disable=W0613
 
-from optparse import Option
 import logging
 import sys
-import xmlrpclib
+try:
+    from xmlrpc import client as xmlrpclib
+except ImportError:
+    import xmlrpclib
 from spacecmd.utils import *
 
 
 def help_api(self):
-    print 'api: call RHN API with arguements directly'
-    print '''usage: api [options] API_STRING
+    print('api: call RHN API with arguements directly')
+    print('''usage: api [options] API_STRING)
 
 options:
   -A, --args  Arguments for the API other than session id in comma separated
@@ -46,15 +48,16 @@ examples:
   api --args "sysgroup_A" systemgroup.listSystems
   api -A "rhel-i386-server-5,2011-04-01,2011-05-01" -F "%(name)s" \\
       channel.software.listAllPackages
-'''
+''')
 
 
 def do_api(self, args):
-    options = [Option('-A', '--args', default=''),
-               Option('-F', '--format', default=''),
-               Option('-o', '--output', default='')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-A', '--args', default='')
+    arg_parser.add_argument('-F', '--format', default='')
+    arg_parser.add_argument('-o', '--output', default='')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     if not args:
         self.help_api()
@@ -67,7 +70,7 @@ def do_api(self, args):
         try:
             output = open(options.output, "w")
         except IOError:
-            logging.warn("Could not open to write: " + options.output)
+            logging.warning("Could not open to write: %s", options.output)
             logging.info("Fallback output to stdout")
 
             output = sys.stdout
@@ -77,7 +80,7 @@ def do_api(self, args):
     api = getattr(self.client, api_name, None)
 
     if not callable(api):
-        logging.warn("No such API: " + api_name)
+        logging.warning("No such API: %s", api_name)
         return
 
     try:

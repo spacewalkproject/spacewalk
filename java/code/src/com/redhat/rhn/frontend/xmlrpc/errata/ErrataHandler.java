@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -44,6 +44,7 @@ import com.redhat.rhn.domain.errata.CveFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -256,6 +257,9 @@ public class ErrataHandler extends BaseHandler {
                 StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type",
                 StringUtils.defaultString(errata.getAdvisoryType()));
+        if (errata.getSeverity() != null) {
+            errataMap.put("severity", errata.getSeverity().getLocalizedLabel());
+        }
 
 
         return errataMap;
@@ -291,6 +295,9 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "references")
      *          #prop("string", "notes")
      *          #prop("string", "solution")
+     *          #prop_desc("string", "severity", "Severity of advisory (one of the
+     *                  following: 'Low', 'Moderate', 'Important', 'Critical'
+     *                  or 'Unspecified'")
      *          #prop_desc("array", "bugs", "'bugs' is the key into the struct")
      *              #array()
      *                 #struct("bug")
@@ -337,6 +344,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("solution");
         validKeys.add("bugs");
         validKeys.add("keywords");
+        validKeys.add("severity");
         if (errata.isPublished()) {
             validKeys.add("cves");
         }
@@ -432,6 +440,15 @@ public class ErrataHandler extends BaseHandler {
         }
         if (details.containsKey("notes")) {
             errata.setNotes((String)details.get("notes"));
+        }
+        if ("Security Advisory".equals(errata.getAdvisoryType())) {
+            if (details.containsKey("severity")) {
+                String sevName = (String) details.get("severity");
+                errata.setSeverity(Severity.getByName(sevName));
+            }
+        }
+        else if (errata.getSeverity() != null) {
+                errata.setSeverity(null);
         }
         if (details.containsKey("bugs")) {
 
@@ -676,7 +693,7 @@ public class ErrataHandler extends BaseHandler {
         throws FaultException {
      *
      * @xmlrpc.doc Returns a list of
-     * <a href="http://www.cve.mitre.org/" target="_blank">CVE</a>s
+     * <a href="http://cve.mitre.org/" target="_blank">CVE</a>s
      * applicable to the erratum with the given advisory name. CVEs may be associated
      * only with published errata.
      * @xmlrpc.param #session_key()
@@ -873,7 +890,7 @@ public class ErrataHandler extends BaseHandler {
      * @throws FaultException Occurs when the erratum is not found
      */
     private Errata lookupErrata(String advisoryName, Org org) throws FaultException {
-        Errata errata = ErrataManager.lookupByAdvisory(advisoryName);
+        Errata errata = ErrataManager.lookupByAdvisory(advisoryName, org);
 
         /*
          * ErrataManager.lookupByAdvisory() could return null, so we need to check
@@ -904,7 +921,7 @@ public class ErrataHandler extends BaseHandler {
      */
     private Errata lookupErrataReadOnly(String advisoryName, Org org)
             throws FaultException {
-        Errata errata = ErrataManager.lookupByAdvisory(advisoryName);
+        Errata errata = ErrataManager.lookupByAdvisory(advisoryName, org);
 
         /*
          * ErrataManager.lookupByAdvisory() could return null, so we need to check
@@ -1132,6 +1149,8 @@ public class ErrataHandler extends BaseHandler {
      *  String "solution" the solution of the errata
      *  String "references" references of the errata to be created
      *  String "notes" notes on the errata
+     *  String "severity" is name of given security advisory severity (Must be one of the
+     *          following: 'Low', 'Moderate', 'Important', 'Critical' or 'Unspecified')
      * @param bugs a List of maps consisting of 'id' Integers and 'summary' strings
      * @param keywords a List of keywords for the errata
      * @param packageIds a List of package Id packageId Integers
@@ -1159,6 +1178,9 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "references")
      *          #prop("string", "notes")
      *          #prop("string", "solution")
+     *          #prop_desc("string", "severity", "Severity of advisory (one of the
+     *                  following: 'Low', 'Moderate', 'Important', 'Critical'
+     *                  or 'Unspecified'")
      *       #struct_end()
      *  @xmlrpc.param
      *       #array()
@@ -1196,6 +1218,7 @@ public class ErrataHandler extends BaseHandler {
         validKeys.add("references");
         validKeys.add("notes");
         validKeys.add("solution");
+        validKeys.add("severity");
         validateMap(validKeys, errataInfo);
 
         validKeys.clear();
@@ -1228,8 +1251,10 @@ public class ErrataHandler extends BaseHandler {
         String solution = (String) getRequiredAttribute(errataInfo, "solution");
         String references = (String) errataInfo.get("references");
         String notes = (String) errataInfo.get("notes");
+        String severity = (String) errataInfo.get("severity");
 
-        Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName);
+        Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName,
+                loggedInUser.getOrg());
         if (newErrata != null) {
             throw new DuplicateErrataException(advisoryName);
         }
@@ -1263,7 +1288,9 @@ public class ErrataHandler extends BaseHandler {
         newErrata.setErrataFrom(errataFrom);
         newErrata.setRefersTo(references);
         newErrata.setNotes(notes);
-
+        if (errataInfo.get("severity") != null) {
+            newErrata.setSeverity(Severity.getByName(severity));
+        }
         for (Iterator<Map<String, Object>> itr = bugs.iterator(); itr.hasNext();) {
             Map<String, Object> bugMap = itr.next();
             String url = null;

@@ -111,22 +111,21 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
         assertTrue(getActualForward().indexOf("sid=") > 0);
     }
 
+    /**
+     * Verify that invoking the delete action on a guest results in deleting both the guest
+     * system and guest virtual instance.
+     * @throws Exception - if anything goes wrong
+     */
     public void testDeleteGuestConfirm() throws Exception {
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
-        Server guest =
-            host.getGuests().iterator().next().getGuestSystem();
-
-        VirtualInstance virtualInstance = new VirtualInstance();
-        virtualInstance.setUuid("1234");
-        virtualInstance.setGuestSystem(guest);
-        virtualInstance.setConfirmed(0L);
-
+        Server guest = host.getGuests().iterator().next().getGuestSystem();
         ServerFactory.save(guest);
-        new VirtualInstanceFactory().saveVirtualInstance(virtualInstance);
 
         addRequestParameter(RequestContext.SID, host.getId().toString());
         addDispatchCall("virtualguests_confirm.jsp.confirm");
         RhnSet set = RhnSetDecl.VIRTUAL_SYSTEMS.get(user);
+        VirtualInstance virtualInstance = guest.getVirtualInstance();
+        new VirtualInstanceFactory().saveVirtualInstance(virtualInstance);
         set.addElement(virtualInstance.getId());
         RhnSetManager.store(set);
         TestUtils.flushAndEvict(virtualInstance);
@@ -143,7 +142,8 @@ public class VirtualGuestsActionTest extends RhnPostMockStrutsTestCase {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", virtualInstance.getId());
         DataResult dr = TestUtils.runTestQuery("select_virtual_instance_by_id", params);
-        assertTrue(dr.size() == 0);
+        assertEquals(0, dr.size());
+        assertNull(ServerFactory.lookupById(guest.getId()));
     }
 
     public void testSetGuestMemory() throws Exception {

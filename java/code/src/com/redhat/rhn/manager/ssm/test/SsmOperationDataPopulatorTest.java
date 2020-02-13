@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Populates the database with sample SSM operation log entries, used primarily for
  * development and debugging of the UI pages for this feature.
- * <p/>
+ * <p>
  * The populate methods in this class should be disabled (i.e. prefix with __) at all
  * times when committing this file.
  *

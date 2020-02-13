@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,20 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.manager.system.test;
+
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.cobbler.test.MockConnection;
+import org.hibernate.Session;
+import org.hibernate.type.IntegerType;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
@@ -81,19 +95,6 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.cobbler.test.MockConnection;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * SystemManagerTest
  */
@@ -132,12 +133,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
      */
     private Integer numberOfSnapshots(Long sid) {
         Session session = HibernateFactory.getSession();
-        Integer count = (Integer) session.createSQLQuery("Select count(*) as cnt " +
+        return (Integer) session.createSQLQuery("Select count(*) as cnt " +
                                                          "  from rhnSnapshot " +
                                                          " where server_id = " + sid)
-                                         .addScalar("cnt", Hibernate.INTEGER)
+                                         .addScalar("cnt", new IntegerType())
                                          .uniqueResult();
-        return count;
     }
 
     public void testDeleteServer() throws Exception {
@@ -765,7 +765,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
     /**
      * Note: This test tests multiple calls in SystemManager.
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testErrataCountsForSystem() throws Exception {
 
@@ -1096,5 +1096,71 @@ public class SystemManagerTest extends RhnBaseTestCase {
 
     }
 
+    public void testCountSystemsInSetWithoutEntitlement() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg" +
+            this.getClass().getSimpleName());
 
+        String setLabel = TestUtils.randomString();
+        int actual = SystemManager.countSystemsInSetWithoutEntitlement(user, setLabel,
+                        EntitlementManager.ENTERPRISE_ENTITLED);
+        assertEquals(0, actual);
+
+        Server server = ServerFactoryTest.createTestServer(user, true,
+            ServerConstants.getServerGroupTypeEnterpriseEntitled());
+
+        RhnSet set = RhnSetManager.createSet(user.getId(), setLabel, SetCleanup.NOOP);
+        set.addElement(server.getId());
+        RhnSetManager.store(set);
+
+        actual = SystemManager.countSystemsInSetWithoutEntitlement(user, setLabel,
+                        EntitlementManager.ENTERPRISE_ENTITLED);
+        assertEquals(0, actual);
+
+        Server unentitledServer = ServerFactoryTest.createUnentitledTestServer(user, true,
+                        ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
+        set.addElement(unentitledServer.getId());
+        RhnSetManager.store(set);
+
+        actual = SystemManager.countSystemsInSetWithoutEntitlement(user, setLabel,
+                        EntitlementManager.ENTERPRISE_ENTITLED);
+        assertEquals(1, actual);
+
+        actual = SystemManager.countSystemsInSetWithoutEntitlement(user, "non matching",
+                        EntitlementManager.ENTERPRISE_ENTITLED);
+        assertEquals(0, actual);
+    }
+
+    public void testCountSystemsInSetWithoutFeature() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg" +
+            this.getClass().getSimpleName());
+
+        String setLabel = TestUtils.randomString();
+        int actual = SystemManager.countSystemsInSetWithoutEntitlement(user, setLabel,
+                        EntitlementManager.ENTERPRISE_ENTITLED);
+        assertEquals(0, actual);
+
+        Server server = ServerFactoryTest.createTestServer(user, true,
+            ServerConstants.getServerGroupTypeEnterpriseEntitled());
+
+        RhnSet set = RhnSetManager.createSet(user.getId(), setLabel, SetCleanup.NOOP);
+        set.addElement(server.getId());
+        RhnSetManager.store(set);
+
+        actual = SystemManager.countSystemsInSetWithoutFeature(user, setLabel,
+                        "ftr_kickstart");
+        assertEquals(0, actual);
+
+        Server unentitledServer = ServerFactoryTest.createUnentitledTestServer(user, true,
+                        ServerFactoryTest.TYPE_SERVER_NORMAL, new Date());
+        set.addElement(unentitledServer.getId());
+        RhnSetManager.store(set);
+
+        actual = SystemManager.countSystemsInSetWithoutEntitlement(user, setLabel,
+                        "ftr_kickstart");
+        assertEquals(1, actual);
+
+        actual = SystemManager.countSystemsInSetWithoutEntitlement(user, "non matching",
+                        "ftr_kickstart");
+        assertEquals(0, actual);
+    }
 }

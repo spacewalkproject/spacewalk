@@ -1,4 +1,4 @@
-# Copyright (c) 2016 Red Hat, Inc.
+# Copyright (c) 2016--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,7 @@ from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.satellite_tools.progress_bar import ProgressBar
 from spacewalk.server.rhnPackage import unlink_package_file
 from spacewalk.server import rhnSQL
+
 
 def __serverCheck(labels, unsubscribe):
     sql = """
@@ -44,14 +45,10 @@ def __serverCheck(labels, unsubscribe):
     print("If you would like to automatically unsubscribe these systems, simply use the --unsubscribe flag.\n")
     print("The following systems were found to be subscribed:")
 
-    print 'org_id'.ljust(8),
-    print 'id'.ljust(14),
-    print('name')
-    print ("-" * 32)
+    print("%-8s %-14s name" % ('org_id', 'id'))
+    print("-" * 32)
     for server in server_list:
-        print str(server['org_id']).ljust(8),
-        print str(server['id']).ljust(14),
-        print(server['name'])
+        print("%-8s %-14s %s" % (server['org_id'], server['id'], server['name']))
 
     return len(server_list)
 
@@ -79,8 +76,7 @@ def __unsubscribeServers(labels):
     channel_list = channel_counts.keys()
     channel_list.sort()
     for i in channel_list:
-        print(i.ljust(40)),
-        print(str(channel_counts[i]).ljust(8))
+        print("%-40s %-8s" % (i, channel_counts[i]))
 
     pb = ProgressBar(prompt='Unsubscribing:    ', endTag=' - complete',
                      finalSize=len(server_channel_list), finalBarLength=40, stream=sys.stdout)
@@ -114,12 +110,10 @@ def __kickstartCheck(labels):
 
     print("The following kickstarts are associated with one of the specified channels. " +
           "Please remove these or change their associated base channel.\n")
-    print('org_id'.ljust(8)),
-    print('label')
+    print("%-8s label" % 'org_id')
     print("-" * 20)
     for kickstart in kickstart_list:
-        print str(kickstart['org_id']).ljust(8),
-        print(kickstart['label'])
+        print("%-8s %s" % (kickstart['org_id'], kickstart['label']))
 
     return len(kickstart_list)
 
@@ -396,7 +390,7 @@ def _delete_rpms(packageIds):
                      finalSize=len(packageIds), finalBarLength=40, stream=sys.stdout)
     pb.printAll(1)
 
-    while len(toDel) > 0:
+    while toDel:
         _delete_rpm_group(toDel[:group])
         del toDel[:group]
         pb.addTo(group)

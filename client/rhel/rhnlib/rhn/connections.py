@@ -6,11 +6,10 @@
 # Author: Mihai Ibanescu <misa@redhat.com>
 
 
-import sys
+
 import base64
 import encodings.idna
 import socket
-import errno
 from platform import python_version
 from rhn import SSL
 from rhn import nonblocking
@@ -156,8 +155,11 @@ class HTTPProxyConnection(HTTPConnection):
             return
         # Authenticated proxy
         userpass = "%s:%s" % (self.__username, self.__password)
-        enc_userpass = base64.encodestring(userpass).replace("\n", "")
-        self.putheader("Proxy-Authorization", "Basic %s" % enc_userpass)
+        enc_userpass = base64.encodestring(i18n.bstr(userpass)).replace(i18n.bstr("\n"), i18n.bstr(""))
+        self.putheader("Proxy-Authorization", "Basic %s" % i18n.sstr(enc_userpass))
+
+    def _set_hostport(self, host, port):
+        (self.host, self.port) = self._get_hostport(host, port)
 
 class HTTPSConnection(HTTPConnection):
     response_class = HTTPResponse
@@ -178,13 +180,16 @@ class HTTPSConnection(HTTPConnection):
             af, socktype, proto, canonname, sa = r
             try:
                 sock = socket.socket(af, socktype, proto)
+            except socket.error:
+                sock = None
+                continue
+
+            try:
                 sock.connect((self.host, self.port))
                 sock.settimeout(self.timeout)
             except socket.error:
-                e = sys.exc_info()[1]
-                if e.errno != errno.EINTR:
-                    sock.close()
-                    sock = None
+                sock.close()
+                sock = None
                 continue
             break
 
@@ -192,7 +197,7 @@ class HTTPSConnection(HTTPConnection):
             raise socket.error("Unable to connect to the host and port specified")
 
         self.sock = SSL.SSLSocket(sock, self.trusted_certs)
-        self.sock.init_ssl()
+        self.sock.init_ssl(self.host)
 
 class HTTPSProxyResponse(HTTPResponse):
     def begin(self):
@@ -259,4 +264,4 @@ def idn_ascii_to_puny(hostname):
         return None
     else:
         hostname = i18n.ustr(hostname)
-        return hostname.encode('idna')
+        return i18n.ustr(hostname.encode('idna'))

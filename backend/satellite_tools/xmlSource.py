@@ -1,7 +1,7 @@
 #
 # Decoding data from XML streams
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -204,30 +204,30 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
 
     # def endDocument(self):
 
-    def startElement(self, element, attrs):
-        log_debug(6, element)
+    def startElement(self, name, attrs):
+        log_debug(6, name)
         utf8_attrs = _dict_to_utf8(attrs)
         if self.rootAttributes is None:
             # First time around
-            if self.rootElement != element:
+            if self.rootElement != name:
                 raise Exception("Mismatching elements; root='%s', "
-                                "received='%s'" % (self.rootElement, element))
+                                "received='%s'" % (self.rootElement, name))
             self.rootAttributes = utf8_attrs
             self._check_version()
             return
 
         if self.__container is None:
             # This means it's parsing a container element
-            self.__container = self.get_container(element)
+            self.__container = self.get_container(name)
 
-        self.__container.startElement(element, utf8_attrs)
+        self.__container.startElement(name, utf8_attrs)
 
-    def characters(self, data):
+    def characters(self, content):
         if self.__container:
-            self.__container.characters(_stringify(data))
+            self.__container.characters(_stringify(content))
 
-    def endElement(self, element):
-        log_debug(6, element)
+    def endElement(self, name):
+        log_debug(6, name)
         if self.__container is None:
             # End of the root attribute
             # We know now the tag stack is empty
@@ -235,32 +235,32 @@ class BaseDispatchHandler(ContentHandler, ErrorHandler):
             return
 
         try:
-            self.__container.endElement(element)
+            self.__container.endElement(name)
         except _EndContainerEvent:
             self.__container = None
 
     #___Error handling methods___
 
     # pylint: disable=W0212,W0710
-    def error(self, e):
+    def error(self, exception):
         """Handle a recoverable error.
         """
         log_debug(-1, "ERROR (RECOVERABLE): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
-        raise RecoverableParseException(e._msg, e, e._locator)
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
+        raise RecoverableParseException(exception._msg, exception, exception._locator)
 
-    def fatalError(self, e):
+    def fatalError(self, exception):
         """Handle a non-recoverable error.
         """
         log_debug(-1, "ERROR (FATAL): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
-        raise FatalParseException(e._msg, e, e._locator)
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
+        raise FatalParseException(exception._msg, exception, exception._locator)
 
-    def warning(self, e):
+    def warning(self, exception):
         """Handle a warning.
         """
         log_debug(-1, "ERROR (WARNING): parse error encountered - line: %s, col: %s, msg: %s"
-                  % (e.getLineNumber(), e.getColumnNumber(), e._msg))
+                  % (exception.getLineNumber(), exception.getColumnNumber(), exception._msg))
 
     # To be overridden in subclasses
     def _check_version(self):
@@ -500,6 +500,7 @@ class ChannelItem(BaseItem):
         'rhn-channel-receiving-updates': 'receiving_updates',
         'rhn-channel-checksum-type': 'checksum_type',
         'rhn-channel-comps-last-modified': 'comps_last_modified',
+        'rhn-channel-modules-last-modified': 'modules_last_modified',
         'sharing': 'channel_access',
         'rhn-channel-trusted-orgs': 'trust_list',
     }
@@ -660,7 +661,7 @@ class PackageItem(IncompletePackageItem):
     def populate(self, attributes, elements):
         item = IncompletePackageItem.populate(self, attributes, elements)
         # find out "primary" checksum
-        # pylint: disable=bad-option-value,unsubscriptable-object
+        # pylint: disable=bad-option-value,unsubscriptable-object,unsupported-assignment-operation
         have_filedigests = len([1 for i in item['requires'] if i['name'] == 'rpmlib(FileDigests)'])
         if not have_filedigests:
             item['checksum_type'] = 'md5'
@@ -846,6 +847,7 @@ class ErratumItem(BaseItem):
         'rhn-erratum-last-modified': 'last_modified',
         'rhn-erratum-files': 'files',
         'rhn-erratum-errata-from': 'errata_from',
+        'rhn-erratum-severity': 'severity_id',
         'cve-names': 'cve',
     }
 addItem(ErratumItem)
@@ -931,7 +933,7 @@ class ContainerHandler:
 
     def startElement(self, element, attrs):
         # log_debug(6, element) --duplicate logging.
-        if len(self.tagStack) == 0 and element != self.container_name:
+        if not self.tagStack and element != self.container_name:
             # Strange; this element is called to parse stuff when it's not
             # supposed to
             raise Exception('This object should not have been used')
@@ -945,7 +947,7 @@ class ContainerHandler:
             return
         # If the thing in front is a string, append to it
         lastObj = self.objStack[-1]
-        if len(lastObj) and _is_string(lastObj[-1]):
+        if lastObj and _is_string(lastObj[-1]):
             lastObj[-1] = '%s%s' % (lastObj[-1], data)
         else:
             lastObj.append(data)
@@ -968,7 +970,7 @@ class ContainerHandler:
         # Remove the subelements from the stack
         del self.objStack[-1]
 
-        if len(self.objStack) == 0:
+        if not self.objStack:
             # End element for this container
             self.endContainerCallback()
             raise _EndContainerEvent(tagobj)

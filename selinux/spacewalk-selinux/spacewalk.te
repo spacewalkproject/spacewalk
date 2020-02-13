@@ -9,7 +9,9 @@ policy_module(spacewalk,@@VERSION@@)
 gen_tunable(spacewalk_nfs_mountpoint,false)
 
 require {
+    type etc_t;
 	type httpd_t;
+	type tomcat_t;
 	type restorecon_t;
 	type httpd_sys_script_t;
 	type httpd_log_t;
@@ -17,6 +19,7 @@ require {
 	type system_mail_t;
 	type nfs_t;
 	type rpm_var_lib_t;
+	type sudo_exec_t;
 }
 
 type spacewalk_install_log_t;
@@ -40,6 +43,9 @@ dontaudit httpd_sys_script_t httpd_log_t:file { ioctl };
 type spacewalk_initrc_exec_t;
 domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 
+allow tomcat_t self:netlink_audit_socket { nlmsg_relay read write create };
+allow tomcat_t spacewalk_log_t:file { open read };
+
 optional_policy(`
 	gen_require(`
 		type java_t;
@@ -52,20 +58,33 @@ allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
 manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
+filetrans_pattern(tomcat_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
+manage_files_pattern(tomcat_t, spacewalk_log_t, spacewalk_httpd_log_t)
+
 manage_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_lnk_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 read_lnk_files_pattern(restorecon_t, spacewalk_data_t, spacewalk_data_t)
+
+manage_files_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
+manage_lnk_files_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
+manage_dirs_pattern(tomcat_t, spacewalk_data_t, spacewalk_data_t)
 
 dontaudit system_mail_t httpd_t:file read;
 
 manage_files_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 manage_dirs_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 
+manage_files_pattern(tomcat_t, spacewalk_cache_t, spacewalk_cache_t)
+manage_dirs_pattern(tomcat_t, spacewalk_cache_t, spacewalk_cache_t)
+
 tunable_policy(`spacewalk_nfs_mountpoint',`
 	manage_files_pattern(httpd_t, nfs_t, nfs_t)
 	manage_lnk_files_pattern(httpd_t, nfs_t, nfs_t)
 	manage_dirs_pattern(httpd_t, nfs_t, nfs_t)
+	manage_files_pattern(tomcat_t, nfs_t, nfs_t)
+	manage_lnk_files_pattern(tomcat_t, nfs_t, nfs_t)
+	manage_dirs_pattern(tomcat_t, nfs_t, nfs_t)
 	read_lnk_files_pattern(restorecon_t, nfs_t, nfs_t)
 ')
 
@@ -89,10 +108,12 @@ optional_policy(`
 optional_policy(`
         gen_require(`
                 type cobblerd_t;
+                type gpg_exec_t;
         ')
         read_files_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
         allow cobblerd_t spacewalk_data_t:file { getattr link unlink rename };
         manage_dirs_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
+        allow cobblerd_t gpg_exec_t:file getattr;
 ')
 
 # rpm_dontaudit_search_db(httpd_t) is not available on RHELs
@@ -122,5 +143,37 @@ optional_policy(`
                 type cobbler_var_log_t;
         ')
         allow httpd_t cobbler_var_log_t:dir { search };
+        allow tomcat_t cobbler_var_log_t:dir { search };
 ')
+
+optional_policy(`
+        gen_require(`
+                type cobbler_var_lib_t;
+        ')
+        allow httpd_t cobbler_var_lib_t:dir { read };
+        allow tomcat_t cobbler_var_lib_t:dir { read };
+')
+
+optional_policy(`
+        gen_require(`
+                type cobbler_tmp_t;
+        ')
+        allow tomcat_t cobbler_tmp_t:dir { search };
+')
+
+# Allow tomcat/httpd to run sudo /usr/bin/rhn-config-satellite.pl successfully.
+allow tomcat_t self:capability { audit_write chown sys_resource };
+allow httpd_t self:capability { audit_write chown sys_resource };
+
+allow tomcat_t self:process setrlimit;
+allow httpd_t self:process setrlimit;
+
+allow tomcat_t sudo_exec_t:file { execute execute_no_trans open read };
+allow httpd_t sudo_exec_t:file { execute execute_no_trans open read };
+
+allow tomcat_t etc_t:file { create link rename setattr unlink write };
+allow httpd_t etc_t:file { create link rename setattr unlink write };
+
+allow tomcat_t etc_t:dir { add_name remove_name write };
+allow httpd_t etc_t:dir { add_name remove_name write };
 

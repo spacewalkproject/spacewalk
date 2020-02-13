@@ -68,7 +68,7 @@ public class ConfigChannelListProcessor {
      *                          the new channel will be inserted at the given rank
      * @param cc the channel to subscribe
      * @param rank the positon/ranking of the channel in the system list,
-     *                  must be > 0
+     *                  must be {@literal > 0}
      */
 
     public void add(List cfgChannels, ConfigChannel cc, int rank) {

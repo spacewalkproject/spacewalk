@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Clonse channels by a particular date
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,

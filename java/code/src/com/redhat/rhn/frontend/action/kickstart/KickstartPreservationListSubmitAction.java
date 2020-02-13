@@ -71,8 +71,6 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
 
         cmd.removeFileListsByIds(ids);
         cmd.store();
-
-        return;
     }
 
     /**
@@ -96,8 +94,6 @@ public class KickstartPreservationListSubmitAction extends BaseKickstartListSubm
 
         cmd.addFileListsByIds(ids);
         cmd.store();
-
-        return;
     }
 
     /**

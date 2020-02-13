@@ -86,11 +86,11 @@ def _process_ruleresults(testresult_id, tr):
 
             inserts['rr_id'].append(rr_id)
             inserts['system'].append('#IDREF#')
-            inserts['ident'].append(_truncate(rr.getAttribute('id'), 100))
+            inserts['ident'].append(_truncate(rr.getAttribute('id'), 255))
             for ident in rr.childNodes:
                 inserts['rr_id'].append(rr_id)
                 inserts['system'].append(_truncate(ident.getAttribute('system'), 80))
-                inserts['ident'].append(_truncate(_get_text(ident), 100))
+                inserts['ident'].append(_truncate(_get_text(ident), 255))
     _store_idents(inserts)
     return not truncated
 

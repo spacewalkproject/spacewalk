@@ -33,33 +33,33 @@ from spacecmd.utils import *
 
 
 def help_ssm(self):
-    print 'The System Set Manager (SSM) is a group of systems that you '
-    print 'can perform tasks on as a whole.'
-    print
-    print 'Adding Systems:'
-    print '> ssm_add group:rhel5-x86_64'
-    print '> ssm_add channel:rhel-x86_64-server-5'
-    print '> ssm_add search:device:vmware'
-    print '> ssm_add host.example.com'
-    print
-    print 'Intersections:'
-    print '> ssm_add group:rhel5-x86_64'
-    print '> ssm_intersect group:web-servers'
-    print
-    print 'Using the SSM:'
-    print '> system_installpackage ssm zsh'
-    print '> system_runscript ssm'
+    print('The System Set Manager (SSM) is a group of systems that you ')
+    print('can perform tasks on as a whole.')
+    print('')
+    print('Adding Systems:')
+    print('> ssm_add group:rhel5-x86_64')
+    print('> ssm_add channel:rhel-x86_64-server-5')
+    print('> ssm_add search:device:vmware')
+    print('> ssm_add host.example.com')
+    print('')
+    print('Intersections:')
+    print('> ssm_add group:rhel5-x86_64')
+    print('> ssm_intersect group:web-servers')
+    print('')
+    print('Using the SSM:')
+    print('> system_installpackage ssm zsh')
+    print('> system_runscript ssm')
 
 ####################
 
 
 def help_ssm_add(self):
-    print 'ssm_add: Add systems to the SSM'
-    print 'usage: ssm_add <SYSTEMS>'
-    print
-    print "see 'help ssm' for more details"
-    print
-    print self.HELP_SYSTEM_OPTS
+    print('ssm_add: Add systems to the SSM')
+    print('usage: ssm_add <SYSTEMS>')
+    print('')
+    print("see 'help ssm' for more details")
+    print('')
+    print(self.HELP_SYSTEM_OPTS)
 
 
 def complete_ssm_add(self, text, line, beg, end):
@@ -67,15 +67,17 @@ def complete_ssm_add(self, text, line, beg, end):
 
 
 def do_ssm_add(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
 
-    if not len(args):
+    (args, _options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
         self.help_ssm_add()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -87,7 +89,7 @@ def do_ssm_add(self, args):
             self.ssm[system] = self.get_system_id(system)
             logging.debug('Added %s' % system)
 
-    if len(self.ssm):
+    if self.ssm:
         logging.debug('Systems Selected: %i' % len(self.ssm))
 
     # save the SSM for use between sessions
@@ -97,14 +99,14 @@ def do_ssm_add(self, args):
 
 
 def help_ssm_intersect(self):
-    print 'ssm_intersect: Replace the current SSM with the intersection'
-    print '               of the current list of systems and the list of'
-    print '               systems passed as arguments'
-    print 'usage: ssm_intersect <SYSTEMS>'
-    print
-    print "see 'help ssm' for more details"
-    print
-    print self.HELP_SYSTEM_OPTS
+    print('ssm_intersect: Replace the current SSM with the intersection')
+    print('               of the current list of systems and the list of')
+    print('               systems passed as arguments')
+    print('usage: ssm_intersect <SYSTEMS>')
+    print('')
+    print("see 'help ssm' for more details")
+    print('')
+    print(self.HELP_SYSTEM_OPTS)
 
 
 def complete_ssm_intersect(self, text, line, beg, end):
@@ -112,15 +114,17 @@ def complete_ssm_intersect(self, text, line, beg, end):
 
 
 def do_ssm_intersect(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
 
-    if not len(args):
+    (args, _options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
         self.help_ssm_intersect()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -135,19 +139,22 @@ def do_ssm_intersect(self, args):
     # set self.ssm to tmp_ssm, which now holds the intersection
     self.ssm = tmp_ssm
 
-    if len(self.ssm):
+    # save the SSM for use between sessions
+    save_cache(self.ssm_cache_file, self.ssm)
+
+    if self.ssm:
         logging.debug('Systems Selected: %i' % len(self.ssm))
 
 ####################
 
 
 def help_ssm_remove(self):
-    print 'ssm_remove: Remove systems from the SSM'
-    print 'usage: ssm_remove <SYSTEMS>'
-    print
-    print "see 'help ssm' for more details"
-    print
-    print self.HELP_SYSTEM_OPTS
+    print('ssm_remove: Remove systems from the SSM')
+    print('usage: ssm_remove <SYSTEMS>')
+    print('')
+    print("see 'help ssm' for more details")
+    print('')
+    print(self.HELP_SYSTEM_OPTS)
 
 
 def complete_ssm_remove(self, text, line, beg, end):
@@ -155,15 +162,17 @@ def complete_ssm_remove(self, text, line, beg, end):
 
 
 def do_ssm_remove(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
 
-    if not len(args):
+    (args, _options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
         self.help_ssm_remove()
         return
 
     systems = self.expand_systems(args)
 
-    if not len(systems):
+    if not systems:
         logging.warning('No systems found')
         return
 
@@ -182,25 +191,25 @@ def do_ssm_remove(self, args):
 
 
 def help_ssm_list(self):
-    print 'ssm_list: List the systems currently in the SSM'
-    print 'usage: ssm_list'
-    print
-    print "see 'help ssm' for more details"
+    print('ssm_list: List the systems currently in the SSM')
+    print('usage: ssm_list')
+    print('')
+    print("see 'help ssm' for more details")
 
 
 def do_ssm_list(self, args):
     systems = sorted(self.ssm)
 
-    if len(systems):
-        print '\n'.join(systems)
+    if systems:
+        print('\n'.join(systems))
         logging.debug('Systems Selected: %i' % len(systems))
 
 ####################
 
 
 def help_ssm_clear(self):
-    print 'ssm_clear: Remove all systems from the SSM'
-    print 'usage: ssm_clear'
+    print('ssm_clear: Remove all systems from the SSM')
+    print('usage: ssm_clear')
 
 
 def do_ssm_clear(self, args):

@@ -113,12 +113,16 @@ public abstract class BaseTreeAction extends BaseEditAction {
                 kopts = kopts + " install=http://" + request.getLocalName() +
                     "/ks/dist/" + form.getString(LABEL);
             }
+            // disable YaST self update for SLE
+            if (!kopts.contains("self_update=")) {
+                kopts = kopts + " self_update=0 pt.options=+self_update";
+            }
             bte.setKernelOptions(kopts);
         }
         else {
             bte.setKernelOptions(form.getString(KERNEL_OPTS));
         }
-        bte.setPostKernelOptions(form.getString(POST_KERNEL_OPTS));
+        bte.setKernelOptionsPost(form.getString(POST_KERNEL_OPTS));
 
         return null;
 

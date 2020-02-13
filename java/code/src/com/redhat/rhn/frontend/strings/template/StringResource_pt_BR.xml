@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Olá,
 
-Um login da Red Hat foi criado para você por {0} {1}. O seu
-login, combinado a uma assinatura ativa da Red Hat, possibilitam o acesso à
-administração de sistemas no @@PRODUCT_NAME@@.
-
-  Login da Red Hat: {2}
-       Senha: {3}
-         e-mail: {4}
-
-  {5}
-
-Importante: por favor, altere sua senha ao se autenticar.
-
-Obrigado por usar o @@PRODUCT_NAME@@.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Olá,
 
-Um login da Red Hat foi criado para você. O seu
-login, combinado a uma assinatura ativa da Red Hat, possibilitam o acesso à
-administração de sistemas no Red Hat Network.
-
-  Login da Red Hat: {0}
-       Senha: {1}
-         e-mail: {2}
-
-  {3}
-
-Importante: por favor, altere sua senha ao se autenticar.
-
-Obrigado por usar o @@PRODUCT_NAME@@.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -449,25 +419,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ Este é um email automatizado enviado para {0} por sua requisição. ]
 
-Sua senha do @@PRODUCT_NAME@@ foi redefinida. Para entrar, vá para:
-
-https://{1}/
-
-E use o seguinte nome de usuário e senha:
-
-Username: {2}
-Password: {3}
-
-Depois que estiver autenticado, você poderá mudar sua senha.
-
-Caso continue a ter dificuldades em se autenticar, por favor entre em contato com
-seu administrador do @@PRODUCT_NAME@@ para obter assistência.
-
-Obrigado por usar  @@PRODUCT_NAME@@.
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -105,6 +105,8 @@ public class KickstartFormatter {
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
     {"rhn_register", "up2date", "rhn_register-gnome", "up2date-gnome"};
+    public static final String[] FRESH_PKG_NAMES_RHEL8 =
+    {"rhn-client-tools", "rhnsd", "dnf-plugin-spacewalk", "rhnlib", "spacewalk-koan"};
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
     private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
@@ -210,10 +212,7 @@ public class KickstartFormatter {
     }
 
     private void addLogEnd(StringBuilder buff, String logFile, String interpreter) {
-        if (ksdata.isRhel6OrGreater()) {
-            //nothing
-        }
-        else if (isBashInterpreter(interpreter)) {
+        if (!ksdata.isRhel6OrGreater() && isBashInterpreter(interpreter)) {
             buff.append(") >> " + logFile + " 2>&1" + NEWLINE);
         }
     }
@@ -561,7 +560,7 @@ public class KickstartFormatter {
         if (this.ksdata.getIgnoreMissing()) {
             opts = opts + SPACE + IGNORE_MISSING;
         }
-        if (this.ksdata.getNoBase()) {
+        if (this.ksdata.getNoBase() && !this.ksdata.isRhel8() && !this.ksdata.isFedora()) {
             opts = opts + SPACE + NO_BASE;
         }
         return PACKAGES + SPACE + opts + NEWLINE;
@@ -588,8 +587,8 @@ public class KickstartFormatter {
           buf.append("openssh-server" + NEWLINE);
         }
 
-        // packages necessary for RHEL 7
-        if (this.ksdata.isRhel7()) {
+        // packages necessary for RHEL 7 and Fedora
+        if (this.ksdata.isRhel7OrGreater() || this.ksdata.isFedora()) {
             buf.append("perl" + NEWLINE);
             buf.append("wget" + NEWLINE);
             buf.append("rhn-setup" + NEWLINE);
@@ -600,7 +599,7 @@ public class KickstartFormatter {
     }
 
     /**
-     * @param scrupts the kickstart scripts we want to render
+     * @param scripts the kickstart scripts we want to render
      * @return rendered script(s)
      */
     private String renderScripts(List<KickstartScript> scripts) {

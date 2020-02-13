@@ -154,9 +154,7 @@ public class RhnSetFactory extends HibernateFactory {
                 // COMMITTED, thus this exception can be safely ignored
             }
             catch (WrappedSQLException e) {
-                if (e.getMessage().contains("violates unique constraint")) {
-                    // see ConstraintViolationException
-                }
+                // see ConstraintViolationException
             }
         }
         if (!added.isEmpty()) {

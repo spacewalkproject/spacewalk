@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2016 Red Hat, Inc.
+-- Copyright (c) 2008--2018 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -788,13 +788,14 @@ IS
       end loop;
    end update_needed_cache;
 
-    procedure set_comps(channel_id_in in number, path_in in varchar2, timestamp_in in varchar2)
+    procedure set_comps(channel_id_in in number, path_in in varchar2, comps_type_id_in in number, timestamp_in in varchar2)
     is
     begin
         for row in (
             select relative_filename, last_modified
             from rhnChannelComps
             where channel_id = channel_id_in
+            and comps_type_id = comps_type_id_in
             ) loop
             if row.relative_filename = path_in
                 and row.last_modified = to_date(timestamp_in, 'YYYYMMDDHH24MISS') then
@@ -802,9 +803,10 @@ IS
             end if;
         end loop;
         delete from rhnChannelComps
-        where channel_id = channel_id_in;
-        insert into rhnChannelComps (id, channel_id, relative_filename, last_modified, created, modified)
-        values (sequence_nextval('rhn_channelcomps_id_seq'), channel_id_in, path_in, to_date(timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
+        where channel_id = channel_id_in
+        and comps_type_id = comps_type_id_in;
+        insert into rhnChannelComps (id, channel_id, relative_filename, comps_type_id, last_modified, created, modified)
+        values (sequence_nextval('rhn_channelcomps_id_seq'), channel_id_in, path_in, comps_type_id_in, to_date(timestamp_in, 'YYYYMMDDHH24MISS'), current_timestamp, current_timestamp);
     end set_comps;
 
 END rhn_channel;

@@ -28,22 +28,22 @@ public class GuestBuilderException extends Exception {
     }
 
     /**
-     * @param message
+     * @param message the message
      */
     public GuestBuilderException(String message) {
         super(message);
     }
 
     /**
-     * @param cause
+     * @param cause the cause
      */
     public GuestBuilderException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * @param message
-     * @param cause
+     * @param message the message
+     * @param cause the cause
      */
     public GuestBuilderException(String message, Throwable cause) {
         super(message, cause);

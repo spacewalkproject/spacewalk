@@ -45,7 +45,7 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         <arg>--no-rpms</arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--no-packages</arg> <arg>--force-all-packages</arg>
+        <arg>--no-packages</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--no-ssl</arg>
@@ -88,6 +88,9 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
     <cmdsynopsis>
         <arg>-s<replaceable>HOSTNAME</replaceable></arg>
         <arg>--server=<replaceable>HOSTNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--ignore-proxy</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></arg>
@@ -315,13 +318,6 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--force-all-packages</term>
-        <listitem>
-            <simpara>forcibly process full package metadata regardless of diff results.</simpara>
-            <simpara>This option will automatically enable --step rpms.</simpara>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>--force-all-errata</term>
         <listitem>
             <simpara>forcibly process all errata metadata regardless of diff results.</simpara>
@@ -427,6 +423,12 @@ Incrementally synchronize an Red Hat Satellite's DB data and RPM repository with
                 </listitem>
                 </varlistentry>
             </variablelist>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ignore-proxy</term>
+        <listitem>
+            <para>Do not use an http proxy under any circumstances</para>
         </listitem>
     </varlistentry>
     <varlistentry>

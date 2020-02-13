@@ -192,6 +192,7 @@ public class KickstartScriptOrderAction extends RhnLookupDispatchAction {
             HibernateFactory.getSession().save(script);
         }
         KickstartFactory.saveKickstartData(ksdata);
+        HibernateFactory.getSession().flush();
 
         // update scripts with the appropriate priorities
         for (KickstartScript script : scripts) {

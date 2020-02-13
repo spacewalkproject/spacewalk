@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2018 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,6 +12,11 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
+insert into rhnKSInstallType (id, label, name)
+        values (sequence_nextval('rhn_ksinstalltype_id_seq'),
+                'rhel_8','Red Hat Enterprise Linux 8'
+        );
+
 insert into rhnKSInstallType (id, label, name)
         values (sequence_nextval('rhn_ksinstalltype_id_seq'),
                 'rhel_7','Red Hat Enterprise Linux 7'

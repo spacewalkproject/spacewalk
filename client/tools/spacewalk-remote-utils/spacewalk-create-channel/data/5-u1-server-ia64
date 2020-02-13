@@ -476,8 +476,8 @@ gcc-c++-4.1.2-14.el5.ia64.rpm
 gcc-gfortran-4.1.2-14.el5.ia64.rpm
 gcc-gnat-4.1.2-14.el5.ia64.rpm
 gcc-java-4.1.2-14.el5.ia64.rpm
-gcc-objc-4.1.2-14.el5.ia64.rpm
 gcc-objc++-4.1.2-14.el5.ia64.rpm
+gcc-objc-4.1.2-14.el5.ia64.rpm
 GConf2-2.14.0-9.el5.ia64.rpm
 GConf2-devel-2.14.0-9.el5.ia64.rpm
 gconf-editor-2.16.0-3.el5.ia64.rpm

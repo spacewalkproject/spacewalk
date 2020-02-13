@@ -74,7 +74,7 @@ stop() {
 }
 
 status() {
-    spacewalk_target_services | xargs systemctl status -n0
+    spacewalk_target_services | xargs systemctl status --no-pager -n0
     systemctl status -n0 spacewalk.target
     return $?
 }

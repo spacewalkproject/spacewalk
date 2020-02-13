@@ -1,5 +1,5 @@
 #
-# Copyright (c) 1999--2016 Red Hat, Inc.
+# Copyright (c) 1999--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -24,8 +24,6 @@ from yum.plugins import PluginYumExit
 sys.path.append("/usr/share/yum-cli")
 
 import callback
-
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateLog
 from up2date_client import config

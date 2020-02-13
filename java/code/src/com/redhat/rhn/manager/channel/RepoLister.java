@@ -60,9 +60,7 @@ public class RepoLister extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgIn.getId());
         Map<String, Object> elabParams = new HashMap<String, Object>();
-        DataResult<ContentSourceDto> returnDataResult = makeDataResult(params,
-                                                            elabParams, null, m);
-        return returnDataResult;
+        return (DataResult<ContentSourceDto>) makeDataResult(params, elabParams, null, m);
     }
 
     /**

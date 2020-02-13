@@ -71,6 +71,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="comps" property-ref="channel"
             class="com.redhat.rhn.domain.channel.Comps" cascade="all" lazy="proxy"/>
 
+        <one-to-one name="modules" property-ref="channel"
+            class="com.redhat.rhn.domain.channel.Modules" cascade="all" lazy="proxy"/>
+
         <set name="trustedOrgs" lazy="true" table="rhnChannelTrust"
          cascade="save-update">
             <key column="channel_id"/>
@@ -125,10 +128,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <sql-delete callable="true">{? = call rhn.delete_channel(:id)}</sql-delete>
         -->
     </class>
-
-    <query name="Channel.listCustomChannels">
-        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.org = :org order by name]]>
-    </query>
 
     <query name="Channel.findRedHatBaseChannels">
         <![CDATA[

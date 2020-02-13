@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
@@ -27,8 +26,7 @@ public class ViewCompletedLogAction extends BaseViewLogAction {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = SsmOperationManager.completedOperations(user);
-        return result;
+        return SsmOperationManager.completedOperations(user);
     }
 
     protected String getSummaryKey() {

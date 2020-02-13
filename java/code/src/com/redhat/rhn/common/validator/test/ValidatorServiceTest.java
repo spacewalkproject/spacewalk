@@ -39,6 +39,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         to.setStringField("somevalue");
         to.setDateField(new Date());
         to.setLongField(new Long(10));
+        to.setThirdLongField(new Long(65168651651435L));
         to.setSecondStringField("someothervalue");
         to.setNumberString("1");
         to.setAsciiString("asciivalue");
@@ -53,13 +54,14 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
     /** Test the method on the ValidationService where we let the
      * service attempt to find the XSD associated with the object
      * in the same directory.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testValidateObjectNoValidator() throws Exception {
         TestObject to = new TestObject();
         to.setStringField("somevalue");
         to.setDateField(new Date());
         to.setLongField(new Long(10));
+        to.setThirdLongField(new Long(65168651651435L));
         to.setSecondStringField("someothervalue");
         to.setNumberString("1");
         to.setAsciiString("asciivalue");

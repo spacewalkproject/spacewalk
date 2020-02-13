@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2014 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -37,7 +37,8 @@ from spacewalk.server.rhnServer import satellite_cert
 # Try to import cdn activation module if available
 try:
     from spacewalk.cdn_tools import activation as cdn_activation
-    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError, ManifestValidationError
+    from spacewalk.cdn_tools.manifest import MissingSatelliteCertificateError, ManifestValidationError,\
+        IncorrectEntitlementsFileFormatError
     from spacewalk.cdn_tools.common import CdnMappingsLoadError
 except ImportError:
     cdn_activation = None
@@ -184,15 +185,11 @@ def writeRhsmManifest(options, manifest):
     options.manifest = DEFAULT_RHSM_MANIFEST_LOCATION
 
 
-def prepRhsmManifest(options):
-    """ minor prepping of the RHSM manifest
+def storeRhsmManifest(options):
+    """ storing of the RHSM manifest
         writing to default storage location
     """
 
-    # NOTE: db_* options MUST be populated in /etc/rhn/rhn.conf before this
-    #       function is run.
-    #       validateSatCert() must have been run prior to this as well (it
-    #       populates "/var/log/entitlementCert"
     if options.manifest and options.manifest != DEFAULT_RHSM_MANIFEST_LOCATION:
         try:
             manifest = open(os.path.abspath(os.path.expanduser(options.manifest)), 'rb').read()
@@ -353,6 +350,7 @@ def main():
         15   cannot load mapping files
         16   manifest download failed
         17   manifest refresh failed
+        18   manifest entitlements parse failed
         30   local activation failure
 
         90   not registered to rhsm
@@ -433,6 +431,9 @@ def main():
     except MissingSatelliteCertificateError, e:
         writeError(e)
         return 13
+    except IncorrectEntitlementsFileFormatError, e:
+        writeError(e)
+        return 18
 
     # general sanity/GPG check
     try:
@@ -466,14 +467,14 @@ def main():
             writeError(e)
             return 91
 
-    prepRhsmManifest(options)
-
     try:
         cdn_activate.activate()
     except ManifestValidationError:
         e = sys.exc_info()[1]
         writeError(e)
         return 14
+
+    storeRhsmManifest(options)
 
     return 0
 

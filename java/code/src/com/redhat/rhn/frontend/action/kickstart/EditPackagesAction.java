@@ -142,28 +142,13 @@ public class EditPackagesAction extends RhnAction {
 
         // first clear the kickstart packages set
         ksdata.clearKsPackages();
-        Set ksPackages = ksdata.getKsPackages();
 
         String newPackages = form.getString(PACKAGE_LIST);
         if (newPackages != null && newPackages.length() > 0) {
-            Boolean first = Boolean.TRUE;
             for (StringTokenizer strtok = new StringTokenizer(newPackages, "\n");
                     strtok.hasMoreTokens();) {
 
-                // This is a hack but I can't think of a better way to do it
-                String pkg = null;
-                if (first && (!ksdata.getNoBase())) {
-                    pkg = "@ Base";
-                    PackageName pn = PackageFactory.lookupOrCreatePackageByName(pkg);
-                    KickstartPackage kp = new KickstartPackage(ksdata, pn);
-                    if (KickstartFactory.lookupKsPackageByKsDataAndPackageName(
-                                                            ksdata, pn).isEmpty()) {
-                        ksdata.addKsPackage(kp);
-                    }
-                }
-                first = false;
-
-                pkg = strtok.nextToken();
+                String pkg = strtok.nextToken();
                 pkg = pkg.trim();
                 if (pkg.length() == 0) {
                     continue;

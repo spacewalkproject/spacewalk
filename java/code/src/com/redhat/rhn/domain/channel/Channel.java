@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -74,6 +74,7 @@ public class Channel extends BaseDomainHelper implements Comparable<Channel> {
     private ChannelProduct product;
     private ProductName productName;
     private Comps comps;
+    private Modules modules;
     private String summary;
     private Set<Errata> erratas = new HashSet<Errata>();
     private Set<Package> packages = new HashSet<Package>();
@@ -206,6 +207,20 @@ public class Channel extends BaseDomainHelper implements Comparable<Channel> {
      */
     public Comps getComps() {
         return comps;
+    }
+
+    /**
+     * @param modulesIn The Modules to set.
+     */
+    public void setModules(Modules modulesIn) {
+        this.modules = modulesIn;
+    }
+
+    /**
+     * @return Returns the Modules.
+     */
+    public Modules getModules() {
+        return modules;
     }
 
     /**
@@ -692,11 +707,7 @@ public class Channel extends BaseDomainHelper implements Comparable<Channel> {
      * @return true if the access provided is valid
      */
     public boolean isValidAccess(String acc) {
-        if (acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) ||
-                acc.equals(Channel.PROTECTED)) {
-            return true;
-        }
-        return false;
+        return acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) || acc.equals(Channel.PROTECTED);
     }
 
     /**

@@ -4,8 +4,7 @@
 #
 # Author: Preston Brown <pbrown@redhat.com>
 
-import gtk
-gtk.glade.bindtextdomain("rhn-client-tools")
+from up2date_client.gtk_compat import gtk, setCursor
 
 class Progress:
     def __init__(self):
@@ -16,17 +15,14 @@ class Progress:
         self.progressWindow = self.xml.get_widget("progressWindow")
         self.progressWindow.connect("delete-event", self.progressWindow.hide)
         #self.progressWindow.connect("hide", self.progressWindow.hide)
-        cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-        self.progressWindow.window.set_cursor(cursor)
-        while gtk.events_pending():
-            gtk.main_iteration(False)
+        setCursor(self.progressWindow, gtk.CURSOR_WATCH)
 
         self.lastProgress = 0.0
 
     def hide(self):
         self.progressWindow.hide()
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
         del self
 
@@ -34,7 +30,7 @@ class Progress:
         label = self.xml.get_widget("progressLabel")
         label.set_text(text)
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
     # the xmlrpc callbacks only use the first three
     # the GET style use all 4, so pass em but dont use them
@@ -53,17 +49,17 @@ class Progress:
                 i = 0
 #            gtk.gdk_flush()
             while gtk.events_pending():
-                gtk.main_iteration(False)
+                gtk.main_iteration_do(False)
             self.lastProgress = i
 
     def setStatusLabel(self, text):
         self.xml.get_widget("statusLabel").set_text(text)
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
     def destroy(self):
         while gtk.events_pending():
-            gtk.main_iteration(False)
+            gtk.main_iteration_do(False)
 
         self.progressWindow.destroy()
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -205,14 +205,6 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
         assertEquals(1, eos.size());
     }
 
-    public void testAllErrataList() {
-        User user = UserTestUtils.findNewUser("testUser",
-                "testOrg" + this.getClass().getSimpleName());
-        DataResult errata = ErrataManager.allErrata(user);
-        assertNotNull(errata);
-        assertTrue(errata.size() <= 20);
-    }
-
     public void testRelevantErrataList() throws Exception {
         User user = UserTestUtils.findNewUser("testUser",
                 "testOrg" + this.getClass().getSimpleName());
@@ -330,8 +322,8 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
                     this.getClass().getSimpleName()));
 
         assertFalse(e1.getId().equals(e2.getId())); //make sure adv names are different
-        assertTrue(ErrataManager.advisoryNameIsUnique(e2.getId(), e2.getAdvisoryName()));
-        assertFalse(ErrataManager.advisoryNameIsUnique(e2.getId(), e1.getAdvisoryName()));
+        //assertTrue(ErrataManager.advisoryNameIsUnique(e2.getId(), e2.getAdvisoryName()));
+        //assertFalse(ErrataManager.advisoryNameIsUnique(e2.getId(), e1.getAdvisoryName()));
     }
 
     // Don't need this test to actually run right now.  Its experimental.
@@ -658,10 +650,7 @@ public class ErrataManagerTest extends BaseTestCaseWithUser {
      * @return the errata action
      */
     private ErrataAction errataActionFromAction(Action action) {
-        ErrataAction errataAction = (ErrataAction) HibernateFactory.getSession()
-                .createCriteria(ErrataAction.class)
-                .add(Restrictions.idEq(action.getId()))
-                .uniqueResult();
-        return errataAction;
+        return (ErrataAction) HibernateFactory.getSession().createCriteria(ErrataAction.class)
+                .add(Restrictions.idEq(action.getId())).uniqueResult();
     }
 }

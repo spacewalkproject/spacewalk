@@ -1,6 +1,6 @@
 # Spacewalk Proxy Server Broker handler code.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -362,8 +362,8 @@ class BrokerHandler(SharedHandler):
         args = req.path_info.split('/')
         if len(args) < 5:
             return (None, None, None, None)
-        else:
-            return (args[1], args[2], args[3], args[4:])
+
+        return (args[1], args[2], args[3], args[4:])
 
     # --- PRIVATE METHODS ---
 
@@ -430,13 +430,6 @@ class BrokerHandler(SharedHandler):
             # XXX: there has to be a more elegant way to do this
             return None
 
-        # --- LOCAL GET:
-        localFlist = CFG.PROXY_LOCAL_FLIST or []
-
-        if reqaction not in localFlist:
-            # Not an action we know how to handle
-            return None
-
         # kickstarts don't auth...
         if req_type in ['$RHN', 'GET-REQ']:
             # --- AUTH. CHECK:
@@ -454,6 +447,13 @@ class BrokerHandler(SharedHandler):
             else:
                 # Not a local channel
                 return None
+
+        # --- LOCAL GET:
+        localFlist = CFG.PROXY_LOCAL_FLIST or []
+
+        if reqaction not in localFlist:
+            # Not an action we know how to handle
+            return None
 
         # We have a match; we'll try to serve packages from the local
         # repository
@@ -486,7 +486,7 @@ class BrokerHandler(SharedHandler):
             log_debug(3, "Client server ID not found in headers")
             # XXX: no client server ID in headers, should we care?
             #raise rhnFault(1000, _("Client Server ID not found in headers!"))
-            return
+            return None
         serverId = 'X-RHN-Server-ID'
 
         self.clientServerId = headers[serverId]
@@ -591,7 +591,8 @@ class BrokerHandler(SharedHandler):
         """ Authentication / authorize the channel """
 
         log_debug(2, token, channel)
-        self.clientServerId = token['X-RHN-Server-ID']
+        # make sure server-id does not contain path
+        self.clientServerId = token['X-RHN-Server-ID'].split("/")[-1]
 
         cachedToken = self.proxyAuth.get_client_token(self.clientServerId)
         if not cachedToken:

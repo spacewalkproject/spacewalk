@@ -43,7 +43,7 @@ public class PackageActionTest extends RhnBaseTestCase {
 
     /**
      * Test fetching a PackageAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testLookupPackageAction() throws Exception {
 

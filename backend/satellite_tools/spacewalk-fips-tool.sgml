@@ -92,9 +92,7 @@ A tool to help in the process of converting certificates of registered
         <emphasis>spacewalk-report</emphasis> tool:
     </para>
     <para>
-        <command>
-            $ spacewalk-report system-md5-certificates > systems-md5.csv
-        </command>
+        <command>$ spacewalk-report system-md5-certificates > systems-md5.csv</command>
     </para>
 </RefSect1>
 

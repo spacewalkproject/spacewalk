@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@ package com.redhat.rhn.domain.server;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.org.Org;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.util.Set;
@@ -104,6 +105,17 @@ public class SnapshotTag extends BaseDomainHelper {
         return new HashCodeBuilder().append(name.hashCode())
                                     .append(org.hashCode())
                                     .toHashCode();
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+        SnapshotTag other = (SnapshotTag) obj;
+        return new EqualsBuilder().append(name.hashCode(), other.name.hashCode())
+                                  .append(org.hashCode(), other.org.hashCode())
+                                  .isEquals();
     }
 
 }

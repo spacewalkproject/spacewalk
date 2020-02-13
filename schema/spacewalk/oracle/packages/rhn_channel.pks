@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2013 Red Hat, Inc.
+-- Copyright (c) 2008--2018 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -114,7 +114,7 @@ IS
 
     PROCEDURE update_needed_cache(channel_id_in in number);
 
-    procedure set_comps(channel_id_in in number, path_in in varchar2, timestamp_in in varchar2);
+    procedure set_comps(channel_id_in in number, path_in in varchar2, comps_type_id_in in number, timestamp_in in varchar2);
 
 END rhn_channel;
 /

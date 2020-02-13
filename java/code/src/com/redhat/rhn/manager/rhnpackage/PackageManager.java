@@ -103,8 +103,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -118,8 +117,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -133,8 +131,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -148,8 +145,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -163,8 +159,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -178,8 +173,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -193,8 +187,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -208,8 +201,7 @@ public class PackageManager extends BaseManager {
                                            Map.class);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -221,8 +213,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "packages_in_channel");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("cid", cid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
 
@@ -238,8 +229,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -253,8 +243,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", orgId);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -266,8 +255,7 @@ public class PackageManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("Package_queries", "package_files");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -296,8 +284,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", pid);
         params.put("org_id", user.getOrg().getId());
-        DataResult dr = m.execute(params);
-        return dr;
+        return m.execute(params);
     }
 
     /**
@@ -617,7 +604,8 @@ public class PackageManager extends BaseManager {
      * @param epoch2 Epoch 2
      * @param version2 Version 2
      * @param release2 Release 2
-     * @return Returns 1 if EVR1 > EVR2, -1 if EVR1 < EVR2, and 0 if EVR1 == EVR2.
+     * @return {@literal Returns 1 if EVR1 > EVR2, -1 if EVR1 < EVR2,
+     *  and 0 if EVR1 == EVR2.}
      */
     public static int verCmp(String epoch1, String version1, String release1,
                              String epoch2, String version2, String release2) {
@@ -1384,8 +1372,7 @@ public class PackageManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -1401,8 +1388,7 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
     }
 
     /**
@@ -1479,8 +1465,18 @@ public class PackageManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("pid", packageId);
 
-        DataResult result = m.execute(params);
-        return result;
+        return m.execute(params);
+    }
+
+    private static Package findDebugPackage(User user, Package pack, String type) {
+        PackageEvr evr = pack.getPackageEvr();
+        String name = pack.getPackageName().getName() + "-" + type;
+        List<Package> list =  PackageFactory.lookupByNevra(user.getOrg(),
+                name, evr.getVersion(), evr.getRelease(), null, pack.getPackageArch());
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 
     /**
@@ -1490,14 +1486,17 @@ public class PackageManager extends BaseManager {
      * @return The Package object that is debug info, or null if not found
      */
     public static Package findDebugInfo(User user, Package pack) {
-        PackageEvr evr = pack.getPackageEvr();
-        String name = pack.getPackageName().getName() + "-debuginfo";
-        List<Package> list =  PackageFactory.lookupByNevra(user.getOrg(),
-                name, evr.getVersion(), evr.getRelease(), null, pack.getPackageArch());
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
+        return findDebugPackage(user, pack, "debuginfo");
+    }
+
+    /**
+     * Find a debugsource package for a given package
+     * @param user The User doing the search
+     * @param pack the package we need a debug source for
+     * @return The Package object that is debug source, or null if not found
+     */
+    public static Package findDebugSource(User user, Package pack) {
+        return findDebugPackage(user, pack, "debugsource");
     }
 
 
@@ -1670,7 +1669,7 @@ public class PackageManager extends BaseManager {
      * pretty much a line for line port of the perl code.
      * @param sense A number whose number can tell us what kind of modifier is needed
      * @param version The version of the dependency we're investigating
-     * @return Returns a string in the form of something like '>= 4.1-3'
+     * @return Returns a string in the form of something like {@literal '>= 4.1-3'}
      */
     public static String getDependencyModifier(Long sense, String version) {
         StringBuilder depmod = new StringBuilder();

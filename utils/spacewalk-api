@@ -1,7 +1,7 @@
-#!/usr/bin/perl
-use strict;
+#!/usr/bin/python2
 #
-# Copyright (c) 2009--2015 Red Hat, Inc.
+# Copyright (c) 2017--2018 Red Hat, Inc.
+#
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -15,169 +15,87 @@ use strict;
 # in this software or its documentation.
 #
 
-use Data::Dumper;
-use Getopt::Long;
-use Frontier::Client;
-use Term::ReadKey;
-use Scalar::Util qw(looks_like_number);
+from getpass import getpass
+from optparse import Option, OptionParser
+import re
+import sys
 
-#set defaults;
-my ($server, $user, $password)= ('', '', '');
-my $login=1;
+try:
+    import xmlrpclib
+except ImportError:
+    import xmlrpc.client as xmlrpclib  # pylint: disable=F0401
 
-my $usage = "Usage: $0 --server=<server> [--login] [--user=<user>] [--password=<password>] [--force]\n";
-GetOptions("server=s" => \$server,
-        "login!" => \$login,
-        "user:s" => \$user,
-        "password:s" => \$password,
-        ) or die $usage;
+def processCommandline(argv):
+    optionsTable = [
+        Option('--server', action='store', dest='server',
+            help='URL of your Spacewalk server.'),
+        Option('--user', action='store', dest='username',
+            help='Name of user to log in.'),
+        Option('--password', action='store', dest='password',
+            help='If you do not specify this and unless --nologin is specified, you will be prompted for your password.'),
+        Option('--login', action='store_true', dest='login', default=True,
+            help='If we should log in or not. Default is to log in.'),
+        Option('--nologin', action='store_false', dest='login',
+            help='If we should log in or not. Default is to log in.'),
+    ]
+    optionParser = OptionParser(
+        usage="Usage: %s --server=<server> [--login] [--user=<user>] [--password=<password>]" % sys.argv[0],
+        option_list=optionsTable)
 
-if (not $server) {
-        print "Error: No server specified.\n";
-        exit 1;
-}
+    options, unparsed = optionParser.parse_args(argv[1:])
 
-# read username if not given on command line
-if ((not $user) and $login) {
-        print "Enter username: ";
-        $user = ReadLine 0;
-        chomp $user;
-        print "\n";
-}
+    if not options.server:
+        sys.stderr.write('Error: No server specified.\n')
+        sys.exit(1)
 
-# read password if not given on command line
-if ((not $password) and $login) {
-        print "Enter your password: ";
-        ReadMode 'noecho';
-        $password = ReadLine 0;
-        chomp $password;
-        ReadMode 'normal';
-        print "\n";
-}
+    if not options.username and options.login:
+        with open('/dev/tty', 'r+') as tty:
+            tty.write('Enter username: ')
+            try:
+                options.username = tty.readline()
+            except KeyboardInterrupt:
+                tty.write("\n")
+                sys.exit(0)
 
-my $client = new Frontier::Client(url => "http://$server/rpc/api");
+    if not options.password and options.login:
+        options.password = getpass('Enter your password: ')
 
-my $session;
-if ($login) {
-        $session = $client->call('auth.login', $client->string($user),
-                $client->string($password));
-        if (not $session) {
-                print "Error: Log in failed.\n";
-                exit 2;
-        }
-}
+    return options, unparsed
 
-my @params;
-while (my $param = shift @ARGV) {
-        if ($param eq '%session%') {
-                $param = $session;
-        } elsif ( $param =~ '%file:(.*)%') {
-                open F, $1 or die "Error: Could not open $1";
-                $param = join('', <F>);
-                close F;
-        } elsif ( $param =~ '%boolean:(.*)%') {
-                unless (looks_like_number($1)) {
-                    print "Invalid boolean value: $1\n";
-                    exit 3;
-                }
-                $param = $client->boolean($1);
-        } elsif ( $param =~ '%integer:(.*)%') {
-                unless (looks_like_number($1)) {
-                    print "Invalid integer value: $1\n";
-                    exit 4;
-                }
-                $param = $client->int($1);
-        } elsif ( $param =~ '%string:(.*)%') {
-                $param = $client->string($1);
-        }
-        push @params, $param;
-}
+if __name__ == '__main__':
+    options, unparsed = processCommandline(sys.argv)
 
-my $data = $client->call(@params);
+    client = xmlrpclib.Server('http://%s/rpc/api' % options.server, verbose=0)
+    session = ''
+    if options.login:
+        try:
+            session = client.auth.login(options.username, options.password)
+        except xmlrpclib.Fault:
+            sys.stderr.write('Error: %s \n' % str(sys.exc_info()[1]))
+            sys.exit(1)
 
-$Data::Dumper::Useqq = 1;
+    params = []
+    for param in unparsed:
+        if param == '%session%':
+            param = session
+        elif re.compile('%file:(.*)%').search(param):
+            filename = re.compile('%file:(.*)%').search(param).groups()[0]
+            with open(filename, 'r') as f:
+                param = f.read()
+        elif re.compile('%boolean:(.*)%').search(param):
+                param = bool(re.compile('%boolean:(.*)%').search(param).groups()[0])
+        elif re.compile('%integer:(.*)%').search(param):
+                param = int(re.compile('%integer:(.*)%').search(param).groups()[0])
+        elif re.compile('%string:(.*)%').search(param):
+                param = re.compile('%string:(.*)%').search(param).groups()[0]
+        params.append(param)
 
-{ no warnings 'redefine';
-    sub Data::Dumper::qquote {
-        my $s = shift;
-        return "'$s'";
-    }
-}
-
-binmode STDOUT, ':encoding(UTF-8)';
-
-print Data::Dumper->Dump([$data], ["result"]);
-
-if ($login) {
-        $client->call('auth.logout', $session);
-}
-
-=pod
-
-=encoding utf8
-
-=head1 NAME
-
-spacewalk-api - Call Spacawalk API from command line.
-
-=head1 SYNOPSIS
-
-spacewalk-api [OPTIONS] --server=spacewalk.domain.com FUNCTION [PARAM1 PARAM2 ...]
-
-=head1 DESCRIPTION
-
-spacewalk-api interact with the Spacewalk server and expose its API layer.
-
-FUNCTION is api method you wish to call and is followed by its parameters.
-There is few special substitution available:
-
-%session%
-        Is replaced with sessionid. If you use --nologin option, then it is replaced by empty string.
-
-%file:/some/file%
-        Is replaced by content of given file.
-
-%boolean:value%
-        Is interpreted as a boolean value. Use B<0> as B<false> and B<any other integer> as B<true>.
-
-%integer:value%
-        Is interpreted as an integer value.
-
-%string:value%
-        Is interpreted as a string value.
-
-=head1 OPTIONS
-
---server
-        URL of your Spacewalk server.
-
---login
---nologin
-        If we should log in or not. Default is to log in.
-
---user
-        Name of user to log in.
-
---password
-        If you do not specify this and unless --nologin is specified, you will be prompted for your password.
-
-=head1 EXAMPLES
-
-  spacewalk-api --server=spacewalk.com --nologin api.systemVersion
-
-  spacewalk-api --server=spacewalk.com --user=foo --password=bar channel.listAllChannels "%session%"
-
-  spacewalk-api --server=spacewalk.com --user=foo --password=bar user.setReadOnly "%session%" user "%boolean:1%"
-
-  spacewalk-api --server=spacewalk.com --nologin proxy.isProxy '%file:/etc/sysconfig/rhn/systemid%'
-
-=head1 AUTHOR
-
-Miroslav Suchý <msuchy@redhat.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (c) 2009--2015 Red Hat, Inc.
-Released under GNU General Public License, version 2 (GPLv2).
-
-=cut
+    try:
+        result = getattr(client, params[0])(*params[1:])
+        sys.stdout.write(str(result) + '\n')
+    except xmlrpclib.Fault:
+        sys.stderr.write('Fault returned from XML RPC Server: %s\n' % str(sys.exc_info()[1]))
+        sys.exit(1)
+    finally:
+        if options.login:
+            client.auth.logout(session)

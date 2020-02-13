@@ -85,7 +85,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <!-- ConfigUploadAction: 15 -->
                 <subclass name="com.redhat.rhn.domain.action.config.ConfigUploadAction"
                     discriminator-value="15" lazy="true">
-                    <set name="rhnActionConfigChannel" cascade="all" lazy="false">
+                    <set name="rhnActionConfigChannel" table="rhnActionConfigChannel" cascade="all" lazy="false">
                         <key column="action_id"/>
                         <composite-element
                             class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">
@@ -104,7 +104,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                         </many-to-one>
                                 </composite-element>
                     </set>
-                    <set name="rhnActionConfigFileName" cascade="all" lazy="true">
+                    <set name="rhnActionConfigFileName" table="rhnActionConfigFileName" cascade="all" lazy="true">
                         <key column="action_id"/>
                         <composite-element
                             class="com.redhat.rhn.domain.action.config.ConfigFileNameAssociation">
@@ -137,7 +137,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                  to make sure the name of the variable is the same as the table name
                                  since Hibernate doesnt support name and table attributes for the set
                                  element.  Ugly, but its less code -->
-                        <set name="rhnActionConfigChannel" cascade="all" lazy="true">
+                        <set name="rhnActionConfigChannel" table="rhnActionConfigChannel" cascade="all" lazy="true">
                                 <key column="action_id"/>
                                 <composite-element
                                         class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">

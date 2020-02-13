@@ -873,8 +873,8 @@ gc-7.2d-7.el7.x86_64.rpm
 gcc-c++-4.8.5-4.el7.x86_64.rpm
 gcc-gnat-4.8.5-4.el7.x86_64.rpm
 gcc-go-4.8.5-4.el7.x86_64.rpm
-gcc-objc-4.8.5-4.el7.x86_64.rpm
 gcc-objc++-4.8.5-4.el7.x86_64.rpm
+gcc-objc-4.8.5-4.el7.x86_64.rpm
 gcc-plugin-devel-4.8.5-4.el7.x86_64.rpm
 gc-devel-7.2d-7.el7.i686.rpm
 gc-devel-7.2d-7.el7.x86_64.rpm

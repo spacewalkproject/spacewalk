@@ -20,7 +20,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 import org.cobbler.Distro;
@@ -198,12 +197,6 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     private String createDistro(KickstartableTree tree, boolean xen) {
         String treeLabel = tree.getLabel();
         log.debug("Trying to create: " + treeLabel + " in cobbler over xmlrpc");
-        Map ksmeta = new HashMap();
-        KickstartUrlHelper helper = new KickstartUrlHelper(tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                helper.getKickstartMediaPath());
-
-
 
         if (!xen) {
 
@@ -232,12 +225,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         "] unusable.";
             }
 
-            Distro distro = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerDistroName(), tree.getKernelPath(),
-                    tree.getInitrdPath(), ksmeta, tree.getInstallType().getCobblerBreed(),
-                    tree.getInstallType().getCobblerOsVersion(),
-                    tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerId(distro.getUid());
+            CobblerDistroHelper.getInstance().createDistroFromTree(
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree);
             invokeCobblerUpdate();
         }
         else if (tree.doesParaVirt() && xen) {
@@ -251,13 +241,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 return error;
             }
 
-            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getAutomatedConnection(),
-                    tree.getCobblerXenDistroName(), tree.getKernelXenPath(),
-                    tree.getInitrdXenPath(), ksmeta,
-                    tree.getInstallType().getCobblerBreed(),
-                    tree.getInstallType().getCobblerOsVersion(),
-                    tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerXenId(distroXen.getUid());
+            CobblerDistroHelper.getInstance().createXenDistroFromTree(
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
+                    tree);
         }
         tree.setModified(new Date());
         return null;
@@ -292,9 +278,6 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             log.debug("Syncing: " + tree.getLabel() + " to cobbler over xmlrpc");
             CobblerDistroEditCommand command = new CobblerDistroEditCommand(tree);
             command.store();
-        }
-        else {
-            //Do nothing.  Let us be out of sync with cobbler
         }
     }
 }

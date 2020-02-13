@@ -83,56 +83,58 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">
-                            <bean:message key="sdc.details.edit.notifications"/>
-                        </label>
-                        <div class="col-lg-6">
-                            <c:choose>
-                                <c:when test="${notifications_disabled}">
-                                    <bean:message key="sdc.details.overview.notifications.disabled"/>
-                                </c:when>
-                                <c:when test="${system.baseEntitlement == null}">
-                                    <bean:message key="sdc.details.edit.notifications.unentitled"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="checkbox">
-                                        <label for="receive_notifications">
-                                            <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
-                                            <strong><bean:message key="sdc.details.edit.updates"/></strong>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label for="summary">
-                                            <html:checkbox property="include_in_daily_summary" styleId="summary"/>
-                                            <strong><bean:message key="sdc.details.edit.summary"/></strong>
-                                        </label>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                    <rhn:require acl="system_has_management_entitlement()">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                <bean:message key="sdc.details.edit.notifications"/>
+                            </label>
+                            <div class="col-lg-6">
+                                <c:choose>
+                                    <c:when test="${notifications_disabled}">
+                                        <bean:message key="sdc.details.overview.notifications.disabled"/>
+                                    </c:when>
+                                    <c:when test="${system.baseEntitlement == null}">
+                                        <bean:message key="sdc.details.edit.notifications.unentitled"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="checkbox">
+                                            <label for="receive_notifications">
+                                                <html:checkbox property="receive_notifications" styleId="receive_notifications"/>
+                                                <strong><bean:message key="sdc.details.edit.updates"/></strong>
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label for="summary">
+                                                <html:checkbox property="include_in_daily_summary" styleId="summary"/>
+                                                <strong><bean:message key="sdc.details.edit.summary"/></strong>
+                                            </label>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label" for="autoerrataupdate">
-                            <bean:message key="sdc.details.edit.autoerrataupdate"/>
-                        </label>
-                        <div class="col-lg-6">
-                            <c:choose>
-                                <c:when test="${system.baseEntitlement == null}">
-                                    <bean:message key="sdc.details.edit.autoupdate.unentitled"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="checkbox">
-                                        <label for="autoerrataupdate">
-                                            <html:checkbox property="auto_update" styleId="autoerrataupdate"/>
-                                            <bean:message key="sdc.details.edit.autoupdate"/>
-                                        </label>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label" for="autoerrataupdate">
+                                <bean:message key="sdc.details.edit.autoerrataupdate"/>
+                            </label>
+                            <div class="col-lg-6">
+                                <c:choose>
+                                    <c:when test="${system.baseEntitlement == null}">
+                                        <bean:message key="sdc.details.edit.autoupdate.unentitled"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="checkbox">
+                                            <label for="autoerrataupdate">
+                                                <html:checkbox property="auto_update" styleId="autoerrataupdate"/>
+                                                <bean:message key="sdc.details.edit.autoupdate"/>
+                                            </label>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
-                    </div>
+                    </rhn:require>
 
                     <div class="form-group">
                         <label for="description" class="col-lg-3 control-label">

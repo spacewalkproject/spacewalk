@@ -133,10 +133,7 @@ public class CompareSystemSetupAction extends RhnAction {
         Long sid = requestContext.getRequiredParam(RequestContext.SID);
         Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
 
-        DataResult dr = ProfileManager.compareServerToServer(sid,
-                sid1, requestContext.getCurrentUser().getOrg().getId(), null);
-
-        return dr;
+        return ProfileManager.compareServerToServer(sid, sid1, requestContext.getCurrentUser().getOrg().getId(), null);
     }
 
     /**

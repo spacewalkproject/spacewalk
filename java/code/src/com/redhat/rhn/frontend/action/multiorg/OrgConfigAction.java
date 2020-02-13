@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
@@ -22,16 +33,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * OrgDetailsAction extends RhnAction - Class representation of the table
@@ -55,7 +56,12 @@ public class OrgConfigAction extends RhnAction {
         }
         request.setAttribute(RequestContext.ORG, org);
         request.setAttribute("edit_disabled", !org.getOrgAdminMgmt().isEnabled());
-        return process(mapping, request, ctx, org);
+        if (org.getOrgAdminMgmt().isEnabled()) {
+            return process(mapping, request, ctx, org);
+        }
+        else {
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        }
     }
 
     protected ActionForward process(ActionMapping mapping, HttpServletRequest request,
@@ -119,7 +125,8 @@ public class OrgConfigAction extends RhnAction {
 
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("message.org_name_updated", org.getName()));
+                    new ActionMessage("message.org_name_updated",
+                    StringEscapeUtils.escapeHtml(org.getName())));
             getStrutsDelegate().saveMessages(request, msg);
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                     RequestContext.ORG_ID,

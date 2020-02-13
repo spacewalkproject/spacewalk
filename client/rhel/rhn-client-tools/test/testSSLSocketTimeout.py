@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import sys
 
 import unittest
@@ -15,6 +16,11 @@ def write(blip):
 
 
 class TestSomething(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.http_proxy = os.getenv("HTTP_PROXY") or os.getenv("http_proxy")
+        cls.https_proxy = os.getenv("HTTPS_PROXY") or os.getenv("https_proxy")
+
     def setUp(self):
         self.__setupData()
 
@@ -22,14 +28,22 @@ class TestSomething(unittest.TestCase):
         pass
 
     def testHttpConnection(self):
-        con = httplib.HTTPConnection("www.adrianlikins.com")
+        if self.http_proxy:
+            con = httplib.HTTPConnection(self.http_proxy)
+            con.set_tunnel("www.adrianlikins.com")
+        else:
+            con = httplib.HTTPConnection("www.adrianlikins.com")
         con.request("GET", "/")
         r1 = con.getresponse()
         data = r1.read()
         con.close()
 
     def testHttpsConnection(self):
-        con = httplib.HTTPSConnection("rhn.redhat.com")
+        if self.https_proxy:
+            con = httplib.HTTPSConnection(self.https_proxy)
+            con.set_tunnel("rhn.redhat.com")
+        else: 
+            con = httplib.HTTPSConnection("rhn.redhat.com")
         con.request("GET", "/")
         r1 = con.getresponse()
         data = r1.read()
@@ -38,7 +52,11 @@ class TestSomething(unittest.TestCase):
     def testHTTPSConnectionTimeout(self):
         import socket
         socket.setdefaulttimeout(3)
-        con = httplib.HTTPSConnection("rhn.redhat.com")
+        if self.https_proxy:
+            con = httplib.HTTPSConnection(self.https_proxy)
+            con.set_tunnel("rhn.redhat.com")
+        else:
+            con = httplib.HTTPSConnection("rhn.redhat.com")
         con.request("GET", "/")
         r1 = con.getresponse()
         data = r1.read()

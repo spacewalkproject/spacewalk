@@ -156,9 +156,10 @@ public class CSVDownloadAction extends DownloadAction {
 
     /**
      * Returns the header name
-     * @param request
+     * @param request the http servlet request
+     * @param session the session
      * @return the header name
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     protected String getHeaderText(HttpServletRequest request, HttpSession session)
         throws Exception {

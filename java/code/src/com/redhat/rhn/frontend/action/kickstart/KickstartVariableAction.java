@@ -132,8 +132,8 @@ public abstract class KickstartVariableAction extends RhnAction {
 
     /**
      *
-     * @param context
-     * @return
+     * @param context the request context
+     * @return the cobbler id
      */
     protected abstract String getCobblerId(RequestContext context);
 

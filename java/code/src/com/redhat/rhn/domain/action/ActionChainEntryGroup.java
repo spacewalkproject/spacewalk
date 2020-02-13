@@ -17,7 +17,7 @@ package com.redhat.rhn.domain.action;
 /**
  * Represents a group of Action Chain entries with same sort order and action
  * type.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainEntryGroup {
 

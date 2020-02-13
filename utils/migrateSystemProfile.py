@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 """
 Multi-Org: Script to migrate server from one org to another
 
 Script that connects to a given satellite db and migrates the
 server and its history from source org to the destination org.
 
-Copyright (c) 2008--2015 Red Hat, Inc.  Distributed under GPL.
+Copyright (c) 2008--2018 Red Hat, Inc.  Distributed under GPL.
 Author: Pradeep Kilambi <pkilambi@redhat.com>
 
 """
@@ -76,7 +76,7 @@ def main():
 
         if not options.to_org_id:
             print "Missing Destination org id"
-            return
+            return 1
         else:
             to_org_id = options.to_org_id or None
 
@@ -104,6 +104,7 @@ def main():
     if DEBUG:
         print "Migration Completed successfully"
     xmlrpc_logout(client, sessionKey)
+    return 0
 
 
 def migrate_system(key, newOrgId, server_ids):

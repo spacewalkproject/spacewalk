@@ -32,6 +32,7 @@ public class RhnValidationHelperTest extends RhnBaseTestCase {
 
     /**
      * Test StringsToActionErrors
+     * @throws Exception something bad happened
      */
      public void testValidatorErrorToActionMessages() throws Exception {
         ValidatorError[] errors = new ValidatorError[3];

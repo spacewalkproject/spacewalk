@@ -37,11 +37,13 @@ public class SsmUpgradePackagesEvent extends SsmPackageEvent {
      * @param earliestIn Earliest data action can be picked up.
      * @param actionChainIn the selected Action Chain or null
      * @param sysPackageSetIn Complex map of:
+     * <pre>{@literal
      *          system id-> List
      *                          Map
      *                              name_id -> long
      *                              evr_id -> long
      *                              arch_id -> long
+     * }</pre>
      */
     public SsmUpgradePackagesEvent(Long userIdIn,
                                    Date earliestIn,

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -332,6 +332,7 @@ class Runner:
             # log2email(-1, msg) # redundant
             sendMail()
             return 1
+        return 0
 
     def _step_short(self):
         try:
@@ -441,6 +442,8 @@ class Syncer:
         # instantiated in self.initialize()
         self.xmlDataServer = None
         self.systemid = None
+
+        self.reporegen = set()
 
         # self._*_full hold list of all ids for appropriate channel while
         # non-full self._* contain every id only once (in first channel it appeared)
@@ -578,20 +581,37 @@ class Syncer:
         except Exception:
             pass
 
-    def _process_comps(self, backend, label, timestamp):
-        comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
-        full_path = os.path.join(CFG.MOUNT_POINT, comps_path)
+    def _write_repomd(self, repomd_path, getRepomdFunc, repomdFileStreamFunc, label, timestamp):
+        full_path = os.path.join(CFG.MOUNT_POINT, repomd_path)
         if not os.path.exists(full_path):
             if self.mountpoint or CFG.ISS_PARENT:
-                stream = self.xmlDataServer.getComps(label)
+                stream = getRepomdFunc(label)
             else:
-                rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version)
-                stream = rpmServer.getCompsFileStream(label)
-            f = FileManip(comps_path, timestamp, None)
+                stream = repomdFileStreamFunc(label)
+            f = FileManip(repomd_path, timestamp, None)
             f.write_file(stream)
+            self.reporegen.add(label)
+
+    def _process_comps(self, backend, label, timestamp):
+        comps_path = 'rhn/comps/%s/comps-%s.xml' % (label, timestamp)
+        self._write_repomd(comps_path, self.xmlDataServer.getComps, \
+            xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getCompsFileStream, \
+            label, timestamp)
         data = {label: None}
         backend.lookupChannels(data)
-        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, timestamp)
+        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], comps_path, 1, timestamp)
+
+
+
+    def _process_modules(self, backend, label, timestamp):
+        modules_path = 'rhn/modules/%s/modules-%s.yaml' % (label, timestamp)
+        self._write_repomd(modules_path, self.xmlDataServer.getModules, \
+            xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN, self.xml_dump_version).getModulesFilesStram, \
+            label, timestamp)
+        data = {label: None}
+        backend.lookupChannels(data)
+        rhnSQL.Procedure('rhn_channel.set_comps')(data[label]['id'], modules_path, 2, timestamp)
+
 
     def process_channels(self):
         """ push channels, channel-family and dist. map information
@@ -638,6 +658,9 @@ class Syncer:
                 ch = self._channel_collection.get_channel(label, timestamp)
                 if ch.has_key('comps_last_modified') and ch['comps_last_modified'] is not None:
                     self._process_comps(importer.backend, label, sync_handlers._to_timestamp(ch['comps_last_modified']))
+                if ch.has_key('modules_last_modified') and ch['modules_last_modified'] is not None:
+                    self._process_modules(importer.backend, label, \
+                        sync_handlers._to_timestamp(ch['modules_last_modified']))
 
         except InvalidChannelFamilyError:
             usix.raise_with_tb(RhnSyncException(messages.invalid_channel_family_error %
@@ -1595,6 +1618,19 @@ class Syncer:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data, strict=OPTIONS.consider_full)
             else:
                 importer = sync_handlers.link_channel_packages(uq_pkg_data)
+            if self.reporegen:
+                h = rhnSQL.prepare("""select channel_label from rhnRepoRegenQueue""")
+                h.execute()
+                result = h.fetchall_dict()
+                if result:
+                    for regenerating in result:
+                        if regenerating['channel_label'] in self.reporegen:
+                            self.reporegen.remove(regenerating['channel_label'])
+                for channel in self.reporegen:
+                    h = rhnSQL.prepare("""insert into rhnRepoRegenQueue
+                            (channel_label) values (:clabel)""")
+                    h.execute(clabel=channel)
+                    rhnSQL.commit()
         except (SQLError, SQLSchemaError, SQLConnectError):
             e = sys.exc_info()[1]
             # an SQL error is fatal... crash and burn
@@ -1645,6 +1681,9 @@ class Syncer:
     @staticmethod
     def _fix_erratum(erratum):
         """ Replace the list of packages with references to short packages"""
+        if erratum['org_id'] is not None:
+            erratum['org_id'] = OPTIONS.orgid or DEFAULT_ORG
+
         sp_coll = sync_handlers.ShortPackageCollection()
         pids = set(erratum['packages'] or [])
         # map all the pkgs objects to the erratum
@@ -1656,19 +1695,18 @@ class Syncer:
                 # sync
                 continue
             package = sp_coll.get_package(pid)
+            if package['org_id'] is not None:
+                package['org_id'] = erratum['org_id']
 
             packages.append(package)
 
         erratum['packages'] = packages
 
-        if erratum['org_id'] is not None:
-            erratum['org_id'] = OPTIONS.orgid or DEFAULT_ORG
-
         if OPTIONS.channel:
             # If we are syncing only selected channels, do not link
             # to channels that do not have this erratum, they may not
             # have all related packages synced
-            imported_channels = _getImportedChannels(withAdvisory=erratum["advisory_name"])
+            imported_channels = _getImportedChannels(withAdvisory=erratum)
             # Import erratum to channels that are being synced
             imported_channels += OPTIONS.channel
         else:
@@ -2026,20 +2064,24 @@ def _getImportedChannels(withAdvisory=None):
     "Retrieves the channels already imported in the satellite's database"
 
     query = "select distinct c.label from rhnChannel c"
+    query_args={}
 
     if withAdvisory:
         query += """
             inner join rhnChannelErrata ce on c.id = ce.channel_id
-            inner join rhnErrata e on ce.errata_id = e.id and
-                                      e.advisory_name = :advisory
+            inner join rhnErrata e on ce.errata_id = e.id
+				    and e.advisory_name = :advisory
+				    and e.org_id = :org_id
         """
+        query_args={"advisory": withAdvisory["advisory_name"],
+                    "org_id": withAdvisory["org_id"]}
 
     if not OPTIONS.include_custom_channels:
         query += " where c.org_id is null"
 
     try:
         h = rhnSQL.prepare(query)
-        h.execute(advisory=withAdvisory)
+        h.execute(**query_args)
         return [x['label'] for x in h.fetchall_dict() or []]
     except (SQLError, SQLSchemaError, SQLConnectError):
         e = sys.exc_info()[1]
@@ -2093,8 +2135,8 @@ def processCommandline():
                help=_('e-mail a report of what was synced/imported')),
         Option('--force-all-errata',    action='store_true',
                help=_('forcibly process all (not a diff of) errata metadata')),
-        Option('--force-all-packages',  action='store_true',
-               help=_('forcibly process all (not a diff of) package metadata')),
+        Option('--ignore-proxy',          action='store_true',
+               help=_('Do not use an http proxy under any circumstances.')),
         Option('--http-proxy',          action='store',
                help=_('alternative http proxy (hostname:port)')),
         Option('--http-proxy-username', action='store',
@@ -2176,10 +2218,11 @@ def processCommandline():
         CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or getDbCaChain(CFG.RHN_PARENT)
                 or CFG.CA_CHAIN)
 
-    CFG.set("HTTP_PROXY", idn_ascii_to_puny(OPTIONS.http_proxy or CFG.HTTP_PROXY))
-    CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
-    CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
-    CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
+    if not OPTIONS.ignore_proxy:
+        CFG.set("HTTP_PROXY", idn_ascii_to_puny(OPTIONS.http_proxy or CFG.HTTP_PROXY))
+        CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
+        CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
+        CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
 
     CFG.set("SYNC_TO_TEMP", OPTIONS.sync_to_temp or CFG.SYNC_TO_TEMP)
 
@@ -2293,7 +2336,6 @@ def processCommandline():
                     #"no_source_packages" : 'no-source-packages',
                     "no_errata": 'no-errata',
                     "no_kickstarts": 'no-kickstarts',
-                    "force_all_packages": 'force-all-packages',
                     "force_all_errata": 'force-all-errata',
                     'no_ssl': 'no-ssl'}
 

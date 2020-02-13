@@ -101,9 +101,7 @@ public class PackagesHandler extends BaseHandler {
         // Get the logged in user
         Package pkg = lookupPackage(loggedInUser, pid);
 
-        Map returnMap = PackageHelper.packageToMap(pkg, loggedInUser);
-
-        return returnMap;
+        return PackageHelper.packageToMap(pkg, loggedInUser);
     }
 
     /**
@@ -535,9 +533,7 @@ public class PackagesHandler extends BaseHandler {
         if (epoch.equals("")) {
             epoch = null;
         }
-        List<Package> pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(),
-                name, version, release, epoch, arch);
-        return pkgs;
+        return PackageFactory.lookupByNevra(loggedInUser.getOrg(), name, version, release, epoch, arch);
     }
 
     /**

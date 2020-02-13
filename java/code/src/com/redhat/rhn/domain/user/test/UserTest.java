@@ -69,6 +69,7 @@ public class UserTest extends RhnBaseTestCase {
     * Test to make sure that the authenticate method
     * functions properly.  If this test fails it could be
     * because the password changed.
+    * @throws Exception something bad happened
     */
     public void testAuthenticateTrue() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -80,6 +81,7 @@ public class UserTest extends RhnBaseTestCase {
     /**
     * Test to make sure if the wrong password is passed
     * in that we actually fail the authenticate method
+    * @throws Exception something bad happened
     */
     public void testAuthenticateFail() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -91,6 +93,7 @@ public class UserTest extends RhnBaseTestCase {
     * We are having a problem when you lookup a user, then an org, and then
     * a user again.  The second user is using the ORG tables array, which
     * is bad, test that so that it doesn't happen again.
+    * @throws Exception something bad happened
     */
     public void testLookupSameUserTwice() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -103,6 +106,7 @@ public class UserTest extends RhnBaseTestCase {
 
     /**
     * Check to make sure we can add an Address to a User.
+    * @throws Exception something bad happened
     */
     public void testAddAddress() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",

@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Spacewalk / Red Hat Network Classic registration tool
 # Adapted from wrapper.py
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
@@ -19,8 +19,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
-
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateLog
 up2dateLog.initLog().set_app_name('rhn_register')
@@ -41,8 +39,7 @@ class RhnRegister(rhncli.RhnCli):
 
     def _get_ui(self):
         try:
-            if os.access("/usr/share/rhn/up2date_client/gui.py", os.R_OK) and \
-               os.environ["DISPLAY"] != "" and \
+            if os.environ["DISPLAY"] != "" and \
                not self.options.nox:
                 from up2date_client import gui
                 self.hasGui = True # Used by base class. Yech.

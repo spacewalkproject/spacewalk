@@ -1,6 +1,6 @@
-#!/usr/bin/python -u
+#!/usr/bin/python2 -u
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 # Copyright (c) 2011 SUSE LLC
 #
 # This software is licensed to you under the GNU General Public License,
@@ -72,6 +72,8 @@ def main():
     parser = OptionParser()
     parser.add_option('-l', '--list', action='store_true', dest='list',
                       help='List the custom channels with the assosiated repositories.')
+    parser.add_option('-s', '--show-packages', action='store_true', dest='show_packages',
+                      help='List all packages in a specified channel.')
     parser.add_option('-u', '--url', action='append', dest='url',
                       default=[], help='The url of the repository. Can be used multiple times.')
     parser.add_option('-c', '--channel', action='append',
@@ -79,7 +81,7 @@ def main():
                       help='The label of the channel to sync packages to. Can be used multiple times.')
     parser.add_option('-p', '--parent-channel', action='append',
                       dest='parent_label', default=[],
-                      help='The label of the channel to sync packages to')
+                      help='Synchronize the parent channel and all its child channels.')
     parser.add_option('-d', '--dry-run', action='store_true',
                       dest='dry_run',
                       help='Test run. No sync takes place.')
@@ -96,11 +98,11 @@ def main():
     parser.add_option('-i', '--include', action='callback',
                       callback=reposync.set_filter_opt, type='str', nargs=1,
                       dest='filters', default=[],
-                      help="List of included packages")
+                      help="Comma or space separated list of included packages or package groups.")
     parser.add_option('-e', '--exclude', action='callback',
                       callback=reposync.set_filter_opt,
                       type='str', nargs=1, dest='filters', default=[],
-                      help="List of excluded packages")
+                      help="Comma or space separated list of excluded packages or package groups.")
     parser.add_option('', '--email', action="store_true", help="e-mail a report of what was synced/imported")
     parser.add_option('', '--traceback-mail', action="store",
                       help="alternative email address(es) for sync output (--email option)")
@@ -113,6 +115,8 @@ def main():
     parser.add_option('', '--batch-size', action='store', help="max. batch size for package import (debug only)")
     parser.add_option('-v', '--verbose', action='count',
                       help="Verbose output. Possible to accumulate: -vvv")
+    parser.add_option('', '--debug', action='store_true', dest='enable_debug',
+                      default=False, help="Enable debugging output.")
     (options, args) = parser.parse_args()
 
     log_level = options.verbose
@@ -124,7 +128,10 @@ def main():
     CFG.set("TRACEBACK_MAIL", options.traceback_mail or CFG.TRACEBACK_MAIL)
     if options.email:
         initEMAIL_LOG()
-    rhnLog.initLOG(log_path, log_level)
+    if options.enable_debug:
+        rhnLog.initLOG('stdout', log_level)
+    else:
+        rhnLog.initLOG(log_path, log_level)
     log2disk(0, "Command: %s" % str(sys.argv))
 
     l_params=["no_errata", "sync_kickstart", "fail"]
@@ -132,6 +139,7 @@ def main():
     l_ch_custom=reposync.getCustomChannels()
     d_parent_child=reposync.getParentsChilds()
     d_ch_repo_sync={}
+    l_no_ch_repo_sync=[]
 
     if options.list:
         log(0, "======================================")
@@ -177,7 +185,7 @@ def main():
         for pch in options.parent_label:
             if pch in d_parent_child:
                for ch in [pch]+d_parent_child[pch]:
-                    if ch in l_ch_custom:
+                    if ch in l_ch_custom and ch not in d_ch_repo_sync:
                         d_ch_repo_sync[ch]=[]
             else:
                 systemExit(1, "Channel %s is not custom base channel." % pch)
@@ -186,7 +194,11 @@ def main():
         if ch not in l_ch_custom:
             systemExit(1, "Channel %s is not custom or does not exist." % ch)
         if not d_ch_repo_sync[ch] and not ch in d_chan_repo:
-            systemExit(1, "Channel %s Channel has no URL associated" % ch)
+            log(0, "Channel %s Channel has no URL associated, skipping sync" % ch)
+            l_no_ch_repo_sync.append(ch)
+
+    for ch in l_no_ch_repo_sync:
+        del d_ch_repo_sync[ch]
 
     if options.dry_run:
         log(0, "======================================")
@@ -233,8 +245,9 @@ def main():
                       no_errata=options.no_errata,
                       sync_kickstart=options.sync_kickstart,
                       latest=options.latest,
+                      debug=options.enable_debug,
                       log_level=options.verbose,
-                      force_all_errata=options.force_all_errata)
+                      force_all_errata=options.force_all_errata, show_packages_only=options.show_packages)
         if options.batch_size:
             sync.set_import_batch_size(options.batch_size)
         elapsed_time, channel_ret_code = sync.sync()

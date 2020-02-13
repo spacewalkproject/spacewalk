@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,8 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -328,5 +330,17 @@ public class OrgManager extends BaseManager {
         else if (OrgFactory.lookupByName(newOrgName) != null) {
             ValidatorException.raiseException("error.org_already_taken", newOrgName);
         }
+    }
+
+    /**
+     * Rename org and relevant objects containing org name
+     * @param org org to update
+     * @param newName new name for org
+     */
+    public static void renameOrg(Org org, String newName) {
+        org.setName(newName);
+        // Org's private channel family contains org name in it
+        ChannelFamily cf = ChannelFamilyFactory.lookupByOrg(org);
+        cf.setName(newName + " (" + org.getId() + ") " + "Channel Family");
     }
 }

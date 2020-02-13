@@ -56,8 +56,7 @@ public class PreservationListConfirmDeleteAction extends BaseSetListAction {
             selectedFileList.add(flRow);
         }
 
-        DataResult retval = new DataResult(selectedFileList);
-        return retval;
+        return new DataResult(selectedFileList);
     }
 
     /**

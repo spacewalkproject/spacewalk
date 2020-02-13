@@ -28,12 +28,14 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * ConfigFileTag
+ * <p>
+ * {@literal <cfg:file id=""  value="" type="file|dir" revision="" nolink="">}
  * @version $Rev$
  */
 public class ConfigFileTag extends TagSupport {
 
     /**
-     * Comment for <code>serialVersionUID</code>
+     * Comment for {@literal <code>serialVersionUID</code>}
      */
     private static final long serialVersionUID = 1582063245840138731L;
 
@@ -41,9 +43,6 @@ public class ConfigFileTag extends TagSupport {
     public static final String FILE_COMPARE_URL =
                                         "/rhn/configuration/file/CompareRevision.do";
 
-    /**
-     * <cfg:file id=""  value="" type="file|dir" revision="" nolink="">
-     */
      private String path;
      private String type;
      private boolean nolink;

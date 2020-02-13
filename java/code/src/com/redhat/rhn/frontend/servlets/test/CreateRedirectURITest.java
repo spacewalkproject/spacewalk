@@ -30,6 +30,30 @@ import javax.servlet.http.HttpServletRequest;
  * CreateRedirectURITest
  * @version $Rev$
  */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
+/**
+ * CreateRedirectURITest
+ */
 public class CreateRedirectURITest extends MockObjectTestCase {
 
     private HttpServletRequest mockRequest;
@@ -53,10 +77,9 @@ public class CreateRedirectURITest extends MockObjectTestCase {
     }
 
     /**
-     *
+     * @throws Exception something bad happened
      */
     public final void testExecuteWhenRequestHasNoParams() throws Exception {
-
       context().checking(new Expectations() { {
           allowing(mockRequest).getParameterNames();
           will(returnValue(new Vector<String>().elements()));
@@ -71,7 +94,7 @@ public class CreateRedirectURITest extends MockObjectTestCase {
     }
 
     /**
-     *
+     * @throws Exception something bad happened
      */
     public final void testExecuteWhenRequestHasParams() throws Exception {
         final String paramName = "foo";

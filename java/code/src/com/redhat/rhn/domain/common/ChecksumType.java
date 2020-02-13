@@ -79,11 +79,7 @@ public class ChecksumType extends BaseDomainHelper {
 
         ChecksumType checksumType = (ChecksumType) o;
 
-        if (id != null ? !id.equals(checksumType.id) : checksumType.id != null) {
-            return false;
-        }
-
-        return true;
+        return id != null ? id.equals(checksumType.id) : checksumType.id == null;
     }
 
     /** {@inheritDoc} */

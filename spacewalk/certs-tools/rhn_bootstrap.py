@@ -21,10 +21,10 @@
 #
 
 ## language imports
+from __future__ import print_function
 import os
 import sys
 import glob
-import string
 import socket
 import shutil
 import urlparse
@@ -35,11 +35,11 @@ from optparse import Option, OptionParser
 ## local imports
 from spacewalk.common import rhn_rpm
 from client_config_update import readConfigFile
-from rhn_bootstrap_strings import \
+from certs.rhn_bootstrap_strings import \
     getHeader, getConfigFilesSh, getUp2dateScriptsSh, getGPGKeyImportSh, \
     getCorpCACertSh, getRegistrationSh, getUp2dateTheBoxSh, \
     getAllowConfigManagement, getAllowRemoteCommands
-from sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
+from certs.sslToolConfig import CA_CRT_NAME, CA_CRT_RPM_NAME
 from spacewalk.common.fileutils import rotateFile, cleanupAbsPath
 from spacewalk.common.checksum  import getFileChecksum
 
@@ -116,7 +116,7 @@ def parseHttpProxyString(httpProxy):
     """ parse HTTP proxy string and check for validity """
 
     httpProxy = parseUrl(httpProxy)[1]
-    tup = string.split(httpProxy, ':')
+    tup = httpProxy.split(':')
     if len(tup) != 2:
         sys.stderr.write("ERROR: invalid host:port (%s)\n" % httpProxy)
         sys.exit(errnoBadHttpProxyString)
@@ -212,7 +212,7 @@ def getOptionsTable():
         Option('--gpg-key',
                action='store',
                type='string', default=defopts['gpg-key'],
-               help='path to corporate public GPG key, if used. It will be copied to the location specified by the --pub-tree option. (currently: %s)' % repr(defopts['gpg-key'])),
+               help='path to corporate public GPG key, if used. It will be copied to the location specified by the --pub-tree option. Format is GPG_KEY1,GPG_KEY2 (currently: %s)' % repr(defopts['gpg-key'])),
         Option('--http-proxy',
                action='store',
                type='string', default=defopts['http-proxy'],
@@ -330,7 +330,7 @@ ERROR: value of --script must end in '.sh':
     options.overrides = os.path.basename(options.overrides)
     options.script = os.path.basename(options.script)
 
-    if string.find(options.pub_tree, DEFAULT_APACHE_PUB_DIRECTORY) != 0:
+    if options.pub_tree.find(DEFAULT_APACHE_PUB_DIRECTORY) != 0:
         sys.stderr.write("WARNING: it's *highly* suggested that --pub-tree is set to:\n")
         sys.stderr.write("           %s\n" % DEFAULT_APACHE_PUB_DIRECTORY)
         sys.stderr.write("         It is currently set to:\n")
@@ -345,7 +345,7 @@ ERROR: the value of --overrides and --script cannot be the same!
        '%s'\n""" % options.script)
         sys.exit(errnoScriptNameClash)
 
-    if len(string.split(options.hostname, '.')) < 3:
+    if len(options.hostname.split('.')) < 3:
         msg = ("WARNING: --hostname (%s) doesn't appear to be a FQDN.\n"
                % options.hostname)
         sys.stderr.write(msg)
@@ -358,9 +358,11 @@ ERROR: the value of --overrides and --script cannot be the same!
         sys.stderr.write("ERROR: CA SSL certificate file or RPM not found\n")
         sys.exit(errnoCANotFound)
 
-    if not options.no_gpg and options.gpg_key and not os.path.exists(options.gpg_key):
-        sys.stderr.write("ERROR: corporate public GPG key file not found\n")
-        sys.exit(errnoGPGNotFound)
+    if not options.no_gpg and options.gpg_key:
+        for gpg_key in options.gpg_key.split(","):
+            if not os.path.exists(gpg_key):
+                sys.stderr.write("ERROR: corporate public GPG key file '{0}' not found\n".format(gpg_key))
+                sys.exit(errnoGPGNotFound)
 
     if options.http_proxy != "":
         options.http_proxy = parseHttpProxyString(options.http_proxy)
@@ -419,18 +421,19 @@ def copyFiles(options):
             if writeYN:
                 copyFile(options.ssl_cert, dest)
 
-    # corp GPG key
+    # corp GPG keys
     if not options.no_gpg and options.gpg_key:
-        writeYN = 1
-        dest = os.path.join(pubDir, os.path.basename(options.gpg_key))
-        if os.path.dirname(options.gpg_key) != pubDir:
-            if os.path.isfile(dest) \
-              and getFileChecksum('md5', options.gpg_key) != getFileChecksum('md5', dest):
-                rotateFile(dest, options.verbose)
-            elif os.path.isfile(dest):
-                writeYN = 0
-            if writeYN:
-                copyFile(options.gpg_key, dest)
+        for gpg_key in options.gpg_key.split(","):
+            writeYN = 1
+            dest = os.path.join(pubDir, os.path.basename(gpg_key))
+            if os.path.dirname(gpg_key) != pubDir:
+                if os.path.isfile(dest) \
+                  and getFileChecksum('md5', gpg_key) != getFileChecksum('md5', dest):
+                    rotateFile(dest, options.verbose)
+                elif os.path.isfile(dest):
+                    writeYN = 0
+                if writeYN:
+                    copyFile(gpg_key, dest)
 
 
 def writeClientConfigOverrides(options):
@@ -453,7 +456,7 @@ def writeClientConfigOverrides(options):
     _bootstrapDir = cleanupAbsPath(os.path.join(options.pub_tree, 'bootstrap'))
 
     if not os.path.exists(_bootstrapDir):
-        print "* creating '%s'" % _bootstrapDir
+        print("* creating '%s'" % _bootstrapDir)
         os.makedirs(_bootstrapDir) # permissions should be fine
 
     d = {}
@@ -509,15 +512,15 @@ def writeClientConfigOverrides(options):
             # only back it up if different
             backup = rotateFile(_overrides, depth=5, verbosity=options.verbose)
             if backup and options.verbose>=0:
-                print """\
+                print("""\
 * WARNING: if there were hand edits to the rotated (backed up) file,
-           some settings may need to be migrated."""
+           some settings may need to be migrated.""")
         else:
             # exactly the same... no need to write
             writeYN = 0
-            print """\
+            print("""\
 * client configuration overrides (old and new are identical; not written):
-  '%s'\n""" % _overrides
+  '%s'\n""" % _overrides)
 
     if writeYN:
         fout = open(_overrides, 'wb')
@@ -542,13 +545,13 @@ def writeClientConfigOverrides(options):
             if d[key] is not None:
                 fout.write("%s=%s\n" % (key, d[key]))
         fout.close()
-        print """\
+        print("""\
 * bootstrap overrides (written):
-  '%s'\n""" % _overrides
+  '%s'\n""" % _overrides)
         if options.verbose>=0:
-            print "Values written:"
+            print("Values written:")
             for k, v in d.items():
-                print k + ' '*(25-len(k)) + repr(v)
+                print(k + ' '*(25-len(k)) + repr(v))
 
 
 def generateBootstrapScript(options):
@@ -601,20 +604,20 @@ def generateBootstrapScript(options):
         elif os.path.exists(_script):
             backup = rotateFile(_script, depth=5, verbosity=options.verbose)
             if backup and options.verbose>=0:
-                print "* rotating %s --> %s" % (_script, backup)
+                print("* rotating %s --> %s" % (_script, backup))
         del oldScript
 
     if writeYN:
         fout = open(_script, 'wb')
         fout.write(newScript)
         fout.close()
-        print """\
+        print("""\
 * bootstrap script (written):
-    '%s'\n""" % _script
+    '%s'\n""" % _script)
     else:
-        print """\
+        print("""\
 * boostrap script (old and new scripts identical; not written):
-    '%s'\n""" % _script
+    '%s'\n""" % _script)
 
 
 def main():
@@ -656,7 +659,7 @@ if __name__ == "__main__":
         raise
     except KeyboardInterrupt:
         sys.exit(errnoSuccess)
-    except ValueError, e:
+    except ValueError as e:
         raise # should exit with a 1 (errnoGeneral)
     except Exception:
         sys.stderr.write('Unhandled ERROR occurred.\n')

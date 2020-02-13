@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -79,18 +79,15 @@ public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
                 TestConfigureSatelliteCommand.class.getName());
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
 
-        boolean origValue = new Boolean(Config.get().
-            getString(TEST_CONFIG_BOOLEAN)).booleanValue();
-
+        boolean origValue = Config.get().getBoolean(TEST_CONFIG_BOOLEAN);
         boolean changedValue = !origValue;
+
         addRequestParameter(
                 GeneralConfigAction.translateFormPropertyName(
-                        TEST_CONFIG_BOOLEAN),
-                            new Boolean(changedValue).toString());
+                        TEST_CONFIG_BOOLEAN), Boolean.toString(changedValue));
         actionPerform();
-        assertEquals(changedValue, Config.get().
-                getBoolean(TEST_CONFIG_BOOLEAN));
-        Config.get().setBoolean(TEST_CONFIG_BOOLEAN, new Boolean(origValue).toString());
+        assertEquals(origValue, Config.get().getBoolean(TEST_CONFIG_BOOLEAN));
+        Config.get().setBoolean(TEST_CONFIG_BOOLEAN, Boolean.toString(origValue));
         verifyForward("failure");
 
         addRequestParameter(
@@ -108,7 +105,7 @@ public class GeneralConfigActionTest extends RhnPostMockStrutsTestCase {
         verifyActionMessages(new String[] {"config.restartrequired"});
 
 
-        Config.get().setBoolean(TEST_CONFIG_BOOLEAN, new Boolean(origValue).toString());
+        Config.get().setBoolean(TEST_CONFIG_BOOLEAN, Boolean.toString(origValue));
     }
 
 }

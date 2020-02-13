@@ -415,10 +415,8 @@ public class KickstartLister extends BaseManager {
                         "valid_timezones_for_kickstart_install_type");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", ksInstallType.getId());
-        DataResult<StringDto> returnDataResult =
-                makeDataResultNoPagination(params, new HashMap(), m);
 
-        return returnDataResult;
+        return (DataResult<StringDto>) makeDataResultNoPagination(params, new HashMap(), m);
     }
 
     /**

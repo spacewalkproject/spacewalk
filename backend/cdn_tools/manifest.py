@@ -1,4 +1,4 @@
-# Copyright (c) 2016 Red Hat, Inc.
+# Copyright (c) 2016--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -48,6 +48,7 @@ class Manifest(object):
         self.name = None
         self.ownerid = None
         self.api_url = None
+        self.web_url = None
         self.created = None
         # Signature and signed data
         self.signature = None
@@ -72,9 +73,9 @@ class Manifest(object):
                 # Open the inner zip file
                 try:
                     inner_zip = zipfile.ZipFile(inner_file_data)
+                    self._extract_consumer_info(inner_zip)
                     self._load_entitlements(inner_zip)
                     self._extract_certificate(inner_zip)
-                    self._extract_consumer_info(inner_zip)
                     self._extract_meta_info(inner_zip)
                     self._extract_consumer_credentials(inner_zip)
                 finally:
@@ -138,16 +139,19 @@ class Manifest(object):
                         certs = data['certificates']
                         if len(certs) != 1:
                             raise IncorrectEntitlementsFileFormatError(
-                                "ERROR: Single certificate in entitlements file is expected, found: %d"
-                                % len(certs))
+                                "Single certificate in entitlements file '%s' is expected, found: %d"
+                                % (entitlement_file, len(certs)))
                         cert = certs[0]
                         credentials = Credentials(data['id'], cert['cert'], cert['key'])
 
                         # Extract product IDs
                         products = []
-                        provided_products = data['pool']['providedProducts']
-                        for provided_product in provided_products:
-                            product = Product(provided_product['productId'])
+                        provided_products = data['pool']['providedProducts'] or []
+                        derived_provided_products = data['pool']['derivedProvidedProducts'] or []
+                        product_ids = [provided_product['productId'] for provided_product
+                                       in provided_products + derived_provided_products]
+                        for product_id in set(product_ids):
+                            product = Product(product_id)
                             self._fill_product_repositories(zip_file, product)
                             products.append(product)
 
@@ -162,8 +166,12 @@ class Manifest(object):
                 finally:
                     entitlements.close()
         else:
+            refer_url = "%s%s" % (self.web_url, self.uuid)
+            if not refer_url.startswith("http"):
+                refer_url = "https://" + refer_url
             raise IncorrectEntitlementsFileFormatError(
-                "ERROR: There has to be at least one entitlements file")
+                "No subscriptions were found in manifest.\n\nPlease refer to %s for setting up subscriptions."
+                % refer_url)
 
     def _extract_consumer_info(self, zip_file):
         files = zip_file.namelist()
@@ -181,6 +189,7 @@ class Manifest(object):
                     self.name = data['name']
                     self.ownerid = data['owner']['key']
                     self.api_url = data['urlApi']
+                    self.web_url = data['urlWeb']
                 except KeyError:
                     log2(0, 0, "ERROR: Cannot access required field in file '%s'" % self.CONSUMER_INFO,
                          stream=sys.stderr)

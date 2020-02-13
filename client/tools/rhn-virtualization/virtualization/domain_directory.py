@@ -16,7 +16,6 @@
 import binascii
 import os
 import sys
-import string
 
 try:
     import libvirt
@@ -24,6 +23,8 @@ except ImportError:
     # There might not be a libvirt; we won't die here so that other modules
     # who import us can exit gracefully.
     libvirt = None
+
+from rhn.i18n import sstr
 
 from virtualization.domain_config import DomainConfig
 from virtualization.errors        import VirtualizationException
@@ -113,6 +114,7 @@ class DomainDirectory:
 
         for uuid in domain_uuids:
 
+            uuid = sstr(uuid)
             # If we already have a config for this uuid, skip it.  Also, don't
             # try to figure out a config for a host UUID.
             if not is_host_uuid(uuid) and not self.is_known_config(uuid):
@@ -210,7 +212,7 @@ class DomainDirectory:
     def __write_xml_file(self, uuid, xml):
         cfg_pathname = self.get_config_path(uuid)
         cfg_file = open(cfg_pathname, "w")
-        cfg_file.write(string.strip(xml))
+        cfg_file.write(xml.strip())
         cfg_file.close()
 
         return cfg_pathname

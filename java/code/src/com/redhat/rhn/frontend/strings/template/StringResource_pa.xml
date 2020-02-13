@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>ਜੀ ਆਇਆਂ ਨੂੰ,
 
-ਇੱਕ Red Hat ਲਾਗਿੰਨ ਤੁਹਾਡੇ ਲਈ {0} {1} ਰਾਹੀਂ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਤੁਹਾਡਾ
-Red Hat ਲਾਗਿੰਨ, ਇੱਕ ਸਰਗਰਮ Red Hat ਮੈਂਬਰੀ ਦੇ ਨਾਲ, ਤੁਹਾਨੂੰ @@PRODUCT_NAME@@
-ਉੱਤੇ ਸਿਸਟਮ ਪਰਬੰਧਨ ਲਈ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
-
-  Red Hat ਲਾਗਿੰਨ: {2}
-       ਗੁਪਤ-ਕੋਡ: {3}
-       ਈ-ਮੇਲ:{4}
-
-  {5}
-
-ਖਾਸ: ਕਿਰਪਾ ਕਰਕੇ ਲਾਗਿੰਨ ਕਰਨ ਉਪਰੰਤ ਆਪਣਾ ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਕਰ ਲਵੋਂ।
-
-@@PRODUCT_NAME@@ ਵਰਤਣ ਲਈ ਸ਼ੁਕਰੀਆ।
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>ਜੀ ਆਇਆਂ ਨੂੰ,
 
-ਇੱਕ Red Hat ਲਾਗਿੰਨ ਤੁਹਾਡੇ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ। ਤੁਹਾਡਾ
-Red Hat ਲਾਗਿੰਨ, ਇੱਕ ਸਰਗਰਮ Red Hat ਮੈਂਬਰੀ ਦੇ ਨਾਲ, ਤੁਹਾਨੂੰ @@PRODUCT_NAME@@
-ਉੱਤੇ ਸਿਸਟਮ ਪਰਬੰਧਨ ਲਈ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
-
-  Red Hat ਲਾਗਿੰਨ: {0}
-       ਗੁਪਤ-ਕੋਡ: {1}
-       ਈ-ਮੇਲ:{2}
-
-  {3}
-
-ਖਾਸ: ਕਿਰਪਾ ਕਰਕੇ ਲਾਗਿੰਨ ਕਰਨ ਉਪਰੰਤ ਆਪਣਾ ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ ਕਰ ਲਵੋਂ।
-
-@@PRODUCT_NAME@@ ਵਰਤਣ ਲਈ ਸ਼ੁਕਰੀਆ।
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,

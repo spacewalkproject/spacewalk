@@ -7,10 +7,9 @@
 
 Name:           mod_perl
 Version:        2.0.7
-Release:        11.3%{?dist}
+Release:        11.4%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 
-Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://perl.apache.org/
 Source0:        http://perl.apache.org/dist/mod_perl-%{version}.tar.gz
@@ -65,7 +64,6 @@ like for it to directly incorporate a Perl interpreter.
 
 %package devel
 Summary:        Files needed for building XS modules that use mod_perl
-Group:          Development/Libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}, httpd-devel%{?_isa}
 
 %description devel 
@@ -186,6 +184,11 @@ find "$RPM_BUILD_ROOT" -type f -name *.orig -exec rm -f {} \;
 %{_mandir}/man3/Apache::Test*.3pm*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.7-11.4
+- removed Group from specfile
+- fixed tito build warning
+- replace legacy name of Tagger with new one
+
 * Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 2.0.7-11.3
 - fixed builder definition
 

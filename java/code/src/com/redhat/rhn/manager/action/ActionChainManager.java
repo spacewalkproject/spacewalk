@@ -45,7 +45,7 @@ import java.util.Set;
  * Methods in this class are intended to replace similar methods in
  * ActionManager adding Action Chains support. It was decided to keep
  * this class separate to avoid adding significant complexity to ActionManager.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainManager {
 
@@ -382,9 +382,8 @@ public class ActionChainManager {
      */
     public static Set<Action> scheduleRebootActions(User user, Set<Long> serverIds,
         Date earliest, ActionChain actionChain) {
-        Set<Action> actions = scheduleActions(user, ActionFactory.TYPE_REBOOT,
+        return scheduleActions(user, ActionFactory.TYPE_REBOOT,
             ActionFactory.TYPE_REBOOT.getName(), earliest, actionChain, null, serverIds);
-        return actions;
     }
 
     /**

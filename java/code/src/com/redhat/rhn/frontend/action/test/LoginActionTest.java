@@ -102,7 +102,7 @@ public class LoginActionTest extends RhnBaseTestCase {
     * Wrap a call to loginUserIntoSessionTest
     * since we want that method to return a value and
     * JUnit only calls methods with void return types
-     * @throws Exception
+    * @throws Exception something bad happened
     */
     public void testPerformValidUsername() throws Exception {
         HttpServletRequest request = loginUserIntoSessionTest();
@@ -119,7 +119,8 @@ public class LoginActionTest extends RhnBaseTestCase {
     * in.
     * In order for this test to be executed by JUnit we have to
     * wrap its call in the above method with a void return type.
-     * @throws Exception
+    * @throws Exception something bad happened
+    * @return a HttpServletRequest
     */
     public HttpServletRequest loginUserIntoSessionTest() throws Exception {
         LoginAction action = new LoginAction();

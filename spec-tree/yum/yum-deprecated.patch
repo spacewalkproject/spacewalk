@@ -1,0 +1,42 @@
+diff --git a/Makefile b/Makefile
+index 9389aa8..a6b3974 100644
+--- a/Makefile
++++ b/Makefile
+@@ -31,7 +31,7 @@ install:
+ 	$(PYTHON) -c "import compileall; compileall.compile_dir('$(DESTDIR)/usr/share/yum-cli', 1, '/usr/share/yum-cli', 1)"
+ 
+ 	mkdir -p $(DESTDIR)/usr/bin $(DESTDIR)/usr/sbin
+-	install -m 755 bin/yum.py $(DESTDIR)/usr/bin/yum
++	install -m 755 bin/yum.py $(DESTDIR)/usr/bin/yum-deprecated
+ 	install -m 755 bin/yum-updatesd.py $(DESTDIR)/usr/sbin/yum-updatesd
+ 
+ 	mkdir -p $(DESTDIR)/var/cache/yum
+diff --git a/bin/yum.py b/bin/yum.py
+index 7ccee31..01627f4 100755
+--- a/bin/yum.py
++++ b/bin/yum.py
+@@ -1,5 +1,11 @@
+ #!/usr/bin/python
+ import sys
++
++sys.stderr.write("""\
++Yum command has been deprecated, use dnf instead.
++See 'man dnf' and 'man yum2dnf' for more information.\n
++""")
++
+ try:
+     import yum
+ except ImportError:
+diff --git a/docs/Makefile b/docs/Makefile
+index 8cc7f9f..318ce1b 100644
+--- a/docs/Makefile
++++ b/docs/Makefile
+@@ -8,7 +8,7 @@ clean:
+ install:
+ 	mkdir -p $(DESTDIR)/usr/share/man/man5
+ 	mkdir -p $(DESTDIR)/usr/share/man/man8
+-	install -m 644 yum.8 $(DESTDIR)/usr/share/man/man8/yum.8
++	install -m 644 yum.8 $(DESTDIR)/usr/share/man/man8/yum-deprecated.8
+ 	install -m 644 yum-shell.8 $(DESTDIR)/usr/share/man/man8/yum-shell.8
+ 	install -m 644 yum.conf.5 $(DESTDIR)/usr/share/man/man5/yum.conf.5
+ 	install -m 644 yum-updatesd.8 $(DESTDIR)/usr/share/man/man8/yum-updatesd.8

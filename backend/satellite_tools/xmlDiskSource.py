@@ -1,7 +1,7 @@
 #
 # Abstraction for an XML importer with a disk base
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -154,6 +154,13 @@ class ChannelCompsDiskSource(ChannelDiskSource):
         return "comps.xml"
 
 
+class ChannelModulesDiskSource(ChannelDiskSource):
+
+    @staticmethod
+    def _file_name():
+        return "modules.yaml"
+
+
 class ShortPackageDiskSource(DiskSource):
     subdir = "packages_short"
 
@@ -292,6 +299,11 @@ class MetadataDiskSource:
 
     def getComps(self, label):
         sourcer = ChannelCompsDiskSource(self.mountpoint)
+        sourcer.setChannel(label)
+        return sourcer.load()
+
+    def getModules(self, label):
+        sourcer = ChannelModulesDiskSource(self.mountpoint)
         sourcer.setChannel(label)
         return sourcer.load()
 

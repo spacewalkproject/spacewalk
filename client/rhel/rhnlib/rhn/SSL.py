@@ -1,7 +1,7 @@
 #
 # Higher-level SSL objects used by rpclib
 #
-# Copyright (c) 2002--2016 Red Hat, Inc.
+# Copyright (c) 2002--2018 Red Hat, Inc.
 #
 # Author: Mihai Ibanescu <misa@redhat.com>
 #
@@ -82,13 +82,15 @@ class SSLSocket:
             raise ValueError("Unable to read certificate file %s" % file)
         self._trusted_certs.append(file.encode("utf-8"))
 
-    def init_ssl(self):
+    def init_ssl(self, server_name=None):
         """
         Initializes the SSL connection.
         """
         self._check_closed()
         # Get a context
         self._ctx = SSL.Context(self._ssl_method)
+        self._ctx.set_options(SSL.OP_NO_SSLv2)
+        self._ctx.set_options(SSL.OP_NO_SSLv3)
         if self._trusted_certs:
             # We have been supplied with trusted CA certs
             for f in self._trusted_certs:
@@ -107,6 +109,10 @@ class SSLSocket:
 
         # Init the connection
         self._connection = SSL.Connection(self._ctx, self._sock)
+        # Set server name if defined. This allows connections to
+        # SNI-enabled servers
+        if server_name is not None:
+            self._connection.set_tlsext_host_name(server_name.encode("utf8"))
         # Place the connection in client mode
         self._connection.set_connect_state()
 
@@ -138,8 +144,31 @@ class SSLSocket:
             return
         self._makefile_called = self._makefile_called - 1
 
+    # BZ 1464157 - Python 3 http attempts to call this method during close,
+    # at least add it empty
+    def flush(self):
+        pass
+
     def _really_close(self):
-        self._connection.shutdown()
+        # No connection was established
+        if self._connection is None:
+            return
+        get_state = None
+        try:
+            get_state = getattr(self._connection, 'state_string')
+        except AttributeError:
+            get_state = getattr(self._connection, 'get_state_string')
+
+        if get_state is not None:
+            # for Python 3
+            if sys.version_info[0] == 3:
+                if get_state() == b'SSL negotiation finished successfully':
+                    self._connection.shutdown()
+            # for Python 2
+            else:
+                if get_state() == 'SSL negotiation finished successfully':
+                    self._connection.shutdown()
+
         self._connection.close()
         self._closed = 1
 

@@ -1,5 +1,5 @@
 # This file is a portion of the Red Hat Update Agent
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPL
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPL
 #
 # Authors:
 #       Cristian Gafton <gafton@redhat.com>
@@ -122,7 +122,7 @@ class ConfigFile:
                 # possibly split value into a list
                 values = value.split(";")
                 if key in ['proxyUser', 'proxyPassword']:
-                    value = str(value.encode(locale.getpreferredencoding()))
+                    value = sstr(value.encode(locale.getpreferredencoding()))
                 elif len(values) == 1:
                     try:
                         value = int(value)
@@ -163,7 +163,7 @@ class ConfigFile:
                 return
 
         f = open(self.fileName+'.new', "w")
-        os.chmod(self.fileName, int('0600', 8))
+        os.chmod(self.fileName+'.new', int('0644', 8))
 
         f.write("# Automatically generated Red Hat Update Agent "\
                 "config file, do not edit.\n")
@@ -312,7 +312,7 @@ def getProxySetting():
         if proxyHost[:7] == "http://":
             proxyHost = proxyHost[7:]
         parts = proxyHost.split(':')
-        parts[0] = idn_ascii_to_puny(parts[0])
+        parts[0] = str(idn_ascii_to_puny(parts[0]))
         proxy = ':'.join(parts)
 
     return proxy

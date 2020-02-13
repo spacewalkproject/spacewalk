@@ -48,7 +48,9 @@ public class AddressTagTest extends RhnBaseTestCase {
         sah.executeAction();
     }
 
-    /** Test tag output
+    /**
+     * Test tag output
+     * @throws Exception something bad happened
      */
     public void testTagOutput() throws Exception {
 

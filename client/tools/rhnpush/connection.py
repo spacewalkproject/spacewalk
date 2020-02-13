@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,10 +19,10 @@ import sys
 # pylint: disable=F0401,E0611,W0632
 from rhn import connections, rpclib
 
+from rhnpush.utils import tupleify_urlparse
 from spacewalk.common.usix import ListType, TupleType, IntType
 from spacewalk.common.rhn_pkg import InvalidPackageError, package_from_filename
 from spacewalk.common.usix import raise_with_tb
-from rhnpush.utils import tupleify_urlparse
 
 if sys.version_info[0] == 3:
     from urllib.parse import splitport
@@ -31,6 +31,7 @@ else:
     from urlparse import urlparse
     from urllib import splitport # pylint: disable=C0412
 
+# pylint: disable=W0622
 class ConnectionError(Exception):
     pass
 
@@ -276,6 +277,7 @@ class PackageUpload:
         text = [x[1] for x in headers.getaddrlist(prefix + '-String')]
         # text is a list now, convert it to a string
         text = '\n'.join(text)
+        # pylint: disable=W1505
         text = base64.decodestring(text)
         return text
 

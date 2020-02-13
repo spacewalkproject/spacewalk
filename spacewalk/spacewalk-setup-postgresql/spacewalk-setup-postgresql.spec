@@ -1,12 +1,10 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.7.3
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
-Group:          Applications/System
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       postgresql-server > 8.4
 %if 0%{?rhel} == 5
@@ -51,7 +49,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %doc LICENSE
 %attr(755,root,root) %{_bindir}/spacewalk-setup-postgresql
 #%{_mandir}/man1/*
@@ -65,6 +62,24 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 04 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1638498 - force UTF8 charset for database
+
+* Fri Mar 23 2018 Jiri Dostal <jdostal@redhat.com> 2.8.4-1
+- Extension is enough for spacewalk-setup-postgresql
+
+* Wed Mar 14 2018 Jiri Dostal <jdostal@redhat.com> 2.8.3-1
+- Make spacewalk-setup-postgres run on postgres10+
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
 * Tue May 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
 - 1447591 - pull in spacewalk-dobby just on postgresql
 
@@ -110,54 +125,3 @@ rm -rf %{buildroot}
 - 982560 - Checking validity of user-provided addresses
 - Bumping package versions for 2.1.
 
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Sun Jul 14 2013 Tomas Lestach <tlestach@redhat.com> 1.10.8-1
-- fix postgresql84-pltc dependency to postgresql84-pltcl
-
-* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.7-1
-- create pltclu for PostgreSQL
-- let spacewalk-setup-postgresql require postgresql-pltcl
-
-* Tue Jul 09 2013 Tomas Lestach <tlestach@redhat.com> 1.10.6-1
-- spacewalk-setup-postgresql: state the requirement for address/netmask format
-  explicitly
-- spacewalk-setup-postgresql: --help option
-
-* Mon Jun 24 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.5-1
-- spacewalk-setup-postgresql: don't try to configure PG port
-- re-configure postgresql when re-running the setup utility
-- discard error output from createuser
-
-* Fri Jun 07 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.4-1
-- Fixes for managed-db configuration
-
-* Fri Jun 07 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
-- Fix requires for RHEL-5
-
-* Wed Jun 05 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.2-1
-- initial build
-
-* Mon May 06 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
-- make spacewalk-setup-embedded-postgresql systemctl-aware
-- manage embedded PostgreSQL by spacewalk-service
-
-* Mon Feb 04 2013 Jan Pazdziora 1.9.1-1
-- 903487 - on newer PostgreSQL versions, plpgsql gets created automatically in
-  new database, we need to skip createlang there.
-- Bump up the shmmax in case it is too small for our PostgreSQL configuration
-  purposes.
-
-* Mon Oct 22 2012 Michael Mraka
-- wait for postmaster to be ready
-- made postgresql log more readable
-
-* Mon Oct 22 2012 Michael Mraka
-- tuned default postgresql settings
-- use current time not start of session time
-- 821446 - turning on timestamp logging for pgsql by default
-- let's start embedded database before checking its state
-
-* Mon Oct 22 2012 Michael Mraka
-- spacewalk-setup-embedded-postgresql 1.8

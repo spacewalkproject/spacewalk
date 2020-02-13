@@ -112,9 +112,9 @@ public abstract class BaseSystemEditAction extends RhnAction {
      * Setup the form values and other attributes necessary for the
      * action to render.  This is where you pre-populate the form values
      * on the 'setup' side of the action.
-     * @param ctx
-     * @param form
-     * @param cmd
+     * @param ctx the request context
+     * @param form the action form
+     * @param cmd the operation
      */
     protected abstract void setupFormValues(RequestContext ctx, DynaActionForm form,
             BaseSystemOperation cmd);

@@ -8,10 +8,9 @@
 
 Name:           bootstrap
 Version:        3.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
-Group:          Applications/Internet
 License:        Apache Software License v2
 URL:            http://getbootstrap.com/
 Source0:        https://github.com/twbs/bootstrap/archive/bootstrap-3.0.0.tar.gz
@@ -19,7 +18,6 @@ Source1:        httpd-bootstrap-less.conf
 %if 0%{?suse_version}
 Requires(pre):  apache2
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -30,7 +28,6 @@ of the most popular front-end frameworks and open source projects in the world.
 
 %package less
 Summary:        .less files for bootstrap framework customization.
-Group:          Applications/Internet
 Requires: %{name} = %{version}-%{release}
 
 %description less
@@ -67,7 +64,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/fonts/*
 %{apachedocroot}/javascript/*
 %if 0%{?suse_version}
@@ -76,13 +72,17 @@ rm -rf %{buildroot}
 %endif
 
 %files less
-%defattr(-,root,root,-)
 %{apacheconfd}/bootstrap-less.conf
 %{_datadir}/bootstrap
 
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.0.0-7
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 3.0.0-6
 - 
 

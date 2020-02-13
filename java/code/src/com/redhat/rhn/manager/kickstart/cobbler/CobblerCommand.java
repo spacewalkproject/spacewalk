@@ -154,8 +154,7 @@ public abstract class CobblerCommand {
         String format = "%s--%s";
         String kickstartConfigDir = ConfigDefaults.get().getKickstartConfigDir();
         String fileName = String.format(format, label.replace(' ', '_'), org.getId());
-        String retval = kickstartConfigDir + fileName + ".cfg";
-        return retval;
+        return kickstartConfigDir + fileName + ".cfg";
     }
 
     /**

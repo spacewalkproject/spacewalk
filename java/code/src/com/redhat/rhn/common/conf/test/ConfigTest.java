@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,7 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -28,29 +29,37 @@ import org.apache.commons.io.FileUtils;
 public class ConfigTest extends RhnBaseTestCase {
     static final String TEST_KEY = "user";
     static final String TEST_VALUE = "newval";
+    static final String TEST_CONF_LOCATION = "/usr/share/rhn/unit-tests/";
     private Config c;
 
     public void setUp() throws Exception {
         c = new Config();
 
         // create test config path
-        String confPath = "/tmp/" + TestUtils.randomString() + "/conf";
-        String defaultPath = confPath + "/default";
-        new File(defaultPath).mkdirs();
+        String confPath = "/tmp/" + TestUtils.randomString();
+        new File(confPath + "/conf/default").mkdirs();
+
+        ArrayList<String> paths = new ArrayList<>();
+        paths.add("conf/rhn.conf");
+        paths.add("conf/default/rhn_web.conf");
+        paths.add("conf/default/rhn_prefix.conf");
+        paths.add("conf/default/bug154517.conf.rpmsave");
 
         // copy test configuration files over
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/rhn.conf"), new File(confPath,
-                "rhn.conf"));
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_web.conf"),
-                new File(defaultPath, "rhn_web.conf"));
-        FileUtils.copyURLToFile(TestUtils.findTestData("conf/default/rhn_prefix.conf"),
-                new File(defaultPath, "rhn_prefix.conf"));
-        FileUtils.copyURLToFile(TestUtils
-                .findTestData("conf/default/bug154517.conf.rpmsave"),
-                new File(defaultPath, "bug154517.conf.rpmsave"));
+        for (String relPath : paths) {
+            try {
+                FileUtils.copyURLToFile(TestUtils.findTestData(relPath),
+                        new File(confPath, relPath));
+            }
+            catch (NullPointerException e) {
+                FileUtils.copyFile(new File(TEST_CONF_LOCATION + relPath),
+                        new File(confPath, relPath));
+            }
 
-        c.addPath(confPath);
-        c.addPath(defaultPath);
+        }
+
+        c.addPath(confPath + "/conf");
+        c.addPath(confPath + "/conf/default");
         c.parseFiles();
     }
 
@@ -82,6 +91,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf,
      * overridden without prefix in rhn.conf,
      * Accessed fully qualified.
+     * @throws Exception something bad happened
      */
     public void testOverride() throws Exception {
         assertEquals("keep", c.getString("web.to_override"));
@@ -91,6 +101,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf,
      * overridden without prefix in rhn.conf,
      * Accessed by property name only.
+     * @throws Exception something bad happened
      */
     public void testOverride1() throws Exception {
         assertEquals("keep", c.getString("to_override"));
@@ -100,6 +111,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf
      * overridden fully qualfied in rhn.conf.
      * Accessed fully qualified.
+     * @throws Exception something bad happened
      */
     public void testOverride2() throws Exception {
         assertEquals("1", c.getString("web.fq_to_override"));
@@ -109,6 +121,7 @@ public class ConfigTest extends RhnBaseTestCase {
      * property defined fully qualifed in rhn_web.conf
      * overridden fully qualfied in rhn.conf.
      * Accessed by property name only.
+     * @throws Exception something bad happened
      */
     public void testOverride3() throws Exception {
         assertEquals("1", c.getString("fq_to_override"));
@@ -172,6 +185,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define a boolean value in rhn_prefix.conf, call getBoolean.
      * Test true, false, 1, 0, y, n, foo, 10
+     * @throws Exception something bad happened
      */
     public void testGetBoolean() throws Exception {
         boolean b = c.getBoolean("prefix.boolean_true");
@@ -212,6 +226,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define an integer value in rhN_prefix.conf, call getInt.
      * Test -10, 0, 100, y
+     * @throws Exception something bad happened
      */
     public void testGetInt() throws Exception {
         int i = c.getInt("prefix.int_minus10");
@@ -250,6 +265,7 @@ public class ConfigTest extends RhnBaseTestCase {
     /**
      * define comma separated value in rhn_prefix.conf,
      * call using StringArrayElem, verify all values are in array.
+     * @throws Exception something bad happened
      */
     public void testGetStringArrayMultElem() throws Exception {
         String[] elems = c.getStringArray("prefix.comma_separated");

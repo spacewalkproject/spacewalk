@@ -1,0 +1,25 @@
+spacewalk-python3-pylint(8)
+===========================
+
+NAME
+----
+spacewalk-python3-pylint - Pylint (python3) configured for Spacewalk
+
+SYNOPSIS
+--------
+
+ spacewalk-python3-pylint directory1 [directory2 ...]
+
+DESCRIPTION
+-----------
+
+spacewalk-python3-pylint runs pylint for every *.py in directories passed as
+argument.  It runs ordinary python3 version of pylint with
+/etc/spacewalk-python3-pylint.rc as configuration file.
+
+You very probably do not want to run it by yourself. It is run automaticaly
+during build process.
+
+FILES
+-----
+/etc/spacewalk-python3-pylint.rc

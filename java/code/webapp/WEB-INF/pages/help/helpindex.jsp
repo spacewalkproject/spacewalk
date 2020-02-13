@@ -15,15 +15,6 @@
     <ul id="help-url-list">
 
         <li>
-            <a style="font-size:12pt" href=/rhn/help/dispatcher/reference_guide>
-                <bean:message key="help.jsp.refguide"/>
-            </a>
-            <strong><bean:message key="help.jsp.translation"/></strong>
-            <br />
-            <bean:message key="help.jsp.detailed"/>
-        </li>
-
-        <li>
             <a style="font-size:12pt" href=/rhn/help/dispatcher/install_guide>
                 <bean:message key="help.jsp.install.title"/>
             </a>

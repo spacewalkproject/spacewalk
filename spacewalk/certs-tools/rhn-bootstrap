@@ -1,6 +1,6 @@
-#!/usr/bin/python -u
+#!/usr/bin/python2 -u
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -22,18 +22,15 @@
 ## language imports
 import sys
 import os
-import string
 
 
-sys.path.append("@@ROOT@@")
-
-mod_name = string.replace(os.path.basename(sys.argv[0]), '-', '_')
+mod_name = os.path.basename(sys.argv[0]).replace('-', '_')
 try:
     mod = __import__("certs." + mod_name)
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)
-except ImportError, e:
+except ImportError as e:
     sys.stderr.write("Unable to load module %s\n" % mod_name)
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)

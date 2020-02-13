@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -19,6 +19,8 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.Severity;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -63,9 +65,11 @@ public class CreateAction extends RhnAction {
         //Validate the form to make sure everything was filled out correctly
         ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, form);
 
+        User user = requestContext.getCurrentUser();
         String advisoryNameFromForm = form.getString("advisoryName");
         //Make sure advisoryName is unique
-        if (!ErrataManager.advisoryNameIsUnique(null, advisoryNameFromForm)) {
+        if (!ErrataManager.advisoryNameIsUnique(null, advisoryNameFromForm,
+                user.getOrg())) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errata.edit.error.uniqueAdvisoryName"));
         }
@@ -100,6 +104,10 @@ public class CreateAction extends RhnAction {
         e.setTopic(form.getString("topic"));
         e.setDescription(form.getString("description"));
         e.setSolution(form.getString("solution"));
+        if (ErrataFactory.ERRATA_TYPE_SECURITY.equals(e.getAdvisoryType())) {
+            e.setSeverity(Severity.getById((Integer)form.get("advisorySeverity")));
+        }
+
 
         //add keywords... split on commas and add separately to list
         String keywordsField = form.getString("keywords");
@@ -123,7 +131,6 @@ public class CreateAction extends RhnAction {
         e.setUpdateDate(date);
 
         //Set the org for the errata to the logged in user's org
-        User user = requestContext.getCurrentUser();
         e.setOrg(user.getOrg());
 
         ErrataManager.storeErrata(e);

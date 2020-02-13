@@ -1,14 +1,11 @@
 import functions # firstboot stuff
 import os
-import sys
 import gtk
 
 from firstboot_module_window import FirstbootModuleWindow
 
-sys.path.append("/usr/share/rhn/up2date_client/")
-sys.path.append("/usr/share/rhn")
-import messageWindow
-import rhnregGui
+from up2date_client import messageWindow
+from up2date_client import rhnregGui
 
 class RhnRegisterFirstbootGuiWindow(FirstbootModuleWindow):
     """This is a base class for our firstboot screens. It shouldn't be used

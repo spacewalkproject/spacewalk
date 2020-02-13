@@ -42,12 +42,11 @@ public class ErrataListAction extends ErrataSetupAction implements Listable {
 
     /**
      * Entry-point caller.
-     * <p/>
+     * <p>
      * @param mapping    The ActionMapping used to select this instance.
      * @param actionForm The optional ActionForm bean for this request.
      * @param request    The HTTP Request we are processing.
      * @param response   The HTTP Response we are processing.
-     * <p/>
      * @return ActionForward returns an action forward
      */
     @Override

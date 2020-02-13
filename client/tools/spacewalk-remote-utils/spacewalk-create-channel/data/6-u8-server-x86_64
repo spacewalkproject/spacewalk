@@ -683,8 +683,8 @@ gcc-c++-4.4.7-17.el6.x86_64.rpm
 gcc-gfortran-4.4.7-17.el6.x86_64.rpm
 gcc-gnat-4.4.7-17.el6.x86_64.rpm
 gcc-java-4.4.7-17.el6.x86_64.rpm
-gcc-objc-4.4.7-17.el6.x86_64.rpm
 gcc-objc++-4.4.7-17.el6.x86_64.rpm
+gcc-objc-4.4.7-17.el6.x86_64.rpm
 GConf2-2.28.0-6.el6.i686.rpm
 GConf2-2.28.0-6.el6.x86_64.rpm
 GConf2-devel-2.28.0-6.el6.i686.rpm

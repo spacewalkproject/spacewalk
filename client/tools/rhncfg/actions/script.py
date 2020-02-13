@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,11 +30,10 @@ except:
 
 
 # this is ugly, hopefully it will be natively supported in up2date
-from actions.configfiles import _local_permission_check, _perm_error
+from rhn.actions.configfiles import _local_permission_check, _perm_error
 from config_common import local_config
 from config_common.rhn_log import set_logfile, log_to_file
 
-sys.path.append('/usr/share/rhn')
 from up2date_client import config
 
 
@@ -46,16 +45,6 @@ __rhnexport__ = [
 # action version we understand
 ACTION_VERSION = 2
 
-# SystemExit exception error code
-SYSEXIT_CODE = 3
-
-class SignalHandler:
-    def __init__(self):
-        self.gotSigterm = False
-    # Handle SIGTERM so that we can return status to Satellite
-    def handle(self, signal, frame):
-        self.gotSigterm = True
-        raise SystemExit(SYSEXIT_CODE)
 
 def _create_script_file(script, uid=None, gid=None):
 
@@ -100,9 +89,6 @@ def _create_path(fpath):
 
 def run(action_id, params, cache_only=None):
 
-    # Setup SIGTERM handler
-    sHandler = SignalHandler()
-    signal.signal(signal.SIGTERM, sHandler.handle)
     cfg = config.initUp2dateConfig()
     local_config.init('rhncfg-client', defaults=dict(cfg.items()))
 
@@ -237,7 +223,7 @@ def run(action_id, params, cache_only=None):
     output = None
     timed_out = None
 
-    out_stream = tempfile.TemporaryFile()
+    out_stream = open('/var/lib/up2date/action.%s' % str(action_id), 'ab+', 0)
 
     while 1:
         select_wait = None
@@ -256,8 +242,10 @@ def run(action_id, params, cache_only=None):
 
             select_wait = timeout - elapsed
 
-        # XXX try-except here for interrupted system calls
-        input_fds, output_fds, error_fds = select.select([pipe_read], [], [], select_wait)
+        try:
+            input_fds, output_fds, error_fds = select.select([pipe_read], [], [], select_wait)
+        except select.error:
+            return 255, "Termination signal occurred during execution.", {}
 
         if error_fds:
             # when would this happen?

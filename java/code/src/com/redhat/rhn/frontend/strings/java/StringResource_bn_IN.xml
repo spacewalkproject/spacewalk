@@ -391,13 +391,6 @@
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Software Channel Entitlements">
-        <source>Software Channel Entitlements</source>
-        <target>সফ্টওয়্যার চ্যানেল সংক্রান্ত এনটাইটেলমেন্ট</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Channel Management">
         <source>Channel Management</source>
         <target>চ্যানেল পরিচালনা</target>
@@ -1251,8 +1244,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="error.maxpassword">
-        <source>The password you requested is too long. Please enter a shorter password and try again.</source>
-        <target>আপনার উল্লিখিত পাসওয়ার্ড অত্যাধিক লম্বা। অনুগ্রহ করে একটি ছোট মাপের পাসওয়ার্ড নির্ধারণ করে পুনরায় প্রচেষ্টা করুন।</target>
+        <source>Passwords cannot be more than {0} characters.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
@@ -1338,56 +1330,55 @@
         <source>Street Address</source>
         <target>পথ</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="address2">
-        <source>Street Address</source>
-        <target>পথ</target>
+        <source>Street Address 2</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
         <target>শহর</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="state">
         <source>State/Province</source>
         <target>রাজ্য/প্রদেশ</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country">
         <source>Country</source>
         <target>দেশ</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="building">
         <source>Building</source>
         <target>ভবন</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="room">
         <source>Room</source>
         <target>কক্ষ</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="rack">
         <source>Rack</source>
         <target>র‍্যাক</target>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Edit</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="system_name">
@@ -1960,6 +1951,13 @@
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="script.run">
+        <source>Run an arbitrary script</source>
+        <target>কোনো যথেচ্ছ স্ক্রিপ্ট চালনা করুন</target>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="rhnsd.configure">
         <source>@@PRODUCT_NAME@@ Daemon Configuration</source>
         <target>@@PRODUCT_NAME@@ Daemon কনফিগারেশন ব্যবস্থা</target>
@@ -2032,29 +2030,25 @@
         </context-group>
       </trans-unit>
       <trans-unit id="errata.schedule">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
-        <target>&lt;strong&gt;{0}-টি&lt;/strong&gt; ত্রুটি-বিচ্যুতি সংক্রান্ত আপডেট &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;-র জন্য নির্ধারিত হয়েছে।</target>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
-        <target>&lt;strong&gt;{0}-টি&lt;/strong&gt; ত্রুটি-বিচ্যুতি সংক্রান্ত আপডেট &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;-র জন্য নির্ধারিত হয়েছে।</target>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
-        <target>&lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; ত্রুটি-বিচ্যুতি &lt;strong&gt;{1}&lt;/strong&gt;-টি সিস্টেমের জন্য নির্ধারিত হয়েছে।</target>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
-        <target>&lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; ত্রুটি-বিচ্যুতি &lt;strong&gt;{1}&lt;/strong&gt;-টি সিস্টেমের জন্য নির্ধারিত হয়েছে।</target>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
         </context-group>
@@ -2090,20 +2084,6 @@
       <trans-unit id="Failed Systems">
         <source>Failed Systems</source>
         <target>সিস্টেমে কর্ম বিফল</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Remove Packages">
-        <source>Remove Packages</source>
-        <target>প্যাকেজ অপসারণ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Update Packages">
-        <source>Update Packages</source>
-        <target>প্যাকেজ আপডেট ব্যবস্থা</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -5122,13 +5102,6 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">com.redhat.rhn.frontend.action.monitoring.notification.AbstractMethodEditAction</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Certificate">
-        <source>Certificate</source>
-        <target>সার্টিফকেট</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Bootstrap Script">
         <source>Bootstrap Script</source>
         <target>বুটস্ট্র্যাপ স্ক্রিপ্ট</target>
@@ -5148,97 +5121,6 @@ user before attempting to deactivate their account.</source>
         <target>@@PRODUCT_NAME@@ পরিসেবার প্রথম ব্যবহারকারীর অ্যাকাউন্ট নির্মিত হয়েছে। অতিরিক্ত কনফিগারেশন নিশ্চিত করার জন্য &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;এই স্থানে ক্লিক করুন&lt;/strong&gt;&lt;/a&gt;।</target>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.nocert">
-        <source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
-        <target>কোনো সার্টিফিকেট পাওয়া যায়নি।  অনুগ্রহ করে একটি স্থানীয় সার্টিফিকেট ফাইল নির্বাচন করুন অথবা ফর্মের মধ্যে ফাইলের বিষয়বস্তু কপি করে পেস্ট করুন।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-        <target>সার্টিফিকেট আপলোড করা হয়েছে।  @@PRODUCT_NAME@@ পুনরায় সক্রিয় করা হয়েছে।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.10">
-        <source>Could not parse certificate file, see log file for more details.</source>
-        <target>সার্টিফিকেট ফাইল পার্স করা যায়নি</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.11">
-        <source>Certificate expired</source>
-        <target>সার্টিফকেটের মেয়াদ পূর্ণ হয়ে গেছে</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.12">
-        <source>Unknown @@PRODUCT_NAME@@ version, see log file for more details.</source>
-        <target>অজানা @@PRODUCT_NAME@@ সংস্করণ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.20">
-        <source>Remote activation failure, see log file for more details.</source>
-        <target>দূরবর্তী সক্রিয়করণ ব্যর্থ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.40">
-        <source>Channel population failure, see log file for more details.</source>
-        <target>চ্যানেলে মাণ পূরণ করতে ব্যর্থ</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.80">
-        <source>No management entitlements remaining</source>
-        <target>Management এনটাইটেলমেন্ট অবশিষ্ট নেই</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.82">
-        <source>@@PRODUCT_NAME@@ channel not found</source>
-        <target>@@PRODUCT_NAME@@ চ্যানেল পাওয়া যায়নি</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.83">
-        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-        <target>@@PRODUCT_NAME@@ চ্যানেল এনটাইটেলমেন্ট অবশিষ্ট নেই</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.84">
-        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
-        <target>@@PRODUCT_NAME@@-র সার্টিফিকেট বৈধ নয়</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.86">
-        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-        <target>ঊর্ধ্বতন সার্ভারের মধ্যে @@PRODUCT_NAME@@-র কোনো বেস চ্যানেল উপস্থিত নেই</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="certificate.config.error.87">
-        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
-        <target>এই সংস্করণের জন্য কোনো @@PRODUCT_NAME@@ চ্যানেল উপলব্ধ নেই</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="hostname">
@@ -6109,13 +5991,13 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
-        <source>Configuration file compare actions are being scheduled for {0} systems, it may take several minutes for this to complete.</source>
+        <source>&lt;a href="{0}"&gt;Configuration file compare actions&lt;/a&gt; are being scheduled for {1} systems, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
-        <source>Configuration file compare action is being scheduled successfully for {0} system.</source>
+        <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
         <context-group name="ctx">
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
         </context-group>
@@ -6316,8 +6198,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="oneyear">
-        <source>with the past year</source>
-        <target>বিগত এক বৎসরের মধ্যে</target>
+        <source>within the past year</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
@@ -6539,20 +6420,6 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="orgsystemsubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <target>{0}-র ক্ষেত্রে এনটাইটেলমেন্ট পরিবর্তনের বৈধ মান উল্লেখ করা আবশ্যক।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSystemSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="orgsoftwaresubs.invalid">
-        <source>Entitlement modification must be a valid number for {0}.</source>
-        <target>{0}-র ক্ষেত্রে এনটাইটেলমেন্ট পরিবর্তনের বৈধ মান উল্লেখ করা আবশ্যক।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="message.org_name_updated">
         <source>Organization {0} was successfully updated.</source>
         <target>{0} প্রতিষ্ঠান সাফল্যের সাথে নির্মাণ করা হয়েছে</target>
@@ -6609,30 +6476,9 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="system.entitle.alreadyvirt">
-        <source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
-        <target>একটি সিস্টেমের মধ্যে Virtualization অথবা Virtualization Platform-র মধ্যে শুধুমাত্র একটি এনটাইটেলমেন্ট উপস্থিত থাকবে।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="system.entitle.invalid_addon_entitlement">
         <source>Invalid add-on entitlement [{0}] provided. No such entitlement exists.</source>
         <target>উল্লিখিত অতিরিক্ত এনটাইটেলমেন্ট [{0}] বৈধ নয়। এই এনটাইটেলমেন্ট উপস্থিত নেই।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="system.entitle.noslots">
-        <source>There were no more {0} System Entitlements available.</source>
-        <target>{0} সিস্টেম এনটাইটেলমেন্ট অবশিষ্ট নেই।</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="system.channel.nochannelslots">
-        <source>There are no more channel entitlements available.</source>
-        <target>কোনো চ্যানেল এনটাইটেলমেন্ট অবশিষ্ট নেই।</target>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
@@ -6809,18 +6655,6 @@ Follow this url to see the full list of inactive systems:
         <source>A required errata attribute ({0}) was missing.</source>
         <target>ত্রুটি-বিচ্যুতি সংক্রান্ত আবশ্যক অ্যাট্রিবিউট ({0}) অনুপস্থিত।</target>
       </trans-unit>
-      <trans-unit id="org.entitlements.system.toomany">
-        <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
-        <target>{0}-কে অত্যাধিক {1} এনটাইটেলমেন্ট বিতরণের প্রচেষ্টা হয়েছে। অনুগ্রহ করে {2} অথবা কম সংখ্যা উল্লেখ করুন।</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.syssoft.success">
-        <source>Entitlements successfully updated.</source>
-        <target>সাফল্যের সাথে এনটাইটেলমেন্ট আপডেট করা হয়েছে।</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.software.proposedwarning">
-        <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
-        <target>সতর্কবার্তা: প্রস্তাবিত {0} বরাদ্দকরণের ফলে উপলব্ধ এনটাইটেলমেন্টের সংখ্যা, {1} প্রতিষ্ঠানে ব্যবহৃত এনটাইটেলমেন্টের তুলনায় কম। অনুগ্রহ করে, প্রস্তাবিত বরাদ্দকরণের সংখ্যা, বর্তমানে ব্যবহৃত এনটাইটেলমেন্টের সংখ্যার সমান অথবা বেশি চিহ্নিত করুন।</target>
-      </trans-unit>
       <trans-unit id="securityErrata">
         <source>Security Errata</source>
         <target>নিরাপত্তা সংক্রান্ত ত্রুটি-বিচ্যুতি</target>
@@ -6844,10 +6678,6 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="entitlement">
         <source>Entitlements</source>
         <target>এনটাইটেলমেন্ট</target>
-      </trans-unit>
-      <trans-unit id="org.entitlements.system.defaultorg">
-        <source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-        <target>ডিফল্ট প্রতিষ্ঠানের জন্য এনটাইটেলমেন্ট আপডেট করতে আপনি অনুমতিপ্রাপ্ত নন।  এই এনটাইটেলমেন্টগুলি আপনার satellite সার্টিফিকেট ফাইল দ্বারা নির্ধারিত হবে।</target>
       </trans-unit>
       <trans-unit id="groupAdmins">
         <source>Group Admins</source>

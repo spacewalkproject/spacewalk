@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -52,8 +52,14 @@ public class CreateSetupAction extends RhnAction {
         //set advisoryTypes list for select drop down
         request.setAttribute("advisoryTypes", ErrataManager.advisoryTypes());
 
+        //set advisory severity list for select drop down
+        request.setAttribute("advisorySeverity", ErrataManager.advisorySeverityRanks());
+
         //set l10n-ed advisoryTypeLabels list for select drop down
         form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
+
+        //set errata severity types
+        form.set("advisorySeverityLabels", ErrataManager.advisorySeverityLabels());
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

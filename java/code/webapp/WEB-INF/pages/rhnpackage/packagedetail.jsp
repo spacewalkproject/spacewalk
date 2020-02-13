@@ -213,24 +213,40 @@
             <div class="panel-body">
                 <rhn:require acl="package_type_capable(rpm)"
                              mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
-                    <c:if test="${not isDebuginfo}" >
+                    <c:if test="${not isDebugPackage}" >
                         <div class="form-group">
                             <label class="col-lg-3 control-label">
                                 <bean:message key="debuginfo.header" />:
                             </label>
                             <div class="col-lg-6">
-                            <c:if test="${debugUrl != null}">
-                                <a class="btn btn-info" href="${debugUrl}"><bean:message key="package.jsp.download"/></a>
-                                <c:if test="${debugFtp}" >
+                            <c:if test="${debugInfoUrl != null}">
+                                <a class="btn btn-info" href="${debugInfoUrl}"><bean:message key="package.jsp.download"/></a>
+                                <c:if test="${debugInfoFtp}" >
                                     <span class="help-block">
                                         <bean:message key="debuginfo.external" />
                                     </span>
                                 </c:if>
                             </c:if>
-                            <c:if test="${debugUrl == null}">
+                            <c:if test="${debugInfoUrl == null}">
                                 <bean:message key="package.jsp.unavailable" />
                                 <span class="help-block">
                                     <bean:message key="debuginfo.unavailable" />
+                                </span>
+                            </c:if>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">
+                                <bean:message key="debugsource.header" />:
+                            </label>
+                            <div class="col-lg-6">
+                            <c:if test="${debugSourceUrl != null}">
+                                <a class="btn btn-info" href="${debugSourceUrl}"><bean:message key="package.jsp.download"/></a>
+                            </c:if>
+                            <c:if test="${debugSourceUrl == null}">
+                                <bean:message key="package.jsp.unavailable" />
+                                <span class="help-block">
+                                    <bean:message key="debugsource.unavailable" />
                                 </span>
                             </c:if>
                             </div>

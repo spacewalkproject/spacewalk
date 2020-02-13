@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,12 @@
  */
 package com.redhat.rhn.domain.errata;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.manager.errata.ErrataManager;
+
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Errata Severity
@@ -24,10 +29,15 @@ import com.redhat.rhn.common.localization.LocalizationService;
 public class Severity {
 
     // WARNING: These must stay in sync with the values in rhnErrataSeverity
+    // there's no need to keep 'unspecified' in db, it equals to null...
     public static final String LOW_LABEL = "errata.sev.label.low";
     public static final String MODERATE_LABEL = "errata.sev.label.moderate";
     public static final String IMPORTANT_LABEL = "errata.sev.label.important";
     public static final String CRITICAL_LABEL = "errata.sev.label.critical";
+    public static final String UNSPECIFIED_LABEL = "errata.sev.label.unspecified";
+
+    //dummy rank for webui selects
+    public static final Integer UNSPECIFIED_RANK = 4;
 
     private long id;
     private int rank;
@@ -96,10 +106,80 @@ public class Severity {
     }
 
     /**
+     * Looks up label for translated string
+     * @return untranslated label
+     * @param translated translated string
+     */
+    public static String getLabelForTranslation(String translated) {
+        Map<String, String> labels = ErrataManager.advisorySeverityUntranslatedLabels();
+        for (Map.Entry<String, String> entry : labels.entrySet()) {
+            if (entry.getValue().equalsIgnoreCase(translated)) {
+                return entry.getKey();
+            }
+        }
+        throw new LookupException("Specified severity is not correct!");
+    }
+
+    /**
+     * Returns id to label mapping
+     * @return id to label map
+     */
+    public static Map<Integer, String> getIdToLabelMap() {
+        Map<Integer, String> severityMap = new HashMap<Integer, String>();
+        severityMap.put(0, CRITICAL_LABEL);
+        severityMap.put(1, IMPORTANT_LABEL);
+        severityMap.put(2, MODERATE_LABEL);
+        severityMap.put(3, LOW_LABEL);
+        return severityMap;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public String toString() {
         return "Id: " + getId() + ", Rank: " + getRank() + ", Label: " + getLabel() +
             ", Localized label: " + getLocalizedLabel();
     }
+
+    /**
+     * Looks up corresponding Severity object by given id
+     * @return Severity object
+     * @param id severity_id
+     */
+    public static Severity getById(Integer id) {
+        Map<Integer, String> severityMap = getIdToLabelMap();
+        Severity newSeverity = new Severity();
+        if (severityMap.get(id) == null) {
+            return null;
+        }
+        newSeverity.setId(id);
+        newSeverity.setLabel(severityMap.get(id));
+        newSeverity.setRank(id);
+        return newSeverity;
+    }
+
+    /**
+     * Looks up corresponding Severity object by given name
+     * @return Severity object
+     * @param name severity_name
+     */
+    public static Severity getByName(String name) {
+        Integer id = null;
+        String key = getLabelForTranslation(name);
+        if (UNSPECIFIED_LABEL.equals(key)) {
+            return null;
+        }
+        Map<Integer, String> severityMap = getIdToLabelMap();
+        Severity newSeverity = new Severity();
+        for (Map.Entry<Integer, String> entry : severityMap.entrySet()) {
+            if (entry.getValue().equals(key)) {
+                id = entry.getKey();
+            }
+        }
+        newSeverity.setId(id);
+        newSeverity.setLabel(severityMap.get(id));
+        newSeverity.setRank(id);
+        return newSeverity;
+    }
+
 }

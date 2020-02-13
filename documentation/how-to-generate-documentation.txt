@@ -1,85 +1,142 @@
-Generated documentation is stored ONLY in SVN, to be auto-pulled into
+Generated documentation is available to users at this url:
 
-http://spacewalk.redhat.com/documentation/
+https://spacewalkproject.github.io/documentation.html
 
-SVN repo is here:
+Documentation is stored in a separate
+git repo and pulled into whatever servers content at the documentation
+url. This github repo is:
+git clone git@github.com:spacewalkproject/spacewalkproject.github.io.git
 
-svn checkout svn+ssh://svn.rhndev.redhat.com/svn/rhn-svn/branches/spacewalk_web/LIVE/documentation
 
 To generate the docs, one needs to:
 
 Setup
 =====
-    * Checkout docs from SVN
-    * export SVN=<wherever you checked out documentation>
-    * export GIT=<wherever your spacewalk.github checkout is>
+    * Have available a SW-nightly/OracleXE machine, we'll call it 'SW-ORA'.  This
+      is only needed for the generation of the schema docs.  I have tested the
+      schema generation on rhel6, rhel7 and fedora26.  All appear to work correctly.
+      The current schema docs were generated on rhel6.
+    * Checkout docs from the spacewalkproject.github.io.git repo
+    * export DOCS_GIT=<wherever you spacewalkproject.github.io.git checkout is>
+    * export SW_GIT=<wherever your spacewalk.github checkout is>
     * export VERS=2.7 # SW-version you're generating docs for
     * export PREV_VERS=2.6 # SW-version prior to $VERS
     * yum install epydoc graphviz # for python
-    * javadoc needs to be installed, it needs java-1.6.0-openjdk-devel # for java
-    * have SW-$VERS installed
+    * java-1.8.0-openjdk-devel needs to be installed
+    * apidoc requires first steps of Full Dev Workstation to be done
+      * https://github.com/spacewalkproject/spacewalk/wiki/DevelopmentWorkstationSetup#full-dev-workstation
+        * install spacewalk runtime environment (the version being released, likely in nightly)
+        * install packages: apache-ivy ant-contrib junit ant-junit java-1.8.0-openjdk-devel postgresql-jdbc jmock jmock-junit3 jmock-legacy checkstyle
+        * cd $SW_GIT/java
+        * ant init-install compile   (should compile with no errors)
+
 
 Javadoc
 =======
     # Build
-    cd $GIT/documentation; make java
-    # Move to SVN repo
-    rm -rf $SVN/javadoc; cp -r $GIT/documentation/javadoc $SVN
+    cd $SW_GIT/documentation;
+    # Check the Makefile to make sure the JAVA_DOC_SRC_VERSION is set
+    # to the version of java we're currently using.  Update if not.
+    # Then run `make java`.
+    make java
+    # If there are any errors during the javadoc generation, fix
+    # the errors.  The master branch was cleaned up on 2017-11-14,
+    # following the 2.7 release, such that no errors were reported.
+    # Fix any errors, then `make java` again, and repeat until
+    # there are no errors.  Most fixes required surround things
+    # that look like html with {@literal ...}.  Other errors are
+    # fixed by replacing <br/> with <br>, <p/> with <p>.
+    # Formatted code snippets should be done like this:
+    # <pre>{@literal
+    #   ... formatted code, multiple lines ...
+    # }</pre>
+    # Have a look at commit 1299868891ddfaaf8fe5a255484fd9bf4cdcb6b1
+    # to see how numerous types of issues/errors were addressed.
+    #
+    # Move to DOCS_GIT repo
+    rm -rf $DOCS_GIT/documentation/javadoc; cp -r $SW_GIT/documentation/javadoc $DOCS_GIT/documentation
     # Check your work
-    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 javadoc | less
-    # Check it in
-    cd $SVN; svn add --force javadoc; svn ci -m "Updating javadoc documentation for $VERS" javadoc
+    cd $DOCS_GIT; git status
+    # if sane file list, like a few additions, few deletions, and several modifications,
+    # check the content
+    git diff
+    # if all looks good, commit it.
+    git add --all; git commit -m "Updating java documentation for $VERS"
+
 
 Python
 ======
     # Note: in last version of epydoc (epydoc-3.0.1-15) is missing fix introduced in upstream r1728,
-    # if it's not applied next step will probably end up with exception
+    # if it's not applied next step will probably end up with exception where epydoc run
+    # fails to run to completion.  Mine stopped around 66% completion.
+    # NOTE: I ended up running an old version found on rpmfind - 3.0.1-14 and then I applied the
+    #   patch attached to bug 364 manually (https://sourceforge.net/p/epydoc/bugs/364/)
+    # NOTE: There were lots of ImportErrors reported, but this should be ok - each says the source
+    # was still processed - just make sure it runs to 100% completion
+    # NOTE: I was not able to run this on F26 with the latest epydoc package - epydoc-3.0.1.20090203svn-5.fc26.src.rpm, even after manually updating dotgraph.py with the patch mentioned above.  I suspect, but have been unable to prove there is something in our py files or setup where we run epydoc that is causing this issue.
     # Build
-    cd $GIT/documentation; make python
-    # Move to SVN repo
-    rm -rf $SVN/python-doc; cp -r $GIT/documentation/python-doc $SVN
+    cd $SW_GIT/documentation; make python
+    # Move to DOCS_GIT repo
+    rm -rf $DOCS_GIT/documentation/python-doc; cp -r $SW_GIT/documentation/python-doc $DOCS_GIT/documentation
     # Check your work
-    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 python-doc | less
-    # Check it in
-    cd $SVN; svn ci -m "Updating python documentation for $VERS" python-doc
+    cd $DOCS_GIT; git status
+    # if sane file list, like a few additions, few deletions, and several modifications,
+    # check the content
+    git diff
+    # if all looks good, commit it.
+    git add --all; git commit -m "Updating python documentation for $VERS"
+
 
 API docs
 ========
-  * The following, unless you're already on a dev-workstation setup:
-    # remove apache-ivy :-(
-    # install ivy from http://mirrors.dotsrc.org/jpackage/5.0/generic/free/
-    # install ant and ant-junit
-
-  * Then:
     # Build
-    cd $GIT/java; ant apidoc-html
-    # Move to SVN repo
-    rm -rf $SVN/api/$VERS; cp -r $GIT/java/build/reports/apidocs/html $SVN/api/$VERS
+    cd $SW_GIT/java; ant apidoc-html
+    # Move to DOCS_GIT repo
+    rm -rf $DOCS_GIT/documentation/api/$VERS; cp -r $SW_GIT/java/build/reports/apidocs/html $DOCS_GIT/documentation/api/$VERS
     # Check your work
-    cd $SVN; diff -rb --context=1 --exclude=.svn api/$PREV_VERS api/$VERS | less
-    # Check it in
-    cd $SVN; svn add api/$VERS; svn ci -m "Updating API documentation for $VERS" api/$VERS
+    cd $DOCS_GIT; git status
+    # if sane file list, like a few additions, few deletions, and several modifications,
+    # check the content
+    git diff
+    # if all looks good, commit it.
+    git add --all; git commit -m "Updating API documentation for $VERS"
+
 
 schema-docs
 ===========
-  Log into SW-$VERS machine and :
-  --------------------
+  Log into SW-ORA and :
+  ----------------------
     # Get required tools
     yum install -y wget graphviz graphviz-gd git
-    # Get schema-vsiualization tools
-    wget http://downloads.sourceforge.net/project/schemaspy/schemaspy/SchemaSpy%205.0.0/schemaSpy_5.0.0.jar 
+    # Setup source from git
+    git clone https://github.com/spacewalkproject/spacewalk.git
+    cd spacewalk/documentation
+    git checkout SPACEWALK-$VERS
+    # Get schema-vsiualization tools - 0.31 is the latest version as of
+    # 2017-10-19.
+    wget http://sourceforge.net/projects/oraschemadoc/files/oraschemadoc/0.31/oraschemadoc-0.31.tar.gz/download -O oraschemadoc-0.31.tar.gz
+    tar xvzf oraschemadoc-0.31.tar.gz
+    # or `git clone https://github.com/pvanek/oraschemadoc oraschemadoc-0.31` if sourceforge has an outage
+    chmod a+x oraschemadoc-0.31/oraschemadoc.py
     # Run the schema-visualization tool
     # NOTE: user/pass/db from /etc/rhn/rhn.conf db_user, db_password, db_name
-    java -jar schemaSpy_5.jar -t pgsql -host 127.0.0.1:5432 -db db_name -u db_user -p db_passwd -s public -dp /usr/share/java/postgresql-jdbc-8.4.704.jar -o /tmp/db-schema 
+    ORASCHEMADOC=oraschemadoc-0.31/oraschemadoc.py DSN=user/pass@db make schema
     # Send the results home
-    scp -r /tmp/db-schema <YOU>@<MACHINE-WITH-YOUR-SVN-CHECKOUT>:/tmp
+    scp -r db-schema <YOU>@<MACHINE-WITH-YOUR-DOCS_GIT-CHECKOUT>:/tmp
 
-  Back to <MACHINE-WITH-YOUR-SVN-CHECKOUT>:
-  ----------------------------------------
-    # Move to SVN repo
-    rm -rf $SVN/schema-doc; cp -r /tmp/db-schema $SVN/schema-doc
+  Back to <MACHINE-WITH-YOUR-DOCS_GIT-CHECKOUT>:
+  ---------------------------------------------
+    # Move to DOCS_GIT repo
+    rm -rf $DOCS_GIT/documentation/schema-doc; cp -r /tmp/db-schema $DOCS_GIT/documentation/schema-doc
     # Check your work
-    cd $SVN; svn diff --diff-cmd diff -x -b -x --context=1 schema-doc | less
-    # Check it in
-    cd $SVN; svn add --force schema-doc; svn ci -m "Updating Schema documentation for $VERS" schema-doc
+    cd $DOCS_GIT; git status
+    # if sane file list, like a few additions, few deletions, and several modifications,
+    # check the content
+    git diff
+    # if all looks good, commit it.
+    git add --all; git commit -m "Updating Schema documentation for $VERS"
 
+
+push all commits
+================
+    cd $DOC_GIT; git push

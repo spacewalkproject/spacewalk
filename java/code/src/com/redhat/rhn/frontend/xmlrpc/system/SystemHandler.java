@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -46,7 +46,9 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
@@ -92,6 +94,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidParameterException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
+import com.redhat.rhn.frontend.xmlrpc.ModulesNotAllowedException;
 import com.redhat.rhn.frontend.xmlrpc.NoPushClientException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchCobblerSystemRecordException;
@@ -226,7 +229,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.returntype string
      */
     public String obtainReactivationKey(String clientCert)
-            throws FaultException, MethodInvalidParamException {
+            throws FaultException {
         Server server = validateClientCertificate(clientCert);
         return getReactivationKey(server.getOrg().getActiveOrgAdmins().get(0), server);
     }
@@ -1976,10 +1979,11 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List system events of the specified type for given server.
+     * @xmlrpc.doc List system actions of the specified type that were *scheduled* against the given server.
      * "actionType" should be exactly the string returned in the action_type field
      * from the listSystemEvents(sessionKey, serverId) method. For example,
      * 'Package Install' or 'Initiate a kickstart for a virtual guest.'
+     * Note: see also system.getEventHistory method which returns a history of all events.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
@@ -2244,9 +2248,10 @@ public class SystemHandler extends BaseHandler {
      * @return Returns an array of maps representing a system
      * @since 10.8
      *
-     * @xmlrpc.doc List all system events for given server. This includes *all* events
-     * for the server since it was registered.  This may require the caller to
-     * filter the results to fetch the specific events they are looking for.
+     * @xmlrpc.doc List all system actions that were *scheduled* against the given server.
+     * This may require the caller to filter the result to fetch actions with a specific action type or
+     * to use the overloaded system.listSystemEvents method with actionType as a parameter.
+     * Note: see also system.getEventHistory method which returns a history of all events.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("int", "serverId", "ID of system.")
@@ -2862,7 +2867,29 @@ public class SystemHandler extends BaseHandler {
      */
     public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
             List<Integer> errataIds) {
-        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, null);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, null, false);
+    }
+
+    /**
+     * Schedules an action to apply errata updates to multiple systems.
+     * @param loggedInUser The current user
+     * @param serverIds List of server IDs to apply the errata to (as Integers)
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return list of action ids, exception thrown otherwise
+     * @since 21
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
+                                          List<Integer> errataIds, Boolean allowModules) {
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, null, allowModules);
     }
 
     /**
@@ -2885,10 +2912,50 @@ public class SystemHandler extends BaseHandler {
     public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds,
             List<Integer> errataIds, Date earliestOccurrence) {
 
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, earliestOccurrence, false);
+    }
+
+    /**
+     * Schedules an action to apply errata updates to multiple systems at a specified time.
+     * @param loggedInUser The current user
+     * @param serverIds List of server IDs to apply the errata to (as Integers)
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the errata update
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return list of action ids, exception thrown otherwise
+     * @since 21
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to multiple systems at a
+     * given date/time.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public List<Long> scheduleApplyErrata(User loggedInUser, List<Integer> serverIds, List<Integer> errataIds,
+                                          Date earliestOccurrence, Boolean allowModules) {
+
         // we need long values to pass to ErrataManager.applyErrataHelper
         List<Long> longServerIds = new ArrayList<Long>();
         for (Iterator<Integer> it = serverIds.iterator(); it.hasNext();) {
-            longServerIds.add(new Long(it.next()));
+            Long sid = new Long(it.next());
+            if (!allowModules) {
+                boolean hasModules = false;
+                Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), loggedInUser);
+                for (Channel channel : server.getChannels()) {
+                    if (channel.getModules() != null) {
+                        hasModules = true;
+                        break;
+                    }
+                }
+                if (hasModules) {
+                    throw new ModulesNotAllowedException();
+                }
+            }
+            longServerIds.add(sid);
         }
 
         return ErrataManager.applyErrataHelper(loggedInUser,
@@ -2913,7 +2980,7 @@ public class SystemHandler extends BaseHandler {
     @Deprecated
     public int applyErrata(User loggedInUser, Integer sid,
             List<Integer> errataIds) {
-        scheduleApplyErrata(loggedInUser, sid, errataIds);
+        scheduleApplyErrata(loggedInUser, sid, errataIds, false);
         return 1;
     }
 
@@ -2936,7 +3003,32 @@ public class SystemHandler extends BaseHandler {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
-        return scheduleApplyErrata(loggedInUser, serverIds, errataIds);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, false);
+    }
+
+    /**
+     * Schedules an action to apply errata updates to a system.
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return list of action ids, exception thrown otherwise
+     * @since 21
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param  #array_single("int", "errataId")
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid, List<Integer> errataIds,
+                                          Boolean allowModules) {
+        List<Integer> serverIds = new ArrayList<Integer>();
+        serverIds.add(sid);
+
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, allowModules);
     }
 
     /**
@@ -2961,7 +3053,35 @@ public class SystemHandler extends BaseHandler {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(sid);
 
-        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, earliestOccurrence);
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, earliestOccurrence, false);
+    }
+
+    /**
+     * Schedules an action to apply errata updates to a system at a specified time.
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param errataIds List of errata IDs to apply (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the errata update
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return list of action ids, exception thrown otherwise
+     * @since 21
+     *
+     * @xmlrpc.doc Schedules an action to apply errata updates to a system at a
+     * given date/time.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("int", "errataId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public List<Long> scheduleApplyErrata(User loggedInUser, Integer sid, List<Integer> errataIds,
+                                          Date earliestOccurrence, Boolean allowModules) {
+        List<Integer> serverIds = new ArrayList<Integer>();
+        serverIds.add(sid);
+
+        return scheduleApplyErrata(loggedInUser, serverIds, errataIds, earliestOccurrence, allowModules);
     }
 
     /**
@@ -3113,9 +3233,25 @@ public class SystemHandler extends BaseHandler {
      * @return package action id
      */
     private Long[] schedulePackagesAction(User loggedInUser, List<Integer> sids,
-            List<Map<String, Long>> packageMaps, Date earliestOccurrence, ActionType acT) {
+            List<Map<String, Long>> packageMaps, Date earliestOccurrence, ActionType acT, boolean allowModules) {
 
         List<Long> actionIds = new ArrayList<Long>();
+
+        if (!allowModules) {
+            boolean hasModules = false;
+            for (Integer sid : sids) {
+                Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), loggedInUser);
+                for (Channel channel : server.getChannels()) {
+                    if (channel.getModules() != null) {
+                        hasModules = true;
+                        break;
+                    }
+                }
+            }
+            if (hasModules) {
+                throw new ModulesNotAllowedException();
+            }
+        }
 
         for (Integer sid : sids) {
             Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
@@ -3148,7 +3284,7 @@ public class SystemHandler extends BaseHandler {
     /**
      * Private helper method to build a list of maps in the format the ActionManager wants.
      *
-     * @param loggedInUser The current user
+     * @param user The current user
      * @param packageIds List of package IDs to install (as Integers)
      * @return list of maps with packages metadata in format ActionManager wants
      */
@@ -3174,7 +3310,7 @@ public class SystemHandler extends BaseHandler {
         }
 
         if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
+            throw new InvalidParameterException("No packages to install/remove.");
         }
 
         return packageMaps;
@@ -3183,12 +3319,12 @@ public class SystemHandler extends BaseHandler {
     /**
      * Private helper method to build a list of maps in the format the ActionManager wants.
      *
-     * @param loggedInUser The current user
+     * @param user The current user
      * @param packageNevraList array of dictionaries with package nevra
      * @return list of maps with packages metadata in format ActionManager wants
      */
     private List<Map<String, Long>> packageNevrasToMaps(User user,
-            List<Map<String, String>> packageNevraList) {
+            List<Map<String, String>> packageNevraList, Boolean lookupNevra) {
 
         List<Map<String, Long>> packageMaps = new LinkedList<Map<String, Long>>();
 
@@ -3212,19 +3348,27 @@ public class SystemHandler extends BaseHandler {
                     packageNevra.get("package_release"), epoch, arch);
 
             if (pl == null || pl.size() == 0) {
-                throw new InvalidPackageException(packageNevra.get("package_name"));
+                PackageName pkgName =  PackageFactory.lookupPackageName(packageNevra.get("package_name"));
+                if (pkgName == null || !lookupNevra) {
+                    throw new InvalidPackageException(packageNevra.get("package_name"));
+                }
+                pkgMap.put("name_id", pkgName.getId());
+                pkgMap.put("evr_id", PackageEvrFactory.lookupOrCreatePackageEvr(epoch,
+                        packageNevra.get("package_version"), packageNevra.get("package_release")).getId());
+                pkgMap.put("arch_id", arch.getId());
             }
-
             // in case if we have more than one package with
             // the same nevra we pick up the first one
-            pkgMap.put("name_id", pl.get(0).getPackageName().getId());
-            pkgMap.put("evr_id", pl.get(0).getPackageEvr().getId());
-            pkgMap.put("arch_id", pl.get(0).getPackageArch().getId());
+            else {
+                pkgMap.put("name_id", pl.get(0).getPackageName().getId());
+                pkgMap.put("evr_id", pl.get(0).getPackageEvr().getId());
+                pkgMap.put("arch_id", pl.get(0).getPackageArch().getId());
+            }
             packageMaps.add(pkgMap);
         }
 
         if (packageMaps.isEmpty()) {
-            throw new InvalidParameterException("No packages to install.");
+            throw new InvalidParameterException("No packages to install/remove.");
         }
         return packageMaps;
     }
@@ -3250,7 +3394,35 @@ public class SystemHandler extends BaseHandler {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_UPDATE);
+                ActionFactory.TYPE_PACKAGES_UPDATE, false);
+    }
+
+    /**
+     * Schedule package installation for several systems.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package installation for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageInstall(User loggedInUser, List<Integer> sids,
+                                         List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, allowModules);
     }
 
     /**
@@ -3278,7 +3450,38 @@ public class SystemHandler extends BaseHandler {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_UPDATE)[0];
+                ActionFactory.TYPE_PACKAGES_UPDATE, false)[0];
+    }
+
+    /**
+     * Schedule package installation for a system.
+     *
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public Long schedulePackageInstall(User loggedInUser, final Integer sid,
+                                       List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, allowModules)[0];
     }
 
     /**
@@ -3310,8 +3513,45 @@ public class SystemHandler extends BaseHandler {
             List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_UPDATE);
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, false);
+    }
+
+    /**
+     * Schedule package installation for several systems.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageNevraList array of dictionaries with package nevra
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package installation for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array()
+     *                   #struct("Package nevra")
+     *                          #prop("string", "package_name")
+     *                          #prop("string", "package_epoch")
+     *                          #prop("string", "package_version")
+     *                          #prop("string", "package_release")
+     *                          #prop("string", "package_arch")
+     *
+     *                   #struct_end()
+     *               #array_end()
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageInstallByNevra(User loggedInUser, List<Integer> sids, List<Map<String,
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, allowModules);
     }
 
     /**
@@ -3346,10 +3586,49 @@ public class SystemHandler extends BaseHandler {
         sids.add(sid);
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_UPDATE)[0];
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, false)[0];
     }
 
+    /**
+     * Schedule package installation for a system.
+     *
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param packageNevraList array of dictionaries with package nevra
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package installation for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array()
+     *                   #struct("Package nevra")
+     *                          #prop("string", "package_name")
+     *                          #prop("string", "package_epoch")
+     *                          #prop("string", "package_version")
+     *                          #prop("string", "package_release")
+     *                          #prop("string", "package_arch")
+     *
+     *                   #struct_end()
+     *               #array_end()
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *              "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public Long schedulePackageInstallByNevra(User loggedInUser, final Integer sid, List<Map<String,
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList, false), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_UPDATE, allowModules)[0];
+    }
 
     /**
      * Schedule package removal for several systems.
@@ -3372,7 +3651,35 @@ public class SystemHandler extends BaseHandler {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_REMOVE);
+                ActionFactory.TYPE_PACKAGES_REMOVE, false);
+    }
+
+    /**
+     * Schedule package removal for several systems.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageIds List of package IDs to install (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package removal
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package removal for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageRemove(User loggedInUser, List<Integer> sids,
+                                        List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, allowModules);
     }
 
     /**
@@ -3399,7 +3706,38 @@ public class SystemHandler extends BaseHandler {
 
         return schedulePackagesAction(loggedInUser, sids,
                 packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_REMOVE)[0].intValue();
+                ActionFactory.TYPE_PACKAGES_REMOVE, false)[0].intValue();
+    }
+
+    /**
+     * Schedule package removal for a system.
+     *
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param packageIds List of package IDs to remove (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package removal
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return 1 if successful, exception thrown otherwise
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package removal for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype int actionId - The action id of the scheduled action
+     */
+    public int schedulePackageRemove(User loggedInUser, Integer sid,
+                                     List<Integer> packageIds, Date earliestOccurrence, Boolean allowModules) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageIdsToMaps(loggedInUser, packageIds), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, allowModules)[0].intValue();
     }
 
     /**
@@ -3431,8 +3769,45 @@ public class SystemHandler extends BaseHandler {
             List<Map<String, String>> packageNevraList, Date earliestOccurrence) {
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_REMOVE);
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, false);
+    }
+
+    /**
+     * Schedule package removal for several systems using it's nevra.
+     *
+     * @param loggedInUser The current user
+     * @param sids IDs of the servers
+     * @param packageNevraList array of dictionaries with package nevra
+     * @param earliestOccurrence Earliest occurrence of the package removal
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package removal for several systems.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #array_single("int", "serverId")
+     * @xmlrpc.param #array()
+     *                   #struct("Package nevra")
+     *                          #prop("string", "package_name")
+     *                          #prop("string", "package_epoch")
+     *                          #prop("string", "package_version")
+     *                          #prop("string", "package_release")
+     *                          #prop("string", "package_arch")
+     *
+     *                   #struct_end()
+     *               #array_end()
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public Long[] schedulePackageRemoveByNevra(User loggedInUser, List<Integer> sids, List<Map<String,
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, allowModules);
     }
 
     /**
@@ -3467,10 +3842,49 @@ public class SystemHandler extends BaseHandler {
         sids.add(sid);
 
         return schedulePackagesAction(loggedInUser, sids,
-                packageNevrasToMaps(loggedInUser, packageNevraList), earliestOccurrence,
-                ActionFactory.TYPE_PACKAGES_REMOVE)[0].intValue();
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, false)[0].intValue();
     }
 
+    /**
+     * Schedule package removal for a system using it's nevra.
+     *
+     * @param loggedInUser The current user
+     * @param sid ID of the server
+     * @param packageNevraList array of dictionaries with package nevra
+     * @param earliestOccurrence Earliest occurrence of the package removal
+     * @param allowModules Allow this API call, despite modular content being present
+     * @return package action id
+     * @since 21
+     *
+     * @xmlrpc.doc Schedule package removal for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array()
+     *                   #struct("Package nevra")
+     *                          #prop("string", "package_name")
+     *                          #prop("string", "package_epoch")
+     *                          #prop("string", "package_version")
+     *                          #prop("string", "package_release")
+     *                          #prop("string", "package_arch")
+     *
+     *                   #struct_end()
+     *               #array_end()
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.param #param_desc("boolean", "allowModules",
+     *          "Allow this API call, despite modular content being present")
+     * @xmlrpc.returntype #array_single("int", "actionId")
+     */
+    public int schedulePackageRemoveByNevra(User loggedInUser, final Integer sid, List<Map<String,
+            String>> packageNevraList, Date earliestOccurrence, Boolean allowModules) {
+
+        List<Integer> sids = new ArrayList<Integer>();
+        sids.add(sid);
+
+        return schedulePackagesAction(loggedInUser, sids,
+                packageNevrasToMaps(loggedInUser, packageNevraList, true), earliestOccurrence,
+                ActionFactory.TYPE_PACKAGES_REMOVE, allowModules)[0].intValue();
+    }
 
     /**
      * Lists all of the notes that are associated with a system.
@@ -3550,11 +3964,16 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
-        Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server,
-                earliestOccurrence);
-        Action action = ActionFactory.save(a);
+        try {
+            Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server,
+                    earliestOccurrence);
+            Action action = ActionFactory.save(a);
 
-        return action.getId();
+            return action.getId();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
     }
 
     /**
@@ -3577,11 +3996,16 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()),
                 loggedInUser);
 
-        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server,
-                earliestOccurrence);
-        ActionFactory.save(a);
+        try {
+            Action a = ActionManager.schedulePackageRefresh(loggedInUser, server,
+                    earliestOccurrence);
+            ActionFactory.save(a);
 
-        return a.getId().intValue();
+            return a.getId().intValue();
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
     }
 
     /**
@@ -5014,8 +5438,7 @@ public class SystemHandler extends BaseHandler {
      */
     private SystemRecord getSystemRecordFromClientCert(String clientcert) {
         Server server = validateClientCertificate(clientcert);
-        SystemRecord rec = server.getCobblerObject(null);
-        return rec;
+        return server.getCobblerObject(null);
     }
 
     /**
@@ -5724,7 +6147,7 @@ public class SystemHandler extends BaseHandler {
      * @param loggedInUser the session key
      * @return List of systems that require reboot
      *
-     * @xmlrpc.doc list systems that require reboot
+     * @xmlrpc.doc List systems that require reboot.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      *      #array()

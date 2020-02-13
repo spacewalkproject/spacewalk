@@ -1,13 +1,11 @@
-%define release_name Smile
+%define release_name FourtyTwo
 
 Name:           spacewalk
-Version:        2.7.2
+Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
-Group:          Applications/Internet
 License:        GPLv2
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %description
@@ -16,12 +14,11 @@ inventory, provision, update and control your Linux machines.
 
 %package common
 Summary: Spacewalk Systems Management Application with Oracle database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 
-BuildRequires:  python
-Requires:       python >= 2.3
+BuildRequires:  python2
+Requires:       python2 >= 2.3
 Requires:       spacewalk-setup
 
 # Java
@@ -90,7 +87,6 @@ inventory, provision, update and control your Linux machines.
 
 %package oracle
 Summary: Spacewalk Systems Management Application with Oracle database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
@@ -108,6 +104,8 @@ Requires: quartz-oracle
 Requires: oracle-instantclient-selinux
 Requires: oracle-instantclient-sqlplus-selinux
 
+Obsoletes: spacewalk-dobby < 2.7.0
+
 %description oracle
 Spacewalk is a systems management application that will
 inventory, provision, update and control your Linux machines.
@@ -115,7 +113,6 @@ Version for Oracle database backend.
 
 %package postgresql
 Summary: Spacewalk Systems Management Application with PostgreSQL database backend
-Group:   Applications/Internet
 License: GPLv2
 Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
@@ -144,7 +141,6 @@ Version for PostgreSQL database backend.
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}
 SW_REL=$(echo %{version} | awk -F. '{print $1"."$2}')
 echo "Spacewalk release $SW_REL (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
@@ -174,6 +170,31 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Tue Feb 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- let's change release name after 10 years
+
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- require python2
+
+* Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- Bumping package versions for 2.10
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Wed Aug 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
+- obsolete only older (oracle) version of dobby
+
+* Wed Aug 02 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- 1449124 - db-control no longer works with oracle, let's add
+  conflicts/obsoletes
+
 * Tue May 09 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.2-1
 - 1447591 - pull in spacewalk-dobby just on postgresql
 
@@ -223,98 +244,4 @@ rm -rf %{buildroot}
 - Bumping package versions for 2.2.
 - fixed tito build warning
 - Bumping package versions for 2.1.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Sun Jul 14 2013 Tomas Lestach <tlestach@redhat.com> 1.10.2-1
-- fix postgresql84-pltc dependency to postgresql84-pltcl
-
-* Fri Jul 12 2013 Tomas Lestach <tlestach@redhat.com> 1.10.1-1
-- let spacewalk-postgresql require postgresql-pltcl
-- Bumping package versions for 1.9
-
-* Mon Mar 04 2013 Jan Pazdziora 1.9.1-1
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-
-* Thu Oct 25 2012 Jan Pazdziora 1.8.6-1
-- Revert "Require spacewalk-setup-embedded-postgresql for spacewalk-setup to
-  work."
-
-* Thu Oct 25 2012 Jan Pazdziora 1.8.5-1
-- Require spacewalk-setup-embedded-postgresql for spacewalk-setup to work.
-
-* Fri Oct 19 2012 Jan Pazdziora 1.8.4-1
-- We need one extra package in the dependency chain to prefer cobbler20 upon
-  fresh installation.
-
-* Tue Oct 16 2012 Jan Pazdziora 1.8.3-1
-- Require the cobbler20 for full installation.
-
-* Tue Oct 09 2012 Jan Pazdziora 1.8.2-1
-- The spacewalk-backend-xp subpackage is not longer built.
-- %%defattr is not needed since rpm 4.4
-
-* Mon Apr 16 2012 Jan Pazdziora 1.8.1-1
-- Require postgresql >= 8.4 (mzazrivec@redhat.com)
-
-* Fri Mar 02 2012 Jan Pazdziora 1.7.3-1
-- On RHEL 5, we need to explicitly name postgresql84-contrib.
-
-* Thu Mar 01 2012 Jan Pazdziora 1.7.2-1
-- The path is different on PostgreSQL 9.1/Fedora 16, luckily the postgresql-
-  contrib package name is the same.
-
-* Wed Feb 29 2012 Jan Pazdziora 1.7.1-1
-- Creating the dblink function(s) upon schema population, in schema public.
-
-* Fri Jun 17 2011 Jan Pazdziora 1.5.1-1
-- No longer require jabberd-selinux-workaround now that RHEL 6.1 has been
-  released.
-
-* Mon Jan 31 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.3.3-1
-- Require jabberd-selinux-workaround on RHEL-6.0
-
-* Fri Jan 07 2011 Jan Pazdziora 1.3.2-1
-- Conflict with the InstantClient 10 to remind that they need to be removed
-  upon upgrade.
-- Switch to Oracle InstantClient 11 in spacewalk-oracle.
-- add build.py.props to allow building using tito (msuchy@redhat.com)
-
-* Wed Dec 08 2010 Tomas Lestach <tlestach@redhat.com> 1.3.1-1
-- remove jabberd-selinux dependency for rhel6+ (tlestach@redhat.com)
-- Bumping package versions for 1.3. (jpazdziora@redhat.com)
-
-* Tue Oct 12 2010 Jan Pazdziora 1.2.3-1
-- Move the oracle-instantclient*-selinux dependency to spacewalk-oracle, to
-  make it posible to install Spacewalk without Oracle SELinux modules.
-
-* Fri Oct 08 2010 Jan Pazdziora 1.2.2-1
-- Moving the quartz-oracle Requires from spacewalk-taskomatic to spacewalk-
-  oracle.
-
-* Wed Aug 11 2010 Jan Pazdziora 1.2.1-1
-- The dependency of python-psycopg2 (which replaced python-pgsql) is in
-  spacewalk-backend-sql-postgresql, no need to have it in spacewalk-postgresql
-  directly.
-- bumping package versions for 1.2 (mzazrivec@redhat.com)
-
-* Fri Jul 23 2010 Jan Pazdziora 1.1.6-1
-- To populate the database, we need psql.
-
-* Fri Jul 16 2010 Milan Zazrivec <mzazrivec@redhat.com> 1.1.5-1
-- only spacewalk-oracle should requires newly splitted packages with Oracle
-  probes
-
-* Fri Jul 09 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
-- create virtual package spacewalk-backend-sql-virtual (msuchy@redhat.com)
-
-* Mon Jun 21 2010 Jan Pazdziora 1.1.3-1
-- Make bash the default for syntax highlighting (colin.coe@gmail.com)
-
-* Thu Apr 22 2010 Miroslav Suchý <msuchy@redhat.com> 1.1.2-1
-- put new ascii art to instaler 
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
 

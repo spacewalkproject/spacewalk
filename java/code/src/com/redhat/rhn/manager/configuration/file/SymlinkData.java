@@ -79,10 +79,7 @@ public class SymlinkData extends DirectoryData {
     */
    @Override
    public ConfigInfo extractInfo() {
-       ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
-                           null, null,
-                           null, getSelinuxCtx(), getTargetPath());
-       return info;
+       return ConfigurationFactory.lookupOrInsertConfigInfo(null, null, null, getSelinuxCtx(), getTargetPath());
    }
 
    /**

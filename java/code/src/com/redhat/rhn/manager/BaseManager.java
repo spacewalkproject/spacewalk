@@ -63,6 +63,7 @@ public abstract class BaseManager {
     /**
      * Returns a DataResult for the given SelectMode bounded
      * by the values of the PageControl.
+     * @param <myClass> the DataResults type
      * @param queryParams Named parameters for the driving query.
      * @param elabParams Named parameters for the elaboration query.
      * @param pc Page Control boundary definition.
@@ -101,6 +102,7 @@ public abstract class BaseManager {
     /**
      * Returns a DataResult for the given SelectMode bounded
      * by the values of the ListControl.
+     * @param <myClass> the DataResults type
      * @param queryParams Named parameters for the driving query.
      * @param elabParams Named parameters for the elaboration query.
      * @param lc ListControl filtering definition
@@ -141,6 +143,7 @@ public abstract class BaseManager {
      * Returns a DataResult for the given SelectMode with no bounds.  This
      * can be usefull if you want a list without pagination controls.
      *
+     * @param <myClass> the DataResults type
      * @param queryParams Named parameters for the driving query.
      * @param elabParams Named parameters for the elaboration query.
      * @param m datasource SelectMode.
@@ -161,7 +164,7 @@ public abstract class BaseManager {
     /**
      * Process the PageControl against the DataResult. Returns an
      * <strong>unelaborated</strong> list if PageControl is null.
-     * @param dr
+     * @param dr the DataResult
      * @param elabParams Named parameters for the elaboration query.
      * @param pc Page Control boundary definition.
      * @return DataResult modified (filtered) by the PageControl
@@ -209,7 +212,7 @@ public abstract class BaseManager {
      * does not limit the number of results, unlike PageControl, and
      * simply provides filtering. Returns an <strong>unelaborated</strong>
      * list if ListControl is null.
-     * @param dr
+     * @param dr the DataResult
      * @param elabParams Named parameters for the elaboration query.
      * @param lc ListControl filtering definition.
      * @return DataResult modified (filtered) by the PageControl

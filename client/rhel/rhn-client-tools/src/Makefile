@@ -3,6 +3,8 @@
 
 PREFIX ?=
 VERSION ?=
+PYTHONPATH ?= /usr/lib/python2.6
+PYTHONVERSION ?= 2.6
 
 # Dirs we need to walk into
 SUBDIRS		= up2date_client actions firstboot-legacy-rhel6 firstboot-legacy-rhel5 bin
@@ -11,6 +13,8 @@ SUBDIRS		= up2date_client actions firstboot-legacy-rhel6 firstboot-legacy-rhel5 
 export PREFIX 
 export VERSION
 export PLATFORM
+export PYTHONPATH
+export PYTHONVERSION
 
 all::
 

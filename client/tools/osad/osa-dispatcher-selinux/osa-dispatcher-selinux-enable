@@ -1,9 +1,16 @@
 #!/bin/bash
 
+# make sure osa_dispatcher_upstream_notif_server_port_t has been removed
+/usr/sbin/semanage port -ln \
+  | awk -F'[ ,]+' '/osa_dispatcher_upstream_notif_server_port_t +tcp / {for (n=3;n<=NF;n++) {print  $n}}' \
+  | while read port ; do
+      /usr/sbin/semanage port -d -t osa_dispatcher_upstream_notif_server_port_t -p tcp $port || :
+    done
+
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
   do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+    /usr/sbin/semanage module -l -S ${selinuxvariant} > /dev/null 2>&1 \
       && /usr/sbin/semodule -s ${selinuxvariant} -i \
         /usr/share/selinux/${selinuxvariant}/osa-dispatcher.pp || :
   done

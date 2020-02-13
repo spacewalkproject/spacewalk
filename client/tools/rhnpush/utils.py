@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -31,7 +31,7 @@ def make_common_attr_equal(object1, object2):
     for attr in object1.__dict__.keys():
 
         # Make sure that the attribute name doesn't begin with "_"
-        if len(attr) < 1 or attr[0] == "_":
+        if not attr or attr[0] == "_":
             continue
 
         # Make sure that object2 has the attribute as well. and that it's not equal to ''.
@@ -39,8 +39,7 @@ def make_common_attr_equal(object1, object2):
             continue
 
         # Make sure the attributes are the same type OR that the attribute in object1 is None.
-        if isinstance(object1.__dict__[attr], type(object2.__dict__[attr])) or \
-        isinstance(object1.__dict__[attr], type(None)):
+        if isinstance(object1.__dict__[attr], (type(object2.__dict__[attr]), type(None))):
             if object1.__dict__[attr] != object2.__dict__[attr]:
                 object1.__dict__[attr] = object2.__dict__[attr]
             else:

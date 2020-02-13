@@ -23,7 +23,7 @@ import java.util.List;
  * Interface used to tie an action into ListTag 3.0 (known for a while as "new List Tag").
  * This interface allows the List*Helper classes to interact with the action to retrieve
  * the data to show on the page.
- * <p/>
+ * <p>
  * See the Spacewalk wiki for more information on how to work with ListTag 3.0.
  * @version $Rev$
  * @param <T> Type of objects to be listed.

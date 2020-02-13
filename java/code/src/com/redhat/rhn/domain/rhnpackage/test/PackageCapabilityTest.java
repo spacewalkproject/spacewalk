@@ -29,7 +29,7 @@ public class PackageCapabilityTest extends RhnBaseTestCase {
     /**
      * Simple test to make sure we can create
      * PackageCapabilities and write them to the db.
-     * @throws Exception Exception
+     * @throws Exception something bad happened
      */
     public void testPackageCapability() throws Exception {
 
@@ -42,7 +42,7 @@ public class PackageCapabilityTest extends RhnBaseTestCase {
     /**
      * Create a test PackageCapability
      * @return Returns a committed test PackageCapability
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static PackageCapability createTestCapability() throws Exception {
         return createTestCapability("Test Name " + TestUtils.randomString());
@@ -50,8 +50,9 @@ public class PackageCapabilityTest extends RhnBaseTestCase {
 
     /**
      * Create a test PackageCapability
+     * @param capabilityName the capability name
      * @return Returns a committed test PackageCapability
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static PackageCapability createTestCapability(String capabilityName)
     throws Exception {

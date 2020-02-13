@@ -53,7 +53,7 @@ public class ServerGroupTest extends RhnBaseTestCase {
     }
 
     /**
-     * @param user
+     * @param user the user
      */
     public static void checkSysGroupAdminRole(User user) {
         if (!user.hasRole(RoleFactory.SYSTEM_GROUP_ADMIN)) {

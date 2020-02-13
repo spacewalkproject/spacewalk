@@ -39,7 +39,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 /**
  * Reboot Systems in the SSM miscellaneous actions.
  *
- * @author Bo Maryniuk <bo@suse.de>
+ * @author Bo Maryniuk {@literal <bo@suse.de>}
  */
 public class RebootSystemAction
         extends RhnListAction
@@ -58,9 +58,7 @@ public class RebootSystemAction
         helper.execute();
 
         if (helper.isDispatched()) {
-            ActionForward forward =
-                handleDispatch(helper, mapping, request);
-            return forward;
+            return handleDispatch(helper, mapping, request);
         }
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

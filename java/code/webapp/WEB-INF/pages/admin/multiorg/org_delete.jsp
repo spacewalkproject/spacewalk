@@ -25,7 +25,7 @@
                                 <bean:message key="org.name.jsp"/>
                             </td>
                             <td>
-                                ${orgName}
+                                ${fn:escapeXml(orgName)}
                             </td>
                         </tr>
                         <tr>

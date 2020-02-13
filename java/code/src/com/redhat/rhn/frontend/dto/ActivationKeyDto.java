@@ -29,8 +29,8 @@ public class ActivationKeyDto extends BaseDto {
     private boolean keyDisabled;
     private String note;
     private String token;
-    private Integer usageLimit;
-    private Integer systemCount;
+    private Long usageLimit;
+    private Long systemCount;
     private String orgDefault;
 
     /**
@@ -64,14 +64,7 @@ public class ActivationKeyDto extends BaseDto {
      * @param value 1 if the key is disabled
      */
     public void setKeyDisabled(Integer value) {
-        if (value == null || (!value.equals(new Integer(1)))) {
-            this.keyDisabled = false;
-        }
-        else {
-            this.keyDisabled = true;
-        }
-
-        return;
+        this.keyDisabled = value != null && (value.equals(new Integer(1)));
     }
 
     /**
@@ -115,7 +108,7 @@ public class ActivationKeyDto extends BaseDto {
      *
      * @return the value of usageLimit
      */
-    public Integer getUsageLimit() {
+    public Long getUsageLimit() {
         return this.usageLimit;
     }
 
@@ -124,7 +117,7 @@ public class ActivationKeyDto extends BaseDto {
      *
      * @param argUsageLimit Value to assign to this.usageLimit
      */
-    public void setUsageLimit(Integer argUsageLimit) {
+    public void setUsageLimit(Long argUsageLimit) {
         this.usageLimit = argUsageLimit;
     }
 
@@ -133,7 +126,7 @@ public class ActivationKeyDto extends BaseDto {
      *
      * @return the value of systemCount
      */
-    public Integer getSystemCount() {
+    public Long getSystemCount() {
         return this.systemCount;
     }
 
@@ -142,7 +135,7 @@ public class ActivationKeyDto extends BaseDto {
      *
      * @param argSystemCount Value to assign to this.systemCount
      */
-    public void setSystemCount(Integer argSystemCount) {
+    public void setSystemCount(Long argSystemCount) {
         this.systemCount = argSystemCount;
     }
 

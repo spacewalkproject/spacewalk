@@ -14,7 +14,6 @@
 #
 
 import sys
-sys.path.append("/usr/share/rhn")
 try:
     # Python 2
     import commands
@@ -22,13 +21,16 @@ except ImportError:
     import subprocess as commands
 
 from spacewalk.common.usix import StringType
+from distutils.sysconfig import get_python_lib
+
+COMMAND = "python%s %s/virtualization/poller.py" % (sys.version[0], get_python_lib())
 
 def create_crontab_line(minute  =   None,\
                         hour    =   None,\
                         dom     =   None,\
                         month   =   None,\
                         dow     =   None,
-                        command =   "python /usr/share/rhn/virtualization/poller.py"):
+                        command =   COMMAND):
     user = "root"
 
     if minute == None:
@@ -51,7 +53,7 @@ def create_crontab_line(minute  =   None,\
     if type(month) != StringType:
         month = str(month).strip()
     if type(dow) != StringType:
-        dow = str(dow).strip
+        dow = str(dow).strip()
 
     str_template = "%s %s %s %s %s %s %s\n"
 

@@ -1,6 +1,6 @@
 # Spacewalk Proxy Server authentication manager.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -40,7 +40,7 @@ import rhnAuthCacheClient
 
 
 sys.path.append('/usr/share/rhn')
-from up2date_client import config # pylint: disable=E0012, C0413
+from up2date_client import config # pylint: disable=E0012, C0413, wrong-import-order
 
 # To avoid doing unnecessary work, keep ProxyAuth object global
 __PROXY_AUTH = None
@@ -460,7 +460,7 @@ class AuthLocalBackend:
         return rhnCache.delete(rkey)
 
     def _compute_key(self, key):
-        return os.path.join(self._cache_prefix, str(key))
+        return os.path.join(self._cache_prefix, os.path.basename(str(key)))
 
     def __len__(self):
         pass

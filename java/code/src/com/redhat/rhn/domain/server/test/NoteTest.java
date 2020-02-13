@@ -33,7 +33,7 @@ public class NoteTest extends RhnBaseTestCase {
 
     /**
      * Test Note creation and equals method
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testEquals() throws Exception {
         Note note1 = createTestNote();
@@ -54,7 +54,7 @@ public class NoteTest extends RhnBaseTestCase {
     /**
      * Helper method to create a test Note
      * @return A new Note.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Note createTestNote() throws Exception {
         Note note = new Note();

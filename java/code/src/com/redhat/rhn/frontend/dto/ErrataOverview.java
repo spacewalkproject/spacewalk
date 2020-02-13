@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -47,6 +47,7 @@ public class ErrataOverview extends BaseDto {
     private Date lastModified;
     private Long fromErrataId;
     private String relationship;
+    private Integer severityid;
 
     /**
      * This method is only used for csv export..
@@ -138,6 +139,18 @@ public class ErrataOverview extends BaseDto {
      */
     public void setPackageNames(List p) {
         this.packageNames = p;
+    }
+    /**
+     * @return Returns severity.
+     */
+    public Integer getSeverityid() {
+        return severityid;
+    }
+    /**
+     * @param sId The severity to set.
+     */
+    public void setSeverityid(Integer sId) {
+        this.severityid = sId;
     }
     /**
      * @return Returns the cves.

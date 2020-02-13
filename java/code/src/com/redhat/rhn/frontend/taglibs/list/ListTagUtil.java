@@ -162,7 +162,7 @@ public class ListTagUtil {
      * Returns a link containing the URL + ALL the parameters of the
      * request query string minus the sort links, and the alpha link +
      * the additional params passed in the paramsToAdd map. The resulting
-     * string is urlEncode'd with & encoded as &amp; so it can be used
+     * string is urlEncode'd with {@literal & encoded as &amp;} so it can be used
      * in a href directly.
      *
      * @param request the Servlet Request

@@ -28,7 +28,6 @@ INSTALL_DIR	?= $(INSTALL) -m 755 -d
 
 # This is for the subdir part
 PYFILES		= $(addsuffix .py,$(FILES))
-PYCFILES	= $(addsuffix .pyc,$(FILES))
 
 # what do we need to install and where
 INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
@@ -53,12 +52,6 @@ clean ::
 	@rm -f .\#*
 	@rm -f core
 
-# default compile rules
-%.pyc : %.py
-	python -c "import compileall; compileall.compile_dir('$(CURDIR)')"
-%.pyo : %.py
-	python -OO -c "import compileall; compileall.compile_dir('$(CURDIR)')"
-
 %.8 : %.sgml
 	[ -f /usr/bin/docbook2man ] && /usr/bin/docbook2man $< || true
 
@@ -73,6 +66,7 @@ all install clean:: $(SUBDIRS)
 # extra toy targets
 # Python checker support
 PYTHONPATH      = $(TOP)
+PYTHONVERSION   ?= 2
 PYCHECKER       = pychecker
 PYCHECKEROPTS   = --maxreturns 10 --maxbranches 15
 
@@ -91,7 +85,7 @@ make_rel	= $(shell a="$1"; b=; while [ "$$a" != '/' ]; do \
 install-bin: $(PREFIX)$(BINDIR) $(addsuffix .py,$(EXEC_FILES))
 	@$(foreach f,$(EXEC_FILES), \
 	    chmod 755 $(PREFIX)$(INSTALL_DEST)/$(f).py; \
-	    $(LN) $(call make_rel,$(BINDIR))$(INSTALL_DEST)/$(f).py $(PREFIX)$(BINDIR)/$(f); )
+	    $(LN) $(call make_rel,$(BINDIR))$(INSTALL_DEST)/$(f).py $(PREFIX)$(BINDIR)/$(f)-$(PYTHONVERSION); )
 
 install-conf: $(PREFIX)$(CONFDIR) $(CONFIG_FILES)
 	@$(foreach f,$(CONFIG_FILES), \

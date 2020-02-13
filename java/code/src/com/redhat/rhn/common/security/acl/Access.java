@@ -178,7 +178,39 @@ public class Access extends BaseHandler {
     }
 
     /**
-     * Check if a system has a management entitlement
+     * Check if all systems in the current system have a certain entitlement.
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return true if at all systems in the set have the entitlement passed as params[0]
+     */
+    @SuppressWarnings("unchecked")
+    public boolean aclAllSystemsInSetHaveEntitlement(Object ctx,
+            String[] params) {
+        Map<String, Object> map = (Map<String, Object>) ctx;
+        User user = (User) map.get("user");
+
+        return SystemManager.countSystemsInSetWithoutEntitlement(user,
+                RhnSetDecl.SYSTEMS.getLabel(), params[0]) == 0;
+    }
+
+    /**
+     * Check if all systems in the current system have a certain feature.
+     * @param ctx Context map to pass in.
+     * @param params Parameters to use to fetch from context.
+     * @return true if at all systems in the set have the feature passed as params[0]
+     */
+    @SuppressWarnings("unchecked")
+    public boolean aclAllSystemsInSetHaveFeature(Object ctx,
+            String[] params) {
+        Map<String, Object> map = (Map<String, Object>) ctx;
+        User user = (User) map.get("user");
+
+        return SystemManager.countSystemsInSetWithoutFeature(user,
+                RhnSetDecl.SYSTEMS.getLabel(), params[0]) == 0;
+    }
+
+    /**
+     * Check if any system has a management entitlement
      * @param ctx Context map to pass in.
      * @param params Parameters to use to fetch from context.
      * @return True if system has management entitlement, false otherwise.
@@ -262,8 +294,7 @@ public class Access extends BaseHandler {
      * @return true if the system is a satellite and has any users.
      */
     public boolean aclNeedFirstUser(Object ctx, String[] p) {
-        boolean flag = !(UserFactory.satelliteHasUsers());
-        return flag;
+        return !(UserFactory.satelliteHasUsers());
     }
 
     /**
@@ -361,9 +392,6 @@ public class Access extends BaseHandler {
         Map map = (Map)ctx;
         Long eid = getAsLong(map.get("eid"));
         Errata e = ErrataFactory.lookupById(eid);
-        if (e == null || e.getOrg() == null) {
-            return false;
-        }
-        return true;
+        return e != null && e.getOrg() != null;
     }
 }

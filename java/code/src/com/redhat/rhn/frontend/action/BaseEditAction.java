@@ -89,10 +89,7 @@ public abstract class BaseEditAction extends RhnAction {
      */
     private boolean isRefresh(RequestContext rctx) {
         String refresh = rctx.getParam(REFRESH, false);
-        if (refresh != null && refresh.equals("true")) {
-            return true;
-        }
-        return false;
+        return refresh != null && refresh.equals("true");
     }
 
     protected abstract String getSuccessKey();
@@ -102,6 +99,7 @@ public abstract class BaseEditAction extends RhnAction {
     /**
      * Add attributes to the request.
      * @param rctx the context of the current request
+     * @param opr the persist operation
      */
     protected abstract void processRequestAttributes(RequestContext rctx,
             PersistOperation opr);
@@ -112,6 +110,7 @@ public abstract class BaseEditAction extends RhnAction {
      * object for storage.  This is used on the submit type of request.
      * @param opr to process setters on.
      * @param form web form containing values
+     * @param request the http servlet request
      * @return TODO
      */
     protected abstract ValidatorError processCommandSetters(PersistOperation opr,

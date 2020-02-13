@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -80,7 +80,7 @@ public class ListTagTest extends MockObjectTestCase {
 
     /**
      * Tests normal conditions for ListTag.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testRegularRun() throws Exception {
         context().checking(new Expectations() { {

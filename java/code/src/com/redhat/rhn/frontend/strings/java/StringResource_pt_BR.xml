@@ -1487,7 +1487,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
-        <target>A senha informada é muito longa. Por favor, indique uma senha mais curta e tente novamente.</target>
+
       </trans-unit>
       <trans-unit id="error.password_mismatch">
         <source>Passwords do not match.</source>
@@ -1604,7 +1604,7 @@
           <context context-type="sourcefile">/rhn/systems/details/Edit</context>
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
-        <target>Endereço da Rua</target>
+
       </trans-unit>
       <trans-unit id="city">
         <source>City</source>
@@ -2201,6 +2201,28 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
 &lt;/div&gt;
 </target>
       </trans-unit>
+      <trans-unit id="kickstart.invalidchannel.satmessage.appstream">
+        <source>&lt;div style="text-align: left;"&gt;
+&lt;p&gt;To resolve this issue, please check the following things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Is the 'appstream' child software channel for this kickstart profile's base
+channel available to your organization? If it is not, you will need to request
+entitlements for the 'appstream' software channel from your @@PRODUCT_NAME@@ administrator.
+&lt;/li&gt;
+&lt;li&gt;
+Make sure that the 'appstream' child channel for this kickstart profile's base
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+satellite administrator and request a cdn-sync for the appstream channel
+and try again.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.initiate">
         <source>Initiate a kickstart</source>
         <context-group name="ctx">
@@ -2515,36 +2537,36 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
         <target>Atualização da Errata:  Atualização combinada para a pilha de atualizações de software ({0} errata)</target>
       </trans-unit>
       <trans-unit id="errata.schedule">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; atualização da errata foi agendada para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
+
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
-        <target>&lt;strong&gt;{0}&lt;/strong&gt; atualizações de errata foram atualizadas para &lt;a href=&quot;/rhn/systems/details/Overview.do?sid={2}&quot;&gt;{1}&lt;/a&gt;.</target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
-        <target>A errata &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; foi agendada para &lt;strong&gt;{1}&lt;/strong&gt; sistema </target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
         </context-group>
-        <target>A errata &lt;a href=&quot;/rhn/errata/details/Details.do?eid={2}&quot;&gt;{0}&lt;/a&gt; foi agendada para &lt;strong&gt;{1}&lt;/strong&gt; sistemas </target>
+
       </trans-unit>
       <trans-unit id="errataconfirm.nosystems">
         <source>You must select at least one system.</source>
@@ -3276,6 +3298,24 @@ disponíveis para seu perfil kickstart funcionar corretamente./n&lt;/li&gt;
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
         <target>Local</target>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_country">
+        <source>Country</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_state">
+        <source>State/Province</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_city">
+        <source>City</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="systemsearch_location_address">
         <source>Address</source>
@@ -6997,20 +7037,20 @@ Follow this url to see the full list of inactive systems:
         <target>Macro Inválido - tenha a certeza de que o arquivo não é binário!  '{0}'</target>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
-        <source>Configuration file compare actions are being scheduled for {0} systems, it may take several minutes for this to complete.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare actions&lt;/a&gt; are being scheduled for {1} systems, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
-        <target>Ações de Comparação de arquivo de Configuração estão sendo agendadas para {0} systems, poderá levar alguns minutos até que elas sejam completadas.</target>
+
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
-        <source>Configuration file compare action is being scheduled successfully for {0} system.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
         </context-group>
-        <target>Ação de Comparação de Arquivo de Configuração está sendo agendada com sucesso para o  {0} sistema.</target>
+
       </trans-unit>
       <trans-unit id="configdiff.schedule.error">
         <source>Failed to schedule configuration file compare action</source>
@@ -7817,7 +7857,7 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/Registered.do</context>
         </context-group>
-        <target>no ano passado</target>
+
       </trans-unit>
       <trans-unit id="allregisteredsystems">
         <source>All Systems</source>
@@ -8639,6 +8679,24 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemTypeLabel">
+        <source>System Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemIdForCsv">
+        <source>System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hostSystemIdForCsv">
+        <source>Host System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
         <target>Xid</target>
@@ -8961,6 +9019,12 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
         <source>A Custom Key label and description must be at least two characters long.</source>
         <target>O nome da Chave Padronizada e a descrição deve ter no mínimo dois caractéres.</target>
       </trans-unit>
+      <trans-unit id="system.customkey.error.toolong">
+        <source>A Custom Key label can only be 64 characters long at maximum.</source>
+      </trans-unit>
+      <trans-unit id="system.customkey.error.descr_toolong">
+        <source>A Custom Key description can only be 4000 characters long at maximum.</source>
+      </trans-unit>
       <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
         <target>O nome da Chave Padrão pode conter apenas letras, números, hifens (-) e linhas sublinhadas (_).</target>
@@ -8968,6 +9032,9 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
       <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
         <target>1 Chave padronizada adicionada com sucesso.</target>
+      </trans-unit>
+      <trans-unit id="system.customkey.deletesuccess">
+        <source>Successfully deleted 1 custom key.</source>
       </trans-unit>
       <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
@@ -9146,6 +9213,9 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
         <target>Canal &lt;strong&gt;{0}&lt;/strong&gt; atualizado.</target>
       </trans-unit>
+      <trans-unit id="message.failactionsuccess">
+        <source>Status of action &lt;strong&gt;{0}&lt;/strong&gt; has been set to failed.</source>
+      </trans-unit>
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
         <target>Sync do repositório programado para {0}.</target>
@@ -9249,7 +9319,7 @@ você não poderá retornar este sistema à este snapshot ou à qualquer outro.<
         <target>O rótulo do repositório  '{0}' já está em uso, por favor, escolha um rótulo diferente.</target>
       </trans-unit>
       <trans-unit id="edit.channel.repo.invalidrepotype">
-        <source>The repository type '{0}' is invalid, please choose a different type</source>
+        <source>The repository type '{0}' is invalid or already in use with given url, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
@@ -9355,20 +9425,7 @@ Please check:
 for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.
         </source>
-        <target>
-Segue abaixo uma lista de erros gerada enquanto o Spacewalk tentava/nsincronizar as distribuições kickstart do Spacewalk para o Cobbler. Estes
-erros devem ser corrigidos para que distribuições estejam disponíveis em/nsistemas kickstarting:/n
-{0}
 
-Por favor consulte:
-
-/var/log/rhn/rhn_taskomatic_daemon.log and
-/var/log/tomcat6/catalina.out
-/var/log/cobbler/cobbler.log
-
-para maiores detalhes sobre os erros. Caso você não resolva os erros a árvore
-do kickstart não será usada para o kickstarting.
-        </target>
       </trans-unit>
       <trans-unit id="errata.delete.msg">
         <source>Successfully deleted {0} errata.</source>
@@ -9407,7 +9464,7 @@ do kickstart não será usada para o kickstarting.
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
         <source>Password reset information sent to {0}.</source>
-        <target>Foi enviada uma nova senha para  {0}.</target>
+
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

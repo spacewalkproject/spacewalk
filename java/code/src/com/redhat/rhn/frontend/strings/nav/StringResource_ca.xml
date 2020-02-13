@@ -222,11 +222,11 @@
         <target>Habilita la configuració</target>
       </trans-unit>
       <trans-unit id="ssm.nav.status">
-        <source>Status</source>
+        <source>Task Log</source>
         <context-group name="ctx">
           <context context-type="sourcefile">System Set Manager Navigation Menu</context>
         </context-group>
-        <target>Estat</target>
+
       </trans-unit>
       <trans-unit id="ssm.nav.status.inprogress">
         <source>In Progress</source>
@@ -330,7 +330,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">Configuration Navigation Menu</context>
         </context-group>
-        <target>Fitxers gestionats de manera centalitzada</target>
+        <target>Fitxers gestionats de manera centralitzada</target>
       </trans-unit>
       <trans-unit id="config.nav.localfiles">
         <source>Locally Managed Files</source>
@@ -1160,14 +1160,8 @@
           <target>Neteja</target>
         </trans-unit>
       </group>
-      <!-- SUSE Studio -->
-      <trans-unit id="Credentials">
-        <source>Credentials</source>
-        <target>Credencials</target>
-      </trans-unit>
-      <trans-unit id="Images">
-        <source>Images</source>
-        <target>Imatges</target>
+      <trans-unit id="Deployment">
+        <source>Deployment</source>
       </trans-unit>
     </body>
   </file>

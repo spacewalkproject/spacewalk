@@ -19,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Helper class to hold the number of files and directories
- * Mainly used by ConfigManagger & OverviewAction page.
+ * Mainly used by ConfigManagger and OverviewAction page.
  * ConfigFileCount
  * @version $Rev$
  */

@@ -10,12 +10,13 @@
 # Manuel Ospina <mospina@redhat.com>, 2005, 2006, 2007.
 # Nuria Soriano <nsoriano@redhat.es>, 2001.
 # Yelitza Louze <ylouze@redhat.com>, 2004.
+# Jiri Dostal <jdostal@redhat.com>, 2018. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:08+0100\n"
-"PO-Revision-Date: 2015-03-17 08:03-0400\n"
+"POT-Creation-Date: 2018-11-23 14:32+0100\n"
+"PO-Revision-Date: 2018-03-16 10:53+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org>\n"
 "Language: es\n"
@@ -23,124 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.9.6\n"
-
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
-msgstr ""
-
-#: ../server/rhnHandler.py:75
-#, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr "Servicio no habilitado para perfil del sistema: “%s”"
-
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
-#, python-format
-msgid "Invalid RPM package %s requested"
-msgstr "Paquete RPM %s pedido no válido"
-
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr "Paquete no encontrado"
-
-#: ../server/rhnChannel.py:1926
-#, python-format
-msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
-msgstr ""
-"Su cuenta no tiene acceso a ninguno de los canales coincidentes "
-"(lanzamiento=’%(release)s’, arquitectura=%(arch)s’)%(www_activation)s"
-
-#: ../server/rhnChannel.py:1936
-msgid ""
-"\n"
-"If you have a registration number, please register with it first at http://"
-"www.redhat.com/apps/activate/ and then try again.\n"
-"\n"
-msgstr ""
-"\n"
-"Si usted tiene un número de registro, por favor regístrelo primero en http://"
-"www.redhat.com/apps/activate/ y después inténtelo otra vez.\n"
-
-#: ../server/rhnChannel.py:1946
-#, python-format
-msgid "Insufficient subscription permissions for release (%s, %s"
-msgstr "Permisos de suscripción insuficientes para lanzamiento (%s, %s"
-
-#. Various messages that can be reused
-#.
-#. bretm 02/07/2007 -- when we have better old-client documentation, probably
-#. will be safe to get rid of all this crap
-#: ../server/rhnChannel.py:2210 ../server/rhnChannel.py:2221
-#: ../server/rhnChannel.py:2236
-msgid "System Registered but Inactive"
-msgstr "Sistema Registrado pero Inactivo"
-
-#: ../server/rhnChannel.py:2211
-#, fuzzy, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it is not subscribed to a channel. If you have not yet\n"
-"activated your product for service, please visit our website at:\n"
-"\n"
-"     http://www.redhat.com/apps/activate/\n"
-"\n"
-"...to activate your product."
-msgstr ""
-"\n"
-"Combinación de Arquitectura y SO no válida (%s, %s). Su sistema ha sido "
-"registrado, pero no recibirá actualizaciones porque no está suscrito a un "
-"canal. Si usted no tiene todavía activado su producto para servicio, por "
-"favor visite nuestra web en: http://www.redhat.com/apps/activate/ …para "
-"activar su producto."
-
-#: ../server/rhnChannel.py:2222
-#, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it could not be subscribed to a base channel.\n"
-"Please contact your organization administrator for assistance.\n"
-msgstr ""
-"\n"
-"Combinación de Arquitectura y SO no válida (%s, %s). Su sistema ha sido "
-"registrado, pero no recibirá actualizaciones porque podría no estar suscrito "
-"a un canal base. Por favor contacte con el administrador de su organización "
-"para asistencia.\n"
-
-#: ../server/rhnChannel.py:2229
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but is not yet entitled\n"
-"  to service.  To entitle this system to service, login to the web site at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"Este sistema ha sido registrado con éxito, pero no todavía intitulado al "
-"servicio. Para titular este sistema al servicio, acceda al sitio web en "
-"%(entitlement_url)s\n"
-
-#: ../server/rhnChannel.py:2237
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but no service entitlements\n"
-"  were available.  To entitle this system to service, login to the web site "
-"at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
-"\n"
-"Este sistema ha sido registrado con éxito, pero no hay disponibles derechos "
-"al servicio. Para titular este sistema al servicio, acceda al sitio web en "
-"%(entitlement_url)s\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../server/apacheAuth.py:67
 #, python-format
@@ -155,109 +39,6 @@ msgstr "Enviada firma de proxy %s no coincide con la nuestra %s."
 #: ../server/apacheAuth.py:120
 msgid "declined proxy authentication"
 msgstr "autenticación de proxy declinada"
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr "ISS está deshabilitado en este satélite"
-
-#: ../server/handlers/sat/auth.py:50
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr "Servidor “%s” no está habilitado para ISS"
-
-#: ../server/handlers/xmlrpc/up2date.py:236
-#, python-format
-msgid "Invalid value %s (%s)"
-msgstr "Valor no válido %s (%s)"
-
-#: ../server/handlers/xmlrpc/scap.py:89
-#, fuzzy
-msgid "Invalid system_id/action_id pair."
-msgstr "Credenciales del Sistema no válidas."
-
-#: ../server/handlers/xmlrpc/proxy.py:64
-#, fuzzy, python-format
-msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr ""
-"El servicio RHN Proxy no está habilitado para el perfil del servidor: “%s”"
-
-#: ../server/handlers/xmlrpc/proxy.py:84
-msgid "Invalid session key"
-msgstr "Clave de sesión no válida"
-
-#: ../server/handlers/xmlrpc/proxy.py:92
-msgid "This server ID no longer exists"
-msgstr "Esta ID de servidor no existe más"
-
-#: ../server/handlers/xmlrpc/registration.py:202
-msgid "Required data missing"
-msgstr "Dato requerido desaparecido"
-
-#: ../server/handlers/xmlrpc/registration.py:206
-msgid "Required members missing"
-msgstr "Miembros requeridos desaparecidos"
-
-#: ../server/handlers/xmlrpc/registration.py:215
-msgid "Attempt to register a system to an invalid username"
-msgstr "Intentando registrar un sistema a un nombre de usuario no válido"
-
-#: ../server/handlers/xmlrpc/registration.py:223
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-"\n"
-"%s La cuenta ha sido desactivada en este servidor. Por favor contacte con su "
-"administrador de sistema para más ayuda."
-
-#: ../server/handlers/xmlrpc/registration.py:796
-msgid "Invalid system release version requested"
-msgstr "Pedida versión de lanzamiento no válida"
-
-#: ../server/handlers/xmlrpc/registration.py:1028
-#, fuzzy
-msgid "Red Hat Satellite Welcome Message"
-msgstr "Mensaje de Bienvenida de la Red Red Hat"
-
-#: ../server/handlers/xmlrpc/registration.py:1038
-#, fuzzy
-msgid "Red Hat Satellite Privacy Statement"
-msgstr "Declaración de Privacidad de la Red Red Hat"
-
-#: ../server/handlers/xmlrpc/registration.py:1059
-msgid "Expected a dictionary as a product argument"
-msgstr "Se esperaba un diccionario como argumento de producto"
-
-#: ../server/handlers/xmlrpc/registration.py:1269
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr "Valor no válido ‘%s’ para %s (%s)"
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr "Se esperaba un nombre de paquete, no: %s"
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr "Se esperaba un paquete, no: %s"
-
-#: ../server/handlers/xmlrpc/queue.py:434
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr "Acción de valor no válido tipo %s (%s)"
-
-#: ../server/handlers/xmlrpc/queue.py:459
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr "Acción %s no pertenece al servidor %s"
-
-#: ../server/handlers/applet/applet.py:78
-msgid "Your system was not found in the RHN database"
-msgstr "Su sistema no se encuentra en la base de datos RHN"
 
 #: ../server/apacheRequest.py:59
 #, python-format
@@ -282,6 +63,152 @@ msgstr "Mientras corre ‘%s’: capturado %s : %s\n"
 #, python-format
 msgid "Invalid URI %s"
 msgstr "URI no válido %s"
+
+#: ../server/handlers/applet/applet.py:78
+msgid "Your system was not found in the RHN database"
+msgstr "Su sistema no se encuentra en la base de datos RHN"
+
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
+msgstr "ISS está deshabilitado en este satélite"
+
+#: ../server/handlers/sat/auth.py:50
+#, python-format
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr "Servidor “%s” no está habilitado para ISS"
+
+#: ../server/handlers/xmlrpc/errata.py:62
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr "Se esperaba un nombre de paquete, no: %s"
+
+#: ../server/handlers/xmlrpc/errata.py:113
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr "Se esperaba un paquete, no: %s"
+
+#: ../server/handlers/xmlrpc/proxy.py:63
+#, fuzzy, python-format
+msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
+msgstr ""
+"El servicio RHN Proxy no está habilitado para el perfil del servidor: “%s”"
+
+#: ../server/handlers/xmlrpc/proxy.py:83
+msgid "Invalid session key"
+msgstr "Clave de sesión no válida"
+
+#: ../server/handlers/xmlrpc/proxy.py:91
+msgid "This server ID no longer exists"
+msgstr "Esta ID de servidor no existe más"
+
+#: ../server/handlers/xmlrpc/queue.py:434
+#, python-format
+msgid "Invalid action value type %s (%s)"
+msgstr "Acción de valor no válido tipo %s (%s)"
+
+#: ../server/handlers/xmlrpc/queue.py:459
+#, python-format
+msgid "Action %s does not belong to server %s"
+msgstr "Acción %s no pertenece al servidor %s"
+
+#: ../server/handlers/xmlrpc/scap.py:89
+#, fuzzy
+msgid "Invalid system_id/action_id pair."
+msgstr "Credenciales del Sistema no válidas."
+
+#: ../server/handlers/xmlrpc/up2date.py:234
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr "Valor no válido %s (%s)"
+
+#: ../server/handlers/xmlrpc/registration.py:204
+msgid "Required data missing"
+msgstr "Dato requerido desaparecido"
+
+#: ../server/handlers/xmlrpc/registration.py:208
+msgid "Required members missing"
+msgstr "Miembros requeridos desaparecidos"
+
+#: ../server/handlers/xmlrpc/registration.py:217
+msgid "Attempt to register a system to an invalid username"
+msgstr "Intentando registrar un sistema a un nombre de usuario no válido"
+
+#: ../server/handlers/xmlrpc/registration.py:225
+#, python-format
+msgid ""
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr ""
+"\n"
+"%s La cuenta ha sido desactivada en este servidor. Por favor contacte con su "
+"administrador de sistema para más ayuda."
+
+#: ../server/handlers/xmlrpc/registration.py:829
+msgid "Invalid system release version requested"
+msgstr "Pedida versión de lanzamiento no válida"
+
+#: ../server/handlers/xmlrpc/registration.py:1061
+#, fuzzy
+msgid "Red Hat Satellite Welcome Message"
+msgstr "Mensaje de Bienvenida de la Red Red Hat"
+
+#: ../server/handlers/xmlrpc/registration.py:1071
+#, fuzzy
+msgid "Red Hat Satellite Privacy Statement"
+msgstr "Declaración de Privacidad de la Red Red Hat"
+
+#: ../server/handlers/xmlrpc/registration.py:1092
+msgid "Expected a dictionary as a product argument"
+msgstr "Se esperaba un diccionario como argumento de producto"
+
+#: ../server/handlers/xmlrpc/registration.py:1302
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr "Valor no válido ‘%s’ para %s (%s)"
+
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
+msgstr "Usted no está autorizado a gestionar paquetes en la organización null"
+
+#: ../server/importlib/userAuth.py:103
+#, python-format
+msgid "You are not allowed to manage packages in the %s org"
+msgstr "Usted no tiene permitido gestionar paquetes en la organización %s"
+
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr "Usted no tiene permitido llevar a cabo tareas administrativas"
+
+#: ../server/importlib/userAuth.py:144
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr "Usted no tiene permitido manejar el canal %s o ese canal no existe"
+
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr "Servicio no habilitado para perfil del sistema: “%s”"
+
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr "Paquete RPM %s pedido no válido"
+
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr "Paquete no encontrado"
+
+#: ../server/rhnServer/server_class.py:97
+#, python-format
+msgid "Architecture `%s' is not supported"
+msgstr "Arquitectura '%s' no soportada"
 
 #: ../server/rhnServer/server_token.py:77
 #, python-format
@@ -329,99 +256,163 @@ msgstr "Kickstart de sesión no coincidente"
 msgid "Stacking of re-registration tokens is not supported"
 msgstr "El apilado de vuelta a registrar fichas no se soporta"
 
-#: ../server/rhnServer/server_class.py:97
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr "Arquitectura '%s' no soportada"
-
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr "Usted no está autorizado a gestionar paquetes en la organización null"
-
-#: ../server/importlib/userAuth.py:103
-#, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr "Usted no tiene permitido gestionar paquetes en la organización %s"
-
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr "Usted no tiene permitido llevar a cabo tareas administrativas"
-
-#: ../server/importlib/userAuth.py:144
-#, python-format
-msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
-msgstr "Usted no tiene permitido manejar el canal %s o ese canal no existe"
-
 #: ../server/rhnUser.py:289 ../server/rhnUser.py:292
 msgid "Invalid username/password combination"
 msgstr "Combinación de nombre de usuario/contraseña no válida"
 
 #. nope, not reserved either
-#: ../server/rhnUser.py:467
+#: ../server/rhnUser.py:468
 #, python-format
 msgid "Username `%s' has not been reserved"
 msgstr "Nombre de usuario ‘%s’ no ha sido reservado"
 
 #. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:473
+#: ../server/rhnUser.py:474
 msgid "E-mail address not specified"
 msgstr "Dirección de correo electrónico no especificada"
 
-#: ../server/rhnUser.py:509
+#: ../server/rhnUser.py:510
 #, python-format
 msgid "username should be at least %d characters"
 msgstr "nombre de usuario debería tener al menos %d caracteres"
 
-#: ../server/rhnUser.py:512
+#: ../server/rhnUser.py:513
 #, python-format
 msgid "username should be less than %d characters"
 msgstr "nombre de usuario debería ser menos de %d caracteres"
 
-#: ../server/rhnUser.py:523
+#: ../server/rhnUser.py:524
 #, python-format
 msgid "username = `%s', invalid character `%s'"
 msgstr "nombre de usuario = ‘%s’, carácter no válido ‘%s’"
 
-#: ../server/rhnUser.py:542
+#: ../server/rhnUser.py:543
 #, python-format
 msgid "Please limit your e-mail address to %s chars"
 msgstr "Por favor limite su dirección de correo electrónico a %s caracteres"
 
-#: ../server/rhnUser.py:623
+#: ../server/rhnUser.py:624
 #, python-format
 msgid "password must be at least %d characters"
 msgstr "contraseña debe ser al menos %d caracteres"
 
-#: ../server/rhnUser.py:626
+#: ../server/rhnUser.py:627
 #, python-format
 msgid "Password must be shorter than %d characters"
 msgstr "Contraseña debe ser más corta de %d caracteres"
 
-#: ../server/rhnUser.py:644
+#: ../server/rhnUser.py:645
 #, python-format
 msgid "password contains character `%s'"
 msgstr "contraseña contiene carácter ‘%s’"
 
-#: ../server/rhnUser.py:651
+#: ../server/rhnUser.py:652
 #, python-format
 msgid "username should be at least %d characters long"
 msgstr "nombre de usuario debería ser al menos %d caracteres de largo"
 
-#: ../server/rhnUser.py:662
+#: ../server/rhnUser.py:663
 #, python-format
 msgid "Cannot register usernames ending with %s"
 msgstr "No puedo registrar nombres de usuario que terminen con %s"
 
-#: ../common/rhnTB.py:205
+#: ../server/rhnChannel.py:1938
 #, python-format
-msgid "ERROR: %s %s: %s"
+msgid ""
+"Your account does not have access to any channels matching "
+"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
+"Su cuenta no tiene acceso a ninguno de los canales coincidentes "
+"(lanzamiento=’%(release)s’, arquitectura=%(arch)s’)%(www_activation)s"
 
-#: ../common/rhnTB.py:207
-#, python-format
-msgid "TRACEBACK: %s"
+#: ../server/rhnChannel.py:1948
+msgid ""
+"\n"
+"If you have a registration number, please register with it first at http://"
+"www.redhat.com/apps/activate/ and then try again.\n"
+"\n"
 msgstr ""
+"\n"
+"Si usted tiene un número de registro, por favor regístrelo primero en http://"
+"www.redhat.com/apps/activate/ y después inténtelo otra vez.\n"
+
+#: ../server/rhnChannel.py:1958
+#, python-format
+msgid "Insufficient subscription permissions for release (%s, %s"
+msgstr "Permisos de suscripción insuficientes para lanzamiento (%s, %s"
+
+#. Various messages that can be reused
+#.
+#. bretm 02/07/2007 -- when we have better old-client documentation, probably
+#. will be safe to get rid of all this crap
+#: ../server/rhnChannel.py:2222 ../server/rhnChannel.py:2233
+#: ../server/rhnChannel.py:2248
+msgid "System Registered but Inactive"
+msgstr "Sistema Registrado pero Inactivo"
+
+#: ../server/rhnChannel.py:2223
+#, fuzzy, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it is not subscribed to a channel. If you have not yet\n"
+"activated your product for service, please visit our website at:\n"
+"\n"
+"     http://www.redhat.com/apps/activate/\n"
+"\n"
+"...to activate your product."
+msgstr ""
+"\n"
+"Combinación de Arquitectura y SO no válida (%s, %s). Su sistema ha sido "
+"registrado, pero no recibirá actualizaciones porque no está suscrito a un "
+"canal. Si usted no tiene todavía activado su producto para servicio, por "
+"favor visite nuestra web en: http://www.redhat.com/apps/activate/ …para "
+"activar su producto."
+
+#: ../server/rhnChannel.py:2234
+#, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it could not be subscribed to a base channel.\n"
+"Please contact your organization administrator for assistance.\n"
+msgstr ""
+"\n"
+"Combinación de Arquitectura y SO no válida (%s, %s). Su sistema ha sido "
+"registrado, pero no recibirá actualizaciones porque podría no estar suscrito "
+"a un canal base. Por favor contacte con el administrador de su organización "
+"para asistencia.\n"
+
+#: ../server/rhnChannel.py:2241
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but is not yet entitled\n"
+"  to service.  To entitle this system to service, login to the web site at:\n"
+"\n"
+"  %(entitlement_url)s\n"
+msgstr ""
+"\n"
+"Este sistema ha sido registrado con éxito, pero no todavía intitulado al "
+"servicio. Para titular este sistema al servicio, acceda al sitio web en "
+"%(entitlement_url)s\n"
+
+#: ../server/rhnChannel.py:2249
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but no service entitlements\n"
+"  were available.  To entitle this system to service, login to the web site "
+"at:\n"
+"\n"
+"  %(entitlement_url)s\n"
+msgstr ""
+"\n"
+"Este sistema ha sido registrado con éxito, pero no hay disponibles derechos "
+"al servicio. Para titular este sistema al servicio, acceda al sitio web en "
+"%(entitlement_url)s\n"
 
 #. 0-999: Red Hat client/client-like interaction errors:
 #: ../common/rhnException.py:53
@@ -1068,295 +1059,12 @@ msgstr "Información de Clase de Error: %s\n"
 msgid "Explanation: %s"
 msgstr "Explicación: %s"
 
-#, fuzzy
-#~ msgid "Registration failed: RHN Software service entitlements exhausted: %s"
-#~ msgstr ""
-#~ "Fallo de registro: Servicio de Gestión de Software RHN títulos agotados"
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
 
-#~ msgid "Invalid Organization Credentials"
-#~ msgstr "Credenciales de Organización no válidas"
-
-#~ msgid "User `%s' not a member of organization %s"
-#~ msgstr "Usuario ‘%s’ no es miembro de la organización %s"
-
-#~ msgid ""
-#~ "\n"
-#~ "  This system has been successfully registered, but the channel "
-#~ "subscriptions\n"
-#~ "  were exhausted\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Este sistema ha sido registrado con éxito, pero las suscripciones al "
-#~ "canal fueron agotadas\n"
-
-#~ msgid "Not a valid Country: %s"
-#~ msgstr "No es un País válido: %s"
-
-#~ msgid "Insufficient subscription permissions for release, arch (%s, %s)"
-#~ msgstr ""
-#~ "Permisos de subscripción insuficientes para lanzamiento, arquitectura "
-#~ "(%s, %s)"
-
-#~ msgid "Invalid value %s (type %s)"
-#~ msgstr "Valor no válido %s (tipo %s)"
-
-#~ msgid "Unable to retrieve package header %s"
-#~ msgstr "Incapaz de recuperar la cabecera del paquete %s"
-
-#~ msgid "Invalid value for %s in package tuple: %s (%s)"
-#~ msgstr "Valor no valido para %s en tupla de paquete: %s (%s)"
-
-#~ msgid "Invalid package parameter %s (%s)"
-#~ msgstr "Parámetro de paquete no válido %s (%s)"
-
-#~ msgid "Outage mode"
-#~ msgstr "Modo corte"
-
-#~ msgid "Can not create new entry."
-#~ msgstr "No puede crear una nueva entrada."
-
-#~ msgid "Account limits exceeded."
-#~ msgstr "Límites de cuenta excedidos."
-
-#~ msgid "Invalid product registration code."
-#~ msgstr "Código de registro de producto no válido."
-
-#~ msgid "Invalid Architecture and OS release combination."
-#~ msgstr "Combinación de Arquitectura y lanzamiento de SO no válida."
-
-#~ msgid "LDAP operation failed."
-#~ msgstr "Operación LDAP fallada."
-
-#~ msgid ""
-#~ "Backend RPM database failure: can not retrieve requested information."
-#~ msgstr ""
-#~ "Fallo en la base de datos RPM del punto final: no puedo recuperar la "
-#~ "información pedida."
-
-#~ msgid "Server Entry is busy."
-#~ msgstr "Entrada de Servidor está ocupada."
-
-#~ msgid "Invalid ORG_ID requested"
-#~ msgstr "ORG_ID pedida no válida"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Incompatible architectures.\n"
-#~ "\n"
-#~ "     The architecture of the package you are trying to upload is not\n"
-#~ "     compatible with the channel architecture.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Arquitecturas incompatibles. La arquitectura del paquete que está "
-#~ "intentando subir no es compatible con la arquitectura del canal."
-
-#~ msgid ""
-#~ "\n"
-#~ "     Invalid channel.\n"
-#~ "\n"
-#~ "     The channel you have specified does not exist.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Canal no válido. El canal que ha especificado no existe."
-
-#~ msgid ""
-#~ "\n"
-#~ "     You are getting this error because RHN has detected an abuse of\n"
-#~ "     service from this system and account. This error is triggered when\n"
-#~ "     your system makes too many connections to Red Hat Network. This\n"
-#~ "     error can not be triggered under a normal use of the Red Hat "
-#~ "Network\n"
-#~ "     service as configured by default on Red Hat Linux.\n"
-#~ "\n"
-#~ "     The Red Hat Network services for this system will remain disabled\n"
-#~ "     until you will reduce the RHN network traffic from your system to\n"
-#~ "     acceptable limits.\n"
-#~ "\n"
-#~ "     Please log into RHN and visit https://%(hostname)s/help/contact.pxt\n"
-#~ "     to contact technical support if you think you have received this\n"
-#~ "     message in error.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Usted está obteniendo este error porque RHN ha detectado un abuso de "
-#~ "servicio desde este sistema y cuenta. Este error se dispara cuando usted "
-#~ "hace demasiadas conexiones a Red Hat Network. Este error no puede ser "
-#~ "disparado bajo un uso normal del servicio Red Hat Network como se "
-#~ "configura por defecto en Red Hat Linux. los servicios de Red Hat Network "
-#~ "para este sistema se mantendrán deshabilitados hasta que usted reduzca el "
-#~ "tráfico de red RHN de su sistema a unos límites aceptables. Por favor "
-#~ "acceda a RHN y visite https://%(hostname)s/help/contact.pxt para "
-#~ "contactar con el soporte técnico si usted piensa que la recepción de este "
-#~ "mensaje es un error."
-
-#~ msgid ""
-#~ "\n"
-#~ "     Demo service currently disabled due to high load. If you would like\n"
-#~ "     to see Red Hat's policies on Demo service, or find out how you can\n"
-#~ "     purchase a subscription service and receive priority download "
-#~ "access,\n"
-#~ "     please go to http://%(hostname)s/preview/index.pxt\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "El servicio Demo actualmente deshabilitado debido a una alta carga. Si "
-#~ "usted desea ver las políticas de Red Hat sobre el servicio Demo, o "
-#~ "encontrar como puede comprar una suscripción al servicio y recibir acceso "
-#~ "prioritario de descarga, por favor vaya a http://%(hostname)s/preview/"
-#~ "index.pxt"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Access to Red Hat Network is currently limited to subscription "
-#~ "customers.\n"
-#~ "     Please try again later.  If you would like to become a subscription\n"
-#~ "     customer, go to https://%(hostname)s/preview/priority_service.pxt "
-#~ "for\n"
-#~ "     more information.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "El acceso a Red Hat Network está actualmente limitado a clientes "
-#~ "suscritos. Por favor inténtelo más tarde. Si usted deseara ser un cliente "
-#~ "suscrito, vaya a https://%(hostname)s/preview/priority_service.pxt para "
-#~ "más información."
-
-#~ msgid ""
-#~ "\n"
-#~ "     All available subscriptions for the requested channel have been "
-#~ "exhausted.\n"
-#~ "     Please contact a Red Hat Network Sales associate.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Todas las suscripciones disponibles para el canal pedido se han agotado. "
-#~ "Por favor contacte con el Red Hat Network Sales asociado."
-
-#~ msgid ""
-#~ "Registration token unable to entitle system: maximum membership exceeded"
-#~ msgstr ""
-#~ "Ficha de registro incapaz de titular sistema: afiliados máximos superados"
-
-#~ msgid "Changing e-mail address is not supported."
-#~ msgstr "El cambio de la dirección de correo electrónico no está soportado."
-
-#~ msgid "Service for your account has been disabled."
-#~ msgstr "El servicio para su cuenta ha sido deshabilitado."
-
-#~ msgid "Email address not validated; service disabled"
-#~ msgstr "Dirección de correo electrónico no validada; servicio deshabilitado"
-
-#~ msgid "Survey not filled out; service disabled"
-#~ msgstr "No se relleno encuesta; servicio deshabilitado"
-
-#~ msgid "Bugzilla erratum import error"
-#~ msgstr "Error al importar errata a Bugzilla"
-
-#~ msgid "Missing HTTP header information"
-#~ msgstr "Información de cabecera HTTP desaparecida"
-
-#~ msgid "The package's checksum signature does not match the header one"
-#~ msgstr "El checksum de firma del paquete no coincide con el de cabecera\t"
-
-#~ msgid "Header information does not match package metainformation"
-#~ msgstr ""
-#~ "La información de cabecera no coincida con la mete información del paquete"
-
-#~ msgid "Package with a different signature already uploaded"
-#~ msgstr "Paquete con una firma distinta ya subido"
-
-#~ msgid "Not an RPM package"
-#~ msgstr "No es un paquete RPM"
-
-#~ msgid "Unsigned RPM package"
-#~ msgstr "Paquete RPM sin firma"
-
-#~ msgid "Incompatible package and channel architectures"
-#~ msgstr "Arquitecturas de paquete y canal incompatibles"
-
-#~ msgid "Incompatible checksum type"
-#~ msgstr "Tipo de checksum incompatible"
-
-#~ msgid "Invalid Entitlement Number"
-#~ msgstr "Número de Derecho no válido"
-
-#~ msgid ""
-#~ "\n"
-#~ "     RHN Proxy system ID does not match an RHN Proxy Server\n"
-#~ "     in the database. Please contact your designated Red Hat "
-#~ "representative\n"
-#~ "     or visit https://rhn.redhat.com/help/contact.pxt immediately if\n"
-#~ "     experiencing difficulties with the process of enabling or continued\n"
-#~ "     enablement of this RHN Proxy Server.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "La ID del RHN Proxy del sistema no coincide con un Servidor Proxy RHN en "
-#~ "la base de datos. Por favor contacte con su representante Rwed Hat "
-#~ "designado o visite  https://rhn.redhat.com/help/contact.pxt "
-#~ "inmediatamente si experimenta dificultades con el proceso de habilitación "
-#~ "de este Servidor Proxy RHN."
-
-#~ msgid ""
-#~ "\n"
-#~ "     RHN Satellite system ID does not match an RHN Satellite Server\n"
-#~ "     in the database. Please contact your designated Red Hat "
-#~ "representative\n"
-#~ "     or visit https://rhn.redhat.com/help/contact.pxt immediately if\n"
-#~ "     experiencing difficulties with the process of enabling or continued\n"
-#~ "     enablement of this RHN Satellite Server.\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "La ID de sistema de RHN Satellite no coincide con un Servidor RHN "
-#~ "Satellite en la base de datos Por favor contacte con su representante "
-#~ "Rwed Hat designado o visite  https://rhn.redhat.com/help/contact.pxt "
-#~ "inmediatamente si experimenta dificultades con el proceso de habilitación "
-#~ "de este Servidor Satellite RHN."
-
-#~ msgid ""
-#~ "\n"
-#~ "     This satellite server is not allowed to access the specified "
-#~ "channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Este servidor satélite no tiene permitido el acceso al canal especificado"
-
-#~ msgid "Access denied to kickstart tree"
-#~ msgstr "Acceso denegado al árbol kickstart"
-
-#~ msgid "Could not find kickstart file"
-#~ msgstr "No podría encontrar fichero kickstart"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Kickstart tree would not lint, there are packages\n"
-#~ "     missing in the channel\n"
-#~ "     "
-#~ msgstr ""
-#~ "\n"
-#~ "Árbol kickstart no hilaría, hay paquetes desaparecidos en el canal"
-
-#~ msgid "Invalid erratum name"
-#~ msgstr "Nombre de errata no válido"
-
-#~ msgid "Invalid satellite certificate"
-#~ msgstr "Certificado del satélite no válido"
-
-#~ msgid "Missing snapshot for channels"
-#~ msgstr "Instantánea desaparecida para los canales"
-
-#~ msgid "The speicified item is not present in the input"
-#~ msgstr "El hito especificado no está presente en la entrada"
-
-#~ msgid "Invalid user role"
-#~ msgstr "Rol de usuario no válido"
-
-#~ msgid "Invalid server group"
-#~ msgstr "Grupo de servidor no válido"
-
-#~ msgid "Invalid channel family"
-#~ msgstr "Familia de canal no válida"
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
+msgstr ""

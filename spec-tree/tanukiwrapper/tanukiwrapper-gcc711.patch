@@ -1,0 +1,23 @@
+--- src/c/logger.c.orig 2017-06-08 16:41:00.666233394 +0200
++++ src/c/logger.c      2017-06-08 16:49:39.373494450 +0200
+@@ -815,10 +815,8 @@
+ }
+
+ void forceFlush(FILE *fp) {
+-    int lastError;
+-    
+     fflush(fp);
+-    lastError = getLastError();
++    getLastError();
+ }
+
+ /**
+@@ -831,7 +829,7 @@
+  */
+ void generateLogFileName(char *buffer, const char *template, const char *nowDate, const char *rollNum ) {
+     /* Copy the template to the buffer to get started. */
+-    sprintf(buffer, template);
++    sprintf(buffer, "%s", template);
+     
+     /* Handle the date token. */
+     if (strstr(buffer, "YYYYMMDD")) {

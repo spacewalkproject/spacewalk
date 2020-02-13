@@ -92,7 +92,7 @@ Below is an example of the channel.listAllChannels API call. List of channel lab
 <p />
 
 <code>
-#!/usr/bin/env ruby<br />
+#!/usr/bin/ruby<br />
 require "xmlrpc/client"<br />
 <br />
 @SATELLITE_URL = "http://satellite.example.com/rpc/api"<br />

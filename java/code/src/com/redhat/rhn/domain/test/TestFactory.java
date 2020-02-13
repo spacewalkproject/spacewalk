@@ -37,6 +37,7 @@ public class TestFactory extends HibernateFactory {
     /**
      * Return the Implementation class used by the derived
      * class's Factory
+     * @return the implementation class
      */
     protected Class getImplementationClass() {
         return TestImpl.class;
@@ -51,8 +52,7 @@ public class TestFactory extends HibernateFactory {
     }
 
     public static TestInterface createTest() {
-        TestInterface retval = new TestImpl();
-        return retval;
+        return new TestImpl();
     }
 
     public static TestInterface lookupByFoobar(String f) {

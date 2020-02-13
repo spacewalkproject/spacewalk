@@ -36,6 +36,7 @@ public class RoleTest extends RhnBaseTestCase {
     * We don't support modification of the Collection
     * of roles so we want to make sure an exception is
     * thrown if the collection is attempted to be modified.
+    * @throws Exception something bad happened
     */
     public void testAttemptChangeUserRoles() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -109,6 +110,7 @@ public class RoleTest extends RhnBaseTestCase {
     /**
     * We need to make sure that the implied roles are added when a user
     * is an org admin.
+    * @throws Exception something bad happened
     */
     public void testOrgAdminRole() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -126,6 +128,7 @@ public class RoleTest extends RhnBaseTestCase {
 
     /**
     *  Test to make sure we can add Roles to Orgs
+    * @throws Exception something bad happened
     */
     public void testOrgAddRole() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -143,6 +146,7 @@ public class RoleTest extends RhnBaseTestCase {
     /**
     * Test to make sure that we support the ability for
     * a user to have no roles
+    * @throws Exception something bad happened
     */
     public void testUserWithNoRoles() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -152,6 +156,7 @@ public class RoleTest extends RhnBaseTestCase {
 
     /**
     * Test the RoleFactory's lookupByLabel() method
+    * @throws Exception something bad happened
     */
     public void testFindByLabel() throws Exception {
         Role role = RoleFactory.lookupByLabel(RoleFactory.ORG_ADMIN.getLabel());
@@ -162,6 +167,7 @@ public class RoleTest extends RhnBaseTestCase {
 
     /**
     * Test the RoleFactory's testFindById() method
+    * @throws Exception something bad happened
     */
     public void testFindById() throws Exception {
         Role r2 = RoleFactory.lookupById(RoleFactory.ORG_ADMIN.getId());
@@ -173,12 +179,13 @@ public class RoleTest extends RhnBaseTestCase {
     /**
     * Test to make sure RoleFactory can support looking for
     * roles that don't exist
+    * @throws Exception something bad happened
     */
     public void testFindNonExistentRole() throws Exception {
         assertNull(RoleFactory.lookupByLabel("somerolethatdoesntexist"));
     }
 
-    /**
+    /*
      * Tests for hibernate caching... doesn't make sense to
      * run these every time, so I'll leave them commented out
      */

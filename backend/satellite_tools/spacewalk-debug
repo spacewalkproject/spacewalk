@@ -3,7 +3,7 @@
 # Debug utility: packages log files, and relevant debug information
 #                needed for full diagnosis of Spacewalk Server issues.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -97,88 +97,94 @@ mkdir -p $DIR/tasko
 
 echo "    * copying configuration information"
 if [ -d /etc/httpd ]; then
-    cp -fapRd /etc/httpd/conf* $DIR/conf/httpd
+    cp -fsLrp /etc/httpd/conf* $DIR/conf/httpd
 elif [ -d /etc/apache2 ]; then
-    cp -fapRd /etc/apache2/conf* $DIR/conf/httpd
-    cp -fapRd /etc/apache2/vhosts* $DIR/conf/httpd
+    cp -fsLrp /etc/apache2/conf* $DIR/conf/httpd
+    cp -fsLrp /etc/apache2/vhosts* $DIR/conf/httpd
 fi
-cp -fapRd /etc/rhn $DIR/conf/rhn
-cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
+cp -fsLrp /etc/rhn $DIR/conf/rhn
+# Find any current copies of rhn.conf/rhn.conf.orig and sanitize passwords
+sed -i 's/db_password.*/db_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf*
+sed -i 's/server.satellite.http_proxy_password.*/server.satellite.http_proxy_password = ***/g' $DIR/conf/rhn/rhn/rhn.conf*
+cp -fsLrp /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
+# Find any rhn.conf files backup up by upgrades and sanitize passwords
+find $DIR/conf/rhn/sysconfig -name rhn.conf\* -exec sed -i 's/db_password.*/db_password = ***/g' {} \;
+find $DIR/conf/rhn/sysconfig -name rhn.conf\* -exec sed -i 's/server.satellite.http_proxy_password.*/server.satellite.http_proxy_password = ***/g' {} \;
 if [ -f /etc/tnsnames.ora ] ; then
-    cp -fad /etc/tnsnames.ora $DIR/conf
+    cp -fsLrp /etc/tnsnames.ora $DIR/conf
 fi
 
 echo "    * copying logs"
 if [ -d /var/log/httpd ]; then
-    cp -fapRd /var/log/httpd $DIR/httpd-logs
+    cp -fsLrp /var/log/httpd $DIR/httpd-logs
 elif [ -d /var/log/apache2 ]; then
-    cp -fapRd /var/log/apache2 $DIR/httpd-logs
+    cp -fsLrp /var/log/apache2 $DIR/httpd-logs
 fi
 
 # copy rhn logs
 if [ -d /var/log/rhn ]; then
-    cp -fapd  /var/log/rhn/{*log*,*.gz} $DIR/rhn-logs/rhn
+    cp -fsLrp  /var/log/rhn/{*log*,*.gz} $DIR/rhn-logs/rhn
 
     # check for oracle dir
     if [ -d /var/log/rhn/oracle ]; then
-        cp -fapRd /var/log/rhn/oracle $DIR/rhn-logs/rhn
+        cp -fsLrp /var/log/rhn/oracle $DIR/rhn-logs/rhn
     fi
 
     # check for reposync dir
     if [ -d /var/log/rhn/reposync ]; then
-        cp -fapRd /var/log/rhn/reposync $DIR/rhn-logs/rhn
+        cp -fsLrp /var/log/rhn/reposync $DIR/rhn-logs/rhn
     fi
 
     # check for search dir
     if [ -d /var/log/rhn/search ]; then
-        cp -fapRd /var/log/rhn/search $DIR/rhn-logs/rhn
+        cp -fsLrp /var/log/rhn/search $DIR/rhn-logs/rhn
     fi
 fi
 
 DB_INSTALL_LOG=/var/log/rhn/rhn-database-installation.log
 if [ -f "$DB_INSTALL_LOG" ] ; then
     mkdir -p $DIR/tmp
-    cp -fapRd "$DB_INSTALL_LOG" $DIR/tmp/
+    cp -fsLrp "$DB_INSTALL_LOG" $DIR/tmp/
 fi
 
 # grab jabberd info if it exists (it should)
 if [ -d /etc/jabberd ]; then
     mkdir -p $DIR/jabberd
-    cp -fapRd /etc/jabberd $DIR/jabberd
+    cp -fsLrp /etc/jabberd $DIR/jabberd
 fi
 
 # tomcat for spacewalk 400+
 for tomcat in tomcat tomcat5 tomcat6 ; do
   if [ -d /etc/$tomcat ]; then
-    cp -fapRd /etc/$tomcat $DIR/conf/tomcat
+    cp -fsLrp /etc/$tomcat $DIR/conf/tomcat
   fi
   if [ -d /var/log/$tomcat ]; then
-    cp -fapRd /var/log/$tomcat $DIR/tomcat-logs
+    cp -fsLrp /var/log/$tomcat $DIR/tomcat-logs
   fi
 done
 
 # copying the /usr/share/rhn/config-defaults
 echo "    * copying config-defaults files"
 if [ -d /usr/share/rhn/config-defaults ]; then
-    cp -fapRd /usr/share/rhn/config-defaults/* $DIR/config-defaults
+    cp -fsLrp /usr/share/rhn/config-defaults/* $DIR/config-defaults
 fi
 
 #cobbler stuff
 echo "    * copying cobbler files"
 if [ -d /etc/cobbler ]; then
-    cp -fapRd /etc/cobbler/* $DIR/conf/cobbler
+    cp -fsLrp /etc/cobbler/* $DIR/conf/cobbler
 fi
 if [ -d /var/log/cobbler ]; then
-   cp -fpRd /var/log/cobbler/* $DIR/cobbler-logs
+   cp -fsLrp /var/log/cobbler/* $DIR/cobbler-logs
 fi
 if [ -d /var/lib/cobbler ]; then
-   cp -fpRd /var/lib/cobbler/snippets $DIR/cobbler-lib/
-   cp -fpRd /var/lib/cobbler/config $DIR/cobbler-lib/
-   cp -fpRd /var/lib/cobbler/kickstarts $DIR/cobbler-lib/
-   cp -fpRd /var/lib/cobbler/triggers $DIR/cobbler-lib/
+   cp -fsLrp /var/lib/cobbler/snippets $DIR/cobbler-lib/
+   cp -fsLrp /var/lib/cobbler/config $DIR/cobbler-lib/
+   cp -fsLrp /var/lib/cobbler/kickstarts $DIR/cobbler-lib/
+   cp -fsLrp /var/lib/cobbler/triggers $DIR/cobbler-lib/
 fi
 if [ -d /var/lib/rhn/kickstarts ]; then
-   cp -fpRd /var/lib/rhn/kickstarts/* $DIR/kickstarts/
+   cp -fsLrp /var/lib/rhn/kickstarts/* $DIR/kickstarts/
 fi
 
 # ssl-build
@@ -186,13 +192,13 @@ if [ -d /root/ssl-build ] ; then
     echo "    * copying ssl-build"
     mkdir -p $DIR/ssl-build
     # NOTE: cp -a == cp -pRd
-    cp -fa /root/ssl-build/* $DIR/ssl-build 2> /dev/null
+    ls -lR /root/ssl-build/ > $DIR/ssl-build/ls-lR.txt 2> /dev/null
 fi
 
 # /etc/sudoers
 if [ -f /etc/sudoers -o -d /etc/sudoers.d ] ; then
 	echo "    * copying /etc/sudoers*"
-	cp -faRd /etc/sudoers* $DIR/conf
+	cp -fsLrp /etc/sudoers* $DIR/conf
 fi
 
 # /etc/passwd
@@ -214,7 +220,7 @@ rpm -qa | sort > $DIR/rpm-manifest-clean
 echo "    * querying schema version, database charactersets and database"
 /usr/bin/rhn-schema-version > $DIR/database-schema-version
 /usr/bin/rhn-charsets > $DIR/database-character-sets
-if [ -f /usr/bin/db-control ] ; then
+if [ -f /usr/bin/db-control ] && [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ] ; then
     /usr/bin/db-control report > $DIR/db-control-report
 fi
 
@@ -244,7 +250,7 @@ echo "    * get schema statistics"
 # alert.log
 if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 	echo "    * copying alert_rhnsat.log"
-	cp -fa /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
+	cp -fsLrp /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
 fi
 
 PGSQL_ROOT=""
@@ -257,13 +263,13 @@ fi
 # PostgreSQL logs
 if [ -f $PGSQL_ROOT/var/lib/pgsql/pgstartup.log ] ; then
 	echo "    * copying pgstartup.log"
-	cp -fa $PGSQL_ROOT/var/lib/pgsql/pgstartup.log $DIR/database
+	cp -fsLrp $PGSQL_ROOT/var/lib/pgsql/pgstartup.log $DIR/database
 fi
 if [ -f /var/lib/pgsql/initlog ] ; then
        echo "    * copying initlog"
-       cp -fa /var/lib/pgsql/initlog $DIR/database
+       cp -fsLrp /var/lib/pgsql/initlog $DIR/database
 fi
-ls $PGSQL_ROOT/var/lib/pgsql/data/*.conf 2>/dev/null | xargs -I file cp -fa file $DIR/database
+ls $PGSQL_ROOT/var/lib/pgsql/data/*.conf 2>/dev/null | xargs -I file cp -fsLrp file $DIR/database
 
 # compress postgres logs
 if [ -d $PGSQL_ROOT/var/lib/pgsql/data/pg_log ]; then
@@ -282,7 +288,7 @@ fi
 if [ -d /var/log/spacewalk/schema-upgrade ] ; then
 	echo "    * copying schema upgrade logs"
 	mkdir -p $DIR/schema-upgrade-logs
-	cp -pr /var/log/spacewalk/schema-upgrade/* $DIR/schema-upgrade-logs
+	cp -fsLrp /var/log/spacewalk/schema-upgrade/* $DIR/schema-upgrade-logs
 fi
 
 if [ "$(spacewalk-cfg-get db_backend)" = "postgresql" ] ; then
@@ -293,12 +299,12 @@ fi
 if [ -f /var/log/audit/audit.log ] ; then
 	echo "    * copying audit.log"
 	mkdir -p $DIR/audit-log
-	cp -fa /var/log/audit/audit.log $DIR/audit-log
+	cp -fsLrp /var/log/audit/audit.log $DIR/audit-log
 fi
 
 if [ -d /var/log/rhn/tasko/sat ] ; then
         echo "    * copying tasko/sat"
-        cp -fa /var/log/rhn/tasko/sat $DIR/tasko
+        cp -fsLrp /var/log/rhn/tasko/sat $DIR/tasko
 fi
 
 echo "    * timestamping"

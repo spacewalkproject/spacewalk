@@ -1,5 +1,5 @@
 # Client code for Update Agent
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Preston Brown <pbrown@redhat.com>
 #         Adrian Likins <alikins@redhat.com>
@@ -38,8 +38,9 @@ else:
             SYSRELVER = 'system-release(releasever)'
             version = sstr(h['version'])
             release = sstr(h['release'])
-            if SYSRELVER in h['providename']:
-                provides = dict(zip(h['providename'], h['provideversion']))
+            if SYSRELVER in (sstr(provide) for provide in h['providename']):
+                provides = dict((sstr(n), sstr(v))
+                                for n,v in zip(h['providename'], h['provideversion']))
                 release = '%s-%s' % (version, release)
                 version = provides[SYSRELVER]
             osVersionRelease = (sstr(h['name']), version, release)
@@ -49,8 +50,9 @@ else:
                 SYSRELVER = 'system-release(releasever)'
                 version = sstr(h['version'])
                 release = sstr(h['release'])
-                if SYSRELVER in h['providename']:
-                    provides = dict(zip(h['providename'], h['provideversion']))
+                if SYSRELVER in (sstr(provide) for provide in h['providename']):
+                    provides = dict((sstr(n), sstr(v))
+                                    for n,v in zip(h['providename'], h['provideversion']))
                     release = '%s-%s' % (version, release)
                     version = provides[SYSRELVER]
                 osVersionRelease = (sstr(h['name']), version, release)

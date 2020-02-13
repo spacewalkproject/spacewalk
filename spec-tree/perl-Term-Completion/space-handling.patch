@@ -1,0 +1,11 @@
+--- a/lib/Term/Completion.pm	2013-02-23 16:39:15.000000000 +0100
++++ b/lib/Term/Completion.pm	2017-06-02 12:34:12.792097566 +0200
+@@ -203,7 +203,7 @@ sub complete
+               }
+             }
+             my $add = $l - $r;
+-            if($add) {
++            if($add > 0) {
+               $this->{out}->print($test = substr($test, $r, $add));
+               # reset counter if something was added
+               $tab_pressed = 0;

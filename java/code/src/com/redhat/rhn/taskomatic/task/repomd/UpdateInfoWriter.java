@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2012 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -236,7 +236,7 @@ public class UpdateInfoWriter extends RepomdWriter {
 
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("href",
-                    "http://www.cve.mitre.org/cgi-bin/cvename.cgi?name=" + cveid);
+                    "http://cve.mitre.org/cgi-bin/cvename.cgi?name=" + cveid);
             attr.addAttribute("id", cveid);
             attr.addAttribute("type", "cve");
             handler.startElement("reference", attr);

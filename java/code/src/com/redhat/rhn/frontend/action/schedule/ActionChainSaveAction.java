@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles Ajax requests for the Action Chain Edit page.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainSaveAction {
 

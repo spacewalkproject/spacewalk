@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -75,8 +75,9 @@ import java.util.TreeSet;
  *      <li>words can have all caps (Example: aclCheckURL() is referenced
  *      in an ACL expression as check_url)
  *  </ul>
- *  More examples:
+ *
  * <table>
+ * <caption>More examples:</caption>
  * <tr>
  *   <td>Method Name</td>     <td>ACL Handler Name</td>
  * </tr>

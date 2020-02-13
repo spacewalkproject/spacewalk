@@ -1,9 +1,8 @@
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares19
 Version: 1.9.1
-Release: 4%{?dist}.3.1
+Release: 4%{?dist}.3.2
 License: MIT
-Group: System Environment/Libraries
 URL: http://c-ares.haxx.se/
 Source0: http://c-ares.haxx.se/download/c-ares-%{version}.tar.gz
 # The license can be obtained at http://c-ares.haxx.se/license.html
@@ -19,7 +18,6 @@ BuildRequires: libtool
 Patch0003: 0001-Rename-output-to-libcares19.patch
 Patch0004: 0002-Don-t-build-manpages-on-EPEL6.patch
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 c-ares is a C library that performs DNS requests and name resolves 
@@ -28,7 +26,6 @@ by Greg Hudson at MIT.
 
 %package devel
 Summary: Development files for c-ares
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -57,24 +54,20 @@ export echo=echo
 %{__make} %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 export echo=echo
 make DESTDIR=$RPM_BUILD_ROOT install
 rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares19.la
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-, root, root)
 %doc README README.cares CHANGES NEWS LICENSE
 %{_libdir}/*.so.*
 
 %files devel
-%defattr(-, root, root, 0755)
 %{_includedir}/c-ares19/ares.h
 %{_includedir}/c-ares19/ares_build.h
 %{_includedir}/c-ares19/ares_dns.h
@@ -84,6 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/libcares19.pc
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.9.1-4.3.2
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+- fixed tito build warning
+
 * Thu Apr 11 2013 Stephen Gallagher <sgallagh@redhat.com> - 1.9.1-4.3
 - Fix changelog dates
 

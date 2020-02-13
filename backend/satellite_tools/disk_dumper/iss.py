@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -97,6 +97,8 @@ class FileMapper:
             'kickstart_files':   xmlDiskSource.KickstartFileDiskSource(self.mp),
             'binary_rpms':   xmlDiskSource.BinaryRPMDiskSource(self.mp),
             'comps':   xmlDiskSource.ChannelCompsDiskSource(self.mp),
+            'modules':   xmlDiskSource.ChannelModulesDiskSource(self.mp),
+            'productnames': xmlDiskSource.ProductnamesDiskSource(self.mp),
         }
 
     # This will make sure that all of the directories leading up to the
@@ -140,6 +142,10 @@ class FileMapper:
         self.filemap['comps'].setChannel(channelname)
         return self.setup_file(self.filemap['comps']._getFile())
 
+    def getChannelModulesFile(self, channelname):
+        self.filemap['modules'].setChannel(channelname)
+        return self.setup_file(self.filemap['modules']._getFile())
+
     def getChannelPackageShortFile(self, channel_id):
         self.filemap['channel-pkg-short'].setChannel(channel_id)
         return self.setup_file(self.filemap['channel-pkg-short']._getFile())
@@ -168,6 +174,9 @@ class FileMapper:
         self.filemap['kickstart_files'].setID(ks_label)
         self.filemap['kickstart_files'].set_relative_path(relative_path)
         return self.setup_file(self.filemap['kickstart_files']._getFile())
+
+    def getProductNamesFile(self):
+        return self.setup_file(self.filemap['productnames']._getFile())
 
 
 class Dumper(dumper.XML_Dumper):
@@ -220,14 +229,27 @@ class Dumper(dumper.XML_Dumper):
                 select relative_filename
                 from rhnChannelComps
                 where channel_id = :channel_id
+                and comps_type_id = 1
                 order by id desc
             """
+
+            modules_query = """
+                select relative_filename
+                from rhnChannelComps
+                where channel_id = :channel_id
+                and comps_type_id = 2
+                order by id desc
+            """
+
             self.channel_comps_query = rhnSQL.Statement(comps_query)
             channel_comps_sth = rhnSQL.prepare(self.channel_comps_query)
+            self.channel_modules_query = rhnSQL.Statement(modules_query)
+            channel_modules_sth = rhnSQL.prepare(self.channel_modules_query)
 
             # self.channel_ids contains the list of dictionaries that hold the channel information
             # The keys are 'channel_id', 'label', and 'last_modified'.
             self.channel_comps = {}
+            self.channel_modules = {}
 
             self.set_exportable_orgs(org_ids)
 
@@ -244,9 +266,13 @@ class Dumper(dumper.XML_Dumper):
 
                 channel_comps_sth.execute(channel_id=ch_info[0]['channel_id'])
                 comps_info = channel_comps_sth.fetchone_dict()
+                channel_modules_sth.execute(channel_id=ch_info[0]['channel_id'])
+                modules_info = channel_modules_sth.fetchone_dict()
 
                 if comps_info is not None:
                     self.channel_comps[ch_info[0]['channel_id']] = comps_info['relative_filename']
+                if modules_info is not None:
+                    self.channel_modules[ch_info[0]['channel_id']] = modules_info['relative_filename']
 
             # For list of channel families, we want to also list those relevant for channels
             # that are already on disk, so that we do not lose those families with
@@ -672,12 +698,31 @@ class Dumper(dumper.XML_Dumper):
                           "Channel Families exported to %s",
                           "%s caught in dump_channel_families.")
 
+    def dump_product_names(self):
+        self._dump_simple(self.fm.getProductNamesFile(),
+                          dumper.XML_Dumper.dump_product_names,
+                          "Exporting product names...",
+                          "Product names exported to %s",
+                          "%s caught in dump_product_names.")
+
     def dump_orgs(self):
         self._dump_simple(self.fm.getOrgsFile(),
                           dumper.XML_Dumper.dump_orgs,
                           "Exporting orgs...",
                           "Orgs exported to %s",
                           "%s caught in dump_orgs.")
+
+    def copy_repomd(self, repomds, channel, get_file_func):
+        if channel['channel_id'] in repomds:
+            full_filename = os.path.join(CFG.MOUNT_POINT, repomds[channel['channel_id']])
+            target_filename = get_file_func(channel['label'])
+            log2email(3, "Need to copy %s to %s" % (full_filename, target_filename))
+
+            if self.hardlinks:
+                os.link(full_filename, target_filename)
+            else:
+                shutil.copyfile(full_filename, target_filename)
+
 
     def dump_channels(self, channel_labels=None, start_date=None, end_date=None,
                       use_rhn_date=True, whole_errata=False):
@@ -699,17 +744,8 @@ class Dumper(dumper.XML_Dumper):
                 log2email(4, "Channel: %s" % channel['label'])
                 log2email(5, "Channel exported to %s" % self.fm.getChannelsFile(channel['label']))
 
-                if channel['channel_id'] in self.channel_comps:
-                    full_filename = os.path.join(CFG.MOUNT_POINT, self.channel_comps[channel['channel_id']])
-                    target_filename = self.fm.getChannelCompsFile(channel['label'])
-                    log2stderr(3, "Need to copy %s to %s" % (full_filename, target_filename))
-
-                    # the comps.xml file will get gzipped afterwards
-                    # but it's still faster to do hardlink first
-                    if self.hardlinks:
-                        os.link(full_filename, target_filename)
-                    else:
-                        shutil.copyfile(full_filename, target_filename)
+                self.copy_repomd(self.channel_comps, channel, self.fm.getChannelCompsFile)
+                self.copy_repomd(self.channel_modules, channel, self.fm.getChannelModulesFile)
 
                 pb.addTo(1)
                 pb.printIncrement()
@@ -1204,6 +1240,7 @@ class ExporterMain:
                                               self.dumper.dump_kickstart_files]},
                     'rpms':   {'dump': self.dumper.dump_rpms},
                     'orgs':   {'dump': self.dumper.dump_orgs},
+                    'productnames': {'dump': self.dumper.dump_product_names},
                 }
             else:
                 print("The output directory is not a directory")
@@ -1306,7 +1343,7 @@ class ExporterMain:
 
     @staticmethod
     def print_orgs(orgs):
-        if orgs and len(orgs) > 0:
+        if orgs:
             print("Orgs available for export:")
             for org in orgs:
                 print("Id: %s, Name: \'%s\'" % (org['id'], org['name']))
@@ -1343,6 +1380,8 @@ class ExporterMain:
                     action = 'channel_families'
                 elif action == 'kickstarts':
                     action = 'kickstart_trees'
+                elif action == 'productnames':
+                    action = 'product_names'
 
                 os_data_dir = os.path.join(self.outputdir, action)
                 if not os.path.exists(os_data_dir):
@@ -1350,7 +1389,7 @@ class ExporterMain:
 
                 for fpath, _dirs, files in os.walk(os_data_dir):
                     for f in files:
-                        if f.endswith(".xml"):
+                        if f.endswith(".xml") or f.endswith(".yaml"):
                             filepath = os.path.join(fpath, f)
                             compress_file(filepath)
 

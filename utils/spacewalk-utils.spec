@@ -1,29 +1,27 @@
 %define rhnroot %{_prefix}/share/rhn
-%if 0%{?fedora}
+%if (0%{?fedora} && 0%{?fedora} <30) || 0%{?rhel} == 7
 %{!?pylint_check: %global pylint_check 1}
 %endif
 
 Name:		spacewalk-utils
-Version:	2.7.15
+Version:	2.10.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
-Group:		Applications/Internet
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %if 0%{?pylint_check}
-BuildRequires:  spacewalk-pylint >= 2.2
+BuildRequires:  spacewalk-python2-pylint
 %endif
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
 BuildRequires:  python
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires:  yum
+BuildRequires:  yum < 4.0.0
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
 BuildRequires:  spacewalk-backend-libs >= 1.7.24
@@ -63,27 +61,21 @@ Generic utilities that may be run against a Spacewalk server.
 %prep
 %setup -q
 
-%if  0%{?rhel} && 0%{?rhel} < 6
-%define pod2man POD2MAN=pod2man
-%endif
-
 %build
 make all %{?pod2man}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
 make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir} %{?pod2man}
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 %if 0%{?pylint_check}
 # check coding style
-spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
+spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 %endif
 
 %files
@@ -99,6 +91,149 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Feb 10 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- require real yum not dnf alias
+
+* Mon Sep 23 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- added Fedora 30 repos
+- removed EOLed channels
+
+* Thu Jul 04 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- 1457040 - add command line argument --ssl-city=<SSL_CITY>
+
+* Tue Mar 19 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- removed RHEL5 macro (re)definition
+- no pylint2 on Fedora 30+
+
+* Mon Feb 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- Fix typo in spacewalk-manage-channel-lifecycle
+
+* Mon Nov 26 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- added Fedora 29 and Spacewalk 2.9 channels
+- Bumping package versions for 2.10
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.8-1
+- updated supported Fedora and spacewalk releases
+- updated copyright years
+
+* Fri Nov 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.7-1
+- fix shebangs to unversioned python
+- fix pylint in migrateSystemProfile.py
+- fix pylint in cloneByDate.py
+
+* Thu Oct 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.6-1
+- Missing square bracket
+
+* Wed Aug 22 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.5-1
+- make spacewalk-archive-audits help more intuitive
+
+* Mon Jul 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
+- get rid of #/usr/bin/env shebang
+
+* Thu May 24 2018 Jiri Dostal <jdostal@redhat.com> 2.9.3-1
+- 1533052 - Add FQDN detection to setup and config utilities.
+
+* Thu Apr 26 2018 Jiri Dostal <jdostal@redhat.com> 2.9.2-1
+- reflect copr.fedorainfracloud.org packages moving for spacewalk-2.8
+
+* Wed Apr 25 2018 Grant Gainey 2.9.1-1
+- 1554307 - make purge-loop work off static timestamp
+- Bumping package versions for 2.9.
+
+* Thu Mar 29 2018 Jiri Dostal <jdostal@redhat.com> 2.8.17-1
+- Update gpgs in database
+- Update common channels with latest releases
+
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.16-1
+- Revert "1533052 - Add FQDN detection to setup and config utilities."
+
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.15-1
+- 1533052 - Add FQDN detection to setup and config utilities.
+
+* Thu Mar 22 2018 Grant Gainey 2.8.14-1
+- 1537766 - make sure to send output to log and stdout
+- 1537766 - reject negative numbers for batch/interval/age
+- Two tiny typos in the spacewalk-manage-snapshots man-page
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.13-1
+- run pylint on rhel 7 builds
+
+* Tue Feb 13 2018 Eric Herget <eherget@redhat.com> 2.8.12-1
+- Update to use newly separated spacewalk-python[2|3]-pylint packages
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.11-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Tue Feb 06 2018 Grant Gainey 2.8.10-1
+- 1537766 - Fix broken DELETE in postgresql
+
+* Tue Jan 23 2018 Grant Gainey 2.8.9-1
+- 1537766 - Add spacewalk-manage-snapshots, to give sw-admin a snapshot-mgt
+  tool
+
+* Fri Dec 01 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.8-1
+- add nightly-server repository for Fedora 27
+- add nightly-client repository for Fedora 27
+- add Fedora 27 repositories
+- remove Fedora 24 as it is EOL now
+
+* Mon Oct 16 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- Fix to promote a child channel as child channel
+
+* Thu Oct 05 2017 Eric Herget <eherget@redhat.com> 2.8.6-1
+- 1001613 - man-page for spacewalk-sync-setup
+
+* Mon Sep 11 2017 Grant Gainey 2.8.5-1
+- 1458440 - Reset to use https, make xmlrpc-cnx debuggable
+
+* Mon Sep 11 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove unused macro
+- updated spacewalk nightly url
+
+* Fri Sep 08 2017 Grant Gainey 2.8.3-1
+- 1458440 - Fixed processing in the absence of input           Also fixed
+  'xmlrpclib ssl no longer likes self-signed sat-certs' - match examples, use
+  HTTP
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- purged changelog entries for Spacewalk 2.0 and older
+- use standard brp-python-bytecompile
+
+* Thu Aug 24 2017 Ondrej Gajdusek <ogajduse@redhat.com>
+- PR 566 - Add spacewalk client and server repos for Fedora 25 and 26
+- Bumping package versions for 2.8.
+
+* Wed Aug 16 2017 Eric Herget <eherget@redhat.com> 2.7.23-1
+- SW 2.7 Release prep - update copyright year (3rd pass)
+
+* Wed Aug 16 2017 Jiri Dostal <jdostal@redhat.com> 2.7.22-1
+- 1458440 - The command "spacewalk-sync-setup" without any parameters return
+  traceback
+
+* Mon Aug 07 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.21-1
+- don't link old perl manpage in man
+
+* Fri Aug 04 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.20-1
+- rewrite spacewalk-api utility into python
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.19-1
+- update copyright year
+
+* Thu Jul 27 2017 Jan Dobes 2.7.18-1
+- Add Spacewalk 2.7 release for util
+- Add new Fedora 26 channels for util
+- 1321196 - centos6-addons is not available
+- Bug 1321210 - repository for Centos 7 i386 is not available
+
+* Thu Jul 20 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.17-1
+- pylint fixes
+
+* Mon Jul 17 2017 Grant Gainey 2.7.16-1
+- add opensuse_leap42_3 and remove opensuse13_2
+- 1007526 - minor tweak to archive-audits manpage
+
 * Thu May 11 2017 Eric Herget <eherget@redhat.com> 2.7.15-1
 - 1449529 - taskotop retrieve list of each task by end date, not start date
 - Remove unused imports.
@@ -668,480 +803,4 @@ spacewalk-pylint $RPM_BUILD_ROOT%{rhnroot}
 * Tue Jul 30 2013 Dimitar Yordanov <dyordano@redhat.com> 2.1.1-1
 - New simple tool for managing custom repositories.
 - Bumping package versions for 2.1.
-
-* Thu Jul 18 2013 Jiri Mikulka <jmikulka@redhat.com> 2.0.2-1
-- dropping support for Fedora 17 in Spacewalk nightly
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.19-1
-- removing spacewalk18-client-fedora16 from spacewalk-common-channels
-- removing spacewalk18-server-fedora16 from spacewalk-common-channels
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.18-1
-- adding Fedora 19 to spacewalk-common-channel
-- removing spacewalk-client-nightly-fedora16 from spacewalk-common-channels
-- removing spacewalk-nightly on fedora16 from spacewalk-common-channels
-
-* Tue Jul 16 2013 Grant Gainey <ggainey@redhat.com> 1.10.17-1
-- 985136 - Clarify spacewalk-clone-by-date man page
-
-* Tue Jul 09 2013 Grant Gainey <ggainey@redhat.com> 1.10.16-1
-- 977878 - Set default-template-filenames for sync-setup
-
-* Tue Jul 09 2013 Grant Gainey <ggainey@redhat.com> 1.10.15-1
-- 977878 - Teach sync-setup about default-master and cacert
-
-* Tue Jul 02 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.14-1
-- oracle -> postgresql: properly quote commas in evr_t constructor
-- oracle -> pg migrations: filter plan_table_9i out
-
-* Mon Jul 01 2013 Grant Gainey <ggainey@redhat.com> 1.10.13-1
-- 977878 - spacewalk-sync-setup: Fix create-template to do the right then when re-run, and make
-  --dry-run work
-- 977878 - spacewalk-sync-setup: Move sync_setup to somewhere package-able, rename and add license
-  stmt
-- oracle -> pg migrations: filter plan_table_9i out
-
-* Mon Jun 17 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.12-1
-- removed old CVS/SVN version ids
-- branding fixes in man pages
-- more branding cleanup
-
-* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.11-1
-- rebrading RHN Satellite to Red Hat Satellite
-
-* Wed May 22 2013 Tomas Lestach <tlestach@redhat.com> 1.10.10-1
-- check to see if the key exists before initializing parent channel key
-
-* Tue May 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.9-1
-- fixed promote phase naming errors
-
-* Thu May 09 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.8-1
-- correctly quote the database name
-
-* Tue May 07 2013 Jan Pazdziora 1.10.7-1
-- disable, enable & rebuild indexes for migrations
-
-* Tue Apr 30 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.6-1
-- EL4 is EOL'ed for a long time
-- Fedora 16 is EOL'ed
-- Spacewalk 1.7 is EOL'ed
-- Added Oracle Linux 5 and 6 public channels
-
-* Fri Apr 26 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.5-1
-- 956684 - don't print traceback on invalid date
-
-* Mon Apr 08 2013 Stephen Herr <sherr@redhat.com> 1.10.4-1
-- 948605 - fixing pylint error
-
-* Fri Apr 05 2013 Stephen Herr <sherr@redhat.com> 1.10.3-1
-- 947942 - Updating spacewalk-clone-by-date config file parsing and man page
-- 947942 - add spacewalk-clone-by-date --use-update-date
-
-* Wed Mar 27 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.2-1
-- add openSUSE 12.3 to spacewalk-common-channels config
-
-* Thu Mar 14 2013 Jan Pazdziora 1.10.1-1
-- 920514 - correcting spacewalk-common-channels.ini
-
-* Fri Mar 01 2013 Stephen Herr <sherr@redhat.com> 1.9.17-1
-- adding Spacewalk 1.9 channels to spacewalk-common-channels.ini
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-
-* Thu Feb 28 2013 Jan Pazdziora 1.9.16-1
-- Removing the dsn parameter from initDB, removing support for --db option.
-
-* Thu Feb 21 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.15-1
-- fixed koji build
-
-* Mon Feb 18 2013 Miroslav Suchý <msuchy@redhat.com> 1.9.14-1
-- Buildrequire pod2man
-
-* Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.13-1
-- fixed pylint warnings
-
-* Wed Feb 13 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.12-1
-- removed Fedora 15 channels
-- added Fedora 18 channel definitions
-
-* Fri Jan 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.11-1
-- silence pylint warning
-
-* Tue Jan 15 2013 Tomas Lestach <tlestach@redhat.com> 1.9.10-1
-- 889317 - Removing now redundant validation check from spacewalk-clone-by-date
-- 889317 - Add more thorough arg validation to spacewalk-clone-by-date
-- 866930 - fixing exception if no date given and adding documentation
-- 889317 - username check needs to happen after channel args length check
-- Checkstyle fixes to make s390 buildhosts happy
-
-* Mon Jan 07 2013 Stephen Herr <sherr@redhat.com> 1.9.9-1
-- 892789 - add --parents option to spacewalk-clone-by-date
-
-* Fri Dec 21 2012 Jan Pazdziora 1.9.8-1
-- Silencing pylint warnings.
-
-* Fri Dec 21 2012 Jan Pazdziora 1.9.7-1
-- We cannot have except and finally in the same try block for python 2.4.
-
-* Fri Dec 21 2012 Jan Pazdziora 1.9.6-1
-- 889317 - fix short-sighted problem in previous patch
-- 889317 - make sure the user passes two channels to spacewalk-clone-by-date
-- Revert "889317 - migrate spacewalk-clone-by-date to argparse to avoid
-  optparse bug"
-- 889317 - migrate spacewalk-clone-by-date to argparse to avoid optparse bug
-- 885782 - strip whitespace from spacewalk-clone-by-date conf file
-- 870794 - don't create the clone channel if we're gonna error out due to lack
-  of repodata
-
-* Wed Dec 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.5-1
-- 866930 - do not traceback when called without --to_date
-
-* Wed Nov 21 2012 Michael Mraka <michael.mraka@redhat.com> 1.9.4-1
-- updated according to modified distchannel API
-
-* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 1.9.3-1
-- add openSUSE 12.2 to common channels
-
-* Tue Nov 06 2012 Tomas Lestach <tlestach@redhat.com> 1.9.2-1
-- spacewalk-setup-cobbler does not use --enable-tftp option
-
-* Wed Oct 31 2012 Jan Pazdziora 1.9.1-1
-- fixed spacing in man page
-
-* Wed Oct 31 2012 Jan Pazdziora 1.8.33-1
-- Advertise the yum.spacewalkproject.org.
-
-* Tue Oct 30 2012 Jan Pazdziora 1.8.32-1
-- Adding Spacewalk 1.8 to spacewalk-common-channels.
-- Update the copyright year.
-
-* Mon Oct 22 2012 Jan Pazdziora 1.8.31-1
-- Add support for schema transformations.
-
-* Mon Oct 22 2012 Jan Pazdziora 1.8.30-1
-- 822907 - spacewalk-hostname-rename knows to start postgresql
-
-* Wed Sep 26 2012 Jan Pazdziora 1.8.29-1
-- 860467 - note about packages not having erratas.
-
-* Fri Sep 07 2012 Jan Pazdziora 1.8.28-1
-- Format the timestamps as well.
-
-* Fri Aug 31 2012 Jan Pazdziora 1.8.27-1
-- 853025 - make sure the regular expressions actually match.
-
-* Wed Aug 22 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.26-1
-- 812886 - the Enhancement Advisory is actually Product Enhancement Advisory.
-
-* Fri Aug 10 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.25-1
-- added channel definitions for Fedora17
-
-* Thu Aug 09 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.24-1
-- 817484 - fixed typo
-
-* Mon Aug 06 2012 Tomas Lestach <tlestach@redhat.com> 1.8.23-1
-- 843466 - prevent spacewalk-hostname-rename to fail with an IPv6 address
-
-* Mon Aug 06 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.22-1
-- 817484 - strip non-number chars from date format
-
-* Fri Jul 06 2012 Stephen Herr <sherr@redhat.com> 1.8.21-1
-- 838131 - spacewalk-clone-by-date can clone only security errata
-
-* Thu Jun 14 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.20-1
-- system.list_user_systems() now returns localtime
-
-* Thu Jun 07 2012 Stephen Herr <sherr@redhat.com> 1.8.19-1
-- 829485 - fixed type
-
-* Thu Jun 07 2012 Stephen Herr <sherr@redhat.com> 1.8.18-1
-- 829204 - updated man page for spacewalk-clone-by-date
-
-* Wed Jun 06 2012 Stephen Herr <sherr@redhat.com> 1.8.17-1
-- 829485 - Created new asyncronous api methods for cloning errata
-
-* Wed May 23 2012 Stephen Herr <sherr@redhat.com> 1.8.16-1
-- 824583 - spacewalk-clone-by-date failes with TypeError when on Postgres
-  database.
-
-* Mon May 21 2012 Jan Pazdziora 1.8.15-1
-- Fix refsection build error.
-- %%defattr is not needed since rpm 4.4
-
-* Fri May 18 2012 Tomas Lestach <tlestach@redhat.com> 1.8.14-1
-- use spacewalk-setup-cobbler instead of outdated cobbler-setup
-- Revert "set localhost instead of hostname to tnsnames.ora and listener.ora"
-
-* Wed May 16 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.13-1
-- added version for scientific linux default channel mapping
-
-* Thu May 10 2012 Jan Pazdziora 1.8.12-1
-- The plan_table is not part of our schema, do not dump it.
-
-* Fri May 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.11-1
-- added dist_map_release for automatic OS->base channel mapping
-- set dist release map via setDefaultMap
-- removed fedora12/13/14 which are long time EOL
-
-* Tue Apr 24 2012 Stephen Herr <sherr@redhat.com> 1.8.10-1
-- 812810 - Better regex for getting system_id in apply_errata
-
-* Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.9-1
-- 812886 - determine the advisory type by parsing "advisory_type"
-
-* Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.8-1
-- 813281 - fix indetation
-
-* Mon Apr 23 2012 Miroslav Suchý <msuchy@redhat.com> 1.8.7-1
-- 813281 - implement -n for apply_errata
-
-* Mon Apr 16 2012 Tomas Lestach <tlestach@redhat.com> 1.8.6-1
-- 812812 - make generated SSL certificate publicly available
-  (tlestach@redhat.com)
-
-* Fri Apr 13 2012 Jan Pazdziora 1.8.5-1
-- 810313 - new option to list snapshot details (mzazrivec@redhat.com)
-
-* Thu Apr 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.4-1
-- made new pylint on Fedora 16 happy
-
-* Tue Apr 03 2012 Jan Pazdziora 1.8.3-1
-- 809444 - support for psql syntax (mzazrivec@redhat.com)
-
-* Sun Mar 18 2012 Aron Parsons <aronparsons@gmail.com> 1.8.2-1
-- added spacewalk-manage-channel-lifecycle script (aronparsons@gmail.com)
-- spacewalk-clone-by-date manpage bugfixes/cleanups (shardy@redhat.com)
-
-* Mon Mar 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.8.1-1
-- reused function from spacewalk.common.cli
-- login(), logout() moved to spacewalk.common.cli
-- use getUsernamePassword() from spacewalk.common.cli
-
-* Fri Mar 02 2012 Jan Pazdziora 1.7.15-1
-- We no longer build Spacewalk nightly on Fedora 14.
-- Spacewalk 1.7 instead of 1.4 and 1.5.
-- Update the copyright year info.
-
-* Fri Feb 24 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.14-1
-- fixed pylint errors
-- use spacewalk-pylint for coding style check
-
-* Thu Feb 23 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.13-1
-- we are now just GPL
-
-* Wed Feb 22 2012 Miroslav Suchý 1.7.12-1
-- 788083 - IPv6 support in spacewalk-hostname-rename (mzazrivec@redhat.com)
-- errata date clone - adding --skip-depsolve option, and fixing some man page
-  errors (jsherril@redhat.com)
-- errata date clone - fixing issue where repoclosure was not being passed all
-  needed arguments (jsherril@redhat.com)
-- errata date clone - fixing issue where raise was not called on an exception
-  (jsherril@redhat.com)
-- errata date clone - removing packages from remove list even if no errata are
-  cloned (jsherril@redhat.com)
-- errata date clone - better error message when repodata is missing
-  (jsherril@redhat.com)
-- errata date clone - man page fix, and catching if config file does not exist
-  (jsherril@redhat.com)
-- errata date clone - making regular expression syntax more apparent in docs
-  (jsherril@redhat.com)
-- errata date clone - pylint fixes (jsherril@redhat.com)
-- errata date clone - do not dep solve if no packages were added
-  (jsherril@redhat.com)
-- errata date clone - adding ability to specify per-channel blacklists
-  (jsherril@redhat.com)
-- errata date clone - fixing issue where old metadata could be reused if the
-  previous run did not complete (jsherril@redhat.com)
-- errata date clone - improving user feedback in some cases
-  (jsherril@redhat.com)
-- errata date clone - adding regular expression support for package exclusion
-  lists (jsherril@redhat.com)
-- errata date clone - adding auth check to make sure that login is refreshed
-  before session timeout (jsherril@redhat.com)
-- errata date clone - changing meaning of blacklist to only remove packages
-  based on delta, and adding removelist to remove packages based on full
-  channel contents (jsherril@redhat.com)
-- fixing some man page spelling errors (jsherril@redhat.com)
-
-* Mon Feb 13 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.11-1
-- fixed spacewalk-common-channel glob matching
-
-* Mon Feb 13 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.10-1
-- 591156 - fix for clone by date to use repodata dir for dep resolution
-
-* Tue Feb 07 2012 Jan Pazdziora 1.7.9-1
-- The COBBLER_SETTINGS_FILE is not used, we call cobbler-setup to do the work.
-- errata date clone - fixing a few more issues with man page and adding a bit
-  more user output (jsherril@redhat.com)
-- errata date clone - another man page fix (jsherril@redhat.com)
-- errata date clone - man page fix (jsherril@redhat.com)
-- errata date clone - fixing man page formatting (jsherril@redhat.com)
-
-* Thu Feb 02 2012 Justin Sherrill <jsherril@redhat.com> 1.7.8-1
-- errata date clone - fixing imports (jsherril@redhat.com)
-
-* Thu Feb 02 2012 Justin Sherrill <jsherril@redhat.com> 1.7.7-1
-- errata date clone - fixing packaging to clone properly (jsherril@redhat.com)
-- errata date clone - adding validate to man page (jsherril@redhat.com)
-
-* Thu Feb 02 2012 Justin Sherrill <jsherril@redhat.com> 1.7.6-1
-- errata date clone - fixing a few errors from pylint fixes
-  (jsherril@redhat.com)
-
-* Wed Feb 01 2012 Justin Sherrill <jsherril@redhat.com> 1.7.5-1
-- pylint fixes (jsherril@redhat.com)
-
-* Wed Feb 01 2012 Justin Sherrill <jsherril@redhat.com> 1.7.4-1
-- adding initial spacewalk-clone-by-date (jsherril@redhat.com)
-
-* Thu Jan 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.3-1
-- removed map and filter from bad-function list
-
-* Thu Jan 05 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.2-1
-- pylint is required for coding style check
-
-* Wed Jan 04 2012 Michael Mraka <michael.mraka@redhat.com> 1.7.1-1
-- fixed coding style and pylint warnings
-- added spacewalk-nightly-*-fedora16 definitions
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.6-1
-- Channel definitions for Spacewalk 1.6
-
-* Wed Dec 21 2011 Milan Zazrivec <mzazrivec@redhat.com> 1.6.5-1
-- update copyright info
-
-* Wed Nov 23 2011 Jan Pazdziora 1.6.4-1
-- Prevent Malformed UTF-8 character error upon dump.
-
-* Fri Sep 09 2011 Michael Mraka <michael.mraka@redhat.com> 1.6.3-1
-- updated spacewalk repos
-- added scientific linux 6 repo
-- added epel6 repos
-
-* Thu Aug 11 2011 Miroslav Suchý 1.6.2-1
-- do not mask original error by raise in execption
-
-* Thu Jul 21 2011 Jan Pazdziora 1.6.1-1
-- Adding centos6 and fedora15 repos. (jonathan.hoser@helmholtz-muenchen.de)
-
-* Wed Jul 13 2011 Jan Pazdziora 1.5.4-1
-- We get either undefined value or BLOB for the blob columns type.
-
-* Fri May 20 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.3-1
-- fix broken (non-utf8) changelog entries
-
-* Fri Apr 29 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.2-1
-- fixed base channel for spacewalk on F14
-- added spacewalk nightly entries
-- added spacewalk 1.4 entries
-
-* Mon Apr 18 2011 Jan Pazdziora 1.5.1-1
-- fix pattern bash matching (mzazrivec@redhat.com)
-
-* Thu Mar 24 2011 Jan Pazdziora 1.4.3-1
-- In spacewalk-dump-schema, use the default Oracle connect information from
-  config file.
-
-* Thu Mar 10 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.2-1
-- made spacewalk-hostname-rename working on postgresql
-
-
-* Thu Feb 03 2011 Michael Mraka <michael.mraka@redhat.com> 1.4.1-1
-- updated spacewalk-common-channel to spacewalk 1.3
-- Bumping package versions for 1.4
-
-* Tue Jan 04 2011 Michael Mraka <michael.mraka@redhat.com> 1.3.4-1
-- fixed pylint errors
-
-* Tue Dec 14 2010 Jan Pazdziora 1.3.3-1
-- We need to check the return value of GetOptions and die if the parameters
-  were not correct.
-
-* Tue Nov 23 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.2-1
-- fixed pylint errors
-- added spacewalk 1.2 channels and repos
-
-* Fri Nov 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.3.1-1
-- re-added automatic external yum repo creation based on new API
-- Bumping package versions for 1.3
-
-* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.9-1
-- 491331 - move /etc/sysconfig/rhn-satellite-prep to /var/lib/rhn/rhn-
-  satellite-prep (msuchy@redhat.com)
-
-* Mon Nov 01 2010 Jan Pazdziora 1.2.8-1
-- As the table rhnPaidErrataTempCache is no more, we do not need to have check
-  for temporary tables.
-
-* Fri Oct 29 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.7-1
-- fixed spacewalk-common-channels
-- updated spacewalk-common-channels to Spacewalk 1.1 and Fedora 13 and 14
-
-* Tue Oct 26 2010 Jan Pazdziora 1.2.6-1
-- Blobs (byteas) want double backslashes and octal values.
-
-* Thu Oct 21 2010 Jan Pazdziora 1.2.5-1
-- Adding spacewalk-dump-schema to the Makefile to be added to the rpm.
-- Documentation (man page).
-- For blobs, quote everything; for varchars, do not quote the UTF-8 characters.
-- Export in UTF-8.
-- To process the evr type, we need to handle the ARRAY ref.
-- Skip the quartz tables, they get regenerated anyway.
-- Escape characters that we need to escape.
-- Use the ISO format for date.
-- Dump records.
-- No commit command, we run psql in autocommit.
-- Fail if we try to dump lob longer than 10 MB.
-- Do not dump copy commands for tables that are empty.
-- For each table, print the copy command.
-- Do not attempt to copy over temporary tables or we get error about
-  rhnpaiderratatempcache.
-- Initial table processing -- just purge for now.
-- Stop on errors.
-- Dump sequences.
-- Process arguments and connect.
-- Original stub of the schema dumper.
-
-* Tue Oct 19 2010 Jan Pazdziora 1.2.4-1
-- As Oracle XE is no longer managed by rhn-satellite, we need to change the
-  logic in spacewalk-hostname-rename a bit as well.
-
-* Tue Oct 05 2010 Tomas Lestach <tlestach@redhat.com> 1.2.3-1
-- 639818 - fixing sys path (tlestach@redhat.com)
-
-* Mon Oct 04 2010 Michael Mraka <michael.mraka@redhat.com> 1.2.2-1
-- replaced local copy of compile.py with standard compileall module
-
-* Thu Sep 09 2010 Tomas Lestach <tlestach@redhat.com> 1.2.1-1
-- 599030 - check whether SSL certificate generation was successful
-  (tlestach@redhat.com)
-- use hostname as default value for organization unit (tlestach@redhat.com)
-- enable also VPN IP (tlestach@redhat.com)
-- bumping package versions for 1.2 (mzazrivec@redhat.com)
-
-* Mon May 17 2010 Tomas Lestach <tlestach@redhat.com> 1.1.5-1
-- changing package description (tlestach@redhat.com)
-- do not check /etc/hosts file for actual hostname (tlestach@redhat.com)
-- check for presence of bootstrap files before modifying them
-  (tlestach@redhat.com)
-- fixed typo (tlestach@redhat.com)
-- set localhost instead of hostname to tnsnames.ora and listener.ora
-  (tlestach@redhat.com)
-- fixed a typo in the man page (tlestach@redhat.com)
-
-* Tue Apr 27 2010 Tomas Lestach <tlestach@redhat.com> 1.1.4-1
-- fixed Requires (tlestach@redhat.com)
-- spacewalk-hostname-rename code cleanup (tlestach@redhat.com)
-
-* Thu Apr 22 2010 Tomas Lestach <tlestach@redhat.com> 1.1.3-1
-- adding requires to utils/spacewalk-utils.spec (tlestach@redhat.com)
-
-* Wed Apr 21 2010 Tomas Lestach <tlestach@redhat.com> 1.1.2-1
-- changes to spacewalk-hostname-rename script (tlestach@redhat.com)
-- introducing spacewalk-hostname-rename.sh script (tlestach@redhat.com)
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -121,9 +121,10 @@ public class ErrataFactory extends HibernateFactory {
      * Tries to locate errata based on either the errataum's id or the
      * CVE/CAN identifier string.
      * @param identifier erratum id or CVE/CAN id string
+     * @param org User organization
      * @return list of erratas found
      */
-    public static List lookupByIdentifier(String identifier) {
+    public static List lookupByIdentifier(String identifier, Org org) {
         Long eid = null;
         List retval = new LinkedList();
         Errata errata = null;
@@ -141,12 +142,12 @@ public class ErrataFactory extends HibernateFactory {
         }
         else if (identifier.length() > 4) {
             String prefix = null;
-            errata = ErrataFactory.lookupByAdvisoryId(identifier);
+            errata = ErrataFactory.lookupByAdvisoryId(identifier, org);
             if (errata != null) {
                 retval.add(errata);
             }
             else {
-                errata = ErrataFactory.lookupByAdvisory(identifier);
+                errata = ErrataFactory.lookupByAdvisory(identifier, org);
                 if (errata != null) {
                     retval.add(errata);
                 }
@@ -170,7 +171,7 @@ public class ErrataFactory extends HibernateFactory {
                         }
                     }
                     identifier = buf.toString();
-                    errata = ErrataFactory.lookupByAdvisoryId(identifier);
+                    errata = ErrataFactory.lookupByAdvisoryId(identifier, org);
                 }
                 if (errata != null) {
                     retval.add(errata);
@@ -446,6 +447,7 @@ public class ErrataFactory extends HibernateFactory {
         copy.setAdvisoryRel(original.getAdvisoryRel());
         copy.setLocallyModified(original.getLocallyModified());
         copy.setLastModified(original.getLastModified());
+        copy.setSeverity(original.getSeverity());
 
 
         /*
@@ -707,51 +709,64 @@ public class ErrataFactory extends HibernateFactory {
      * Look up an errata by the advisory name. This is a unique field in the db and this
      * method is needed to help us see if a created/edited advisoryName is unique.
      * @param advisory The advisory to lookup
+     * @param org User organization
      * @return Returns the errata corresponding to the passed in advisory name.
      */
-    public static Errata lookupByAdvisory(String advisory) {
+    public static Errata lookupByAdvisory(String advisory, Org org) {
         Session session = null;
         Errata retval = null;
+        List retlist = null;
         //  try {
         //look for a published errata first
         session = HibernateFactory.getSession();
-        retval = (Errata) session.getNamedQuery("PublishedErrata.findByAdvisoryName")
-                .setString("advisory", advisory)
-                .uniqueResult();
+        retlist = session.getNamedQuery("PublishedErrata.findByAdvisoryName")
+                .setParameter("advisory", advisory)
+                .setParameter("org", org)
+                .setFirstResult(0)
+                .setMaxResults(1)
+                .list();
         //if nothing was found, check the unpublished errata table
-        if (retval == null) {
-            retval = (Errata)
-                    session.getNamedQuery("UnpublishedErrata.findByAdvisoryName")
-                    .setString("advisory", advisory)
-                    .uniqueResult();
+        if (retlist.isEmpty()) {
+            retlist = session.getNamedQuery("UnpublishedErrata.findByAdvisoryName")
+                    .setParameter("advisory", advisory)
+                    .setParameter("org", org)
+                    .setFirstResult(0)
+                    .setMaxResults(1)
+                    .list();
         }
         //      }
         //      catch (HibernateException e) {
         //          throw new
         //            HibernateRuntimeException("Error looking up errata by advisory name");
         //       }
+        if (!retlist.isEmpty()) {
+            retval = (Errata) retlist.get(0);
+        }
         return retval;
     }
 
     /**
      * Finds errata based on advisory id
      * @param advisoryId errata advisory id
+     * @param org User organization
      * @return Errata if found, otherwise null
      */
-    public static Errata lookupByAdvisoryId(String advisoryId) {
+    public static Errata lookupByAdvisoryId(String advisoryId, Org org) {
         Session session = null;
         Errata retval = null;
         try {
             //look for a published errata first
             session = HibernateFactory.getSession();
             retval = (Errata) session.getNamedQuery("PublishedErrata.findByAdvisory")
-                    .setString("advisory", advisoryId)
+                    .setParameter("advisory", advisoryId)
+                    .setParameter("org", org)
                     .uniqueResult();
 
             if (retval == null) {
                 retval = (Errata)
                         session.getNamedQuery("UnpublishedErrata.findByAdvisory")
-                        .setString("advisory", advisoryId)
+                        .setParameter("advisory", advisoryId)
+                        .setParameter("org", org)
                         .uniqueResult();
             }
         }
@@ -1026,6 +1041,7 @@ public class ErrataFactory extends HibernateFactory {
             eo.setAdvisorySynopsis((String)values[4]);
             eo.setUpdateDate((Date)values[5]);
             eo.setIssueDate((Date)values[6]);
+            eo.setSeverityid((Integer)values[7]);
             errata.add(eo);
         }
 
@@ -1172,8 +1188,7 @@ public class ErrataFactory extends HibernateFactory {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("from_cid", fromCid);
         params.put("to_cid", toCid);
-        DataResult<ErrataOverview> results = mode.execute(params);
-        return results;
+        return (DataResult<ErrataOverview>) mode.execute(params);
     }
 
     /**
@@ -1188,8 +1203,7 @@ public class ErrataFactory extends HibernateFactory {
                 "published_owned_unmodified_cloned_errata");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("org_id", orgId);
-        DataResult<OwnedErrata> results = mode.execute(params);
-        return results;
+        return (DataResult<OwnedErrata>) mode.execute(params);
     }
 
     /**

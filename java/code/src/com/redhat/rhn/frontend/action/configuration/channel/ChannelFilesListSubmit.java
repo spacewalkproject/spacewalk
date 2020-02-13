@@ -159,10 +159,7 @@ public class ChannelFilesListSubmit extends BaseSetOperateOnSelectedItemsAction 
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
 
-        DataResult dr = ConfigurationManager.getInstance().
-            listCurrentFiles(u, cc, null);
-
-        return dr;
+        return ConfigurationManager.getInstance().listCurrentFiles(u, cc, null);
     }
 
     /**

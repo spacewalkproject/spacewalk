@@ -47,9 +47,7 @@ public class HostBuilder {
      * This is the final step in building or compiling a host. The host and its guests (if
      * there are any) will be persisted, flushed, and evicted from the current hibernate
      * session.
-     *
-     * <br/><br/>
-     *
+     * <p>
      * The builder does not maintain a reference to a host once it is built; so, calling
      * <code>build</code> successive times will simply return <code>null</code>. One of the
      * <i>create</i> methods must be called before every invocation of this method.
@@ -141,11 +139,10 @@ public class HostBuilder {
      * @param guests a map of users to the number of guests to create owned by that user.
      *              This is useful when you want the guests to be in orgs different to
      *               what the host .
-     *
+     * @param register should we register
      * @return This builder
      * @throws Exception if an error occurs
      */
-
     public  HostBuilder withGuests(Map<User, Integer> guests,
                                 boolean register) throws Exception {
         for (User u : guests.keySet()) {

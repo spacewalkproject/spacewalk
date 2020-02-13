@@ -215,11 +215,18 @@ then the job will be queued.
 2
 
 .TP
-.B "taskomatic.maxmemory" (integer)
+.B "taskomatic.java.maxmemory" (integer)
 The maximum amount of memory (MB) that Taskomatic can use. If you find that Taskomatic is running out of memory, consider increasing this.
 .IP
 .B Default:
 1024
+
+.TP
+.B "taskomatic.java.initmemory" (integer)
+The initial amount of memory (MB) that Taskomatic is allocated on start-up.
+.IP
+.B Default:
+256
 
 .TP
 .B "package_import_skip_changelog" (boolean)
@@ -227,6 +234,13 @@ When importing packages, skip non-essential data that can make the import faster
 .IP
 .B Default:
 0
+
+.TP
+.B "java.smtp_server"
+This parameter defines the server Satellite will use as its SMTP server.
+.IP
+.B Default:
+localhost
 
 .SS Database Options
 .TP

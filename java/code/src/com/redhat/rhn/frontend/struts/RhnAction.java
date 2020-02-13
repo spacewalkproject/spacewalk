@@ -39,16 +39,12 @@ import javax.servlet.http.HttpServletRequest;
  * RhnAction base class for all RHN Struts Actions.
  * Used to override Struts functionality as well as
  * add common features to the RHN Struts Actions.
- *
- * <br/><br/>
- *
+ * <p>
  * <strong>NOTE:</strong> RhnSetAction and RhnAction contain two duplicate methods -
  * <code>getStrutsDelegate()</code> and <code>createSuccessMessage()</code>. If another
  * method is added to these classes that is common to both we need to refactor the common
  * methods into a new class maybe called <code>RhnActionDelegate</code>.
- *
- * <br/><br/>
- *
+ * <p>
  * We cannot introduce a common base class because RhnSetAction and RhnAction fall into
  * different inheritance hierarchies.
  *
@@ -64,7 +60,6 @@ public abstract class RhnAction extends Action {
      *
      * @return A StrutsDelegate object.
      * @see StrutsDelegate
-     * @see StrutsDelegateFactory
      */
     protected StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();
@@ -76,7 +71,7 @@ public abstract class RhnAction extends Action {
      * @param i Iterator that contains the items you want to convert into label value bean
      * @param nameMethod to call on each object, something like 'Channel.getName()'.  Must
      * return a String or will throw ClassCastException
-     * @param valueMethod
+     * @param valueMethod method to call on each object to retrieve the desired value.
      * @return List of LabelValue beans
      */
     protected List createLabelValueList(Iterator i, String nameMethod, String valueMethod) {

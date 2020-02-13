@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,7 +32,9 @@ from rhn.i18n import bstr
 
 hashlib_has_usedforsecurity = False
 
-if 'usedforsecurity' in inspect.getargspec(hashlib.new)[0]:
+if not hasattr(inspect, 'getfullargspec'):
+    inspect.getfullargspec = inspect.getargspec
+if 'usedforsecurity' in inspect.getfullargspec(hashlib.new)[0]:
     hashlib_has_usedforsecurity = True
 
 _normpath_re = re.compile("^(%s)+" % os.sep)

@@ -1606,8 +1606,8 @@ mingw32-filesystem-63-5.el6.noarch.rpm
 mingw32-gcc-4.4.6-4.el6.x86_64.rpm
 mingw32-gcc-c++-4.4.6-4.el6.x86_64.rpm
 mingw32-gcc-gfortran-4.4.6-4.el6.x86_64.rpm
-mingw32-gcc-objc-4.4.6-4.el6.x86_64.rpm
 mingw32-gcc-objc++-4.4.6-4.el6.x86_64.rpm
+mingw32-gcc-objc-4.4.6-4.el6.x86_64.rpm
 mingw32-gettext-0.17-12.el6.5.noarch.rpm
 mingw32-gettext-static-0.17-12.el6.5.noarch.rpm
 mingw32-glib2-2.22.0-3.el6.noarch.rpm

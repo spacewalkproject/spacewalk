@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -587,6 +587,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
+        KickstartDataTest.setupTestConfiguration(user);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
 
@@ -618,6 +619,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
 
         Server srvr = ServerFactoryTest.createTestServer(user, true);
         assertNotNull(srvr);
+        KickstartDataTest.setupTestConfiguration(user);
         KickstartData testKickstartData
             = KickstartDataTest.createKickstartWithChannel(user.getOrg());
 

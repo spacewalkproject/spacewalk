@@ -8,21 +8,23 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        2.7.1
+Version:        2.10.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
-Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
-#      git clone git://git.fedorahosted.org/git/spacewalk.git/
+#      git clone https://github.com/spacewalkproject/spacewalk.git
 # cd spacewalk
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
 BuildRequires:  policycoreutils >= %{POLICYCOREUTILSVER}
 BuildArch:      noarch
@@ -33,8 +35,8 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-proxy-management
 Requires:       spacewalk-proxy-common
 Requires:       spacewalk-proxy-broker
@@ -72,7 +74,11 @@ install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
-/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%define hardlink /usr/sbin/hardlink
+%if 0%{?fedora} >= 31
+%define hardlink /usr/bin/hardlink
+%endif
+%{hardlink} -cv %{buildroot}%{_datadir}/selinux
 
 # Install spacewalk-proxy-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
@@ -96,7 +102,7 @@ fi
 if [ $1 -eq 0 ]; then
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 fi
@@ -110,6 +116,31 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- hardlink has moved to /usr/bin in Fedora 31
+
+* Fri Mar 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.3-1
+- 1365569 - Update SELinux to allow httpd to read systemid file
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+- Bumping package versions for 2.8.
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Remove more fedorahosted links
+- Use HTTPS in all Github links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Nov 29 2016 Jan Dobes 2.7.1-1
 - perl isn't in Fedora 25 buildroot
 - Bumping package versions for 2.7.
@@ -120,38 +151,3 @@ fi
 - Bumping package versions for 2.2.
 - Bumping package versions for 2.1.
 
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
-- 919468 - fixed path in file based Requires
-- %%defattr is not needed since rpm 4.4
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
-
-* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
-- rebuild for spacewalk 0.8
-
-* Thu Jul  2 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.6-1
-- 509369 - run restorecon for /var/www/html/pub since its content is not owned by any package
-
-* Thu Jun 18 2009 Jan Pazdziora 0.6.5-1
-- 505606 - Require at least selinux-policy 2.4.6-80
-
-* Mon Jun 15 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.4-1
-- 498611 - run "semodule -i" in %%post and restorecon in %%posttrans
-
-* Wed Jun 10 2009 Miroslav Suchy <msuchy@redhat.com> 0.6.3-1
-- 498611 - run restorecon in %%posttrans
-
-* Mon Apr 27 2009 Jan Pazdziora 0.6.2-1
-- move the %post SELinux activation to /usr/sbin/spacewalk-proxy-selinux-enable
-- use src.rpm packaging with single Source0
-
-* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
-- Make spacewalk-proxy-selinux buildable with tito. (dgoodwin@redhat.com)
-- bump Versions to 0.6.0 (jesusr@redhat.com)
-
-* Tue Jan 20 2009 Jan Pazdziora 0.5.1-1
-- the initial release, based on spacewalk-selinux

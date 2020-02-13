@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Hola,
 
-Se us ha creat un usuari de Red Hat per {0} {1}. El vostre
-usuari de Red Hat, en combinació amb la vostra subscripció activa de Red Hat,
-us proporciona accés per administrar els sistemes sobre @@PRODUCT_NAME@@.
-
-  usuari de Red Hat: {2}
-             contrasenya: {3}
-   correu electrònic: {4}
-
-  {5}
-
-Important: Si us plau, canvieu la contrasenya en iniciar sessió.
-
-Gràcies per utilitzar @@PRODUCT_NAME@@.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Hola,
 
-Se us ha creat un usuari de Red Hat. El vostre
-usuari de Red Hat, en combinació amb la vostra subscripció activa de Red Hat,
-us proporciona accés per administrar els sistemes sobre @@PRODUCT_NAME@@.
-
-  usuari de Red Hat: {0}
-             contrasenya: {1}
-   correu electrònic: {2}
-
-  {3}
-
-Important: Si us plau, canvieu la contrasenya en iniciar sessió.
-
-Gràcies per utilitzar @@PRODUCT_NAME@@.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,

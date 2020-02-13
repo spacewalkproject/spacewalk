@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # -*- coding: utf-8 -*-
 #
-# Copyright (c) 2012--2015 Red Hat, Inc.
+# Copyright (c) 2012--2018 Red Hat, Inc.
 #
 # Lookup package dependencies in a yum repository
 #
@@ -178,7 +178,7 @@ class DepSolver:
         reqlist = {}
         notfound = {}
         for pkg in results:
-            if len(results[pkg]) == 0:
+            if not results[pkg]:
                 continue
             for req in results[pkg]:
                 rlist = results[pkg][req]
@@ -200,7 +200,7 @@ class DepSolver:
     def printable_result(results):
         print_doc_str = ""
         for pkg in results:
-            if len(results[pkg]) == 0:
+            if not results[pkg]:
                 continue
             for req in results[pkg]:
                 rlist = results[pkg][req]

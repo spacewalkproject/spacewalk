@@ -38,12 +38,10 @@ public class PrimitiveBuilder implements ManifestFactoryBuilder {
         }
 
         if (type.equals("String")) {
-            String ret = (String)params.get("value");
-            return ret;
+            return (String)params.get("value");
         }
         else if (type.equals("Integer")) {
-            Integer ret = Integer.valueOf((String)params.get("value"));
-            return ret;
+            return Integer.valueOf((String)params.get("value"));
         }
         else if (type.equals("List")) {
             String lenStr = (String)params.get("length");

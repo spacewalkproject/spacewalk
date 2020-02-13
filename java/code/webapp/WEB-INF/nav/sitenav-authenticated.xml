@@ -8,10 +8,6 @@
         <rhn-tab-url>/rhn/account/EditAddress.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Change Email" url="/rhn/account/ChangeEmail.do" />
-      <rhn-tab name="Credentials">
-        <rhn-tab-url>/rhn/account/Credentials.do</rhn-tab-url>
-        <rhn-tab-url>/rhn/account/DeleteCredentials.do</rhn-tab-url>
-      </rhn-tab>
       <rhn-tab name="Account Deactivation" url="/rhn/account/AccountDeactivation.do"/>
     </rhn-tab>
     <rhn-tab name="Your Preferences" url="/rhn/account/UserPreferences.do" />
@@ -299,9 +295,6 @@
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
-    <rhn-tab name="Reference Guide" url="/rhn/help/dispatcher/reference_guide">
-      <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
-    </rhn-tab>
     <rhn-tab name="Installation Guide" url="/rhn/help/dispatcher/install_guide">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>

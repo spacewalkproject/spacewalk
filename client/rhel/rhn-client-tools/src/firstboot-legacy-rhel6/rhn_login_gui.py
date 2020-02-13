@@ -17,8 +17,6 @@
 # Authors:
 #     Jan Pazdziora jpazdziora at redhat dot com
 
-import sys
-sys.path.append("/usr/share/rhn")
 from up2date_client import rhnreg
 from up2date_client import rhnregGui, rhnserver
 from up2date_client import messageWindow

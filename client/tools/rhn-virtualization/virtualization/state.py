@@ -13,9 +13,6 @@
 # in this software or its documentation.
 #
 
-import sys
-sys.path.append("/usr/share/rhn/")
-
 from virtualization.constants import StateType
 
 ###############################################################################

@@ -1,18 +1,16 @@
 Name: spacewalk-doc-indexes
-Version: 2.7.0
+Version: 2.10.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
-Group: Applications/Internet
 License: GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# git clone https://github.com/spacewalkproject/spacewalk.git
 # cd search-server/spacewalk-doc-indexes
 # make test-srpm
 URL: https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: nutch
 BuildArch: noarch
 Provides: doc-indexes
@@ -29,14 +27,12 @@ documentation/help searches
 #nothing to do here
 
 %install
-rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
 cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US
 cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en-US/segments
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
@@ -48,6 +44,36 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jan 14 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- updated doc-indexes
+- update crawler to new release notes
+
+* Thu Apr 19 2018 Jiri Dostal <jdostal@redhat.com> 2.9.1-1
+- Update doc-indexes
+- Update crawler to read new release notes page
+- Bumping package versions for 2.9.
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 27 2017 Eric Herget <eherget@redhat.com> 2.8.3-1
+- fix urls, filters and conf for doc indexing
+- fixing crawler filter, 5.8 doc is using lower case url
+
+* Mon Sep 11 2017 Eric Herget <eherget@redhat.com> 2.8.2-1
+- update docs urls for indexing
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Mon Jul 17 2017 Jan Dobes 2.7.1-1
+- Remove more fedorahosted links
+- Bumping package versions for 2.7.
+- Bumping package versions for 2.6.
+
 * Fri May 20 2016 Grant Gainey 2.5.2-1
 - spacewalk-doc-indexes: build on openSUSE
 
@@ -75,37 +101,4 @@ rm -rf $RPM_BUILD_ROOT
 - updated documentation indexes
 - index actual documentation
 - Bumping package versions for 2.1.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Mon Mar 18 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
-- %%defattr is not needed since rpm 4.4
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
-
-* Fri Jan 15 2010 Michael Mraka <michael.mraka@redhat.com> 0.8.1-1
-- rebuild for spacewalk 0.8
-
-
-* Wed Nov 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.7.1-1
-- Update doc indexes to reside in "en-US" (jmatthew@redhat.com)
-- bumping versions to 0.7.0 (jmatthew@redhat.com)
-
-* Fri Aug 07 2009 John Matthews <jmatthews@redhat.com> 0.7.0
-- update indexes to reside in "en-US"
-
-* Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
-- search requires doc-indexes, sw-doc-indexes provides doc-indexes (jesusr@redhat.com)
-- bump Versions to 0.6.0 (jesusr@redhat.com)
-
-* Mon Jan 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.1-1
-- requires nutch now
-
-* Mon Jan 26 2009 John Matthews <jmatthews@redhat.com> 0.5.0-1
-- update so compatible with search-server changes for multiple
-  languages
-* Thu Dec 18 2008 John Matthews <jmatthews@redhat.com> 0.4.5-1
-- initial
 

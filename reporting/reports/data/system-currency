@@ -37,10 +37,10 @@ sql:
 	select S.id as system_id,
 		S.org_id as org_id,
 		S.name as name,
-		sum(case when (substr(E.synopsis, 1, 1) = 'C' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as critical,
-		sum(case when (substr(E.synopsis, 1, 1) = 'I' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as important,
-		sum(case when (substr(E.synopsis, 1, 1) = 'M' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as moderate,
-		sum(case when (substr(E.synopsis, 1, 1) = 'L' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as low,
+		sum(case when (upper(substr(E.synopsis, 1, 1)) = 'C' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as critical,
+		sum(case when (upper(substr(E.synopsis, 1, 1)) = 'I' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as important,
+		sum(case when (upper(substr(E.synopsis, 1, 1)) = 'M' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as moderate,
+		sum(case when (upper(substr(E.synopsis, 1, 1)) = 'L' and E.advisory_type = 'Security Advisory') then 1 else 0 end) as low,
 		sum(case when E.advisory_type = 'Bug Fix Advisory' then 1 else 0 end) as bug,
 		sum(case when E.advisory_type = 'Product Enhancement Advisory' then 1 else 0 end) as enhancement
 	from rhnServer S left join

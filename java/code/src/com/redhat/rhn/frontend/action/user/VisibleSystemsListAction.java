@@ -94,8 +94,7 @@ public class VisibleSystemsListAction extends RhnSetAction {
         //user is logged in user, but we care about target user
         Long uid = new RequestContext(request).getRequiredParam("uid");
         User targetUser = UserManager.lookupUser(user, uid);
-        DataResult dr = UserManager.visibleSystems(targetUser);
-        return dr;
+        return UserManager.visibleSystems(targetUser);
     }
 
     /**

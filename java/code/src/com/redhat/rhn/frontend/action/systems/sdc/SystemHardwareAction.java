@@ -249,11 +249,10 @@ public class SystemHardwareAction extends RhnAction {
 
         List storageDevices = new ArrayList();
         for (Device hd : ServerFactory.lookupStorageDevicesByServer(server)) {
-            Device d = hd;
             Map device = new HashMap();
-            device.put("description", d.getDescription());
-            device.put("device", d.getDevice());
-            device.put("bus", d.getBus());
+            device.put("description", hd.getDescription());
+            device.put("device", hd.getDevice());
+            device.put("bus", hd.getBus());
             storageDevices.add(device);
         }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.manager.kickstart.test;
 
+import java.util.Date;
+
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
@@ -21,8 +23,6 @@ import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.testing.TestUtils;
-
-import java.util.Date;
 
 
 /**
@@ -112,7 +112,7 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         String expected = "http://" +
             KickstartUrlHelper.COBBLER_SERVER_VARIABLE;
 
-        assertEquals(expected, helper.getCobblerMediaUrl());
+        assertEquals(expected, helper.getCobblerMediaUrlBase());
     }
 
     public void testGetKickstartMediaSessionUrl() throws Exception {

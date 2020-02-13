@@ -46,18 +46,7 @@ public class SsmManager {
     }
 
     /**
-     * Performs channel subscriptions. This method assumes the changes have been validated
-     * through:
-     * <ul>
-     * <li>{@link #linkChannelsToSubscribeForServers(User, List, List)}</li>
-     * <li>{@link #linkChannelsToUnsubscribeForServers(List, List)}</li>
-     * </ul>
-     * <p/>
-     * Furthermore, this call assumes the changes have been written to the necessary
-     * RhnSets via:
-     * <ul>
-     * <li>{@link #populateSsmChannelServerSets(User, List)}</li>
-     * </ul>
+     * Performs channel actions
      *
      * @param user user performing the action creations
      * @param sysMapping a collection of ChannelActionDAOs

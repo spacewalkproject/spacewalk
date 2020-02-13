@@ -44,7 +44,6 @@ public abstract class RhnLookupDispatchAction extends LookupDispatchAction {
      *
      * @return A StrutsDelegate object.
      * @see StrutsDelegate
-     * @see StrutsDelegateFactory
      */
     protected StrutsDelegate getStrutsDelegate() {
         return StrutsDelegate.getInstance();

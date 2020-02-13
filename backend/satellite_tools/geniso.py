@@ -143,7 +143,7 @@ def main(arglist):
         grafts = []
         for f in cds[i]:
             # Compute the relative path
-            relpath = f[len(mountPoint) + 1:]
+            relpath = os.path.relpath(f, mountPoint)
             # Append to the graft list: relative=real
             relpath = os.path.dirname(relpath)
             grafts.append("%s/=%s" % (relpath, f))
@@ -181,7 +181,7 @@ def main(arglist):
 
 def sizeStrToInt(s):
     # Converts s to an int
-    if s is None or s is "":
+    if s is None or s == "":
         # Don't know how to interpret it
         return 0
 

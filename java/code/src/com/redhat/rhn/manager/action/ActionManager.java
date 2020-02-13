@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.action;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.conf.ConfigDefaults;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -46,7 +45,6 @@ import com.redhat.rhn.domain.config.ConfigFileName;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.image.Image;
 import com.redhat.rhn.domain.image.ProxyConfig;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -143,12 +141,21 @@ public class ActionManager extends BaseManager {
         Server server = SystemManager.lookupByIdAndUser(serverId, loggedInUser);
         ServerAction serverAction = ActionFactory.getServerActionForServerAndAction(server,
                 action);
+        if (action == null || serverAction == null) {
+            throw new LookupException("Could not find action " + actionId + " on system " +
+                    serverId);
+        }
         Date now = Calendar.getInstance().getTime();
-
-        serverAction.setStatus(ActionFactory.STATUS_FAILED);
-        serverAction.setResultMsg(message);
-        serverAction.setCompletionTime(now);
-
+        if (serverAction.getStatus().equals(ActionFactory.STATUS_QUEUED) ||
+                serverAction.getStatus().equals((ActionFactory.STATUS_PICKEDUP))) {
+            serverAction.setStatus(ActionFactory.STATUS_FAILED);
+            serverAction.setResultMsg(message);
+            serverAction.setCompletionTime(now);
+        }
+        else {
+            throw new IllegalStateException("Action " + actionId +
+                    " must be in Pending state on " + "server " + serverId);
+        }
         return 1;
     }
 
@@ -270,7 +277,8 @@ public class ActionManager extends BaseManager {
 
         // Can only top level actions:
         if (action.getPrerequisite() != null) {
-            throw new ActionIsChildException();
+            throw new ActionIsChildException("It's allowed to cancel only top level " +
+                    "actions.");
         }
 
         Set actionsToDelete = new HashSet();
@@ -554,13 +562,13 @@ public class ActionManager extends BaseManager {
      *
      * @return The created action
      * @param user The user scheduling image deployment
-     * @param image The image that will be deployed
+     * @param imageUrl The URL of the image to be deployed
      * @param vcpus number of vcpus
      * @param memkb memory in Kb
      * @param bridge device
      * @param proxy proxy configuration
      */
-    public static Action createDeployImageAction(User user, Image image,
+    public static Action createDeployImageAction(User user, String imageUrl,
             Long vcpus, Long memkb, String bridge, ProxyConfig proxy) {
         DeployImageAction a = (DeployImageAction) ActionFactory
                 .createAction(ActionFactory.TYPE_DEPLOY_IMAGE);
@@ -574,7 +582,7 @@ public class ActionManager extends BaseManager {
         details.setVcpus(vcpus);
         details.setMemKb(memkb);
         details.setBridgeDevice(bridge);
-        details.setDownloadUrl(image.getDownloadUrl());
+        details.setDownloadUrl(imageUrl);
         if (proxy != null) {
             details.setProxyServer(proxy.getServer());
             details.setProxyUser(proxy.getUser());
@@ -582,8 +590,7 @@ public class ActionManager extends BaseManager {
                     proxy.getPass().getBytes())));
         }
         a.setDetails(details);
-        a.setName("Image Deployment: " + image.getName() + " - " +
-                image.getVersion());
+        a.setName("Image Deployment: " + imageUrl);
         return a;
     }
 
@@ -787,7 +794,7 @@ public class ActionManager extends BaseManager {
         if (pc != null) {
             return makeDataResult(params, params, pc, m);
         }
-        Integer limit = new Config().getInt(ConfigDefaults.ACTIONS_DISPLAY_LIMIT);
+        int limit = ConfigDefaults.get().getActionsDisplayLimit();
         if (limit > 0) {
             m.setMaxRows(limit);
         }
@@ -979,9 +986,15 @@ public class ActionManager extends BaseManager {
      * @param server Server for which the action affects.
      * @param earliest The earliest time this action should be run.
      * @return The scheduled PackageAction
+     * @throws MissingEntitlementException if the server is not entitled
      */
     public static PackageAction schedulePackageRefresh(User scheduler, Server server,
             Date earliest) {
+        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
+
         PackageAction pa = (PackageAction) schedulePackageAction(scheduler,
                 (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest, server);
         storeAction(pa);
@@ -1043,7 +1056,7 @@ public class ActionManager extends BaseManager {
                 params.put("v", pm.getSystem().getVersion());
                 params.put("r", pm.getSystem().getRelease());
                 String epoch = pm.getSystem().getEpoch();
-                params.put("e", epoch == "" ? null : epoch);
+                params.put("e", epoch.equals("") ? null : epoch);
                 params.put("a", pm.getSystem().getArch() != null ?
                         pm.getSystem().getArch() : "");
                 m.executeUpdate(params);
@@ -1061,7 +1074,7 @@ public class ActionManager extends BaseManager {
                 params.put("v", pm.getOther().getVersion());
                 params.put("r", pm.getOther().getRelease());
                 String epoch = pm.getOther().getEpoch();
-                params.put("e", epoch == "" ? null : epoch);
+                params.put("e", epoch.equals("") ? null : epoch);
                 params.put("a", pm.getOther().getArch() != null ?
                         pm.getOther().getArch() : "");
                 m.executeUpdate(params);
@@ -1085,7 +1098,7 @@ public class ActionManager extends BaseManager {
                     params.put("v", pm.getSystem().getVersion());
                     params.put("r", pm.getSystem().getRelease());
                     epoch = pm.getSystem().getEpoch();
-                    params.put("e", epoch == "" ? null : epoch);
+                    params.put("e", epoch.equals("") ? null : epoch);
                     params.put("a", pm.getSystem().getArch() != null ?
                             pm.getOther().getArch() : "");
                     m.executeUpdate(params);
@@ -1096,7 +1109,7 @@ public class ActionManager extends BaseManager {
                 params.put("v", pm.getOther().getVersion());
                 params.put("r", pm.getOther().getRelease());
                 epoch = pm.getOther().getEpoch();
-                params.put("e", epoch == "" ? null : epoch);
+                params.put("e", epoch.equals("") ? null : epoch);
                 params.put("a", pm.getOther().getArch() != null ?
                         pm.getOther().getArch() : "");
                 m.executeUpdate(params);
@@ -1194,8 +1207,6 @@ public class ActionManager extends BaseManager {
      * @return Currently scheduled ScriptRunAction
      * @throws MissingCapabilityException if any server in the list is missing script.run;
      *             schedule fails
-     * @throws MissingEntitlementException if any server in the list is missing
-     *             Provisioning; schedule fails
      */
     public static ScriptRunAction scheduleScriptRun(User scheduler, List<Long> sids,
             String name, ScriptActionDetails script, Date earliest) {
@@ -1216,6 +1227,7 @@ public class ActionManager extends BaseManager {
      * IDs.
      * @param sids servers' ids
      * @throws MissingCapabilityException if scripts cannot be run
+     * @throws MissingEntitlementException if the server is not entitled
      */
     public static void checkScriptingOnServers(List<Long> sids)
         throws MissingCapabilityException {
@@ -1455,14 +1467,19 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedule a KickstartAction against a system
+     * Schedule a scheduleHardwareRefreshAction against a system
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param earliestAction Date run the Action
      * @return Currently scheduled KickstartAction
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Server srvr,
             Date earliestAction) {
+        if (!SystemManager.hasEntitlement(srvr.getId(), EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
         return scheduleAction(scheduler, srvr, ActionFactory.TYPE_HARDWARE_REFRESH_LIST,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST.getName(), earliestAction);
     }
@@ -1473,9 +1490,19 @@ public class ActionManager extends BaseManager {
      * @param earliestAction Date run the Action
      * @param serverIds server ids meant for the action
      * @return Currently scheduled KickstartAction
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static Action scheduleHardwareRefreshAction(User scheduler, Date earliestAction,
             Set<Long> serverIds) {
+        for (Long sid : serverIds) {
+            Server s = SystemManager.lookupByIdAndUser(sid, scheduler);
+            if (!SystemManager.hasEntitlement(sid, EntitlementManager.MANAGEMENT)) {
+                log.error("Unable to run a hardware refresh action " +
+                        "on an system without enterprise entitlement, id " + sid);
+                throw new MissingEntitlementException(
+                        EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+            }
+        }
         return scheduleAction(scheduler, ActionFactory.TYPE_HARDWARE_REFRESH_LIST,
                 ActionFactory.TYPE_HARDWARE_REFRESH_LIST.getName(), earliestAction,
                 serverIds);
@@ -1691,6 +1718,7 @@ public class ActionManager extends BaseManager {
      * @param parameters Additional parameters for oscap tool.
      * @param earliestAction Date of earliest action to be executed.
      * @return scheduled Scap Action
+     * @throws MissingCapabilityException if scripts cannot be run
      */
     public static ScapAction scheduleXccdfEval(User scheduler, Set<Long> serverIds,
             String path, String parameters, Date earliestAction) {

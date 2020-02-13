@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 """ Checks diskspace sizes for for /rhnsat and /opt.
     Used only by the install.sh code.
 

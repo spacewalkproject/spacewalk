@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -77,8 +77,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * ProfileHandler
@@ -265,6 +263,7 @@ public class ProfileHandler extends BaseHandler {
         urlC.setArguments("--url " + tree.getDefaultDownloadLocation());
         KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
+        KickstartFactory.saveKickstartData(ksdata);
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(ksdata,
                 loggedInUser);
         cpec.store();
@@ -967,7 +966,7 @@ public class ProfileHandler extends BaseHandler {
        }
        Long ksid = ksdata.getId();
        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, loggedInUser);
-       SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
+       Set<KickstartCommand> customSet = new LinkedHashSet<>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
                String option = options.get(i);
@@ -1455,7 +1454,7 @@ public class ProfileHandler extends BaseHandler {
      * @param ksLabel ksLabel identifies the kickstart profile
      * @param reposIn OS repositories to set
      * @return int - 1 on success, exception thrown otherwise
-     * @xmrpc.doc Associates OS repository to a kickstart profile.
+     * @xmlrpc.doc Associates OS repository to a kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "ksLabel")
      * @xmlrpc.param #array_single("string", "repositoryLabel")

@@ -91,7 +91,6 @@ public abstract class BaseListAction extends RhnListAction {
      * @param pc PageControl
      */
     protected void processPageControl(PageControl pc) {
-        return;
     }
 
 
@@ -100,7 +99,6 @@ public abstract class BaseListAction extends RhnListAction {
      * @param rctx the context of the current request
      */
     protected void processRequestAttributes(RequestContext rctx) {
-        return;
     }
 
     /**
@@ -132,7 +130,6 @@ public abstract class BaseListAction extends RhnListAction {
      * @param form struts ActionForm
      */
     protected void processForm(RequestContext ctxt, ActionForm form) {
-        return; //default: nothing
     }
 
 

@@ -90,7 +90,7 @@ public class ConfirmErrataAction extends RhnListAction {
         Long sourceCid = null;
         Channel srcChan = null;
         String selChannel = request.getParameter(SELECTED_CHANNEL);
-        if ((selChannel != null) && (selChannel != "")) {
+        if ((selChannel != null) && (selChannel.equals(""))) {
             sourceCid = Long.parseLong(selChannel);
             srcChan = ChannelFactory.lookupByIdAndUser(sourceCid, user);
         }
@@ -132,19 +132,15 @@ public class ConfirmErrataAction extends RhnListAction {
 
 
         //Get Package Info and counts
-        DataResult<PackageOverview> packageResult =
-            ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
-                    getSetDecl(currentChan).getLabel());
 
 
-        List<PackageOverview> validList = packageResult;
-
-
-        storePackagesInSet(user, validList, currentChan);
+        storePackagesInSet(user, ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
+                getSetDecl(currentChan).getLabel()), currentChan);
 
         Map<String, HashMap<String, Object>> archMap =
                 new HashMap<String, HashMap<String, Object>>();
-        for (PackageOverview pack : validList) {
+        for (PackageOverview pack : ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
+                getSetDecl(currentChan).getLabel())) {
             if (archMap.get(pack.getPackageArch()) == null) {
                 archMap.put(pack.getPackageArch(), new HashMap<String, Object>());
                 archMap.get(pack.getPackageArch()).put("size", 0);
@@ -154,10 +150,12 @@ public class ConfirmErrataAction extends RhnListAction {
             arch.put("size",  ((Integer) arch.get("size")).intValue() + 1);
         }
 
-        request.setAttribute("packageList", validList);
+        request.setAttribute("packageList", ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
+                getSetDecl(currentChan).getLabel()));
         request.setAttribute(ARCH_COUNT, new ArrayList<Map<String, Object>>(archMap
                 .values()));
-        request.setAttribute("totalSize", validList.size());
+        request.setAttribute("totalSize", ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
+                getSetDecl(currentChan).getLabel()).size());
 
 
         ListTagHelper.bindSetDeclTo("errata", getSetDecl(currentChan), request);

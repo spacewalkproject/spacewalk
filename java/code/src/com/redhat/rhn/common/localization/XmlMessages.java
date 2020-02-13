@@ -261,9 +261,7 @@ public final class XmlMessages {
     private String getBundleName(final Class clazz) {
         String fullyQualifiedClassName = clazz.getName();
         int idx = fullyQualifiedClassName.lastIndexOf('.');
-        String bundleName = fullyQualifiedClassName.substring(0, idx + 1) +
-            RESOURCE_BUNDLE_CLASSNAME;
-        return bundleName;
+        return fullyQualifiedClassName.substring(0, idx + 1) + RESOURCE_BUNDLE_CLASSNAME;
     }
 
     /**

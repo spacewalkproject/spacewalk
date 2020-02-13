@@ -24,20 +24,31 @@
     <th><bean:message key="systemgroup.details.updates"/></th>
     <td>
       <div class="system-status">
-      <c:if test="${errata_counts['se'] > 0}">
-        <rhn:icon type="system-crit" />
-        <span class="system-status-critical-updates"><bean:message key="systemgroup.details.criticalupdates"/></span>
-        <a class="btn btn-danger" href="/rhn/groups/ListErrata.do?sgid=${id}">${errata_counts['se']} <rhn:icon type="nav-right" /></a>
-      </c:if>
-      <c:if test="${(errata_counts['se'] == 0) && ((errata_counts['be'] > 0) || (errata_counts['ee'] > 0))}">
-        <rhn:icon type="system-warn" />
-        <span class="system-status-updates"><bean:message key="systemgroup.details.someupdates"/></span>
-        <a class="btn btn-warning" href="/rhn/groups/ListErrata.do?sgid=${id}"><rhn:icon type="nav-right" /></a>
-      </c:if>
-      <c:if test="${(errata_counts['se'] == 0) && (errata_counts['be'] == 0) && (errata_counts['ee'] == 0)}">
-        <rhn:icon type="system-ok" />
-        <span class="system-status-up-to-date"><bean:message key="systemgroup.details.noupdates"/></span>
-      </c:if>
+        <c:choose>
+            <c:when test="${errata_counts['se'] > 0}">
+                <rhn:icon type="system-crit" />
+            </c:when>
+            <c:when test="${(errata_counts['se'] == 0) && (errata_counts['be'] > 0 || errata_counts['ee'] > 0)}">
+                <rhn:icon type="system-warn" />
+            </c:when>
+            <c:otherwise>
+                <rhn:icon type="system-ok" />
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${errata_counts['se'] == 0 && errata_counts['be'] == 0 && errata_counts['ee'] == 0}">
+                <bean:message key="systemgroup.details.noupdates"/>
+            </c:when>
+            <c:otherwise>
+                <bean:message key="systemgroup.details.someupdates"/>&nbsp;&nbsp;&nbsp;
+                <c:if test="${errata_counts['se'] > 0}">
+                    <bean:message key="systemgroup.details.updates.critical" arg0="/rhn/groups/ListErrata.do?sgid=${id}" arg1="${errata_counts['se']}"/>&nbsp;&nbsp;&nbsp;
+                </c:if>
+                <c:if test="${errata_counts['be'] > 0 || errata_counts['ee'] > 0}">
+                    <bean:message key="systemgroup.details.updates.noncritical" arg0="/rhn/groups/ListErrata.do?sgid=${id}" arg1="${errata_counts['be'] + errata_counts['ee']}"/>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
       </div>
     </td>
   </tr>
@@ -50,8 +61,6 @@
       <c:if test="${admin_count == 0}">
         <span class="no-details"><bean:message key="systemgroup.details.none"/></span>
       </c:if>
-      <br />
-
       <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
       <br />
       <a href="/rhn/groups/AdminList.do?sgid=${id}"><bean:message key="systemgroup.details.manageadmins"/></a>
@@ -62,7 +71,9 @@
     <th><bean:message key="systemgroup.details.systems"/></th>
     <td>
       <c:if test="${system_count > 0}">
-         <a class="btn btn-info" href="/rhn/groups/ListRemoveSystems.do?sgid=${id}">${system_count} <rhn:icon type="nav-right" /></a>
+        <a href="/rhn/groups/ListRemoveSystems.do?sgid=${id}">
+          <bean:message key="systemgroup.details.systems.systems" arg0="${system_count}"/>
+        </a>
       </c:if>
       <c:if test="${system_count == 0}">
         <span class="no-details"><bean:message key="systemgroup.details.none"/></span>

@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.org.Org;
@@ -59,8 +58,7 @@ public class FilePreservationListHandler extends BaseHandler {
         Org org = loggedInUser.getOrg();
         KickstartLister lister = KickstartLister.getInstance();
 
-        DataResult dataResult = lister.preservationListsInOrg(org, null);
-        return dataResult;
+        return lister.preservationListsInOrg(org, null);
     }
 
     /**

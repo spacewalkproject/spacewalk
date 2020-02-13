@@ -27,7 +27,7 @@ public class SystemSearchHandlerTest extends BaseHandlerTestCase {
 
     /**
      * empty test to act as a place holder
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testDummy() throws Exception {
         assertTrue(true);

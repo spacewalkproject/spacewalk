@@ -33,7 +33,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 
 /**
  * Renders a fragment with action chain entries.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainEntryRenderer {
 

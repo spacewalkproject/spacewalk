@@ -100,7 +100,7 @@ public abstract class RepomdWriter {
      *
      * @param handler content handler
      * @param pkgDto package info dto object
-     * @throws SAXException
+     * @throws SAXException SAX exception
      */
     protected static void addPackageBoilerplate(SimpleContentHandler handler,
             PackageDto pkgDto) throws SAXException {
@@ -145,6 +145,7 @@ public abstract class RepomdWriter {
      * Removes all control characters from passed in String.
      * @param pkgId package id
      * @param input char input
+     * @return sanitized string
      */
     protected static String sanitize(Long pkgId, String input) {
         if (StringUtils.containsNone(input, CONTROL_CHARS)) {

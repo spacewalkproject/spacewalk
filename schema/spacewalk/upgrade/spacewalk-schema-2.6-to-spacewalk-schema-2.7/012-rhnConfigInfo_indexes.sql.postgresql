@@ -186,7 +186,7 @@ begin
                and ci.groupname = good_groupname
                and ci.filemode = good_filemode
                and ci.selinux_ctx is null
-               and ci.id <> good_cfginfo_id;
+               and ci.id = d.dup_cfginfo_id;
         end if;
     end loop;
 end
@@ -259,7 +259,7 @@ begin
                and ci.groupname = good_groupname
                and ci.filemode = good_filemode
                and ci.selinux_ctx = good_selinux_ctx
-               and ci.id <> good_cfginfo_id;
+               and ci.id = d.dup_cfginfo_id;
         end if;
     end loop;
 end
@@ -330,7 +330,7 @@ begin
              where 1=1
                and ci.symlink_target_filename_id = good_symlink_target_filename_id
                and ci.selinux_ctx                = good_selinux_ctx
-               and ci.id <> good_cfginfo_id;
+               and ci.id = d.dup_cfginfo_id;
         end if;
     end loop;
 end
@@ -401,7 +401,7 @@ begin
              where 1=1
                and ci.symlink_target_filename_id = good_symlink_target_filename_id
                and ci.selinux_ctx                is null
-               and ci.id <> good_cfginfo_id;
+               and ci.id = d.dup_cfginfo_id;
         end if;
     end loop;
     raise info 'EXITING fix_cfgrev_links_SELINUX_NULL';
@@ -451,6 +451,7 @@ drop index if exists rhn_confinfo_ugf_se_uq;
 drop index if exists rhn_confinfo_s_uq;
 drop index if exists rhn_confinfo_s_se_uq;
 
+-- 
 -- Create correct multiple indices to handle null-column cases
 create unique index rhn_confinfo_ugf_uq
     on rhnConfigInfo (username, groupname, filemode)

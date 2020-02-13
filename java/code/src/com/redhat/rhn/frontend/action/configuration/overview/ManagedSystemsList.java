@@ -64,7 +64,7 @@ public class ManagedSystemsList extends RhnListAction {
 
         // if submitted get checkbox status
         if (requestContext.isSubmitted()) {
-            managedSystemsOnly = request.getParameter(checkboxName) != null ? true : false;
+            managedSystemsOnly = (request.getParameter(checkboxName) != null);
         }
         // if checkbox is "on", filter data to show systems containing
         // at least one locally or centrally managed file only
@@ -99,9 +99,7 @@ public class ManagedSystemsList extends RhnListAction {
      * @return A list of Config Channels as a DTO
      */
     private DataResult getDataResult(User user, PageControl pc) {
-        DataResult dr = ConfigurationManager.getInstance()
-                .listManagedSystemsAndFiles(user, pc);
-        return dr;
+        return ConfigurationManager.getInstance().listManagedSystemsAndFiles(user, pc);
     }
 
 }

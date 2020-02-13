@@ -20,9 +20,7 @@ package com.redhat.rhn.common;
  * handle or do not expect. SQLException is a good example of a checked exception that
  * we may want to wrap in an unchecked exception because we typically cannot do much of
  * anything with it.
- *
- * <br/><br/>
- *
+ * <p>
  * Custom, unchecked exceptions should extend RhnRuntimeException so that we can provide
  * generic error handling, reporting, logging, etc.
  *

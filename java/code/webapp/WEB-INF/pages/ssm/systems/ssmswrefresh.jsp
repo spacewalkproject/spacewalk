@@ -30,11 +30,9 @@
     <html:form action="/systems/ssm/misc/SoftwareRefresh.do">
       <html:hidden property="submitted" value="true"/>
       <rhn:csrf />
-        <div class="text-right">
-          <html:submit styleClass="btn btn-default">
-            <bean:message key="ssm.sw.systems.confirmbutton"/>
-          </html:submit>
-        </div>
+      <html:submit styleClass="btn btn-default">
+        <bean:message key="ssm.sw.systems.confirmbutton"/>
+      </html:submit>
     </html:form>
 
   </body>

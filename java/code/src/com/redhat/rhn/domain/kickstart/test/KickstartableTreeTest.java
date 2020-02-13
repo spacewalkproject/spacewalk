@@ -145,7 +145,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
      * Helper method to lookup KickstartableTree by id
      * @param id Id to lookup
      * @return Returns the KickstartableTree
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     private KickstartableTree lookupById(Long id) throws Exception {
         Session session = HibernateFactory.getSession();
@@ -157,7 +157,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     /**
      * Creates KickstartableTree for testing purposes.
      * @return Returns a committed KickstartableTree
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static KickstartableTree createTestKickstartableTree() throws Exception {
         User u = UserTestUtils.findNewUser("testUser", "testCreateTestKickstartableTree");
@@ -170,7 +170,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
      * Creates KickstartableTree for testing purposes.
      * @param treeChannel Channel this Tree uses.
      * @return Returns a committed KickstartableTree
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static KickstartableTree
         createTestKickstartableTree(Channel treeChannel) throws Exception {
@@ -199,19 +199,26 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setInstallType(installtype);
         k.setTreeType(treetype);
         k.setChannel(treeChannel);
+        k.setKernelOptions("");
+        k.setKernelOptionsPost("");
 
         createKickstartTreeItems(k);
 
-        Distro d = Distro.create(CobblerXMLRPCHelper.getConnection("test"), k.getLabel(),
-                k.getDefaultKernelPath(), k.getDefaultInitrdPath()[0], new HashMap(),
-                k.getInstallType().getCobblerBreed(),
-                k.getInstallType().getCobblerOsVersion(),
-                k.getChannel().getChannelArch().cobblerArch());
-        Distro xend = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
-                k.getLabel(), k.getDefaultKernelPath(), k.getDefaultInitrdPath()[0],
-                new HashMap(), k.getInstallType().getCobblerBreed(),
-                k.getInstallType().getCobblerOsVersion(),
-                k.getChannel().getChannelArch().cobblerArch());
+        Distro.Builder builder = new Distro.Builder();
+
+        Distro d = builder.setName(k.getLabel())
+                .setKernel(k.getDefaultKernelPath())
+                .setInitrd(k.getDefaultInitrdPath()[0])
+                .setKsmeta(new HashMap<String, Object>())
+                .setBreed(k.getInstallType().getCobblerBreed())
+                .setOsVersion(k.getInstallType().getCobblerOsVersion())
+                .setArch(k.getChannel().getChannelArch().cobblerArch())
+                .setKernelOptions(k.getKernelOptions())
+                .setKernelOptionsPost(k.getKernelOptionsPost())
+                .build(CobblerXMLRPCHelper.getConnection("test"));
+
+        Distro xend = builder.setKsmeta(new HashMap<String, Object>())
+                .build(CobblerXMLRPCHelper.getConnection("test"));
 
         k.setCobblerId(d.getUid());
         k.setCobblerXenId(xend.getUid());
@@ -227,7 +234,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
      * @param treeChannel channel to use for this tree.
      * @param installTypeLabel install type to use
      * @return the kickstartable tree
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static KickstartableTree createTestKickstartableTree(
             Channel treeChannel, String installTypeLabel) throws Exception {

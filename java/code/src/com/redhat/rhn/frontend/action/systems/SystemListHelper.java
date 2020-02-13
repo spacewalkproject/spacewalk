@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -186,12 +186,8 @@ public class SystemListHelper {
         Long threshold = new Long(Config.get().getInt(
                 ConfigDefaults.SYSTEM_CHECKIN_THRESHOLD));
 
-        if (systemData.getLastCheckinDaysAgo() != null &&
-            systemData.getLastCheckinDaysAgo().compareTo(threshold) > 0) {
-            return true;
-        }
-
-        return false;
+        return systemData.getLastCheckinDaysAgo() != null &&
+                systemData.getLastCheckinDaysAgo().compareTo(threshold) > 0;
     }
 
 }

@@ -38,7 +38,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
 
     /**
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testNoHeaders() throws Exception {
         mockRequest.setupServerName("localhost");
@@ -49,7 +49,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
 
     /**
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testOverrideServerName() throws Exception {
         mockRequest.setupServerName("localhost");
@@ -61,7 +61,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
 
     /**
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testNoOverrideSecure() throws Exception {
         mockRequest.setupIsSecure(false);
@@ -70,7 +70,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
 
     /**
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testOverrideSecureHosted() throws Exception {
 
@@ -83,7 +83,7 @@ public class RhnHttpServletRequestTest extends MockObjectTestCase {
 
     /**
      *
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testOverrideSecureSat() throws Exception {
         return;

@@ -61,6 +61,7 @@ public class PackageDto extends BaseDto {
     private Blob otherXml;
     private Blob filelistXml;
     private String cookie;
+    private String multiArch;
 
 
     // Pre-existing queries returning this as a string.
@@ -583,5 +584,19 @@ public class PackageDto extends BaseDto {
      */
     public String getFile() {
         return PackageHelper.getPackageFileFromPath(getPath());
+    }
+
+    /**
+     * @param multiArchIn The Multi-Arch header value
+     */
+    public void setMultiArch(String multiArchIn) {
+        this.multiArch = multiArchIn;
+    }
+
+    /**
+     * @return The Multi-Arch value
+     */
+    public String getMultiArch() {
+        return multiArch;
     }
 }

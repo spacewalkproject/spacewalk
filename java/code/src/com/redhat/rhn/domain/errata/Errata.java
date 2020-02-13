@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -210,6 +210,18 @@ public interface Errata {
      * @param advisoryRelIn to set
     */
     void setAdvisoryRel(Long advisoryRelIn);
+
+    /**
+     * Getter for severity
+     * @return Severity to get
+     */
+    Severity getSeverity();
+
+    /**
+     * Setter for severity
+     * @param severity to set
+     */
+    void setSeverity(Severity severity);
 
     /**
      * Getter for locallyModified

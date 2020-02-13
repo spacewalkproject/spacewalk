@@ -44,7 +44,7 @@
                                                 selected="${current.selected}"/>
                 <!-- Organization column -->
                 <rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
-                   ${current.name}
+                   <c:out value="${current.name}"/>
                 </rl:column>
 
                 <!-- Subscribed Systems column -->

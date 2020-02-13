@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -125,8 +125,7 @@ public class PackageFactory extends HibernateFactory {
             // doesn't exist.
             return null;
         }
-        Package pkg = lookupById(id);
-        return pkg;
+        return lookupById(id);
     }
 
     /**
@@ -209,9 +208,8 @@ public class PackageFactory extends HibernateFactory {
      * doesn't exist
      */
      public static PackageName lookupPackageName(Long id) {
-        PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
-                "PackageName.findById").setLong("id", id).uniqueResult();
-        return returned;
+         return (PackageName) HibernateFactory.getSession().getNamedQuery("PackageName.findById")
+                 .setLong("id", id).uniqueResult();
     }
 
     /**
@@ -222,10 +220,9 @@ public class PackageFactory extends HibernateFactory {
      * @return a PackageName object that has a matching name or null if that
      * doesn't exist
      */
-    private static PackageName lookupPackageName(String pn) {
-        PackageName returned = (PackageName) HibernateFactory.getSession().getNamedQuery(
-                "PackageName.findByName").setString("name", pn).uniqueResult();
-        return returned;
+    public static PackageName lookupPackageName(String pn) {
+        return (PackageName) HibernateFactory.getSession().getNamedQuery("PackageName.findByName")
+                .setString("name", pn).uniqueResult();
     }
 
     /**
@@ -438,6 +435,7 @@ public class PackageFactory extends HibernateFactory {
         params.put("evr", pack.getPackageEvr());
         params.put("name", pack.getPackageName());
         params.put("arch", pack.getPackageArch());
+        params.put("org", pack.getOrg());
 
         return singleton.listObjectsByNamedQuery("Package.findOtherArches", params);
     }
@@ -447,7 +445,7 @@ public class PackageFactory extends HibernateFactory {
      * statement mess in package_type_capable of Package.pm). This should really
      * be in the DB, but it's not :{ and it needs to be ported from perl.
      *
-     * @return the map of arch label -> set of capabilities
+     * @return the map of {@literal arch label -> set of capabilities}
      */
     public static Map<String, Set<String>> getPackageCapabilityMap() {
         Map<String, Set<String>> map = new HashMap<String, Set<String>>();
@@ -469,9 +467,8 @@ public class PackageFactory extends HibernateFactory {
      */
     public static List<PackageProvider> listPackageProviders() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List<PackageProvider> list = singleton.listObjectsByNamedQuery(
-                "PackageProvider.listProviders", params);
-        return list;
+        return (List<PackageProvider>) singleton
+                .listObjectsByNamedQuery("PackageProvider.listProviders", params);
     }
 
     /**
@@ -482,9 +479,7 @@ public class PackageFactory extends HibernateFactory {
     public static PackageProvider lookupPackageProvider(String name) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("name", name);
-        PackageProvider prov = (PackageProvider) singleton.lookupObjectByNamedQuery(
-                "PackageProvider.findByName", params);
-        return prov;
+        return (PackageProvider) singleton.lookupObjectByNamedQuery("PackageProvider.findByName", params);
     }
 
     /**
@@ -503,9 +498,7 @@ public class PackageFactory extends HibernateFactory {
     public static PackageKey lookupPackageKey(String key) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("key", key);
-        PackageKey prov = (PackageKey) singleton.lookupObjectByNamedQuery(
-                "PackageKey.findByKey", params);
-        return prov;
+        return (PackageKey) singleton.lookupObjectByNamedQuery("PackageKey.findByKey", params);
     }
 
     /**
@@ -514,9 +507,7 @@ public class PackageFactory extends HibernateFactory {
      */
     public static List<PackageKey> listPackageKeys() {
         Map<String, Object> params = new HashMap<String, Object>();
-        List<PackageKey> prov = singleton.listObjectsByNamedQuery("PackageKey.listKeys",
-                params);
-        return prov;
+        return (List<PackageKey>) singleton.listObjectsByNamedQuery("PackageKey.listKeys", params);
     }
 
     /**

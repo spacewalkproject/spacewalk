@@ -163,9 +163,9 @@ public class DatePicker {
 
     /**
      * Return <code>true</code> if in the given locale the day
-     * is written before the month, <false> otherwise.
+     * is written before the month, <code>false</code> otherwise.
      * @return <code>true</code> if in the given locale the day
-     * is written before the month, <false> otherwise.
+     * is written before the month, <code>false</code> otherwise.
      */
     public boolean isDayBeforeMonth() {
         return isDayBeforeMonth;

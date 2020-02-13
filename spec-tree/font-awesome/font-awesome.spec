@@ -6,17 +6,15 @@
 
 Name:           font-awesome
 Version:        4.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The iconic font designed for Bootstrap
 
-Group:          Application/Internet
 License:        OFL 1.1 and MIT
 URL:            http://fontawesome.io/
 Source0:        http://fontawesome.io/assets/font-awesome-4.0.3.zip
 %if 0%{?suse_version}
 BuildRequires:  unzip
 %endif
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:      noarch
 
 %description
@@ -25,7 +23,6 @@ color, drop shadow, and anything that can be done with the power of CSS.
 
 %package devel
 Summary:       Less and Scss files for Font Awesome development
-Group:         Application/Development
 
 %description devel
 Less and Scss files for Font Awesome development.
@@ -61,18 +58,21 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-,root,root,-)
 %{apachedocroot}/fonts/font-awesome
 %if 0%{?suse_version}
 %dir %{apachedocroot}/fonts
 %endif
 
 %files devel
-%defattr(-,root,root,-)
 %{_datadir}/font-awesome
 
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 4.0.3-3
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Tue May 10 2016 Grant Gainey 4.0.3-2
 - font-awesome: build on openSUSE
 

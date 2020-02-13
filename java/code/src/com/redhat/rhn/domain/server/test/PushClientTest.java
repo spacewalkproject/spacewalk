@@ -35,7 +35,7 @@ public class PushClientTest extends RhnBaseTestCase {
 
     /**
      * Simple test to exercise codepaths in PushClient class
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testPushClient() throws Exception {
         PushClient pc1 = createTestPushClient();
@@ -47,7 +47,8 @@ public class PushClientTest extends RhnBaseTestCase {
 
     /**
      * Helper method to create a test PushClient object
-     * @throws Exception
+     * @throws Exception something bad happened
+     * @return the created PushClient object
      */
     public PushClient createTestPushClient() throws Exception {
         PushClient pc = new PushClient();

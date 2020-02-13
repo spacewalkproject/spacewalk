@@ -100,7 +100,7 @@ public class DmiTest extends RhnBaseTestCase {
     /**
      * Helper method to create a test Dmi object
      * @return Returns a test Dmi object
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Dmi createTestDmi() throws Exception {
         User u = UserTestUtils.findNewUser("testUser", "testOrgCreateTestDmi");

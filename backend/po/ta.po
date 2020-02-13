@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Spacewalk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 18:08+0100\n"
+"POT-Creation-Date: 2018-11-23 14:32+0100\n"
 "PO-Revision-Date: 2011-03-04 16:08+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Tamil <tamil-users@lists.fedoraproject.org>\n"
@@ -19,99 +19,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../server/rhnHandler.py:62
-msgid "Please run rhn_register as root on this client"
-msgstr ""
-
-#: ../server/rhnHandler.py:75
-#, python-format
-msgid "Service not enabled for system profile: \"%s\""
-msgstr ""
-
-#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
-#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
-#, python-format
-msgid "Invalid RPM package %s requested"
-msgstr ""
-
-#: ../server/rhnPackage.py:106
-msgid "Package not found"
-msgstr ""
-
-#: ../server/rhnChannel.py:1926
-#, python-format
-msgid ""
-"Your account does not have access to any channels matching "
-"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
-msgstr ""
-
-#: ../server/rhnChannel.py:1936
-msgid ""
-"\n"
-"If you have a registration number, please register with it first at http://"
-"www.redhat.com/apps/activate/ and then try again.\n"
-"\n"
-msgstr ""
-
-#: ../server/rhnChannel.py:1946
-#, python-format
-msgid "Insufficient subscription permissions for release (%s, %s"
-msgstr ""
-
-#. Various messages that can be reused
-#.
-#. bretm 02/07/2007 -- when we have better old-client documentation, probably
-#. will be safe to get rid of all this crap
-#: ../server/rhnChannel.py:2210 ../server/rhnChannel.py:2221
-#: ../server/rhnChannel.py:2236
-msgid "System Registered but Inactive"
-msgstr ""
-
-#: ../server/rhnChannel.py:2211
-#, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it is not subscribed to a channel. If you have not yet\n"
-"activated your product for service, please visit our website at:\n"
-"\n"
-"     http://www.redhat.com/apps/activate/\n"
-"\n"
-"...to activate your product."
-msgstr ""
-
-#: ../server/rhnChannel.py:2222
-#, python-format
-msgid ""
-"\n"
-"Invalid Architecture and OS release combination (%s, %s).\n"
-"Your system has been registered, but will not receive updates\n"
-"because it could not be subscribed to a base channel.\n"
-"Please contact your organization administrator for assistance.\n"
-msgstr ""
-
-#: ../server/rhnChannel.py:2229
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but is not yet entitled\n"
-"  to service.  To entitle this system to service, login to the web site at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
-
-#: ../server/rhnChannel.py:2237
-#, python-format
-msgid ""
-"\n"
-"  This system has been successfully registered, but no service entitlements\n"
-"  were available.  To entitle this system to service, login to the web site "
-"at:\n"
-"\n"
-"  %(entitlement_url)s\n"
-msgstr ""
 
 #: ../server/apacheAuth.py:67
 #, python-format
@@ -125,102 +32,6 @@ msgstr ""
 
 #: ../server/apacheAuth.py:120
 msgid "declined proxy authentication"
-msgstr ""
-
-#: ../server/handlers/sat/auth.py:45
-msgid "ISS is disabled on this satellite."
-msgstr ""
-
-#: ../server/handlers/sat/auth.py:50
-#, python-format
-msgid "Server \"%s\" is not enabled for ISS."
-msgstr ""
-
-#: ../server/handlers/xmlrpc/up2date.py:236
-#, python-format
-msgid "Invalid value %s (%s)"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/scap.py:89
-msgid "Invalid system_id/action_id pair."
-msgstr ""
-
-#: ../server/handlers/xmlrpc/proxy.py:64
-#, python-format
-msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
-msgstr ""
-
-#: ../server/handlers/xmlrpc/proxy.py:84
-msgid "Invalid session key"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/proxy.py:92
-msgid "This server ID no longer exists"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:202
-msgid "Required data missing"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:206
-msgid "Required members missing"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:215
-msgid "Attempt to register a system to an invalid username"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:223
-#, python-format
-msgid ""
-"\n"
-"                   %s Account has been deactivated on this server.\n"
-"                   Please contact your Org administrator for more help."
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:796
-msgid "Invalid system release version requested"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:1028
-msgid "Red Hat Satellite Welcome Message"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:1038
-msgid "Red Hat Satellite Privacy Statement"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:1059
-msgid "Expected a dictionary as a product argument"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/registration.py:1269
-#, python-format
-msgid "Invalid value '%s' for %s (%s)"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/errata.py:62
-#, python-format
-msgid "Expected a package name, not: %s"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/errata.py:113
-#, python-format
-msgid "Expected a package, not: %s"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/queue.py:434
-#, python-format
-msgid "Invalid action value type %s (%s)"
-msgstr ""
-
-#: ../server/handlers/xmlrpc/queue.py:459
-#, python-format
-msgid "Action %s does not belong to server %s"
-msgstr ""
-
-#: ../server/handlers/applet/applet.py:78
-msgid "Your system was not found in the RHN database"
 msgstr ""
 
 #: ../server/apacheRequest.py:59
@@ -245,6 +56,145 @@ msgstr ""
 #: ../server/apacheRequest.py:602
 #, python-format
 msgid "Invalid URI %s"
+msgstr ""
+
+#: ../server/handlers/applet/applet.py:78
+msgid "Your system was not found in the RHN database"
+msgstr ""
+
+#: ../server/handlers/sat/auth.py:45
+msgid "ISS is disabled on this satellite."
+msgstr ""
+
+#: ../server/handlers/sat/auth.py:50
+#, python-format
+msgid "Server \"%s\" is not enabled for ISS."
+msgstr ""
+
+#: ../server/handlers/xmlrpc/errata.py:62
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/errata.py:113
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/proxy.py:63
+#, python-format
+msgid "Spacewalk Proxy service not enabled for server profile: \"%s\""
+msgstr ""
+
+#: ../server/handlers/xmlrpc/proxy.py:83
+msgid "Invalid session key"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/proxy.py:91
+msgid "This server ID no longer exists"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/queue.py:434
+#, python-format
+msgid "Invalid action value type %s (%s)"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/queue.py:459
+#, python-format
+msgid "Action %s does not belong to server %s"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/scap.py:89
+msgid "Invalid system_id/action_id pair."
+msgstr ""
+
+#: ../server/handlers/xmlrpc/up2date.py:234
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:204
+msgid "Required data missing"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:208
+msgid "Required members missing"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:217
+msgid "Attempt to register a system to an invalid username"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:225
+#, python-format
+msgid ""
+"\n"
+"                   %s Account has been deactivated on this server.\n"
+"                   Please contact your Org administrator for more help."
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:829
+msgid "Invalid system release version requested"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:1061
+msgid "Red Hat Satellite Welcome Message"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:1071
+msgid "Red Hat Satellite Privacy Statement"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:1092
+msgid "Expected a dictionary as a product argument"
+msgstr ""
+
+#: ../server/handlers/xmlrpc/registration.py:1302
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:98
+msgid "You are not authorized to manage packages in the null org"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:103
+#, python-format
+msgid "You are not allowed to manage packages in the %s org"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:121
+msgid "You are not allowed to perform administrative tasks"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:144
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr ""
+
+#: ../server/rhnHandler.py:62
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr ""
+
+#: ../server/rhnPackage.py:46 ../server/rhnPackage.py:81
+#: ../server/rhnPackage.py:101 ../server/rhnPackage.py:152
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr ""
+
+#: ../server/rhnPackage.py:106
+msgid "Package not found"
+msgstr ""
+
+#: ../server/rhnServer/server_class.py:97
+#, python-format
+msgid "Architecture `%s' is not supported"
 msgstr ""
 
 #: ../server/rhnServer/server_token.py:77
@@ -291,98 +241,138 @@ msgstr ""
 msgid "Stacking of re-registration tokens is not supported"
 msgstr ""
 
-#: ../server/rhnServer/server_class.py:97
-#, python-format
-msgid "Architecture `%s' is not supported"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:98
-msgid "You are not authorized to manage packages in the null org"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:103
-#, python-format
-msgid "You are not allowed to manage packages in the %s org"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:121
-msgid "You are not allowed to perform administrative tasks"
-msgstr ""
-
-#: ../server/importlib/userAuth.py:144
-#, python-format
-msgid ""
-"You are not allowed to manage channel %s, or that channel does not exist"
-msgstr ""
-
 #: ../server/rhnUser.py:289 ../server/rhnUser.py:292
 msgid "Invalid username/password combination"
 msgstr ""
 
 #. nope, not reserved either
-#: ../server/rhnUser.py:467
+#: ../server/rhnUser.py:468
 #, python-format
 msgid "Username `%s' has not been reserved"
 msgstr ""
 
 #. New accounts have to specify an e-mail address
-#: ../server/rhnUser.py:473
+#: ../server/rhnUser.py:474
 msgid "E-mail address not specified"
 msgstr ""
 
-#: ../server/rhnUser.py:509
+#: ../server/rhnUser.py:510
 #, python-format
 msgid "username should be at least %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:512
+#: ../server/rhnUser.py:513
 #, python-format
 msgid "username should be less than %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:523
+#: ../server/rhnUser.py:524
 #, python-format
 msgid "username = `%s', invalid character `%s'"
 msgstr ""
 
-#: ../server/rhnUser.py:542
+#: ../server/rhnUser.py:543
 #, python-format
 msgid "Please limit your e-mail address to %s chars"
 msgstr ""
 
-#: ../server/rhnUser.py:623
+#: ../server/rhnUser.py:624
 #, python-format
 msgid "password must be at least %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:626
+#: ../server/rhnUser.py:627
 #, python-format
 msgid "Password must be shorter than %d characters"
 msgstr ""
 
-#: ../server/rhnUser.py:644
+#: ../server/rhnUser.py:645
 #, python-format
 msgid "password contains character `%s'"
 msgstr ""
 
-#: ../server/rhnUser.py:651
+#: ../server/rhnUser.py:652
 #, python-format
 msgid "username should be at least %d characters long"
 msgstr ""
 
-#: ../server/rhnUser.py:662
+#: ../server/rhnUser.py:663
 #, python-format
 msgid "Cannot register usernames ending with %s"
 msgstr ""
 
-#: ../common/rhnTB.py:205
+#: ../server/rhnChannel.py:1938
 #, python-format
-msgid "ERROR: %s %s: %s"
+msgid ""
+"Your account does not have access to any channels matching "
+"(release='%(release)s', arch='%(arch)s')%(www_activation)s"
 msgstr ""
 
-#: ../common/rhnTB.py:207
+#: ../server/rhnChannel.py:1948
+msgid ""
+"\n"
+"If you have a registration number, please register with it first at http://"
+"www.redhat.com/apps/activate/ and then try again.\n"
+"\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1958
 #, python-format
-msgid "TRACEBACK: %s"
+msgid "Insufficient subscription permissions for release (%s, %s"
+msgstr ""
+
+#. Various messages that can be reused
+#.
+#. bretm 02/07/2007 -- when we have better old-client documentation, probably
+#. will be safe to get rid of all this crap
+#: ../server/rhnChannel.py:2222 ../server/rhnChannel.py:2233
+#: ../server/rhnChannel.py:2248
+msgid "System Registered but Inactive"
+msgstr ""
+
+#: ../server/rhnChannel.py:2223
+#, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it is not subscribed to a channel. If you have not yet\n"
+"activated your product for service, please visit our website at:\n"
+"\n"
+"     http://www.redhat.com/apps/activate/\n"
+"\n"
+"...to activate your product."
+msgstr ""
+
+#: ../server/rhnChannel.py:2234
+#, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it could not be subscribed to a base channel.\n"
+"Please contact your organization administrator for assistance.\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:2241
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but is not yet entitled\n"
+"  to service.  To entitle this system to service, login to the web site at:\n"
+"\n"
+"  %(entitlement_url)s\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:2249
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but no service entitlements\n"
+"  were available.  To entitle this system to service, login to the web site "
+"at:\n"
+"\n"
+"  %(entitlement_url)s\n"
 msgstr ""
 
 #. 0-999: Red Hat client/client-like interaction errors:
@@ -955,4 +945,14 @@ msgstr ""
 #: ../common/rhnException.py:362
 #, python-format
 msgid "Explanation: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:205
+#, python-format
+msgid "ERROR: %s %s: %s"
+msgstr ""
+
+#: ../common/rhnTB.py:207
+#, python-format
+msgid "TRACEBACK: %s"
 msgstr ""

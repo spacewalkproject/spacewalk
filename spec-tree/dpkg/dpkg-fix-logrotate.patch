@@ -1,0 +1,16 @@
+diff -up ./debian/dpkg.logrotate.orig ./debian/dpkg.logrotate
+--- ./debian/dpkg.logrotate.orig	2013-06-30 10:04:23.369382622 +0300
++++ ./debian/dpkg.logrotate	2013-06-30 10:04:39.268407865 +0300
+@@ -7,12 +7,3 @@
+ 	notifempty
+ 	create 644 root root
+ }
+-/var/log/alternatives.log {
+-	monthly
+-	rotate 12
+-	compress
+-	delaycompress
+-	missingok
+-	notifempty
+-	create 644 root root
+-}

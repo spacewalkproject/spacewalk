@@ -1,0 +1,16 @@
+kernel-rt-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-core-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-debug-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-debug-core-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-debug-devel-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-debug-modules-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-debug-modules-extra-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-devel-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-modules-4.18.0-80.rt9.138.el8.x86_64.rpm
+kernel-rt-modules-extra-4.18.0-80.rt9.138.el8.x86_64.rpm
+rt-setup-2.0-10.el8.x86_64.rpm
+rt-tests-1.3-13.el8.x86_64.rpm
+rteval-2.14-21.el8.noarch.rpm
+rteval-common-2.14-21.el8.noarch.rpm
+rteval-loads-1.4-3.el8.noarch.rpm
+tuned-profiles-realtime-2.10.0-15.el8.noarch.rpm

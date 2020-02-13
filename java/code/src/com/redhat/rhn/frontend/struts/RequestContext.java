@@ -206,8 +206,7 @@ public class RequestContext {
     // TODO Write unit tests for getUserFromUIDParameter()
     public User getUserFromUIDParameter() {
         Long uid = getParamAsLong(USER_ID);
-        User user = UserManager.lookupUser(getCurrentUser(), uid);
-        return user;
+        return UserManager.lookupUser(getCurrentUser(), uid);
     }
 
     /**
@@ -222,7 +221,7 @@ public class RequestContext {
      * the request can be found
      */
     public Errata lookupErratum()
-    throws BadParameterException, IllegalArgumentException {
+    throws IllegalArgumentException {
         Long errataId = getRequiredParam(ERRATA_ID);
         Errata retval = ErrataManager.lookupErrata(errataId, getCurrentUser());
         assertObjectFound(retval, errataId, ERRATA_ID, "erratum");
@@ -242,7 +241,7 @@ public class RequestContext {
      */
     // TODO Write unit tests for lookupServer()
     public Server lookupServer()
-    throws BadParameterException, IllegalArgumentException {
+    throws IllegalArgumentException {
         Long serverId = getRequiredParam(SID);
         Server retval = SystemManager.lookupByIdAndUser(serverId,
                 getCurrentUser());
@@ -264,7 +263,7 @@ public class RequestContext {
      */
     // TODO Write unit tests for lookupServer()
     public Server lookupAndBindServer()
-    throws BadParameterException, IllegalArgumentException {
+    throws IllegalArgumentException {
         if (request.getAttribute(SYSTEM) == null) {
             request.setAttribute(SYSTEM, lookupServer());
         }
@@ -628,8 +627,10 @@ public class RequestContext {
      * with the i18n'ed value of the key passed in.
      * This is useful for example in the following
      * scenario.. Lets say you have the following html input
+     * {@literal
      * <input type = "submit" name="dispatch"
      *      value="rhn:localize('copy.to.local')"/>
+     * }
      * Lets suppose 'copy.to.local' was the message key
      * you'd pass to localizationService if i18n'ing...
      * Lets suppose the en_US value of copy.to.local = Copy To Local
@@ -662,7 +663,7 @@ public class RequestContext {
      * This needs to be used in conjuction with rhn noscript
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:noscript/>
+     * {@literal <rhn:noscript/>}
      * @return true if java script is enabled, false other wise.
      */
     public boolean isJavaScriptEnabled() {
@@ -674,7 +675,7 @@ public class RequestContext {
      * This needs to be used in conjuction with rhn submitted
      * taglib.. If you need to use this method add the following line
      * to your jsp after the form, so that it gets submitted
-     * <rhn:submitted/>
+     * {@literal <rhn:submitted/>}
      * @return true if the form was submitted, false other wise
      */
     public boolean isSubmitted() {

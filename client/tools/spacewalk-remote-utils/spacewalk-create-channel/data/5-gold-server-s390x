@@ -582,8 +582,8 @@ gcc-4.1.1-52.el5.s390x.rpm
 gcc-c++-4.1.1-52.el5.s390x.rpm
 gcc-gfortran-4.1.1-52.el5.s390x.rpm
 gcc-java-4.1.1-52.el5.s390x.rpm
-gcc-objc-4.1.1-52.el5.s390x.rpm
 gcc-objc++-4.1.1-52.el5.s390x.rpm
+gcc-objc-4.1.1-52.el5.s390x.rpm
 GConf2-2.14.0-9.el5.s390.rpm
 GConf2-2.14.0-9.el5.s390x.rpm
 GConf2-devel-2.14.0-9.el5.s390.rpm

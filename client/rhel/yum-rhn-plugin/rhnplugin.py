@@ -28,10 +28,6 @@ import gettext
 t = gettext.translation('yum-rhn-plugin', fallback=True)
 _ = t.ugettext
 
-# TODO: Get the up2date stuff that we need in a better place,
-# so we don't have to do path magic.
-sys.path.append("/usr/share/rhn/")
-
 import up2date_client.up2dateAuth as up2dateAuth
 from up2date_client import config
 from up2date_client import rhnChannel
@@ -226,8 +222,8 @@ def addCachedRepos(conduit):
             repo.baseurl = urls
             repo.urls = repo.baseurl
             repo.name = reponame
-            updateRHNRepoOptions(conduit, repo)
             repo.enable()
+            updateRHNRepoOptions(conduit, repo)
             if not repos.findRepos(repo.id):
                 repos.add(repo)
 

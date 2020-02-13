@@ -10,7 +10,7 @@ SCRIPTS = sw-system-snapshot migrate-system-profile spacewalk-api apply_errata \
 	  spacewalk-common-channels delete-old-systems-interactive spacewalk-hostname-rename \
 	  spacewalk-dump-schema spacewalk-clone-by-date spacewalk-sync-setup spacewalk-archive-audits \
 	  spacewalk-manage-channel-lifecycle spacewalk-export spacewalk-export-channels \
-	  spacewalk-final-archive taskotop
+	  spacewalk-final-archive taskotop spacewalk-manage-snapshots
 CONFIGS = spacewalk-common-channels.ini
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
@@ -35,10 +35,9 @@ install :: $(SCRIPTS) $(PREFIX)/$(BINDIR)
 ifneq ($(DOCBOOK),)
 # install man pages
 all	:: $(MANS)
-	$(POD2MAN) --section=8 spacewalk-api spacewalk-api.8
 	$(POD2MAN) --section=8 spacewalk-dump-schema spacewalk-dump-schema.8
 install :: $(MANS) $(PREFIX)/$(MANDIR)
-	$(INSTALL_DATA) $(MANS) spacewalk-api.8* spacewalk-dump-schema.8* $(PREFIX)/$(MANDIR)/man8
+	$(INSTALL_DATA) $(MANS) spacewalk-dump-schema.8* $(PREFIX)/$(MANDIR)/man8
 install :: $(CONFIGS) $(PREFIX)/$(CONFDIR)
 	$(INSTALL_DATA) $(CONFIGS) $(PREFIX)/$(CONFDIR)
 endif

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 public class VirtualSystemsListActionTest extends RhnMockStrutsTestCase {
 
     public void testExecute() throws Exception {
-        setRequestPathInfo("/systems/VirtualSystemsList");
+        setRequestPathInfo("/systems/VirtualList");
         actionPerform();
 
     }

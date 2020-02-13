@@ -23,7 +23,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +65,8 @@ public class ClientCertificate {
     public void addMember(String name, String[] values) {
         Member m = new Member();
         m.setName(name);
-        for (int i = 0; i < values.length; i++) {
-            m.addValue(values[i]);
+        for (String value : values) {
+            m.addValue(value);
         }
         addMember(m);
     }
@@ -145,9 +144,9 @@ public class ClientCertificate {
 
         String[] strs = getValuesByName(FIELDS);
 
-        for (int i = 0; i < strs.length; i++) {
-            if (checksumFields.get(strs[i]) == null) {
-                throw new InvalidCertificateException("Invalid field " + strs[i] +
+        for (String str : strs) {
+            if (checksumFields.get(str) == null) {
+                throw new InvalidCertificateException("Invalid field " + str +
                         " provided while validating certificate");
             }
         }
@@ -169,16 +168,16 @@ public class ClientCertificate {
             md.update(secretBytes);
 
             // add the values for the fields
-            for (int i = 0; i < strs.length; i++) {
-                String value = getValueByName(strs[i]);
+            for (String str : strs) {
+                String value = getValueByName(str);
                 byte[] valueBytes = value.getBytes("UTF-8");
                 md.update(valueBytes);
             }
 
 
             // add field names
-            for (int i = 0; i < strs.length; i++) {
-                byte[] fieldBytes = strs[i].getBytes("UTF-8");
+            for (String str : strs) {
+                byte[] fieldBytes = str.getBytes("UTF-8");
                 md.update(fieldBytes);
             }
 
@@ -214,8 +213,7 @@ public class ClientCertificate {
         param.addBody(value);
         value.addBody(struct);
 
-        for (Iterator<Member> itr = members.iterator(); itr.hasNext();) {
-            Member m = itr.next();
+        for (Member m : members) {
             if (!m.getName().equals(FIELDS)) {
                 String[] values = m.getValues();
                 struct.addBody(createStringMember(m.getName(),
@@ -255,7 +253,7 @@ public class ClientCertificate {
         return member;
     }
 
-    private XmlTag createFieldMember(String name, String[] value) {
+    private XmlTag createFieldMember(String name, String[] values) {
         XmlTag member = new XmlTag("member");
         XmlTag nTag = new XmlTag("name");
         XmlTag vTag = new XmlTag("value");
@@ -267,11 +265,11 @@ public class ClientCertificate {
         vTag.addBody(tTag);
         tTag.addBody(dTag);
 
-        for (int i = 0; i < value.length; i++) {
+        for (String value : values) {
             XmlTag v2 = new XmlTag("value");
             XmlTag sTag = new XmlTag("string");
 
-            sTag.addBody(value[i]);
+            sTag.addBody(value);
             v2.addBody(sTag);
             dTag.addBody(v2);
         }

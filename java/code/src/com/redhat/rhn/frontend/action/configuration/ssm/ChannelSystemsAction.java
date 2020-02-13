@@ -39,8 +39,7 @@ public class ChannelSystemsAction extends BaseListAction {
         ConfigurationManager cm = ConfigurationManager.getInstance();
 
         cm.lookupConfigChannel(user, ccid);
-        DataResult dr = cm.listSystemsForConfigChannel(user, ccid, pc);
-        return dr;
+        return cm.listSystemsForConfigChannel(user, ccid, pc);
     }
 
     /**

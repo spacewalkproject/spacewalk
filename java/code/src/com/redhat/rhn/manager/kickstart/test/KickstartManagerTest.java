@@ -59,6 +59,7 @@ public class KickstartManagerTest extends BaseTestCaseWithUser {
 
     /**
      * Test with  'eth1' instead of eth0
+     * @throws Exception something bad happened
      */
     public void testFindProfileForIpAddressEth1() throws Exception {
 

@@ -99,7 +99,7 @@ public class MD5Crypt {
      * @param key - The key to encode
      * @param s - The salt
      * @return Returns a string in the form of "$1$salt$encodedkey"
-     * @throws MD5CryptException
+     * @throws MD5CryptException MD5Crypt exception
      */
     public static String crypt(String key, String s) {
 

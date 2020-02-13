@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -90,6 +90,20 @@ class XML_Dumper:
               where cf.id = cfm.channel_family_id and cfm.channel_id in ( %(ch_ids)s )
         """
         return rhnSQL.prepare(query % args)
+
+    @staticmethod
+    def get_product_names_statement(cids):
+        if cids:
+            query = """
+                select distinct pn.label, pn.name
+                  from rhnchannel c, rhnproductname pn
+                  where c.product_name_id = pn.id and c.id in ( %s )
+            """ % cids
+        else:
+            query = """
+                select label, name from rhnproductname
+            """
+        return rhnSQL.prepare(query)
 
     def get_channels_statement(self):
         query = """
@@ -187,6 +201,17 @@ class XML_Dumper:
         self.close()
         return 0
 
+    def dump_product_names(self):
+        log_debug(2)
+
+        # Export only product names for relevant channels
+        cids = ','.join([str(x['channel_id']) for x in self.channel_ids + self.channel_ids_for_families])
+        h = self.get_product_names_statement(cids)
+        h.execute()
+
+        self._write_dump(exportLib.ProductNamesDumper, data_iterator=h)
+        return 0
+
     def dump_server_group_type_server_arches(self, rpm_arch_type_only=0,
                                              virt_filter=0):
         log_debug(2)
@@ -207,7 +232,7 @@ class XML_Dumper:
         return 0
 
     def set_exportable_orgs(self, org_list):
-        if not org_list or len(org_list) == 0:
+        if not org_list:
             self.exportable_orgs = 'null'
         elif isinstance(org_list, type('')):
             self.exportable_orgs = org_list
@@ -740,7 +765,7 @@ class ChannelsDumper(exportLib.ChannelsDumper):
     def set_iterator(self):
         if not self._channels:
             # Nothing to do
-            return
+            return []
 
         h = rhnSQL.prepare(self._query_list_channels)
         return QueryIterator(statement=h, params=self._channels)
@@ -896,7 +921,8 @@ class ErrataDumper(exportLib.ErrataDumper):
                 TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified,
                 e.refers_to,
                 e.notes,
-                e.errata_from
+                e.errata_from,
+                e.severity_id
             from rhnErrata e
             where e.id = :errata_id
         """)

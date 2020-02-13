@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2016 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.multiorg;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -27,8 +28,6 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.channel.ChannelFamily;
-import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.dto.OrgDto;
@@ -88,8 +87,7 @@ public class OrgDetailsAction extends RhnAction {
     }
 
     private Org getOrgFor(Long oid) {
-        Org org = OrgFactory.lookupById(oid);
-        return org;
+        return OrgFactory.lookupById(oid);
     }
     private void setupFormValues(HttpServletRequest request,
             DynaActionForm daForm,
@@ -131,12 +129,11 @@ public class OrgDetailsAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         if (validateForm(request, dynaForm, oid, org)) {
             String name = dynaForm.getString("orgName");
-            ChannelFamily cf = ChannelFamilyFactory.lookupByOrg(org);
-            cf.setName(name + " (" + org.getId() + ") " + "Channel Family");
-            org.setName(name);
+            OrgManager.renameOrg(org, name);
             ActionMessages msg = new ActionMessages();
             msg.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("message.org_name_updated", name));
+                    new ActionMessage("message.org_name_updated",
+                    StringEscapeUtils.escapeHtml(name)));
             getStrutsDelegate().saveMessages(request, msg);
         }
     }

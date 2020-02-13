@@ -93,7 +93,7 @@ public class UserEditActionTest extends RhnBaseTestCase {
 
     /**
      * Test the AdminUserEditAction
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testAdminUserEdit() throws Exception {
         AdminUserEditAction action = new AdminUserEditAction();

@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -104,10 +103,7 @@ public class SyncSystemsSetupAction extends RhnAction implements Listable {
         Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(context.getRequest(),
                 getDecl(sid));
 
-        DataResult dr = ProfileManager.prepareSyncToServer(sid, sid1,
-                user.getOrg().getId(), null, pkgIdCombos);
-
-        return dr;
+        return ProfileManager.prepareSyncToServer(sid, sid1, user.getOrg().getId(), null, pkgIdCombos);
     }
 
     protected String getDecl(Long sid) {

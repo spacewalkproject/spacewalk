@@ -56,7 +56,7 @@ public class Validator {
     /**
      * <p>
      * This constructor is private so that the class cannot be instantiated
-     * directly, but instead only through <code>{@link #getInstance()}</code>.
+     * directly, but instead only through <code>{@link #getInstance(URL schemaURL)}</code>.
      * </p>
      *
      * @param schemaURLIn <code>URL</code> to parse the schema at.
@@ -108,9 +108,8 @@ public class Validator {
      * data against.
      * @param objToValidate <code>String</code> data to validate.
      * @return ValidatorError whether the data is valid or not.
-     * TODO: rename this method to something other than isValid()
      */
-    public ValidatorError isValid(String constraintName, Object objToValidate) {
+    public ValidatorError validate(String constraintName, Object objToValidate) {
         // Validate against the correct constraint
         Object o = constraints.get(constraintName);
 
@@ -209,15 +208,35 @@ public class Validator {
                 Integer.parseInt(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.integer", identifier);
+                if (constraint instanceof LongConstraint) {
+                    LongConstraint longConstraint = (LongConstraint) constraint;
+                    Long minInclusive = longConstraint.getMinInclusive();
+                    Long maxInclusive = longConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.integer.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.integer", identifier);
+                }
             }
         }
-        else if ((dataType.equals("long")) || (dataType.equals("java.lang.Long"))) {
+        else if (dataType.equals("long") || dataType.equals("java.lang.Long")) {
             try {
                 Long.parseLong(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.long", identifier);
+                if (constraint instanceof LongConstraint) {
+                    LongConstraint longConstraint = (LongConstraint) constraint;
+                    Long minInclusive = longConstraint.getMinInclusive();
+                    Long maxInclusive = longConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.integer.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.integer", identifier);
+                }
             }
         }
         else if ((dataType.equals("float")) || (dataType.equals("java.lang.Float"))) {
@@ -225,7 +244,16 @@ public class Validator {
                 Float.parseFloat(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.float", identifier);
+                if (constraint instanceof DoubleConstraint) {
+                    DoubleConstraint doubleConstraint = (DoubleConstraint) constraint;
+                    Double minInclusive = doubleConstraint.getMinInclusive();
+                    Double maxInclusive = doubleConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.float.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage = new ValidatorError("errors.float", identifier);
+                }
             }
         }
         else if ((dataType.equals("double")) || (dataType.equals("java.lang.Double"))) {
@@ -233,22 +261,25 @@ public class Validator {
                 Double.parseDouble(data);
             }
             catch (NumberFormatException e) {
-                validationMessage = new ValidatorError("errors.double", identifier);
+                if (constraint instanceof DoubleConstraint) {
+                    DoubleConstraint doubleConstraint = (DoubleConstraint) constraint;
+                    Double minInclusive = doubleConstraint.getMinInclusive();
+                    Double maxInclusive = doubleConstraint.getMaxInclusive();
+                    validationMessage = new ValidatorError("errors.float.minmax",
+                            identifier, minInclusive, maxInclusive);
+                }
+                else {
+                    validationMessage =
+                            new ValidatorError("errors.float", identifier);
+                }
             }
         }
 
-        else if (dataType.equals("java.lang.Boolean")) {
-            if ((data.equalsIgnoreCase("true")) ||
-                (data.equalsIgnoreCase("false")) ||
-                (data.equalsIgnoreCase("yes")) ||
-                (data.equalsIgnoreCase("no"))) {
-                // empty
-                // validationMessage = null;
-            }
-            else {
+        else if (dataType.equals("java.lang.Boolean") &&
+                !((data.equalsIgnoreCase("true")) || (data.equalsIgnoreCase("false")) ||
+                (data.equalsIgnoreCase("yes")) || (data.equalsIgnoreCase("no")))) {
                 validationMessage = new ValidatorError("errors.invalid", identifier);
             }
-        }
 
         return validationMessage;
     }

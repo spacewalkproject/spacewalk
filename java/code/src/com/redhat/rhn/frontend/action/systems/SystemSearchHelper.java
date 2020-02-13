@@ -83,6 +83,9 @@ public class SystemSearchHelper {
     public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
     public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
     public static final String RUNNING_KERNEL = "systemsearch_running_kernel";
+    public static final String LOC_COUNTRY = "systemsearch_location_country";
+    public static final String LOC_STATE = "systemsearch_location_state";
+    public static final String LOC_CITY = "systemsearch_location_city";
     public static final String LOC_ADDRESS = "systemsearch_location_address";
     public static final String LOC_BUILDING = "systemsearch_location_building";
     public static final String LOC_ROOM = "systemsearch_location_room";
@@ -139,7 +142,10 @@ public class SystemSearchHelper {
                     { SystemSearchHelper.INSTALLED_PACKAGES,
                                     SystemSearchHelper.NEEDED_PACKAGES },
                     /* location */
-                    { SystemSearchHelper.LOC_ADDRESS, SystemSearchHelper.LOC_BUILDING,
+                    { SystemSearchHelper.LOC_COUNTRY, SystemSearchHelper.LOC_STATE,
+                                    SystemSearchHelper.LOC_CITY,
+                                    SystemSearchHelper.LOC_ADDRESS,
+                                    SystemSearchHelper.LOC_BUILDING,
                                     SystemSearchHelper.LOC_ROOM,
                                     SystemSearchHelper.LOC_RACK } };
 
@@ -244,8 +250,7 @@ public class SystemSearchHelper {
         if ("system_list".equals(whereToSearch)) {
             serverIds = filterOutIdsNotInSSM(user, serverIds);
         }
-        DataResult retval = processResultMap(user, serverIds, viewMode);
-        return retval;
+        return processResultMap(user, serverIds, viewMode);
     }
 
     protected static List performSearch(Long sessionId, String index, String query,
@@ -399,7 +404,7 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (INSTALLED_PACKAGES.equals(mode)) {
-            query = "name:(" + terms + ")" + " filename:(" + terms + ")";
+            query = "filename:(" + terms + "*)";
             index = PACKAGES_INDEX;
         }
         else if (NEEDED_PACKAGES.equals(mode)) {
@@ -408,6 +413,18 @@ public class SystemSearchHelper {
         }
         else if (RUNNING_KERNEL.equals(mode)) {
             query = "runningKernel:(" + terms + ")";
+            index = SERVER_INDEX;
+        }
+        else if (LOC_COUNTRY.equals(mode)) {
+            query = "country:(" + terms + ")";
+            index = SERVER_INDEX;
+        }
+        else if (LOC_STATE.equals(mode)) {
+            query = "state:(" + terms + ")";
+            index = SERVER_INDEX;
+        }
+        else if (LOC_CITY.equals(mode)) {
+            query = "city:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (LOC_ADDRESS.equals(mode)) {
@@ -443,7 +460,10 @@ public class SystemSearchHelper {
      * We did a normal package search and got back a List of results for
      * the package name(s), now we correlate that to what systems have those
      * installed, or need them to be updated.
-     *
+     * @param user The User object
+     * @param searchResults The list of results to process
+     * @param viewMode the view mode
+     * @return server map
      * TODO:  Look into a quicker/more efficient implementation.  This appears to
      * work....but I think it can be become quicker.
      */
@@ -454,73 +474,43 @@ public class SystemSearchHelper {
         Map serverMaps = new HashMap();
         log.info("Entering getResultMapFromPackagesIndex() searchResults.size() = " +
                 searchResults.size());
-        for (int index = 0; index < searchResults.size(); index++) {
-            Map result = (Map)searchResults.get(index);
-            Map pkgItem = new HashMap();
-            pkgItem.put("rank", result.get("rank"));
-            pkgItem.put("score", result.get("score"));
-            pkgItem.put("name", result.get("name"));
-            pkgItem.put("pkgId", result.get("id"));
 
-            /**
-             * Ensure we process at least the first result.
-             * Remeber, first result might be a group of packages with the same
-             * name but different archs, we want to process the whole group.
-             * Therefore for cases of low score quality, we'll set min_score
-             * to the score of the first hit, this will allow the first group
-             * of similarly scored results to be processed, all further results will
-             * be dropped.
-             * For case of a high scoring result, PACKAGE_SCORE_THRESHOLD still
-             * limits the results returned.
-             */
-            Double currentScore = (Double)result.get("score");
-            Double minScore = PACKAGE_SCORE_THRESHOLD;
-            if (index == 0) {
-                if (currentScore <= PACKAGE_SCORE_THRESHOLD) {
-                    minScore = currentScore;
-                }
-            }
-            log.info("Iteration " + index + ", Name = " + result.get("name") +
-                    ", Score = " + currentScore);
-            if (currentScore < minScore) {
-                log.info("SystemSearchHelper.getResultMapFromPackagesIndex() " +
-                        " skipping result<" + result.get("name") + "> score = " +
-                        result.get("score") + " it is below threshold: " +
-                        minScore);
-                continue;
-            }
+        for (Object item : searchResults) {
+            Map result = (Map)item;
             Long pkgId = Long.valueOf((String)result.get("id"));
             List<Long> serverIds = null;
             if (INSTALLED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByInstalledPackageId(user, pkgId);
             }
-            if (NEEDED_PACKAGES.equals(viewMode)) {
+            else if (NEEDED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByNeededPackageId(user, pkgId);
             }
             if (serverIds.size() < 1) {
                 continue;
             }
-            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
-            if (pkg == null) {
-                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
-                        " problem when looking up package id <" + pkgId +
-                        " PackageFactory.lookupByIdAndUser returned null.");
-                continue;
-            }
-            log.info("Package " + pkg.getNameEvra() + ", id = " + pkgId + ", score = " +
-                    currentScore + ", serverIds associated with package = " +
-                    serverIds.size());
+            Map pkgItem = new HashMap();
+            pkgItem.put("rank", result.get("rank"));
+            pkgItem.put("score", result.get("score"));
+            pkgItem.put("name", result.get("name"));
+            pkgItem.put("pkgId", result.get("id"));
+            Double currentScore = (Double)result.get("score");
+            log.info("Name = " + result.get("name") +
+                    ", Score = " + currentScore);
+
             for (Long s : serverIds) {
-                if (serverMaps.containsKey(s)) {
-                    Map m = (Map)serverMaps.get(s);
-                    Double score = (Double)result.get("score");
-                    if (score > (Double)m.get("score")) {
-                        m.put("score", score);
-                        m.put("packageName", pkg.getNameEvra());
-                    }
-                }
-                else {
+                if (!serverMaps.containsKey(s)) {
                     // Create the serverInfo which we will be returning back
+                    Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
+                    if (pkg == null) {
+                        log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                                " problem when looking up package id <" + pkgId +
+                                " PackageFactory.lookupByIdAndUser returned null.");
+                        continue;
+                    }
+                    log.info("Package " + pkg.getNameEvra() + ", id = " + pkgId +
+                            ", score = " +
+                            currentScore + ", serverIds associated with package = " +
+                            serverIds.size());
                     Map serverInfo = new HashMap();
                     serverInfo.put("score", result.get("score"));
                     serverInfo.put("matchingField", "packageName");

@@ -1,55 +1,50 @@
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
 License: Apache Software License, v. 1.1
-Group: Application/Development
 URL: http://jpam.sourceforge.net/
-Source0: %{name}-%{version}-src.zip
+Source0: %{name}-0.4-src.zip
 Patch0: bug219916_expired_password_hang.patch
-Patch1: %{name}-%{version}-s390x.patch
+Patch1: %{name}-0.4-s390x.patch
 Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
 Version: 0.4
-Release: 34%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Release: 39%{?dist}
 
+Requires:      antlr
+Requires:      regexp
+BuildRequires: antlr
 BuildRequires: apache-commons-beanutils >= 1.9
 BuildRequires: gcc
 BuildRequires: java-1.8.0-openjdk-devel
+BuildRequires: junit
 BuildRequires: make
 BuildRequires: pam-devel
+BuildRequires: regexp
+%if (0%{?fedora} && 0%{?fedora} < 31) || 0%{?rhel} == 7
+BuildRequires: checkstyle
+%define checkstyle_jar checkstyle
+%endif
 %if 0%{?fedora} || 0%{?rhel} >= 7
-Requires:      antlr
 Requires:      apache-commons-beanutils
 Requires:      apache-commons-collections
 Requires:      apache-commons-io
 Requires:      apache-commons-logging
 Requires:      javapackages-tools
-Requires:      regexp
 BuildRequires: ant
-BuildRequires: antlr
 BuildRequires: apache-commons-collections
 BuildRequires: apache-commons-io
 BuildRequires: apache-commons-logging
-BuildRequires: checkstyle
 BuildRequires: javapackages-tools
-BuildRequires: junit
-BuildRequires: regexp
 %else
-Requires:      antlr
 Requires:      jakarta-commons-beanutils
 Requires:      jakarta-commons-collections
 Requires:      jakarta-commons-logging
-Requires:      regexp
 BuildRequires: ant < 1.9
 BuildRequires: ant-nodeps < 1.9
-BuildRequires: antlr
-BuildRequires: checkstyle
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-logging
-BuildRequires: junit
-BuildRequires: regexp
 %endif
 
 # ia64 doesnt have a new enough java.
@@ -61,7 +56,6 @@ Java, and wraps it in a JAAS LoginModule
 
 %package javadoc
 Summary:       Javadoc for %{name}
-Group:         Development/Documentation
 
 %description javadoc
 Javadoc for %{name}.
@@ -76,22 +70,21 @@ Javadoc for %{name}.
 %patch5 -p1
 
 rm -Rfv tools/*.jar
-build-jar-repository -p tools/ ant antlr commons-beanutils commons-collections commons-logging regexp checkstyle junit
+build-jar-repository -p tools/ ant antlr commons-beanutils commons-collections commons-logging regexp junit %{?checkstyle_jar}
 
 %build
 export JAVA_HOME=%{java_home}
 %ant shared-object dist-jar javadoc
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 # jar
 install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
-install -m 644 build/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
+install -m 644 build/%{name}-0.4.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-0.4.jar
+(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-0.4*; do ln -sf ${jar} `echo $jar| sed  "s|-0.4||g"`; done)
 
-install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-install -m 644 src/dist/* $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-0.4
+install -m 644 src/dist/* $RPM_BUILD_ROOT%{_docdir}/%{name}-0.4
 # FIXME: Sun's JDK does not search for libraries in /usr/lib, though
 # IBM's does. This specfile will work for users with the IBM JRE, but not
 # for users of Sun's JRE. Unfortunately, the two JRE's don't have a single
@@ -99,15 +92,14 @@ install -m 644 src/dist/* $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 install -D -m 755 build/gen-src/c/libjpam.so $RPM_BUILD_ROOT/usr/lib/libjpam.so
 
 # javadoc
-install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr site/documentation/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-0.4
+cp -pr site/documentation/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-0.4
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
 rm -f %{_javadocdir}/%{name}
-ln -s %{name}-%{version} %{_javadocdir}/%{name}
+ln -s %{name}-0.4 %{_javadocdir}/%{name}
 
 %postun javadoc
 if [ "$1" = "0" ]; then
@@ -122,9 +114,23 @@ fi
 %{_docdir}/*
 
 %files javadoc
-%{_javadocdir}/%{name}-%{version}
+%{_javadocdir}/%{name}-0.4
 
 %changelog
+* Wed Jan 22 2020 Michael Mraka <michael.mraka@redhat.com> 0.4-39
+- removed RHEL8 workaround
+
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 0.4-38
+- workaround RHEL8 buildrequires modules issue
+
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 0.4-36
+- there's no checkstyle on Fedora 31
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.4-35
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 0.4-34
 - recompile all packages with the same (latest) version of java
 

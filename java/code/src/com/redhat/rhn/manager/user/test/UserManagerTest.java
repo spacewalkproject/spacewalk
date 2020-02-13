@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,13 @@
  */
 
 package com.redhat.rhn.manager.user.test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.redhat.rhn.common.ObjectCreateWrapperException;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -45,13 +52,6 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /** JUnit test case for the User
  *  class.
  */
@@ -81,7 +81,6 @@ public class UserManagerTest extends RhnBaseTestCase {
 
         // Since we have only one org on a sat, all custom created packages will be
         // available to all users in that org.
-        return;
     }
 
     public void testLookup() {
@@ -230,7 +229,7 @@ public class UserManagerTest extends RhnBaseTestCase {
     /**
     * Test to ensure functionality of translating
     * usergroup ids to Roles
-     * @throws Exception
+     * @throws Exception something bad happened
     */
     public void aTestUpdateUserRolesFromRoleLabels() throws Exception {
         User usr = UserTestUtils.findNewUser("testUser",
@@ -391,13 +390,10 @@ public class UserManagerTest extends RhnBaseTestCase {
         List<RhnTimeZone> lst = UserManager.lookupAllTimeZones();
         assertTrue(lst.size() > 30);
         assertTrue(lst.get(5) instanceof RhnTimeZone);
-        assertTrue(lst.get(34) instanceof RhnTimeZone);
+        assertTrue(lst.get(29) instanceof RhnTimeZone);
 
         assertEquals(UserManager.getTimeZone("GMT"), lst.get(0));
         assertEquals("GMT", lst.get(0).getOlsonName());
-
-        assertEquals("Pacific/Auckland", lst.get(5).getOlsonName());
-        assertEquals(UserManager.getTimeZone("Pacific/Auckland"), lst.get(5));
     }
 
    public void testUsersInSet() throws Exception {

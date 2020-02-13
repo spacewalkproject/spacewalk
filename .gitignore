@@ -9,6 +9,7 @@ java/build
 java/lib
 java/*.log
 java/*.log.*
+java/bin/*
 java/buildconf/builder/config/local
 java/buildconf/tempjars/*
 java/.checkstyle
@@ -46,3 +47,6 @@ web/html/bootstrap/
 web/rpm-build
 web/rhn-web-*.tar.gz
 sqlnet.log
+*.tar.gz
+*.tar.xz
+*.zip

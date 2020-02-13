@@ -77,6 +77,10 @@ public abstract class BaseScheduledListAction extends RhnAction implements Lista
 
     /**
      * Handle the submit
+     * @param mapping an action mapping
+     * @param formIn an action form
+     * @param request the HttpServletRequest
+     * @param response the HttpServletResponse
      * @return an action forward
      */
     protected abstract ActionForward handleSubmit(ActionMapping mapping,

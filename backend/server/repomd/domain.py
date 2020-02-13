@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,6 +33,7 @@ class Channel:
         self.errata = []
         self.updateinfo = None
         self.comps = None
+        self.modules = None
 
 
 class Package:
@@ -107,8 +108,8 @@ class Erratum:
         self.packages = []
 
 
-class Comps:
+class RepoMD:
 
-    def __init__(self, comps_id, filename):
-        self.id = comps_id
+    def __init__(self, repomd_id, filename):
+        self.id = repomd_id
         self.filename = filename

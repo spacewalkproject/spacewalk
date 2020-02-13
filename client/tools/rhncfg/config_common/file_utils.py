@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,6 +33,9 @@ from config_common import utils
 from config_common.local_config import get as get_config
 from rhn.i18n import bstr, sstr
 
+decodestring = base64.decodestring
+if hasattr(base64, 'decodebytes'):
+    decodestring = base64.decodebytes
 
 class FileProcessor:
     file_struct_fields = {
@@ -58,8 +61,10 @@ class FileProcessor:
             if 'symlink' not in file_struct:
                 raise Exception("Missing key symlink")
 
-            (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                  directory=directory, symlink=file_struct['symlink'])
+            (fullpath, dirs_created, fd) = maketemp(prefix=".rhn-cfg-tmp", directory=directory)
+            os.close(fd)
+            os.unlink(fullpath)
+            os.symlink(file_struct['symlink'], fullpath)
             return fullpath, dirs_created
 
         for k in self.file_struct_fields.keys():
@@ -75,7 +80,7 @@ class FileProcessor:
         contents = file_struct['file_contents']
 
         if contents and (encoding == 'base64'):
-            contents = base64.decodestring(bstr(contents))
+            contents = decodestring(bstr(contents))
 
         delim_start = file_struct['delim_start']
         delim_end = file_struct['delim_end']
@@ -97,19 +102,14 @@ class FileProcessor:
             raise Exception("Corrupt file received: missing checksum information!")
 
 
-        fh = None
-
-        (fullpath, dirs_created, fh) = maketemp(prefix=".rhn-cfg-tmp",
-                                  directory=directory)
+        (fullpath, dirs_created, fd) = maketemp(prefix=".rhn-cfg-tmp", directory=directory)
 
         try:
-            fh.write(sstr(contents))
+            os.write(fd, bstr(contents))
         except Exception:
-            if fh:
-                fh.close()  # don't leak fds...
             raise
-        else:
-            fh.close()
+        finally:
+            os.close(fd)
 
         # try to set mtime and ctime of the file to
         # the last modified time on the server
@@ -185,7 +185,7 @@ class FileProcessor:
 
             #rip off the leading '0' from the mode returned by stat()
             if cur_perm[0] == '0':
-                cur_perm = cur_perm[1:]
+                cur_perm = cur_perm[2:] if cur_perm[1] == 'o' else cur_perm[1:]
 
             #perm_status gets displayed with the verbose option.
             if cur_perm == str(file_struct['filemode']):
@@ -225,8 +225,8 @@ class FileProcessor:
                 else:
                     raise e
         else:
-            result = ''.join(diff(temp_file, path,
-                    display_diff=get_config('display_diff')))
+            result = ''.join(diff(temp_file, path, display_diff=get_config('display_diff'),
+                is_binary=True if file_struct['is_binary'] == 'Y' else False))
 
         if temp_file:
             os.unlink(temp_file)
@@ -239,16 +239,16 @@ class FileProcessor:
                 raise Exception("Missing key %s" % k)
 
 
-def diff(src, dst, srcname=None, dstname=None, display_diff=False):
-    def f_content(path, name):
+def diff(src, dst, srcname=None, dstname=None, display_diff=False, is_binary=False):
+    def f_content(path, name, is_binary):
         statinfo = None
         if os.access(path, os.R_OK):
-            f = open(path, 'U')
-            content = f.readlines()
+            f = open(path, ('r' if int(sys.version[0]) == 3 else 'U') + ('b' if is_binary else ''))
+            content = [sstr(i) for i in f.readlines()]
             f.close()
             statinfo = os.stat(path)
             f_time = time.ctime(statinfo.st_mtime)
-            if content and content[-1] and content[-1][-1] != "\n":
+            if not is_binary and content and content[-1] and content[-1][-1] != "\n":
                 content[-1] += "\n"
         else:
             content = []
@@ -257,8 +257,8 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False):
             name = path
         return (content, name, f_time, statinfo)
 
-    (src_content, src_name, src_time, src_stat) = f_content(src, srcname)
-    (dst_content, dst_name, dst_time, dst_stat) = f_content(dst, dstname)
+    (src_content, src_name, src_time, src_stat) = f_content(src, srcname, is_binary)
+    (dst_content, dst_name, dst_time, dst_stat) = f_content(dst, dstname, is_binary)
 
     diff_u = difflib.unified_diff(src_content, dst_content,
                                   src_name, dst_name,
@@ -273,17 +273,17 @@ def diff(src, dst, srcname=None, dstname=None, display_diff=False):
                 or (dst_stat.st_uid == 0 # file is owned by root
                     and not dst_stat.st_mode & stat.S_IROTH))): # not read-all
         ret_list = [
-                "Differences exist in a file that is not readable by all. ",
+                "Differences exist in a file %s that is not readable by all. " % dst,
                 "Re-deployment of configuration file is recommended.\n"]
     return ret_list
 
 
 
-def maketemp(prefix=None, directory=None, symlink=None):
+def maketemp(prefix=None, directory=None):
     """Creates a temporary file (guaranteed to be new), using the
        specified prefix.
 
-       Returns the filename and an open stream
+       Returns the filename and a file descriptor
     """
     if not directory:
         directory = tempfile.gettempdir()
@@ -299,14 +299,8 @@ def maketemp(prefix=None, directory=None, symlink=None):
     file_prefix = "%s-%s-" % (prefix, os.getpid())
     (fd, filename) = tempfile.mkstemp(prefix=file_prefix, dir=directory)
 
-    if symlink:
-        os.unlink(filename)
-        os.symlink(symlink, filename)
-        open_file = None
-    else:
-        open_file = os.fdopen(fd, "w+")
+    return filename, dirs_created, fd
 
-    return filename, dirs_created, open_file
 
 # Duplicated from backend/common/fileutils.py to remove dependency requirement.
 # If making changes make them there too.

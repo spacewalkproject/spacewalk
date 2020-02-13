@@ -1,0 +1,31 @@
+# Makefile for spacewalk-oscap
+#
+
+ACTIONS		= scap
+PYFILES		= $(addsuffix .py, $(ACTIONS))
+XSLT		= xccdf-resume.xslt
+CAPABILITY	= scap
+OBJECTS		= $(PYFILES) $(XSLT)
+
+PREFIX		?=
+ACTIONDIR	= $(PREFIX)$(PYTHONPATH)/rhn/actions
+XSLTDIR		= $(PREFIX)/usr/share/openscap/xsl
+CAPSDIR		= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
+INSTALL		= /usr/bin/install -c
+FILE		= -m 644
+DIR		= -m 755 --verbose -d
+
+
+all: $(OBJECTS)
+
+%.xslt: %.xslt.in
+	xsltproc gxm.xml $< > $@
+
+install: all
+	$(INSTALL) $(DIR) $(ACTIONDIR) $(XSLTDIR) $(CAPSDIR)
+	$(INSTALL) $(FILE) $(PYFILES) $(ACTIONDIR)
+	$(INSTALL) $(FILE) $(XSLT) $(XSLTDIR)
+	$(INSTALL) $(FILE) $(CAPABILITY) $(CAPSDIR)
+
+clean:
+	@rm -rf *.pyc *~ .*~ $(XSLT)

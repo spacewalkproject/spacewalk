@@ -4,7 +4,7 @@
 # authentication token caching.
 # (Client, meaning, a client to the authCache daemon)
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -163,6 +163,7 @@ class Shelf:
             # Instantiate the exception object
             import new
             _dict = {'args': args}
+            # pylint: disable=bad-option-value,nonstandard-exception
             raise new.instance(getattr(__builtins__, name), _dict), None, sys.exc_info()[2]
 
         return params[0]
@@ -178,6 +179,7 @@ class Shelf:
 #-------------------------------------------------------------------------------
 # test code
 # pylint: disable=E0012, C0411, C0413, E1136, C0412
+# pylint: disable=bad-option-value,unsupported-assignment-operation
 if __name__ == '__main__':
     from spacewalk.common.rhnConfig import initCFG
     initCFG("proxy.broker")

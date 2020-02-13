@@ -1,0 +1,39 @@
+--- source/redstone/xmlrpc/XmlRpcParser.java.orig	2019-08-21 15:02:32.288355286 +0200
++++ source/redstone/xmlrpc/XmlRpcParser.java	2019-08-21 15:05:07.521420269 +0200
+@@ -17,8 +17,10 @@
+ package redstone.xmlrpc;
+ 
+ import java.io.InputStream;
++import java.io.StringReader;
+ import java.util.Stack;
+ import org.xml.sax.Attributes;
++import org.xml.sax.EntityResolver;
+ import org.xml.sax.InputSource;
+ import org.xml.sax.SAXException;
+ import org.xml.sax.XMLReader;
+@@ -26,6 +28,17 @@
+ import org.xml.sax.helpers.XMLReaderFactory;
+ 
+ /**
++ * DummyEntityResolver to stop downloading external DTDs.
++ */
++class DummyEntityResolver implements EntityResolver {
++    public InputSource resolveEntity(String publicID, String systemID)
++        throws SAXException {
++
++        return new InputSource(new StringReader(""));
++    }
++}
++
++/**
+  *  An XmlRpcParser converts inbound XML-RPC messages to their Java counterparts through
+  *  the use of a SAX compliant parser. This is an abstract class that is only concerned
+  *  with the XML-RPC values contained in a message. Deriving classes supply a
+@@ -121,6 +134,7 @@
+                 try
+                 {
+                     reader = XMLReaderFactory.createXMLReader();
++                    reader.setEntityResolver(new DummyEntityResolver());
+                 }
+                 catch ( SAXException e )
+                 {

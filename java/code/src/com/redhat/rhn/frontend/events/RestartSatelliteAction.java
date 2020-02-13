@@ -54,8 +54,7 @@ public class RestartSatelliteAction implements MessageAction {
     }
 
     protected RestartCommand getCommand(User currentUser) {
-        RestartCommand rc = new RestartCommand(currentUser);
-        return rc;
+        return new RestartCommand(currentUser);
     }
 
 }

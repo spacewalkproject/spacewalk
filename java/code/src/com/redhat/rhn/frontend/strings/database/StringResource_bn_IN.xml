@@ -31,13 +31,6 @@
           <context context-type="sourcefile">/rhn/configuration/Overview</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Spacewalk Update Entitled Servers">
-        <source>Update</source>
-        <target>Update</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Management Entitled Servers">
         <source>Management</source>
         <target>Management</target>
@@ -52,13 +45,6 @@
           <context context-type="sourcefile">/rhn/systems/SystemList</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Non-Linux Entitled Servers">
-        <source>Non-Linux</source>
-        <target>Linux-ভিন্ন</target>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/SystemList</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Spacewalk Monitoring Entitled Servers">
         <source>Monitoring</source>
         <target>Monitoring</target>
@@ -69,18 +55,6 @@
       <trans-unit id="enterprise_entitled">
         <source>Management</source>
         <target>Management</target>
-      </trans-unit>
-      <trans-unit id="monitoring_entitled">
-        <source>Monitoring</source>
-        <target>Monitoring</target>
-      </trans-unit>
-      <trans-unit id="provisioning_entitled">
-        <source>Provisioning</source>
-        <target>Provisioning</target>
-      </trans-unit>
-      <trans-unit id="sw_mgr_entitled">
-        <source>Update</source>
-        <target>Update</target>
       </trans-unit>
       <trans-unit id="unentitled">
         <source>&lt;em&gt;(none)&lt;/em&gt;</source>
@@ -97,10 +71,6 @@
       <trans-unit id="virtualization_host">
         <source>Virtualization</source>
         <target>ভার্চুয়ালাইজেশন</target>
-      </trans-unit>
-      <trans-unit id="virtualization_host_platform">
-        <source>Virtualization Platform</source>
-        <target>ভার্চুয়ালাইজেশন প্ল্যাটফর্ম</target>
       </trans-unit>
       <trans-unit id="Australia/Sydney">
         <source>(GMT+1000) Australia (Eastern Daylight)</source>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -118,9 +118,7 @@ public class KickstartWizardHelper {
      * @return Collection of Channels.
      */
     public List<Channel> getAvailableChannels() {
-        List<Channel> returnCollection = ChannelFactory
-                .getKickstartableChannels(currentUser.getOrg());
-        return returnCollection;
+        return ChannelFactory.getKickstartableChannels(currentUser.getOrg());
     }
 
     /**
@@ -203,6 +201,14 @@ public class KickstartWizardHelper {
             RepoInfo vt = RepoInfo.vt();
             if (!repos.contains(vt)) {
                 repos.add(vt);
+                ksdata.setRepoInfos(repos);
+            }
+        }
+        else if (ksdata.isRhel8()) {
+            Set<RepoInfo> repos = ksdata.getRepoInfos();
+            RepoInfo appstream = RepoInfo.appstream();
+            if (!repos.contains(appstream)) {
+                repos.add(appstream);
                 ksdata.setRepoInfos(repos);
             }
         }

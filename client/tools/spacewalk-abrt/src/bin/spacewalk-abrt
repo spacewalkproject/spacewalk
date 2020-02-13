@@ -17,10 +17,6 @@
 import os
 import sys
 
-RHNROOT = '/usr/share/rhn'
-if RHNROOT not in sys.path:
-    sys.path.append(RHNROOT)
-
 import gettext
 t = gettext.translation('spacewalk-abrt', fallback=True)
 

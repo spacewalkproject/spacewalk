@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 # Copyright (c) 2010--2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
@@ -22,6 +22,7 @@ from shutil import rmtree
 
 import yum
 from yum.Errors import RepoMDError
+from yum.comps import Comps
 from yum.config import ConfigParser
 from yum.packageSack import ListPackageSack
 from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
@@ -37,6 +38,12 @@ except ImportError:
         import cElementTree
     iterparse = cElementTree.iterparse
 from urlgrabber.grabber import URLGrabError
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
 
 from spacewalk.common import fileutils, checksum
 from spacewalk.satellite_tools.download import get_proxies
@@ -108,7 +115,8 @@ class RepoMDNotFound(Exception):
 class ContentSource(object):
 
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
-                 no_mirrors=False):
+                 no_mirrors=False, ca_cert_file=None, client_cert_file=None,
+                 client_key_file=None):
         self.url = url
         self.name = name
         self.yumbase = yum.YumBase()
@@ -124,10 +132,16 @@ class ContentSource(object):
         self.proxy_addr = None
         self.proxy_user = None
         self.proxy_pass = None
+        self.authtoken = None
 
         # read the proxy configuration
         # /etc/rhn/rhn.conf has more priority than yum.conf
         initCFG('server.satellite')
+
+        # keep authtokens for mirroring
+        (_scheme, _netloc, _path, query, _fragid) = urlparse.urlsplit(url)
+        if query:
+            self.authtoken = query
 
         if CFG.http_proxy:
             self.proxy_addr = CFG.http_proxy
@@ -139,6 +153,8 @@ class ContentSource(object):
 
             if yb_cfg.has_section(self.name):
                 section_name = self.name
+            elif yb_cfg.has_section(channel_label):
+                section_name = channel_label
             elif yb_cfg.has_section('main'):
                 section_name = 'main'
 
@@ -153,6 +169,7 @@ class ContentSource(object):
                     self.proxy_pass = yb_cfg.get(section_name, 'proxy_password')
 
         self._authenticate(url)
+
         # Check for settings in yum configuration files (for custom repos/channels only)
         if org:
             repos = self.yumbase.repos.repos
@@ -171,19 +188,10 @@ class ContentSource(object):
             repo.populate(self.configparser, name, self.yumbase.conf)
         self.repo = repo
 
-        self.setup_repo(repo, no_mirrors)
+        self.setup_repo(repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file)
         self.num_packages = 0
         self.num_excluded = 0
-
-        # if self.url is metalink it will be expanded into
-        # real urls in self.repo.urls and also save this metalink
-        # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
-        # Remove it from the list, we don't need it to download content of repo
-        real_urls = []
-        for url in self.repo.urls:
-            if '?' not in url:
-                real_urls.append(url)
-        self.repo.urls = real_urls
+        self.groupsfile = None
 
     def __del__(self):
         # close log files for yum plugin
@@ -200,7 +208,7 @@ class ContentSource(object):
         e = sys.exc_info()[1]
         raise e
 
-    def setup_repo(self, repo, no_mirrors):
+    def setup_repo(self, repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file):
         """Fetch repository metadata"""
         repo.cache = 0
         repo.mirrorlist = self.url
@@ -214,9 +222,9 @@ class ContentSource(object):
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
         repo.pkgdir = pkgdir
-        repo.sslcacert = None
-        repo.sslclientcert = None
-        repo.sslclientkey = None
+        repo.sslcacert = ca_cert_file
+        repo.sslclientcert = client_cert_file
+        repo.sslclientkey = client_key_file
         repo.proxy = None
         repo.proxy_username = None
         repo.proxy_password = None
@@ -225,7 +233,7 @@ class ContentSource(object):
             repo.copy_local = 1
 
         if self.proxy_addr:
-            repo.proxy = "http://%s" % self.proxy_addr
+            repo.proxy = self.proxy_addr if '://' in self.proxy_addr else 'http://' + self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
@@ -244,6 +252,11 @@ class ContentSource(object):
                 warnings.restore()
                 raise
             warnings.restore()
+            # if self.url is metalink it will be expanded into
+            # real urls in repo.urls and also save this metalink
+            # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
+            # Remove it from the list, we don't need it to download content of repo
+            repo.urls = [url for url in repo.urls if '?' not in url]
         repo.interrupt_callback = self.interrupt_callback
         repo.setup(0)
 
@@ -256,14 +269,32 @@ class ContentSource(object):
                 pass
         return len(self.repo.getPackageSack().returnPackages())
 
-    def raw_list_packages(self):
+    def raw_list_packages(self, filters=None):
         for dummy_index in range(3):
             try:
                 self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
                 break
             except YumErrors.RepoError:
                 pass
-        return self.repo.getPackageSack().returnPackages()
+
+        rawpkglist = self.repo.getPackageSack().returnPackages()
+        self.num_packages = len(rawpkglist)
+
+        if not filters:
+            filters = []
+            # if there's no include/exclude filter on command line or in database
+            for p in self.repo.includepkgs:
+                filters.append(('+', [p]))
+            for p in self.repo.exclude:
+                filters.append(('-', [p]))
+
+        if filters:
+            rawpkglist = self._filter_packages(rawpkglist, filters)
+            rawpkglist = self._get_package_dependencies(self.repo.getPackageSack(), rawpkglist)
+
+            self.num_excluded = self.num_packages - len(rawpkglist)
+
+        return rawpkglist
 
     def list_packages(self, filters, latest):
         """ list packages"""
@@ -277,17 +308,18 @@ class ContentSource(object):
 
         if not filters:
             # if there's no include/exclude filter on command line or in database
+            # check repository config file
             for p in self.repo.includepkgs:
                 filters.append(('+', [p]))
             for p in self.repo.exclude:
                 filters.append(('-', [p]))
 
+        filters = self._expand_package_groups(filters)
+
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
             pkglist = self._get_package_dependencies(self.repo.getPackageSack(), pkglist)
 
-            # do not pull in dependencies if they're explicitly excluded
-            pkglist = self._filter_packages(pkglist, filters, True)
             self.num_excluded = self.num_packages - len(pkglist)
         to_return = []
         for pack in pkglist:
@@ -315,17 +347,75 @@ class ContentSource(object):
             return -1
 
     @staticmethod
-    def _filter_packages(packages, filters, exclude_only=False):
+    def _find_comps_type(comps_type, environments, groups, name):
+        # Finds environment or regular group by name or label
+        found = None
+        if comps_type == "environment":
+            for e in environments:
+                if e.environmentid == name or e.name == name:
+                    found = e
+                    break
+        elif comps_type == "group":
+            for g in groups:
+                if g.groupid == name or g.name == name:
+                    found = g
+                    break
+        return found
+
+    def _expand_comps_type(self, comps_type, environments, groups, filters):
+        new_filters = []
+        # Rebuild filter list
+        for sense, pkg_list in filters:
+            new_pkg_list = []
+            for pkg in pkg_list:
+                # Package group id
+                if pkg and pkg[0] == '@':
+                    group_name = pkg[1:].strip()
+                    found = self._find_comps_type(comps_type, environments, groups, group_name)
+                    if found and comps_type == "environment":
+                        # Save expanded groups to the package list
+                        new_pkg_list.extend(['@' + grp for grp in found.allgroups])
+                    elif found and comps_type == "group":
+                        # Replace with package list, simplified to not evaluate if packages are default, optional etc.
+                        new_pkg_list.extend(found.packages)
+                    else:
+                        # Invalid group, save group id back
+                        new_pkg_list.append(pkg)
+                else:
+                    # Regular package
+                    new_pkg_list.append(pkg)
+            if new_pkg_list:
+                new_filters.append((sense, new_pkg_list))
+        return new_filters
+
+    def _expand_package_groups(self, filters):
+        if not self.groupsfile:
+            return filters
+        comps = Comps()
+        comps.add(self.groupsfile)
+        groups = comps.get_groups()
+
+        if hasattr(comps, 'get_environments'):
+            # First expand environment groups, then regular groups
+            environments = comps.get_environments()
+            filters = self._expand_comps_type("environment", environments, groups, filters)
+        else:
+            environments = []
+        filters = self._expand_comps_type("group", environments, groups, filters)
+        return filters
+
+    @staticmethod
+    def _filter_packages(packages, filters):
         """ implement include / exclude logic
             filters are: [ ('+', includelist1), ('-', excludelist1),
                            ('+', includelist2), ... ]
         """
         if filters is None:
-            return
+            return []
 
         selected = []
         excluded = []
-        if exclude_only or filters[0][0] == '-':
+        if filters[0][0] == '-':
             # first filter is exclude, start with full package list
             # and then exclude from it
             selected = packages
@@ -335,15 +425,14 @@ class ContentSource(object):
         for filter_item in filters:
             sense, pkg_list = filter_item
             if sense == '+':
-                if not exclude_only:
-                    # include
-                    exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                        excluded, pkg_list)
-                    allmatched = yum.misc.unique(exactmatch + matched)
-                    selected = yum.misc.unique(selected + allmatched)
-                    for pkg in allmatched:
-                        if pkg in excluded:
-                            excluded.remove(pkg)
+                # include
+                exactmatch, matched, _unmatched = yum.packages.parsePackages(
+                    excluded, pkg_list)
+                allmatched = yum.misc.unique(exactmatch + matched)
+                selected = yum.misc.unique(selected + allmatched)
+                for pkg in allmatched:
+                    if pkg in excluded:
+                        excluded.remove(pkg)
             elif sense == '-':
                 # exclude
                 exactmatch, matched, _unmatched = yum.packages.parsePackages(
@@ -354,15 +443,24 @@ class ContentSource(object):
                         selected.remove(pkg)
                 excluded = yum.misc.unique(excluded + allmatched)
             else:
-                raise UpdateNoticeException
+                raise UpdateNoticeException("Invalid filter sense: '%s'" % sense)
         return selected
 
     def _get_package_dependencies(self, sack, packages):
         self.yumbase.pkgSack = sack
+        known_deps = set()
         resolved_deps = self.yumbase.findDeps(packages)
-        for (_pkg, deps) in resolved_deps.items():
-            for (_dep, dep_packages) in deps.items():
-                packages.extend(dep_packages)
+        while resolved_deps:
+            next_level_deps = []
+            for deps in resolved_deps.values():
+                for _dep, dep_packages in deps.items():
+                    if _dep not in known_deps:
+                        next_level_deps.extend(dep_packages)
+                        packages.extend(dep_packages)
+                        known_deps.add(_dep)
+
+            resolved_deps = self.yumbase.findDeps(next_level_deps)
+
         return yum.misc.unique(packages)
 
     def get_package(self, package, metadata_only=False):
@@ -411,11 +509,12 @@ class ContentSource(object):
             groups = None
         return groups
 
-    def set_ssl_options(self, ca_cert, client_cert, client_key):
-        repo = self.repo
-        repo.sslcacert = ca_cert
-        repo.sslclientcert = client_cert
-        repo.sslclientkey = client_key
+    def get_modules(self):
+        try:
+            modules = self.repo.retrieveMD('modules')
+        except RepoMDError:
+            modules = None
+        return modules
 
     def get_file(self, path, local_base=None):
         try:
@@ -435,10 +534,11 @@ class ContentSource(object):
                 else:
                     return self.repo.grab.urlread(path)
             except URLGrabError:
-                return
+                return None
         finally:
             if os.path.exists(temp_file):
                 os.unlink(temp_file)
+        return None
 
     def repomd_up_to_date(self):
         repomd_old_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
@@ -462,6 +562,7 @@ class ContentSource(object):
 
         params['urls'] = self.repo.urls
         params['relative_path'] = relative_path
+        params['authtoken'] = self.authtoken
         params['target_file'] = target_file
         params['ssl_ca_cert'] = self.repo.sslcacert
         params['ssl_client_cert'] = self.repo.sslclientcert
@@ -472,6 +573,7 @@ class ContentSource(object):
         params['proxy'] = self.repo.proxy
         params['proxy_username'] = self.repo.proxy_username
         params['proxy_password'] = self.repo.proxy_password
+        params['http_headers'] = self.repo.http_headers
         # Older urlgrabber compatibility
         params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
 
@@ -481,11 +583,13 @@ class ContentSource(object):
             for sub_item in data_item:
                 if sub_item.tag.endswith("location"):
                     return sub_item.attrib.get("href")
+            return None
 
         def get_checksum(data_item):
             for sub_item in data_item:
                 if sub_item.tag.endswith("checksum"):
                     return sub_item.attrib.get("type"), sub_item.text
+            return None
 
         repomd_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
         if not os.path.isfile(repomd_path):
@@ -504,5 +608,7 @@ class ContentSource(object):
                     files['group'] = (get_location(elem), get_checksum(elem))
                 elif elem.attrib.get("type") == "group" and 'group' not in files:
                     files['group'] = (get_location(elem), get_checksum(elem))
+                elif elem.attrib.get("type") == "modules":
+                    files['modules'] = (get_location(elem), get_checksum(elem))
         repomd.close()
         return files.values()

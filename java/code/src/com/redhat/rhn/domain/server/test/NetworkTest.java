@@ -48,7 +48,7 @@ public class NetworkTest extends RhnBaseTestCase {
 
     /**
      * Simple test to exercise the code paths in the Network class
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public void testNetwork() throws Exception {
         Network net1 = createTestNetwork();
@@ -67,7 +67,7 @@ public class NetworkTest extends RhnBaseTestCase {
     /**
      * Helper method to create a test Network object
      * @return Returns a test Network object
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     public static Network createTestNetwork() throws Exception {
         Network net = createNetworkInstance();

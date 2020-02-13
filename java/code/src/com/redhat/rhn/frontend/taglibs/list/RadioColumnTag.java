@@ -26,11 +26,13 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
- * RadioTag
+ * RadioTag<br>
  * Implements a simple radio button collection useful with
- * rl list tag.
+ * rl list tag.<br>
+ * <pre>{@literal
  *  <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
- *   <rl:radiocolumn value="${current.selectionKey}" styleclass="first-column"/>
+ *  <rl:radiocolumn value="${current.selectionKey}" styleclass="first-column"/>
+ * }</pre>
  * @version $Rev$
  */
 public class RadioColumnTag extends TagSupport {

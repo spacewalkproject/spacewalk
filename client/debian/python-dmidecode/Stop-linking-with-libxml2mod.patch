@@ -1,0 +1,72 @@
+From 6698dabbd45a2d93199d2d3d5abb84f8c260667d Mon Sep 17 00:00:00 2001
+From: Sandro Tosi <morph@debian.org>
+Date: Tue, 5 Dec 2017 18:52:09 -0500
+Subject: Stop linking with libxml2mod
+
+Copy the two funcions used instead of linking with libxml2mod.
+
+Author: Adrian Bunk <bunk@debian.org>
+---
+ src/dmidecodemodule.c | 27 ++++++++++++++++++++++++++-
+ src/setup_common.py   |  3 ---
+ 2 files changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/src/dmidecodemodule.c b/src/dmidecodemodule.c
+index b31c002..007a892 100644
+--- a/src/dmidecodemodule.c
++++ b/src/dmidecodemodule.c
+@@ -42,7 +42,6 @@
+ #include <Python.h>
+ 
+ #include <libxml/tree.h>
+-#include "libxml_wrap.h"
+ 
+ #include "dmidecodemodule.h"
+ #include "dmixml.h"
+@@ -64,6 +63,32 @@ char *PyUnicode_AsUTF8(PyObject *unicode) {
+ }
+ #endif
+ 
++static PyObject *
++libxml_xmlDocPtrWrap(xmlDocPtr doc)
++{
++    PyObject *ret;
++
++    if (doc == NULL) {
++        Py_INCREF(Py_None);
++        return (Py_None);
++    }
++    ret = PyCapsule_New((void *) doc, (char *) "xmlDocPtr", NULL);
++    return (ret);
++}
++
++static PyObject *
++libxml_xmlNodePtrWrap(xmlNodePtr node)
++{
++    PyObject *ret;
++
++    if (node == NULL) {
++        Py_INCREF(Py_None);
++        return (Py_None);
++    }
++    ret = PyCapsule_New((void *) node, (char *) "xmlNodePtr", NULL);
++    return (ret);
++}
++
+ static void init(options *opt)
+ {
+         opt->devmem = DEFAULT_MEM_DEV;
+diff --git a/src/setup_common.py b/src/setup_common.py
+index aec1f9b..6b678ef 100644
+--- a/src/setup_common.py
++++ b/src/setup_common.py
+@@ -68,9 +68,6 @@ def libxml2_lib(libdir, libs):
+         elif l.find('-l') == 0:
+             libs.append(l.replace("-l", "", 1))
+ 
+-    # this library is not reported and we need it anyway
+-    libs.append('xml2mod')
+-
+ 
+ 
+ # Get version from src/version.h

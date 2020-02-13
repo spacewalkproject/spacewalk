@@ -33,6 +33,7 @@ public class CloneChannelCommand extends CreateChannelCommand {
 
     private boolean originalState;
     private Channel original;
+    private String DEFAULT_PREFIX = "clone-of-";
 
     /**
      * Constructor
@@ -41,15 +42,21 @@ public class CloneChannelCommand extends CreateChannelCommand {
      */
     public CloneChannelCommand(boolean originalStateIn, Channel cloneFrom) {
         user = null;
-        label = null;
-        name = null;
-        summary = null;
-        archLabel = null;
-        checksum = null;
-        parentLabel = null;
-        parentId = null;
-        originalState = originalStateIn;
+        label = DEFAULT_PREFIX + cloneFrom.getLabel();
+        name =  DEFAULT_PREFIX + cloneFrom.getName();
         original = cloneFrom;
+        originalState = originalStateIn;
+        summary = cloneFrom.getSummary();
+        checksum = cloneFrom.getChecksumTypeLabel();
+        gpgKeyUrl = cloneFrom.getGPGKeyUrl();
+        gpgKeyId = cloneFrom.getGPGKeyId();
+        gpgKeyFp = cloneFrom.getGPGKeyFp();
+        if (cloneFrom.getParentChannel() != null) {
+            parentId = cloneFrom.getParentChannel().getId();
+        }
+        if (cloneFrom.getChannelArch() != null) {
+            archLabel = cloneFrom.getChannelArch().getLabel();
+        }
     }
 
     /**

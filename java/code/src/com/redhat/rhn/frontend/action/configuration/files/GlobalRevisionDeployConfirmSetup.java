@@ -43,10 +43,8 @@ public class GlobalRevisionDeployConfirmSetup extends BaseListAction {
         User usr = ctx.getCurrentUser();
         ConfigFile cf = ConfigActionHelper.getFile(ctx.getRequest());
         ConfigChannel cc = cf.getConfigChannel();
-        DataResult dr = ConfigurationManager.getInstance().
-            listGlobalFileDeployInfo(usr, cc, cf, pc,
+        return ConfigurationManager.getInstance().listGlobalFileDeployInfo(usr, cc, cf, pc,
                     RhnSetDecl.CONFIG_FILE_DEPLOY_SYSTEMS.getLabel());
-        return dr;
     }
 
     /**

@@ -54,15 +54,17 @@ public class SystemHistoryAction extends RhnAction implements Listable<SystemEve
         Map<String, Object> params = makeParamMap(request);
         params.put(RequestContext.SID, sid);
         params.put("pendingActions", SystemManager.countPendingActions(sid));
-        params.put("isLocked", server.getLock() == null ? false : true);
+        params.put("isLocked", server.getLock() != null);
 
         return StrutsDelegate.getInstance().forwardParams(
                 mapping.findForward("default"), params);
     }
 
     /** {@inheritDoc} */
+    @Override
     public List<SystemEventDto> getResult(RequestContext context) {
         Long sid = context.getRequiredParam("sid");
-        return SystemManager.systemEventHistory(sid, null);
+        Long oid = context.getCurrentUser().getOrg().getId();
+        return SystemManager.systemEventHistory(sid, oid, null);
     }
 }

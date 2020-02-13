@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OperationDetailsDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -79,8 +78,6 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
         HttpServletRequest request = context.getRequest();
         long oid = Long.parseLong(request.getParameter(PARAM_OPERATION_ID));
 
-        DataResult result = SsmOperationManager.findServerDataForOperation(oid);
-
-        return result;
+        return SsmOperationManager.findServerDataForOperation(oid);
     }
 }

@@ -38,22 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Bonjour,
 
-Un identifiant Red Hat a été créé pour vous par {0} {1}. Votre identifiant
-Red Hat, avec un abonnement Red Hat actif, vous permet d'accéder
-à des capacités de gestion de systèmes sur @@PRODUCT_NAME@@.
-
-  Identifiant Red Hat : {2}
-         Mot de passe : {3}
- Adresse électronique : {4}
-
-  {5}
-
-Important : veuillez changer votre mot de passe à la connexion.
-
-Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -82,22 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>Bonjour,
 
-Un identifiant Red Hat a été créé pour vous. Votre identifiant
-Red Hat, avec un abonnement Red Hat actif, vous permet d'accéder
-à des capacités de gestion de systèmes sur @@PRODUCT_NAME@@.
-
-  Identifiant Red Hat : {0}
-         Mot de passe : {1}
- Adresse électronique : {2}
-
-  {3}
-
-Important : veuillez changer votre mot de passe à la connexion.
-
-Nous vous remercions d'utiliser @@PRODUCT_NAME@@.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,
@@ -451,25 +421,7 @@ Thank you for using @@PRODUCT_NAME@@.
             {2} - Username
             </context>
         </context-group>
-        <target>
-[ Ceci est un e-mail automatique envoyé à {0} à votre demande. ]
 
-Votre mot de passe pour @@PRODUCT_NAME@@ a été réinitialisé. Pour vous connecter, veuillez vous rendre sur :
-
-https://{1}/
-
-Et utiliser le nom d'utilisateur et mot de passe suivant :
-
-Nom d'utilisateur : {2}
-Mot de passe : {3}
-
-Vous pourrez changer votre mot de passe une fois connecté.
-
-Si vous ne parvenez toujours pas à vous connecter, veuillez contacter
-votre administrateur @@PRODUCT_NAME@@ pour obtenir de l'aide.
-
-Merci de choisir @@PRODUCT_NAME@@.
-        </target>
       </trans-unit>
       <trans-unit id="email.forgotten.logins">
         <source>

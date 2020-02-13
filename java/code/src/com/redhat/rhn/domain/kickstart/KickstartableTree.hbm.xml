@@ -18,6 +18,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="basePath" type="string" column="base_path"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="timestamp" column="last_modified"/>
+        <property name="kernelOptions" type="string" column="kernel_options"/>
+        <property name="kernelOptionsPost" type="string" column="kernel_options_post"/>
 
         <property name="created" type="timestamp" column="created"/>
         <property name="modified" type="timestamp" column="modified"/>
@@ -98,6 +100,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         order by k.label
                         ]]>
     </query>
+    <query name="KickstartableTree.findBase">
+        <![CDATA[select k from com.redhat.rhn.domain.kickstart.KickstartableTree as k,
+                        com.redhat.rhn.domain.channel.Channel as c
+                        where c.id = k.channel
+                          and c.parentChannel is null
+                        order by k.label
+                        ]]>
+    </query>
 
     <query name="KickstartableTree.findByCobblerIdOrXenId">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
@@ -120,8 +130,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
     <query name="KickstartableTree.getUnsyncedKickstartTrees">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
-                        where k.cobblerId is null
+        <![CDATA[select k from com.redhat.rhn.domain.kickstart.KickstartableTree as k,
+                        com.redhat.rhn.domain.channel.Channel as c
+                        where c.id = k.channel
+                          and k.cobblerId is null
+                          and c.parentChannel is null
                         order by k.label]]>
     </query>
 

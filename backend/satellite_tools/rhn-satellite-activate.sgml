@@ -131,11 +131,11 @@
 <simplelist>
     <member><command>rhn-satellite-activate --manifest /tmp/manifest.zip</command></member>
     <member><command>rhn-satellite-activate --manifest /tmp/manifest.zip --disconnected</command></member>
-    <member><command>rhn-satellite-activate --manifest-info</member>
-    <member><command>rhn-satellite-activate --manifest-download</member>
-    <member><command>rhn-satellite-activate --manifest-reconcile-request</member>
-    <member><command>rhn-satellite-activate --manifest-refresh --disconnected</member>
-    <member><command>rhn-satellite-activate --deactivate</member>
+    <member><command>rhn-satellite-activate --manifest-info</command></member>
+    <member><command>rhn-satellite-activate --manifest-download</command></member>
+    <member><command>rhn-satellite-activate --manifest-reconcile-request</command></member>
+    <member><command>rhn-satellite-activate --manifest-refresh --disconnected</command></member>
+    <member><command>rhn-satellite-activate --deactivate</command></member>
 </simplelist>
 </RefSect1>
 

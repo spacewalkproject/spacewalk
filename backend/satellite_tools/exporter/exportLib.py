@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -356,9 +356,13 @@ class _ChannelDumper(BaseRowDumper):
                                 channel_product_details[2]))
 
         comp_last_modified = self._channel_comps_last_modified()
+        modules_last_modified = self._channel_modules_last_modified()
         if comp_last_modified is not None:
             arr.append(SimpleDumper(self._writer, 'rhn-channel-comps-last-modified',
                                     _dbtime2timestamp(comp_last_modified[0])))
+        if modules_last_modified is not None:
+            arr.append(SimpleDumper(self._writer, 'rhn-channel-modules-last-modified',
+                                    _dbtime2timestamp(modules_last_modified[0])))
 
         h = rhnSQL.prepare(self._query_get_channel_trusts)
         h.execute(channel_id=channel_id)
@@ -577,12 +581,27 @@ class _ChannelDumper(BaseRowDumper):
         select to_char(last_modified, 'YYYYMMDDHH24MISS') as comps_last_modified
         from rhnChannelComps
         where channel_id = :channel_id
+        and comps_type_id = 1
         order by id desc
     """)
 
     def _channel_comps_last_modified(self):
         channel_id = self._row['id']
         h = rhnSQL.prepare(self._query_channel_comps_last_modified)
+        h.execute(channel_id=channel_id)
+        return h.fetchone()
+
+    _query_channel_modules_last_modified = rhnSQL.Statement("""
+        select to_char(last_modified, 'YYYYMMDDHH24MISS') as modules_last_modified
+        from rhnChannelComps
+        where channel_id = :channel_id
+        and comps_type_id = 2
+        order by id desc
+    """)
+
+    def _channel_modules_last_modified(self):
+        channel_id = self._row['id']
+        h = rhnSQL.prepare(self._query_channel_modules_last_modified)
         h.execute(channel_id=channel_id)
         return h.fetchone()
 
@@ -1073,9 +1092,11 @@ class _ErratumDumper(BaseRowDumper):
             ('rhn-erratum-refers-to', 'refers_to', 4000),
             ('rhn-erratum-notes', 'notes', 4000),
             ('rhn-erratum-errata-from', 'errata_from', 127),
+            ('rhn-erratum-severity', 'severity_id', 127)
         ]
         for k, v, b in mappings:
-            arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))
+            value = self._row[v] if self._row[v] is not None else ""
+            arr.append(SimpleDumper(self._writer, k, value, b))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-issue-date',
                                 _dbtime2timestamp(self._row['issue_date'])))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-update-date',
@@ -1524,7 +1545,6 @@ def _dbtime2timestamp(val):
 
 class ProductNamesDumper(BaseDumper):
     tag_name = "rhn-product-names"
-    iterator_query = 'select label, name from rhnProductName'
 
     def dump_subelement(self, data):
         EmptyDumper(self._writer, 'rhn-product-name', data).dump()

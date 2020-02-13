@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -33,7 +31,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.action.kickstart.KickstartTreeUpdateType;
-import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
@@ -263,7 +260,7 @@ public class KickstartHandler extends BaseHandler {
      * for the profile. Valid choices are "red_hat", "none", "all".
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
      * kickstart profile.")
@@ -325,7 +322,7 @@ public class KickstartHandler extends BaseHandler {
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel" "Label for the new
      * kickstart profile.")
@@ -359,7 +356,7 @@ public class KickstartHandler extends BaseHandler {
      * @param rootPassword Root password.
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
@@ -395,7 +392,7 @@ public class KickstartHandler extends BaseHandler {
      * for the profile. Valid choices are "red_hat", "none", "all".
      * @return 1 if successful, exception otherwise.
      *
-     * @xmlrpc.doc Import a kickstart profile.
+     * @xmlrpc.doc Create a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
      * kickstart profile.")
@@ -463,9 +460,7 @@ public class KickstartHandler extends BaseHandler {
      */
     public List listKickstarts(User loggedInUser) {
         checkKickstartPerms(loggedInUser);
-        DataResult<KickstartDto> result = KickstartLister.getInstance()
-                .kickstartsInOrg(loggedInUser.getOrg(), null);
-        return result;
+        return KickstartLister.getInstance().kickstartsInOrg(loggedInUser.getOrg(), null);
     }
 
     /**

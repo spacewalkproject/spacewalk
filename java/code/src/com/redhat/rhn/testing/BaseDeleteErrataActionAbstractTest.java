@@ -41,7 +41,6 @@ public abstract class BaseDeleteErrataActionAbstractTest extends RhnMockStrutsTe
          * being painfully slow on hosted. Therefore
          * we will not run the test there.
          */
-        return;
 
 //        if (!Config.get().isSatellite()) {
 //            return;

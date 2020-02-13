@@ -1,14 +1,17 @@
 Name:       perl-Term-Completion 
 Version:    1.00
-Release:    9%{?dist}.1
+Release:    9%{?dist}.4
 License:    GPL+ or Artistic 
-Group:      Development/Libraries
 Summary:    Read one line of user input, with convenience functions 
 Source:     http://search.cpan.org/CPAN/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
 Url:        http://search.cpan.org/dist/Term-Completion
 Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires: perl-interpreter
+%else
 BuildRequires: perl
+%endif
 BuildRequires: perl(base)
 BuildRequires: perl(Carp)
 BuildRequires: perl(Exporter)
@@ -23,6 +26,8 @@ BuildRequires: perl(Term::Size)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(warnings)
 
+Patch0:    space-handling.patch
+
 %{?perl_default_filter}
 
 %description
@@ -34,6 +39,7 @@ of input, submitting the answer by pressing the ENTER key.
 
 %prep
 %setup -q -n Term-Completion-%{version}
+%patch0 -p1
 find . -type f -exec chmod -c -x {} \;
 perl -pi -e 's|^#!/opt/perl_5.8.8/bin/perl|#!%{__perl}|' devel/tget.pl
 for file in README Changes devel/*; do
@@ -61,6 +67,16 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.00-9.4
+- removed Group from specfile
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.3
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
+* Fri Jun 02 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.2
+- 1440818 - handle spaces at the end of input in more mannered way
+
 * Tue Apr 11 2017 Tomas Kasparek <tkasparek@redhat.com> 1.00-9.1
 - new package built with tito
 

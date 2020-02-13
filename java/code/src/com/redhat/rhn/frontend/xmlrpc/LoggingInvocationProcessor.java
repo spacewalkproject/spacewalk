@@ -231,11 +231,7 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
         String[] keyParts = StringUtils.split(key, 'x');
 
         // make sure the id is numeric and can be made into a Long
-        if (!StringUtils.isNumeric(keyParts[0])) {
-            return false;
-        }
-
-        return true;
+        return StringUtils.isNumeric(keyParts[0]);
     }
 
     private static StopWatch getStopWatch() {

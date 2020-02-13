@@ -3,6 +3,9 @@
   <resolvers>
     <filesystem name="myResolver">
       <artifact pattern="/${system.lib.dir}/[artifact].[ext]"/>
+      <artifact pattern="/${system.lib.dir}/[artifact]/[artifact].[ext]"/>
+      <!-- exceptions -->
+      <artifact pattern="/${system.lib.dir}/ant/[artifact].[ext]"/>
     </filesystem>
   </resolvers>
 </ivysettings>

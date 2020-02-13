@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -72,7 +71,6 @@ public class SelectUpgradePackagesAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = PackageManager.upgradablePackagesFromServerSet(user);
-        return result;
+        return PackageManager.upgradablePackagesFromServerSet(user);
     }
 }

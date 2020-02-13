@@ -203,11 +203,8 @@ public abstract class ConfigFileData {
      * @return info pertaining to this form.
      */
     public ConfigInfo extractInfo() {
-        ConfigInfo info = ConfigurationFactory.lookupOrInsertConfigInfo(
-                            getOwner(), getGroup(),
-                            Long.valueOf(getPermissions()),
-                            getSelinuxCtx(), null);
-        return info;
+        return ConfigurationFactory.lookupOrInsertConfigInfo(getOwner(), getGroup(),
+                            Long.valueOf(getPermissions()), getSelinuxCtx(), null);
     }
 
     /**
@@ -364,7 +361,7 @@ public abstract class ConfigFileData {
      * Basically returns a map equating ConfigFileForm's form fieldnames
      * to values from config file data.. This is needed by the RHnValidationHelper
      * while matching values against xsds..
-     * @return a map with key = ConfigFIleForms keys, & value = ConfigFIleData values..
+     * @return a map with key = ConfigFIleForms keys, and value = ConfigFIleData values..
      */
     protected Map makeValidationMap() {
         Map map = new HashMap();

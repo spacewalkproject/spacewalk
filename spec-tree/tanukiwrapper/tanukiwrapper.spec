@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	17%{?dist}
+Release:	22%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -55,7 +55,10 @@ Patch5:         %{name}-Makefile-sparc-sparc64.patch
 Patch6:		%{name}-nosun-jvm-64.patch
 Patch7:     %{name}-compilewithfpic.patch
 Patch8:         %{name}-Makefile-linux-arm-32.patch
-Group:		Development/Java
+Patch9:         %{name}-gcc711.patch
+%if 0%{?fedora} >= 29
+BuildRequires: gcc
+%endif
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
 Requires:      javapackages-tools
@@ -73,7 +76,12 @@ BuildRequires:	xml-commons-apis
 BuildRequires:	%{__perl}
 BuildRequires:	java-javadoc
 Obsoletes:	%{name}-demo < 0:3.1.2-2jpp
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+%if 0%{?rhel} == 8
+BuildRequires:	xerces-j2 < 2.11.0-34.module_el8.0.0+42
+BuildRequires:	xml-commons-apis < 1.4.01-25.module_el8.0.0+42
+BuildRequires:	ant < 1.10.5-1.module_el8.0.0+47
+%endif
 
 %if %{gcj_support}
 BuildRequires:		java-gcj-compat-devel
@@ -96,7 +104,6 @@ common to many Java applications:
 %if %{build_subpackages}
 %package javadoc
 Summary:        Javadoc for %{name}
-Group:          Development/Documentation
 # For /bin/rm and /bin/ln
 Requires(post): coreutils
 Requires(postun): coreutils
@@ -106,7 +113,6 @@ Requires(postun): coreutils
 
 %package manual
 Summary:        Documents for %{name}
-Group:          Development/Documentation
 
 %description manual
 %{summary}.
@@ -125,6 +131,7 @@ Group:          Development/Documentation
 %endif
 %patch7
 %patch8
+%patch9
 find . -name "*.jar" -exec %__rm -f {} \;
 %__perl -p -i -e 's|-O3|%optflags|' src/c/Makefile*
 
@@ -201,7 +208,6 @@ fi
 %endif
 
 %files
-%defattr(-,root,root,-)
 %doc doc/license.txt
 %{_sbindir}/%{name}
 %{_libdir}/libwrapper.so
@@ -213,16 +219,32 @@ fi
 
 %if %{build_subpackages}
 %files javadoc
-%defattr(0644,root,root,0755)
 %{_javadocdir}/%{name}-%{version}
 %ghost %doc %{_javadocdir}/%{name}
 
 %files manual
-%defattr(0644,root,root,0755)
 %doc doc/*
 %endif
 
 %changelog
+* Wed Oct 02 2019 Michael Mraka <michael.mraka@redhat.com> 3.2.3-22
+- workaround RHEL8 buildrequires module issue
+
+* Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-21
+- gcc is not in default buildroot anymore
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.2.3-20
+- removed %%%%defattr from specfile
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Fri Jun 09 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-19
+- preserve trailing spaces in patch
+
+* Thu Jun 08 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-18
+- fixed gcc errors on Fedora 26
+- fixed RPM build errors: bogus date in changelog
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 3.2.3-17
 - recompile all packages with the same (latest) version of java
 
@@ -328,7 +350,7 @@ fi
 - Fix build with newer Java/Ant and ant-nodeps not built with Sun's JDK.
 - Crosslink with local JDK javadocs.
 
-* Wed Apr 14 2005 David Walluck <david@jpackage.org> 0:3.1.2-1jpp
+* Thu Apr 14 2005 David Walluck <david@jpackage.org> 0:3.1.2-1jpp
 - 3.1.2
 - fix ant dependencies
 - change %%section to free

@@ -53,8 +53,7 @@ class ConnectionManager {
 
         @Override
         public SessionInfo get() {
-            SessionInfo result = super.get();
-            return result;
+            return super.get();
         }
     };
     private final Set<String> packageNames = new HashSet<String>(

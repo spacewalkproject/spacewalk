@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015  Red Hat, Inc.
+# Copyright (c) 2015--2018  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -26,11 +26,9 @@ import errno
 import json
 import librepo
 import os
-import sys
 from copy import copy
+from dnf.conf.config import PRIO_PLUGINCONFIG
 
-# up2date libs are in non-standard path
-sys.path.append("/usr/share/rhn/")
 import up2date_client.up2dateAuth
 import up2date_client.config
 import up2date_client.rhnChannel
@@ -51,6 +49,7 @@ UPDATES_FROM_SPACEWALK = _("This system is receiving updates from Spacewalk serv
 GPG_KEY_REJECTED     = _("For security reasons packages from Spacewalk based repositories can be verified only with locally installed gpg keys. GPG key '%s' has been rejected.")
 PROFILE_NOT_SENT     = _("Package profile information could not be sent.")
 MISSING_HEADER       = _("Missing required login information for Spacewalk: %s")
+MUST_BE_ROOT         = _('Spacewalk plugin has to be run under with the root privileges.')
 
 class Spacewalk(dnf.Plugin):
 
@@ -69,7 +68,10 @@ class Spacewalk(dnf.Plugin):
         if "main" in self.parser.sections():
             options = self.parser.items("main")
             for (key, value) in options:
-                setattr(self.conf, key, value)
+                self.conf._set_value(key, value, PRIO_PLUGINCONFIG)
+        if not dnf.util.am_i_root():
+            logger.warning(MUST_BE_ROOT)
+            self.conf.enabled = False
         if not self.conf.enabled:
             return
         logger.debug('initialized Spacewalk plugin')
@@ -141,7 +143,7 @@ class Spacewalk(dnf.Plugin):
             if channel_id in self.parser.sections():
                 options = self.parser.items(channel_id)
                 for (key, value) in options:
-                    setattr(conf, key, value)
+                    conf._set_value(key, value, PRIO_PLUGINCONFIG)
             repo = SpacewalkRepo(channel_dict, {
                                     'conf'      : self.base.conf,
                                     'proxy'     : proxy_url,
@@ -181,14 +183,21 @@ class Spacewalk(dnf.Plugin):
                 content = channels_file.read()
                 channels = json.loads(content)
                 return channels
-        except IOError as e:
+        except (FileNotFoundError, IOError) as e:
             if e.errno != errno.ENOENT:
                 raise
+        except json.decoder.JSONDecodeError as e:
+            pass        # ignore broken json and recreate it later
+
         return {}
 
     def _write_channels_file(self, var):
-        with open(self.stored_channels_path, "w") as channels_file:
-            json.dump(var, channels_file, indent=4)
+        try:
+            with open(self.stored_channels_path, "w") as channels_file:
+                json.dump(var, channels_file, indent=4)
+        except (FileNotFoundError, IOError) as e:
+            if e.errno != errno.ENOENT:
+                raise
 
     def _make_package_delta(self):
         delta = {'added'  : [(p.name, p.version, p. release, p.epoch, p.arch)
@@ -220,7 +229,7 @@ class  SpacewalkRepo(dnf.repo.Repo):
         try:
             self.gpgkey = get_gpg_key_urls(channel['gpg_key_url'])
         except InvalidGpgKeyLocation as e:
-            logger.warn(GPG_KEY_REJECTED, dnf.i18n.ucd(e))
+            logger.warning(GPG_KEY_REJECTED, dnf.i18n.ucd(e))
             self.gpgkey = []
         if channel['version'] != opts.get('cached_version'):
             self.metadata_expire = 1
@@ -240,7 +249,13 @@ class  SpacewalkRepo(dnf.repo.Repo):
         else:
             self.disable()
 
-    def add_http_headers(self, handle):
+        if hasattr(self, 'set_http_headers'):
+            # dnf > 4.0.9  on RHEL 8, Fedora 29/30
+            http_headers = self.create_http_headers()
+            if http_headers:
+                self.set_http_headers(http_headers)
+
+    def create_http_headers(self):
         http_headers = []
         for header in self.needed_headers:
             if not header in self.login_info:
@@ -255,12 +270,15 @@ class  SpacewalkRepo(dnf.repo.Repo):
                 http_headers.append("%s: %s" % (header, self.login_info[header]))
         if not self.force_http:
             http_headers.append("X-RHN-Transport-Capability: follow-redirects=3")
-        if http_headers:
-            handle.setopt(librepo.LRO_HTTPHEADER, http_headers)
+
+        return http_headers
 
     def _handle_new_remote(self, destdir, mirror_setup=True):
+        # this function is called only on dnf < 3.6.0 (up to Fedora 29)
         handle = super(SpacewalkRepo, self)._handle_new_remote(destdir, mirror_setup)
-        self.add_http_headers(handle)
+        http_headers = self.create_http_headers()
+        if http_headers:
+            handle.setopt(librepo.LRO_HTTPHEADER, http_headers)
         return handle
 
 

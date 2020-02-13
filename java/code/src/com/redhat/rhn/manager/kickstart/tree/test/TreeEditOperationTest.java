@@ -18,23 +18,14 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
-import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
-import com.redhat.rhn.manager.kickstart.tree.TreeCreateOperation;
-import com.redhat.rhn.manager.kickstart.tree.TreeDeleteOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
-import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
  * TreeEditCommandTest
  * @version $Rev$
  */
-public class TreeEditOperationTest extends BaseTestCaseWithUser {
-
-    public void testCreate() throws Exception {
-        TreeCreateOperation cmd = new TreeCreateOperation(user);
-        setTreeParamsAndStore(cmd);
-    }
+public class TreeEditOperationTest extends TreeOperationTestBase {
 
     public void testEdit() throws Exception {
         KickstartableTree tree = KickstartableTreeTest.
@@ -69,31 +60,4 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         assertFalse(lookedUp.getLabel().startsWith("testInvalidEdit"));
     }
 
-    public void testDelete() throws Exception {
-        TreeCreateOperation cmd = new TreeCreateOperation(user);
-        setTreeParamsAndStore(cmd);
-        TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
-                                                     cmd.getTree().getId(), user);
-        assertNotNull(deleteCmd);
-        assertNull(deleteCmd.store());         // actually does a remove operation
-        assertNull(KickstartFactory.
-              lookupKickstartTreeByIdAndOrg(cmd.getTree().getId(), user.getOrg()));
-    }
-
-    private void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
-        cmd.setInstallType(KickstartFactory.
-                      lookupKickstartInstallTypeByLabel("rhel_4"));
-        cmd.setBasePath(KickstartableTreeTest.KICKSTART_TREE_PATH.getAbsolutePath());
-        cmd.setChannel(ChannelFactoryTest.createTestChannel(user));
-        cmd.setLabel("some_label" + TestUtils.randomString());
-        assertNotNull(cmd.getUser());
-        assertNotNull(cmd.getTree());
-        assertNotNull(cmd.getTree().getInstallType());
-        assertNotNull(cmd.getTree().getBasePath());
-        assertNotNull(cmd.getTree().getChannel());
-        assertNotNull(cmd.getTree().getLabel());
-        assertNotNull(cmd.getTree().getTreeType());
-        assertNotNull(cmd.getTree().getOrgId());
-        assertNull(cmd.store());
-    }
 }

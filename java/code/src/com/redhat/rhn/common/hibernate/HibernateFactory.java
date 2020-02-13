@@ -434,9 +434,8 @@ public abstract class HibernateFactory {
          * Filter$$EnhancerByCGLIB$$9bcc734d_2 instead of Filter.
          * session.get is set to not return the proxy class, so that is what we'll use.
          */
-        Object result = session.get(obj.getClass(), id);
         // assertNotSame(obj, result);
-        return result;
+        return session.get(obj.getClass(), id);
     }
 
     /**
@@ -553,7 +552,7 @@ public abstract class HibernateFactory {
      * Convert a byte[] array to a Blob object.  Guards against
      * null arrays and 0 length arrays.
      * @param data array to convert to a Blob
-     * @return Blob if data[] is non-null and length > 0, null otherwise
+     * @return Blob if data[] is non-null and {@literal length > 0}, null otherwise
      */
     public static Blob byteArrayToBlob(byte[] data) {
         if (data == null) {
@@ -570,7 +569,7 @@ public abstract class HibernateFactory {
      * Convert a String to a byte[] object.  Guards against
      * null arrays and 0 length arrays.
      * @param data string to convert to a Blob
-     * @return Blob if data[] is non-null and length > 0, null otherwise
+     * @return Blob if data[] is non-null and {@literal length > 0}, null otherwise
      */
     public static byte[] stringToByteArray(String data) {
         if (StringUtils.isEmpty(data)) {

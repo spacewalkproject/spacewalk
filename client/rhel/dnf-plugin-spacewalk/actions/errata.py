@@ -7,12 +7,10 @@
 
 # This file is copied from yum-rhn-plugin
 
-import sys
-sys.path.append("/usr/share/rhn/")
 from up2date_client import rhnserver
 from up2date_client import up2dateAuth
 from up2date_client import pkgUtils
-from actions import packages
+from rhn.actions import packages
 
 __rhnexport__ = [
     'update']

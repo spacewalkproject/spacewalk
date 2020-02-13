@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2016 Red Hat, Inc.
+# Copyright (c) 2016--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,12 +17,20 @@ import sys
 import os.path
 from shutil import rmtree
 import time
+import re
+import fnmatch
 import requests
 from spacewalk.common import fileutils
 from spacewalk.satellite_tools.download import get_proxies
 from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
 from spacewalk.satellite_tools.syncLib import log2
 from spacewalk.common.rhnConfig import CFG, initCFG
+try:
+    #  python 2
+    import urlparse
+except ImportError:
+    #  python3
+    import urllib.parse as urlparse # pylint: disable=F0401,E0611
 
 RETRIES = 10
 RETRY_DELAY = 1
@@ -40,6 +48,12 @@ class DebPackage(object):
         self.checksum_type = None
         self.checksum = None
 
+    def __getitem__(self, key):
+        return getattr(self, key)
+
+    def __setitem__(self, key, value):
+        return setattr(self, key, value)
+
     def is_populated(self):
         return all([attribute is not None for attribute in (self.name, self.epoch, self.version, self.release,
                                                             self.arch, self.relativepath, self.checksum_type,
@@ -48,27 +62,43 @@ class DebPackage(object):
 
 class DebRepo(object):
     # url example - http://ftp.debian.org/debian/dists/jessie/main/binary-amd64/
-    def __init__(self, url, cache_dir, pkg_dir):
+    def __init__(self, url, cache_dir, pkg_dir, proxy_addr="", proxy_user="", proxy_pass=""):
         self.url = url
-        parts = url.split('/dists')
+        parts = url.rsplit('/dists/', 1)
         self.base_url = [parts[0]]
         # Make sure baseurl ends with / and urljoin will work correctly
         if self.base_url[0][-1] != '/':
             self.base_url[0] += '/'
         self.urls = self.base_url
         self.sslclientcert = self.sslclientkey = self.sslcacert = None
-        self.proxy = self.proxy_username = self.proxy_password = None
+        self.proxy = proxy_addr
+        self.proxy_username = proxy_user
+        self.proxy_password = proxy_pass
+
         self.basecachedir = cache_dir
         if not os.path.isdir(self.basecachedir):
             fileutils.makedirs(self.basecachedir, user='apache', group='apache')
         self.includepkgs = []
         self.exclude = []
         self.pkgdir = pkg_dir
+        self.http_headers = {}
 
     def _download(self, url):
         for _ in range(0, RETRIES):
             try:
-                data = requests.get(url, cert=(self.sslclientcert, self.sslclientkey), verify=self.sslcacert)
+                proxies=""
+                if self.proxy:
+                    proxies = {
+                        'http' : 'http://'+self.proxy,
+                        'https' : 'http://'+self.proxy
+                    }
+                    if self.proxy_username and self.proxy_password:
+                        proxies = {
+                            'http' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
+                            'https' : 'http://'+self.proxy_username+":"+self.proxy_password+"@"+self.proxy,
+                        }
+                data = requests.get(url, proxies=proxies, cert=(self.sslclientcert, self.sslclientkey),
+                                    verify=self.sslcacert)
                 if not data.ok:
                     return ''
                 filename = self.basecachedir + '/' + os.path.basename(url)
@@ -118,13 +148,17 @@ class DebRepo(object):
                 elif pair[0] == "Architecture:":
                     package.arch = pair[1] + '-deb'
                 elif pair[0] == "Version:":
-                    version = pair[1].split('-', 1)
-                    if len(version) == 1:
-                        package.version = version[0]
-                        package.release = 'X'
+                    package['epoch'] = ''
+                    version = pair[1]
+                    if version.find(':') != -1:
+                        package['epoch'], version = version.split(':')
+                    if version.find('-') != -1:
+                        tmp = version.split('-')
+                        package['version'] = '-'.join(tmp[:-1])
+                        package['release'] = tmp[-1]
                     else:
-                        package.version = version[0]
-                        package.release = version[1]
+                        package['version'] = version
+                        package['release'] = 'X'
                 elif pair[0] == "Filename:":
                     package.relativepath = pair[1]
                 elif pair[0] == "SHA256:":
@@ -153,7 +187,8 @@ class DebRepo(object):
 
 class ContentSource(object):
 
-    def __init__(self, url, name, org=1, channel_label=""):
+    def __init__(self, url, name, org=1, channel_label="", ca_cert_file=None, client_cert_file=None,
+                 client_key_file=None):
         # pylint: disable=W0613
         self.url = url
         self.name = name
@@ -167,12 +202,19 @@ class ContentSource(object):
         self.proxy_addr = CFG.http_proxy
         self.proxy_user = CFG.http_proxy_username
         self.proxy_pass = CFG.http_proxy_password
+        self.authtoken = None
 
         self.repo = DebRepo(url, os.path.join(CACHE_DIR, self.org, name),
-                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'))
+                            os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage'),
+                            self.proxy_addr, self.proxy_user, self.proxy_pass)
 
         self.num_packages = 0
         self.num_excluded = 0
+
+        # keep authtokens for mirroring
+        (_scheme, _netloc, _path, query, _fragid) = urlparse.urlsplit(url)
+        if query:
+            self.authtoken = query
 
     def list_packages(self, filters, latest):
         """ list packages"""
@@ -192,8 +234,8 @@ class ContentSource(object):
                 filters.append(('-', [p]))
 
         if filters:
-            # TODO
-            pass
+            pkglist = self._filter_packages(pkglist, filters)
+            self.num_excluded = self.num_packages - len(pkglist)
 
         to_return = []
         for pack in pkglist:
@@ -215,6 +257,53 @@ class ContentSource(object):
             return 0
         else:
             return -1
+    @staticmethod
+    def _filter_packages(packages, filters):
+        """ implement include / exclude logic
+            filters are: [ ('+', includelist1), ('-', excludelist1),
+                           ('+', includelist2), ... ]
+        """
+        if filters is None:
+            return []
+
+        selected = []
+        excluded = []
+        allmatched_include = []
+        allmatched_exclude = []
+        if filters[0][0] == '-':
+            # first filter is exclude, start with full package list
+            # and then exclude from it
+            selected = packages
+        else:
+            excluded = packages
+
+        for filter_item in filters:
+            sense, pkg_list = filter_item
+            regex = fnmatch.translate(pkg_list[0])
+            reobj = re.compile(regex)
+            if sense == '+':
+                # include
+                for excluded_pkg in excluded:
+                    if (reobj.match(excluded_pkg['name'])):
+                        allmatched_include.insert(0,excluded_pkg)
+                        selected.insert(0,excluded_pkg)
+                for pkg in allmatched_include:
+                    if pkg in excluded:
+                        excluded.remove(pkg)
+            elif sense == '-':
+                # exclude
+                for selected_pkg in selected:
+                    if (reobj.match(selected_pkg['name'])):
+                        allmatched_exclude.insert(0,selected_pkg)
+                        excluded.insert(0,selected_pkg)
+
+                for pkg in allmatched_exclude:
+                    if pkg in selected:
+                        selected.remove(pkg)
+                excluded = (excluded + allmatched_exclude)
+            else:
+                raise IOError("Filters are malformed")
+        return selected
 
     def clear_cache(self, directory=None):
         if directory is None:
@@ -237,10 +326,6 @@ class ContentSource(object):
         # There aren't any
         return None
 
-    def set_ssl_options(self, ca_cert, client_cert, client_key):
-        # TODO
-        pass
-
     # Get download parameters for threaded downloader
     def set_download_parameters(self, params, relative_path, target_file, checksum_type=None, checksum_value=None,
                                 bytes_range=None):
@@ -251,6 +336,7 @@ class ContentSource(object):
 
         params['urls'] = self.repo.urls
         params['relative_path'] = relative_path
+        params['authtoken'] = self.authtoken
         params['target_file'] = target_file
         params['ssl_ca_cert'] = self.repo.sslcacert
         params['ssl_client_cert'] = self.repo.sslclientcert
@@ -258,9 +344,10 @@ class ContentSource(object):
         params['checksum_type'] = checksum_type
         params['checksum'] = checksum_value
         params['bytes_range'] = bytes_range
-        params['proxy'] = self.repo.proxy
-        params['proxy_username'] = self.repo.proxy_username
-        params['proxy_password'] = self.repo.proxy_password
+        params['proxy'] = self.proxy_addr
+        params['proxy_username'] = self.proxy_user
+        params['proxy_password'] = self.proxy_pass
+        params['http_headers'] = self.repo.http_headers
         # Older urlgrabber compatibility
         params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
 

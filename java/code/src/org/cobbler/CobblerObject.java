@@ -334,8 +334,8 @@ public abstract class CobblerObject {
      * gets the kernel post options in string form
      * @return the string
      */
-    public String getKernelPostOptionsString() {
-        return convertOptionsMap(getKernelPostOptions());
+    public String getKernelOptionsPostString() {
+        return convertOptionsMap(getKernelOptionsPost());
     }
 
     private String convertOptionsMap(Map<String, Object> map) {
@@ -380,8 +380,8 @@ public abstract class CobblerObject {
     /**
      * @param kernelOptsIn the kernelOptions to set
      */
-    public void setKernelPostOptions(String kernelOptsIn) {
-        setKernelPostOptions(parseKernelOpts(kernelOptsIn));
+    public void setKernelOptionsPost(String kernelOptsIn) {
+        setKernelOptionsPost(parseKernelOpts(kernelOptsIn));
     }
 
     private Map<String, Object> parseKernelOpts(String kernelOpts) {
@@ -447,18 +447,18 @@ public abstract class CobblerObject {
 
 
     /**
-     * @return the kernelPostOptions
+     * @return the kernelOptionsPost
      */
-    public Map<String, Object> getKernelPostOptions() {
+    public Map<String, Object> getKernelOptionsPost() {
         return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS_POST);
     }
 
 
     /**
-     * @param kernelPostOptionsIn the kernelPostOptions to set
+     * @param kernelOptionsPostIn the kernelOptionsPost to set
      */
-    public void setKernelPostOptions(Map<String, Object> kernelPostOptionsIn) {
-        modify(SET_KERNEL_OPTIONS_POST, kernelPostOptionsIn);
+    public void setKernelOptionsPost(Map<String, Object> kernelOptionsPostIn) {
+        modify(SET_KERNEL_OPTIONS_POST, kernelOptionsPostIn);
     }
 
     protected void update() {

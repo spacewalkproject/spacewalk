@@ -19,14 +19,10 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
-import org.cobbler.Distro;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -75,38 +71,15 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     public ValidatorError store() {
         log.debug("Token : [" + xmlRpcToken + "]");
 
-        Map<String, String> ksmeta = new HashMap<String, String>();
-        KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
-                helper.getKickstartMediaPath());
-        if (!tree.isRhnTree()) {
-            ksmeta.put("org", tree.getOrgId().toString());
-        }
-
-        if (tree.getInstallType().isSUSE()) {
-            ksmeta.put("autoyast", "true");
-        }
-
-        Distro distro =
-                Distro.create(CobblerXMLRPCHelper.getConnection(user),
-                        tree.getCobblerDistroName(), tree.getKernelPath(),
-                        tree.getInitrdPath(), ksmeta,
-                        tree.getInstallType().getCobblerBreed(),
-                        tree.getInstallType().getCobblerOsVersion(),
-                        tree.getChannel().getChannelArch().cobblerArch());
-        // Setup the kickstart metadata so the URLs and activation key are setup
-        tree.setCobblerId(distro.getUid());
+        CobblerDistroHelper.getInstance().createDistroFromTree(
+                CobblerXMLRPCHelper.getConnection(user),
+                tree);
         invokeCobblerUpdate();
 
         if (tree.doesParaVirt()) {
-            Distro distroXen =
-                    Distro.create(CobblerXMLRPCHelper.getConnection(user),
-                            tree.getCobblerXenDistroName(),
-                            tree.getKernelXenPath(), tree.getInitrdXenPath(),
-                            ksmeta, tree.getInstallType().getCobblerBreed(),
-                            tree.getInstallType().getCobblerOsVersion(),
-                            tree.getChannel().getChannelArch().cobblerArch());
-            tree.setCobblerXenId(distroXen.getUid());
+            CobblerDistroHelper.getInstance().createXenDistroFromTree(
+                    CobblerXMLRPCHelper.getConnection(user),
+                    tree);
         }
 
         if (syncProfiles) {

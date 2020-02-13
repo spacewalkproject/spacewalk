@@ -325,7 +325,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertTrue(channels.size() >= 2);
     }
 
-    public static void createReleaseChannelMap(Channel channel, String product,
+    public static ReleaseChannelMap createReleaseChannelMap(Channel channel, String product,
             String version, String release) {
 
         ReleaseChannelMap rcm = new ReleaseChannelMap();
@@ -335,6 +335,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         rcm.setVersion(version);
         rcm.setRelease(release);
         TestUtils.saveAndReload(rcm);
+        return rcm;
     }
 
     public void testLookupDefaultReleaseChannelMap() throws Exception {
@@ -391,7 +392,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
 
         ChannelManagerTest.createReleaseChannelMap(rhel50,
                 ChannelManager.RHEL_PRODUCT_NAME, version, "5.0.0.0");
-        ChannelManagerTest.createReleaseChannelMap(rhel51,
+        ReleaseChannelMap rcm51 = ChannelManagerTest.createReleaseChannelMap(rhel51,
                 ChannelManager.RHEL_PRODUCT_NAME, version, "5.1.0.1");
         ChannelManagerTest.createReleaseChannelMap(rhel52,
                 ChannelManager.RHEL_PRODUCT_NAME, version, "5.2.0.2");
@@ -405,8 +406,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         // For a system with 5.0 already, they should only see RHEL 5 EUS channels
         // with a higher or equal release.
         List<EssentialChannelDto> channels = ChannelManager.
-            listBaseEusChannelsByVersionReleaseAndChannelArch(user, version, "5.1.0.1",
-                    rhel51.getChannelArch().getId());
+            listBaseEusChannelsByVersionReleaseAndChannelArch(user, rcm51);
         assertTrue(channels.size() >= 2);
 
         Set<Long> returnedIds = new HashSet<Long>();

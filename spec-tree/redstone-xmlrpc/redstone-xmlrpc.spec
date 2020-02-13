@@ -1,15 +1,15 @@
 Summary: An xmlrpc library
 Name: redstone-xmlrpc
 Version: 1.1_20071120 
-Release: 18%{?dist}
+Release: 21%{?dist}
 License: LGPL
-Group: Development/Library
 URL: http://xmlrpc.sourceforge.net
 Source0: %{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 Patch2: escaping_string_serialization.path
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Patch3: xxe.patch
+Patch4: xxe2.patch
 %if 0%{?fedora} || 0%{?rhel} >=7
 BuildRequires: javapackages-tools
 BuildRequires: jboss-servlet-2.5-api
@@ -34,6 +34,8 @@ a simple xmlrpc library for java
 %patch0 -p1
 %patch1 -p0
 %patch2 -p0
+%patch3 -p0
+%patch4 -p0
 rm lib/javax.servlet.jar
 build-jar-repository -p lib/ %third_party_jars
 
@@ -41,7 +43,6 @@ build-jar-repository -p lib/ %third_party_jars
 ant jars
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
 install -m 644 build/lib/xmlrpc-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
@@ -50,13 +51,23 @@ install -m 644 build/lib/xmlrpc-client-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
 install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}
 
 %changelog
+* Tue Feb 11 2020 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-21
+- 1791164 - disable external entity parsing
+
+* Wed Aug 21 2019 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-20
+- 1555429 - do not download external entities
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-19
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.1_20071120-18
 - recompile all packages with the same (latest) version of java
 

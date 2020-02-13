@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,12 +26,12 @@ import getpass
 # pylint: disable=W0702,W0703
 
 import inspect
+from rhnpush import rhnpush_cache
+from rhn.i18n import sstr
+from up2date_client import rhnserver
 from spacewalk.common import rhn_mpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from spacewalk.common.usix import raise_with_tb
-from up2date_client import rhnserver
-from rhn.i18n import sstr
-from rhnpush import rhnpush_cache
 
 if sys.version_info[0] == 3:
     import xmlrpc.client as xmlrpclib
@@ -124,7 +124,7 @@ class UploadClass:
         self.ca_chain = self.options.ca_chain
 
     def setProxy(self):
-        if self.options.proxy is None or self.options.proxy is '':
+        if self.options.proxy is None or self.options.proxy == '':
             self.proxy = None
         else:
             self.proxy = "http://%s" % self.options.proxy
@@ -200,29 +200,29 @@ class UploadClass:
             return listChannelSourceBySession(self.server,
                                               self.session.getSessionString(),
                                               self.channels)
-        else:
-            return listChannelSource(self.server,
-                                     self.username, self.password,
-                                     self.channels)
+
+        return listChannelSource(self.server,
+                                 self.username, self.password,
+                                 self.channels)
 
     def _listChannel(self):
         if self.use_session:
             if self.use_checksum_paths:
                 return listChannelChecksumBySession(self.server,
                                                     self.session.getSessionString(), self.channels)
-            else:
-                return listChannelBySession(self.server,
-                                            self.session.getSessionString(),
-                                            self.channels)
-        else:
-            if self.use_checksum_paths:
-                return listChannelChecksum(self.server,
-                                           self.username, self.password,
-                                           self.channels)
-            else:
-                return listChannel(self.server,
-                                   self.username, self.password,
-                                   self.channels)
+
+            return listChannelBySession(self.server,
+                                        self.session.getSessionString(),
+                                        self.channels)
+
+        if self.use_checksum_paths:
+            return listChannelChecksum(self.server,
+                                       self.username, self.password,
+                                       self.channels)
+
+        return listChannel(self.server,
+                           self.username, self.password,
+                           self.channels)
 
     def list(self):
         # set the URL
@@ -343,9 +343,9 @@ class UploadClass:
         if self.use_session:
             return listMissingSourcePackagesBySession(self.server,
                                                       self.session.getSessionString(), self.channels)
-        else:
-            return listMissingSourcePackages(self.server,
-                                             self.username, self.password, self.channels)
+
+        return listMissingSourcePackages(self.server,
+                                         self.username, self.password, self.channels)
 
     def get_missing_source_packages(self):
         localPackagesHash = {}
@@ -379,17 +379,17 @@ class UploadClass:
         if self.use_session:
             return call(self.server.packages.uploadSourcePackageInfoBySession,
                         self.session.getSessionString(), info)
-        else:
-            return call(self.server.packages.uploadSourcePackageInfo,
-                        self.username, self.password, info)
+
+        return call(self.server.packages.uploadSourcePackageInfo,
+                    self.username, self.password, info)
 
     def _uploadPackageInfo(self, info):
         if self.use_session:
             return call(self.server.packages.uploadPackageInfoBySession,
                         self.session.getSessionString(), info)
-        else:
-            return call(self.server.packages.uploadPackageInfo,
-                        self.username, self.password, info)
+
+        return call(self.server.packages.uploadPackageInfo,
+                    self.username, self.password, info)
 
     def uploadHeaders(self):
         # Set the forcing factor
@@ -754,6 +754,7 @@ def getServer(uri, proxy=None, username=None, password=None, ca_chain=None):
 # pylint: disable=E1123
 def hasChannelChecksumCapability(rpc_server):
     """ check whether server supports getPackageChecksumBySession function"""
+    # pylint: disable=W1505
     if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__)[0]:
         server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
     else:
@@ -768,6 +769,7 @@ def exists_getPackageChecksumBySession(rpc_server):
     # unfortunatelly we do not have capability for getPackageChecksumBySession function,
     # but extended_profile in version 2 has been created just 2 months before
     # getPackageChecksumBySession lets use it instead
+    # pylint: disable=W1505
     if 'rpcServerOverride' in inspect.getargspec(rhnserver.RhnServer.__init__)[0]:
         server = rhnserver.RhnServer(rpcServerOverride=rpc_server)
     else:

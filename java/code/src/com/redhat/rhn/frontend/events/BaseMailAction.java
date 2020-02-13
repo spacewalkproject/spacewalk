@@ -45,6 +45,7 @@ public abstract class BaseMailAction {
 
     /**
     * Get the mailer associated with this class
+    * @return the mailer associated with this class
     */
     protected Mail getMail() {
         String clazz = Config.get().getString(

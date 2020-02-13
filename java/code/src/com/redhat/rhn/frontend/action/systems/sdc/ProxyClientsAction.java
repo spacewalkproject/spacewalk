@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014--2015 Red Hat, Inc.
+ * Copyright (c) 2014--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -32,6 +32,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.HashSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -50,8 +52,7 @@ public class ProxyClientsAction extends BaseSystemsAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
         server = requestContext.lookupAndBindServer();
-        Long sid = server.getId();
-        SystemManager.ensureAvailableToUser(user, sid);
+
         if (server.isProxy()) {
             request.setAttribute("version",
                     server.getProxyInfo().getVersion().getVersion());
@@ -71,18 +72,30 @@ public class ProxyClientsAction extends BaseSystemsAction {
             }
             ListTagHelper.bindSetDeclTo("systemList", getSetDecl(), request);
             request.setAttribute(RequestContext.PAGE_LIST, result);
-            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+            request.setAttribute(ListTagHelper.PARENT_URL,
+                    request.getRequestURI() + "?sid=" + server.getId());
             TagHelper.bindElaboratorTo("systemList", result.getElaborator(), request);
         }
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    @Override
     protected DataResult<SystemOverview> getDataResult(User user, PageControl pc,
             ActionForm formIn) {
-        DataResult<SystemOverview> systems;
-        systems = SystemManager.listClientsThroughProxy(server.getId());
-        systems.elaborate();
-        return systems;
+        DataResult<SystemOverview> clients = SystemManager.listClientsThroughProxy(
+                server.getId());
+        if (clients != null && !clients.isEmpty()) {
+            HashSet<Long> clientIdSet = new HashSet<>();
+            for (SystemOverview client: clients) {
+                clientIdSet.add(client.getId());
+            }
+            clients.clear();
+            for (SystemOverview client: SystemManager.systemList(user, pc)) {
+                if (clientIdSet.contains(client.getId())) {
+                    clients.add(client);
+                }
+            }
+        }
+        return clients;
     }
 }

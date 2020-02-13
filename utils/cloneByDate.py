@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Clonse channels by a particular date
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 #
 # This software is licensed to you under the GNU General Public License,
@@ -101,6 +101,7 @@ def create_repodata_link(src_path, dst_path):
 def remove_repodata_link(link_path):
     if os.path.exists(link_path):
         return os.unlink(link_path)
+    return None
 
 
 def diff_packages(old, new):
@@ -211,7 +212,7 @@ def main(options):
         if options.errata:
             for channel in channel_labels:
                 channel_errata = set(xmlrpc.list_errata(channel))
-                if len(errata - channel_errata) != 0:
+                if set(errata - channel_errata):
                     print ("Error: all errata specified with --errata must "
                            + "exist in every original channel cloned in "
                            + "this operation.")
@@ -230,14 +231,14 @@ def main(options):
         needed_channels += tree_cloner.needing_create().values()
 
     if options.validate:
-        if len(needed_channels) > 0:
+        if needed_channels:
             raise UserError("Cannot validate channels that do not exist %s" %
                             ', '.join(map(str, needed_channels)))
         for channel_list in options.channels:
             validate(channel_list.values())
         return
 
-    if len(needed_channels) > 0:
+    if needed_channels:
         print "\nBy continuing the following channels will be created: "
         print ", ".join(needed_channels)
         confirm("\nContinue with channel creation (y/n)?", options)
@@ -359,11 +360,12 @@ class ChannelTreeCloner:
         for cloner in self.cloners:
             if cloner.src_label() == src_label:
                 return cloner
+        return None
 
     def create_channels(self, skip_depsolve=False):
         to_create = self.needing_create()
 
-        if len(to_create) == 0:
+        if not to_create:
             return
         if self.parents_specified:
             dest_parent = [self.dest_parent]
@@ -427,7 +429,7 @@ class ChannelTreeCloner:
                 label = label[0]
             if self.channel_details[label]['parent_channel_label'] == '':
                 found_list.append(label)
-        if len(found_list) == 0:
+        if not found_list:
             raise UserError("Parent Channel not specified.")
         if len(found_list) > 1:
             raise UserError("Multiple parent channels specified within the "
@@ -471,7 +473,7 @@ class ChannelTreeCloner:
             sorted_pkg_diff = sorted(pkg_diff, key=lambda p: p['nvrea'])
             log_clean(0, "\n".join([pkg['nvrea'] for pkg in sorted_pkg_diff]))
 
-        if len(added_pkgs) > 0 and not skip_depsolve:
+        if added_pkgs and not skip_depsolve:
             self.dep_solve([pkg['nvrea'] for pkg in added_pkgs])
 
     def dep_solve(self, nvrea_list, labels=None):
@@ -543,7 +545,7 @@ class ChannelTreeCloner:
                     while list(needed_pkg) in needed:
                         needed.remove(list(needed_pkg))
             self.visited[cloner.dest_label()] |= needed_str
-            if len(needed) > 0:
+            if needed:
                 next_added = set(cloner.process_deps(needed))
                 added_nevras = added_nevras | next_added
                 cloner.total_added_nevras += len(next_added)
@@ -551,7 +553,7 @@ class ChannelTreeCloner:
         pb.printComplete()
 
         # recursively solve dependencies to get dependencies-of-dependencies
-        if len(added_nevras) > 0:
+        if added_nevras:
             print 'Dependencies added, looking for new dependencies'
             self.__dep_solve(list(added_nevras))
 
@@ -678,19 +680,19 @@ class ChannelCloner:
 
         # Log the RPMs we're adding due to dep-solving
         needed_name_set = sorted(set(needed_names))
-        if len(needed_name_set) > 0:
+        if needed_name_set:
             log_clean(0, "")
             log_clean(0, "Adding %i RPM(s) needed for dependencies to %s" % (len(needed_name_set), self.to_label))
             for name in needed_name_set:
                 log_clean(0, name)
 
         # Clone (and log) the errata we are adding for same
-        if len(needed_errata) > 0:
+        if needed_errata:
             self.total_added_errata += len(needed_errata)
             log_clean(0, "")
             log_clean(0, "Cloning %i errata for dependencies to %s :" % (len(needed_errata), self.to_label))
             needed_errata_list = sorted(list(needed_errata))
-            while(len(needed_errata_list) > 0):
+            while(needed_errata_list):
                 errata_set = needed_errata_list[:self.bunch_size]
                 del needed_errata_list[:self.bunch_size]
                 for e in errata_set:
@@ -709,7 +711,7 @@ class ChannelCloner:
                             needed_names.add(pkg['nvrea'] )
                 self.remote_api.clone_errata(self.to_label, [e[0] for e in errata_set])
 
-        if len(needed_ids) > 0:
+        if needed_ids:
             self.remote_api.add_packages(self.to_label, needed_ids)
 
         self.reset_new_pkgs()
@@ -735,7 +737,7 @@ class ChannelCloner:
 
     def clone(self):
         errata_ids = [e["advisory_name"] for e in self.errata_to_clone]
-        if len(errata_ids) == 0:
+        if not errata_ids:
             return
 
         msg = 'Cloning Errata into %s (%i):' % (self.to_label, len(errata_ids))
@@ -749,7 +751,7 @@ class ChannelCloner:
                          finalSize=len(errata_ids), finalBarLength=40,
                          stream=sys.stdout)
         pb.printAll(1)
-        while(len(errata_ids) > 0):
+        while(errata_ids):
             errata_set = errata_ids[:self.bunch_size]
             del errata_ids[:self.bunch_size]
             self.remote_api.clone_errata(self.to_label, errata_set)
@@ -816,7 +818,7 @@ class ChannelCloner:
                   (name, len(found_ids), self.to_label))
         log_clean(0, "\n".join(found_names))
 
-        if len(found_ids) > 0:
+        if found_ids:
             print "%s: Removing %i packages from %s" % (name, len(found_ids),
                                                         self.to_label)
             self.remote_api.remove_packages(self.to_label, found_ids)
@@ -911,7 +913,7 @@ class RemoteApi:
 
     def add_packages(self, label, package_ids):
         self.auth_check()
-        while(len(package_ids) > 0):
+        while(package_ids):
             pkg_set = package_ids[:20]
             del package_ids[:20]
             self.client.channel.software.addPackages(self.auth_token, label,
@@ -919,7 +921,7 @@ class RemoteApi:
 
     def remove_packages(self, label, package_ids):
         self.auth_check()
-        while(len(package_ids) > 0):
+        while(package_ids):
             pkg_set = package_ids[:20]
             del package_ids[:20]
             self.client.channel.software.removePackages(self.auth_token,

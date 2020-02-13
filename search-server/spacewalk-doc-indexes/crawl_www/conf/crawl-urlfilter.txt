@@ -39,7 +39,9 @@
 # accept hosts in MY.DOMAIN.NAME
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
 #+^http://([a-z0-9]*\.)*redhat.com/
-+^https://access.redhat.com/documentation/en-US/Red_Hat_Satellite/5.7/
-+^https://fedorahosted.org/spacewalk/wiki/ReleaseNotes24
+# skip the single page html doc.  the - line must come first
+-^https://access.redhat.com/documentation/en-us/red_hat_satellite/5.8/html-single/
++^https://access.redhat.com/documentation/en-us/red_hat_satellite/5.8/
++^https://github.com/spacewalkproject/spacewalk/wiki/ReleaseNotes29
 # skip everything else
 -.

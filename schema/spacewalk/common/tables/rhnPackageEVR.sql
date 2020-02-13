@@ -26,9 +26,8 @@ CREATE TABLE rhnPackageEVR
 ENABLE ROW MOVEMENT
 ;
 
-CREATE UNIQUE INDEX rhn_pe_v_r_e_uq
-    ON rhnPackageEVR (version, release, epoch)
-    TABLESPACE [[2m_tbs]];
+-- unique index definitions has been moved to
+-- {oracle,postgres}/tables/rhnPackageEVR_index.sql
 
 CREATE SEQUENCE rhn_pkg_evr_seq;
 

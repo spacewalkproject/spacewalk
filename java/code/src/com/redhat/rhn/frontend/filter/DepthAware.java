@@ -22,8 +22,8 @@ package com.redhat.rhn.frontend.filter;
  */
 public interface DepthAware {
     /**
-     * Returns the depth of a given dto. The depth value has to be >=0
-     * with 0 being the root depth.
+     * Returns the depth of a given dto. The depth value has to be
+     * {@literal >=0} with 0 being the root depth.
      * @return the depth of a given DTO object in a tree.
      */
     long depth();

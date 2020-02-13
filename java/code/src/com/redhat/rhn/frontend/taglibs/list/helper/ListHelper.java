@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
  * to help with the action side counter part of the List Tag.
  * i.e. Pages that use the New List Tag should make use
  * of this in their action. Here is a useful example of the usage:
- * <code>
+ * <pre>{@literal
  *  Jsp Side->
  *      <rl:list
  *        emptykey="assignedgroups.jsp.nogroups"
@@ -59,7 +59,7 @@ import javax.servlet.http.HttpServletRequest;
  *          return  fooList;
  *      }
  *   }
- * </code>
+ * }</pre>
  * @author paji
  * @version $Rev$
  */
@@ -146,7 +146,7 @@ public class ListHelper {
      * the list name represents name of the rendering list.
      * So same data set name can be used for multiple lists.
      * but each list has a uniqueName.
-     * <code>
+     * <pre>{@literal
      *      <rl:list ..
      *              dataset ="fooList"
      *              list = "bar"
@@ -164,7 +164,7 @@ public class ListHelper {
      *          helper.execute();
      *          ....
      *      }
-     *  </code>
+     * }</pre>
      * @param name the dataSetName to set
      */
     public void setDataSetName(String name) {
@@ -198,7 +198,7 @@ public class ListHelper {
      * the list name represents name of the rendering list.
      * So same data set name can be used for multiple lists.
      * but each list has a uniqueName.
-     * <code>
+     * <pre>{@literal
      *      <rl:list ..
      *              dataset ="fooList"
      *              list = "bar"
@@ -216,7 +216,7 @@ public class ListHelper {
      *          helper.execute();
      *          ....
      *      }
-     *  </code>
+     * }</pre>
      * @param name the listName to set
      */
     public void setListName(String name) {

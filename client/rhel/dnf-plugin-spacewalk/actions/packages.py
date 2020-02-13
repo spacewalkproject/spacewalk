@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2015--2016 Red Hat, Inc.
+# Copyright (c) 2015--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,13 +14,10 @@
 #
 
 import os
-import sys
 import time
 
 import dnf.exceptions
 import dnf.cli
-
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateLog
 from up2date_client import config
@@ -125,7 +122,7 @@ def update(package_list, cache_only=None):
         else:
             ret = (0, "Requested packages already installed", {})
         # workaround for RhBug:1218071
-        base.plugins.unload()
+        base._plugins._unload()
         base.close()
         return ret
 
@@ -271,12 +268,8 @@ def _dnf_base(load_system_repo=True, load_available_repos=True):
     # initialize dnf
     base = dnf.Base()
 
-    # this is actually workaround for RhBug:1218071
-    if not base.plugins.plugins and base.conf.plugins:
-        base.plugins.load(base.conf.pluginpath, [])
-        base.plugins.run_init(base)
-        plugin = [p for p in base.plugins.plugins if p.name == 'spacewalk'][0]
-        plugin.activate_channels()
+    if not base._plugins.plugins:
+        base.init_plugins()
     if load_available_repos:
         base.read_all_repos()
     base.fill_sack(load_system_repo=True, load_available_repos=True)
@@ -339,7 +332,7 @@ def _dnf_transaction(base, install=[], remove=[], full_update=False,
         return (status, message, data)
     finally:
         # workaround for RhBug:1218071
-        base.plugins.unload()
+        base._plugins._unload()
         base.close()
 
     return (0, "Update Succeeded", {})
@@ -357,7 +350,7 @@ def _package_tup2obj(q, tup):
         query['epoch'] = int(epoch)
     if arch is not None and len(arch) > 0:
         query['arch'] = arch
-    pkgs = q.filter(**query).run()
+    pkgs = q.filter(**query).latest().run()
     if pkgs:
         return pkgs[0]
     return None

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -466,15 +466,13 @@ public class ActionFactory extends HibernateFactory {
      */
     public static Action lookupById(Long id) {
         Session session = HibernateFactory.getSession();
-        Action a = (Action)session.get(Action.class, id);
-        return a;
+        return (Action)session.get(Action.class, id);
     }
 
     /**
      * Helper method to get a ActionType by label
      * @param label the Action to lookup
      * @return Returns the ActionType corresponding to label
-     * @throws Exception
      */
     public static ActionType lookupActionTypeByLabel(String label) {
         Map<String, String> params = new HashMap<String, String>();
@@ -487,7 +485,6 @@ public class ActionFactory extends HibernateFactory {
      * Helper method to get a ActionType by name
      * @param name the Action to lookup
      * @return Returns the ActionType corresponding to name
-     * @throws Exception
      */
     public static ActionType lookupActionTypeByName(String name) {
         Map<String, String> params = new HashMap<String, String>();
@@ -536,9 +533,7 @@ public class ActionFactory extends HibernateFactory {
     lookupConfigRevisionAction(Long id) {
 
         Session session = HibernateFactory.getSession();
-        ConfigRevisionAction c = (ConfigRevisionAction) session.
-                get(ConfigRevisionAction.class, id);
-        return c;
+        return (ConfigRevisionAction) session.get(ConfigRevisionAction.class, id);
     }
 
     /**
@@ -777,6 +772,12 @@ public class ActionFactory extends HibernateFactory {
      */
     public static final ActionStatus STATUS_FAILED =
             lookupActionStatusByName("Failed");
+
+    /**
+     * The constant representing the Action Status PICKEDUP
+     */
+    public static final ActionStatus STATUS_PICKEDUP =
+            lookupActionStatusByName("Picked Up");
 
     /**
      * The constant representing Package Refresh List action.  [ID:1]

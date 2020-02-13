@@ -54,7 +54,7 @@ public class TreeFilter implements ResultsFilter {
      * {@inheritDoc}
      * There are some preconditions
      * We expect each element of DataResult to implement
-     * "DepthAware". The depth value has to be >=0
+     * "DepthAware". The depth value has to be {@literal >=0}
      * with 0 being the root depth. We need this keep track of the parents.
      * Another assumption is that the list is ordered depthwise
      * For example

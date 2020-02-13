@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013--2014 Red Hat, Inc.
+ * Copyright (c) 2013--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -56,7 +56,8 @@ public abstract class BaseSearchAction extends RhnAction {
 
     /** Channel-arches a default package-search should look in */
     public static final String[] DEFAULT_ARCHES = { "channel-ia32", "channel-ia64",
-            "channel-x86_64", "channel-s390", "channel-s390x", "channel-ppc" };
+            "channel-x86_64", "channel-s390", "channel-s390x", "channel-ppc",
+            "channel-ppc64le"};
 
     /** List of channel arches we don't really support any more. */
     public static final List<String> EXCLUDED_ARCHES = Arrays.asList(new String[]
@@ -185,8 +186,8 @@ public abstract class BaseSearchAction extends RhnAction {
      * @param mapping action mapping
      * @param form associated form
      * @return expected destination from doExecute
-     * @throws MalformedURLException
-     * @throws XmlRpcFault
+     * @throws MalformedURLException malformed URL exception
+     * @throws XmlRpcFault XMLrpc fault
      */
     protected ActionForward executeBody(HttpServletRequest request, ActionMapping mapping,
                         DynaActionForm form)
@@ -202,8 +203,8 @@ public abstract class BaseSearchAction extends RhnAction {
      * @param mapping incoming action-mapping
      * @param form form associated with this mapping
      * @return the desired desitination based on your processing
-     * @throws MalformedURLException
-     * @throws XmlRpcFault
+     * @throws MalformedURLException malformed URL exception
+     * @throws XmlRpcFault XMLrpc fault
      */
     protected abstract ActionForward doExecute(HttpServletRequest request,
                     ActionMapping mapping,

@@ -642,8 +642,8 @@ gcc44-gfortran-4.4.4-13.el5.s390x.rpm
 gcc-c++-4.1.2-50.el5.s390x.rpm
 gcc-gfortran-4.1.2-50.el5.s390x.rpm
 gcc-java-4.1.2-50.el5.s390x.rpm
-gcc-objc-4.1.2-50.el5.s390x.rpm
 gcc-objc++-4.1.2-50.el5.s390x.rpm
+gcc-objc-4.1.2-50.el5.s390x.rpm
 GConf2-2.14.0-9.el5.s390.rpm
 GConf2-2.14.0-9.el5.s390x.rpm
 GConf2-devel-2.14.0-9.el5.s390.rpm
@@ -2717,10 +2717,10 @@ xmlrpc-c-1.16.24-1206.1840.el5.s390x.rpm
 xmlrpc-c-apps-1.16.24-1206.1840.el5.s390x.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.el5.s390.rpm
 xmlrpc-c-c++-1.16.24-1206.1840.el5.s390x.rpm
-xmlrpc-c-client-1.16.24-1206.1840.el5.s390.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.el5.s390.rpm
-xmlrpc-c-client-1.16.24-1206.1840.el5.s390x.rpm
+xmlrpc-c-client-1.16.24-1206.1840.el5.s390.rpm
 xmlrpc-c-client++-1.16.24-1206.1840.el5.s390x.rpm
+xmlrpc-c-client-1.16.24-1206.1840.el5.s390x.rpm
 xmlrpc-c-devel-1.16.24-1206.1840.el5.s390.rpm
 xmlrpc-c-devel-1.16.24-1206.1840.el5.s390x.rpm
 xmlrpc-javadoc-2.0.1-3jpp.1.s390x.rpm

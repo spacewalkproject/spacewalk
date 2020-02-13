@@ -4,14 +4,20 @@
 #
 
 from optparse import Option, OptionParser
+from socket import gethostname
 import logging, os, shutil, sys, tempfile
 
 if sys.version_info[0] == 3:
     import xmlrpc.client as xmlrpclib
 else:
     import xmlrpclib
-import gpgme
-from socket import gethostname
+
+try:
+    import gpg
+    has_gpgme = False
+except ImportError:
+    import gpgme
+    has_gpgme = True
 
 opts = [ Option('-u', '--username'),
          Option('-p', '--password'),
@@ -71,9 +77,12 @@ for key_file in args:
 
     # read the key's provider and ID
     try:
-        ctx = gpgme.Context()
-
-        result = ctx.import_(open(key_file, 'rb'))
+        if has_gpgme:
+            ctx = gpgme.Context()
+            result = ctx.import_(open(key_file, 'rb'))
+        else:
+            ctx = gpg.Context()
+            result = ctx.op_import(open(key_file, 'rb'))
 
         for key in ctx.keylist():
             provider_name = key.uids[0].name

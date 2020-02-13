@@ -1,6 +1,6 @@
 # Spacewalk Proxy Server SSL Redirect handler code.
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -171,6 +171,7 @@ class RedirectHandler(SharedHandler):
         else:
             # Otherwise, revert to default behavior.
             return SharedHandler._handleServerResponse(self, status)
+        return None
 
     def __redirectToNextLocation(self, loopProtection=False):
         """ This function will perform a redirection to the next location, as
@@ -268,7 +269,7 @@ class RedirectHandler(SharedHandler):
         # There should always be a redirect URL passed back to us.  If not,
         # there's an error.
 
-        if not redirectLocation or len(redirectLocation) == 0:
+        if not redirectLocation:
             log_error("  No redirect location specified!")
             Traceback(mail=0)
             return apache.HTTP_INTERNAL_SERVER_ERROR
@@ -318,7 +319,7 @@ class RedirectHandler(SharedHandler):
             Traceback(mail=0)
             return apache.HTTP_SERVICE_UNAVAILABLE
         log_debug(4, "Connected to 3rd party server:",
-                  connection.sock.getpeername())
+                  connection.sock.getpeername()) #pylint: disable=no-member
 
         # Put the request out on the wire.
 

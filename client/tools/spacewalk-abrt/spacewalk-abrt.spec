@@ -1,40 +1,75 @@
+%if 0%{?fedora} || 0%{?rhel} >= 8 || 0%{?suse_version} || 0%{?mageia}
+%global build_py3   1
+%global default_py3 1
+%endif
+
+%if ( 0%{?fedora} && 0%{?fedora} < 28 ) || ( 0%{?rhel} && 0%{?rhel} < 8 )
+%global build_py2   1
+%endif
+
+%define pythonX %{?default_py3: python3}%{!?default_py3: python2}
+
 Name:           spacewalk-abrt
-Version:        2.7.1
+Version:        2.10.0
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 
-Group:	        Applications/System
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  gettext
-BuildRequires:  python
+Requires:       %{pythonX}-%{name} = %{version}-%{release}
 Requires:       abrt
 Requires:       abrt-cli
-Requires:       rhn-client-tools
-Requires:       rhn-check
 %description
 spacewalk-abrt - rhn-check plug-in for collecting information about crashes handled by ABRT.
+
+%if 0%{?build_py2}
+%package -n python2-%{name}
+Summary:        ABRT plug-in for rhn-check
+%{?python_provide:%python_provide python2-%{name}}
+BuildRequires:  python
+Requires:       python2-rhn-client-tools
+Requires:       python2-rhn-check
+%description -n python2-%{name}
+Python 2 specific files for %{name}.
+%endif
+
+%if 0%{?build_py3}
+%package -n python3-%{name}
+Summary:        ABRT plug-in for rhn-check
+%{?python_provide:%python_provide python3-%{name}}
+BuildRequires:  python3-rpm-macros
+Requires:       python3-rhn-client-tools
+Requires:       python3-rhn-check
+%description -n python3-%{name}
+Python 3 specific files for %{name}.
+%endif
 
 %prep
 %setup -q
 
 %build
 make -f Makefile.spacewalk-abrt
-%if 0%{?fedora} >= 23
-sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
-%endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT
+%if 0%{?build_py2}
+make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
+                PYTHON_PATH=%{python_sitelib} PYTHON_VERSION=%{python_version}
+%endif
+%if 0%{?build_py3}
+sed -i 's|#!/usr/bin/python|#!/usr/bin/python3|' src/bin/spacewalk-abrt
+make -f Makefile.spacewalk-abrt install PREFIX=$RPM_BUILD_ROOT \
+                PYTHON_PATH=%{python3_sitelib} PYTHON_VERSION=%{python3_version}
+%endif
+
+%define default_suffix %{?default_py3:-%{python3_version}}%{!?default_py3:-%{python_version}}
+ln -s spacewalk-abrt%{default_suffix} $RPM_BUILD_ROOT%{_bindir}/spacewalk-abrt
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post
 service abrtd restart
@@ -43,10 +78,64 @@ service abrtd restart
 %config  /etc/sysconfig/rhn/clientCaps.d/abrt
 %config  /etc/libreport/events.d/spacewalk.conf
 %{_bindir}/spacewalk-abrt
-%{_datadir}/rhn/spacewalk_abrt/*
 %{_mandir}/man8/*
 
+%if 0%{?build_py2}
+%files -n python2-%{name}
+%{_bindir}/spacewalk-abrt-%{python_version}
+%{python_sitelib}/spacewalk_abrt/
+%endif
+
+%if 0%{?build_py3}
+%files -n python3-%{name}
+%{_bindir}/spacewalk-abrt-%{python3_version}
+%{python3_sitelib}/spacewalk_abrt/
+%endif
+
 %changelog
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.3-1
+- updated copyright years
+- Regenerating .po and .pot files for spacewalk-abrt
+- Updating .po translations from Zanata
+
+* Tue Oct 02 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- fixed build on opensuse and mageia
+
+* Tue Sep 04 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- 1623111 - use base64.encodebytes if possible
+- Bumping package versions for 2.9.
+
+* Tue Mar 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.5-1
+- don't build python2 subpackages on systems with default python3
+- Regenerating .po and .pot files for spacewalk-abrt.
+- Updating .po translations from Zanata
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
+- use python3 on rhel8 in spacewalk-abrt
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Mon Oct 09 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- use standard rpmbuild bytecompile
+- modules are now in standard sitelib path
+- install files into python_sitelib/python3_sitelib
+- split spacewalk-abrt into python2/python3 specific packages
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- update copyright year
+
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Updating .po translations from Zanata
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - abrt python2/3 fix
 - Bumping package versions for 2.7.
@@ -104,53 +193,4 @@ service abrtd restart
 - 1002041 - don't upload crash file if over the size limit or the upload is
   disabled
 - Bumping package versions for 2.1.
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Wed Jul 10 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.6-1
-- 982642 - spacewalk-abrt: correctly report kdump crashes
-
-* Wed Jun 12 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.5-1
-- rebranding RHN Satellite to Red Hat Satellite in client stuff
-
-* Tue May 21 2013 Tomas Kasparek <tkasparek@redhat.com> 1.10.4-1
-- branding clean-up of client tools
-
-* Tue Mar 26 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.3-1
-- abrt: report only valid problem directories
-
-* Thu Mar 14 2013 Jan Pazdziora 1.10.2-1
-- abrt: support parsing package nevra from older abrt versions
-
-* Fri Mar 08 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.10.1-1
-- spacewalk-abrt: don't return 1 for success
-
-* Fri Mar 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.6-1
-- typo fix
-
-* Fri Mar 01 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.5-1
-- spacewalk-abrt: remodel dump dir location logic
-- spacewalk-abrt: use absolute paths
-
-* Wed Feb 27 2013 Jan Pazdziora 1.9.4-1
-- abrt: use notify rather than post-create
-- abrt: use new abrt dump location
-
-* Mon Feb 18 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.3-1
-- update build requires
-
-* Fri Feb 15 2013 Milan Zazrivec <mzazrivec@redhat.com> 1.9.2-1
-- spacewalk-abrt: implement --sync command
-- abrt: add info about spacewalk libreport events
-- abrt: ability to update crash count
-
-* Thu Jan 17 2013 Jan Pazdziora 1.9.1-1
-- abrt: use DumpLocation from /etc/abrt/abrt.conf if set
-
-* Wed Jul 18 2012 Jan Pazdziora 0.0.1-1
-- new package built with tito
-
-* Mon Jul 09 2012 Richard Marko <rmarko@redhat.com> 0.0.1-1
-- initial packaging
 

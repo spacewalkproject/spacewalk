@@ -45,6 +45,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
 
     /**
      * A dummy test until the other two are fixed.
+     * @throws Exception something bad happened
      */
     public void testDummy() throws Exception {
         assertEquals(42, 42);
@@ -54,7 +55,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
      * This setup action will get called with an unpublished errata during the publish
      * process. We need to test that nothing is added to the user's set, the relevant
      * packages are set correctly, and that the returnvisit variable has been set.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
 
     // This test does not properly set up the permissions to the
@@ -130,7 +131,7 @@ public class ChannelSetupActionTest extends RhnBaseTestCase {
      * tab that appears in the details nav for a published errata. We need to make sure
      * that the users set gets initialized to the channels that are in the errata when
      * the user first visits the page.
-     * @throws Exception
+     * @throws Exception something bad happened
      */
     // This test does not properly set up the permissions to the
     // errata, because the user for the action is not the same as the

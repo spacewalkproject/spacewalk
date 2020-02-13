@@ -38,21 +38,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>નમસ્તે,
 
-તમારા માટે {0} {1} દ્વારા Red Hat પ્રવેશ બનાવાઈ ગયો છે. તમારો Red Hat
-પ્રવેશ, સક્રિય Red Hat ઉમેદવારીના જોડાણ સાથે, તમને @@PRODUCT_NAME@@ પર સિસ્ટમોની
-વ્યવસ્થા કરવા માટે વપરાશ પૂરો પાડે છે.
-
-  Red Hat પ્રવેશ: {2}
-       પાસવર્ડ: {3}
-         ઈ-મેઈલ: {4}
-
-  {5}
-મહત્વનું: પ્રવેશ કર્યા પછી મહેરબાની કરીને તમારો પાસવર્ડ બદલો.
-
-@@PRODUCT_NAME@@ વાપરવા બદલ તમારો આભાર.
-{6}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.body">
         <source>Hello,
@@ -81,21 +67,7 @@ Thank you for using @@PRODUCT_NAME@@.
               --the @@PRODUCT_NAME@@ Team
           </context>
         </context-group>
-        <target>નમસ્તે,
 
-તમારા માટે Red Hat પ્રવેશ બનાવાઈ ગયો છે. તમારો Red Hat
-પ્રવેશ, સક્રિય Red Hat ઉમેદવારીના જોડાણ સાથે, તમને @@PRODUCT_NAME@@ પર સિસ્ટમોની
-વ્યવસ્થા કરવા માટે વપરાશ પૂરો પાડે છે.
-
-  Red Hat પ્રવેશ: {0}
-       પાસવર્ડ: {1}
-         ઈ-મેઈલ: {2}
-
-  {3}
-મહત્વનું: પ્રવેશ કર્યા પછી મહેરબાની કરીને તમારો પાસવર્ડ બદલો.
-
-@@PRODUCT_NAME@@ વાપરવા બદલ તમારો આભાર.
-{4}</target>
       </trans-unit>
       <trans-unit id="email.newaccount.pam.body">
         <source>Hello,

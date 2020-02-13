@@ -1,22 +1,72 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%if 0%{?fedora} || 0%{?suse_version} > 1320 || 0%{?rhel} >= 8 || 0%{?mageia}
+%global build_py3   1
+%endif
+
+%{!?__python2:%global __python2 /usr/bin/python2}
+%{!?__python3:%global __python3 /usr/bin/python3}
+
+%if %{undefined python2_sitelib}
+%global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+
+%if %{undefined python3_sitelib}
+%global python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%endif
+
+%if %{_vendor} == "debbuild"
+# For making sure we can set the right args for deb distros
+%global is_deb 1
+%endif
+
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-URL:     https://github.com/spacewalkproject/spacewalk
-Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-Version: 2.7.2
+Version: 2.10.6
 Release: 1%{?dist}
+%if %{_vendor} == "debbuild"
+Group:      python
+Packager:   Spacewalk Project <spacewalk-devel@redhat.com>
+%else
+Group:      Development/Libraries
+%endif
+URL:     https://github.com/spacewalkproject/spacewalk
+Source0: %{name}-%{version}.tar.gz
 
-Group: Development/Libraries
 License: GPLv2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if %{?suse_version: %{suse_version} > 1110} %{!?suse_version:1}
 BuildArch: noarch
 %endif
-BuildRequires: python-devel
 
-Requires: pyOpenSSL 
+%description
+rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
+
+%package -n python2-rhnlib
+Summary: Python libraries for the Spacewalk project
+
+%if %{_vendor} != "debbuild"
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
+BuildRequires: python2-devel
+Requires: python2-pyOpenSSL
+%else
+BuildRequires: python-devel
+Requires: pyOpenSSL
+%endif
+%endif
+
+%if %{_vendor} == "debbuild"
+BuildRequires: python-dev
+BuildRequires: rpm
+Requires(preun): python-minimal
+Requires(post): python-minimal
+Requires: python-openssl
+Obsoletes: python-rhn
+Conflicts: python-rhn
+%endif
+
+Provides: python2-rhnlib = %{version}-%{release}
+%{?python_provide:%python_provide python2-rhnlib}
+
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2
 Conflicts: rhn-client-tools < 1.3.3
@@ -25,16 +75,35 @@ Conflicts: rhnpush < 5.5.10
 Conflicts: rhnclient < 0.10
 Conflicts: spacewalk-proxy < 1.3.6
 
-%description
+Provides: rhnlib = %{version}-%{release}
+Obsoletes: rhnlib < %{version}-%{release}
+
+%description -n python2-rhnlib
 rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk.redhat.com) software.
 
 
-%if 0%{?fedora}
+%if 0%{?build_py3}
 %package -n python3-rhnlib
 Summary: Python libraries for the Spacewalk project
-Group: Development/Libraries
+
+%if %{_vendor} != "debbuild"
 BuildRequires: python3-devel
+%if 0%{?mageia}
+Requires: python3-OpenSSL
+%else
 Requires: python3-pyOpenSSL
+%endif
+%endif
+
+%if %{_vendor} == "debbuild"
+BuildRequires: python3-dev
+BuildRequires: rpm
+Requires(preun): python3-minimal
+Requires(post): python3-minimal
+Requires: python3-openssl
+%endif
+
+%{?python_provide:%python_provide python3-rhnlib}
 Conflicts: rhncfg < 5.10.45
 Conflicts: spacewalk-proxy-installer < 1.3.2
 Conflicts: rhn-client-tools < 1.3.3
@@ -49,6 +118,7 @@ rhnlib is a collection of python modules used by the Spacewalk (http://spacewalk
 
 %prep
 %setup -q
+
 if [ ! -e setup.py ]; then
     sed -e 's/@VERSION@/%{version}/' -e 's/@NAME@/%{name}/' setup.py.in > setup.py
 fi
@@ -58,33 +128,129 @@ fi
 
 
 %build
-#%{__python} setup.py build
-make -f Makefile.rhnlib
-
-
-%install
-rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
-%if 0%{?fedora}
-%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT --prefix=%{_prefix}
+make -f Makefile.rhnlib PYTHON=%{__python2}
+%if 0%{?build_py3}
+make -f Makefile.rhnlib PYTHON=%{__python3}
 %endif
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+%install
+%{__python2} setup.py install %{!?is_deb:-O1}%{?is_deb:--no-compile -O0} --skip-build --root $RPM_BUILD_ROOT %{?is_deb:--install-layout=deb} --prefix=%{_prefix}
+%if 0%{?build_py3}
+%{__python3} setup.py install %{!?is_deb:-O1}%{?is_deb:--no-compile -O0} --skip-build --root $RPM_BUILD_ROOT %{?is_deb:--install-layout=deb} --prefix=%{_prefix}
+%endif
 
-
-%files
+%files -n python2-rhnlib
 %doc ChangeLog COPYING README TODO
-%{python_sitelib}/*
+%{python2_sitelib}/*
 
-%if 0%{?fedora}
+%if 0%{?build_py3}
 %files -n python3-rhnlib
 %doc ChangeLog COPYING README TODO
 %{python3_sitelib}/*
 %endif
 
+%if %{_vendor} == "debbuild"
+
+%post -n python2-rhnlib
+# Do late-stage bytecompilation, per debian policy
+pycompile -p python2-rhnlib -V -3.0
+
+%preun -n python2-rhnlib
+# Ensure all *.py[co] files are deleted, per debian policy
+pyclean -p python2-rhnlib
+
+%if 0%{?build_py3}
+%post -n python3-rhnlib
+# Do late-stage bytecompilation, per debian policy
+py3compile -p python3-rhnlib -V -4.0
+
+%preun -n python3-rhnlib
+# Ensure all *.py[co] files are deleted, per debian policy
+py3clean -p python3-rhnlib
+%endif
+%endif
+
 %changelog
+* Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- removed commented line which breaks build
+
+* Wed Aug 07 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- fixing traceback on python3
+
+* Wed Jun 26 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- removed dead code reported by covscan
+
+* Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- Added SNI support for clients
+
+* Fri Feb 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- 1666099 - python3 is picky about bytes and string
+
+* Tue Dec 18 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- 1652859 - python3 http.client does not contain _set_hostport()
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.5-1
+- updated copyright years
+
+* Tue Jul 31 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.4-1
+- client, usix: Rework how client packaging is done for Debian/Ubuntu
+- client/rhel/rhnlib: Makefile.rhnlib: Fix sed to work on debian builds
+
+* Wed Jul 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.3-1
+- forbid old SSL versions during negotiation
+
+* Wed May 30 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.2-1
+- client/rhel: Enable DNF plugin for Mageia 6+ and openSUSE Leap 15.0+
+
+* Wed Apr 25 2018 Tomas Kasparek <tkasparek@redhat.com> 2.9.1-1
+- move python2 version of rhnlib into python2-rhnlib package
+- Bumping package versions for 2.9.
+
+* Wed Mar 21 2018 Jiri Dostal <jdostal@redhat.com> 2.8.10-1
+- Updating copyright years for 2018
+
+* Mon Mar 19 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.9-1
+- be compliant with new packaging guidelines when requiring python2 packages
+
+* Fri Mar 09 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.8-1
+- don't use undefined variable
+
+* Tue Feb 20 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.7-1
+- rhel8 utilizes python3
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.6-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Mon Oct 23 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.5-1
+- rhnlib: enable py3 build for Tumbleweed
+
+* Thu Oct 05 2017 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
+- 1494389 - Revert "[1260527] RHEL7 reboot loop"
+- 1494389 - Revert "fix except in rhnlib to make it compatible with Python 2.4"
+
+* Thu Sep 28 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.3-1
+- Python's OpenSSL.SSL.Connection method for getting state was renamed. Now
+  before run it we should determinate its name via getattr built-in function.
+
+* Fri Sep 22 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- added proper python*-rhnlib provides
+
+* Wed Sep 20 2017 Gennadii Altukhov <grinrag@gmail.com> 2.8.1-1
+- 1471045 - check a state of handshake before shutdown SSL connection
+- Bumping package versions for 2.8.
+
+* Mon Jul 31 2017 Eric Herget <eherget@redhat.com> 2.7.5-1
+- update copyright year
+
+* Mon Jul 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
+- move version and release before sources
+
+* Mon Jul 31 2017 Jan Dobes 2.7.3-1
+- 1464157 - python 3 http calls flush
+
 * Fri Apr 07 2017 Jan Dobes 2.7.2-1
 - Let the memory usage for ssl-memleak-test stabilize a bit. During the test
   run, the first memory check is often done too quickly, and all necessary

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -16,9 +16,14 @@ package com.redhat.rhn.frontend.xmlrpc.schedule;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.manager.action.ActionIsChildException;
+import com.redhat.rhn.manager.action.ActionIsPickedUpException;
 import com.redhat.rhn.manager.action.ActionManager;
 
 import java.util.ArrayList;
@@ -38,8 +43,9 @@ public class ScheduleHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param actionIds The list of ids for actions to cancel.
      * @return Returns a list of actions with details
-     * @throws FaultException A FaultException is thrown if one of the actions provided
-     * is invalid.
+     * @throws ActionIsChildException Thrown when attempting to cancel action with
+     * prerequisites
+     * @throws LookupException Invalid Action ID provided
      *
      * @xmlrpc.doc Cancel all actions in given list. If an invalid action is provided,
      * none of the actions given will canceled.
@@ -47,12 +53,17 @@ public class ScheduleHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "action id")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int cancelActions(User loggedInUser, List<Integer> actionIds)
-        throws FaultException {
-
+    public int cancelActions(User loggedInUser, List<Integer> actionIds) throws
+            ActionIsChildException, LookupException {
         List actions = new ArrayList<Action>();
         for (Integer actionId : actionIds) {
             Action action = ActionManager.lookupAction(loggedInUser, new Long(actionId));
+            for (ServerAction sa : action.getServerActions()) {
+                if (ActionFactory.STATUS_PICKEDUP.equals(sa.getStatus())) {
+                    throw new ActionIsPickedUpException("Cannot cancel actions in " +
+                            "PICKED UP state, aborting...");
+                }
+            }
             if (action != null) {
                 actions.add(action);
             }

@@ -15,19 +15,20 @@
 %endif
 %endif
 
+
 Summary: Python interface to Oracle
 Name: cx_Oracle
-Version: 5.1.2
+Version: 5.3
 Release: 5%{?dist}
-Source0: %{name}-%{version}.tar.gz
+Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
-Group: Development/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Prefix: %{_prefix}
 Url: http://cx-oracle.sourceforge.net
 AutoReq: 0
 Provides: python(:DBAPI:oracle) = 2.0
-BuildRequires: python-devel
+BuildRequires: python2-rpm-macros
+BuildRequires: python2-devel
+BuildRequires: gcc
 BuildRequires: oracle-%{oracleicname}-devel
 Requires: oracle-%{oracleicname}-basic = %{oracleicver}
 
@@ -36,7 +37,7 @@ Python interface to Oracle conforming to the Python DB API 2.0 specification.
 See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %prep
-%setup
+%setup -n python-%{name}-%{version}
 
 #kinda ugly but we need ORACLE_HOME to be set
 %if "%{_lib}" == "lib64"
@@ -47,19 +48,35 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %build
 export ORACLE_HOME=%{oracle_home}
-env CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
+env CFLAGS="$RPM_OPT_FLAGS" %{__python2} setup.py build
 
 %install
 export ORACLE_HOME=%{oracle_home}
-%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+%{__python2} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files -f INSTALLED_FILES
-%doc LICENSE.txt README.txt BUILD.txt HISTORY.txt html samples test
+%doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 5.3-5
+- we can use python2 packages and macros everywhere
+
+* Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-4
+- gcc is not in default buildroot anymore
+
+* Tue Nov 13 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-3
+- explicit use of python2 for Fedora 29+
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 5.3-2
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Jun 07 2017 Michael Mraka <michael.mraka@redhat.com> 5.3-1
+- rebased to latest stable version
+
 * Thu Jan 29 2015 Tomas Lestach <tlestach@redhat.com> 5.1.2-5
 - we need to use the exact oracle instantclient version
 

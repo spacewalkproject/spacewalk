@@ -166,6 +166,9 @@ public class DataSetManipulator {
         if (startOffset < 0) {
             startOffset = 0;
         }
+        if (startOffset > dataset.size()) {
+            startOffset = 0;
+        }
         List parentList = dataset.subList(0, startOffset);
         List data = expand(parentList);
         int ret = data.size() + 1;

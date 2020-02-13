@@ -7,6 +7,9 @@
       <maxInclusive value="20"/>
     </simpleType>
   </attribute>
+  <attribute name="thirdLongField">
+    <simpleType baseType="long"/>
+  </attribute>
 
   <attribute name="stringField">
     <simpleType baseType="string">

@@ -23,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * POJO for a rhnActionChainEntry row.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  * @version $Rev$
  */
 public class ActionChainEntry extends BaseDomainHelper {

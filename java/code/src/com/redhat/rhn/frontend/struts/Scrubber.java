@@ -125,10 +125,9 @@ public class Scrubber {
     }
 
     private Object scrubArray(Object[] value) {
-        Object[] v = value;
-        if (v.length > 0) {
-            for (int x = 0; x < v.length; x++) {
-                v[x] = scrub(v[x]);
+        if (value.length > 0) {
+            for (int x = 0; x < value.length; x++) {
+                value[x] = scrub(value[x]);
             }
         }
         return value;

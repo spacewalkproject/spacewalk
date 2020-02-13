@@ -113,11 +113,7 @@ public class XccdfSearchAction extends BaseSearchAction {
 
     private boolean isTestestResultRequested(DynaActionForm form) {
         String showAs = form.getString(SHOW_AS);
-        if (showAs == null ||
-                RULERESULT_ID.equals(showAs) || "".equals(showAs)) {
-            return false;
-        }
-        return true;
+        return showAs != null && !RULERESULT_ID.equals(showAs) && !"".equals(showAs);
     }
 
     private void setupShowAsOption(DynaActionForm form) {

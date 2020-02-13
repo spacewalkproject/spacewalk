@@ -180,7 +180,8 @@ public class ExceptionsWrapperTest extends TestCase {
 
     public static Test suite() throws Exception {
         TestSuite suite = new TestSuite(ExceptionsWrapperTest.class);
-        TestSetup wrapper = new TestSetup(suite) {
+
+        return new TestSetup(suite) {
             protected void setUp() throws Exception {
                 oneTimeSetup();
             }
@@ -189,8 +190,6 @@ public class ExceptionsWrapperTest extends TestCase {
                 oneTimeTeardown();
             }
         };
-
-        return wrapper;
     }
 
     protected static void oneTimeSetup() throws Exception {

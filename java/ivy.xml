@@ -1,10 +1,10 @@
 <ivy-module version="1.0">
     <info organisation="redhat" module="rhn-java" />
     <dependencies>
-        <dependency org="redhat" name="ant/ant-contrib" rev="*" />
+        <dependency org="redhat" name="ant-contrib" rev="*" />
         <dependency org="redhat" name="antlr" rev="*" />
         <dependency org="redhat" name="bcel" rev="*" />
-        <dependency org="redhat" name="c3p0/c3p0" rev="*" />
+        <dependency org="redhat" name="c3p0" rev="*" />
         <dependency org="redhat" name="cglib" rev="*" />
         <dependency org="redhat" name="checkstyle" rev="*" />
         <dependency org="redhat" name="commons-beanutils" rev="*" />
@@ -25,12 +25,11 @@
         <dependency org="redhat" name="hibernate3/hibernate-c3p0-3" rev="*" />
         <dependency org="redhat" name="hibernate3/hibernate-core-3" rev="*" />
         <dependency org="redhat" name="hibernate3/hibernate-ehcache-3" rev="*" />
-        <dependency org="redhat" name="jaf" rev="*" />
         <dependency org="redhat" name="javamail/imap" rev="*" />
         <dependency org="redhat" name="javamail/mailapi" rev="*" />
         <dependency org="redhat" name="javamail/pop3" rev="*" />
         <dependency org="redhat" name="javamail/smtp" rev="*" />
-        <dependency org="redhat" name="jcommon/jcommon" rev="*" />
+        <dependency org="redhat" name="jcommon" rev="*" />
         <dependency org="redhat" name="jdom" rev="*" />
         <dependency org="redhat" name="jmock/jmock" rev="*" />
         <dependency org="redhat" name="jmock/jmock-junit3" rev="*" />
@@ -54,10 +53,10 @@
         <dependency org="redhat" name="struts/core" rev="*" />
         <dependency org="redhat" name="struts/extras" rev="*" />
         <dependency org="redhat" name="struts/taglib" rev="*" />
-        <dependency org="redhat" name="susestudio-java-client" rev="*" />
         <dependency org="redhat" name="tanukiwrapper" rev="*" />
         <dependency org="redhat" name="velocity" rev="*" />
         <dependency org="redhat" name="xalan-j2" rev="*" />
+        <dependency org="redhat" name="xalan-j2-serializer" rev="*" />
         <dependency org="redhat" name="xerces-j2" rev="*" />
         <dependency org="redhat" name="xml-commons-apis" rev="*" />
     </dependencies>

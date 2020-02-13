@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -18,12 +18,13 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.frontend.action.kickstart.test.KickstartDownloadActionTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.test.KickstartScheduleCommandTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -39,7 +40,7 @@ public class CancelKickstartTest extends BaseTestCaseWithUser {
         KickstartData k = KickstartDataTest.
             createKickstartWithOptions(user.getOrg());
 
-        Channel c = KickstartDownloadActionTest.setupKickstartDownloadTest(k, user);
+        Channel c = this.setupKickstartDownloadTest(k, user);
         s.addChannel(c);
 
         KickstartSession cancelsession =
@@ -55,6 +56,14 @@ public class CancelKickstartTest extends BaseTestCaseWithUser {
         lookupreload = (Action) reload(lookupreload);
         assertTrue(lookupreload.getServerActions() == null ||
                 lookupreload.getServerActions().size() == 0);
+    }
+
+    private Channel setupKickstartDownloadTest(KickstartData ksdata,
+                                               User user) throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(user);
+        ksdata.getKickstartDefaults().getKstree().setChannel(c);
+        KickstartDataTest.addKickstartPackagesToChannel(c, true);
+        return c;
     }
 
 }

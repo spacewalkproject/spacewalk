@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -79,7 +79,7 @@ class BaseWireSource:
 
         if self._cached_connection_params(handler, url, forcedYN=forcedYN):
             # Already cached
-            return
+            return None
 
         self._set_connection_params(handler, url)
 
@@ -279,6 +279,10 @@ class MetadataWireSource(BaseWireSource):
         return self._openSocketStream("dump.get_comps",
                                       (self.systemid, channel))
 
+    def getModules(self, channel):
+        return self._openSocketStream("dump.get_modules",
+                                      (self.systemid, channel))
+
     def getRpm(self, nvrea, channel):
         release = nvrea[2]
         epoch = nvrea[3]
@@ -448,3 +452,6 @@ class RPCGetWireSource(BaseWireSource):
 
     def getCompsFileStream(self, channel):
         return self._rpc_call("repodata", (channel, 'comps.xml'))
+
+    def getModulesFilesStram(self, channel):
+        return self._rpc_call("repodata", (channel, 'modules.yaml'))

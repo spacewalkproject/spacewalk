@@ -77,21 +77,26 @@ public class PackageDetailsAction extends RhnAction {
                 request.setAttribute(PACKAGE_KEY, pkg.getPackageKeys().iterator().next()
                         .getKey());
             }
-            boolean isDebug = pkg.getPackageName().getName().contains("debuginfo");
+            boolean isDebugPackage = pkg.getPackageName().getName().contains("debuginfo") ||
+                    pkg.getPackageName().getName().contains("debugsource");
 
-            request.setAttribute("isDebuginfo", isDebug);
-            if (!isDebug) {
-                Package debugPkg = PackageManager.findDebugInfo(user, pkg);
+            request.setAttribute("isDebugPackage", isDebugPackage);
+            if (!isDebugPackage) {
+                Package debugInfoPkg = PackageManager.findDebugInfo(user, pkg);
                 String ftpUrl = PackageManager.generateFtpDebugPath(pkg);
-                if (debugPkg != null) {
-                    request.setAttribute("debugUrl", DownloadManager
-                            .getPackageDownloadPath(debugPkg, user));
+                if (debugInfoPkg != null) {
+                    request.setAttribute("debugInfoUrl", DownloadManager
+                            .getPackageDownloadPath(debugInfoPkg, user));
                 }
                 else if (ftpUrl != null) {
-                    request.setAttribute("debugUrl", ftpUrl);
-                    request.setAttribute("debugFtp", true);
+                    request.setAttribute("debugInfoUrl", ftpUrl);
+                    request.setAttribute("debugInfoFtp", true);
                 }
-
+                Package debugSourcePkg = PackageManager.findDebugSource(user, pkg);
+                if (debugSourcePkg != null) {
+                    request.setAttribute("debugSourceUrl", DownloadManager
+                            .getPackageDownloadPath(debugSourcePkg, user));
+                }
             }
 
 

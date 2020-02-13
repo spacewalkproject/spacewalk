@@ -116,6 +116,7 @@ public abstract class BaseTag {
 
     /**
      * render the open or self closing tag and attributes
+     * @param selfClosing if the tag should be self-closed
      * @return the open tag as a string
      */
     protected String renderOpenTag(boolean selfClosing) {

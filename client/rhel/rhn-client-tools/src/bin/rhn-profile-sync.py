@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Spacewalk registration tool
 # Adapted from wrapper.py
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>
@@ -18,7 +18,6 @@ if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
 
-sys.path.append("/usr/share/rhn/")
 
 from up2date_client import up2dateAuth
 from up2date_client import rhncli

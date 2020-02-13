@@ -92,7 +92,7 @@ public class HostPortValidator {
         else {
             // Validate hostname charset
             Matcher matcher = HOSTNAME.matcher(host);
-            isValidHost = matcher.matches() ? isValidHost : false;
+            isValidHost = matcher.matches() && isValidHost;
         }
         boolean isValidPort = true;
         if (port != null) {

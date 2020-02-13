@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -20,6 +20,7 @@ import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
@@ -39,9 +40,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -366,11 +369,8 @@ public class KickstartHelper {
         }
         //I tried to make this readable while still maintaining all the boolean
         //shortcutting. Here is the one liner boolean:
-        if (hasUpdates(ksdata) && hasFresh(ksdata) &&
-                (!checkAutoKickstart || hasKickstartPackage(ksdata, user))) {
-            return true;
-        }
-        return false;
+        return hasUpdates(ksdata) && hasFresh(ksdata) && (!checkAutoKickstart || hasKickstartPackage(ksdata, user)) &&
+                hasAppStream(ksdata, user);
     }
 
     private boolean hasUpdates(KickstartData ksdata) {
@@ -411,6 +411,42 @@ public class KickstartHelper {
             }
         }
         //We have a pid from every package.
+        return true;
+    }
+
+    private boolean hasAppStream(KickstartData ksdata, User user) {
+        if (!ksdata.isRhel8()) {
+            return true;
+        }
+
+        // is AppStream "addon" enabled?
+        for (RepoInfo repo : ksdata.getRepoInfos()) {
+            if (repo.getName().equals("AppStream")) {
+                return true;
+            }
+        }
+
+        // does a child channel contain needed packages?
+        Channel channel = ksdata.getChannel();
+        // copy child channel set otherwise you'd modify it as an unwanted side effect
+        Set<Channel> channelsToCheck = new HashSet<Channel>(ksdata.getChildChannels());
+        channelsToCheck.add(channel);
+
+        for (String pkgName : KickstartFormatter.FRESH_PKG_NAMES_RHEL8) {
+            boolean found = false;
+            Iterator<Channel> i = channelsToCheck.iterator();
+            while (i.hasNext()) {
+                Channel current = i.next();
+                Long pid = ChannelManager.getLatestPackageEqual(current.getId(), pkgName);
+                if (pid != null) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -455,9 +491,16 @@ public class KickstartHelper {
         msg.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("kickstart.invalidchannel.message", args));
         if (ksdata.getChannel().getOrg() == null) { //if not a custom channel
-          //Tell them that they should sync the RHN Tools channel.
-          msg.add(ActionMessages.GLOBAL_MESSAGE,
-                  new ActionMessage("kickstart.invalidchannel.satmessage"));
+            if (ksdata.isRhel8()) {
+                //RHEL 8 - tell them to sync AppStream
+                msg.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("kickstart.invalidchannel.satmessage.appstream"));
+            }
+            else {
+                //Tell them that they should sync the RHN Tools channel.
+                msg.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("kickstart.invalidchannel.satmessage"));
+            }
         }
         return msg;
     }
@@ -465,7 +508,12 @@ public class KickstartHelper {
     private String createPackageNameList(KickstartData ksdata) {
         //First create a list of all the packages needed
         List<String> packages = new ArrayList<String>();
-        packages.addAll(Arrays.asList(KickstartFormatter.UPDATE_PKG_NAMES));
+        if (ksdata.isRhel8()) {
+            packages.addAll(Arrays.asList(KickstartFormatter.FRESH_PKG_NAMES_RHEL8));
+        }
+        else {
+            packages.addAll(Arrays.asList(KickstartFormatter.UPDATE_PKG_NAMES));
+        }
         //different 'fresh' packages for RHEL2
         if (ksdata.isRhel2()) {
             packages.addAll(Arrays.asList(KickstartFormatter.FRESH_PKG_NAMES_RHEL2));
@@ -473,6 +521,7 @@ public class KickstartHelper {
         if (ksdata.isRhel3() || ksdata.isRhel4()) {
             packages.addAll(Arrays.asList(KickstartFormatter.FRESH_PKG_NAMES_RHEL34));
         }
+        // TODO: do we actually need this?
         //add a '*' at the end because the auto kickstart is a prefix
         packages.add(ksdata.getKickstartPackageName() + "*");
 

@@ -32,6 +32,7 @@
 #
 
 
+from __future__ import print_function
 from time import strftime, strptime, mktime, gmtime, timezone
 from time import time
 
@@ -61,12 +62,12 @@ def secs2years(secs):
 def _test():
     nowS = now()
     F = '%b %d %H:%M:%S %Y'
-    print 'Right now, in seconds (epoch): ', nowS
-    print 'Right now, stringified:        ', secs2str(F, nowS)
+    print('Right now, in seconds (epoch): ', nowS)
+    print('Right now, stringified:        ', secs2str(F, nowS))
 
-    print 'YEAR, WEEK, DAY, HOUR, MIN: ', YEAR, WEEK, DAY, HOUR, MIN
-    print 'secs2days(DAY):  ', secs2days(DAY)
-    print 'secs2years(YEAR):', secs2years(YEAR)
+    print('YEAR, WEEK, DAY, HOUR, MIN: ', YEAR, WEEK, DAY, HOUR, MIN)
+    print('secs2days(DAY):  ', secs2days(DAY))
+    print('secs2years(YEAR):', secs2years(YEAR))
 
 if __name__ == '__main__':
     _test()

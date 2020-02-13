@@ -8,19 +8,21 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.7.1
+Version:        2.10.9
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
-Group:          System Environment/Base
 License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
-#      git clone git://git.fedorahosted.org/git/spacewalk.git/
+#      git clone https://github.com/spacewalkproject/spacewalk.git
 URL:            https://github.com/spacewalkproject/spacewalk
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:  perl-interpreter
+%else
 BuildRequires:  perl
+%endif
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
 BuildRequires:  policycoreutils >= %{POLICYCOREUTILSVER}
 BuildArch:      noarch
@@ -73,7 +75,11 @@ install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
-/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%define hardlink /usr/sbin/hardlink
+%if 0%{?fedora} >= 31
+%define hardlink /usr/bin/hardlink
+%endif
+%{hardlink} -cv %{buildroot}%{_datadir}/selinux
 
 # Install spacewalk-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
@@ -99,7 +105,7 @@ fi
 if [ $1 -eq 0 ]; then
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 fi
@@ -114,6 +120,78 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.9-1
+- hardlink has moved to /usr/bin in Fedora 31
+
+* Fri Jan 11 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
+- allow cobbler to access gpg
+
+* Tue Jan 08 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.7-1
+- fixed jabberd selinux on Fedora 29
+
+* Mon Jan 07 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.6-1
+- removed workaround for BZ#1640255
+
+* Thu Dec 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- workaround for Fedora selinux bug 1640255
+
+* Thu Dec 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- workaround for Fedora selinux bug 1640255
+
+* Thu Dec 06 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- 1527380 - allow tomcat to read cobbler data
+- allow tomcat to use nfs files
+
+* Tue Nov 27 2018 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
+- allow tomcat connect to database
+- don't print error when selinux boolean doesn't exist
+
+* Fri Nov 23 2018 Michael Mraka <michael.mraka@redhat.com> 2.9.2-1
+- Allow tomcat/httpd to run sudo /usr/bin/rhn-config-satellite.pl successfully.
+
+* Thu Apr 26 2018 Jiri Dostal <jdostal@redhat.com> 2.9.1-1
+- [selinux] Really fix pam authentication
+- Bumping package versions for 2.9.
+
+* Tue Mar 27 2018 Jiri Dostal <jdostal@redhat.com> 2.8.5-1
+- Set sebool to allow cobbler load kernel module
+
+* Fri Mar 23 2018 Tomas Kasparek <tkasparek@redhat.com> 2.8.4-1
+- Fix selinux policy (rh1517791 rh1494675  rh1522939)
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.3-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Dec 13 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- tomcat on RHEL 7.5 is confined even more
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+- Bumping package versions for 2.8.
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.6-1
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
+* Wed Aug 02 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.5-1
+- fixed selinux denial with external (LDAP/Kerberos) authentication
+
+* Mon Jul 31 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.4-1
+- allow tomcat to search cobbler files
+
+* Thu Jul 27 2017 Eric Herget <eherget@redhat.com> 2.7.3-1
+- 1446487 - spacewalk-selinux error messages during package install
+- 1452560 - more tomcat selinux rules
+- 1452560 - allow tomcat to access spacewalk logs
+
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Remove more fedorahosted links
+- Use HTTPS in all Github links
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Nov 29 2016 Jan Dobes 2.7.1-1
 - perl isn't in Fedora 25 buildroot
 - Bumping package versions for 2.7.
@@ -130,86 +208,4 @@ fi
 
 * Mon Jun 09 2014 Milan Zazrivec <mzazrivec@redhat.com> 2.2.1-1
 - make sure oracle deploy.sql is etc_t
-
-* Wed Jul 17 2013 Tomas Kasparek <tkasparek@redhat.com> 2.0.1-1
-- Bumping package versions for 2.0.
-
-* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.10.1-1
-- 919468 - fixed path in file based Requires
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-
-* Tue Feb 12 2013 Michael Mraka <michael.mraka@redhat.com> 1.9.1-1
-- allow httpd to access postgresql via socket in /var/run/postgresql/
-
-* Fri Jun 29 2012 Jan Pazdziora 1.8.2-1
-- Make java_t bits optional, as Fedora 17 does not have this type.
-- %%defattr is not needed since rpm 4.4
-
-* Tue Apr 17 2012 Jan Pazdziora 1.8.1-1
-- No need to require httpd_cobbler_content_t that we don't use.
-
-* Thu Mar 01 2012 Jan Pazdziora 1.7.2-1
-- Allow PostgreSQL to use dblink.
-
-* Tue Feb 14 2012 Tomas Lestach <tlestach@redhat.com> 1.7.1-1
-- rename rhn-installation.log to rhn_installation.log (tlestach@redhat.com)
-- Bumping package versions for 1.7. (mzazrivec@redhat.com)
-
-* Thu Dec 08 2011 Miroslav Suchý 1.6.2-1
-- code cleanup - rhn-load-ssl-cert and rhn-sudo-load-ssl-cert are not needed
-  anymore
-
-* Thu Jul 21 2011 Jan Pazdziora 1.6.1-1
-- Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
-
-* Mon Jul 18 2011 Jan Pazdziora 1.5.4-1
-- Fedora 15 uses oracledb_port_t instead of oracle_port_t.
-
-* Tue May 10 2011 Jan Pazdziora 1.5.3-1
-- 702274 - fixing unconfined_u error.
-
-* Tue May 10 2011 Jan Pazdziora 1.5.2-1
-- 634989 - allow Apache to send emails, useful when mod_python/mod_perl is
-  about to send traceback.
-
-* Tue May 10 2011 Michael Mraka <michael.mraka@redhat.com> 1.5.1-1
-- 702274 - restore kickstart files context
-- 702274 - fixed context of kickstart configs
-- 702274 - allow cobblerd_t to read spacewalk_data_t
-
-* Thu Mar 03 2011 Jan Pazdziora 1.4.1-1
-- Apache should not be able to read the rpm database.
-
-* Mon Jan 24 2011 Jan Pazdziora 1.3.2-1
-- Adding explicit append allow for sqlplus.
-
-* Wed Dec 29 2010 Jan Pazdziora 1.3.1-1
-- Create sqlplus spool files with different type than the directories, to allow
-  write.
-
-* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.5-1
-- set correct context on satidmap.pl (msuchy@redhat.com)
-
-* Fri Nov 05 2010 Miroslav Suchý <msuchy@redhat.com> 1.2.4-1
-- 491331 move /etc/rhn/satellite-httpd/conf/satidmap.pl to
-  /usr/share/rhn/satidmap.pl (msuchy@redhat.com)
-
-* Wed Oct 13 2010 Jan Pazdziora 1.2.3-1
-- Need to allow wider sqlplus access to spacewalk_db_install_log_t for schema
-  upgrades to work.
-
-* Tue Oct 12 2010 Jan Pazdziora 1.2.2-1
-- We cannot use oracle_sqlplus_log_t in .fc, in case we do not have the Oracle
-  modules loaded.
-- Move the oracle-instantclient*-selinux dependency to spacewalk-oracle, to
-  make it posible to install Spacewalk without Oracle SELinux modules.
-- Make the rule for access to oracle_port_t optional, for PostgreSQL
-  installations.
-
-* Wed Sep 01 2010 Jan Pazdziora 1.2.1-1
-- 628640 - turn the wrapper into java_t upon runtime, it calls java anyway.
-
-* Mon Apr 19 2010 Michael Mraka <michael.mraka@redhat.com> 1.1.1-1
-- bumping spec files to 1.1 packages
-- Move systemlogs directory out of /var/satellite (joshua.roys@gtri.gatech.edu)
 

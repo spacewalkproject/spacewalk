@@ -1,13 +1,11 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
-Group:          Development/Libraries/Java
 Source0:        %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 Requires: java-headless >= 1:1.8.0
@@ -30,7 +28,6 @@ Java components or EJBs.
 
 %package oracle
 Summary: Oracle JDBC driver delegate for %{name}
-Group:   Development/Libraries/Java
 Requires: %{name}
 Requires: slf4j > 1.6
 Requires: ojdbc14
@@ -43,7 +40,6 @@ Oracle driver delegate for %{name}
 %setup -q
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 
 # main quartz
@@ -56,19 +52,22 @@ cp -p %{name}-oracle-%{version}.jar \
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed  "s|-%{version}||g"`; done)
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}/%{name}.jar
 %{_javadir}/%{name}-%{version}.jar
 
 %files oracle
-%defattr(0644,root,root,0755)
 %{_javadir}/%{name}-oracle.jar
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.8.4-11
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 1.8.4-10
 - recompile all packages with the same (latest) version of java
 

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <body>
 <rhn:toolbar
@@ -22,7 +23,7 @@
    definition="/WEB-INF/nav/org_tabs.xml"
    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary" style="padding-top: 10px;">
-<p><bean:message key="org.trust.summary" arg0="${org.name}" /></p>
+<p><bean:message key="org.trust.summary" arg0="${fn:escapeXml(org.name)}"/></p>
 </div>
 <rl:listset name="trustedOrgs">
    <rhn:csrf />
@@ -42,7 +43,8 @@
          sortable="true"
          headerkey="org.trust.org"
          sortattr="orgName">
-            <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
+            <a href="OrgDetails.do?oid=${current.org.id}"> <c:out
+                    value="${current.org.name}"/> </a>
       </rl:column>
       <rl:column
                  bound="false"

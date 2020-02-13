@@ -14,12 +14,19 @@
  */
 package com.redhat.rhn.domain.action.scap;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * ScapAction - Class representing TYPE_SCAP_*.
  * @version $Rev$
@@ -58,9 +65,15 @@ public class ScapAction extends Action {
         retval.append(scapActionDetails.getParameters() == null ? "" :
             StringEscapeUtils.escapeHtml(scapActionDetails.getParametersContents()));
         if (this.getSuccessfulCount() > 0) {
+            SelectMode m = ModeFactory.getMode("scap_queries", "lookup_xccdftestresult_id");
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("action_scap_id", scapActionDetails.getId());
+            params.put("server_id", server.getId());
+            DataResult<Map<String, Long>> dr = m.execute(params);
+            Long xccdfDetailId = dr.get(0).get("id");
             retval.append("</br>");
             retval.append("<a href=\"/rhn/systems/details/audit/XccdfDetails.do?sid=" +
-                    server.getId() + "&xid=" + scapActionDetails.getId() + "\">");
+                    server.getId() + "&xid=" + xccdfDetailId + "\">");
             retval.append(ls.getMessage("system.event.scapDownload"));
             retval.append("</a>");
         }

@@ -60,7 +60,6 @@ public class TitleRenderer extends Renderable {
                                 NavTreeIndex treeIndex,
                                 Map parameters,
                                 int depth) {
-        return;
     }
 
     /** {@inheritDoc} */

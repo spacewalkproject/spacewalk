@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  * Tests for ConfigActionFormatter.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ConfigActionFormatterTest extends BaseTestCaseWithUser {
 

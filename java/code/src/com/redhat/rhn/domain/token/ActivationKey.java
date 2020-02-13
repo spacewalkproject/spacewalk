@@ -321,7 +321,6 @@ public class ActivationKey extends BaseDomainHelper {
     /**
      * Set the Set of ServerGroup objects associated with this ActivationKey
      * @param serverGroupsIn Servers Groups set
-     * @return
      */
     public void setServerGroups(Set<ServerGroup> serverGroupsIn) {
         this.getToken().setServerGroups(serverGroupsIn);

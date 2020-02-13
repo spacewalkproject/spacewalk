@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.config;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigChannelType;
@@ -83,9 +82,7 @@ public class ServerConfigHandler extends BaseHandler {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
         if (listLocal) {
-            DataResult<ConfigFileNameDto> dtos =
-                    cm.listFileNamesForSystemQuick(loggedInUser, server, null);
-            return dtos;
+            return cm.listFileNamesForSystemQuick(loggedInUser, server, null);
         }
         List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
         List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser,

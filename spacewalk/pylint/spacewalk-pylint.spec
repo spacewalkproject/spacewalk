@@ -1,20 +1,22 @@
 Name:		spacewalk-pylint
-Version:	2.7.0
+Version:	2.10.0
 Release:	1%{?dist}
 Summary:	Pylint configuration for spacewalk python packages
 
-Group:		Development/Debuggers
 License:	GPLv2
 URL:		https://github.com/spacewalkproject/spacewalk
 Source0:	https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildArch:	noarch
 
-%if 0%{?fedora} || 0%{?suse_version} >= 1320
+%if 0%{?suse_version} >= 1320
 Requires:	pylint > 1.1
 %else
-%if 0%{?rhel} > 6
-Requires:	pylint > 1.0
+%if 0%{?fedora} || 0%{?rhel} >= 7
+%if 0%{?fedora} >= 26
+Requires:	python2-pylint > 1.5
+%else
+Requires:	pylint > 1.5
+%endif
 %else
 Requires:	pylint < 1.0
 %endif
@@ -42,12 +44,10 @@ install -d -m 755 %{buildroot}/%{_bindir}
 install -p -m 755 spacewalk-pylint %{buildroot}/%{_bindir}/
 install -d -m 755 %{buildroot}/%{_sysconfdir}
 install -p -m 644 spacewalk-pylint.rc %{buildroot}/%{_sysconfdir}/
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 7
 # new checks in pylint 1.1
 sed -i '/disable=/ s/,bad-whitespace,unpacking-non-sequence,superfluous-parens,cyclic-import//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 7
 # new checks in pylint 1.0
 sed -i '/disable=/ s/,C1001,W0121,useless-else-on-loop//g;' \
         %{buildroot}%{_sysconfdir}/spacewalk-pylint.rc
@@ -72,6 +72,27 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.4-1
+- removed Group from specfile
+
+* Mon Nov 13 2017 Jan Dobes 2.8.3-1
+- disable no-else-return check
+
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- removed unnecessary BuildRoot tag
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Wed Jun 07 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.2-1
+- use python2 pylint even on Fedora 26+
+
+* Wed May 24 2017 Michael Mraka <michael.mraka@redhat.com> 2.7.1-1
+- Fedora and EPEL7 contain pylint 1.5+
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Tue Aug 16 2016 Jan Dobes 2.6.2-1
 - redefined-variable-type check is broken in pylint-1.5.6-1.fc24.noarch
 
@@ -118,44 +139,4 @@ rm -rf %{buildroot}
 
 * Wed Mar 05 2014 Michael Mraka <michael.mraka@redhat.com> 2.2.1-1
 - disable pylint 1.1 checks we don't enforce
-
-* Mon Sep 30 2013 Michael Mraka <michael.mraka@redhat.com> 0.12-1
-- ignore old-style-* pylint warnings for pylint-1.0
-
-* Mon Jan 28 2013 Michael Mraka <michael.mraka@redhat.com> 0.11-1
-- Revert "ignore Container implementation related warnings"
-
-* Fri Jan 25 2013 Michael Mraka <michael.mraka@redhat.com> 0.10-1
-- ignore Container implementation related warnings
-
-* Sun Nov 11 2012 Michael Calmer <mc@suse.de> 0.9-1
-- BuildRequire docbook-style-xsl only on redhat
-
-* Wed Oct 24 2012 Michael Mraka <michael.mraka@redhat.com> 0.8-1
-- Revert "put W1201 on list of ignored pylint warnings"
-
-* Fri Aug 24 2012 Miroslav Suchý <msuchy@redhat.com> 0.7-1
-- put W1201 on list of ignored pylint warnings
-
-* Fri Aug 24 2012 Michael Mraka <michael.mraka@redhat.com> 0.6-1
-- let's silence pylint on our large modules and objects
-
-* Mon Jun 04 2012 Miroslav Suchý <msuchy@redhat.com> 0.5-1
-- %%defattr is not needed since rpm 4.4 (msuchy@redhat.com)
-
-* Wed May 16 2012 Miroslav Suchý <msuchy@redhat.com> 0.4-1
-- 800899 - consistently use macros
-- 800899 - include license file
-- Spacewalk is released under GPLv2, lets stick to it
-
-* Wed Mar 07 2012 Miroslav Suchý 0.3-1
-- add man page
-- Description lines must not exceed 80 characters
-- Summary must begin with capital letter
-
-* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.2-1
-- made it noarch package
-
-* Wed Feb 15 2012 Michael Mraka <michael.mraka@redhat.com> 0.1-1
-- new package built with tito
 

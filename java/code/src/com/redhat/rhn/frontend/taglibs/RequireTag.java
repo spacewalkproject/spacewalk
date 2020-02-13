@@ -21,8 +21,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * RequireTag
- * Evaluates the acl and if true exposes its body.<p>
+ * RequireTag<br>
+ * Evaluates the acl and if true exposes its body.<br>
  * <pre>
  * &lt;rhn:require acl="acl_to_evaluate(params_to_acl)"&gt;
  *  &lt;h2&gt;JSP or HTML tags to be evaluated if above acl is valid&lt;/h2&gt;
@@ -58,9 +58,11 @@ public class RequireTag extends TagSupport {
     /**
      * Returns the value of the acl attribute passed into the tag.
      * <pre>
+     * {@literal
      * <rhn:require acl="value">
      *     <h2>Hello World</h2>
      * </rhn:require>
+     * }
      * </pre>
      * @return The value of the acl attribute.
      */
@@ -90,7 +92,7 @@ public class RequireTag extends TagSupport {
     }
 
     /** {@inheritDoc}
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     public int doStartTag() throws JspException {
         try {

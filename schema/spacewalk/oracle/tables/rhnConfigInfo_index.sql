@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2016 Red Hat, Inc.
+-- Copyright (c) 2016--2017 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -12,6 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation.
 --
-
-ALTER TABLE rhnConfigInfo
-    ADD CONSTRAINT rhn_confinfo_ugf_uq UNIQUE (username, groupname, filemode, selinux_ctx, symlink_target_filename_id);
+CREATE UNIQUE INDEX rhn_confinfo_ugf_uq
+    ON rhnConfigInfo (username, groupname, filemode, selinux_ctx, symlink_target_filename_id)
+    TABLESPACE [[4m_tbs]];

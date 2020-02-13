@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,10 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.domain.rhnpackage.test;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -36,10 +40,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * PackageTest
@@ -94,15 +94,13 @@ public class PackageTest extends RhnBaseTestCase {
         return p;
     }
 
-    public static Package populateTestPackage(Package p, Org org) throws Exception {
-        PackageName pname = PackageNameTest.createTestPackageName();
-        PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
+    public static Package populateTestPackage(Package p, Org org,
+            PackageName pname,
+            PackageEvr pevr,
+            PackageArch parch
+    ) throws Exception {
         PackageGroup pgroup = PackageGroupTest.createTestPackageGroup();
         SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
-
-        Long testid = new Long(100);
-        String query = "PackageArch.findById";
-        PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(testid, query);
 
         p.setRpmVersion("foo");
         p.setDescription("RHN-JAVA Package Test");
@@ -112,7 +110,7 @@ public class PackageTest extends RhnBaseTestCase {
         p.setBuildHost("foo2");
         p.setBuildTime(new Date());
         p.setChecksum(ChecksumFactory.safeCreate(
-            MD5Crypt.crypt(TestUtils.randomString()), "md5"));
+                MD5Crypt.crypt(TestUtils.randomString()), "md5"));
         p.setVendor("Rhn-Java");
         p.setPayloadFormat("testpayloadformat");
         p.setCompat(new Long(0));
@@ -130,16 +128,19 @@ public class PackageTest extends RhnBaseTestCase {
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
 
-
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));
-
 
         HibernateFactory.getSession().save(createTestPackageSource(srpm, org));
-
-
         return p;
+    }
 
+    public static Package populateTestPackage(Package p, Org org) throws Exception {
+        PackageName pname = PackageNameTest.createTestPackageName();
+        PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
+        PackageArch parch =
+            (PackageArch) TestUtils.lookupFromCacheById(100L, "PackageArch.findById");
+        return populateTestPackage(p, org, pname, pevr, parch);
     }
 
 

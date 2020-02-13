@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (C) 2018 Red Hat, Inc.
+-->
+<application>
+ <id type="desktop">rhn_register.desktop</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>GPL-2.0</project_license>
+ <name>rhn_register</name>
+ <summary>Spacewalk/Red Hat Satellite registration</summary>
+ <description>
+  <p>Register for software updates from Spacewalk/Red Hat Satellite server.</p>
+ </description>
+ <launchable type="desktop-id">rhn_register.desktop</launchable>
+ <url type="homepage">https://spacewalkproject.github.io/</url>
+ <updatecontact>spacewalk-list@redhat.com</updatecontact>
+</application>

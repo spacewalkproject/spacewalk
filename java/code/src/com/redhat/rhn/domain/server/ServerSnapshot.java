@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -33,6 +33,7 @@ import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.text.DateFormat;
@@ -257,6 +258,23 @@ public class ServerSnapshot extends BaseDomainHelper {
     }
 
     /**
+     *
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+        ServerSnapshot other = (ServerSnapshot) obj;
+        return new EqualsBuilder().append(reason.hashCode(), other.reason.hashCode())
+                                  .append(channels.hashCode(), other.channels.hashCode())
+                                  .append(configChannels.hashCode(),
+                                          other.configChannels.hashCode())
+                                  .append(configRevisions.hashCode(),
+                                          other.configRevisions.hashCode())
+                                  .append(server.hashCode(), other.server.hashCode())
+                                  .append(groups.hashCode(), other.groups.hashCode())
+                                  .isEquals();
+    }
+
+    /**
      * @return Returns date in format yyyy-MM-dd HH:mm:ss so it can be used as a name
      */
     public String getName() {
@@ -474,8 +492,7 @@ public class ServerSnapshot extends BaseDomainHelper {
             pm.updateActionStatus();
             pkgsMeta.add(pm);
         }
-        DataResult<PackageMetadata> ret = new DataResult<PackageMetadata>(pkgsMeta);
-        return ret;
+        return new DataResult<PackageMetadata>(pkgsMeta);
     }
 
     /**

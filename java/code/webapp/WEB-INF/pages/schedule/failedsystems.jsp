@@ -26,11 +26,11 @@
         </rhn:column>
 
         <rhn:column header="failedsystems.jsp.failed">
-            ${current.displayDate}
+            <c:out value="${current.displayDate}"/>
         </rhn:column>
 
         <rhn:column header="failedsystems.jsp.message">
-            ${current.message}
+            <c:out value="${current.message}"/>
         </rhn:column>
       </rhn:listdisplay>
 

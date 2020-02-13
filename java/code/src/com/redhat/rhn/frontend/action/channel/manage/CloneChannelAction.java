@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 Red Hat, Inc.
+ * Copyright (c) 2015--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,8 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
@@ -101,6 +103,11 @@ public class CloneChannelAction extends RhnAction {
             if (!subscribableCids.contains(channel.getId()) || channel.isParent()) {
                 continue;
             }
+            if (!subscribableCids.contains(channel.getParentId())) {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                           new ActionMessage("message.channelcloned.error.parent", channel.getName()));
+                continue;
+            }
             nameToId.put(channel.getName(), channel.getId());
             parentToChildren.get(channel.getParentId()).add(channel.getName());
         }
@@ -120,6 +127,9 @@ public class CloneChannelAction extends RhnAction {
         // set default radio button
         form.set(EditChannelAction.CLONE_TYPE, CURRENT);
 
+        if (!errors.isEmpty()) {
+            addErrors(request, errors);
+        }
         return getStrutsDelegate().forwardParams(
                 mapping.findForward(RhnHelper.DEFAULT_FORWARD), request.getParameterMap());
     }

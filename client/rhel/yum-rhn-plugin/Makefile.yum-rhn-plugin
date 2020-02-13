@@ -16,10 +16,6 @@ all:
 	for d in $(SUBDIRS); do make PYTHON=$(PYTHON) -C $$d; [ $$? = 0 ] || exit 1 ; done
 
 
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
-
-
 install: all
 	@mkdir -p ${PREFIX}/var/lib/up2date
 	@mkdir -p ${PREFIX}/${SYSCONF}/yum/pluginconf.d/ 
@@ -29,7 +25,6 @@ install: all
 	for p in $(PYFILES) ; do \
 		install -m 644 $$p $(PREFIX)/$(PKGDIR)/$$p; \
 	done
-	$(PYTHON) -c "import compileall; compileall.compile_dir('$(PREFIX)/$(PKGDIR)', 1, '$(PYDIR)', 1)"
 
 	for d in $(SUBDIRS); do make PYTHON=$(PYTHON) PREFIX=`cd $(PREFIX); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 

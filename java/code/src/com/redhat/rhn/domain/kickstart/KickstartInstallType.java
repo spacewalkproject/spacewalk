@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -30,6 +30,7 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String RHEL_5 = "rhel_5";
     public static final String RHEL_6 = "rhel_6";
     public static final String RHEL_7 = "rhel_7";
+    public static final String RHEL_8 = "rhel_8";
     public static final String FEDORA = "fedora18";
     public static final String GENERIC = "generic";
     public static final String SUSE = "suse";
@@ -60,6 +61,13 @@ public class KickstartInstallType extends BaseDomainHelper {
         // we need to reverse logic here
         return (!isRhel2() && !isRhel3() && !isRhel4() && !isFedora() && !isGeneric() &&
                 !isSUSE());
+    }
+
+    /**
+     * @return true if the installer type is rhel 8
+     */
+    public boolean isRhel8() {
+        return RHEL_8.equals(getLabel());
     }
 
     /**
@@ -108,7 +116,7 @@ public class KickstartInstallType extends BaseDomainHelper {
      * @return true if the installer type is rhel
      */
     public boolean isRhel() {
-        return isRhel2() || isRhel3() || isRhel4() || isRhel5() || isRhel6() || isRhel7();
+        return isRhel2() || isRhel3() || isRhel4() || isRhel5() || isRhel6() || isRhel7() || isRhel8();
     }
 
     /**

@@ -515,8 +515,8 @@ gc-7.1-12.el6_4.x86_64.rpm
 gcc-c++-4.4.7-11.el6.x86_64.rpm
 gcc-gnat-4.4.7-11.el6.x86_64.rpm
 gcc-java-4.4.7-11.el6.x86_64.rpm
-gcc-objc-4.4.7-11.el6.x86_64.rpm
 gcc-objc++-4.4.7-11.el6.x86_64.rpm
+gcc-objc-4.4.7-11.el6.x86_64.rpm
 gc-devel-7.1-12.el6_4.i686.rpm
 gc-devel-7.1-12.el6_4.x86_64.rpm
 gcdmaster-1.2.3-4.el6.x86_64.rpm

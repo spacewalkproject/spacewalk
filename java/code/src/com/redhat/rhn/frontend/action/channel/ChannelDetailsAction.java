@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -57,8 +57,9 @@ public class ChannelDetailsAction extends RhnAction {
         long cid = ctx.getRequiredParam("cid");
         Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
 
-        if (isSubmitted(form)) {
-            UserManager.verifyChannelAdmin(user, chan);
+        if (isSubmitted(form) && (
+                (chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) ||
+                    UserManager.verifyChannelAdmin(user, chan))) {
             String global = (String)form.get("global");
             chan.setGloballySubscribable((global != null) &&
                     ("all".equals(global)), user.getOrg());

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2017 Red Hat, Inc.
+# Copyright (c) 2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -80,9 +80,9 @@ class TextLogger:
         self.lock.acquire()
         self.status += 1
         if success:
-            log(0, "%d/%d : %s" % (self.status, self.total, str(param)))
+            log(0, "    %d/%d : %s" % (self.status, self.total, str(param)))
         else:
-            log2(0, 0, "%d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
+            log2(0, 0, "    %d/%d : %s (failed)" % (self.status, self.total, str(param)), stream=sys.stderr)
         self.lock.release()
 
 
@@ -103,8 +103,9 @@ def get_proxies(proxy, user, password):
 
 
 class PyCurlFileObjectThread(PyCurlFileObject):
-    def __init__(self, url, filename, opts, curl_cache):
+    def __init__(self, url, filename, opts, curl_cache, parent):
         self.curl_cache = curl_cache
+        self.parent = parent
         PyCurlFileObject.__init__(self, url, filename, opts)
 
     def _do_open(self):
@@ -113,6 +114,20 @@ class PyCurlFileObjectThread(PyCurlFileObject):
         self._set_opts()
         self._do_grab()
         return self.fo
+
+    def _do_perform(self):
+        # WORKAROUND - BZ #1439758 - ensure first item in queue is performed alone to properly setup NSS
+        if not self.parent.first_in_queue_done:
+            self.parent.first_in_queue_lock.acquire()
+            # If some other thread was faster, no need to block anymore
+            if self.parent.first_in_queue_done:
+                self.parent.first_in_queue_lock.release()
+        try:
+            PyCurlFileObject._do_perform(self)
+        finally:
+            if not self.parent.first_in_queue_done:
+                self.parent.first_in_queue_done = True
+                self.parent.first_in_queue_lock.release()
 
     def _set_opts(self, opts=None):
         if not opts:
@@ -126,9 +141,10 @@ class FailedDownloadError(Exception):
 
 
 class DownloadThread(Thread):
-    def __init__(self, parent):
+    def __init__(self, parent, queue):
         Thread.__init__(self)
         self.parent = parent
+        self.queue = queue
         # pylint: disable=E1101
         self.curl = pycurl.Curl()
         self.mirror = 0
@@ -183,14 +199,20 @@ class DownloadThread(Thread):
         opts = URLGrabberOptions(ssl_ca_cert=params['ssl_ca_cert'], ssl_cert=params['ssl_client_cert'],
                                  ssl_key=params['ssl_client_key'], range=params['bytes_range'],
                                  proxy=params['proxy'], username=params['proxy_username'],
-                                 password=params['proxy_password'], proxies=params['proxies'])
+                                 password=params['proxy_password'], proxies=params['proxies'],
+                                 http_headers=tuple(params['http_headers'].items()))
         mirrors = len(params['urls'])
         for retry in range(max(self.parent.retries, mirrors)):
             fo = None
             url = urlparse.urljoin(params['urls'][self.mirror], params['relative_path'])
+            ## BEWARE: This hack is introduced in order to support SUSE SCC channels
+            ## This also needs a patched urlgrabber AFAIK
+            if 'authtoken' in params and params['authtoken']:
+                (scheme, netloc, path, query, _) = urlparse.urlsplit(params['urls'][self.mirror])
+                url = "%s://%s%s/%s?%s" % (scheme,netloc,path,params['relative_path'],query.rstrip('/'))
             try:
                 try:
-                    fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl)
+                    fo = PyCurlFileObjectThread(url, params['target_file'], opts, self.curl, self.parent)
                     # Check target file
                     if not self.__is_file_done(file_obj=fo, checksum_type=params['checksum_type'],
                                                checksum=params['checksum']):
@@ -199,6 +221,13 @@ class DownloadThread(Thread):
                     break
                 except (FailedDownloadError, URLGrabError):
                     e = sys.exc_info()[1]
+                    # urlgrabber-3.10.1-9 trows URLGrabError for both
+                    # 'HTTP Error 404 - Not Found' and 'No space left on device', so
+                    # workaround for this is check error message:
+                    if 'No space left on device' in str(e):
+                        self.parent.fail_download(e)
+                        return False
+
                     if not self.__can_retry(retry, mirrors, opts, url, e):
                         return False
                     self.__next_mirror(mirrors)
@@ -218,9 +247,9 @@ class DownloadThread(Thread):
         return True
 
     def run(self):
-        while not self.parent.queue.empty() and self.parent.can_continue():
+        while not self.queue.empty() and self.parent.can_continue():
             try:
-                params = self.parent.queue.get(block=False)
+                params = self.queue.get(block=False)
             except Empty:
                 break
             self.mirror = 0
@@ -228,12 +257,13 @@ class DownloadThread(Thread):
             if self.parent.log_obj:
                 # log_obj must be thread-safe
                 self.parent.log_obj.log(success, os.path.basename(params['relative_path']))
-            self.parent.queue.task_done()
+            self.queue.task_done()
+        self.curl.close()
 
 
 class ThreadedDownloader:
     def __init__(self, retries=3, log_obj=None, force=False):
-        self.queue = Queue()
+        self.queues = {}
         initCFG('server.satellite')
         try:
             self.threads = int(CFG.REPOSYNC_DOWNLOAD_THREADS)
@@ -246,6 +276,9 @@ class ThreadedDownloader:
         self.force = force
         self.lock = Lock()
         self.exception = None
+        # WORKAROUND - BZ #1439758 - ensure first item in queue is performed alone to properly setup NSS
+        self.first_in_queue_done = False
+        self.first_in_queue_lock = Lock()
 
     def set_log_obj(self, log_obj):
         self.log_obj = log_obj
@@ -254,7 +287,8 @@ class ThreadedDownloader:
         self.force = force
 
     @staticmethod
-    def _validate(ssl_ca_cert, ssl_cert, ssl_key):
+    def _validate(ssl_set):
+        ssl_ca_cert, ssl_cert, ssl_key = ssl_set
         for certificate_file in (ssl_ca_cert, ssl_cert, ssl_key):
             if certificate_file and not os.path.isfile(certificate_file):
                 log2(0, 0, "ERROR: Certificate file not found: %s" % certificate_file, stream=sys.stderr)
@@ -262,30 +296,41 @@ class ThreadedDownloader:
         return True
 
     def add(self, params):
-        if self._validate(params['ssl_ca_cert'], params['ssl_client_cert'], params['ssl_client_key']):
-            self.queue.put(params)
+        ssl_set = (params['ssl_ca_cert'], params['ssl_client_cert'], params['ssl_client_key'])
+        if self._validate(ssl_set):
+            if ssl_set not in self.queues:
+                self.queues[ssl_set] = Queue()
+            queue = self.queues[ssl_set]
+            queue.put(params)
 
     def run(self):
-        size = self.queue.qsize()
+        size = 0
+        for queue in self.queues.values():
+            size += queue.qsize()
         if size <= 0:
             return
-        log(1, "Downloading %s files." % str(size))
-        started_threads = []
-        for _ in range(self.threads):
-            thread = DownloadThread(self)
-            thread.setDaemon(True)
-            thread.start()
-            started_threads.append(thread)
+        log(1, "Downloading total %d files from %d queues." % (size, len(self.queues)))
 
-        # wait to finish
-        try:
-            while any(t.isAlive() for t in started_threads):
-                time.sleep(1)
-        except KeyboardInterrupt:
-            e = sys.exc_info()[1]
-            self.fail_download(e)
-            while any(t.isAlive() for t in started_threads):
-                time.sleep(1)
+        for index, queue in enumerate(self.queues.values()):
+            log(2, "Downloading %d files from queue #%d." % (queue.qsize(), index))
+            self.first_in_queue_done = False
+            started_threads = []
+            for _ in range(self.threads):
+                thread = DownloadThread(self, queue)
+                thread.setDaemon(True)
+                thread.start()
+                started_threads.append(thread)
+
+            # wait to finish
+            try:
+                while any(t.isAlive() for t in started_threads):
+                    time.sleep(1)
+            except KeyboardInterrupt:
+                e = sys.exc_info()[1]
+                self.fail_download(e)
+                while any(t.isAlive() for t in started_threads):
+                    time.sleep(1)
+                break
 
         # raise first detected exception if any
         if self.exception:

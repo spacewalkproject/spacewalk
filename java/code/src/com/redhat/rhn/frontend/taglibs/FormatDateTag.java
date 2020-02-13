@@ -32,11 +32,13 @@ import javax.servlet.jsp.tagext.TagSupport;
 import javax.xml.bind.DatatypeConverter;
 
 /**
- * <strong>FormatDateTag</strong>
+ * <strong>FormatDateTag</strong><br>
  * Displays a value in a human format (eg. 3 minutes ago)
- * <pre>
- *     &lt;rhn:human-value value="${bean.value}"&gt;
- * </pre> Outputs a human readable text for the value relative to now.<br />
+ * <pre>{@literal
+ *     <rhn:human-value value="${bean.value}">
+ * }</pre>
+ * <p>
+ * Outputs a human readable text for the value relative to now.
  *
  */
 public class FormatDateTag extends TagSupport {
@@ -114,71 +116,66 @@ public class FormatDateTag extends TagSupport {
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @return The current pattern for the formatter
-     * @see fmt:FormatDate tag
      */
     public String getPattern() {
         return pattern;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @param pat The desired pattern for the formatter
-     * @see fmt:FormatDate tag
      */
     public void setPattern(String pat) {
         this.pattern = pat;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @return The date style for the formatter
-     * @see fmt:FormatDate tag
      */
     public String getDateStyle() {
         return dateStyle;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @param style Desired date style for the formatter
-     *
-     * Valid values: default, shot, medium, long, full
-     *
-     * @see fmt:FormatDate tag
+     * (Valid values: default, shot, medium, long, full)
      */
     public void setDateStyle(String style) {
         this.dateStyle = style;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @return The time style for the formatter
-     * @see fmt:FormatDate
      */
     public String getTimeStyle() {
         return timeStyle;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @param style Desired time style for the formatter
-     * @see fmt:FormatDate
      */
     public void setTimeStyle(String style) {
         this.timeStyle = style;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @return Type of the formatter (display date, time or both)
-     *
-     * @see fmt:FormatDate
      */
     public String getType() {
         return type;
     }
 
     /**
+     * For details, refer to the {@literal <fmt:FormatDate>} tag
      * @param typ Desired type for the formatter
-     *
-     * Valid values: date, time or both
-     *
-     * @see fmt:FormatDate
+     * (Valid values: date, time or both)
      */
     public void setType(String typ) {
         this.type = typ;
@@ -218,7 +215,7 @@ public class FormatDateTag extends TagSupport {
      * renders code that includes the moment.js library, only
      * if it has not been included before by the same tag
      * @param out Where to render to
-     * @throws IOException
+     * @throws IOException IO exception
      */
     protected void renderMomentInclude(Writer out) throws IOException {
         if (pageContext.getRequest().getAttribute(
@@ -258,7 +255,7 @@ public class FormatDateTag extends TagSupport {
     /**
      * {@inheritDoc}
      *
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     @Override
     public int doStartTag() throws JspException {
@@ -294,7 +291,7 @@ public class FormatDateTag extends TagSupport {
     /**
      * {@inheritDoc}
      *
-     * @throws JspException
+     * @throws JspException JSP exception
      */
     @Override
     public int doEndTag() throws JspException {

@@ -39,7 +39,7 @@ public class InvalidChannelNameException extends FaultException {
     /**
      * Creates a new indication of a channel name issue that does not specify the reason
      * for the error.
-     * <p/>
+     * <p>
      * Ideally, this won't be used frequently. This was kept in to support current uses
      * that don't fit into the idea of validating if a name can be used in a channel
      * creation/edit.

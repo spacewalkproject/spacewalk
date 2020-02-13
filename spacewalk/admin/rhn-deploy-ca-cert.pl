@@ -89,7 +89,7 @@ if ($ret) {
   die "Could not copy $rpm to $target_dir";
 }
 
-$ret = system('ln', '-sf', $cert_target_file, $trust_dir);
+$ret = system('cp', $cert_target_file, $trust_dir);
 
 if ($ret) {
   die "Could not link $cert_target_file to $trust_dir";

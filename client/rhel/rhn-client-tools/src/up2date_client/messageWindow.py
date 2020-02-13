@@ -1,12 +1,18 @@
 
 
-import gtk
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)
 # Python 3 translations don't have a ugettext method
 if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
+
+from up2date_client.gtk_compat import gtk, GTK3
+
+if GTK3:
+    DIALOG_LABEL = 0
+else:
+    DIALOG_LABEL = 1
 
 # wrap a long line...
 def wrap_line(line, max_line_size = 100):
@@ -46,7 +52,7 @@ class MessageWindow:
     def hide(self):
         self.dialog.hide()
         self.dialog.destroy()
-        gtk.main_iteration()
+        gtk.main_iteration_do(True)
 
     def __init__ (self, title, text, type="ok", default=None, parent=None):
         self.rc = None
@@ -72,7 +78,7 @@ class MessageWindow:
         self.dialog = gtk.MessageDialog(parent, 0, style, buttons)
         # Work around for bug #602609
         try:
-            self.dialog.vbox.get_children()[0].get_children()[1].\
+            self.dialog.vbox.get_children()[0].get_children()[DIALOG_LABEL].\
                 get_children()[0].set_line_wrap(False)
         except:
             self.dialog.label.set_line_wrap(False)
@@ -117,19 +123,20 @@ class BulletedOkDialog:
     def __init__ (self, title=None, parent=None):
         self.rc = None
         self.dialog = gtk.Dialog(title, parent, 0, ("Close", 1))
-        self.dialog.set_has_separator(False)
+        if hasattr(self.dialog, 'set_has_separator'):
+            self.dialog.set_has_separator(False)
         # Vbox to contain just the stuff that will be add to the dialog with
         # addtext
         self.vbox = gtk.VBox(spacing=15)
         self.vbox.set_border_width(15)
         # Put our vbox into the top part of the dialog
-        self.dialog.get_children()[0].pack_start(self.vbox, expand=False)
+        self.dialog.get_children()[0].pack_start(self.vbox, expand=False, fill=True, padding=0)
 
     def add_text(self, text):
         label = gtk.Label(text)
         label.set_alignment(0, 0)
         label.set_line_wrap(True)
-        self.vbox.pack_start(label, expand=False)
+        self.vbox.pack_start(label, expand=False, fill=True, padding=0)
 
     def add_bullet(self, text):
         label = gtk.Label(text)
@@ -138,9 +145,9 @@ class BulletedOkDialog:
         hbox = gtk.HBox(spacing=5)
         bullet = gtk.Label(u'\u2022')
         bullet.set_alignment(0, 0)
-        hbox.pack_start(bullet, expand=False)
-        hbox.pack_start(label, expand=False)
-        self.vbox.pack_start(hbox, expand=False)
+        hbox.pack_start(bullet, expand=False, fill=True, padding=0)
+        hbox.pack_start(label, expand=False, fill=True, padding=0)
+        self.vbox.pack_start(hbox, expand=False, fill=True, padding=0)
 
     def run(self):
         # addFrame(self.dialog) # Need to do this differently if we want it
@@ -151,7 +158,7 @@ class BulletedOkDialog:
             or rc == gtk.RESPONSE_CLOSE):
             self.rc = 0
         self.dialog.destroy()
-        gtk.main_iteration()
+        gtk.main_iteration_do(True)
 
     def getrc (self):
         return self.rc

@@ -1,15 +1,13 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
-# Copyright (c) 1999--2016 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Author: Adrian Likins <alikins@redhat.com>
 #
 
 import os
 import re
-import sys
 
-sys.path.append("/usr/share/rhn")
 from up2date_client import config
 
 cfg = config.initUp2dateConfig()

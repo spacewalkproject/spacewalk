@@ -90,8 +90,7 @@ public class BunchDetailAction extends RhnAction implements Listable {
         User user =  contextIn.getCurrentUser();
         String bunchName = contextIn.getParam("label", true);
         try {
-            List<Map> runs = new TaskomaticApi().findRunsByBunch(user, bunchName);
-            return runs;
+            return (List<Map>) new TaskomaticApi().findRunsByBunch(user, bunchName);
         }
         catch (TaskomaticApiException e) {
             createErrorMessage(contextIn.getRequest(),

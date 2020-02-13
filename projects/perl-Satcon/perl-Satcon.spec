@@ -2,22 +2,24 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.7.1
+Version:        2.10.3
 Release:        1%{?dist}
 License:        GPLv2
-Group:          Applications/System
 URL:            https://github.com/spacewalkproject/spacewalk
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
-%if 0%{?fedora} && 0%{?fedora} >= 24
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl
+BuildRequires:  perl-interpreter
+%if 0%{?rhel} == 8
+BuildRequires:  perl-generators < 1.10-7.module
+%else
 BuildRequires:  perl-generators
+%endif
 # Run-time:
 # bytes not used at tests
 # Data::Dumper not used at tests
@@ -42,7 +44,6 @@ This package include Satcon perl module and supporting applications.
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 
 make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
@@ -55,7 +56,6 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 make test
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %doc README LICENSE 
@@ -63,6 +63,30 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
+- workaround RHEL8 buildrequires modules issue
+
+* Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.2-1
+- fixed buildrequires on RHEL8
+- simplified Fedora requires
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8.2-1
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 2.8.1-1
+- purged changelog entries for Spacewalk 2.0 and older
+- Bumping package versions for 2.8.
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 2.7.3-1
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
+* Mon Jul 17 2017 Jan Dobes 2.7.2-1
+- Updated links to github in spec files
+- Migrating Fedorahosted to GitHub
+
 * Mon Jan 23 2017 Jan Dobes 2.7.1-1
 - Specify all dependencies
 - Bumping package versions for 2.7.
@@ -82,41 +106,4 @@ rm -rf $RPM_BUILD_ROOT
 - Getting rid of Tabs and trailing spaces in LICENSE, COPYING, and README files
 - Bumping package versions for 2.3.
 - Bumping package versions for 2.2.
-
-* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 1.20-1
-- 919468 - fixed path in file based Requires
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-- %%defattr is not needed since rpm 4.4
-
-* Tue Jul 19 2011 Jan Pazdziora 1.19-1
-- Updating the copyright years.
-
-* Tue May 03 2011 Jan Pazdziora 1.18-1
-- Do chgrp apache for files being deployed.
-
-* Thu Apr 28 2011 Jan Pazdziora 1.17-1
-- Do not confuse me by saying Unsubstituted Tags when there are none.
-- Do not deploy .orig files.
-- When creating config files in /etc/rhn, clear access for other (make it
-  -rw-r-----, in typical case).
-
-* Mon Apr 25 2011 Jan Pazdziora 1.16-1
-- The File::Copy and File::Temp do not seem to be used in Satcon, removing the
-  use.
-
-* Thu Apr 21 2011 Jan Pazdziora 1.15-1
-- When creating the backup directory, do not leave them open for other, just
-  owner and group should be enough.
-- Use cp -p instead of File::Copy::copy to preserve the access rights.
-
-* Fri Feb 18 2011 Jan Pazdziora 1.14-1
-- Localize the filehandle globs; also use three-parameter opens.
-
-* Tue Jan 11 2011 Jan Pazdziora 1.13-1
-- Removing satcon-make-rpm.pl from repository as we haven't been packaging it
-  since 2008.
-
-* Tue Dec 14 2010 Jan Pazdziora 1.12-1
-- We need to check the return value of GetOptions and die if the parameters
-  were not correct.
 

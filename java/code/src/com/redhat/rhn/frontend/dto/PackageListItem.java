@@ -556,11 +556,7 @@ public class PackageListItem extends IdComboDto {
 
         PackageListItem that = (PackageListItem) o;
 
-        if (idCombo != null ? !idCombo.equals(that.idCombo) : that.idCombo != null) {
-            return false;
-        }
-
-        return true;
+        return idCombo != null ? !idCombo.equals(that.idCombo) : that.idCombo != null;
     }
 
     /** {@inheritDoc} */

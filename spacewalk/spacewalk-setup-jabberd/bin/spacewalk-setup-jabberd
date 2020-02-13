@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2009--2015 Red Hat, Inc.
+# Copyright (c) 2009--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -23,7 +23,15 @@ use warnings;
 my $verbose = 0;
 my $macros = '';
 my $help = 0;
-my %macros = ('hostname' => Sys::Hostname::hostname(),
+
+# Try to get the FQDN or SSL verification will likely fail.
+# Fallback to shortname
+# Net::Domain::hostfqdn() is broken. Use hostname command instead.
+my $hostname ||= `hostname --fqdn`;
+chomp($hostname);
+$hostname ||= Sys::Hostname::hostname(),
+
+my %macros = ('hostname' => $hostname,
               'server_pem' => '/etc/pki/spacewalk/jabberd/server.pem',
               'localhost' => '127.0.0.1',
               'ipaddress' => '0.0.0.0');
@@ -105,6 +113,14 @@ foreach my $basename ('c2s', 's2s', 'sm', 'router') {
                 }
         }
 
+}
+
+# Initialize the sqlite database
+my $definedauthreg = `sqlite3 /var/lib/jabberd/db/sqlite.db ".tables authreg"`;
+chomp $definedauthreg;
+if ($definedauthreg ne 'authreg') {
+        `sqlite3 /var/lib/jabberd/db/sqlite.db < /usr/share/jabberd/db-setup.sqlite`;
+        `chown jabber:jabber /var/lib/jabberd/db/sqlite.db`;
 }
 
 1;

@@ -115,8 +115,7 @@ public class RemoveMastersAction extends RhnAction {
         List<IssMaster> masters = new ArrayList<IssMaster>();
 
         if (sessionSet != null) {
-            Set<String> mids = sessionSet;
-            for (String mid : mids) {
+            for (String mid : (Set<String>) sessionSet) {
                 IssMaster aMaster = IssFactory.lookupMasterById(Long.parseLong(mid));
                 masters.add(aMaster);
             }

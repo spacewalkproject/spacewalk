@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -95,7 +95,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
             for (Iterator it = cmd.getRequiredOptions().iterator(); it.hasNext();) {
                 KickstartCommandName cn = (KickstartCommandName) it.next();
                 if ((request.getParameter(cn.getName()) == null) ||
-                        (request.getParameter(cn.getName().concat("_txt")) == "")) {
+                        (request.getParameter(cn.getName().concat("_txt")).equals(""))) {
                     messages.add(ActionMessages.GLOBAL_MESSAGE,
                             new ActionMessage("errors.required", cn.getName()));
                 }

@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 # Copyright 2013 Aron Parsons <aronparsons@gmail.com>
-# Copyright (c) 2011--2015 Red Hat, Inc.
+# Copyright (c) 2011--2018 Red Hat, Inc.
 #
 
 # NOTE: the 'self' variable is an instance of SpacewalkShell
@@ -34,9 +34,16 @@ import logging
 import readline
 import shlex
 from getpass import getpass
-from ConfigParser import NoOptionError
+try: # python 3
+    from configparser import NoOptionError
+except ImportError: # python 2
+    from ConfigParser import NoOptionError
+
 from time import sleep
-import xmlrpclib
+try: # python 3
+    from xmlrpc import client as xmlrpclib
+except ImportError: # python2
+    import xmlrpclib
 from spacecmd.utils import *
 
 # list of system selection options for the help output
@@ -91,18 +98,18 @@ SYSTEM_SEARCH_FIELDS = ['id', 'name', 'ip', 'hostname',
 
 
 def help_systems(self):
-    print HELP_SYSTEM_OPTS
+    print(HELP_SYSTEM_OPTS)
 
 
 def help_time(self):
-    print HELP_TIME_OPTS
+    print(HELP_TIME_OPTS)
 
 ####################
 
 
 def help_clear(self):
-    print 'clear: clear the screen'
-    print 'usage: clear'
+    print('clear: clear the screen')
+    print('usage: clear')
 
 
 def do_clear(self, args):
@@ -112,9 +119,8 @@ def do_clear(self, args):
 
 
 def help_clear_caches(self):
-    print 'clear_caches: Clear the internal caches kept for systems' + \
-          ' and packages'
-    print 'usage: clear_caches'
+    print('clear_caches: Clear the internal caches kept for systems and packages')
+    print('usage: clear_caches')
 
 
 def do_clear_caches(self, args):
@@ -126,60 +132,60 @@ def do_clear_caches(self, args):
 
 
 def help_get_apiversion(self):
-    print 'get_apiversion: Display the API version of the server'
-    print 'usage: get_apiversion'
+    print('get_apiversion: Display the API version of the server')
+    print('usage: get_apiversion')
 
 
 def do_get_apiversion(self, args):
-    print self.client.api.getVersion()
+    print(self.client.api.getVersion())
 
 ####################
 
 
 def help_get_serverversion(self):
-    print 'get_serverversion: Display the version of the server'
-    print 'usage: get_serverversion'
+    print('get_serverversion: Display the version of the server')
+    print('usage: get_serverversion')
 
 
 def do_get_serverversion(self, args):
-    print self.client.api.systemVersion()
+    print(self.client.api.systemVersion())
 
 ####################
 
 
 def help_get_certificateexpiration(self):
-    print 'get_certificateexpiration: Print the expiration date of the'
-    print "                           server's entitlement certificate"
-    print 'usage: get_certificateexpiration'
+    print('get_certificateexpiration: Print the expiration date of the')
+    print("                           server's entitlement certificate")
+    print('usage: get_certificateexpiration')
 
 
 def do_get_certificateexpiration(self, args):
     date = self.client.satellite.getCertificateExpirationDate(self.session)
-    print date
+    print(date)
 
 ####################
 
 
 def help_list_proxies(self):
-    print 'list_proxies: List the proxies wihtin the user\'s organization '
-    print 'usage: list_proxies'
+    print('list_proxies: List the proxies wihtin the user\'s organization ')
+    print('usage: list_proxies')
 
 
 def do_list_proxies(self, args):
     proxies = self.client.satellite.listProxies(self.session)
-    print proxies
+    print(proxies)
 
 ####################
 
 
 def help_get_session(self):
-    print 'get_session: Show the current session string'
-    print 'usage: get_session'
+    print('get_session: Show the current session string')
+    print('usage: get_session')
 
 
 def do_get_session(self, args):
     if self.session:
-        print self.session
+        print(self.session)
     else:
         logging.error('No session found')
 
@@ -187,33 +193,33 @@ def do_get_session(self, args):
 
 
 def help_help(self):
-    print 'help: Show help for the given command'
-    print 'usage: help COMMAND'
+    print('help: Show help for the given command')
+    print('usage: help COMMAND')
 
 ####################
 
 
 def help_history(self):
-    print 'history: List your command history'
-    print 'usage: history'
+    print('history: List your command history')
+    print('usage: history')
 
 
 def do_history(self, args):
     for i in range(1, readline.get_current_history_length()):
-        print '%s  %s' % (str(i).rjust(4), readline.get_history_item(i))
+        print('%s  %s' % (str(i).rjust(4), readline.get_history_item(i)))
 
 ####################
 
 
 def help_toggle_confirmations(self):
-    print 'toggle_confirmations: Toggle confirmation messages on/off'
-    print 'usage: toggle_confirmations'
+    print('toggle_confirmations: Toggle confirmation messages on/off')
+    print('usage: toggle_confirmations')
 
 
 def do_toggle_confirmations(self, args):
     if self.options.yes:
         self.options.yes = False
-        print 'Confirmation messages are enabled'
+        print('Confirmation messages are enabled')
     else:
         self.options.yes = True
         logging.warning('Confirmation messages are DISABLED!')
@@ -222,15 +228,17 @@ def do_toggle_confirmations(self, args):
 
 
 def help_login(self):
-    print 'login: Connect to a Spacewalk server'
-    print 'usage: login [USERNAME] [SERVER]'
+    print('login: Connect to a Spacewalk server')
+    print('usage: login [USERNAME] [SERVER]')
 
 
 def do_login(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     # logout before logging in again
-    if len(self.session):
+    if self.session:
         logging.warning('You are already logged in')
         return True
 
@@ -250,9 +258,9 @@ def do_login(self, args):
     self.load_config_section(server)
 
     # an argument passed to the function get precedence
-    if len(args):
+    if args:
         username = args[0]
-    elif self.config.has_key('username'):
+    elif 'username' in self.config:
         # use the username from before
         username = self.config['username']
     elif self.options.username:
@@ -262,7 +270,7 @@ def do_login(self, args):
         username = ''
 
     # set the protocol
-    if self.config.has_key('nossl') and self.config['nossl']:
+    if 'nossl' in self.config and self.config['nossl']:
         proto = 'http'
     else:
         proto = 'https'
@@ -293,7 +301,7 @@ def do_login(self, args):
         return False
 
     # ensure the server is recent enough
-    if self.api_version < self.MINIMUM_API_VERSION:
+    if float(self.api_version) < self.MINIMUM_API_VERSION:
         logging.error('API (%s) is too old (>= %s required)',
                       self.api_version, self.MINIMUM_API_VERSION)
 
@@ -313,7 +321,7 @@ def do_login(self, args):
                 parts = line.split(':')
 
                 # if a username was passed, make sure it matches
-                if len(username):
+                if username:
                     if parts[0] == username:
                         self.session = parts[1]
                 else:
@@ -338,8 +346,8 @@ def do_login(self, args):
             self.session = ''
 
     # attempt to login if we don't have a valid session yet
-    if not len(self.session):
-        if len(username):
+    if not self.session:
+        if username:
             logging.info('Spacewalk Username: %s', username)
         else:
             username = prompt_user('Spacewalk Username:', noblank=True)
@@ -350,7 +358,7 @@ def do_login(self, args):
             # remove this from the options so that if 'login' is called
             # again, the user is prompted for the information
             self.options.password = None
-        elif self.config.has_key('password'):
+        elif 'password' in self.config:
             password = self.config['password']
         else:
             password = getpass('Spacewalk Password: ')
@@ -370,7 +378,7 @@ def do_login(self, args):
             conf_dir = os.path.join(self.conf_dir, server)
 
             if not os.path.isdir(conf_dir):
-                os.mkdir(conf_dir, 0700)
+                os.mkdir(conf_dir, int('0700', 8))
 
             # add the new cache to the file
             line = '%s:%s\n' % (username, self.session)
@@ -397,8 +405,8 @@ def do_login(self, args):
 
 
 def help_logout(self):
-    print 'logout: Disconnect from the server'
-    print 'usage: logout'
+    print('logout: Disconnect from the server')
+    print('usage: logout')
 
 
 def do_logout(self, args):
@@ -414,13 +422,13 @@ def do_logout(self, args):
 
 
 def help_whoami(self):
-    print 'whoami: Print the name of the currently logged in user'
-    print 'usage: whoami'
+    print('whoami: Print the name of the currently logged in user')
+    print('usage: whoami')
 
 
 def do_whoami(self, args):
-    if len(self.current_user):
-        print self.current_user
+    if self.current_user:
+        print(self.current_user)
     else:
         logging.warning("You are not logged in")
 
@@ -428,13 +436,13 @@ def do_whoami(self, args):
 
 
 def help_whoamitalkingto(self):
-    print 'whoamitalkingto: Print the name of the server'
-    print 'usage: whoamitalkingto'
+    print('whoamitalkingto: Print the name of the server')
+    print('usage: whoamitalkingto')
 
 
 def do_whoamitalkingto(self, args):
-    if len(self.server):
-        print self.server
+    if self.server:
+        print(self.server)
     else:
         logging.warning('Yourself')
 
@@ -454,23 +462,23 @@ def tab_complete_systems(self, text):
         groups = ['group:%s' % g for g in self.do_group_list('', True)]
 
         return tab_completer(groups, text)
-    elif re.match('channel:', text):
+    if re.match('channel:', text):
         # prepend 'channel' to each item for tab completion
         channels = ['channel:%s' % s
                     for s in self.do_softwarechannel_list('', True)]
 
         return tab_completer(channels, text)
-    elif re.match('search:', text):
+    if re.match('search:', text):
         # prepend 'search' to each item for tab completion
         fields = ['search:%s:' % f for f in self.SYSTEM_SEARCH_FIELDS]
         return tab_completer(fields, text)
-    else:
-        options = self.get_system_names()
 
-        # add our special search options
-        options.extend(['group:', 'channel:', 'search:'])
+    options = self.get_system_names()
 
-        return tab_completer(options, text)
+    # add our special search options
+    options.extend(['group:', 'channel:', 'search:'])
+
+    return tab_completer(options, text)
 
 
 def remove_last_history_item(self):
@@ -493,12 +501,14 @@ def get_errata_names(self):
 def get_erratum_id(self, name):
     if name in self.all_errata:
         return self.all_errata[name]['id']
+    return None
 
 
 def get_erratum_name(self, erratum_id):
     for erratum in self.all_errata:
         if self.all_errata[erratum]['id'] == erratum_id:
             return erratum
+    return None
 
 
 def generate_errata_cache(self, force=False):
@@ -620,8 +630,8 @@ def get_package_names(self, longnames=False):
 
     if longnames:
         return self.all_packages.keys()
-    else:
-        return self.all_packages_short
+
+    return self.all_packages_short
 
 
 def get_package_id(self, name):
@@ -630,7 +640,7 @@ def get_package_id(self, name):
     try:
         return set(self.all_packages[name])
     except KeyError:
-        return
+        return None
 
 
 def get_package_name(self, package_id):
@@ -639,7 +649,7 @@ def get_package_name(self, package_id):
     try:
         return self.all_packages_by_id[package_id]
     except KeyError:
-        return
+        return None
 
 
 def clear_system_cache(self):
@@ -687,7 +697,7 @@ def load_caches(self, server, username):
 
     try:
         if not os.path.isdir(conf_dir):
-            os.mkdir(conf_dir, 0700)
+            os.mkdir(conf_dir, int('0700', 8))
     except OSError:
         logging.error('Could not create directory %s', conf_dir)
         return
@@ -740,7 +750,7 @@ def get_system_names_ids(self):
 
 # check for duplicate system names and return the system ID
 def get_system_id(self, name):
-    name = str(name)
+    name = "%s" % name
     self.generate_system_cache()
     systems = []
 
@@ -753,13 +763,14 @@ def get_system_id(self, name):
         pass
 
     # get a set of matching systems to check for duplicate names
-    for system_id in self.all_systems:
-        if name == self.all_systems[system_id]:
-            systems.append(system_id)
+    if not systems:
+        for system_id in self.all_systems:
+            if name == self.all_systems[system_id]:
+                systems.append(system_id)
 
     if len(systems) == 1:
         return systems[0]
-    elif not len(systems):
+    elif not systems:
         logging.warning("Can't find system ID for %s", name)
         return 0
     else:
@@ -786,7 +797,7 @@ def get_system_name(self, system_id):
     try:
         return self.all_systems[system_id]
     except KeyError:
-        return
+        return None
 
 
 def get_org_id(self, name):
@@ -800,7 +811,7 @@ def expand_errata(self, args):
 
     self.generate_errata_cache()
 
-    if len(args) == 0:
+    if not args:
         return self.all_errata
 
     errata = []
@@ -830,7 +841,7 @@ def expand_systems(self, args):
             item = re.sub('group:', '', item)
             members = self.do_group_listsystems("'%s'" % item, True)
 
-            if len(members):
+            if members:
                 systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems in group %s', item)
@@ -838,13 +849,13 @@ def expand_systems(self, args):
             query = item.split(':', 1)[1]
             results = self.do_system_search(query, True)
 
-            if len(results):
-                systems.extend([re.escape(r) for r in results])
+            if results:
+                system_ids.extend(results)
         elif re.match('channel:', item):
             item = re.sub('channel:', '', item)
             members = self.do_softwarechannel_listsystems(item, True)
 
-            if len(members):
+            if members:
                 systems.extend([re.escape(m) for m in members])
             else:
                 logging.warning('No systems subscribed to %s', item)
@@ -859,7 +870,7 @@ def expand_systems(self, args):
 
     matches = filter_results(self.get_system_names(), systems)
 
-    return [str(x) for x in list(set(matches + system_ids))]
+    return ["%s" % x for x in list(set(matches + system_ids))]
 
 
 def list_base_channels(self):
@@ -879,7 +890,7 @@ def list_child_channels(self, system=None, parent=None, subscribed=False):
     if system:
         system_id = self.get_system_id(system)
         if not system_id:
-            return
+            return None
 
         if subscribed:
             channels = \
@@ -921,13 +932,13 @@ def user_confirm(self, prompt='Is this ok [y/N]:', nospacer=False,
     if re.match('y', answer, re.I):
         if integer:
             return 1
-        else:
-            return True
-    else:
-        if integer:
-            return 0
-        else:
-            return False
+
+        return True
+
+    if integer:
+        return 0
+
+    return False
 
 
 # check if the available API is recent enough
@@ -939,12 +950,12 @@ def check_api_version(self, want):
         if have_parts[0] == want_parts[0]:
             # compare minor versions if majors are the same
             return have_parts[1] >= want_parts[1]
-        else:
-            # only compare major versions if they differ
-            return have_parts[0] >= want_parts[0]
-    else:
-        # compare the whole value
-        return float(self.api_version) >= float(want)
+
+        # only compare major versions if they differ
+        return have_parts[0] >= want_parts[0]
+
+    # compare the whole value
+    return float(self.api_version) >= float(want)
 
 
 # replace the current line buffer
@@ -953,8 +964,8 @@ def replace_line_buffer(self, msg=None):
     if not msg:
         msg = readline.get_line_buffer()
 
-    # don't print a prompt if there wasn't one to begin with
-    if len(readline.get_line_buffer()):
+    # don't print(a prompt if there wasn't one to begin with)
+    if readline.get_line_buffer():
         new_line = '%s%s' % (self.prompt, msg)
     else:
         new_line = '%s' % msg
@@ -991,13 +1002,20 @@ def load_config_section(self, section):
             except NoOptionError:
                 pass
 
+    try:
+        if ('username' in self.config
+                and self.config['username'] != self.config_parser.get(section, 'username')):
+            del self.config['password']
+    except NoOptionError:
+        pass
+
     # handle the nossl boolean
-    if self.config.has_key('nossl') and isinstance(self.config['nossl'], str):
+    if 'nossl' in self.config and isinstance(self.config['nossl'], str):
         self.config['nossl'] = re.match('^1|y|true$', self.config['nossl'], re.I)
 
     # Obfuscate the password with asterisks
     config_debug = self.config.copy()
-    if config_debug.has_key('password'):
+    if 'password' in config_debug:
         config_debug['password'] = "*" * len(config_debug['password'])
 
     logging.debug('Current Configuration: %s', config_debug)

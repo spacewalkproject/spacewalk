@@ -186,13 +186,15 @@ public class SessionManager extends BaseManager {
     /**
      * Determine if this is a secure param as created by the other
      * methods on this class. The string parameter "data" should
-     * be of the form <param>:<encoded> or <param>:<timestamp>:<encoded>.
-     * If it is of the 1st form, then the <param> value is re-encoded
-     * and it is compared to the <encoded> value. If it is of the 2nd
-     * form, then first the timeout value is compared against the
-     * <timestamp> value. If that is in range, then the <param>:<timestamp>
-     * combined value is re-encoded and compared against the <encoded>
-     * value.
+     * be of the form {@literal <param>:<encoded>} or
+     * {@literal <param>:<timestamp>:<encoded>}.  If it is of the
+     * 1st form, then the {@literal <param>} value is re-encoded
+     * and it is compared to the {@literal <encoded>} value. If it
+     * is of the 2nd form, then first the timeout value is compared
+     * against the {@literal <timestamp>} value. If that is in
+     * range, then the {@literal <param>:<timestamp>} combined
+     * value is re-encoded and compared against the
+     * {@literal <encoded>} value.
      *
      * @param data potentially secure param string
      * @return boolean true if it is, otherwise false

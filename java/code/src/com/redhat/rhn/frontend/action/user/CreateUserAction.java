@@ -167,7 +167,7 @@ public class CreateUserAction extends RhnAction {
             preferredLocale = null;
         }
         user.setPreferredLocale(preferredLocale);
-        user.setReadOnly(form.get("readonly") != null ? true : false);
+        user.setReadOnly(form.get("readonly") != null);
         UserManager.storeUser(user);
 
         return getStrutsDelegate().forwardParam(mapping.findForward(SUCCESS_INTO_ORG),

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -26,10 +26,8 @@ import traceback
 from rhn import SSL
 
 try: # python 2
-    from cStringIO import StringIO
     from rhn_log import log_debug, log_error
 except ImportError: # python 3
-    from io import StringIO
     from osad.rhn_log import log_debug, log_error
 
 from spacewalk.common.usix import raise_with_tb
@@ -654,7 +652,6 @@ class JabberClient(jabber.Client, object):
 
         log_debug(4, "Preparing for TLS handshake")
         ssl = SSLSocket(self._sock, trusted_certs=self.trusted_certs)
-        ssl._ssl_method = SSL.SSL.TLSv1_METHOD
         ssl.ssl_verify_callback = self.ssl_verify_callback
         ssl.init_ssl()
         # Explicitly perform the SSL handshake
@@ -1527,9 +1524,7 @@ def strip_resource(jid):
     return jid.getStripped()
 
 def extract_traceback():
-    sio = StringIO()
-    traceback.print_exc(None, sio)
-    return sio.getvalue()
+    return traceback.format_exc(None)
 
 class Sendall:
     """This class exists here because python 1.5.2 does not support a

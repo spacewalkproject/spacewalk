@@ -207,8 +207,7 @@ public class ForgotCredentialsAction extends RhnAction {
     private String setupEmailBody(String template, Object... args) {
         // Build email body from template
         LocalizationService ls = LocalizationService.getInstance();
-        String body = ls.getMessage(template, args);
-        return body;
+        return ls.getMessage(template, args);
     }
 
     /**

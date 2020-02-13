@@ -187,8 +187,7 @@ public class UserTestUtils extends Assert {
      */
     public static Org findNewOrg(String orgName) {
         Long id = createOrg(orgName);
-        Org org = OrgFactory.lookupById(id);
-        return org;
+        return OrgFactory.lookupById(id);
     }
 
     /**

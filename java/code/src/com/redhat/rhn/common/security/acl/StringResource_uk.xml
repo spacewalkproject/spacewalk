@@ -8,6 +8,7 @@
       </trans-unit>
       <trans-unit id="bad-signature">
         <source>Bad ACL handler method [{0}]. ACL handler methods must have the following signature (may be static or non-static), with no declared exceptions: public aclXXXX(Object, String[])</source>
+        <target>Помилковий метод обробки ACL [{0}]. Методи обробки ACL повинні мати такий підпис (може бути статичним або нестатичним) без оголошених виключень: public aclXXXX(Object, String[])</target>
       </trans-unit>
       <trans-unit id="bad-syntax">
         <source>Could not parse ACL statement: "{0}"</source>

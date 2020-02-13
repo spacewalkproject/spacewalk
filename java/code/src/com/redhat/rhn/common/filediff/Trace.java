@@ -86,10 +86,7 @@ public class Trace {
      * @return whether this trace has terminated.
      */
     public boolean isDone() {
-        if (currentLineOld == -1 && currentLineNew == -1) {
-            return true;
-        }
-        return false;
+        return currentLineOld == -1 && currentLineNew == -1;
     }
 
     /**
@@ -105,8 +102,7 @@ public class Trace {
         if (edit != null && edit.getType() == Edit.ADD) {
             copy = edit.copy();
         }
-        Trace newTrace = new Trace(currentLineOld, currentLineNew, copy, matches, next);
-        next = newTrace;
+        next = new Trace(currentLineOld, currentLineNew, copy, matches, next);
         makeAdd();
     }
 
@@ -116,7 +112,7 @@ public class Trace {
      * it keeps finding matching lines. This is because finding matching lines makes
      * this trace much more possibly optimal. This behaviour is what Myers called
      * the &quot;furthest reaching D-path&quot;
-     * <br/>
+     * <p>
      * This step method steps backward through the files. This is for the simple reason
      * that when creating hunks, we want to create them in forward order, but we have to
      * visit the edits backwards from how we diffed them.  Two backwards make a forward,

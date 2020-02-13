@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
@@ -76,7 +77,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             profile.setKernelOptions(kernelOptions);
         }
         if (postKernelOptions != null) {
-            profile.setKernelPostOptions(postKernelOptions);
+            profile.setKernelOptionsPost(postKernelOptions);
         }
         // redhat_management_key
         KickstartSession ksession =
@@ -107,7 +108,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         Map meta = profile.getKsMeta();
         meta.put("org", this.ksData.getOrg().getId());
         profile.setKsMeta(meta);
-
         // Check for para_host
         if (ksData.getKickstartDefaults().getVirtualizationType().
                 getLabel().equals(KickstartVirtualizationType.PARA_HOST)) {
@@ -126,6 +126,28 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         profile.setEnableMenu(ksData.getActive());
 
         profile.save();
+    }
+
+    /**
+     * Validate url in kickstart and kickstart meta. Filesystem paths are not correct,
+     * translate it.
+     * @param profile The profile to check
+     */
+    public void validateUrl(Profile profile) {
+        Map meta = profile.getKsMeta();
+        String urlToCheck = ksData.getTree().getBasePath();
+        if (!urlToCheck.startsWith("/")) {
+            urlToCheck = "/" + urlToCheck;
+        }
+        Object cobblerMediaVariable = meta.get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE);
+        if (ksData.getUrl().equals(urlToCheck)) {
+            ksData.getCommand("url").setArguments("--url " + ksData.getTree().
+                    getAbsolutePath());
+            if (urlToCheck.equals(cobblerMediaVariable)) {
+                meta.remove(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE);
+            }
+            profile.setKsMeta(meta);
+        }
     }
 
     /**

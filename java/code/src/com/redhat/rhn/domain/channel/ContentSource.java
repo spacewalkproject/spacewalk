@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -43,7 +43,7 @@ public class ContentSource extends BaseDomainHelper implements Identifiable {
 
     /**
      * Copy Constructor
-     * @param cs @param cs content source template
+     * @param cs content source template
      */
     public ContentSource(ContentSource cs) {
         org = cs.getOrg();

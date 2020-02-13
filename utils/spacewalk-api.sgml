@@ -1,0 +1,88 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN">
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-api</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-api</command></RefName>
+<RefPurpose>
+Call Spacawalk API from command line.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-api [OPTIONS] --server=spacewalk.domain.com FUNCTION [PARAM1 PARAM2 ...]</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para><emphasis>spacewalk-api</emphasis> interact with the Spacewalk server and expose its API layer.</para>
+    <para>FUNCTION is api method you wish to call and is followed by its parameters.  There is few special substitutions available:</para>
+    <para><emphasis>%session%</emphasis> - is replaced with sessionid. If you use --nologin option, then it is replaced by empty string.</para>
+    <para><emphasis>%file:/some/file%</emphasis> - is replaced by content of given file.</para>
+    <para><emphasis>%boolean:value%</emphasis> - is interpreted as a boolean value. Use <emphasis>0</emphasis> as <emphasis>false</emphasis> and <emphasis>any other integer</emphasis> as <emphasis>true</emphasis>.</para>
+    <para><emphasis>%integer:value%</emphasis> - is interpreted as an integer value.</para>
+    <para><emphasis>%string:value%</emphasis> - is interpreted as a string value.</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--server</term>
+        <listitem>
+            <para>URL of your Spacewalk server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--login --nologin</term>
+        <listitem>
+            <para>If we should log in or not. Default is to log in.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--user</term>
+        <listitem>
+            <para>Name of user to log in.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--password</term>
+        <listitem>
+            <para>If you do not specify this and unless --nologin is specified, you will be prompted for your password.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>EXAMPLES</Title>
+    <para>spacewalk-api --server=spacewalk.com --nologin api.systemVersion</para>
+    <para>spacewalk-api --server=spacewalk.com --user=foo --password=bar channel.listAllChannels "%session%"</para>
+    <para>spacewalk-api --server=spacewalk.com --user=foo --password=bar user.setReadOnly "%session%" user "%boolean:1%"</para>
+    <para>spacewalk-api --server=spacewalk.com --nologin proxy.isProxy '%file:/etc/sysconfig/rhn/systemid%'</para>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Miroslav Suchý<email>msuchy@redhat.com</email></member>
+    <member>Tomas Kasparek<email>tkasparek@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>COPYRIGHT AND LICENSE</Title>
+    <para>Copyright (c) 2009--2017 Red Hat, Inc.</para>
+    <para>Released under GNU General Public License, version 2 (GPLv2).</para>
+</RefSect1>
+
+</RefEntry>

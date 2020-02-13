@@ -101,4 +101,11 @@ public class RhnMockHttpServletResponse extends MockHttpServletResponse {
     public String getCharacterEncoding() {
         return this.encoding;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isCommitted() {
+        return false;
+    }
 }

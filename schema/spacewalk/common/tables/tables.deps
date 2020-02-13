@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2015 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -42,7 +42,7 @@ rhnArchTypeActions             :: rhnArchType rhnActionType
 rhnChannel                     :: web_customer rhnChannelArch rhnChannelProduct \
                                   rhnProductName rhnChecksum
 rhnChannelArch                 :: rhnArchType
-rhnChannelComps                :: rhnChannel
+rhnChannelComps                :: rhnChannel rhnCompsType
 rhnChannelCloned               :: rhnChannelComps
 rhnChannelErrata               :: rhnChannel rhnErrata
 rhnChannelFamily               :: web_customer 
@@ -211,7 +211,6 @@ rhnVisibleObjects              :: PXTSessions
 rhnWebContactChangeLog         :: rhnWebContactChangeState
 rhnActionChain                 :: web_contact
 rhnActionChainEntry            :: rhnActionChain rhnAction rhnServer
-suseCredentials                :: suseCredentialsType web_contact
 web_contact                    :: web_customer
 web_contact_all                :: web_contact
 web_user_contact_permission    :: web_contact

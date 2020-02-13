@@ -7,7 +7,7 @@ TOP_DIR_FEDORA=$1
 # top dir of spacewalk git checkout
 TOP_DIR_GIT=$2
 
-PACKAGE_LIST="spacewalk-pylint rhnlib rhn-client-tools rhnsd yum-rhn-plugin spacewalk-koan perl-Satcon spacewalk-proxy-html spacewalk-proxy-docs spacecmd rhn-custom-info spacewalk-config python-gzipstream"
+PACKAGE_LIST="spacewalk-pylint rhnlib rhn-client-tools rhnsd yum-rhn-plugin spacewalk-koan spacecmd rhn-custom-info python-gzipstream"
 
 
 if [ -z "$TOP_DIR_FEDORA" -o ! -d "$TOP_DIR_FEDORA" ]; then
@@ -30,7 +30,7 @@ for package in $PACKAGE_LIST; do
 		cd "$TOP_DIR_FEDORA"
 		if [ ! -d "$package" ]; then
 			echo "Directory $TOP_DIR_FEDORA/$package do not exist!"
-			exit 1
+			mkdir "$package"
 		fi
 		cd "$package"
 

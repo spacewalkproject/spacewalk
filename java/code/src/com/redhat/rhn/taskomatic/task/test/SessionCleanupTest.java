@@ -29,7 +29,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class SessionCleanupTest extends RhnBaseTestCase {
 
 /**
- * @throws Exception
+ * @throws Exception something bad happened
  */
     public void testExecute() throws Exception {
 

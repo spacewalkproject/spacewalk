@@ -17,10 +17,13 @@ PYTHON_DIRS := ../proxy/proxy ../backend/ ../client/rhel/rhnlib/ ../client/rhel/
 
 # Java doc related
 JAVA_DOC_BIN := `which javadoc`
-JAVA_DOC_SRC_VERSION := 1.5
+JAVA_DOC_SRC_VERSION := 8
 JAVA_DOC_SRC_PATH := ../java/code/src/
 JAVA_DOC_SUBPKGS := "com"
 JAVA_DOC_DIR := javadoc
+JAVA_DOC_CLASSPATH := "../java/lib/*:../java/build/build-lib/*:/usr/share/java/*"
+#JAVA_DOC_EXTRA_ARGS := -tag "todo:X:" -tag "xmlrpc.param:X:" -tag "xmlrpc.returntype:X:" -tag "xmlrpc.doc:X:" -tag "xmlrpc.namespace:X:" -tag "xmlrpc.ignore:X:" "-Xdoclint:none"
+JAVA_DOC_EXTRA_ARGS := -tag "todo:X:" -tag "xmlrpc.param:X:" -tag "xmlrpc.returntype:X:" -tag "xmlrpc.doc:X:" -tag "xmlrpc.namespace:X:" -tag "xmlrpc.ignore:X:"
 
 # Schema Docs
 # Created with DB Schema (http://oraschemadoc.sourceforge.net/)
@@ -42,7 +45,7 @@ python:
 	$(EPYDOC_BIN) $(EPYDOC_SWITCHES) -o $(PYTHON_DOC_DIR) --config $(BUILD_DIR)/epydoc.lst
 
 java:
-	$(JAVA_DOC_BIN) -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) java -J-Xmx512m >/dev/null
+	$(JAVA_DOC_BIN) -locale en -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) -classpath $(JAVA_DOC_CLASSPATH) $(JAVA_DOC_EXTRA_ARGS) -J-Xmx512m >/dev/null
 
 schema:
 	$(ORASCHEMADOC) --dia schema.dia --syntax --pb $(DSN) \

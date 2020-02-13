@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008--2012 Red Hat, Inc.
+-- Copyright (c) 2008--2018 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -51,7 +51,10 @@ CREATE TABLE rhnErrataTmp
     modified          timestamp with local time zone
                           DEFAULT (current_timestamp) NOT NULL,
     last_modified     timestamp with local time zone
-                          DEFAULT (current_timestamp) NOT NULL
+                          DEFAULT (current_timestamp) NOT NULL,
+    severity_id       NUMBER
+                          CONSTRAINT rhn_erratatmp_sevid_fk
+                              REFERENCES rhnErrataSeverity (id)
 )
 ENABLE ROW MOVEMENT
 ;

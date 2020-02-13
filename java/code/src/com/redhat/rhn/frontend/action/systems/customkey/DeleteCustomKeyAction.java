@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.action.systems.customkey;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -25,6 +24,8 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +46,6 @@ public class DeleteCustomKeyAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getCurrentUser();
         Long cikid = requestContext.getParamAsLong(CIKID_PARAM);
 
         CustomDataKey key = OrgFactory.lookupKeyById(cikid);
@@ -60,10 +60,19 @@ public class DeleteCustomKeyAction extends RhnAction {
         if (requestContext.isSubmitted()) {
             ServerFactory.removeCustomKey(key);
 
+            bindMessage(requestContext, "system.customkey.deletesuccess");
             return mapping.findForward("deleted");
         }
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private void bindMessage(RequestContext requestContext, String error) {
+        ActionMessages msg = new ActionMessages();
+        String[] actionParams = {};
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage(error, actionParams));
+        getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
     }
 
 }

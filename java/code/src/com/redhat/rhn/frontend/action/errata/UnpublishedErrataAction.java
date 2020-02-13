@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -59,8 +58,7 @@ public class UnpublishedErrataAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getCurrentUser();
-        DataResult result = ErrataManager.unpublishedOwnedErrata(user);
-        return result;
+        return ErrataManager.unpublishedOwnedErrata(user);
     }
 }
 

@@ -44,12 +44,6 @@ wrapper just to present the firstboot style api's. (Each "page" in firstboot is
 a module with a class that inherits FirstBootGuiWindow.)
 """
 
-import gtk
-# Need to import gtk.glade to make this file work alone even though we always
-# access it as gtk.glade. Not sure why. Maybe gtk's got weird hackish stuff
-# going on?
-import gtk.glade
-import gobject
 import sys
 import os
 import gettext
@@ -58,7 +52,6 @@ t = gettext.translation('rhn-client-tools', fallback=True)
 if not hasattr(t, 'ugettext'):
     t.ugettext = t.gettext
 _ = t.ugettext
-gtk.glade.bindtextdomain("rhn-client-tools")
 
 from up2date_client import rhnreg
 from up2date_client.rhnreg import ActivationResult
@@ -76,6 +69,7 @@ from rhn import rpclib
 from rhn.connections import idn_puny_to_unicode
 from up2date_client import rhnreg_constants
 from up2date_client.pmPlugin import PM_PLUGIN_NAME, PM_PLUGIN_CONF
+from up2date_client.gtk_compat import gtk, gobject
 
 try: # python2
     import urlparse
@@ -533,13 +527,16 @@ class ChooseChannelPage:
 
         self.chooseChannelList.connect('changed', self.channel_changed_cb)
 
-        self.chooseChannelList.remove_text(0)
+        if hasattr(self.chooseChannelList, 'remove_text'):
+            self.chooseChannelList.remove_text(0)
+        else:
+            self.chooseChannelList.remove(0)
 
         for label, name in self.channels.items():
             if label in self.receiving_updates:
                 self.channels[label] = name + ' *'
 
-        channel_values = self.channels.values()
+        channel_values = list(self.channels.values())
         channel_values.sort()
         for name in channel_values:
             self.chooseChannelList.append_text(name)
@@ -632,6 +629,7 @@ class CreateProfilePage:
                 profileName = None
                 hostname = None
                 ipaddr = None
+                ip6addr = None
                 if self.hardware:
                     for hw in self.hardware:
                         if 'class' in hw:
@@ -804,7 +802,7 @@ class CreateProfilePage:
             if cfg['supportsExtendedPackageProfile']:
                 getArch = 1
             packageList = pkgUtils.getInstalledPackageList(progressCallback = lambda amount,
-                                                           total: gtk.main_iteration(False),
+                                                           total: gtk.main_iteration_do(False),
                                                            getArch=getArch)
 ##            selection = []
             # FIXME
@@ -852,7 +850,7 @@ class CreateProfilePage:
             if not present:
                 reviewLog.pm_plugin_warning()
             if conf_changed:
-                reviewLog.pm_lugin_conf_changed()
+                reviewLog.pm_plugin_conf_changed()
         except IOError:
             e = sys.exc_info()[1]
             errorWindow(_("Could not open %s\n%s is not enabled.\n") % (PM_PLUGIN_CONF, PM_PLUGIN_NAME) + e.errmsg)
@@ -1000,7 +998,8 @@ class FinishPage:
         self.successfulFinishVbox = \
                 self.successfulFinishXml.get_widget("successfulFinishWindowVbox")
         # Put one in now (either one) to make the prepare code simpler
-        self.finishContainerVbox.pack_start(self.failedFinishVbox)
+        self.finishContainerVbox.pack_start(self.failedFinishVbox,
+                                            expand=True, fill=True, padding=0)
 
     def finishPageVbox(self):
         return self.finishContainerVbox
@@ -1010,9 +1009,9 @@ class FinishPage:
         assert len(containerChildren) == 1
         self.finishContainerVbox.remove(containerChildren[0])
         if hasBaseChannelAndUpdates():
-            self.finishContainerVbox.pack_start(self.successfulFinishVbox)
+            self.finishContainerVbox.pack_start(self.successfulFinishVbox, True, True, 0)
         else:
-            self.finishContainerVbox.pack_start(self.failedFinishVbox)
+            self.finishContainerVbox.pack_start(self.failedFinishVbox, True, True, 0)
 
 
 class AlreadyRegisteredDialog:
@@ -1044,7 +1043,7 @@ class AlreadyRegisteredDialog:
             pass
 
         self.xml.get_widget('serverUrlLabel').set_label(server)
-        self.xml.get_widget('usernameLabel').set_label(oldUsername)
+        self.xml.get_widget('usernameLabel2').set_label(oldUsername)
         self.xml.get_widget('systemIdLabel').set_label(systemId)
 
         self.rc = self.dialog.run()
@@ -1071,7 +1070,7 @@ class AlreadyRegisteredSubscriptionManagerDialog:
         self.dialog.destroy()
 
 class ConfirmQuitDialog:
-    def __init__(self):
+    def __init__(self, parent):
         """Returns when dialog closes. Dialog.rc will be set to 0 if the user
         clicked "take me back" or closed the dialog, or 1 if they clicked "i'll
         register later". I've they clicked I'll register later, the remind file
@@ -1081,7 +1080,7 @@ class ConfirmQuitDialog:
         self.xml = gtk.glade.XML(gladefile, "confirmQuitDialog",
                                  domain="rhn-client-tools")
         self.dialog = self.xml.get_widget("confirmQuitDialog")
-
+        self.dialog.set_transient_for(parent)
         self.rc = self.dialog.run()
         if self.rc == gtk.RESPONSE_NONE:
             self.rc = 0
@@ -1187,7 +1186,7 @@ class PackageDialog:
             "packageDialog", domain="rhn-client-tools")
         self.dlg = self.swXml.get_widget("packageDialog")
 
-        self.swXml.get_widget("okButton").connect("clicked", self.finish)
+        self.swXml.get_widget("okButton2").connect("clicked", self.finish)
 
         callAndFilterExceptions(
                 self.populateDialog,

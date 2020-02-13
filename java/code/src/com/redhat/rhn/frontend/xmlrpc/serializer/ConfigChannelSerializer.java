@@ -50,7 +50,7 @@ public class ConfigChannelSerializer extends RhnXmlRpcCustomSerializer {
     /**
      *
      * {@inheritDoc}
-     * @throws IOException
+     * @throws IOException IO exception
      */
     protected void doSerialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {

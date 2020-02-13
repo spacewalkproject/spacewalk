@@ -20,17 +20,14 @@
 Name:           simple-xml
 Summary:        An XML serialization framework for Java
 Version:        2.6.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
-Group:          Development/Libraries/Java
 %else
 License:        ASL 2.0
-Group:          Development/Libraries
 %endif
 Url:            http://simple.sourceforge.net
 Source0:        http://downloads.sourceforge.net/simple/%{name}-%{version}.zip
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  ant
 %if 0%{?suse_version}
 BuildRequires:  bea-stax
@@ -55,10 +52,8 @@ of XML configuration and communication systems.
 %package        javadoc
 %if 0%{?suse_version}
 License:        Apache-2.0
-Group:          Development/Languages/Java
 %else
 License:        ASL 2.0
-Group:          Documentation
 %endif
 Summary:        Javadocs for Simple XML Serialization Framework
 
@@ -85,18 +80,21 @@ install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
 %{_javadir}/*.jar
 
 %files javadoc
-%defattr(0644,root,root,0755)
 %doc %{_javadocdir}/%{name}-%{version}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.6.7-6
+- removed %%%%defattr from specfile
+- remove install/clean section initial cleanup
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
 * Wed May 03 2017 Michael Mraka <michael.mraka@redhat.com> 2.6.7-5
 - recompile all packages with the same (latest) version of java
 

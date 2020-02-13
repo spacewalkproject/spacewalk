@@ -29,32 +29,32 @@
 # invalid function name
 # pylint: disable=C0103
 
-from optparse import Option
 from spacecmd.utils import *
 
 
 def help_distribution_create(self):
-    print 'distribution_create: Create a Kickstart tree'
-    print '''usage: distribution_create [options]
+    print('distribution_create: Create a Kickstart tree')
+    print('''usage: distribution_create [options]
 
 options:
   -n NAME
   -p path to tree
   -b base channel to associate with
-  -t install type [fedora|rhel_4/5/6|generic_rpm]'''
+  -t install type [fedora|rhel_4/5/6|generic_rpm]''')
 
 
 def do_distribution_create(self, args, update=False):
-    options = [Option('-n', '--name', action='store'),
-               Option('-p', '--path', action='store'),
-               Option('-b', '--base-channel', action='store'),
-               Option('-t', '--install-type', action='store')]
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-n', '--name')
+    arg_parser.add_argument('-p', '--path')
+    arg_parser.add_argument('-b', '--base-channel')
+    arg_parser.add_argument('-t', '--install-type')
 
-    (args, options) = parse_arguments(args, options)
+    (args, options) = parse_command_arguments(args, arg_parser)
 
     # fill in the name of the distribution when updating
     if update:
-        if len(args):
+        if args:
             options.name = args[0]
         elif not options.name:
             logging.error('The name of the distribution is required')
@@ -68,11 +68,11 @@ def do_distribution_create(self, args, update=False):
 
         options.base_channel = ''
         while options.base_channel == '':
-            print
-            print 'Base Channels'
-            print '-------------'
-            print '\n'.join(sorted(self.list_base_channels()))
-            print
+            print('')
+            print('Base Channels')
+            print('-------------')
+            print('\n'.join(sorted(self.list_base_channels())))
+            print('')
 
             options.base_channel = prompt_user('Base Channel:')
 
@@ -87,11 +87,11 @@ def do_distribution_create(self, args, update=False):
 
         options.install_type = ''
         while options.install_type == '':
-            print
-            print 'Install Types'
-            print '-------------'
-            print '\n'.join(sorted(install_types))
-            print
+            print('')
+            print('Install Types')
+            print('-------------')
+            print('\n'.join(sorted(install_types)))
+            print('')
 
             options.install_type = prompt_user('Install Type:')
 
@@ -132,8 +132,8 @@ def do_distribution_create(self, args, update=False):
 
 
 def help_distribution_list(self):
-    print 'distribution_list: List the available Kickstart trees'
-    print 'usage: distribution_list'
+    print('distribution_list: List the available Kickstart trees')
+    print('usage: distribution_list')
 
 
 def do_distribution_list(self, args, doreturn=False):
@@ -152,27 +152,30 @@ def do_distribution_list(self, args, doreturn=False):
     if doreturn:
         return avail_trees
     else:
-        if len(avail_trees):
-            print '\n'.join(sorted(avail_trees))
+        if avail_trees:
+            print('\n'.join(sorted(avail_trees)))
+    return None
 
 ####################
 
 
 def help_distribution_delete(self):
-    print 'distribution_delete: Delete a Kickstart tree'
-    print 'usage: distribution_delete LABEL'
+    print('distribution_delete: Delete a Kickstart tree')
+    print('usage: distribution_delete LABEL')
 
 
 def complete_distribution_delete(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True),
-                             text)
+        return tab_completer(self.do_distribution_list('', True), text)
+    return None
 
 
 def do_distribution_delete(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
 
-    if not len(args):
+    (args, _options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
         self.help_distribution_delete()
         return
 
@@ -181,12 +184,12 @@ def do_distribution_delete(self, args):
     logging.debug("distribution_delete called with args %s, dists=%s" %
                   (args, dists))
 
-    if not len(dists):
+    if not dists:
         logging.error("No distributions matched argument %s" % args)
         return
 
     # Print the distributions prior to the confirmation
-    print '\n'.join(sorted(dists))
+    print('\n'.join(sorted(dists)))
 
     if self.user_confirm('Delete distribution tree(s) [y/N]:'):
         for d in dists:
@@ -196,8 +199,8 @@ def do_distribution_delete(self, args):
 
 
 def help_distribution_details(self):
-    print 'distribution_details: Show the details of a Kickstart tree'
-    print 'usage: distribution_details LABEL'
+    print('distribution_details: Show the details of a Kickstart tree')
+    print('usage: distribution_details LABEL')
 
 
 def complete_distribution_details(self, text, line, beg, end):
@@ -205,9 +208,11 @@ def complete_distribution_details(self, text, line, beg, end):
 
 
 def do_distribution_details(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
 
-    if not len(args):
+    (args, _options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
         self.help_distribution_details()
         return
 
@@ -216,7 +221,7 @@ def do_distribution_details(self, args):
     logging.debug("distribution_details called with args %s, dists=%s" %
                   (args, dists))
 
-    if not len(dists):
+    if not dists:
         logging.error("No distributions matched argument %s" % args)
         return
 
@@ -230,29 +235,31 @@ def do_distribution_details(self, args):
                                                     details.get('channel_id'))
 
         if add_separator:
-            print self.SEPARATOR
+            print(self.SEPARATOR)
         add_separator = True
 
-        print 'Name:    %s' % details.get('label')
-        print 'Path:    %s' % details.get('abs_path')
-        print 'Channel: %s' % channel.get('label')
+        print('Name:    %s' % details.get('label'))
+        print('Path:    %s' % details.get('abs_path'))
+        print('Channel: %s' % channel.get('label'))
 
 ####################
 
 
 def help_distribution_rename(self):
-    print 'distribution_rename: Rename a Kickstart tree'
-    print 'usage: distribution_rename OLDNAME NEWNAME'
+    print('distribution_rename: Rename a Kickstart tree')
+    print('usage: distribution_rename OLDNAME NEWNAME')
 
 
 def complete_distribution_rename(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True),
-                             text)
+        return tab_completer(self.do_distribution_list('', True), text)
+    return None
 
 
 def do_distribution_rename(self, args):
-    (args, _options) = parse_arguments(args)
+    arg_parser = get_argument_parser()
+
+    (args, _options) = parse_command_arguments(args, arg_parser)
 
     if len(args) != 2:
         self.help_distribution_rename()
@@ -267,19 +274,19 @@ def do_distribution_rename(self, args):
 
 
 def help_distribution_update(self):
-    print 'distribution_update: Update the path of a Kickstart tree'
-    print '''usage: distribution_update NAME [options]
+    print('distribution_update: Update the path of a Kickstart tree')
+    print('''usage: distribution_update NAME [options]
 
 options:
   -p path to tree
   -b base channel to associate with
-  -t install type [fedora|rhel_4/5/6|generic_rpm]'''
+  -t install type [fedora|rhel_4/5/6|generic_rpm]''')
 
 
 def complete_distribution_update(self, text, line, beg, end):
     if len(line.split(' ')) <= 2:
-        return tab_completer(self.do_distribution_list('', True),
-                             text)
+        return tab_completer(self.do_distribution_list('', True), text)
+    return None
 
 
 def do_distribution_update(self, args):

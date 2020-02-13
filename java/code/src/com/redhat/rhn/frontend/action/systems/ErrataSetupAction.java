@@ -229,6 +229,7 @@ public class ErrataSetupAction extends RhnAction implements Listable {
     /**
      * Makes a parameter map containing request params that need to
      * be forwarded on to the success mapping.
+     * @param form the ActionForm
      * @param request HttpServletRequest containing request vars
      * @return Returns Map of parameters
      * TODO: was private

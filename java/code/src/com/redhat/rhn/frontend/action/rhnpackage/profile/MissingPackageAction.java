@@ -113,7 +113,7 @@ public class MissingPackageAction extends BaseProfilesAction {
 
     /**
      * Callback for the Select New Package Profile button, basically
-     * forwards to the main Package -> Profile page allowing the user
+     * forwards to the main {@literal Package -> Profile} page allowing the user
      * to select a new package profile to compare against.
      * @param mapping ActionMapping
      * @param formIn ActionForm

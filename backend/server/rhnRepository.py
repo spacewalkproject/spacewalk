@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -218,6 +218,8 @@ class Repository(rhnRepository.Repository):
         elif file_name == "comps.xml":
             content_type = "text/xml"
             output = repo.get_comps_file()
+        elif file_name == "modules.yaml":
+            output = repo.get_modules_file()
         else:
             log_debug(2, "Unknown repomd file requested: %s" % file_name)
             raise rhnFault(6)
@@ -236,12 +238,13 @@ class Repository(rhnRepository.Repository):
         if file_name in ["repomd.xml", "comps.xml"]:
             content_type = "text/xml"
         elif file_name not in ["primary.xml.gz", "other.xml.gz",
-                               "filelists.xml.gz", "updateinfo.xml.gz", "Packages.gz"]:
+                               "filelists.xml.gz", "updateinfo.xml.gz", "Packages.gz", "modules.yaml",
+                               "InRelease", "Release", "Release.gpg"]:
             log_debug(2, "Unknown repomd file requested: %s" % file_name)
             raise rhnFault(6)
 
         # XXX this won't be repconned or CDNd
-        if file_name == "comps.xml":
+        if file_name in ["comps.xml", "modules.yaml"]:
             return self._repodata_python(file_name)
 
         file_path = "%s/%s/%s" % (CFG.REPOMD_PATH_PREFIX, self.channelName, file_name)
@@ -252,7 +255,7 @@ class Repository(rhnRepository.Repository):
         except IOError:
             e = sys.exc_info()[1]
             # For file not found, queue up a regen, and return 404
-            if e.errno == 2 and file_name != "comps.xml":
+            if e.errno == 2 and file_name != "comps.xml" and file_name != "modules.yaml":
                 taskomatic.add_to_repodata_queue(self.channelName,
                                                  "repodata request", file_name, bypass_filters=True)
                 rhnSQL.commit()

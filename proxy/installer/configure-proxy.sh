@@ -161,13 +161,17 @@ if [[ $INTERACTIVE == 0 && -z $ANSWER_FILE ]]; then
     exit 1
 fi
 
-if [[ $INTERACTIVE == 0 \
-    && ( -z $POPULATE_CONFIG_CHANNEL || $( yes_no $POPULATE_CONFIG_CHANNEL ) == 1 ) \
-    && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
+
+if [[ $INTERACTIVE == 0 ]]; then
+    if [[ -z $POPULATE_CONFIG_CHANNEL ]]; then
+        # if POPULATE_CONFIG_CHANNEL is not defined set its value to 'N'
+        # because default value for this variable is 'Y'
+        POPULATE_CONFIG_CHANNEL='N'
+    elif [[ $(yes_no $POPULATE_CONFIG_CHANNEL) == 1 && ( -z  $RHN_USER || -z $RHN_PASSWORD ) ]]; then
         echo "Error: When --populate-config-channel is set to Yes both --rhn-user and --rhn-password have to be provided."
         exit 1
+    fi
 fi
-
 ACCUMULATED_ANSWERS=""
 
 generate_answers() {
@@ -202,7 +206,6 @@ default_or_input() {
     echo -n "$MSG [$DEFAULT]: "
     if [ "$INTERACTIVE" = "1" -a  -z "$VARIABLE_ISSET" ]; then
         read INPUT
-        ACCUMULATED_ANSWERS+=$(printf "\n%q=%q" "$VARIABLE" "${INPUT:-$DEFAULT}")
     elif [ -z "$VARIABLE_ISSET" ]; then
         echo "$DEFAULT"
     else
@@ -212,6 +215,7 @@ default_or_input() {
     if [ -z "$INPUT" ]; then
         INPUT="$DEFAULT"
     fi
+    ACCUMULATED_ANSWERS+=$(printf "\n%q=%q" "$VARIABLE" "${INPUT:-$DEFAULT}")
     eval "$(printf "%q=%q" "$VARIABLE" "$INPUT")"
 }
 
@@ -232,8 +236,9 @@ config_error() {
 
 # Return 0 if rhnParent is Hosted. Otherwise return 1.
 is_hosted() {
+    HOSTEDWHITELIST=$(awk -F '=[[:space:]]*' '/^[[:space:]]*hostedWhitelist[[:space:]]*=/ {print $2}' $UP2DATE_FILE)
     [ "$1" = "xmlrpc.rhn.redhat.com" -o \
-        $( PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print  '$1' in cfg['hostedWhitelist']" ) = "True" ]
+        "$HOSTEDWHITELIST" = "True" ]
     return $?
 }
 
@@ -273,7 +278,9 @@ HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
-SYSTEMID_PATH=`PYTHONPATH='/usr/share/rhn' python -c "from up2date_client import config; cfg = config.initUp2dateConfig(); print cfg['systemIdPath'] "`
+UP2DATE_FILE=$SYSCONFIG_DIR/up2date
+SYSTEMID_PATH=$(awk -F '=[[:space:]]*' '/^[[:space:]]*systemIdPath[[:space:]]*=/ {print $2}' $UP2DATE_FILE)
+
 
 if [ ! -r $SYSTEMID_PATH ]; then
     echo ERROR: Spacewalk Proxy does not appear to be registered
@@ -293,7 +300,6 @@ if ! [ -d $SSL_BUILD_DIR ] && [ 0$FORCE_OWN_CA -eq 0 ]; then
     exit 1
 fi
 
-UP2DATE_FILE=$SYSCONFIG_DIR/up2date
 RHN_PARENT=$(awk -F= '/serverURL=/ {split($2, a, "/")} END {print a[3]}' $UP2DATE_FILE)
 echo "Using RHN parent (from $UP2DATE_FILE): $RHN_PARENT"
 

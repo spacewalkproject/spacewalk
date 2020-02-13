@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,6 +13,26 @@
  * in this software or its documentation.
  */
 package com.redhat.rhn.manager.system;
+
+import java.net.IDN;
+import java.sql.Date;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
@@ -79,26 +99,6 @@ import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemRemoveCommand;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
-import java.net.IDN;
-import java.sql.Date;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * SystemManager
@@ -355,9 +355,13 @@ public class SystemManager extends BaseManager {
     }
 
     /**
-     * Deletes a server
+     * Deletes a Server and associated VirtualInstances:
+     *  - If the server was a virtual guest, remove the VirtualInstance that links it to its
+     *  host server.
+     *  - If the server was a virtual host, remove all its entitlements and all
+     *  VirtualInstances that link it to the guest servers.
      * @param user The user doing the deleting.
-     * @param sid The id of the system to be deleted
+     * @param sid The id of the Server to be deleted
      */
     public static void deleteServer(User user, Long sid) {
         /*
@@ -370,22 +374,21 @@ public class SystemManager extends BaseManager {
         CobblerSystemRemoveCommand rc = new CobblerSystemRemoveCommand(user, server);
         rc.store();
 
+        // remove associated VirtualInstances
+        Set<VirtualInstance> toRemove = new HashSet<VirtualInstance>();
         if (server.isVirtualGuest()) {
-            VirtualInstance virtInstance = server.getVirtualInstance();
-            virtInstance.deleteGuestSystem();
+            toRemove.add(server.getVirtualInstance());
         }
         else {
-            if (server.getGuests() != null) {
-                removeAllServerEntitlements(server.getId());
-                // Remove guest associations to the host system we're now deleting:
-                for (Iterator<VirtualInstance> it = server.getGuests().iterator(); it
-                        .hasNext();) {
-                    VirtualInstance vi = it.next();
-                    server.removeGuest(vi);
-                }
-            }
-            ServerFactory.delete(server);
+            removeAllServerEntitlements(server.getId());
+            toRemove.addAll(server.getGuests());
         }
+        for (VirtualInstance virtualInstance : toRemove) {
+            VirtualInstanceFactory.getInstance().deleteVirtualInstanceOnly(virtualInstance);
+        }
+
+        // remove server itself
+        ServerFactory.delete(server);
     }
 
     /**
@@ -830,6 +833,25 @@ public class SystemManager extends BaseManager {
     }
 
     /**
+     * Returns list of system groups visible to user, with system-counts.
+     * This is marginally faster than the work done when elaborating in
+     * groupList(), to allow sorting-by-syscount without having to pay the
+     * full overhead of groupList()'s elaborator.
+     *
+     * @param user Currently logged in user.
+     * @param pc PageControl
+     * @return list of SystemGroupOverviews.
+     */
+    public static DataResult<SystemGroupOverview> groupListWithServerCount(
+                    User user, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("SystemGroup_queries",
+                        "visible_to_user_and_counts");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        return makeDataResult(params, null, pc, m, SystemGroupOverview.class);
+    }
+
+    /**
      * Returns list of systems in the specified group.
      * @param sgid System Group Id
      * @param pc PageControl
@@ -1147,8 +1169,7 @@ public class SystemManager extends BaseManager {
      * @return a server object associated with the given Id
      */
     public static Server lookupByIdAndOrg(Long sid, Org org) {
-        Server server = ServerFactory.lookupByIdAndOrg(sid, org);
-        return server;
+        return ServerFactory.lookupByIdAndOrg(sid, org);
     }
 
     /**
@@ -1267,6 +1288,50 @@ public class SystemManager extends BaseManager {
     public static boolean serverHasVirtuaizationEntitlement(Long sid, Org org) {
         Server s = SystemManager.lookupByIdAndOrg(sid, org);
         return s.hasVirtualizationEntitlement();
+    }
+
+    /**
+     * Returns a count of systems without a certain entitlement in a set.
+     *
+     * @param user user making the request
+     * @param setLabel label of the set
+     * @param entitlementLabel label of the entitlement
+     * @return number of systems in the set without the entitlement
+     */
+    public static int countSystemsInSetWithoutEntitlement(User user, String setLabel,
+        String entitlementLabel) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "count_systems_in_set_without_entitlement");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("entitlement_label", entitlementLabel);
+
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+
+    /**
+     * Returns a count of systems without a certain feature in a set.
+     *
+     * @param user user making the request
+     * @param setLabel label of the set
+     * @param featureLabel label of the feature
+     * @return number of systems in the set without the feature
+     */
+    public static int countSystemsInSetWithoutFeature(User user, String setLabel,
+        String featureLabel) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "count_systems_in_set_without_feature");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        params.put("feature_label", featureLabel);
+
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
     }
 
     /**
@@ -1434,7 +1499,7 @@ public class SystemManager extends BaseManager {
      * @param server The server to be unsubscribed
      * @param channel The channel to unsubscribe from
      * @param flush flushes the hibernate session. Make sure you
-     *              reload the server & channel after  method call
+     *              reload the server and channel after  method call
      *              if you set this to true..
      */
     public static void unsubscribeServerFromChannel(User user, Server server,
@@ -1478,7 +1543,7 @@ public class SystemManager extends BaseManager {
      * @param server server to be unsubscribed
      * @param channel the channel to unsubscribe from
      * @param flush flushes the hibernate session. Make sure you
-     *              reload the server & channel after  method call
+     *              reload the server and channel after  method call
      *              if you set this to true..
      * @return the modified server if there were
      *           any changes modifications made
@@ -1703,11 +1768,7 @@ public class SystemManager extends BaseManager {
             }
 
             if ((base != null) &&
-                    base.isRhelChannel() && !base.isReleaseXChannel(5)) {
-                // do some actions for EL6/EL7/...
-            }
-            else {
-                // otherwise subscribe to the virt channel if possible
+                    (!base.isRhelChannel() || base.isReleaseXChannel(5))) {
                 subscribeToVirtChannel(server, user, result);
             }
         }
@@ -2288,8 +2349,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2306,8 +2366,7 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2323,9 +2382,8 @@ public class SystemManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
         params.put("pid", id);
-        DataResult<SystemOverview> toReturn = m.execute(params);
         //toReturn.elaborate();
-        return toReturn;
+        return (DataResult<SystemOverview>) m.execute(params);
     }
 
     /**
@@ -2427,8 +2485,7 @@ public class SystemManager extends BaseManager {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("uid", user.getId());
         params.put("org_id", user.getOrg().getId());
-        DataResult<CustomDataKeyOverview> toReturn = m.execute(params);
-        return toReturn;
+        return (DataResult<CustomDataKeyOverview>) m.execute(params);
     }
     /**
      * Looks up a hardware device by the hardware device id
@@ -2478,8 +2535,7 @@ public class SystemManager extends BaseManager {
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         params.put("package_set_label", packageSetLabel);
 
-        DataResult<Map<String, Object>> result = makeDataResult(params, params, null, m);
-        return result;
+        return (DataResult<Map<String, Object>>) makeDataResult(params, params, null, m);
     }
 
     /**
@@ -2503,8 +2559,7 @@ public class SystemManager extends BaseManager {
         params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
         params.put("package_set_label", packageSetLabel);
 
-        DataResult result = makeDataResult(params, params, null, m);
-        return result;
+        return makeDataResult(params, params, null, m);
     }
 
     /**
@@ -2893,13 +2948,17 @@ public class SystemManager extends BaseManager {
 
     /**
      * @param sid server id
+     * @param oid organization id
      * @param pc pageContext
      * @return Returns history events for a system
      */
-    public static DataResult<SystemEventDto> systemEventHistory(Long sid, PageControl pc) {
+    public static DataResult<SystemEventDto> systemEventHistory(Long sid, Long oid,
+            PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "system_events_history");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("sid", sid);
+        params.put("oid", oid);
+
         Map<String, Object> elabParams = new HashMap<String, Object>();
         return makeDataResult(params, elabParams, pc, m, SystemEventDto.class);
     }
@@ -3111,12 +3170,19 @@ public class SystemManager extends BaseManager {
             String value) {
         CallableMode mode = ModeFactory.getCallableMode("System_queries",
                 "bulk_set_custom_values");
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", user.getId());
         params.put("set_label", setLabel);
         params.put("key_label", keyLabel);
         params.put("value", value);
-        mode.execute(params, new HashMap<String, Integer>());
+
+        Map<String, Integer> out = new HashMap<String, Integer>();
+        out.put("retval", new Integer(Types.NUMERIC));
+
+        Map<String, Object> result = mode.execute(params, out);
+        Long retval = (Long) result.get("retval");
+        log.debug("bulk_set_custom_value returns: " + retval.intValue());
     }
 
     /**

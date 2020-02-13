@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -160,7 +160,7 @@ def hash_object_id(object_id, factor):
     return num_id.rjust(factor, '0')
 
 
-# reg exp for splitting package names.
+# reg exp for splitting rpm package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 
 
@@ -178,6 +178,23 @@ def parseRPMName(pkgName):
         e = r[ind + 1:]
         r = r[0:ind]
     return str(n), e, str(v), str(r)
+
+
+def parseDEBName(pkgName):
+    """ IN:  Package string in, n-n_v.v-v.v-r.r, format.
+        OUT: Four strings (in a tuple): name, epoch, version, release.
+    """
+    if pkgName.find('_') == -1:
+        return None, None, None, None
+    e = None
+    n, version = pkgName.split('_')
+    if version.find(':') != -1:
+        e, version = version.split(':')
+    version_tmpArr = version.split('-')
+    v = '-'.join(version_tmpArr[:-1])
+    r = version_tmpArr[-1]
+    return str(n), e, str(v), str(r)
+
 
 def isSUSE():
     """Return true if this is a SUSE system, otherwise false"""

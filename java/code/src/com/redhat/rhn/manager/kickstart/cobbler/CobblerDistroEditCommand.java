@@ -17,6 +17,8 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -47,7 +49,32 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
      */
     @Override
     public ValidatorError store() {
-        updateCobblerFields();
+        CobblerConnection con = getCobblerConnection();
+        Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
+        Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
+
+        //if the newly edited tree does para virt....
+        if (tree.doesParaVirt()) {
+            //IT does paravirt so we need to either update the xen distro or create one
+            if (xen == null) {
+                CobblerDistroHelper.getInstance().createXenDistroFromTree(con, tree);
+            }
+            else {
+                CobblerDistroHelper.getInstance().updateXenDistroFromTree(xen, tree);
+            }
+        }
+        else {
+            //it doesn't do paravirt, so we need to delete the xen distro
+            if (xen != null) {
+                xen.remove();
+                tree.setCobblerXenId(null);
+            }
+        }
+
+        if (nonXen != null) {
+            CobblerDistroHelper.getInstance().updateDistroFromTree(nonXen, tree);
+        }
+
         return null;
     }
 

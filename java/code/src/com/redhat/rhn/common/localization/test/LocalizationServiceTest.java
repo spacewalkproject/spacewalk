@@ -174,6 +174,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
 
     /**
     * Test formatDate
+    * @throws Exception something bad happened
     */
     public void testFormatDate() throws Exception {
         String date = ls.formatDate(new Date(), Locale.GERMAN);
@@ -286,15 +287,7 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
     * check to see if the fetched message is valid or not
     */
     private boolean isMessageValid(String value) {
-        boolean retval = false;
-        if (value.startsWith("**") &&
-               value.endsWith("**")) {
-            retval = false;
-        }
-        else {
-            retval = true;
-        }
-        return retval;
+        return !value.startsWith("**") || !value.endsWith("**");
     }
 
     public void testPlainText() {

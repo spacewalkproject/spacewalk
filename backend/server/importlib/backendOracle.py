@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2017 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -202,6 +202,7 @@ class OracleBackend(Backend):
                   'header_start': DBint(),
                   'header_end': DBint(),
                   'last_modified': DBdateTime(),
+                  'multi_arch': DBstring(16),
               },
               pk=['org_id', 'name_id', 'evr_id', 'package_arch_id',
                   'checksum_id'],

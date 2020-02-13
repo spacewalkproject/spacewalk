@@ -38,7 +38,7 @@ fi
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
 	do
-	/usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+	/usr/sbin/semanage module -l -S ${selinuxvariant} > /dev/null 2>&1 \
 		&& /usr/sbin/semodule -s ${selinuxvariant} -i /usr/share/selinux/${selinuxvariant}/spacewalk.pp || :
   done
 
@@ -46,9 +46,21 @@ for selinuxvariant in mls strict targeted
         /usr/bin/rhn-sudo-ssl-tool /var/www/html/pub /usr/sbin/tanukiwrapper \
         /var/lib/rhn/kickstarts
 
-/usr/sbin/setsebool -P httpd_enable_cgi 1
-/usr/sbin/setsebool -P httpd_can_network_connect 1
-/usr/sbin/setsebool -P httpd_can_sendmail 1
+for sebool in \
+    httpd_enable_cgi \
+    httpd_can_network_connect \
+    httpd_can_sendmail \
+    tomcat_read_rpm_db \
+    tomcat_can_network_connect_db \
+    nis_enabled \
+    domain_can_mmap_files \
+    domain_kernel_load_modules
+do
+    if semanage boolean --list -n 2>/dev/null | grep -q "^\<$sebool\>"
+    then
+        semanage boolean --modify --on $sebool
+    fi
+done
 
 if [ -z "$RUN_PURE" ] ; then
 	for dir in mount_point kickstart_mount_point; do

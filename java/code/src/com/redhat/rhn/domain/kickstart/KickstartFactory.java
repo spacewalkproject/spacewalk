@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -368,7 +368,6 @@ public class KickstartFactory extends HibernateFactory {
      * @param ksdata to associate with
      * @param nameIn of KickstartCommand
      * @return KickstartCommand created
-     * @throws Exception
      */
     public static KickstartCommand createKickstartCommand(KickstartData ksdata,
             String nameIn) {
@@ -764,7 +763,7 @@ public class KickstartFactory extends HibernateFactory {
      * @return list of kickstart trees
      */
     public static List <KickstartableTree> lookupKickstartTrees() {
-        String query = "KickstartableTree.findAll";
+        String query = "KickstartableTree.findBase";
         return singleton.listObjectsByNamedQuery(query, Collections.EMPTY_MAP, false);
     }
 
@@ -840,15 +839,11 @@ public class KickstartFactory extends HibernateFactory {
      * Helper method to lookup KickstartSessionState by label
      * @param label Label to lookup
      * @return Returns the KickstartSessionState
-     * @throws Exception
      */
     public static KickstartSessionState lookupSessionStateByLabel(String label) {
         Session session = HibernateFactory.getSession();
-        KickstartSessionState retval = (KickstartSessionState) session
-                .getNamedQuery("KickstartSessionState.findByLabel")
-                .setString("label", label)
-                .uniqueResult();
-        return retval;
+        return (KickstartSessionState) session.getNamedQuery("KickstartSessionState.findByLabel")
+                .setString("label", label).uniqueResult();
     }
 
     /**
@@ -884,11 +879,8 @@ public class KickstartFactory extends HibernateFactory {
 
     private static KickstartTreeType lookupKickstartTreeTypeByLabel(String label) {
         Session session = HibernateFactory.getSession();
-        KickstartTreeType retval = (KickstartTreeType) session
-                .getNamedQuery("KickstartTreeType.findByLabel")
-                .setString("label", label)
-                .uniqueResult();
-        return retval;
+        return (KickstartTreeType) session.getNamedQuery("KickstartTreeType.findByLabel")
+                .setString("label", label).uniqueResult();
     }
 
     /**
@@ -941,11 +933,8 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static KickstartInstallType lookupKickstartInstallTypeByLabel(String label) {
         Session session = HibernateFactory.getSession();
-        KickstartInstallType retval = (KickstartInstallType) session
-                .getNamedQuery("KickstartInstallType.findByLabel")
-                .setString("label", label)
-                .uniqueResult();
-        return retval;
+        return (KickstartInstallType) session.getNamedQuery("KickstartInstallType.findByLabel")
+                .setString("label", label).uniqueResult();
     }
 
     /**
@@ -1058,11 +1047,8 @@ public class KickstartFactory extends HibernateFactory {
     public static KickstartVirtualizationType
     lookupKickstartVirtualizationTypeByLabel(String label) {
         Session session = HibernateFactory.getSession();
-        KickstartVirtualizationType retval = (KickstartVirtualizationType) session
-                .getNamedQuery("KickstartVirtualizationType.findByLabel")
-                .setString("label", label)
-                .uniqueResult();
-        return retval;
+        return (KickstartVirtualizationType) session.getNamedQuery("KickstartVirtualizationType.findByLabel")
+                .setString("label", label).uniqueResult();
     }
 
     /**

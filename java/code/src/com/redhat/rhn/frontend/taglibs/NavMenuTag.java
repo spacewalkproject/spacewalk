@@ -46,7 +46,8 @@ public class NavMenuTag extends TagSupport {
     private String renderer;
 
     /** {@inheritDoc}
-     * @throws JspException*/
+     * @throws JspException JSP exception
+     */
     public int doStartTag() throws JspException {
         try {
             pageContext.getOut().print(RenderUtils.getInstance().renderNavigationMenu(

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2010 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -38,8 +38,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         // setup mock objects
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>" +
-            "clone kickstart</a></div><h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"Clone Kickstart\"></i>" +
+            "Clone Kickstart</a></div><h1></h1></div>";
 
 
         setupCloneTag("h1", "Clone-url", "", "kickstart");
@@ -60,8 +60,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
     public void testCreateAclMultipleMixinsMultipleAcls() throws Exception {
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>" +
-            "clone kickstart</a></div><h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"Clone Kickstart\"></i>" +
+            "Clone Kickstart</a></div><h1></h1></div>";
 
         setupCloneTag("h1", "Clone-url",
                          "first_true_acl(); second_true_acl(); is_foo(foo)",
@@ -76,8 +76,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
     public void testCreateAclMultipleAclsSingleMixin() throws Exception {
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\">" +
-            "</i>clone kickstart</a></div><h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"Clone Kickstart\">" +
+            "</i>Clone Kickstart</a></div><h1></h1></div>";
 
         setupCloneTag("h1", "Clone-url",
                          "first_true_acl(); second_true_acl()", "kickstart");
@@ -112,8 +112,8 @@ public class ToolbarTagCloneTest extends BaseTestToolbarTag {
         // setup mock objects
         String output = "<div class=\"spacewalk-toolbar-h1\">" +
             "<div class=\"spacewalk-toolbar\"><a href=\"Clone-url\">" +
-            "<i class=\"fa fa-files-o\" title=\"clone kickstart\"></i>" +
-            "clone kickstart</a></div><h1></h1></div>";
+            "<i class=\"fa fa-files-o\" title=\"Clone Kickstart\"></i>" +
+            "Clone Kickstart</a></div><h1></h1></div>";
 
         setupCloneTag("h1", "Clone-url", "true_test()", "kickstart");
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2015 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 
 import org.apache.commons.collections.set.UnmodifiableSet;
 import org.apache.commons.lang.StringUtils;
+import java.net.URLEncoder;
 
 import java.io.IOException;
 import java.util.Set;
@@ -161,7 +162,8 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
                 response.sendRedirect("/rhn/Login2.do");
                 return;
             }
-            response.sendRedirect("/rhn/Login.do?url_bounce=" + urlBounce +
+
+            response.sendRedirect("/rhn/Login.do?url_bounce=" + URLEncoder.encode(urlBounce, "UTF-8") +
                     "&request_method=" + request.getMethod());
         }
         catch (IOException e) {

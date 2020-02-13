@@ -117,6 +117,7 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
      * This method basically sets up the error message
      * and returns the correct action forward.
      * @param mapping ActionMapping
+     * @param formIn ActionForm
      * @param request ServletRequest
      * @return The ActionForward to go to next.
      */
@@ -266,8 +267,11 @@ public abstract class BaseSetOperateOnSelectedItemsAction extends RhnSetAction {
 
     /**
      * Here we go to the subclass to actually operate on the element
+     * @param form the ActionForm
+     * @param request the HttpServletRequest object
      * @param elementIn we want to fetch the ID from
      * @param userIn who is performing the operation
+     * @return true if element should be operated on
      */
     protected Boolean operateOnElement(ActionForm form,
                                         HttpServletRequest request,

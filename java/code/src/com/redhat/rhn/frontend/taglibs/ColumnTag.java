@@ -452,15 +452,17 @@ public class ColumnTag extends TagSupport {
     /**
      * The URL to render around the body. The following example,
      * <pre>
-     *   <rhn:column header="foo" url="http://www.hostname.com">
+     *   {@literal <rhn:column header="foo" url="http://www.hostname.com">}
      *      Data to show.
-     *   </rhn:column>
+     *   {@literal </rhn:column>}
      * </pre>
      * would result in the following HTML being generated:
      * <pre>
+     *   {@literal
      *   <td>
      *     <a href="http://www.hostname.com">Data to show.</a>
      *   </td>
+     *   }
      * </pre>
      * @param urlIn The url to set.
      */
@@ -701,11 +703,7 @@ public class ColumnTag extends TagSupport {
             return false;
         }
 
-        if (renderUrl != c.isRenderUrl()) {
-            return false;
-        }
-
-        return true;
+        return renderUrl == c.isRenderUrl();
     }
 
     /**

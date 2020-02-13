@@ -142,7 +142,7 @@ public abstract class BaseDaemon implements WrapperListener {
      * Lifecycle method called when startup parameters cannot be parsed. This gives
      * the daemon implementation an opportunity to do something about the error such
      * as display a usage message.
-     * @param e
+     * @param e the ParseException
      * @return int indicates error code. If BaseDaemon.SUCCESS is returned, then
      * the framework will still try to start the daemon implementation _without_ parameters.
      */

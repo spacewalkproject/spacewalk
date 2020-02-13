@@ -67,9 +67,7 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
             ActionForm formIn,
             HttpServletRequest request,
             HttpServletResponse response) {
-        ActionForward fwd = operateOnSelectedSet(mapping, formIn, request, response,
-                "setFilesToImport");
-        return fwd;
+        return operateOnSelectedSet(mapping, formIn, request, response, "setFilesToImport");
     }
     /**
      * This method is called when the &quot;Import Into Channel&quot;
@@ -116,10 +114,7 @@ public class ChannelFilesImportSubmit extends BaseSetOperateOnSelectedItemsActio
         ConfigChannel cc = ConfigActionHelper.getChannel(request);
         ConfigActionHelper.setupRequestAttributes(ctx, cc);
 
-        DataResult dr = ConfigurationManager.getInstance().
-            listFilesNotInChannel(u, cc, null);
-
-        return dr;
+        return ConfigurationManager.getInstance().listFilesNotInChannel(u, cc, null);
     }
 
     /**

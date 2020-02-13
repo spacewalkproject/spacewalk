@@ -18,31 +18,12 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
-       Password: {3}
          e-mail: {4}
 
-  {5}
-
-Important: Please change your password upon logging in.
+Please proceed to {3} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-        <target>নমস্কার,
-
-{0} {1} দ্বারা আপনার জন্য একটি Red Hat লগ-ইন নির্মাণ করা হয়েছে। আপনার
-Red Hat লগ-ইন ও সক্রিয় Red Hat সাবস্ক্রিপশনের সাহায্যে আপনি
-@@PRODUCT_NAME@@-র মধ্যে উপস্থিত সিস্টেম ব্যবস্থাপনার উদ্দেশ্যে অনুমোদন প্রাপ্ত করতে সক্ষম হবেন।
-
-  Red Hat লগ-ইন: {2}
-       পাসওয়ার্ড: {3}
-         ই-মেইল: {4}
-
-  {5}
-
-গুরুত্বপূর্ণ: অনুগ্রহ করে লগ-ইন করার পরে আপনার পাসওয়ার্ড পরিবর্তন করুন।
-
-@@PRODUCT_NAME@@ ব্যবহার করার জন্য অশেষ ধন্যবাদ।
-{6}</target>
         <context-group name="ctx">
           <context context-type="paramnotes">
               ...created for you by James Bond (admin).
@@ -64,31 +45,12 @@ Red Hat login, in combination with an active Red Hat subscription,
 provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
-       Password: {1}
          e-mail: {2}
 
-  {3}
-
-Important: Please change your password upon logging in.
+Please proceed to {1} to set your password and enable your account.
 
 Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-        <target>নমস্কার,
-
-আপনার জন্য একটি Red Hat লগ-ইন নির্মাণ করা হয়েছে। আপনার
-Red Hat লগ-ইন ও সক্রিয় Red Hat সাবস্ক্রিপশনের সাহায্যে আপনি
-@@PRODUCT_NAME@@-র মধ্যে উপস্থিত সিস্টেম ব্যবস্থাপনার উদ্দেশ্যে অনুমোদন প্রাপ্ত করতে সক্ষম হবেন।
-
-  Red Hat লগ-ইন: {0}
-       পাসওয়ার্ড: {1}
-         ই-মেইল: {2}
-
-  {3}
-
-গুরুত্বপূর্ণ: অনুগ্রহ করে লগ-ইন করার পরে আপনার পাসওয়ার্ড পরিবর্তন করুন।
-
-@@PRODUCT_NAME@@ ব্যবহার করার জন্য অশেষ ধন্যবাদ।
-{4}</target>
         <context-group name="ctx">
           <context context-type="paramnotes">
               ...created for you by James Bond (admin).

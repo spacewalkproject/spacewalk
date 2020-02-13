@@ -395,7 +395,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Errata errata = handler.create(admin, errataInfo,
                 bugs, keywords, packages, true, channels);
 
-        Errata result = ErrataFactory.lookupByAdvisory(advisoryName);
+        Errata result = ErrataFactory.lookupByAdvisory(advisoryName, admin.getOrg());
         assertEquals(errata, result);
         assertEquals(advisoryName + "-" + errata.getAdvisoryRel().toString(),
                 result.getAdvisory());

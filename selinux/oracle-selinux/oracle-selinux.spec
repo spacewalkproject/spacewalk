@@ -20,15 +20,17 @@
 %endif
 
 Name:            oracle-selinux
-Version:         0.1.23.37
+Version:         0.1.23.43
 Release:         1%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
-Group:           System Environment/Base
 License:         GPLv2+
 URL:             http://www.stl.gtri.gatech.edu/rmyers/oracle-selinux/
 Source0:         https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+%if 0%{?fedora} && 0%{?fedora} > 26
+BuildRequires:   perl-interpreter
+%else
 BuildRequires:   perl
+%endif
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
 
@@ -44,7 +46,6 @@ SELinux policy module supporting Oracle.
 
 %package -n oracle-nofcontext-selinux
 Summary:         SELinux policy module supporting Oracle, without file contexts
-Group:           System Environment/Base
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
@@ -103,7 +104,11 @@ install -p -m 644 %{modulename}-nofcontext.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 # Hardlink identical policy module packages together
-/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%define hardlink /usr/sbin/hardlink
+%if 0%{?fedora} >= 31
+%define hardlink /usr/bin/hardlink
+%endif
+%{hardlink} -cv %{buildroot}%{_datadir}/selinux
 
 # Install oracle-nofcontext-selinux-enable which will be called in %posttrans
 install -d %{buildroot}%{_sbindir}
@@ -116,7 +121,7 @@ rm -rf %{buildroot}
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
   do
-    if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+    if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
       /usr/sbin/semodule -s ${selinuxvariant} \
         -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}-port.pp \
         -i %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp > /dev/null 2>&1 \
@@ -167,7 +172,7 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+      if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
       fi
@@ -190,7 +195,7 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      if /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
+      if /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 ; then
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext || :
         /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-port || :
       fi
@@ -211,68 +216,29 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 0.1.23.43-1
+- hardlink has moved to /usr/bin in Fedora 31
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 0.1.23.42-1
+- removed Group from specfile
+
+* Thu Sep 07 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.41-1
+- removed unnecessary BuildRoot tag
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 0.1.23.40-1
+- purged changelog entries for Spacewalk 2.0 and older
+- fixed selinux error messages during package install, see related BZ#1446487
+
+* Thu Aug 10 2017 Tomas Kasparek <tkasparek@redhat.com> 0.1.23.39-1
+- 1479849 - BuildRequires: perl has been renamed to perl-interpreter on Fedora
+  27
+
+* Mon Jul 17 2017 Jan Dobes 0.1.23.38-1
+- Updated links to github in spec files
+
 * Tue Nov 29 2016 Jan Dobes 0.1.23.37-1
 - perl isn't in Fedora 25 buildroot
 
 * Fri Nov 15 2013 Michael Mraka <michael.mraka@redhat.com> 0.1.23.36-1
 - 1029894 - allow oracle read sysfs
-
-* Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 0.1.23.35-1
-- 919468 - fixed path in file based Requires
-- Purging %%changelog entries preceding Spacewalk 1.0, in active packages.
-
-* Thu Jan 17 2013 Jan Pazdziora 0.1.23.34-1
-- The rx_file_perms seems no longer available.
-
-* Mon Jul 16 2012 Jan Pazdziora 0.1.23.33-1
-- Start using the .tar.gz in the .src.rpm for oracle-selinux.
-- %%defattr is not needed since rpm 4.4
-
-* Wed Nov 23 2011 Jan Pazdziora 0.1.23.32-1
-- Require the roles.
-
-* Fri Jul 22 2011 Jan Pazdziora 0.1.23.31-1
-- We only support version 14 and newer of Fedora, removing conditions for old
-  versions.
-
-* Thu Jul 21 2011 Jan Pazdziora 0.1.23.30-1
-- Revert "Fedora 15 uses oracledb_port_t instead of oracle_port_t."
-
-* Wed Jul 20 2011 Jan Pazdziora 0.1.23.29-1
-- Allow sqlplus to read /sys/.../meminfo.
-
-* Mon Jul 18 2011 Jan Pazdziora 0.1.23.28-1
-- Fedora 15 uses oracledb_port_t instead of oracle_port_t.
-
-* Fri Jul 15 2011 Jan Pazdziora 0.1.23.27-1
-- Fixing typo -- they actually *are* there now.
-
-* Wed Apr 06 2011 Jan Pazdziora 0.1.23.26-1
-- 489548, 565417 - upon ORA-3136, database writes to network/log/sqlnet.log.
-
-* Wed Mar 30 2011 Michael Mraka <michael.mraka@redhat.com> 0.1.23.25-1
-- allow unconfined_r to run oracle_lsnrctl_t, oracle_tnslsnr_t and oracle_db_t
-
-* Fri Jan 28 2011 Jan Pazdziora 0.1.23.24-1
-- Move the oracle_port_t to separate SELinux policy module.
-
-* Mon Jan 10 2011 Jan Pazdziora 0.1.23.23-1
-- Allow sqlplus 11g to read /sys/devices/system/node and /sys/devices/system/cpu.
-
-* Mon Jan 10 2011 Jan Pazdziora 0.1.23.22-1
-- Make the user_devpts_t dontaudit part optional.
-
-* Mon Jan 10 2011 Jan Pazdziora 0.1.23.21-1
-- The netlink_route_socket is now needed with InstantClient 11g sqlplus.
-- More devpts AVC denials on Fedora 13 dontaudited.
-
-* Mon Jan 10 2011 Jan Pazdziora 0.1.23.20-1
-- Stop AVCs about /dev/pts.
-- Require reasonably new selinux-policy-targeted on Fedora 13.
-
-* Thu Sep 23 2010 Michael Mraka <michael.mraka@redhat.com> 0.1.23.19-1
-- switched to default VersionTagger
-
-* Thu Aug 26 2010 Jan Pazdziora 0.1-23.18
-- Require newer selinux-policy-base to get configfile.
 

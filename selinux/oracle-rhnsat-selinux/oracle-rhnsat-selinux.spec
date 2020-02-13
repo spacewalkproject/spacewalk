@@ -5,13 +5,11 @@
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
-Version:         10.2.0.24
+Version:         10.2.0.28
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle
-Group:           System Environment/Base
 License:         GPLv2+
 Source0:         https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
-BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
 
@@ -21,8 +19,8 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %if 0%{?rhel} == 5
 Requires:        selinux-policy >= 2.4.6-80
 %endif
-Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
-Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon
+Requires(post):   /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, %{sbinpath}/restorecon, /usr/sbin/semanage
 Requires:         oracle-server >= 10.2.0.3
 Requires:         oracle-nofcontext-selinux
 
@@ -59,7 +57,11 @@ install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
-/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%define hardlink /usr/sbin/hardlink
+%if 0%{?fedora} >= 31
+%define hardlink /usr/bin/hardlink
+%endif
+%{hardlink} -cv %{buildroot}%{_datadir}/selinux
 
 # Install oracle-rhnsat-selinux-enable which will be called in %post
 install -d %{buildroot}%{_sbindir}
@@ -88,7 +90,7 @@ if [ $1 -eq 0 ]; then
   # Remove SELinux policy modules
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      /usr/sbin/semanage module -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 
@@ -106,6 +108,19 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 10.2.0.28-1
+- hardlink has moved to /usr/bin in Fedora 31
+
+* Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 10.2.0.27-1
+- removed Group from specfile
+- removed BuildRoot from specfiles
+
+* Wed Sep 06 2017 Michael Mraka <michael.mraka@redhat.com> 10.2.0.26-1
+- fixed selinux error messages during package install, see related BZ#1446487
+
+* Mon Jul 17 2017 Jan Dobes 10.2.0.25-1
+- Updated links to github in spec files
+
 * Fri Mar 22 2013 Michael Mraka <michael.mraka@redhat.com> 10.2.0.24-1
 - 919468 - fixed path in file based Requires
 - Purging %%changelog entries preceding Spacewalk 1.0, in active packages.

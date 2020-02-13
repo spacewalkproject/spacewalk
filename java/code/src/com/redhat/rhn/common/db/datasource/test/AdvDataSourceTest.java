@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2017 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,22 +14,6 @@
  */
 package com.redhat.rhn.common.db.datasource.test;
 
-import com.redhat.rhn.common.ObjectCreateWrapperException;
-import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.conf.ConfigDefaults;
-import com.redhat.rhn.common.db.datasource.CallableMode;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.TestUtils;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,6 +27,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import com.redhat.rhn.common.ObjectCreateWrapperException;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.conf.ConfigDefaults;
+import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateHelper;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 /*
  * $Rev$
@@ -209,6 +209,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
 
     /** This test makes sure we can call "execute" multiple times
      * and re-use the existing internal transaction within the CommitableMode
+     * @throws Exception something bad happened
      */
     public void testUpdateMultiple() throws Exception {
         insert("update_multi_test", 5);
@@ -333,6 +334,7 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
     }
 
 
+    @Override
     protected void setUp() throws Exception {
         Session session = HibernateFactory.getSession();
         Connection c = session.connection();
@@ -360,11 +362,16 @@ public class AdvDataSourceTest extends RhnBaseTestCase {
             }
             c.commit();
         }
+        catch (SQLException se) {
+            log.warn("Failed to create table adv_datasource: " + se.toString());
+            c.rollback();
+        }
         finally {
             HibernateHelper.cleanupDB(stmt);
         }
     }
 
+    @Override
     protected void tearDown() throws Exception {
         Session session = null;
         Connection c = null;

@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # Python client for checking periodically for posted actions
 # on the Spacewalk servers.
 #
-# Copyright (c) 2000--2016 Red Hat, Inc.
+# Copyright (c) 2000--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,6 +28,8 @@
 # do not wish to do so, delete this exception statement from your
 # version.  If you delete this exception statement from all source
 # files in the program, then also delete it here.
+
+import base64
 import os
 import sys
 import socket
@@ -40,7 +42,6 @@ if not hasattr(t, 'ugettext'):
 _ = t.ugettext
 
 import OpenSSL
-sys.path.append("/usr/share/rhn/")
 
 # disable sgmlop module
 # it breaks rhn_check when loaded during xmlrpclib import
@@ -55,14 +56,11 @@ from up2date_client import config
 from up2date_client import clientCaps
 from up2date_client import capabilities
 from up2date_client import rhncli, rhnserver
-import signal
+
 from rhn import SSL
 from rhn import rhnLockfile
 from rhn.i18n import bstr, sstr
 from rhn.tb import raise_with_tb
-
-import base64
-import time
 
 try: # python2
     import xmlrpclib
@@ -75,20 +73,16 @@ if 'sgmlop' in sys.modules:
 
 cfg = config.initUp2dateConfig()
 log = up2dateLog.initLog()
+
 # action version we understand
 ACTION_VERSION = 2
-
-# Stop execution of future actions
-TERMINATE = False
-
-# SystemExit exception error code
-SYSEXIT_CODE = 3
 
 # lock file to check if we're disabled at the server's request
 DISABLE_FILE = "/etc/sysconfig/rhn/disable"
 
 # Actions that will run each time we execute.
 LOCAL_ACTIONS = [("packages.checkNeedUpdate", ("rhnsd=1",))]
+
 
 class CheckCli(rhncli.RhnCli):
 
@@ -216,7 +210,6 @@ class CheckCli(rhncli.RhnCli):
                     sys.exit(1)
                 self.handle_action(action)
 
-
             action = self.__get_action(status_report)
 
     def __verify_server_capabilities(self, caps):
@@ -274,14 +267,32 @@ class CheckCli(rhncli.RhnCli):
         log.log_debug("handle_action actionid = %s, version = %s" % (
             action['id'], action['version']))
 
+        data = {}
+        action_lock = '/var/lib/up2date/action.%s' % str(action['id'])
+        if os.path.exists(action_lock):
+            ret = 255
+            if not cache_only:
+                if os.path.getsize(action_lock) > 0:
+                    data['base64enc'] = 1
+                    data['return_code'] = 255
+                    data['process_start'] = '1970-01-01 00:00:00'  # dummy values as we have no idea of start
+                    data['process_end'] = '1970-01-01 00:00:00'    # and especially about the end
+                    with open(action_lock) as f:
+                        data['output'] = base64.encodestring(f.read())
+                log.log_debug("Sending back response", (255, "Previous run of action didn't completed sucessfully, aborting.", data))
+                ret = self.submit_response(action['id'], 255, "Previous run of action didn't completed sucessfully, aborting.", data)
+            os.remove(action_lock)
+            return ret
+
+        open(action_lock, 'a').close()
+
         (method, params) = self.__parse_action_data(action)
         (status, message, data) = CheckCli.__run_action(method, params, {'cache_only': cache_only})
         ret = 0
         if not cache_only:
             log.log_debug("Sending back response", (status, message, data))
             ret = self.submit_response(action['id'], status, message, data)
-        if TERMINATE:
-            sys.exit(0)
+        os.remove(action_lock)
         return ret
 
 
@@ -371,7 +382,7 @@ class CheckCli(rhncli.RhnCli):
     def __do_call(method, params, kwargs={}):
         log.log_debug("do_call ", method, params, kwargs)
 
-        method = getMethod.getMethod(method, "/usr/share/rhn/", "actions")
+        method = getMethod.getMethod(method, "rhn.actions")
         retval = method(*params, **kwargs)
 
         return retval
@@ -380,23 +391,6 @@ class CheckCli(rhncli.RhnCli):
     def __run_action(method, params, kwargs={}):
         try:
             (status, message, data) = CheckCli.__do_call(method, params, kwargs)
-        except SystemExit:
-            e = sys.exc_info()[1]
-            global TERMINATE
-            TERMINATE = True
-            # Are we dealing with shutdown script? If yes, send some response
-            # to server ASAP
-            if e.code == SYSEXIT_CODE:
-                extras = {
-                    'output': '',
-                    'base64enc': 0,
-                    'return_code': 0,
-                    'process_start': '',
-                    'process_end': ''
-                }
-                for key in ('process_start', 'process_end'):
-                    extras[key] = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
-                return 0, "Script executed. Termination signal occurred during execution", extras
         except getMethod.GetMethodException:
             log.log_debug("Attempt to call an unsupported action ", method,
                 params)

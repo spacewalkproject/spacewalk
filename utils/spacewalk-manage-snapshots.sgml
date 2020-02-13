@@ -1,0 +1,179 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY PRODUCT "Red Hat Satellite or Spacewalk server">
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-manage-snapshots</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-manage-snapshots</command></RefName>
+<RefPurpose>
+Report on and purge snapshot-entries by age
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>-r</arg>
+        <arg>-i <replaceable>INTERVAL-IN-DAYS</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>--interval-older-than=<replaceable>INTERVAL-IN-DAYS</replaceable></arg>
+        <arg>--reports</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>-d <replaceable>DAYS</replaceable></arg>
+        <arg>-b <replaceable>ROWS-PER-COMMIT</replaceable></arg>
+    </cmdsynopsis>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>--delete-older-than=<replaceable>DAYS</replaceable></arg>
+        <arg>--batch-size=<replaceable>ROWS-PER-COMMIT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>-h</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>spacewalk-manage-snapshots</command>
+        <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>spacewalk-manage-snapshots</emphasis> reports on and purges snapshots stored in the &PRODUCT; instance on which the command is executed.
+    </para>
+    <para>
+        Snapshots are used to rollback system state when changes go awry. The snapshot-related tables grow with every change to a system; over time, they can grow quite large. This command is provided to give the &PRODUCT; administrator a tool to cull old entries, since old snapshots are rarely of value.
+    </para>
+    <para>
+        When <option>--reports</option> is specified, the tool reports on the current size of all snapshot-related tables, as well as snapshot-age. Snapshots are grouped into 'buckets' based on an interval expressed as days. The default interval is 90 days; this can be overridden using the <option>--interval-older-than</option> switch.
+    </para>
+    <para>
+        When <option>--delete-older-than</option> is specified, the tool will arrange to delete all snapshots older than the specified number of days. The delete happens in batches; the default batch-size is 1000 snapshots. If a different batchsize is desired, this default can be overridden using the <option>--batch-size</option> switch.
+    </para>
+    <para>
+        There are three reasons the delete happens in batches. First, in the presence of hundreds of thousands or more snapshots to be deleted, the resulting cascading deletes can take tens of minutes to hours. Committing in batches means that even if the tool is interrupted for some reason, it will have made progress. Second, deleting large numbers of rows in one transaction can have painful implications for the size of undo/redo logs and general application performance. And third, since the delete-process impacts the snapshot-table, it can interfere with system registrations and deletes. Committing in batches provides opportunities for other processing involving snapshots to continue in parallel with the cleanup process.
+    <para>
+        When <option>--delete-older-than</option> is chosen, an entry is made to <emphasis>/var/log/rhn/spacewalk-manage-snapshots.log</emphasis> with the timestamp, executing-login, action, and results.
+    </para>
+    <para>
+        <command>spacewalk-manage-snapshots</command> is expected to be run as <emphasis>root</emphasis>, on the &PRODUCT; instance. It relies on the content of <command>/etc/rhn/rhn.conf</command> and direct access to the &PRODUCT; database to accomplish its tasks.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-b <replaceable>ROWS-PER-COMMIT</replaceable>, --batch-size=<replaceable>ROWS-PER-COMMIT</replaceable></term>
+        <listitem>
+            <para>Number of rows to delete per commit (default is 1000)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d <replaceable>DAYS</replaceable>, --delete-older-than=<replaceable>DAYS</replaceable></term>
+        <listitem>
+            <para>Snapshots DAYS old or older will be purged from the database</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-i <replaceable>INTERVAL-IN-DAYS</replaceable>, --interval-older-than=<replaceable>INTERVAL-IN-DAYS</replaceable></term>
+        <listitem>
+            <para>INTERVAL-in-days period to use for --reports (default is 90 days)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r, --reports</term>
+        <listitem>
+            <para>Report current table-sizes (in rows) for all snapshot-related tables and report on the last four --interval periods for snapshots</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+    <example>
+        <title>Show the current state of snapshots on my system, including snapshots by 200-day buckets</title>
+        <para># spacewalk-manage-snapshots --reports -interval-older-than 200</para>
+        <screen>
+                Table name :         rows
+               RHNSNAPSHOT :       101872
+        RHNSNAPSHOTCHANNEL :       305616
+  RHNSNAPSHOTCONFIGCHANNEL :            0
+ RHNSNAPSHOTCONFIGREVISION :            0
+  RHNSNAPSHOTINVALIDREASON :            6
+        RHNSNAPSHOTPACKAGE :     20886008
+    RHNSNAPSHOTSERVERGROUP :       203744
+            RHNSNAPSHOTTAG :            0
+
+:   Snapshot info, 200-day interval    :
+: age(days) :   systems :    snapshots :
+:    1-200  :         3 :        71872 :
+:  201-400  :         3 :        20000 :
+:  401-600  :         3 :        10000 :
+        </screen>
+    </example>
+    <example>
+        <title>Delete all snapshots older than 400 days old, in batches of 1000 snapshots</title>
+        <para># spacewalk-manage-snapshots --delete-older-than 401 --batch-size 1000</para>
+        <screen>
+time ./spacewalk-manage-snapshots -d 401 -b 1000
+Deleting snapshots older than 401 days
+      101872 snapshots currently
+       10000 snapshots to be deleted, 1000 per commit
+...       10000 snapshots left to purge
+...        9000 snapshots left to purge
+...        8000 snapshots left to purge
+...        7000 snapshots left to purge
+...        6000 snapshots left to purge
+...        5000 snapshots left to purge
+...        4000 snapshots left to purge
+...        3000 snapshots left to purge
+...        2000 snapshots left to purge
+...        1000 snapshots left to purge
+       91872 snapshots remain
+
+real	0m26.544s
+user	0m0.080s
+sys	0m0.020s
+        </screen>
+    </example>
+</RefSect1>
+
+<RefSect1><Title>Log Output</Title>
+    <para>
+        When --delete-older-than is chosen, spacewalk-manage-snapshots writes its processing to a log file. This file can be found at <emphasis>/var/log/rhn/spacewalk-manage-snapshots.log</emphasis>
+    </para>
+    <para>
+        Log output includes:
+    </para>
+    <itemizedlist>
+        <listitem><para>Number of snapshots at start</para></listitem>
+        <listitem><para>Number of snapshots to be deleted, and batch-size</para></listitem>
+        <listitem><para>Each batch as it is committed</para></listitem>
+        <listitem><para>Number of snapshots after completion</para></listitem>
+    </itemizedlist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Grant Gainey <email>ggainey@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

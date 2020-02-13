@@ -19,7 +19,6 @@
 
 import gtk
 import gobject
-import sys
 import os
 import functions
 
@@ -27,13 +26,10 @@ import gnome, gnome.ui
 from gtk import glade
 
 from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
-sys.path.insert(0, "/usr/share/rhn/up2date_client/")
-sys.path.insert(1,"/usr/share/rhn")
-
-import rhnreg
-import rhnregGui
-import up2dateErrors
-import messageWindow
+from up2date_client import rhnreg
+from up2date_client import rhnregGui
+from up2date_client import up2dateErrors
+from up2date_client import messageWindow
 
 import gettext
 t = gettext.translation('rhn-client-tools', fallback=True)

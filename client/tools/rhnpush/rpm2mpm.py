@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,19 +28,13 @@ def main():
 
     for pkgfile in packages:
         # Try to open the package as a patch first
-        try:
-            f = open(pkgfile)
-
+        with open(pkgfile) as f:
             header = rhn_rpm.get_package_header(file_obj=f)
             p = rpm_to_mpm(header, f)
             dest_filename = _compute_filename(p.header)
             print("Writing out the package to %s" % dest_filename)
-            dest_file = open(dest_filename, "w+")
-            p.write(dest_file)
-            dest_file.close()
-            f.close()
-        except:
-            raise
+            with open(dest_filename, "w+") as dest_file:
+                p.write(dest_file)
 
 
 def _compute_filename(hdr):

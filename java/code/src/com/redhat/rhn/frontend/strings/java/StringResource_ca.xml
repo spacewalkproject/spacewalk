@@ -211,7 +211,7 @@
         </context-group>
         <trans-unit id="yes">
           <source>Yes</source>
-          <target>Si</target>
+          <target>Sí</target>
         </trans-unit>
         <trans-unit id="no">
           <source>No</source>
@@ -570,7 +570,7 @@
         <context-group name="ctx">
           <context context-type="sourcefile">NOT USED</context>
         </context-group>
-        <target>Escepció</target>
+        <target>Excepció</target>
       </trans-unit>
       <trans-unit id="Failed Actions">
         <source>Failed Actions</source>
@@ -2059,6 +2059,28 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">Kickstart Profile Details pages.</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.invalidchannel.satmessage.appstream">
+        <source>&lt;div style="text-align: left;"&gt;
+&lt;p&gt;To resolve this issue, please check the following things:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+Is the 'appstream' child software channel for this kickstart profile's base
+channel available to your organization? If it is not, you will need to request
+entitlements for the 'appstream' software channel from your @@PRODUCT_NAME@@ administrator.
+&lt;/li&gt;
+&lt;li&gt;
+Make sure that the 'appstream' child channel for this kickstart profile's base
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+satellite administrator and request a cdn-sync for the appstream channel
+and try again.
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Kickstart Profile Details pages.</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.initiate">
         <source>Initiate a kickstart</source>
         <context-group name="ctx">
@@ -2332,28 +2354,28 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="errata.schedule">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata update has been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">1 errata update has been scheduled for workstation.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errata.schedule.plural">
-        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been scheduled for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
+        <source>&lt;strong&gt;{0}&lt;/strong&gt; errata updates have been &lt;a href="/rhn/systems/details/history/Pending.do?sid={2}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{1}&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">43 errata updates have been scheduled for workstation.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 1 system</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errataconfirm.schedule.plural">
-        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
+        <source>Errata &lt;a href="/rhn/errata/details/Details.do?eid={2}"&gt;{0}&lt;/a&gt; has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={3}"&gt;scheduled&lt;/a&gt; for &lt;strong&gt;{1}&lt;/strong&gt; systems</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
           <context context-type="paramnotes">Errata RHSA-2004:597-06 has been scheduled for 3 systems</context>
@@ -2986,6 +3008,24 @@ available for this kickstart profile to function properly.
       </trans-unit>
       <trans-unit id="systemsearch.jsp.location">
         <source>Location</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_country">
+        <source>Country</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_state">
+        <source>State/Province</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemsearch_location_city">
+        <source>City</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
@@ -6184,14 +6224,14 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success">
-        <source>Configuration file compare actions are being scheduled for {0} systems, it may take several minutes for this to complete.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare actions&lt;/a&gt; are being scheduled for {1} systems, it may take several minutes for this to complete.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 8 systems.</context>
         </context-group>
       </trans-unit>
       <trans-unit id="configdiff.schedule.success.singular">
-        <source>Configuration file compare action is being scheduled successfully for {0} system.</source>
+          <source>&lt;a href="{0}"&gt;Configuration file compare action&lt;/a&gt; is being scheduled successfully for 1 system.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/CompareDeployed.do</context>
           <context context-type="paramnotes">Configuration file compare action scheduled successfully for 1 system.</context>
@@ -7545,6 +7585,24 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/systems/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="systemTypeLabel">
+        <source>System Type</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="systemIdForCsv">
+        <source>System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hostSystemIdForCsv">
+        <source>Host System Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/VirtualList</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="xid">
         <source>Xid</source>
       </trans-unit>
@@ -7815,11 +7873,20 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="system.customkey.error.tooshort">
         <source>A Custom Key label and description must be at least two characters long.</source>
       </trans-unit>
+      <trans-unit id="system.customkey.error.toolong">
+        <source>A Custom Key label can only be 64 characters long at maximum.</source>
+      </trans-unit>
+      <trans-unit id="system.customkey.error.descr_toolong">
+        <source>A Custom Key description can only be 4000 characters long at maximum.</source>
+      </trans-unit>
       <trans-unit id="system.customkey.error.invalid">
         <source>A Custom Key label can only contain letters, numbers, hyphens (-), and underscores (_).</source>
       </trans-unit>
       <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
+      </trans-unit>
+      <trans-unit id="system.customkey.deletesuccess">
+        <source>Successfully deleted 1 custom key.</source>
       </trans-unit>
       <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
@@ -7969,6 +8036,9 @@ Follow this url to see the full list of inactive systems:
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
         <target>El canal &lt;strong&gt;{0}&lt;/strong&gt; s''ha actualitzat.</target>
       </trans-unit>
+      <trans-unit id="message.failactionsuccess">
+        <source>Status of action &lt;strong&gt;{0}&lt;/strong&gt; has been set to failed.</source>
+      </trans-unit>
       <trans-unit id="message.syncscheduled">
         <source>Repository sync scheduled for {0}.</source>
       </trans-unit>
@@ -8048,7 +8118,7 @@ Follow this url to see the full list of inactive systems:
         <source>The repository label '{0}' is already in use, please choose a different label</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.invalidrepotype">
-        <source>The repository type '{0}' is invalid, please choose a different type</source>
+        <source>The repository type '{0}' is invalid or already in use with given url, please choose a different type</source>
       </trans-unit>
       <trans-unit id="edit.channel.repo.repourlinuse">
         <source>There's already a defined repository with given url, please reuse it.</source>
@@ -8171,7 +8241,7 @@ tree will not be usable for kickstarting.
       </trans-unit>
       <trans-unit id="help.credentials.passwordsent">
         <source>Password reset information sent to {0}.</source>
-        <target>La nova contrasenya es va enviar a {0}.</target>
+
       </trans-unit>
       <trans-unit id="help.credentials.invalidemail">
         <source>Supplied email address and login do not match.</source>

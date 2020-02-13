@@ -106,12 +106,14 @@ sub parse_options {
             "skip-selinux-test",
             "skip-fqdn-test",
             "skip-python-test",
+            "skip-rpm-lock",
             "skip-updates-install",
             "skip-db-install",
             "skip-db-diskspace-check",
             "skip-db-population",
             "skip-gpg-key-import",
             "skip-ssl-cert-generation",
+	    "skip-ssl-ca-generation",
             "skip-ssl-vhost-setup",
             "skip-services-check",
             "skip-services-restart",
@@ -136,7 +138,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
                   $0,
-                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --skip-services-restart ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
+                  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-ca-generation] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --skip-services-restart ] [ --clear-db ] [ --re-register ] [ --upgrade ] [ --run-updater=<yes|no>] [--run-cobbler] [ --enable-tftp=<yes|no>] [ --external-oracle | --external-postgresql [ --external-postgresql-over-ssl ] ]" );
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -364,6 +366,21 @@ sub system_or_exit {
   return 1;
 }
 
+sub lock_rpm_version {
+  print loc("** Package installation: Locking required rpm versions.\n");
+
+  my $os_name = qx{rpm -qf /etc/redhat-release --qf '%{name}' 2>/dev/null};
+  my $os_version = qx{rpm -qf /etc/redhat-release --qf '%{version}' 2>/dev/null};
+
+  if ($os_name =~ /^fedora/) {
+      system('dnf versionlock -q add quartz-1.8.4');
+      if ($os_version >= 31) {
+          system('dnf versionlock -q add yum-3.4.3 gpgme-1.12.0 python*-gpg-1.12.0');
+      }
+  }
+  return 0;
+}
+
 sub upgrade_stop_services {
   my $opts = shift;
   if ($opts->{'upgrade'} && not $opts->{'skip-services-check'}) {
@@ -394,17 +411,20 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 my @spinning_pattern = split /\n/, <<EOF;
- ᗧ • • • • • • • • • •
- · ᗧ • • • • • • • • •
- · · ᗧ • • • • • • • •
- · · · ᗧ • • • • • • •
- · · · · ᗧ • • • • • •
- · · · · · ᗧ • • • • •
- · · · · · · ᗧ • • • •
- · · · · · · · ᗧ • • •
- · · · · · · · · ᗧ • •
- · · · · · · · · · ᗧ •
- · · · · · · · · · · ᗧ
+ [    ]
+ [=   ]
+ [==  ]
+ [=== ]
+ [ ===]
+ [  ==]
+ [   =]
+ [    ]
+ [   =]
+ [  ==]
+ [ ===]
+ [=== ]
+ [==  ]
+ [=   ]
 EOF
 
 my $spinning_pattern_maxlength = 0;
@@ -1079,7 +1099,7 @@ EOQ
     }
 
     if (not $opts->{"skip-db-diskspace-check"}) {
-        system_or_exit(['python', SHARED_DIR .
+        system_or_exit(['python2', SHARED_DIR .
             '/embedded_diskspace_check.py', '/var/lib/pgsql/data', '12288'], 14,
             'There is not enough space available for the embedded database.');
     }
@@ -1932,6 +1952,10 @@ Do not import Red Hat's GPG key.
 
 Do not generate the SSL certificates for the Satellite.
 
+=item B<--skip-ssl-ca-generation>
+
+Do not generate the SSL CA, use existing CA to sign certificate for the Satellite.
+
 =item B<--skip-ssl-vhost-setup>
 
 Do not configure the default SSL virtual host for Spacewalk.
@@ -2003,7 +2027,7 @@ L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright (c) 2008--2016 Red Hat, Inc.
+Copyright (c) 2008--2017 Red Hat, Inc.
 
 This software is licensed to you under the GNU General Public License,
 version 2 (GPLv2). There is NO WARRANTY for this software, express or

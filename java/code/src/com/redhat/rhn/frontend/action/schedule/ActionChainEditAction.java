@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Controller for the Action Chain list page.
- * @author Silvio Moioli <smoioli@suse.de>
+ * @author Silvio Moioli {@literal <smoioli@suse.de>}
  */
 public class ActionChainEditAction extends RhnAction {
 

@@ -3,6 +3,7 @@ policy_module(spacewalk-proxy,@@VERSION@@)
 require {
 	type httpd_t;
 	type http_cache_port_t;
+	type rhnsd_conf_t;
 }
 
 type spacewalk_log_t;
@@ -24,4 +25,4 @@ manage_files_pattern(httpd_t, spacewalk_proxy_data_t, spacewalk_proxy_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_proxy_data_t, spacewalk_proxy_data_t)
 
 allow httpd_t http_cache_port_t:tcp_socket name_connect;
-
+allow httpd_t rhnsd_conf_t:file { getattr open read };

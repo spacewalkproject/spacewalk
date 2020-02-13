@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $UID != "0" ]; then
+  echo "ERROR: must be root to execute"
+  exit 1
+fi
+
 BACKEND=$( spacewalk-cfg-get db_backend )
 
 if [ $BACKEND == 'oracle' ]; then

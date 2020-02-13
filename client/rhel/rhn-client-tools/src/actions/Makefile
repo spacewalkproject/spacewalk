@@ -4,7 +4,7 @@
 ACTIONS		= up2date_config hardware reboot \
 		  rhnsd systemid __init__
 PYFILES		= $(addsuffix .py, $(ACTIONS))
-OBJECTS		= $(PYFILES) $(addsuffix .pyc, $(ACTIONS))
+OBJECTS		= $(PYFILES)
 
 # Install stuff
 INSTALL         = /usr/bin/install -c
@@ -12,23 +12,19 @@ INSTALL_BIN     = $(INSTALL) -m 755
 INSTALL_DIR     = $(INSTALL) -m 755 --verbose -d
 
 # Install Directories
-RHNSHARE_DIR    = $(PREFIX)/usr/share/rhn
-ACTIONDIR	= $(RHNSHARE_DIR)/actions
+PYTHON_DIR      = $(PREFIX)$(PYTHONPATH)
+ACTIONDIR	= $(PYTHON_DIR)/rhn/actions
 
 
 PYCHECKER       = /usr/bin/pychecker
 
 all:: $(OBJECTS)
 
-# default compile rule:
-%.pyc: %.py
-	python -c "import py_compile; py_compile.compile('$<')"
-
 install: all $(ACTIONDIR)
 	$(INSTALL_BIN) $(OBJECTS) $(ACTIONDIR)/ 
 
 $(ACTIONDIR) : 
-	@$(INSTALL_DIR) $@
+	$(INSTALL_DIR) $@
 
 clean:
 	@rm -rf *.pyc *~ .*~ *.o

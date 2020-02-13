@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.common.conf;
 
+import java.io.File;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
-
-import java.io.File;
 
 /**
  * ConfigDefaults is the place to store application specific Config settings
@@ -80,9 +80,8 @@ public class ConfigDefaults {
 
     public static final String PRODUCT_NAME = "web.product_name";
 
-    public static final String COBBLER_AUTOMATED_USER = "java.taskomatic_cobbler_user";
+    private static final String COBBLER_AUTOMATED_USER = "java.taskomatic_cobbler_user";
 
-    public static final String DOC_REFERENCE_GUIDE = "docs.reference_guide";
     public static final String DOC_INSTALL_GUIDE = "docs.install_guide";
     public static final String DOC_PROXY_GUIDE = "docs.proxy_guide";
     public static final String DOC_CLIENT_CONFIG_GUIDE = "docs.client_config_guide";
@@ -108,8 +107,8 @@ public class ConfigDefaults {
     public static final String REPOMD_CACHE_MOUNT_POINT = "repomd_cache_mount_point";
 
 
-    public static final String DEFAULT_KICKSTART_PACKAGE_NAME = "spacewalk-koan";
-    public static final String KICKSTART_PACKAGE_NAME = "kickstart_package";
+    private static final String DEFAULT_KICKSTART_PACKAGE_NAME = "spacewalk-koan";
+    private static final String KICKSTART_PACKAGE_NAME = "kickstart_package";
 
     public static final String MOUNT_POINT = "mount_point";
     public static final String KICKSTART_MOUNT_POINT = "kickstart_mount_point";
@@ -123,34 +122,34 @@ public class ConfigDefaults {
     private static final String COBBLER_NAME_SEPARATOR = "cobbler.name.separator";
     public static final String POWER_MANAGEMENT_TYPES = "java.power_management.types";
 
-    public static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
-    public static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
+    private static final String KVM_VIRT_PATH_DIR = "kickstart.virt_storage_path_kvm";
+    private static final String XEN_VIRT_PATH_DIR = "kickstart.virt_storage_path_xen";
     private static final String DEFAULT_XEN_VIRT_PATH = "/var/lib/xen/images";
     private static final String DEFAULT_KVM_VIRT_PATH = "/var/lib/libvirt/images";
-    public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
-    public static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
-    public static final String VIRT_CPU = "kickstart.virt_cpus";
-    public static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
-    public static final String KICKSTART_NETWORK_INTERFACE = "kickstart.default_interface";
+    private static final String VIRT_BRIDGE = "kickstart.virt_bridge";
+    private static final String VIRT_MEM = "kickstart.virt_mem_size_mb";
+    private static final String VIRT_CPU = "kickstart.virt_cpus";
+    private static final String VIRT_DISK = "kickstart.virt_disk_size_gb";
+    private static final String KICKSTART_NETWORK_INTERFACE = "kickstart.default_interface";
 
     public static final String SPACEWALK_REPOSYNC_PATH = "spacewalk_reposync_path";
     public static final String SPACEWALK_REPOSYNC_LOG_PATH = "spacewalk_reposync_logpath";
-    public static final String USE_DB_REPODATA = "user_db_repodata";
+    private static final String USE_DB_REPODATA = "user_db_repodata";
     public static final String CONFIG_MACRO_ARGUMENT_REGEX = "config_macro_argument_regex";
 
-    public static final String DB_BACKEND = "db_backend";
-    public static final String DB_BACKEND_ORACLE = "oracle";
-    public static final String DB_BACKEND_POSTGRESQL = "postgresql";
+    private static final String DB_BACKEND = "db_backend";
+    private static final String DB_BACKEND_ORACLE = "oracle";
+    private static final String DB_BACKEND_POSTGRESQL = "postgresql";
     public static final String DB_USER = "db_user";
     public static final String DB_PASSWORD = "db_password";
-    public static final String DB_NAME = "db_name";
-    public static final String DB_HOST = "db_host";
-    public static final String DB_PORT = "db_port";
-    public static final String DB_SSL_ENABLED = "db_ssl_enabled";
-    public static final String DB_PROTO = "hibernate.connection.driver_proto";
+    private static final String DB_NAME = "db_name";
+    private static final String DB_HOST = "db_host";
+    private static final String DB_PORT = "db_port";
+    private static final String DB_SSL_ENABLED = "db_ssl_enabled";
+    private static final String DB_PROTO = "hibernate.connection.driver_proto";
     public static final String DB_CLASS = "hibernate.connection.driver_class";
 
-    public static final String SSL_TRUSTSTORE = "java.ssl_truststore";
+    private static final String SSL_TRUSTSTORE = "java.ssl_truststore";
 
     public static final String LOOKUP_EXCEPT_SEND_EMAIL = "lookup_exception_email";
 
@@ -159,17 +158,17 @@ public class ConfigDefaults {
     /**
      * System Currency defaults
      */
-    public static final String SYSTEM_CURRENCY_CRIT = "java.sc_crit";
-    public static final String SYSTEM_CURRENCY_IMP  = "java.sc_imp";
-    public static final String SYSTEM_CURRENCY_MOD  = "java.sc_mod";
-    public static final String SYSTEM_CURRENCY_LOW  = "java.sc_low";
-    public static final String SYSTEM_CURRENCY_BUG  = "java.sc_bug";
-    public static final String SYSTEM_CURRENCY_ENH  = "java.sc_enh";
+    private static final String SYSTEM_CURRENCY_CRIT = "java.sc_crit";
+    private static final String SYSTEM_CURRENCY_IMP  = "java.sc_imp";
+    private static final String SYSTEM_CURRENCY_MOD  = "java.sc_mod";
+    private static final String SYSTEM_CURRENCY_LOW  = "java.sc_low";
+    private static final String SYSTEM_CURRENCY_BUG  = "java.sc_bug";
+    private static final String SYSTEM_CURRENCY_ENH  = "java.sc_enh";
 
     /**
      * Taskomatic defaults
      */
-    public static final String TASKOMATIC_CHANNEL_REPODATA_WORKERS
+    private static final String TASKOMATIC_CHANNEL_REPODATA_WORKERS
         = "java.taskomatic_channel_repodata_workers";
 
     private ConfigDefaults() {
@@ -469,10 +468,7 @@ public class ConfigDefaults {
      * @return true is this is a Spacewalk instance.
      */
     public boolean isSpacewalk() {
-        if (Config.get().getString(PRODUCT_NAME).equals(SPACEWALK)) {
-            return true;
-        }
-        return false;
+        return Config.get().getString(PRODUCT_NAME).equals(SPACEWALK);
     }
 
     /**
@@ -480,10 +476,7 @@ public class ConfigDefaults {
      * @return true or false
      */
     public boolean useDBRepodata() {
-        if (Config.get().getString(USE_DB_REPODATA) == null) {
-            return true;
-        }
-        return Config.get().getBoolean(USE_DB_REPODATA);
+        return Config.get().getString(USE_DB_REPODATA) == null || Config.get().getBoolean(USE_DB_REPODATA);
     }
 
     /**

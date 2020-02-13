@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2013 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -118,8 +118,13 @@ public class RepoInfo {
      */
     public String getFormattedCommand(KickstartData data) {
         KickstartUrlHelper helper = new KickstartUrlHelper(data);
+        String repourl = helper.getRepoUrl(this);
+        if (name.equals("AppStream")) {
+            /* RHEL 8 AppStream */
+            repourl = helper.getKickstartMediaUrl().replace("baseos", "appstream");
+        }
         return String.format("repo --name=%s --baseurl=%s", name,
-                                    helper.getRepoUrl(this));
+                                    repourl);
     }
 
     /**
@@ -140,8 +145,16 @@ public class RepoInfo {
     }
 
     /**
-     * Returns all the 4 standard repos available to rhel 5
-     * cluster, clusterstorage, workstation and VT
+     * Gets the RepoInfo for the AppStream repo
+     * @return the RepoInfo for the AppStream repo
+     */
+    public static RepoInfo appstream() {
+        String name = "AppStream";
+        return create(name, "");
+    }
+
+    /**
+     * Returns all the standard addon repos available to RHEL
      * @param tree the kickstartable tree
      * @return the standard repos..
      */
@@ -160,6 +173,16 @@ public class RepoInfo {
                     File.separator + "repomd.xml");
                 repoList.add(create(repo.replace("addons/", ""), repo, repodata.exists()));
             }
+        }
+
+        /* RHEL 8 AppStream */
+        String appStreamPath = tree.getAbsolutePath().replace("baseos", "appstream");
+        File file = new File(appStreamPath);
+        if (!appStreamPath.equals(tree.getAbsolutePath()) && file.exists()) {
+            File repodata = new File(file.getPath() +
+                File.separator + "repodata" +
+                File.separator + "repomd.xml");
+            repoList.add(create("AppStream", "", repodata.exists()));
         }
         return repoList;
     }

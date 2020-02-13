@@ -90,8 +90,7 @@ public class PackageAclHandler extends BaseHandler {
 
         Set<String> capabilities = capMap.get(archTypeLabel);
 
-        boolean capFound = capabilities.contains(cap);
-        return capFound;
+        return capabilities.contains(cap);
     }
 
 }

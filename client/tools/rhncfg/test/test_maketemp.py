@@ -17,16 +17,18 @@
 import os
 from config_common import file_utils
 
-filepath, f = file_utils.maketemp("/tmp/my-file-", mode=int("0700", 8))
+filepath, fd = file_utils.maketemp("/tmp/my-file-", mode=int("0700", 8))
 
 buf = "0123456789" * 100
 
 print("Writing", len(buf), "to", filepath)
-f.write(buf)
+os.write(fd, buf)
 assert(len(buf) == f.tell())
 
+os.close(fd)
 os.unlink(filepath)
 
 
-filepath, f = file_utils.maketemp()
+filepath, fd = file_utils.maketemp()
+os.close(fd)
 os.unlink(filepath)

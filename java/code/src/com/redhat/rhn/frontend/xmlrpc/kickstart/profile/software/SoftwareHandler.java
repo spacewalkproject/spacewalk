@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009--2014 Red Hat, Inc.
+ * Copyright (c) 2009--2018 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software;
 
+import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -47,7 +49,7 @@ public class SoftwareHandler extends BaseHandler {
      * @param loggedInUser The current user
      * @param ksLabel A kickstart profile label
      * @return A list of package names.
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Get a list of a kickstart profile's software packages.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
@@ -72,7 +74,7 @@ public class SoftwareHandler extends BaseHandler {
      * @param ksLabel A kickstart profile label
      * @param packageList  A list of package names.
      * @return 1 on success.
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Set the list of software packages for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
@@ -91,6 +93,8 @@ public class SoftwareHandler extends BaseHandler {
         Set<KickstartPackage> packages = ksdata.getKsPackages();
         packages.clear();
         KickstartFactory.saveKickstartData(ksdata);
+        //We need to flush session to make the change cascade into DB
+        HibernateFactory.getSession().flush();
         Long pos = new Long(packages.size()); // position package in list
         for (String p : packageList) {
             PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
@@ -110,7 +114,7 @@ public class SoftwareHandler extends BaseHandler {
      * when true
      * @param nobase The boolean value setting --nobase in the %packages line when true
      * @return 1 on success.
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Set the list of software packages for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
@@ -144,7 +148,7 @@ public class SoftwareHandler extends BaseHandler {
      * @param ksLabel A kickstart profile label
      * @param packageList  A list of package names.
      * @return 1 on success.
-     * @throws FaultException
+     * @throws FaultException fault exception
      * @xmlrpc.doc Append the list of software packages to a kickstart profile.
      * Duplicate packages will be ignored.
      * @xmlrpc.param #session_key()

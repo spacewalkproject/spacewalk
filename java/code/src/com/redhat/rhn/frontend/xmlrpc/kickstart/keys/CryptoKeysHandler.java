@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.keys;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -67,8 +66,7 @@ public class CryptoKeysHandler extends BaseHandler {
         Org org = loggedInUser.getOrg();
         KickstartLister lister = KickstartLister.getInstance();
 
-        DataResult dataResult = lister.cryptoKeysInOrg(org);
-        return dataResult;
+        return lister.cryptoKeysInOrg(org);
     }
 
     /**
@@ -206,7 +204,6 @@ public class CryptoKeysHandler extends BaseHandler {
 
         EditCryptoKeyCommand command = new EditCryptoKeyCommand(loggedInUser, description);
 
-        CryptoKey key = command.getCryptoKey();
-        return key;
+        return command.getCryptoKey();
     }
 }

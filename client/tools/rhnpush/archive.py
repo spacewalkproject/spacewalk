@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008--2016 Red Hat, Inc.
+# Copyright (c) 2008--2018 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -49,6 +49,7 @@ class InvalidArchiveError(ArchiveException):
 # base archive parsing class ---------------------------------------------
 
 
+# pylint: disable=bad-option-value,useless-object-inheritance
 class ArchiveParser(object):
 
     """Explode an zip or (compressed) tar archive and parse files and
@@ -181,8 +182,8 @@ class ArchiveParser(object):
         f = self._find(filename)
         if f:
             return self.direct_read(f)
-        else:
-            return None
+
+        return None
 
     def direct_read(self, filename):
         """ Returns the contens of the file, file is relative path in archive.
@@ -262,7 +263,6 @@ class ZipParser(ArchiveParser):
             e = sys.exc_info()[1]
             raise InvalidArchiveError("Archive did not expand to %s: %s" %
                                       (self._archive_dir, str(e)))
-        return
 
     def _explode_cmd(self):
         pass
@@ -289,7 +289,6 @@ class TarParser(ArchiveParser):
             e = sys.exc_info()[1]
             raise InvalidArchiveError("Archive did not expand to %s: %s" %
                                       (self._archive_dir, str(e)))
-        return
 
     def _explode_cmd(self):
         pass
@@ -357,7 +356,6 @@ def _my_popen(cmd):
     if status != 0:
         raise Exception("%s exited with status %s and error\n%s" % (cmd, status, txt))
 
-    return
 
 # NOTE these next two functions rely on file magic to determine the compression
 # and archive types. some file magic information can be found here:
