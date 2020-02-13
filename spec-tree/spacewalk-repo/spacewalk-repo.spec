@@ -97,6 +97,24 @@ enabled_metadata=1
 REPO
 %endif
 
+%if 0%{?rhel} == 8
+
+        cat >$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-python.repo <<REPO
+
+[group_spacewalkproject-python-packages]
+name=Copr repo for python-packages owned by @spacewalkproject
+baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/epel-8-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-python-packages
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+module_hotfixes=1
+REPO
+%endif
+
 %endif
 
 %if 0%{?fedora} >= 31
@@ -111,6 +129,24 @@ gpgcheck=1
 repo_gpgcheck=0
 enabled=1
 enabled_metadata=1
+REPO
+%endif
+
+%if 0%{?fedora} >= 30
+
+        cat >$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk-python.repo <<REPO
+
+[group_spacewalkproject-python-packages]
+name=Copr repo for python-packages owned by @spacewalkproject
+baseurl=https://download.copr.fedorainfracloud.org/results/@spacewalkproject/python-packages/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-python-packages
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+module_hotfixes=1
 REPO
 %endif
 
@@ -131,6 +167,10 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
 %if 0%{?rhel} || 0%{?fedora} >= 31
 %config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-java.repo
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-java-packages
+%endif
+%if 0%{?rhel} == 8 || 0%{?fedora} >= 30
+%config(noreplace) %{_sysconfdir}/yum.repos.d/spacewalk-python.repo
+%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-python-packages
 %endif
 %if 0%{?rhel} == 6
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-epel6-addons
