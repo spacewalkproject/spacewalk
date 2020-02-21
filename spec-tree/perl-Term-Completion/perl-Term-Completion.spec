@@ -3,8 +3,8 @@ Version:    1.00
 Release:    9%{?dist}.4
 License:    GPL+ or Artistic 
 Summary:    Read one line of user input, with convenience functions 
-Source:     http://search.cpan.org/CPAN/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
-Url:        http://search.cpan.org/dist/Term-Completion
+Source:     https://search.cpan.org/CPAN/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
+Url:        https://search.cpan.org/dist/Term-Completion
 Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 %if 0%{?fedora} && 0%{?fedora} > 26
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Feb 21 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 1.00-9.5
+- Updated source URLs to https.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.00-9.4
 - removed Group from specfile
 
