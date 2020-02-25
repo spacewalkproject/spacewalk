@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 #
 # Registration client for the Spacewalk for useage with kickstart
-# Copyright (c) 1999--2018 Red Hat, Inc.  Distributed under GPLv2.
+# Copyright (c) 1999--2019 Red Hat, Inc.  Distributed under GPLv2.
 #
 # Authors:
 #       Adrian Likins <alikins@redhat.com>

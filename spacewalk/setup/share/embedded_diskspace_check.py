@@ -2,7 +2,7 @@
 """ Checks diskspace sizes for for /rhnsat and /opt.
     Used only by the install.sh code.
 
-    Copyright (c) 2002--2012 Red Hat, Inc.
+    Copyright (c) 2002--2019 Red Hat, Inc.
     All rights reserved.
 
     Author: Todd Warner <taw@redhat.com>
