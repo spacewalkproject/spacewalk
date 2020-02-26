@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.10.3
+Version: 2.10.4
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -362,6 +362,9 @@ fi
 
 
 %changelog
+* Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
+- updated copyright to 2020
+
 * Wed Jul 03 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - 1710280 - don't skip auth token check for remote actions
 - 1710280 - make sure file is created inside CACHEDIR
