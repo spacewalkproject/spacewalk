@@ -40,7 +40,7 @@
 %endif
 
 Name: rhncfg
-Version: 5.10.132
+Version: 5.10.133
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      admin
@@ -428,6 +428,9 @@ py3clean -p python3-%{name}-actions
 %endif
 
 %changelog
+* Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 5.10.133-1
+- updated copyright to 2020
+
 * Mon Feb 04 2019 Michael Mraka <michael.mraka@redhat.com> 5.10.132-1
 - make filemod more readable
 
