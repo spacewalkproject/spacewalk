@@ -1,7 +1,7 @@
 Summary: Spacewalk packages yum repository configuration
 Name: spacewalk-repo
 Version: 2.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -183,6 +183,9 @@ grep -h ^gpgkey= $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/*.repo \
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-spacewalk-nightly-client
 
 %changelog
+* Thu Feb 27 2020 Michael Mraka <michael.mraka@redhat.com> 2.10-8
+- updated gpg keys
+
 * Thu Feb 13 2020 Michael Mraka <michael.mraka@redhat.com> 2.10-7
 - fixed string expansion in repo files
 
