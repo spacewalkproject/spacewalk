@@ -1,5 +1,5 @@
 Name:           spacewalk-setup-postgresql
-Version:        2.10.1
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        Tools to setup embedded PostgreSQL database for Spacewalk
 License:        GPLv2

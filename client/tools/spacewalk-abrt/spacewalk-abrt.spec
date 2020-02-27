@@ -10,7 +10,7 @@
 %define pythonX %{?default_py3: python3}%{!?default_py3: python2}
 
 Name:           spacewalk-abrt
-Version:        2.10.0
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        ABRT plug-in for rhn-check
 

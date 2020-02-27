@@ -10,7 +10,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 2.10.0
+Version: 2.11.0
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

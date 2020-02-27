@@ -1,7 +1,7 @@
 Name: spacewalk-reports
 Summary: Script based reporting
 License: GPLv2
-Version: 2.10.2
+Version: 2.11.0
 Release: 1%{?dist}
 URL: https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

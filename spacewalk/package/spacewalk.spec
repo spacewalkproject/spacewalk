@@ -1,7 +1,7 @@
 %define release_name FourtyTwo
 
 Name:           spacewalk
-Version:        2.10.3
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk

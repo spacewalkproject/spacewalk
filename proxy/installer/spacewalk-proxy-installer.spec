@@ -9,7 +9,7 @@
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 License: GPLv2
-Version: 2.10.1
+Version: 2.11.0
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz

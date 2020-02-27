@@ -7,7 +7,7 @@
 %global modulename jabber
 
 Name:           jabberd-selinux
-Version:        2.10.1
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 

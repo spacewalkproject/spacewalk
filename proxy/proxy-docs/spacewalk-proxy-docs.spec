@@ -1,6 +1,6 @@
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
-Version: 2.10.0
+Version: 2.11.0
 Release: 1%{?dist}
 License: Open Publication
 URL:     https://github.com/spacewalkproject/spacewalk

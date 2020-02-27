@@ -2,7 +2,7 @@
 
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        2.10.3
+Version:        2.11.0
 Release:        1%{?dist}
 License:        GPLv2
 URL:            https://github.com/spacewalkproject/spacewalk

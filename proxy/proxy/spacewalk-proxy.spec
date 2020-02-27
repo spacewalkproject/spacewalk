@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.10.4
+Version: 2.11.0
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk

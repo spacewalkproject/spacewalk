@@ -21,7 +21,7 @@
 
 Summary: Python libraries for the Spacewalk project
 Name: rhnlib
-Version: 2.10.7
+Version: 2.11.0
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      python
