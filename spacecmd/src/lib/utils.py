@@ -202,8 +202,8 @@ def editor(template='', delete=False):
             if exit_code == 0:
                 success = True
                 break
-            else:
-                logging.error('Editor exited with code %i', exit_code)
+
+            logging.error('Editor exited with code %i', exit_code)
         except OSError:
             pass
 
