@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.11.0
+Version: 2.11.1
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -808,6 +808,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Fri Feb 28 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
+- added treeinfo file to download list
+
 * Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.27-1
 - updated copyright to 2020
 
