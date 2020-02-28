@@ -1417,11 +1417,11 @@ def do_system_addconfigfile(self, args, update_path=''):
                 # ensure the user enters a valid system
                 if options.system in self.do_system_list('', True):
                     break
-                else:
-                    print('')
-                    logging.warning('%s is not a valid system' %
-                                    options.system)
-                    print('')
+
+                print('')
+                logging.warning('%s is not a valid system' %
+                                options.system)
+                print('')
 
         if update_path:
             options.path = update_path

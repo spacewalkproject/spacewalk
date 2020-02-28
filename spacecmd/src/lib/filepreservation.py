@@ -83,9 +83,9 @@ def do_filepreservation_create(self, args):
 
             if userinput == '':
                 break
-            else:
-                if userinput not in files:
-                    files.append(userinput)
+
+            if userinput not in files:
+                files.append(userinput)
 
     print('')
     print('File List')

@@ -335,7 +335,7 @@ def do_group_restore(self, args):
             logging.debug("Already have %s" % groupname)
             continue
 
-        elif groupname in current:
+        if groupname in current:
             logging.debug("Already have %s but the description has changed" % groupname)
 
             if is_interactive(options):

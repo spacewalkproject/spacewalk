@@ -747,11 +747,11 @@ def do_configchannel_addfile(self, args, update_path=''):
                 # ensure the user enters a valid configuration channel
                 if options.channel in self.do_configchannel_list('', True):
                     break
-                else:
-                    print('')
-                    logging.warning('%s is not a valid channel' %
-                                    options.channel)
-                    print('')
+
+                print('')
+                logging.warning('%s is not a valid channel' %
+                                options.channel)
+                print('')
 
         if update_path:
             options.path = update_path
