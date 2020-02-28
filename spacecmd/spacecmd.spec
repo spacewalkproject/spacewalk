@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.11.0
+Version:     2.11.1
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -111,6 +111,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Fri Feb 28 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
+- fixed pylint warnings
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - use python3 for spacecmd on RHEL8
 
