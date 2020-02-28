@@ -30,6 +30,7 @@ from rhnpush import rhnpush_cache
 from rhn.i18n import sstr
 from up2date_client import rhnserver
 from spacewalk.common import rhn_mpm
+from spacewalk.common import rhn_rpm
 from spacewalk.common.rhn_pkg import package_from_filename, get_package_header
 from spacewalk.common.usix import raise_with_tb
 
@@ -796,7 +797,6 @@ def packageCompare(pkg1, pkg2, is_mpm=None):
     if is_mpm:
         func = rhn_mpm.labelCompare
     else:
-        from spacewalk.common import rhn_rpm
         func = rhn_rpm.labelCompare
     return func(packages[0], packages[1])
 
