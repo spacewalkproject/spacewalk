@@ -17,7 +17,7 @@ Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.120
+Version:       5.5.121
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
@@ -133,6 +133,9 @@ spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_site
 %endif
 
 %changelog
+* Fri Feb 28 2020 Michael Mraka <michael.mraka@redhat.com> 5.5.121-1
+- pylint fixes
+
 * Thu Jan 10 2019 Michael Mraka <michael.mraka@redhat.com> 5.5.120-1
 - Revert "1627438 - don't build python2 packages on new Fedoras"
 
