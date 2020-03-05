@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 2.11.0
+Version: 2.11.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -44,6 +44,9 @@ cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/inde
 %endif
 
 %changelog
+* Thu Mar 05 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
+- updating indexes to new version
+
 * Mon Jan 14 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - updated doc-indexes
 - update crawler to new release notes
