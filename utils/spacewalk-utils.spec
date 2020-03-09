@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.10.8
+Version:	2.10.9
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Mon Mar 09 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.9-1
+- added CentOS 8 repos
+
 * Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.8-1
 - updated copyright to 2020
 
