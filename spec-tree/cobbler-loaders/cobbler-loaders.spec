@@ -8,7 +8,7 @@ Name: cobbler-loaders
 License: GPLv2+
 AutoReq: no
 Version: 1.0.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
 Requires: cobbler < 2.8
@@ -53,7 +53,7 @@ echo "post"
 # yaboot: yaboot-1.3.14-41.el6.src.rpm
 
 %changelog
-* Tue Mar 10 2020 Michael Mraka <michael.mraka@redhat.com> 1.0.3-3
+* Tue Mar 10 2020 Michael Mraka <michael.mraka@redhat.com> 1.0.3-4
 - require cobbler from spacewalk not fedora default
 
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.3-2
