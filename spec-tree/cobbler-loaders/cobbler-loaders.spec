@@ -11,7 +11,7 @@ Version: 1.0.3
 Release: 2%{?dist}
 Url: http://fedorahosted.org/cobbler
 Source0: cobbler-loaders-%{version}.tar.gz
-Requires: cobbler2
+Requires: cobbler2 < 2.8
 Requires: syslinux > 4.00
 Provides: cobbler-loaders = %{version}-%{release}
 Obsoletes: cobbler-loaders < %{version}-%{release}
