@@ -20,7 +20,7 @@ Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
 Version: 2.11.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -640,7 +640,7 @@ fi
 %{jardir}/antlr.jar
 %{jardir}/bcel.jar
 %{jardir}/c3p0*.jar
-%if 0%{?fedora} >= 25
+%if 0%{?fedora} >= 25 || 0%{?rhel} >= 8
 %{jardir}/cglib_cglib.jar
 %else
 %{jardir}/cglib.jar
@@ -756,6 +756,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.1-2
+- Updated cglib name for RHEL8.
+
 * Wed Mar 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
 - 1791111 - improved performance of cleanup-data-bunch
 
