@@ -1,13 +1,13 @@
 Name: spacewalk-ssl-cert-check
 Epoch:	 1
-Version: 2.8
+Version: 2.10
 Release: 1%{?dist}
 Summary: Check ssl certs for impending expiration
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch: noarch
-Requires:  /etc/cron.daily/certwatch
+Requires:  (/etc/cron.daily/certwatch or crypto-utils)
 Obsoletes: rhn-ssl-cert-check < %{epoch}:%{version}
 Provides:  rhn-ssl-cert-check = %{epoch}:%{version}
 
@@ -35,6 +35,9 @@ install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-s
 %doc LICENSE
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.10-1
+- Updated "Required:" to clearly show what package provides the requirement.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.8-1
 - remove install/clean section initial cleanup
 - removed Group from specfile
