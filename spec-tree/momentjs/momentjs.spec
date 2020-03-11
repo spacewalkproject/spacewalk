@@ -6,15 +6,15 @@
 
 Name:           momentjs
 Version:        2.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
 License:        MIT
 URL:            http://momentjs.com/
 
-Source0:        http://momentjs.com/downloads/moment-with-langs.js
-Source1:        http://momentjs.com/downloads/moment-with-langs.min.js
-Source2:        http://momentjs.com/downloads/moment.min.js
+Source0:        https://raw.githubusercontent.com/moment/moment/2.6.0/min/moment-with-langs.js 
+Source1:        https://raw.githubusercontent.com/moment/moment/2.6.0/min/moment-with-langs.min.js
+Source2:        https://raw.githubusercontent.com/moment/moment/2.6.0/min/moment.min.js
 
 Source3:        httpd-momentjs.conf
 
@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.6.0-6
+- Updated momentjs SourceX links.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.6.0-5
 - removed %%%%defattr from specfile
 - removed Group from specfile
