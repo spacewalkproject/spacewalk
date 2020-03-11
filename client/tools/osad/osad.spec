@@ -31,7 +31,7 @@
 Name: osad
 Summary: Open Source Architecture Daemon
 License: GPLv2
-Version: 5.11.110
+Version: 5.11.110.1
 Release: 1%{?dist}
 URL:     https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -541,6 +541,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %endif
 
 %changelog
+* Wed Mar 11 2020 Michael Mraka <michael.mraka@redhat.com> 5.11.110.1-1
+- 1725114 - set proper file permissions
+
 * Fri Feb 07 2020 Michael Mraka <michael.mraka@redhat.com> 5.11.110-1
 - use python2 build macros
 
