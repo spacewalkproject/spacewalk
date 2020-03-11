@@ -477,7 +477,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvi {}
 %files -n osa-dispatcher
 %{_sbindir}/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/sysconfig/osa-dispatcher
-%config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
+%config(noreplace) %attr(644,root,root) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %{rhnroot}/config-defaults/rhn_osa-dispatcher.conf
 %dir %{_sysconfdir}/rhn/tns_admin
 %dir %{_sysconfdir}/rhn/tns_admin/osa-dispatcher
