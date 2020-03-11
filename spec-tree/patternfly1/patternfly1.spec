@@ -11,10 +11,11 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	9%{?release_suffix}%{?dist}
+Release:	10%{?release_suffix}%{?dist}
 License:	ASL 2.0
+# Repo will be moved to patternfly-3 on 2020-03-17
 URL:		https://github.com/patternfly/patternfly
-Source:		patternfly-1.0.5.tar.gz
+Source:		https://github.com/patternfly/patternfly/archive/v1.0.5.tar.gz
 Patch0:   fix_paths.patch
 
 BuildArch:	noarch
@@ -38,6 +39,9 @@ cp -pR less/ %{buildroot}%{_datadir}/%{name}/resources/less
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 1.0.5-10
+- Updated patternfly1 Source URL.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.0.5-9
 - removed Group from specfile
 - removed BuildRoot from specfiles
