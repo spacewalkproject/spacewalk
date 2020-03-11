@@ -101,8 +101,8 @@ count(distinct ss.server_id) as SERVERS_AFFECTED
  order by AGE
     """,
     'FIND_TABLE': "select table_name from information_schema.tables where table_name like 'rhnsnapshot%' escape '!' order by table_name",
-    'PURGE_DATA': "delete from rhnsnapshot ss where ss.id = any (array(select id from rhnsnapshot where created < to_timestamp(:current_timestamp, 'YYYY-MM-DD HH24:MI:SS:MS') - numtodsinterval(:num_days, 'day') limit :batchsize))",
-    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < to_timestamp(:current_timestamp, 'YYYY-MM-DD HH24:MI:SS:MS') - numtodsinterval(:num_days, 'day')",
+    'PURGE_DATA': "delete from rhnsnapshot ss where ss.id = any (array(select id from rhnsnapshot where created < cast(:current_timestamp as timestamp) - numtodsinterval(:num_days, 'day') limit :batchsize))",
+    'PURGE_COUNT': "select count(ss.id) from rhnsnapshot ss where ss.created < cast(:current_timestamp as timestamp) - numtodsinterval(:num_days, 'day')",
     'GET_NOW' : "select current_timestamp",
     'LOCK_GROUPS': "lock table rhnSnapshotServerGroup in access exclusive mode"
 }
