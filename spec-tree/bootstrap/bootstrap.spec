@@ -8,12 +8,12 @@
 
 Name:           bootstrap
 Version:        3.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 
 License:        Apache Software License v2
 URL:            http://getbootstrap.com/
-Source0:        https://github.com/twbs/bootstrap/archive/bootstrap-3.0.0.tar.gz
+Source0:        https://github.com/twbs/bootstrap/archive/v3.0.0.tar.gz
 Source1:        httpd-bootstrap-less.conf
 %if 0%{?suse_version}
 Requires(pre):  apache2
@@ -78,6 +78,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 3.0.0-8
+- Updated bootstrap Source0 link.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 3.0.0-7
 - removed %%%%defattr from specfile
 - removed Group from specfile
@@ -92,7 +95,7 @@ rm -rf %{buildroot}
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-4
 - Fix to use .less files in development mode (2)
 
-* Mon Jan 13 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-3
+* Mon Jan 13 2014 Michael Mraka Updated bootstrap Source0 link.<michael.mraka@redhat.com> 3.0.0-3
 - allow to use .less files in development mode
 
 * Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-2
