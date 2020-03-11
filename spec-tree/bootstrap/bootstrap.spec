@@ -95,7 +95,7 @@ rm -rf %{buildroot}
 * Thu Jan 16 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-4
 - Fix to use .less files in development mode (2)
 
-* Mon Jan 13 2014 Michael Mraka Updated bootstrap Source0 link.<michael.mraka@redhat.com> 3.0.0-3
+* Mon Jan 13 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-3
 - allow to use .less files in development mode
 
 * Thu Jan 09 2014 Michael Mraka <michael.mraka@redhat.com> 3.0.0-2
