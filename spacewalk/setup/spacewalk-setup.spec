@@ -2,7 +2,7 @@
 
 Name:           spacewalk-setup
 Version:        2.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
 License:        GPLv2
@@ -35,7 +35,11 @@ Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
 Requires:       cobbler20
+%if 0%{?rhel} >= 8
+Requires:       python2-pyyaml
+%else
 Requires:       PyYAML
+%endif
 Requires:       /usr/bin/gpg
 Requires:       spacewalk-setup-jabberd
 Requires:       spacewalk-base-minimal
@@ -124,6 +128,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.0-2
+- Allow detection of PyYAML (python2-PyYAML) for RHEL8.
+
 * Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
 - updated copyright to 2020
 
