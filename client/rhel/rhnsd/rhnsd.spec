@@ -8,7 +8,7 @@
 
 Summary: Spacewalk query daemon
 Name: rhnsd
-Version: 5.0.46
+Version: 5.0.46.1
 Release: 1%{?dist}
 %if %{_vendor} == "debbuild"
 Group:      utils
@@ -220,6 +220,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 11 2020 Michael Mraka <michael.mraka@redhat.com> 5.0.46.1-1
+- 1679743 - updated manpage for rhnsd timer
+
 * Wed Jun 26 2019 Michael Mraka <michael.mraka@redhat.com> 5.0.46-1
 - install preset file
 
