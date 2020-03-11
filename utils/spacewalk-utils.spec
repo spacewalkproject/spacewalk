@@ -18,7 +18,7 @@ BuildRequires:  spacewalk-python2-pylint
 %endif
 BuildRequires:  /usr/bin/docbook2man
 BuildRequires:  docbook-utils
-BuildRequires:  python
+BuildRequires:  python2
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
 BuildRequires:  yum < 4.0.0
@@ -37,7 +37,7 @@ Requires:       net-tools
 Requires:       /usr/bin/spacewalk-sql
 Requires:       perl-Satcon
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:       python, rpm-python
+Requires:       python2, rpm-python
 %if 0%{?rhel} == 6
 Requires:       python-argparse
 %endif
@@ -91,6 +91,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.2-2
+- Added logic for versioned Python (2)
+
 * Wed Mar 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.2-1
 - 1704425 - fixed postgresql timestamp handling
 
