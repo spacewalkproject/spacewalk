@@ -18,8 +18,8 @@ Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.121
-Release:       2%{?dist}
+Version:       5.5.122
+Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
 Requires:      %{pythonX}-%{name} = %{version}-%{release}
