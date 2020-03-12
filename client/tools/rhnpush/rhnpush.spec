@@ -3,6 +3,7 @@
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
+%global __python /usr/bin/python2 
 %global build_py3   1
 %global default_py3 1
 %{!?pylint3_check: %global pylint3_check 1}
@@ -18,7 +19,7 @@ Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
 Version:       5.5.121
-Release:       1%{?dist}
+Release:       2%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
 Requires:      %{pythonX}-%{name} = %{version}-%{release}
@@ -41,7 +42,7 @@ per channel.
 Summary: Package uploader for the Spacewalk or Red Hat Satellite Server
 %{?python_provide:%python_provide python2-%{name}}
 Requires: %{name} = %{version}-%{release}
-%if 0%{?fedora} >= 28
+%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 Requires: python2-rpm
 BuildRequires: python2-devel
 %else
@@ -133,6 +134,9 @@ spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_site
 %endif
 
 %changelog
+* Thu Mar 12 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 5.5.121-2
+- Added versioned Python (2) for RHEL8.
+
 * Fri Feb 28 2020 Michael Mraka <michael.mraka@redhat.com> 5.5.121-1
 - pylint fixes
 
