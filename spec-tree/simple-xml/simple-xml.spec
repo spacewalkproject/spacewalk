@@ -20,14 +20,14 @@
 Name:           simple-xml
 Summary:        An XML serialization framework for Java
 Version:        2.6.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 %if 0%{?suse_version}
 License:        Apache-2.0
 %else
 License:        ASL 2.0
 %endif
-Url:            http://simple.sourceforge.net
-Source0:        http://downloads.sourceforge.net/simple/%{name}-%{version}.zip
+Url:            https://simple.sourceforge.net
+Source0:        https://downloads.sourceforge.net/simple/%{name}-%{version}.zip
 BuildRequires:  ant
 %if 0%{?suse_version}
 BuildRequires:  bea-stax
@@ -89,6 +89,9 @@ ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Fri Feb 21 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.6.7-7
+- Updated source URLs to https
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.6.7-6
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup
