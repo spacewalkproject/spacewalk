@@ -4,7 +4,7 @@ Release:	10%{?dist}
 Summary:	Embeddable Java HTTP engine capable of handling large loads
 License:	GNU
 URL:	 	http://www.simpleframework.org	
-Source0:	simple-core-%{version}.tar.gz	
+Source0:	https://sourceforge.net/projects/simpleweb/files/simpleweb/%{version}/simple-core-%{version}.tar.gz	
 BuildArch: noarch
 
 BuildRequires:  ant
