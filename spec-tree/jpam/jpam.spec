@@ -1,16 +1,17 @@
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
+Version: 0.4
+Release: 39%{?dist}
+
 License: Apache Software License, v. 1.1
 URL: http://jpam.sourceforge.net/
-Source0: %{name}-0.4-src.zip
+Source0: https://sourceforge.net/projects/jpam/files/%{name}/%{name}-%{version}/%{name}-%{version}-src.zip
 Patch0: bug219916_expired_password_hang.patch
 Patch1: %{name}-0.4-s390x.patch
 Patch2: jpam-0.4-ppc.patch
 Patch3: jpam-0.4-no_checkstyle.patch
 Patch4: jpam-0.4-no-password-prompt.patch
 Patch5: jpam-0.4-arm.patch
-Version: 0.4
-Release: 39%{?dist}
 
 Requires:      antlr
 Requires:      regexp
