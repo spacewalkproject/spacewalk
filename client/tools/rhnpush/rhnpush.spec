@@ -18,7 +18,7 @@ Name:          rhnpush
 Summary:       Package uploader for the Spacewalk or Red Hat Satellite Server
 License:       GPLv2
 URL:           https://github.com/spacewalkproject/spacewalk
-Version:       5.5.122
+Version:       5.5.123
 Release:       1%{?dist}
 Source0:       https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
 BuildArch:     noarch
@@ -134,6 +134,9 @@ spacewalk-python3-pylint $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{python3_site
 %endif
 
 %changelog
+* Fri Mar 13 2020 Michael Mraka <michael.mraka@redhat.com> 5.5.123-1
+- fixed whitespace
+
 * Thu Mar 12 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 5.5.121-2
 - Added versioned Python (2) for RHEL8.
 
