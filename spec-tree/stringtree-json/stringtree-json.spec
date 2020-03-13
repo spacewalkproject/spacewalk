@@ -5,7 +5,7 @@ Version: 2.0.9
 Release: 13%{?dist}
 License: LGPL
 URL: http://stringtree.org/stringtree-json.html
-Source0: %{base_package}-%{version}-src.zip
+Source0: https://sourceforge.net/projects/stringtree/files/%{base_package}/%{version}/%{base_package}-%{version}-src.zip
 Patch0: stringtree-2.0.9-build-xml.patch
 %if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
 BuildRequires: javapackages-tools
