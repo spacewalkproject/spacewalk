@@ -23,7 +23,8 @@ URL:		https://github.com/xsuchy/python-hwdata
 # git clone https://github.com/xsuchy/python-hwdata.git
 # cd python-hwdata
 # tito build --tgz
-Source0:	%{name}-%{version}.tar.gz
+Source0:        https://github.com/xsuchy/%{name}/archive/%{name}-%{version}-1.tar.gz
+
 
 %description
 Provide python interface to database stored in hwdata package.
@@ -68,7 +69,7 @@ This is the Python 3 build of the module.
 %endif # with python3
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{name}-%{version}-1
 
 %if %{with python3}
 rm -rf %{py3dir}
