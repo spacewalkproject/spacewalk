@@ -114,6 +114,7 @@ optional_policy(`
         allow cobblerd_t spacewalk_data_t:file { getattr link unlink rename };
         manage_dirs_pattern(cobblerd_t, spacewalk_data_t, spacewalk_data_t);
         allow cobblerd_t gpg_exec_t:file getattr;
+        allow cobblerd_t self:capability dac_override;
 ')
 
 # rpm_dontaudit_search_db(httpd_t) is not available on RHELs
