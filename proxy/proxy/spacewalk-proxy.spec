@@ -181,6 +181,10 @@ rm -rf $RPM_BUILD_ROOT/etc/httpd
 %endif
 touch $RPM_BUILD_ROOT/%{httpdconf}/cobbler-proxy.conf
 
+%if 0%{?fedora} || 0%{?rhel} > 6
+sed -i 's/#LOGROTATE-3.8#//' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-proxy-*
+%endif
+
 %clean
 
 %check

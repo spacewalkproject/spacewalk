@@ -9,5 +9,6 @@
     notifempty
     size=10M
     missingok
+#LOGROTATE-3.8#    su root apache
 }
 
