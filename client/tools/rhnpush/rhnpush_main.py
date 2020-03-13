@@ -411,7 +411,7 @@ class UploadClass(uploadLib.UploadClass):
 
             if server_digest == ():
                 self.warn(1, "Package %s Not Found on RHN Server -- Uploading" % pkg)
-                    
+
             for _t in range(0, tries):
                 try:
                     ret = self.package(pkg, checksum_type, checksum)
