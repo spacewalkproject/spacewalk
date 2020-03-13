@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.10.4
+Version: 2.10.5
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -366,6 +366,10 @@ fi
 
 
 %changelog
+* Fri Mar 13 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.5-1
+- 1696777 - fixed su directive
+- 1696777 - fixed file mode
+
 * Wed Feb 26 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.4-1
 - updated copyright to 2020
 
