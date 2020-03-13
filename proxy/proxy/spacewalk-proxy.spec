@@ -288,7 +288,7 @@ fi
 %attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy
 %attr(750,%{apache_user},%{apache_group}) %dir %{_var}/spool/rhn-proxy/list
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
-%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
+%config(noreplace) %attr(644,-,-) %{_sysconfdir}/logrotate.d/rhn-proxy-broker
 # config files
 %attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy_broker.conf
 %if 0%{?suse_version}
@@ -300,7 +300,7 @@ fi
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
 %attr(770,root,%{apache_group}) %dir %{_var}/log/rhn
-%config(noreplace) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
+%config(noreplace) %attr(644,-,-) %{_sysconfdir}/logrotate.d/rhn-proxy-redirect
 # config files
 %attr(644,root,%{apache_group}) %{_prefix}/share/rhn/config-defaults/rhn_proxy_redirect.conf
 %if 0%{?suse_version}
