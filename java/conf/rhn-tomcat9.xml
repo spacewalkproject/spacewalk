@@ -1,0 +1,13 @@
+<!--
+  This is a Tomcat 9 Context file.  For more information see:
+    https://tomcat.apache.org/tomcat-9.0-doc/config/resources.html
+
+  reloadable - indicates to Tomcat that the webapp should be reloaded
+    when a change occurs.
+
+  allowLinking - true to allow Tomcat to follow symlinks.
+-->
+
+<Context reloadable="false">
+  <Resources allowLinking="true" />
+</Context>
