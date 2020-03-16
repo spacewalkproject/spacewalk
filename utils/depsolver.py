@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # -*- coding: utf-8 -*-
 #
@@ -217,7 +217,7 @@ class DepSolver:
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print "USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>"
+        print ("USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>")
         sys.exit(0)
     arg_repo = {'id': sys.argv[1],
                 'relative_path': sys.argv[2], }  # path to where repodata is located
@@ -225,5 +225,5 @@ if __name__ == '__main__':
     dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
-    print result_set
-    print "Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist)
+    print (result_set)
+    print ("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
