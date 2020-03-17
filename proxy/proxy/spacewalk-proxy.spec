@@ -4,7 +4,7 @@
 
 Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
-Version: 2.11.1
+Version: 2.11.2
 Release: 1%{?dist}
 License: GPLv2
 URL:     https://github.com/spacewalkproject/spacewalk
@@ -366,7 +366,7 @@ fi
 
 
 %changelog
-* Thu Mar 12 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.2-1
+* Tue Mar 17 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.2-1
 - Modified Python 2 usage for RHEL8.
 
 * Fri Mar 13 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
