@@ -1,6 +1,6 @@
 Name:       dwr
 Version:    3.0.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Direct Web Remoting
 License:    Apache Software License v2
 URL:        http://directwebremoting.org
@@ -37,6 +37,9 @@ install -m 644 ./target/ant/dwr.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version
 
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 3.0.2-3
+- Updated dwr.spec with Source link and corrected scripts to autobuild
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 3.0.2-2
 - workaround RHEL8 buildrequires modules issue
 
