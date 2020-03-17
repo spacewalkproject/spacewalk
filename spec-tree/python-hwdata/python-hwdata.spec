@@ -15,7 +15,7 @@
 
 Name:		python-hwdata
 Version:	2.3.7
-Release:	1%{?dist}.4
+Release:	1%{?dist}.5
 Summary:	Python bindings to hwdata package
 BuildArch:  noarch
 License:	GPLv2
@@ -120,6 +120,10 @@ pylint-3 hwdata.py example.py || :
 %endif # with python3
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 2.3.7-1.5
+- Updated python-hwdata. Added Source0 link and enhanced script to work with
+  archive name
+
 * Mon Sep 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.3.7-1.4
 - don't run pylint check on RHEL8
 
