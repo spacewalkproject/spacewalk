@@ -5,7 +5,7 @@ Release:        11%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://github.com/spacewalkproject/spacewalk/releases/download/%{name}-%{version}-11/%{name}-%{version}.tar.gz
 BuildArch: noarch
 
 Requires: java-headless >= 1:1.8.0
