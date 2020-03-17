@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.11.2
+Version: 2.11.3
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -760,6 +760,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.3-1
+- Updated spacewalk-java for RHEL8/Tomcat9
+
 * Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.1-2
 - Updated cglib name for RHEL8.
 
