@@ -4,7 +4,7 @@ Version: 1.1_20071120
 Release: 21%{?dist}
 License: LGPL
 URL: http://xmlrpc.sourceforge.net
-Source0: %{name}-%{version}.tar.gz
+Source0: https://github.com/spacewalkproject/spacewalk/releases/download/%{name}-%{version}-21/%{name}-%{version}.tar.gz
 Patch0: build-classpath.patch
 Patch1: fault_serialization.patch
 Patch2: escaping_string_serialization.path
