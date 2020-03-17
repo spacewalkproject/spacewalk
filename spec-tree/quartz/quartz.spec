@@ -1,7 +1,7 @@
 Name: quartz
 Summary: Quartz Enterprise Job Scheduler
 Version:        1.8.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Quartz Enterprise Job Scheduler
 License:        ASL 2.0
 URL:            http://www.quartz-scheduler.org/
@@ -62,6 +62,9 @@ cp -p %{name}-oracle-%{version}.jar \
 %{_javadir}/%{name}-oracle-%{version}.jar
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 1.8.4-12
+- uploaded source tar to github
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 1.8.4-11
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup
