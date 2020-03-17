@@ -2,7 +2,7 @@
 Summary: An json string library
 Name: stringtree-json
 Version: 2.0.9
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: LGPL
 URL: http://stringtree.org/stringtree-json.html
 Source0: https://sourceforge.net/projects/stringtree/files/%{base_package}/%{version}/%{base_package}-%{version}-src.zip
@@ -42,6 +42,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_javadir}
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 2.0.9-14
+- Updated springtree-json.spec Source link.
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 2.0.9-13
 - removed %%%%defattr from specfile
 - remove install/clean section initial cleanup
