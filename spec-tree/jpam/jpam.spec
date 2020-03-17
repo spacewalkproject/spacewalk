@@ -1,7 +1,7 @@
 Summary: A JNI Wrapper for the Unix pam(8) subsystem and a JAAS bridge
 Name: jpam
 Version: 0.4
-Release: 39%{?dist}
+Release: 40%{?dist}
 
 License: Apache Software License, v. 1.1
 URL: http://jpam.sourceforge.net/
@@ -118,6 +118,9 @@ fi
 %{_javadocdir}/%{name}-0.4
 
 %changelog
+* Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 0.4-40
+- Updated jpam.spec. Added Source0 link, reordered version information to top
+
 * Wed Jan 22 2020 Michael Mraka <michael.mraka@redhat.com> 0.4-39
 - removed RHEL8 workaround
 
