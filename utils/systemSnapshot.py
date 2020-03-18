@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 """
 Delete Snapshots: Script to delete system snapshots.
 
@@ -66,9 +66,9 @@ def main():
     satellite_url = "http://%s/rpc/api" % options.satellite
 
     if options.verbose:
-        print "start date=", options.start_date
-        print "end date=", options.end_date
-        print "connecting to %s" % satellite_url
+        print ("start date=", options.start_date)
+        print ("end date=", options.end_date)
+        print ("connecting to %s" % satellite_url)
 
     client = xmlrpclib.Server(satellite_url, verbose=0)
 
@@ -107,7 +107,7 @@ def main():
         deleteBySnapshotId(sessionKey, options.snapshot_id)
 
     if options.verbose:
-        print "Delete Snapshots Completed successfully"
+        print ("Delete Snapshots Completed successfully")
 
     xmlrpc_logout(client, sessionKey, options.verbose)
 
@@ -118,7 +118,7 @@ def deleteAllBetweenDates(sessionKey, startDate, endDate):
      the dates provided.
     """
     if options.verbose:
-        print "...executing deleteAllBetweenDates..."
+        print ("...executing deleteAllBetweenDates...")
 
     systems = client.system.listSystems(sessionKey)
 
@@ -143,7 +143,7 @@ def deleteAllAfterDate(sessionKey, startDate):
      the date provided.
     """
     if options.verbose:
-        print "...executing deleteAllAfterDate..."
+        print ("...executing deleteAllAfterDate...")
 
     systems = client.system.listSystems(sessionKey)
 
@@ -166,7 +166,7 @@ def deleteAll(sessionKey):
      Delete all snapshots across all systems that the user has access to.
     """
     if options.verbose:
-        print "...executing deleteAll..."
+        print ("...executing deleteAll...")
 
     systems = client.system.listSystems(sessionKey)
 
@@ -190,7 +190,7 @@ def deleteBySystemBetweenDates(sessionKey, systemIds, startDate, endDate):
      created either on or between the dates provided.
     """
     if options.verbose:
-        print "...executing deleteBySystemBetweenDates..."
+        print ("...executing deleteBySystemBetweenDates...")
 
     for systemId in systemIds:
         systemId = int(systemId)
@@ -209,7 +209,7 @@ def deleteBySystemBetweenDates(sessionKey, systemIds, startDate, endDate):
                     sessionKey, systemId,
                     {"startDate": startDate, "endDate": endDate})
 
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             # print an error and go to the next system
             sys.stderr.write("Error: %s\n" % e.faultString)
 
@@ -220,7 +220,7 @@ def deleteBySystemAfterDate(sessionKey, systemIds, startDate):
      created either on or after the date provided.
     """
     if options.verbose:
-        print "...executing deleteBySystemAfterDate..."
+        print ("...executing deleteBySystemAfterDate...")
 
     for systemId in systemIds:
         systemId = int(systemId)
@@ -237,7 +237,7 @@ def deleteBySystemAfterDate(sessionKey, systemIds, startDate):
                 client.system.provisioning.snapshot.deleteSnapshots(
                     sessionKey, systemId, {"startDate": startDate})
 
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             # print an error and go to the next system
             sys.stderr.write("Error: %s\n" % e.faultString)
 
@@ -247,7 +247,7 @@ def deleteBySystem(sessionKey, systemIds):
      Delete all snapshots for the systems provided.
     """
     if options.verbose:
-        print "...executing deleteBySystem..."
+        print ("...executing deleteBySystem...")
 
     for systemId in systemIds:
         systemId = int(systemId)
@@ -264,7 +264,7 @@ def deleteBySystem(sessionKey, systemIds):
                 client.system.provisioning.snapshot.deleteSnapshots(
                     sessionKey, systemId, {})
 
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             # print an error and go to the next system
             sys.stderr.write("Error: %s\n" % e.faultString)
 
@@ -275,19 +275,19 @@ def deleteBySnapshotId(sessionKey, snapshotIds):
      access to one or more of those snapshots, they will be ignored.
     """
     if options.verbose:
-        print "...executing deleteBySnapshotId..."
+        print ("...executing deleteBySnapshotId...")
 
     for snapshotId in snapshotIds:
 
         try:
             if options.list:
-                print "snapshotId: ", snapshotId
+                print ("snapshotId: ", snapshotId)
 
             else:
                 client.system.provisioning.snapshot.deleteSnapshot(sessionKey,
                                                                    int(snapshotId))
 
-        except xmlrpclib.Fault, e:
+        except xmlrpclib.Fault as e:
             # print an error and go to the next system
             sys.stderr.write("Error: %s\n" % e.faultString)
 
@@ -311,8 +311,8 @@ def listSnapshots(systemId, snapshots):
         oldest = snapshots[len(snapshots) - 1].get('created')
         oldest = datetime(*(strptime(oldest.value, "%Y%m%dT%H:%M:%S")[0:6]))
 
-        print "systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
-            % (systemId, len(snapshots), oldest, newest)
+        print ("systemId: %d, snapshots: %d, oldest: %s, newest: %s"  \
+            % (systemId, len(snapshots), oldest, newest))
 
 
 def listSnapshotsLong(systemId, snapshots):
@@ -320,11 +320,11 @@ def listSnapshotsLong(systemId, snapshots):
       List to stdout the comprehensive summaries of snapshots for the system provided.
     """
     for snapshot in snapshots:
-        print "systemId: %d, snapshotId: %d, created: %s, reason: %s" % \
+        print ("systemId: %d, snapshotId: %d, created: %s, reason: %s" % \
             (systemId,
              snapshot['id'],
              datetime(*(strptime(snapshot['created'].value, "%Y%m%dT%H:%M:%S")[0:6])),
-             snapshot['reason'])
+             snapshot['reason']))
 
 
 def processCommandLine():
