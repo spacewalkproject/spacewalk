@@ -15,11 +15,7 @@ BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
-%if 0%{?rhel} == 8
-BuildRequires:  perl-generators < 1.10-7.module
-%else
 BuildRequires:  perl-generators
-%endif
 # Run-time:
 # bytes not used at tests
 # Data::Dumper not used at tests
