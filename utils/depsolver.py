@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# seems like system repos are added. not just the manually added ones (query for eclipse-jdt)
+
 #
 # -*- coding: utf-8 -*-
 #
@@ -21,11 +24,16 @@ import logging
 import re
 import shutil
 import sys
-import yum
-from yum.misc import prco_tuple_to_string
-from yum.packageSack import ListPackageSack
-from yum.packages import parsePackages
-from yum.repos import RepoStorage
+##import yum
+#from yum.misc import prco_tuple_to_string
+#from yum.packageSack import ListPackageSack
+#from yum.packages import parsePackages
+##from yum.repos import RepoStorage
+
+import dnf
+from dnf.repodict import RepoDict
+
+
 
 try:
     from spacewalk.satellite_tools.progress_bar import ProgressBar
@@ -48,7 +56,9 @@ class DepSolver:
     def __init__(self, repos, pkgs_in=None):
         self.pkgs = pkgs_in or []
         self.repos = repos
-        self._repostore = RepoStorage(self)
+#        self._repostore = RepoDict()
+        self._repostore = dnf.Base()
+#RepoStorage(self)
         self.cleanup()  # call cleanup before and after, to ensure no stale metadata
         self.setup()
         self.loadPackages()
@@ -62,26 +72,22 @@ class DepSolver:
          Load the repos into repostore to query package dependencies
         """
         for repo in self.repos:
-            self.yrepo = yum.yumRepo.YumRepository(repo['id'])
-            self.yrepo.baseurl = ["file://%s/" % str(repo['relative_path'])]
-            self.yrepo.basecachedir = CACHE_DIR
-            self.yrepo.base_persistdir = PERSIST_DIR
-            self._repostore.add(self.yrepo)
+            self._repostore.repos.add_new_repo(repo['id'],self._repostore.conf,baseurl = ["file://%s/" % str(repo['relative_path'])])
 
     def loadPackages(self):
         """
          populate the repostore with packages
         """
         # pylint: disable=W0212
-        self._repostore._setup = True
-        self._repostore.populateSack(which='all')
+        self._repostore._setup = True # STEFAN: why is this required?
+        self._repostore.fill_sack(load_system_repo=True, load_available_repos=True)
 
     def cleanup(self):
         """
          clean up the repo metadata cache from /tmp/cache/yum
         """
-        for repo in self._repostore.repos:
-            cachedir = "%s/%s" % (CACHE_DIR, repo)
+        for repo in self._repostore.repos.all():
+            cachedir = "%s/%s" % (CACHE_DIR, repo.id)
             try:
                 shutil.rmtree(cachedir)
             except IOError:
@@ -96,10 +102,9 @@ class DepSolver:
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """
 
-        ematch, match, _unmatch = parsePackages(self._repostore.pkgSack, self.pkgs)
-        pkgs = []
-        for po in ematch + match:
-            pkgs.append(po)
+        q = self._repostore.sack.query()
+        pkgs = q.available()
+        pkgs = pkgs.filter(name='eclipse-jdt')  # add packages list here
         results = self.__locateDeps(pkgs)
         return results
 
@@ -124,7 +129,7 @@ class DepSolver:
             found = self.processResults(results)[0]
             solved += to_solve
             to_solve = []
-            for _dep, pkgs in found.items():
+            for _dep, pkgs in list(found.items()):
                 for pkg in pkgs:
                     name, version, _epoch, release, arch = pkg
                     ndep = "%s-%s-%s.%s" % (name, version, release, arch)
@@ -138,7 +143,7 @@ class DepSolver:
         results = {}
         regex_filename_match = re.compile(r'[/*?]|\[[^]]*/[^]]*\]').match
 
-        print("Solving Dependencies (%i): " % len(pkgs))
+        print(("Solving Dependencies (%i): " % len(pkgs)))
         pb = ProgressBar(prompt='', endTag=' - complete',
                          finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1)
@@ -147,11 +152,13 @@ class DepSolver:
             pb.addTo(1)
             pb.printIncrement()
             results[pkg] = {}
-            reqs = pkg.requires
+            reqs = []
+            for listitem in pkg.requires:
+                reqs.append(str(listitem))
             reqs.sort()
             pkgresults = results[pkg]
             for req in reqs:
-                (r, f, v) = req
+                (r, f, v) = req  # r = name, f= flags, v = version 
                 if r.startswith('rpmlib('):
                     continue
                 satisfiers = []
@@ -188,7 +195,7 @@ class DepSolver:
                     continue
                 reqlist[prco_tuple_to_string(req)] = rlist
         found = {}
-        for req, rlist in reqlist.items():
+        for req, rlist in list(reqlist.items()):
             found[req] = []
             for r in rlist:
                 dep = [r.name, r.version, r.epoch, r.release, r.arch]
@@ -217,7 +224,7 @@ class DepSolver:
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print ("USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>")
+        print("USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>")
         sys.exit(0)
     arg_repo = {'id': sys.argv[1],
                 'relative_path': sys.argv[2], }  # path to where repodata is located
@@ -225,5 +232,5 @@ if __name__ == '__main__':
     dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
-    print (result_set)
-    print ("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
+    print(result_set)
+    print("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
