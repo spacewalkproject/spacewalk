@@ -20,8 +20,8 @@
 # specific exceptions and return generic ones. (or to deal with other Oracle
 # one-offs)
 
-import sql_base
-import sql_types
+from . import sql_base
+from . import sql_types
 import cx_Oracle
 import sys
 import string
@@ -36,7 +36,7 @@ from spacewalk.common import rhnConfig
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
 from spacewalk.common.stringutils import to_string
-from const import ORACLE
+from .const import ORACLE
 
 ORACLE_TYPE_MAPPING = [
     (sql_types.NUMBER, cx_Oracle.NUMBER),
@@ -138,7 +138,7 @@ class Cursor(sql_base.Cursor):
             self.reparsed = 0  # reset the reparsed counter
 
         if self.blob_map:
-            for blob_var, content in blob_content.items():
+            for blob_var, content in list(blob_content.items()):
                 kw[blob_var].getvalue().write(content)
         # Munge back the values
         self._unmunge_args(kw, modified_params)
@@ -157,7 +157,7 @@ class Cursor(sql_base.Cursor):
         # Check that all required parameters were provided:
         # NOTE: bindnames() is Oracle specific:
         for k in self._real_cursor.bindnames():
-            if not _p.has_key(k):
+            if k not in _p:
                 # Raise the fault ourselves
                 raise sql_base.SQLError(1008, 'Not all variables bound', k)
             params[k] = to_string(_p[k])
@@ -187,7 +187,7 @@ class Cursor(sql_base.Cursor):
 
         chunk_size = min(max_array_size, array_size)
         pdict = {}
-        for k in kwargs.iterkeys():
+        for k in kwargs.keys():
             pdict[k] = None
         arr = []
         for i in range(chunk_size):
@@ -204,7 +204,7 @@ class Cursor(sql_base.Cursor):
 
             for i in range(item_count):
                 pdict = arr[i]
-                for k, v in kwargs.items():
+                for k, v in list(kwargs.items()):
                     pdict[k] = to_string(v[start + i])
 
             # We clear self->bindVariables so that list of all nulls
@@ -266,7 +266,7 @@ class Cursor(sql_base.Cursor):
     # TODO: Don't think this is doing anything for PostgreSQL, maybe move to Oracle?
     def _munge_args(self, kw_dict):
         modified = []
-        for k, v in kw_dict.items():
+        for k, v in list(kw_dict.items()):
             if not isinstance(v, sql_types.DatabaseDataType):
                 continue
             vv = self._munge_arg(v)
@@ -457,7 +457,7 @@ class Database(sql_base.Database):
         _cursor_cache = self._cursor_class._cursor_cache
         if dbh_id in _cursor_cache:
             _cache = _cursor_cache[dbh_id]
-            for sql, cursor in _cache.items():
+            for sql, cursor in list(_cache.items()):
                 # Close cursors
                 try:
                     cursor.close()
@@ -478,7 +478,7 @@ class Database(sql_base.Database):
         if blob_map:
             col_list = []
             bind_list = []
-            for bind_var, column in blob_map.items():
+            for bind_var, column in list(blob_map.items()):
                 r = re.compile(":%s" % bind_var)
                 sql = re.sub(r, 'empty_blob()', sql)
                 col_list.append(column)
@@ -549,7 +549,7 @@ class Database(sql_base.Database):
             value = None
             # Do we have a config object?
             if rhnConfig.CFG.is_initialized():
-                if rhnConfig.CFG.has_key("nls_lang"):
+                if "nls_lang" in rhnConfig.CFG:
                     # Get the value from the configuration object
                     value = rhnConfig.CFG.nls_lang
             if not value:

@@ -20,8 +20,8 @@ import string
 from rhn.UserDictCase import UserDictCase
 from spacewalk.common.rhnException import rhnException
 
-import sql_base
-import sql_lib
+from . import sql_base
+from . import sql_lib
 
 
 class Row(UserDictCase):
@@ -82,7 +82,7 @@ class Row(UserDictCase):
 
     def reset(self, val=0):
         """ reset the changed status for these entries """
-        for k, v in self.data.items():
+        for k, v in list(self.data.items()):
             # tuples do not support item assignement
             self.data[k] = (v[0], val)
 
@@ -105,7 +105,7 @@ class Row(UserDictCase):
         if not ret:
             self.real = 0
             return 0
-        for k, v in ret.items():
+        for k, v in list(ret.items()):
             self.data[k] = (v, 0)
         self.real = 1
         return 1

@@ -24,17 +24,17 @@ from spacewalk.common.rhnException import rhnException
 from spacewalk.common.rhnTB import add_to_seclist
 
 # SQL objects
-import sql_table
-import sql_row
-import sql_sequence
-import dbi
-import sql_types
+from . import sql_table
+from . import sql_row
+from . import sql_sequence
+from . import dbi
+from . import sql_types
 types = sql_types
 
-from const import ORACLE, POSTGRESQL, SUPPORTED_BACKENDS
+from .const import ORACLE, POSTGRESQL, SUPPORTED_BACKENDS
 
 # expose exceptions
-from sql_base import SQLError, SQLSchemaError, SQLConnectError, \
+from .sql_base import SQLError, SQLSchemaError, SQLConnectError, \
     SQLStatementPrepareError, Statement, ModifiedRowError
 
 # ths module works with a private global __DB object that is
