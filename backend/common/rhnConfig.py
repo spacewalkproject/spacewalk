@@ -535,7 +535,7 @@ def initCFG(component=None, root=None, filename=None):
 
 ALL_CFG = RHNOptions('')
 ALL_CFG.parse()
-PRODUCT_NAME = ALL_CFG.PRODUCT_NAME
+PRODUCT_NAME = ALL_CFG.product_name
 
 
 def runTest():
