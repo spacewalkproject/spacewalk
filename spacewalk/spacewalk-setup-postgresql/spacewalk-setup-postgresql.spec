@@ -37,7 +37,7 @@ install -m 0644 setup/defaults.d/* %{buildroot}/%{_datadir}/spacewalk/setup/defa
 
 # Different set of parameters on PSQL 9.5+
 %if 0%{?fedora} || 0%{?rhel} >= 8
-install -m 0644 setup/postgresql95.conf %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 setup/postgresql95.conf %{buildroot}/%{_datadir}/spacewalk/setup/postgresql.conf
 %else
 install -m 0644 setup/postgresql.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 %endif
