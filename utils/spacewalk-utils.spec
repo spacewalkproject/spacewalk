@@ -21,7 +21,7 @@ BuildRequires:  docbook-utils
 BuildRequires:  python2
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires:  yum < 4.0.0
+BuildRequires:  dnf
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
 BuildRequires:  spacewalk-backend-libs >= 1.7.24
