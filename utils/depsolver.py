@@ -1,7 +1,4 @@
-#!/usr/bin/python3
-
-# seems like system repos are added. not just the manually added ones (query for eclipse-jdt)
-
+#!/usr/bin/python2
 #
 # -*- coding: utf-8 -*-
 #
@@ -24,16 +21,8 @@ import logging
 import re
 import shutil
 import sys
-##import yum
-#from yum.misc import prco_tuple_to_string
-#from yum.packageSack import ListPackageSack
-#from yum.packages import parsePackages
-##from yum.repos import RepoStorage
-
 import dnf
 from dnf.repodict import RepoDict
-
-
 
 try:
     from spacewalk.satellite_tools.progress_bar import ProgressBar
@@ -56,9 +45,7 @@ class DepSolver:
     def __init__(self, repos, pkgs_in=None):
         self.pkgs = pkgs_in or []
         self.repos = repos
-#        self._repostore = RepoDict()
         self._repostore = dnf.Base()
-#RepoStorage(self)
         self.cleanup()  # call cleanup before and after, to ensure no stale metadata
         self.setup()
         self.loadPackages()
@@ -74,24 +61,54 @@ class DepSolver:
         for repo in self.repos:
             self._repostore.repos.add_new_repo(repo['id'],self._repostore.conf,baseurl = ["file://%s/" % str(repo['relative_path'])])
 
+
+#            self.yrepo = yum.yumRepo.YumRepository(repo['id'])
+#            self.yrepo.baseurl = ["file://%s/" % str(repo['relative_path'])]
+#            self.yrepo.basecachedir = CACHE_DIR
+#            self.yrepo.base_persistdir = PERSIST_DIR
+#            self._repostore.add(self.yrepo)
+
     def loadPackages(self):
         """
          populate the repostore with packages
         """
         # pylint: disable=W0212
-        self._repostore._setup = True # STEFAN: why is this required?
-        self._repostore.fill_sack(load_system_repo=True, load_available_repos=True)
+#        self._repostore._setup = True
+        self._repostore.fill_sack(load_available_repos=True)
 
     def cleanup(self):
         """
          clean up the repo metadata cache from /tmp/cache/yum
         """
-        for repo in self._repostore.repos.all():
-            cachedir = "%s/%s" % (CACHE_DIR, repo.id)
+        for repo in self._repostore.repos:
+            cachedir = "%s/%s" % (CACHE_DIR, repo)
             try:
                 shutil.rmtree(cachedir)
             except IOError:
                 pass
+
+    def __parsePackages(self,pkgSack, pkgs):
+        """
+         Substitute for yum's parsePackages.
+         The function parses a list of package names and returns their Hawkey
+         list if it exists in the package sack. Inputs are a package sack and
+         a list of packages. Returns a list of latest existing packages in
+         Hawkey format.
+        """
+        
+        a = pkgSack.available() # Load all available packages from the repository
+        matches = set()
+        for pkg in pkgs:
+            hkpkgs = set()
+            hkpkgs |= set(a.filter(name = pkg).run())
+            if len(matches) == 0:
+                matches = hkpkgs
+            else:
+                matches |= hkpkgs
+        result = list(matches)
+        result = a.filter(pkg=result).latest().run()
+        return result
+
 
     def getDependencylist(self):
         """
@@ -102,9 +119,10 @@ class DepSolver:
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """
 
-        q = self._repostore.sack.query()
-        pkgs = q.available()
-        pkgs = pkgs.filter(name='eclipse-jdt')  # add packages list here
+        match = self.__parsePackages(self._repostore.sack.query(),self.pkgs)
+        pkgs = []
+        for po in match:
+            pkgs.append(po)
         results = self.__locateDeps(pkgs)
         return results
 
@@ -129,7 +147,7 @@ class DepSolver:
             found = self.processResults(results)[0]
             solved += to_solve
             to_solve = []
-            for _dep, pkgs in list(found.items()):
+            for _dep, pkgs in found.items():
                 for pkg in pkgs:
                     name, version, _epoch, release, arch = pkg
                     ndep = "%s-%s-%s.%s" % (name, version, release, arch)
@@ -140,10 +158,10 @@ class DepSolver:
         return all_results
 
     def __locateDeps(self, pkgs):
+        pkgSack = self._repostore.sack.query()
         results = {}
-        regex_filename_match = re.compile(r'[/*?]|\[[^]]*/[^]]*\]').match
-
-        print(("Solving Dependencies (%i): " % len(pkgs)))
+        a = pkgSack.available()
+        print("Solving Dependencies (%i): " % len(pkgs))
         pb = ProgressBar(prompt='', endTag=' - complete',
                          finalSize=len(pkgs), finalBarLength=40, stream=sys.stdout)
         pb.printAll(1)
@@ -152,33 +170,17 @@ class DepSolver:
             pb.addTo(1)
             pb.printIncrement()
             results[pkg] = {}
-            reqs = []
-            for listitem in pkg.requires:
-                reqs.append(str(listitem))
-            reqs.sort()
+            reqs = pkg.requires
             pkgresults = results[pkg]
             for req in reqs:
-                (r, f, v) = req  # r = name, f= flags, v = version 
-                if r.startswith('rpmlib('):
+                if str(req).startswith('rpmlib('):
                     continue
                 satisfiers = []
-                for po in self.__whatProvides(r, f, v):
-                    # verify this po indeed provides the dep,
-                    # el5 version could give some false positives
-                    if regex_filename_match(r) or \
-                       po.checkPrco('provides', (r, f, v)):
-                        satisfiers.append(po)
+                for po in a.filter(provides = req).latest():
+                    satisfiers.append(po)
                 pkgresults[req] = satisfiers
         pb.printComplete()
         return results
-
-    def __whatProvides(self, name, flags, version):
-        # pylint: disable=W0702
-        try:
-            return ListPackageSack(self._repostore.pkgSack.searchProvides((name, flags, version)))
-        except:
-            #perhaps we're on older version of yum try old style
-            return ListPackageSack(self._repostore.pkgSack.searchProvides(name))
 
     @staticmethod
     def processResults(results):
@@ -191,14 +193,14 @@ class DepSolver:
                 rlist = results[pkg][req]
                 if not rlist:
                     # Unsatisfied dependency
-                    notfound[prco_tuple_to_string(req)] = []
+                    notfound[req] = []
                     continue
-                reqlist[prco_tuple_to_string(req)] = rlist
+                reqlist[req] = rlist
         found = {}
-        for req, rlist in list(reqlist.items()):
+        for req, rlist in reqlist.items():
             found[req] = []
             for r in rlist:
-                dep = [r.name, r.version, r.epoch, r.release, r.arch]
+                dep = r
                 if dep not in found[req]:
                     found[req].append(dep)
         return found, notfound
@@ -211,20 +213,20 @@ class DepSolver:
                 continue
             for req in results[pkg]:
                 rlist = results[pkg][req]
-                print_doc_str += "\n dependency: %s \n" % prco_tuple_to_string(req)
+                print_doc_str += "\n dependency: %s \n" % req
                 if not rlist:
                     # Unsatisfied dependency
                     print_doc_str += "   Unsatisfied dependency \n"
                     continue
 
                 for po in rlist:
-                    print_doc_str += "   provider: %s\n" % po.compactPrint()
+                    print_doc_str += "   provider: %s\n" % po
         return print_doc_str
 
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print("USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>")
+        print ("USAGE: python depsolver.py <repoid> <repodata_path> <pkgname1> <pkgname2> ....<pkgnameN>")
         sys.exit(0)
     arg_repo = {'id': sys.argv[1],
                 'relative_path': sys.argv[2], }  # path to where repodata is located
@@ -232,5 +234,5 @@ if __name__ == '__main__':
     dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
-    print(result_set)
-    print("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
+    print (result_set)
+    print ("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
