@@ -21,6 +21,8 @@ import logging
 import re
 import shutil
 import sys
+import os
+import glob
 import dnf
 from dnf.repodict import RepoDict
 
@@ -36,8 +38,8 @@ except ImportError:
 
 log = logging.getLogger(__name__)
 
-CACHE_DIR = "/tmp/cache/yum"
-PERSIST_DIR = "/var/lib/yum"
+CACHE_DIR = "/tmp/cache/dnf"
+PERSIST_DIR = "/var/lib/dnf"
 
 
 class DepSolver:
@@ -46,8 +48,8 @@ class DepSolver:
         self.pkgs = pkgs_in or []
         self.repos = repos
         self._repostore = dnf.Base()
-        self.cleanup()  # call cleanup before and after, to ensure no stale metadata
         self.setup()
+        self.cleanup()  # call cleanup before and after, to ensure no stale metadata
         self.loadPackages()
         self.yrepo = None
 
@@ -58,32 +60,31 @@ class DepSolver:
         """
          Load the repos into repostore to query package dependencies
         """
+        self._repostore.conf.cachedir  = CACHE_DIR
         for repo in self.repos:
             self._repostore.repos.add_new_repo(repo['id'],self._repostore.conf,baseurl = ["file://%s/" % str(repo['relative_path'])])
 
-
-#            self.yrepo = yum.yumRepo.YumRepository(repo['id'])
-#            self.yrepo.baseurl = ["file://%s/" % str(repo['relative_path'])]
-#            self.yrepo.basecachedir = CACHE_DIR
-#            self.yrepo.base_persistdir = PERSIST_DIR
-#            self._repostore.add(self.yrepo)
+##            self.yrepo.base_persistdir = PERSIST_DIR
 
     def loadPackages(self):
         """
          populate the repostore with packages
         """
         # pylint: disable=W0212
-#        self._repostore._setup = True
         self._repostore.fill_sack(load_available_repos=True)
 
     def cleanup(self):
         """
-         clean up the repo metadata cache from /tmp/cache/yum
+         clean up the repo metadata cache from /tmp/cache/dnf.
         """
         for repo in self._repostore.repos:
             cachedir = "%s/%s" % (CACHE_DIR, repo)
+            fullcachedir =  glob.glob("/tmp/cache/dnf/stefan-????????????????")
             try:
-                shutil.rmtree(cachedir)
+                if len(fullcachedir) > 0:
+                    shutil.rmtree(fullcachedir[0], ignore_errors=True)
+                os.remove( cachedir + "-filenames.solvx" )
+                os.remove( cachedir + ".solv" )
             except IOError:
                 pass
 
@@ -130,11 +131,12 @@ class DepSolver:
         """
          Get dependency list and suggested packages for package names provided.
          The dependency lookup is recursive. All available packages in the repo
-         are returned matching whatprovides.
+         are returned.
          The package name format could be any of the following:
          name, name.arch, name-ver-rel.arch, name-ver, name-ver-rel,
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
-         returns a dictionary of {'n-v-r.a' : [n,v,e,r,a],...}
+         returns a hawkey list.
+         As this function is not being used, it has not been tested.
         """
         solved = []
         to_solve = self.pkgs
@@ -149,8 +151,7 @@ class DepSolver:
             to_solve = []
             for _dep, pkgs in found.items():
                 for pkg in pkgs:
-                    name, version, _epoch, release, arch = pkg
-                    ndep = "%s-%s-%s.%s" % (name, version, release, arch)
+                    ndep = pkg
                     solved = list(set(solved))
                     if ndep not in solved:
                         to_solve.append(ndep)
@@ -234,5 +235,7 @@ if __name__ == '__main__':
     dsolve = DepSolver([arg_repo], arg_pkgs)
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
+    dsolve.cleanup()
+    dsolve._repostore.close()
     print (result_set)
     print ("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
