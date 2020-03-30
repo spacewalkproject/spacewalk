@@ -85,7 +85,7 @@ class DepSolver:
                     shutil.rmtree(fullcachedir[0], ignore_errors=True)
                 os.remove( cachedir + "-filenames.solvx" )
                 os.remove( cachedir + ".solv" )
-            except IOError:
+            except (IOError,OSError):
                 pass
 
     def __parsePackages(self,pkgSack, pkgs):
