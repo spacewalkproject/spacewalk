@@ -21,7 +21,7 @@ BuildRequires:  docbook-utils
 BuildRequires:  python2
 BuildRequires: /usr/bin/pod2man
 %if 0%{?fedora} || 0%{?rhel} > 5
-BuildRequires:  dnf
+BuildRequires:  python2-dnf
 BuildRequires:  spacewalk-config
 BuildRequires:  spacewalk-backend >= 1.7.24
 BuildRequires:  spacewalk-backend-libs >= 1.7.24
@@ -52,7 +52,7 @@ Requires:       spacewalk-backend
 Requires:       spacewalk-backend-libs
 Requires:       spacewalk-backend-tools >= 2.2.27
 Requires:       spacewalk-reports
-Requires:       yum-utils
+Requires:       python2-dnf
 
 %description
 Generic utilities that may be run against a Spacewalk server.
