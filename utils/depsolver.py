@@ -80,7 +80,7 @@ class DepSolver:
         """
         for repo in self._repostore.repos:
             cachedir = "%s/%s" % (CACHE_DIR, repo)
-            fullcachedir =  glob.glob("/tmp/cache/dnf/stefan-????????????????")
+            fullcachedir =  glob.glob( cachedir + "-????????????????" )
             try:
                 if len(fullcachedir) > 0:
                     shutil.rmtree(fullcachedir[0], ignore_errors=True)
