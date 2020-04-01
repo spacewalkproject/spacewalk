@@ -102,7 +102,8 @@ class DepSolver:
         matches = set()
         for pkg in pkgs:
             hkpkgs = set()
-            hkpkgs |= set(a.filter(name = pkg).run())
+            subject = dnf.subject.Subject(pkg)
+            hkpkgs |= set(subject.get_best_selector(pkgSack, obsoletes=True).matches())
             if len(matches) == 0:
                 matches = hkpkgs
             else:
