@@ -27,7 +27,7 @@ import subprocess
 import datetime
 import re
 
-from yum.Errors import RepoError
+from dnf.exceptions import RepoError
 
 try:
     from spacewalk.common import rhnLog
