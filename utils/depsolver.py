@@ -36,6 +36,7 @@ except ImportError:
     from satellite_tools.progress_bar import ProgressBar
 
 
+logging.basicConfig()
 log = logging.getLogger(__name__)
 
 CACHE_DIR = "/tmp/cache/dnf"
