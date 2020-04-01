@@ -65,13 +65,10 @@ class DepSolver:
         for repo in self.repos:
             self._repostore.repos.add_new_repo(repo['id'],self._repostore.conf,baseurl = ["file://%s/" % str(repo['relative_path'])])
 
-##            self.yrepo.base_persistdir = PERSIST_DIR
-
     def loadPackages(self):
         """
          populate the repostore with packages
         """
-        # pylint: disable=W0212
         self._repostore.fill_sack(load_available_repos=True)
 
     def cleanup(self):
@@ -98,7 +95,6 @@ class DepSolver:
          Hawkey format.
         """
         
-        a = pkgSack.available() # Load all available packages from the repository
         matches = set()
         for pkg in pkgs:
             hkpkgs = set()
@@ -109,6 +105,7 @@ class DepSolver:
             else:
                 matches |= hkpkgs
         result = list(matches)
+        a = pkgSack.query().available() # Load all available packages from the repository
         result = a.filter(pkg=result).latest().run()
         return result
 
@@ -122,7 +119,7 @@ class DepSolver:
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """
 
-        match = self.__parsePackages(self._repostore.sack.query(),self.pkgs)
+        match = self.__parsePackages(self._repostore.sack,self.pkgs)
         pkgs = []
         for po in match:
             pkgs.append(po)
@@ -196,16 +193,16 @@ class DepSolver:
                 rlist = results[pkg][req]
                 if not rlist:
                     # Unsatisfied dependency
-                    notfound[req] = []
+                    notfound[str(req)] = []
                     continue
                 reqlist[req] = rlist
         found = {}
         for req, rlist in reqlist.items():
-            found[req] = []
+            found[str(req)] = []
             for r in rlist:
-                dep = r
-                if dep not in found[req]:
-                    found[req].append(dep)
+                dep = [r.name, r.version, r.epoch, r.release, r.arch]
+                if dep not in found[str(req)]:
+                    found[str(req)].append(dep)
         return found, notfound
 
     @staticmethod
