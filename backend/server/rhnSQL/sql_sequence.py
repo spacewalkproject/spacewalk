@@ -17,7 +17,7 @@
 
 from spacewalk.common.rhnException import rhnException
 
-import sql_base
+from . import sql_base
 
 
 # A class to handle sequences
@@ -32,7 +32,7 @@ class Sequence:
             raise rhnException("Argument db is not a database instance", db)
         self.__db = db
 
-    def next(self):
+    def __next__(self):
         sql = "select sequence_nextval('%s') as ID from dual" % self.__seq
         cursor = self.__db.prepare(sql)
         cursor.execute()
@@ -42,7 +42,7 @@ class Sequence:
         return int(ret['id'])
 
     def __call__(self):
-        return self.next()
+        return next(self)
 
     def __del__(self):
         self.__seq = self.__db = None

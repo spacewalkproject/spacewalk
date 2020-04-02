@@ -453,8 +453,8 @@ def read_file(filename):
         combined = ''
         for line in lines:
             # if the line isn't part of a multiline, lets add it
-            if line.find('\\\n') < 0:
-                combined = combined + line
+            if line.find(b'\\\n') < 0:
+                combined = combined + line.decode('utf-8')
                 new_lines.append(combined)
                 combined = ''
             else:
@@ -535,7 +535,7 @@ def initCFG(component=None, root=None, filename=None):
 
 ALL_CFG = RHNOptions('')
 ALL_CFG.parse()
-PRODUCT_NAME = ALL_CFG.PRODUCT_NAME
+PRODUCT_NAME = ALL_CFG.product_name
 
 
 def runTest():

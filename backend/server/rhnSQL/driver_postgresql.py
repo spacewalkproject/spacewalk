@@ -27,14 +27,14 @@ import psycopg2
 if not hasattr(psycopg2, 'extensions'):
     import psycopg2.extensions
 
-import sql_base
+from . import sql_base
 from rhn.UserDictCase import UserDictCase
 from spacewalk.server import rhnSQL
 
 from spacewalk.common.usix import BufferType, raise_with_tb
 from spacewalk.common.rhnLog import log_debug, log_error
 from spacewalk.common.rhnException import rhnException
-from const import POSTGRESQL
+from .const import POSTGRESQL
 
 
 def convert_named_query_params(query):
@@ -181,7 +181,7 @@ class Database(sql_base.Database):
             if self.sslmode is not None and self.sslrootcert is None:
                 raise AttributeError("Attribute sslrootcert needs to be set if sslmode is set.")
 
-            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in dsndata.items()))
+            self.dbh = psycopg2.connect(" ".join("%s=%s" % (k, re.escape(str(v))) for k, v in list(dsndata.items())))
 
             # convert all DECIMAL types to float (let Python to choose one)
             DEC2INTFLOAT = psycopg2.extensions.new_type(psycopg2._psycopg.DECIMAL.values,
@@ -332,7 +332,7 @@ class Cursor(sql_base.Cursor):
         # First break all the incoming keyword arg lists into individual
         # hashes:
         all_kwargs = []
-        for key in params.keys():
+        for key in list(params.keys()):
             if len(all_kwargs) < len(params[key]):
                 for i in range(len(params[key])):
                     all_kwargs.append({})
