@@ -4,7 +4,7 @@
 %endif
 
 Name:		spacewalk-utils
-Version:	2.11.5
+Version:	2.11.6
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -91,6 +91,9 @@ spacewalk-python2-pylint $RPM_BUILD_ROOT%{rhnroot}
 
 
 %changelog
+* Tue Apr 07 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.6-1
+- Modified files to work with dnf instead of yum
+
 * Fri Mar 20 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.5-1
 - fixed centos8 base channel
 
