@@ -62,7 +62,7 @@ public class PackageDto extends BaseDto {
     private Blob filelistXml;
     private String cookie;
     private String multiArch;
-
+    private String preDepends;
 
     // Pre-existing queries returning this as a string.
     private String lastModified;
@@ -598,5 +598,19 @@ public class PackageDto extends BaseDto {
      */
     public String getMultiArch() {
         return multiArch;
+    }
+
+    /**
+     * @param preDependsIn The Pre-Depends header value
+     */
+    public void setPreDepends(String preDependsIn) {
+        this.preDepends = preDependsIn;
+    }
+
+    /**
+     * @return The Multi-Arch value
+     */
+    public String getPreDepends() {
+        return preDepends;
     }
 }

@@ -113,6 +113,13 @@ public class DebPackageWriter {
                 out.newLine();
             }
 
+            String preDepends = pkgDto.getPreDepends();
+            if (preDepends != null && !preDepends.equalsIgnoreCase("")) {
+                out.write("Pre-Depends: ");
+                out.write(preDepends);
+                out.newLine();
+            }
+
             // dependencies
             addPackageDepData(
                     out,
