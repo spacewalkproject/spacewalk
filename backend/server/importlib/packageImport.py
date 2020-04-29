@@ -235,7 +235,12 @@ class PackageImport(ChannelPackageSubscription):
         # XXX
         package['copyright'] = self._fix_encoding(package['license'])
 
-        for tag in ('recommends', 'suggests', 'supplements', 'enhances', 'breaks', 'predepends'):
+        if package['repo_type'] == 'deb':
+           tagList = ('recommends', 'suggests', 'supplements', 'enhances')
+        else:
+           tagList = ('recommends', 'suggests', 'supplements', 'enhances', 'breaks', 'predepends')
+
+        for tag in tagList:
             if not self._rpm_knows(tag) or tag not in package or type(package[tag]) != type([]):
                 # older spacewalk server do not export weak deps.
                 # and older RPM doesn't know about them either
