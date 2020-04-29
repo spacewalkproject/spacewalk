@@ -72,6 +72,7 @@ class debBinaryPackage(headerSource.rpmBinaryPackage):
                 val = None
             self[f] = val
 
+        self['repo_type'] = 'deb'
         self['package_size'] = size
         self['checksum_type'] = checksum_type
         self['checksum'] = checksum

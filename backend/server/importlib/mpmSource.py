@@ -48,6 +48,8 @@ class mpmBinaryPackage(headerSource.rpmBinaryPackage):
         if group == '':
             self['package_group'] = 'NoGroup'
 
+        self['repo_type'] = 'misc'
+
         return self
 
     def _populateFiles(self, header):
