@@ -78,7 +78,7 @@ BuildRequires: %{python_prefix}-crypto
 BuildRequires: %{python_prefix}-debian
 
 BuildRequires: python2-gzipstream
-BuildRequires: yum
+BuildRequires: python2-dnf
 BuildRequires: %{m2crypto}
 %endif
 Requires(pre): %{apache_pkg}
@@ -312,7 +312,7 @@ Requires: spacewalk-certs-tools
 Requires: spacewalk-admin >= 0.1.1-0
 Requires: python2-gzipstream
 Requires: python2-rhn-client-tools
-Requires: yum < 4.0
+Requires: python2-dnf
 %if 0%{?fedora} || 0%{?rhel} > 6
 Requires: pyliblzma
 %endif
@@ -762,6 +762,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/yum_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/uln_src.py*
 %{pythonrhnroot}/satellite_tools/repo_plugins/deb_src.py*
+%{pythonrhnroot}/satellite_tools/repo_plugins/custom_update_md.py*
 %config %attr(644,root,%{apache_group}) %{rhnconfigdefaults}/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
