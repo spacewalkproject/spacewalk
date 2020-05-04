@@ -1,6 +1,7 @@
 #
 # Copyright (c) 2008--2020 Red Hat, Inc.
 # Copyright (c) 2010--2011 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# Copyright (c) 2020 Stefan Bluhm, Germany.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,30 +15,36 @@
 # in this software or its documentation.
 #
 
-import sys
+import hashlib
 import logging
+import re
+import sys
 import os.path
 from os import makedirs
 from shutil import rmtree
-
-import yum
-from yum.Errors import RepoMDError
-from yum.comps import Comps
-from yum.config import ConfigParser
-from yum.packageSack import ListPackageSack
-from yum.update_md import UpdateMetadata, UpdateNoticeException, UpdateNotice
-from yum.yumRepo import YumRepository
-from yum.yumRepo import Errors as YumErrors
-try:
-    from yum.misc import cElementTree_iterparse as iterparse
-except ImportError:
-    try:
-        from xml.etree import cElementTree
-    except ImportError:
-        # pylint: disable=F0401
-        import cElementTree
-    iterparse = cElementTree.iterparse
+from custom_update_md import UpdateMetadata
+from custom_update_md import UpdateNotice
+from custom_update_md import UpdateNoticeException
+from libdnf.conf import ConfigParser
+import dnf
+from dnf.exceptions import Error
+from dnf.exceptions import RepoError
+from spacewalk.common import fileutils #pylint: disable=ungrouped-imports
+from spacewalk.common import checksum #pylint: disable=ungrouped-imports
+from spacewalk.common.rhnConfig import CFG #pylint: disable=ungrouped-imports
+from spacewalk.common.rhnConfig import initCFG #pylint: disable=ungrouped-imports
+from spacewalk.satellite_tools.download import get_proxies #pylint: disable=ungrouped-imports
+from spacewalk.satellite_tools.repo_plugins import ContentPackage #pylint: disable=ungrouped-imports
+from spacewalk.satellite_tools.repo_plugins import CACHE_DIR #pylint: disable=ungrouped-imports
 from urlgrabber.grabber import URLGrabError
+
+
+try:
+    from xml.etree import cElementTree
+except ImportError:
+    # pylint: disable=F0401
+    import cElementTree
+iterparse = cElementTree.iterparse
 try:
     #  python 2
     import urlparse
@@ -45,12 +52,11 @@ except ImportError:
     #  python3
     import urllib.parse as urlparse # pylint: disable=F0401,E0611
 
-from spacewalk.common import fileutils, checksum
-from spacewalk.satellite_tools.download import get_proxies
-from spacewalk.satellite_tools.repo_plugins import ContentPackage, CACHE_DIR
-from spacewalk.common.rhnConfig import CFG, initCFG
 
 YUMSRC_CONF = '/etc/rhn/spacewalk-repo-sync/yum.conf'
+
+logging.basicConfig()
+log = logging.getLogger(__name__)
 
 
 class YumWarnings:
@@ -81,10 +87,10 @@ class YumUpdateMetadata(UpdateMetadata):
             raise UpdateNoticeException
         if isinstance(obj, (type(''), type(u''))):
             infile = fileutils.decompress_open(obj)
-        elif isinstance(obj, YumRepository):
+        elif isinstance(obj, dnf.repo.Repo):
             if obj.id not in self._repos:
                 self._repos.append(obj.id)
-                md = obj.retrieveMD(mdtype)
+                md = obj.get_metadata_path(mdtype)
                 if not md:
                     raise UpdateNoticeException()
                 infile = fileutils.decompress_open(md)
@@ -117,17 +123,21 @@ class ContentSource(object):
     def __init__(self, url, name, yumsrc_conf=YUMSRC_CONF, org="1", channel_label="",
                  no_mirrors=False, ca_cert_file=None, client_cert_file=None,
                  client_key_file=None):
+        name = re.sub('[^a-zA-Z0-9_.:-]+', '_', name)
         self.url = url
         self.name = name
-        self.yumbase = yum.YumBase()
-        self.yumbase.preconf.fn = yumsrc_conf
+        self.dnfbase = dnf.Base()
+        self.dnfbase.conf.read(yumsrc_conf)
         if not os.path.exists(yumsrc_conf):
-            self.yumbase.preconf.fn = '/dev/null'
-        self.configparser = ConfigParser()
+            self.dnfbase.conf.read('/dev/null')
+        self.configparser = ConfigParser()      # Reading config file directly as dnf only ready MAIN section.
+        self.configparser.setSubstitutions( dnf.Base().conf.substitutions)
+        self.configparser.read(yumsrc_conf)
         if org:
             self.org = org
         else:
             self.org = "NULL"
+        self.dnfbase.conf.cachedir = os.path.join(CACHE_DIR, self.org)
 
         self.proxy_addr = None
         self.proxy_user = None
@@ -148,31 +158,31 @@ class ContentSource(object):
             self.proxy_user = CFG.http_proxy_username
             self.proxy_pass = CFG.http_proxy_password
         else:
-            yb_cfg = self.yumbase.conf.cfg
+            db_cfg = self.configparser
             section_name = None
 
-            if yb_cfg.has_section(self.name):
+            if db_cfg.has_section(self.name):
                 section_name = self.name
-            elif yb_cfg.has_section(channel_label):
+            elif db_cfg.has_section(channel_label):
                 section_name = channel_label
-            elif yb_cfg.has_section('main'):
+            elif db_cfg.has_section('main'):
                 section_name = 'main'
 
             if section_name:
-                if yb_cfg.has_option(section_name, option='proxy'):
-                    self.proxy_addr = yb_cfg.get(section_name, option='proxy')
+                if db_cfg.has_option(section_name, option='proxy'):
+                    self.proxy_addr = db_cfg.get(section_name, option='proxy')
 
-                if yb_cfg.has_option(section_name, 'proxy_username'):
-                    self.proxy_user = yb_cfg.get(section_name, 'proxy_username')
+                if db_cfg.has_option(section_name, 'proxy_username'):
+                    self.proxy_user = db_cfg.get(section_name, 'proxy_username')
 
-                if yb_cfg.has_option(section_name, 'proxy_password'):
-                    self.proxy_pass = yb_cfg.get(section_name, 'proxy_password')
+                if db_cfg.has_option(section_name, 'proxy_password'):
+                    self.proxy_pass = db_cfg.get(section_name, 'proxy_password')
 
         self._authenticate(url)
 
         # Check for settings in yum configuration files (for custom repos/channels only)
         if org:
-            repos = self.yumbase.repos.repos
+            repos = self.dnfbase.repos
         else:
             repos = None
         if repos and name in repos:
@@ -184,40 +194,35 @@ class ContentSource(object):
             repo.id = name
         else:
             # Not using values from config files
-            repo = yum.yumRepo.YumRepository(name)
-            repo.populate(self.configparser, name, self.yumbase.conf)
+            repo = dnf.repo.Repo(name,self.dnfbase.conf)
+            repo.repofile = yumsrc_conf
+            # pylint: disable=W0212
+            repo._populate(self.configparser, name, yumsrc_conf)
         self.repo = repo
+
+        self.yumbase = self.dnfbase # for compatibility
 
         self.setup_repo(repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file)
         self.num_packages = 0
         self.num_excluded = 0
         self.groupsfile = None
+        self.repo = self.dnfbase.repos[self.repoid]
+        self.get_metadata_paths()
 
     def __del__(self):
         # close log files for yum plugin
-        for handler in logging.getLogger("yum.filelogging").handlers:
+        for handler in logging.getLogger("dnf").handlers:
             handler.close()
-        self.repo.close()
+        self.dnfbase.close()
 
     def _authenticate(self, url):
         pass
 
-    @staticmethod
-    def interrupt_callback(*args, **kwargs):  # pylint: disable=W0613
-        # Just re-raise
-        e = sys.exc_info()[1]
-        raise e
-
     def setup_repo(self, repo, no_mirrors, ca_cert_file, client_cert_file, client_key_file):
         """Fetch repository metadata"""
-        repo.cache = 0
+        repo.metadata_expire=0
         repo.mirrorlist = self.url
         repo.baseurl = [self.url]
-        repo.basecachedir = os.path.join(CACHE_DIR, self.org)
-        # base_persistdir have to be set before pkgdir
-        if hasattr(repo, 'base_persistdir'):
-            repo.base_persistdir = repo.basecachedir
-
         pkgdir = os.path.join(CFG.MOUNT_POINT, CFG.PREPENDED_DIR, self.org, 'stage')
         if not os.path.isdir(pkgdir):
             fileutils.makedirs(pkgdir, user='apache', group='apache')
@@ -229,96 +234,118 @@ class ContentSource(object):
         repo.proxy_username = None
         repo.proxy_password = None
 
-        if "file://" in self.url:
-            repo.copy_local = 1
-
         if self.proxy_addr:
             repo.proxy = self.proxy_addr if '://' in self.proxy_addr else 'http://' + self.proxy_addr
             repo.proxy_username = self.proxy_user
             repo.proxy_password = self.proxy_pass
 
+        if no_mirrors:
+            repo.mirrorlist = ""
+        self.digest=hashlib.sha256(self.url.encode('utf8')).hexdigest()[:16]
+        self.dnfbase.repos.add(repo)
+        self.repoid = repo.id
+        try:
+            logger = logging.getLogger('dnf')
+            logger.setLevel(logging.ERROR)
+            self.yumbase.repos[self.repoid].load()
+            logger.setLevel(logging.WARN)
+        except RepoError:
+            # Dnf bug workaround. Mirrorlist was provided but none worked. Fallback to baseurl and load again.
+            # Remove once dnf is fixed and add detection if mirrors failed.
+            logger.setLevel(logging.WARN)
+            repo.mirrorlist = ""
+            no_mirrors = True
+            self.dnfbase.repos[self.repoid].load()
+
         # Do not try to expand baseurl to other mirrors
         if no_mirrors:
-            repo.urls = repo.baseurl
+            self.dnfbase.repos[self.repoid].urls = repo.baseurl
             # Make sure baseurl ends with / and urljoin will work correctly
-            if repo.urls[0][-1] != '/':
-                repo.urls[0] += '/'
+            if self.dnfbase.repos[self.repoid].urls[0][-1] != '/':
+                self.dnfbase.repos[self.repoid].urls[0] += '/'
         else:
-            warnings = YumWarnings()
-            warnings.disable()
-            try:
-                repo.baseurlSetup()
-            except:
-                warnings.restore()
-                raise
-            warnings.restore()
-            # if self.url is metalink it will be expanded into
-            # real urls in repo.urls and also save this metalink
-            # in begin of the url list ("for repolist -v ... or anything else wants to know the baseurl")
-            # Remove it from the list, we don't need it to download content of repo
-            repo.urls = [url for url in repo.urls if '?' not in url]
-        repo.interrupt_callback = self.interrupt_callback
-        repo.setup(0)
+            self.dnfbase.repos[self.repoid].urls = self.clean_urls(self.dnfbase.repos[self.repoid]._repo.getMirrors()) # pylint: disable=W0212
+            self.dnfbase.repos[self.repoid].urls=[url for url in self.dnfbase.repos[self.repoid].urls if '?' not in url]
+        self.dnfbase.repos[self.repoid].basecachedir = os.path.join(CACHE_DIR, self.org)
+        repoXML = type('', (), {})()
+        repoXML.repoData = {}
+        self.dnfbase.repos[self.repoid].repoXML = repoXML
+
+    @staticmethod
+    def clean_urls(urls):
+        """
+        Filters a url schema for http, https, ftp, file only.
+        :return: urllist (string)
+        """
+        cleaned = []
+        for url in urls:
+            s = dnf.pycomp.urlparse.urlparse(url)[0]
+            if s in ('http', 'ftp', 'file', 'https'):
+                cleaned.append(url)
+        return cleaned
 
     def number_of_packages(self):
         for dummy_index in range(3):
             try:
-                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
+                self.dnfbase.fill_sack(load_system_repo=False)
                 break
-            except YumErrors.RepoError:
+            except RepoError:
                 pass
-        return len(self.repo.getPackageSack().returnPackages())
+        return len(self.dnfbase.sack)
 
     def raw_list_packages(self, filters=None):
         for dummy_index in range(3):
             try:
-                self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
+                self.dnfbase.fill_sack(load_system_repo=False,load_available_repos=True)
                 break
-            except YumErrors.RepoError:
+            except RepoError:
                 pass
 
-        rawpkglist = self.repo.getPackageSack().returnPackages()
+        rawpkglist = self.dnfbase.sack.query().run()
         self.num_packages = len(rawpkglist)
 
         if not filters:
             filters = []
             # if there's no include/exclude filter on command line or in database
-            for p in self.repo.includepkgs:
+            for p in self.dnfbase.repos[self.repoid].includepkgs:
                 filters.append(('+', [p]))
-            for p in self.repo.exclude:
+            for p in self.dnfbase.repos[self.repoid].exclude:
                 filters.append(('-', [p]))
 
         if filters:
             rawpkglist = self._filter_packages(rawpkglist, filters)
-            rawpkglist = self._get_package_dependencies(self.repo.getPackageSack(), rawpkglist)
-
+            rawpkglist = self._get_package_dependencies(self.dnfbase.sack, rawpkglist)
             self.num_excluded = self.num_packages - len(rawpkglist)
+
+        for pack in rawpkglist:
+            pack.packagesize = pack.downloadsize
+            pack.checksum_type = pack.returnIdSum()[0]
+            pack.checksum = pack.returnIdSum()[1]
 
         return rawpkglist
 
     def list_packages(self, filters, latest):
         """ list packages"""
-        self.repo.getPackageSack().populate(self.repo, 'metadata', None, 0)
-        pkglist = ListPackageSack(self.repo.getPackageSack().returnPackages())
+        self.dnfbase.fill_sack(load_system_repo=False,load_available_repos=True)
+        pkglist = self.dnfbase.sack.query()
         self.num_packages = len(pkglist)
         if latest:
-            pkglist = pkglist.returnNewestByNameArch()
-        pkglist = yum.misc.unique(pkglist)
-        pkglist.sort(self._sort_packages)
+            pkglist = pkglist.latest()
+        pkglist = list(dict.fromkeys(pkglist))                          # Filter out duplicates
 
         if not filters:
             # if there's no include/exclude filter on command line or in database
             # check repository config file
-            for p in self.repo.includepkgs:
+            for p in self.dnfbase.repos[self.repoid].includepkgs:
                 filters.append(('+', [p]))
-            for p in self.repo.exclude:
+            for p in self.dnfbase.repos[self.repoid].exclude:
                 filters.append(('-', [p]))
 
         filters = self._expand_package_groups(filters)
 
         if filters:
             pkglist = self._filter_packages(pkglist, filters)
-            pkglist = self._get_package_dependencies(self.repo.getPackageSack(), pkglist)
+            pkglist = self._get_package_dependencies(self.dnfbase.sack, pkglist)
 
             self.num_excluded = self.num_packages - len(pkglist)
         to_return = []
@@ -329,22 +356,12 @@ class ContentSource(object):
             new_pack.setNVREA(pack.name, pack.version, pack.release,
                               pack.epoch, pack.arch)
             new_pack.unique_id = pack
-            new_pack.checksum_type = pack.checksums[0][0]
+            new_pack.checksum_type = pack.returnIdSum()[0]
             if new_pack.checksum_type == 'sha':
                 new_pack.checksum_type = 'sha1'
-            new_pack.checksum = pack.checksums[0][1]
+            new_pack.checksum = pack.returnIdSum()[1]
             to_return.append(new_pack)
         return to_return
-
-    @staticmethod
-    def _sort_packages(pkg1 ,pkg2):
-        """sorts a list of yum package objects by name"""
-        if pkg1.name > pkg2.name:
-            return 1
-        elif pkg1.name == pkg2.name:
-            return 0
-        else:
-            return -1
 
     @staticmethod
     def _find_comps_type(comps_type, environments, groups, name):
@@ -352,12 +369,12 @@ class ContentSource(object):
         found = None
         if comps_type == "environment":
             for e in environments:
-                if e.environmentid == name or e.name == name:
+                if e.id == name or e.name == name:
                     found = e
                     break
         elif comps_type == "group":
             for g in groups:
-                if g.groupid == name or g.name == name:
+                if g.id == name or g.name == name:
                     found = g
                     break
         return found
@@ -374,10 +391,11 @@ class ContentSource(object):
                     found = self._find_comps_type(comps_type, environments, groups, group_name)
                     if found and comps_type == "environment":
                         # Save expanded groups to the package list
-                        new_pkg_list.extend(['@' + grp for grp in found.allgroups])
+                        new_pkg_list.extend(['@' + grp.name for grp in found.groups_iter()])
                     elif found and comps_type == "group":
                         # Replace with package list, simplified to not evaluate if packages are default, optional etc.
-                        new_pkg_list.extend(found.packages)
+                        for package in found.packages:
+                            new_pkg_list.append(str(package.name))
                     else:
                         # Invalid group, save group id back
                         new_pkg_list.append(pkg)
@@ -391,13 +409,14 @@ class ContentSource(object):
     def _expand_package_groups(self, filters):
         if not self.groupsfile:
             return filters
-        comps = Comps()
-        comps.add(self.groupsfile)
-        groups = comps.get_groups()
+        comps = dnf.comps.Comps()
+        # pylint: disable=W0212
+        comps._add_from_xml_filename(self.groupsfile)
+        groups = comps.groups
 
-        if hasattr(comps, 'get_environments'):
+        if hasattr(comps, 'environments'):
             # First expand environment groups, then regular groups
-            environments = comps.get_environments()
+            environments = comps.environments
             filters = self._expand_comps_type("environment", environments, groups, filters)
         else:
             environments = []
@@ -405,7 +424,30 @@ class ContentSource(object):
         return filters
 
     @staticmethod
-    def _filter_packages(packages, filters):
+    def __parsePackages(pkgSack, pkgs):
+        """
+         Substitute for yum's parsePackages.
+         The function parses a list of package names and returns their Hawkey
+         list if it exists in the package sack. Inputs are a package sack and
+         a list of packages. Returns a list of latest existing packages in
+         Hawkey format.
+        """
+
+        matches = set()
+        for pkg in pkgs:
+            hkpkgs = set()
+            subject = dnf.subject.Subject(pkg)
+            hkpkgs |= set(subject.get_best_selector(pkgSack, obsoletes=True).matches())
+            if len(matches) == 0:
+                matches = hkpkgs
+            else:
+                matches |= hkpkgs
+        result = list(matches)
+        a = pkgSack.query().available() # Load all available packages from the repository
+        result = a.filter(pkg=result).latest().run()
+        return result
+
+    def _filter_packages(self, packages, filters):
         """ implement include / exclude logic
             filters are: [ ('+', includelist1), ('-', excludelist1),
                            ('+', includelist2), ... ]
@@ -422,34 +464,66 @@ class ContentSource(object):
         else:
             excluded = packages
 
+        sack = self.dnfbase.sack
         for filter_item in filters:
             sense, pkg_list = filter_item
+            convertFilterToPackagelist = self.__parsePackages(
+                sack, pkg_list)
             if sense == '+':
                 # include
-                exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                    excluded, pkg_list)
-                allmatched = yum.misc.unique(exactmatch + matched)
-                selected = yum.misc.unique(selected + allmatched)
+                matched = list()
+                for v1 in convertFilterToPackagelist:          # Use only packages that are in pkg_list
+                    for v2 in excluded:
+                        if v1 == v2 and v1 not in matched:
+                            matched.append(v1)
+                allmatched = list(dict.fromkeys( matched ))    # remove duplicates
+                selected = list(dict.fromkeys( selected + allmatched ) )   # remove duplicates
                 for pkg in allmatched:
                     if pkg in excluded:
                         excluded.remove(pkg)
             elif sense == '-':
                 # exclude
-                exactmatch, matched, _unmatched = yum.packages.parsePackages(
-                    selected, pkg_list)
-                allmatched = yum.misc.unique(exactmatch + matched)
+                matched = list()
+                for v1 in convertFilterToPackagelist:          # Use only packages that are in pkg_list
+                    for v2 in selected:
+                        if v1 == v2 and v1 not in matched:
+                            matched.append(v1)
+                allmatched = list(dict.fromkeys(matched))      # remove duplicates
                 for pkg in allmatched:
                     if pkg in selected:
                         selected.remove(pkg)
-                excluded = yum.misc.unique(excluded + allmatched)
+                allmatched = list(allmatched)
+                excluded = excluded + allmatched
+                excluded = list(dict.fromkeys(excluded)) # Filter out duplicates
             else:
-                raise UpdateNoticeException("Invalid filter sense: '%s'" % sense)
+                raise Error("Invalid filter sense: '%s'" % sense)
         return selected
 
+    @staticmethod
+    def __findDeps(pkgSack, pkgs):
+#
+#        Input: Sack, list of packages
+#        Output: List of packages
+#
+        results = {}
+        a = pkgSack.query().available()
+        for pkg in pkgs:
+            results[pkg] = {}
+            reqs = pkg.requires
+            pkgresults = results[pkg]
+            for req in reqs:
+                if str(req).startswith('rpmlib('):
+                    continue
+                satisfiers = []
+                for po in a.filter(provides = req).latest():
+                    satisfiers.append(po)
+                pkgresults[req] = satisfiers
+        return results
+
     def _get_package_dependencies(self, sack, packages):
-        self.yumbase.pkgSack = sack
+        self.dnfbase.pkgSack = sack
         known_deps = set()
-        resolved_deps = self.yumbase.findDeps(packages)
+        resolved_deps = self.__findDeps(self.dnfbase.pkgSack, packages)
         while resolved_deps:
             next_level_deps = []
             for deps in resolved_deps.values():
@@ -459,9 +533,9 @@ class ContentSource(object):
                         packages.extend(dep_packages)
                         known_deps.add(_dep)
 
-            resolved_deps = self.yumbase.findDeps(next_level_deps)
+            resolved_deps = self.__findDeps(self.dnfbase.pkgSack,next_level_deps)
 
-        return yum.misc.unique(packages)
+        return list(dict.fromkeys(packages))
 
     def get_package(self, package, metadata_only=False):
         """ get package """
@@ -481,7 +555,7 @@ class ContentSource(object):
 
     def clear_cache(self, directory=None, keep_repomd=False):
         if directory is None:
-            directory = os.path.join(CACHE_DIR, self.org, self.name)
+            directory = os.path.join(CACHE_DIR, self.org, self.name+"-"+self.digest)
 
         # remove content in directory
         for item in os.listdir(directory):
@@ -494,25 +568,27 @@ class ContentSource(object):
         # restore empty directories
         makedirs(directory + "/packages", int('0755', 8))
         makedirs(directory + "/gen", int('0755', 8))
+        makedirs(directory + "/repodata", int('0755', 8))
+        self.dnfbase.repos[self.repoid].load()
 
     def get_updates(self):
-        if 'updateinfo' not in self.repo.repoXML.repoData:
+        if not self.dnfbase.repos[self.repoid].get_metadata_content("updateinfo"):
             return []
         um = YumUpdateMetadata()
-        um.add(self.repo, all_versions=True)
+        um.add(self.dnfbase.repos[self.repoid], all_versions=True)
         return um.notices
 
     def get_groups(self):
-        try:
-            groups = self.repo.getGroups()
-        except RepoMDError:
+        groups = self.repo.get_metadata_path("group_gz")
+        if groups == "":
+            groups = self.repo.get_metadata_path("group")
+        if groups == "":
             groups = None
         return groups
 
     def get_modules(self):
-        try:
-            modules = self.repo.retrieveMD('modules')
-        except RepoMDError:
+        modules = self.repo.get_metadata_path('modules')
+        if modules == "":
             modules = None
         return modules
 
@@ -560,22 +636,24 @@ class ContentSource(object):
         if not os.path.exists(target_dir):
             os.makedirs(target_dir, int('0755', 8))
 
-        params['urls'] = self.repo.urls
+        params['urls'] = self.dnfbase.repos[self.repoid].urls
         params['relative_path'] = relative_path
         params['authtoken'] = self.authtoken
         params['target_file'] = target_file
-        params['ssl_ca_cert'] = self.repo.sslcacert
-        params['ssl_client_cert'] = self.repo.sslclientcert
-        params['ssl_client_key'] = self.repo.sslclientkey
+        params['ssl_ca_cert'] = self.dnfbase.repos[self.repoid].sslcacert
+        params['ssl_client_cert'] = self.dnfbase.repos[self.repoid].sslclientcert
+        params['ssl_client_key'] = self.dnfbase.repos[self.repoid].sslclientkey
         params['checksum_type'] = checksum_type
         params['checksum'] = checksum_value
         params['bytes_range'] = bytes_range
-        params['proxy'] = self.repo.proxy
-        params['proxy_username'] = self.repo.proxy_username
-        params['proxy_password'] = self.repo.proxy_password
-        params['http_headers'] = self.repo.http_headers
+        params['proxy'] = self.dnfbase.repos[self.repoid].proxy
+        params['proxy_username'] = self.dnfbase.repos[self.repoid].proxy_username
+        params['proxy_password'] = self.dnfbase.repos[self.repoid].proxy_password
+        params['http_headers'] = dict( self.dnfbase.repos[self.repoid].get_http_headers() )
         # Older urlgrabber compatibility
-        params['proxies'] = get_proxies(self.repo.proxy, self.repo.proxy_username, self.repo.proxy_password)
+        params['proxies'] = get_proxies(self.dnfbase.repos[self.repoid].proxy,
+                                        self.dnfbase.repos[self.repoid].proxy_username,
+                                        self.dnfbase.repos[self.repoid].proxy_password )
 
     # Simply load primary and updateinfo path from repomd
     def get_metadata_paths(self):
@@ -591,24 +669,39 @@ class ContentSource(object):
                     return sub_item.attrib.get("type"), sub_item.text
             return None
 
-        repomd_path = os.path.join(self.repo.basecachedir, self.name, "repomd.xml")
+        def get_timestamp(data_item):
+            for sub_item in data_item:
+                if sub_item.tag.endswith("timestamp"):
+                    return sub_item.text
+            return None
+
+        repomd_path = os.path.join(self.dnfbase.repos[self.repoid].basecachedir,
+                                   self.name + "-" + self.digest, "repodata", "repomd.xml")
         if not os.path.isfile(repomd_path):
             raise RepoMDNotFound(repomd_path)
         repomd = open(repomd_path, 'rb')
         files = {}
         for _event, elem in iterparse(repomd):
             if elem.tag.endswith("data"):
+                repoData = type('', (), {})()
                 if elem.attrib.get("type") == "primary_db":
                     files['primary'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
                 elif elem.attrib.get("type") == "primary" and 'primary' not in files:
                     files['primary'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
                 elif elem.attrib.get("type") == "updateinfo":
                     files['updateinfo'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
                 elif elem.attrib.get("type") == "group_gz":
                     files['group'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
                 elif elem.attrib.get("type") == "group" and 'group' not in files:
                     files['group'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
                 elif elem.attrib.get("type") == "modules":
                     files['modules'] = (get_location(elem), get_checksum(elem))
+                    repoData.timestamp = get_timestamp(elem)
+                self.dnfbase.repos[self.repoid].repoXML.repoData[elem.attrib.get("type")] = repoData
         repomd.close()
         return files.values()
