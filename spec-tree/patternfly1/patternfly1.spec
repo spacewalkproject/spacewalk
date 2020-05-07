@@ -13,10 +13,9 @@ Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
 Release:	10%{?release_suffix}%{?dist}
 License:	ASL 2.0
-# Repo will be moved to patternfly-3 on 2020-03-17
-URL:		https://github.com/patternfly/patternfly
-Source:		https://github.com/patternfly/patternfly/archive/v1.0.5.tar.gz
-Patch0:   fix_paths.patch
+URL:		https://github.com/patternfly/patternfly-3
+Source:		https://github.com/patternfly/patternfly-3/archive/v1.0.5.tar.gz
+Patch0:		fix_paths.patch
 
 BuildArch:	noarch
 
@@ -24,7 +23,7 @@ BuildArch:	noarch
 PatternFly open interface project, with dependencies bundled
 
 %prep
-%setup -q -n patternfly-1.0.5
+%setup -q -n patternfly-3-%{version}
 %patch0 -p1
 
 %build
