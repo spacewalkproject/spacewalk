@@ -11,7 +11,7 @@
 Name:		patternfly1
 Summary:	PatternFly open interface project and its dependencies
 Version:	1.0.5
-Release:	10%{?release_suffix}%{?dist}
+Release:	11%{?release_suffix}%{?dist}
 License:	ASL 2.0
 URL:		https://github.com/patternfly/patternfly-3
 Source:		https://github.com/patternfly/patternfly-3/archive/v1.0.5.tar.gz
@@ -38,6 +38,9 @@ cp -pR less/ %{buildroot}%{_datadir}/%{name}/resources/less
 %{_datadir}/%{name}/
 
 %changelog
+* Mon May 11 2020 Michael Mraka <michael.mraka@redhat.com> 1.0.5-11
+- Modified spec file to new URL, source and naming convention.
+
 * Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 1.0.5-10
 - Updated patternfly1 Source URL.
 
