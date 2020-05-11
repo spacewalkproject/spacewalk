@@ -18,13 +18,11 @@
 # in this software or its documentation
 
 import logging
-import re
 import shutil
 import sys
 import os
 import glob
 import dnf
-from dnf.repodict import RepoDict
 
 try:
     from spacewalk.satellite_tools.progress_bar import ProgressBar
@@ -63,7 +61,9 @@ class DepSolver:
         """
         self._repostore.conf.cachedir  = CACHE_DIR
         for repo in self.repos:
-            self._repostore.repos.add_new_repo(repo['id'],self._repostore.conf,baseurl = ["file://%s/" % str(repo['relative_path'])])
+            self._repostore.repos.add_new_repo(repo['id'],
+                                               self._repostore.conf,
+                                               baseurl = ["file://%s/" % str(repo['relative_path'])])
 
     def loadPackages(self):
         """
@@ -86,7 +86,10 @@ class DepSolver:
             except (IOError,OSError):
                 pass
 
-    def __parsePackages(self,pkgSack, pkgs):
+    def close(self):
+        self._repostore.close()
+
+    def __parsePackages(self):
         """
          Substitute for yum's parsePackages.
          The function parses a list of package names and returns their Hawkey
@@ -94,9 +97,10 @@ class DepSolver:
          a list of packages. Returns a list of latest existing packages in
          Hawkey format.
         """
-        
+
+        pkgSack = self._repostore.sack
         matches = set()
-        for pkg in pkgs:
+        for pkg in self.pkgs:
             hkpkgs = set()
             subject = dnf.subject.Subject(pkg)
             hkpkgs |= set(subject.get_best_selector(pkgSack, obsoletes=True).matches())
@@ -119,7 +123,7 @@ class DepSolver:
          epoch:name-ver-rel.arch, name-epoch:ver-rel.arch
         """
 
-        match = self.__parsePackages(self._repostore.sack,self.pkgs)
+        match = self.__parsePackages()
         pkgs = []
         for po in match:
             pkgs.append(po)
@@ -235,6 +239,6 @@ if __name__ == '__main__':
     deplist = dsolve.getDependencylist()
     result_set = dsolve.processResults(deplist)
     dsolve.cleanup()
-    dsolve._repostore.close()
+    dsolve.close()
     print (result_set)
     print ("Printable dependency Results: \n\n %s" % dsolve.printable_result(deplist))
