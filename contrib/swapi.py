@@ -417,7 +417,7 @@ def results_to_json_str(results, indent=2):
     >>> results_to_json_str([123, 'abc', {'x':'yz'}])
     '[\\n  123, \\n  "abc", \\n  {\\n    "x": "yz"\\n  }\\n]'
     """
-    return simplejson.dumps(results, ensure_ascii=False, indent=indent)
+    return simplejson.dumps(results, ensure_ascii=False, indent=4, sort_keys=True, default=str)
 
 
 def configure_with_configfile(config_file, profile=""):
