@@ -44,7 +44,7 @@ Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
 URL:		http://wrapper.tanukisoftware.org/
-Source0:	http://download.sourceforge.net/wrapper/wrapper_3.2.3_src.tar.gz
+Source0:	https://download.sourceforge.net/wrapper/wrapper_3.2.3_src.tar.gz
 Patch1:		%{name}-build.patch
 Patch2:		%{name}-crosslink.patch
 Patch3:		%{name}-makefile-linux-x86-32.patch
