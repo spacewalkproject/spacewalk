@@ -3720,3 +3720,61 @@ def do_system_show_packageversion(self, args):
             if pkg.get('name') == searchpkg:
                 print("%s\t%s\t%s\t%s\t%s\t%s" % (pkg.get('name'), pkg.get('version'), pkg.get('release'),
                                                   pkg.get('epoch'), pkg.get('arch_label'), system))
+
+
+####################
+
+
+def help_system_setdescription(self):
+    print('system_setdescription: Set the systemdescription')
+    print('''usage: system_setdescription <SYSTEM> [options]
+
+options:
+  -d DESC''')
+    print('')
+    print(self.HELP_SYSTEM_OPTS)
+
+
+def complete_system_setdescription(self, text, line, beg, end):
+    return self.tab_complete_systems(text)
+
+
+def do_system_setdescription(self, args):
+    arg_parser = get_argument_parser()
+    arg_parser.add_argument('-d', '--desc')
+
+    (args, options) = parse_command_arguments(args, arg_parser)
+
+    if not args:
+        self.help_system_setdescription()
+        return
+
+    # use the systems listed in the SSM
+    if re.match('ssm', args[0], re.I):
+        systems = self.ssm.keys()
+    else:
+        systems = self.expand_systems(args)
+
+    if is_interactive(options):
+
+        message = 'Description for the system (ctrl-D to finish):'
+        options.desc = prompt_user(message, noblank=True, multiline=True)
+    else:
+        if not options.desc:
+            message = 'Description for the system (ctrl-D to finish):'
+            options.desc = prompt_user(message, noblank=True, multiline=True)
+            #logging.error('A description is required')
+            #return
+
+    for system in systems:
+        system_id = self.get_system_id(system)
+        if not system_id:
+            continue
+
+        self.client.system.setDetails(self.session,
+                                   system_id,
+                                    {"description": options.desc})
+
+####################
+
+
