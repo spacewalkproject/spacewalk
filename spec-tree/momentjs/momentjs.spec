@@ -6,7 +6,7 @@
 
 Name:           momentjs
 Version:        2.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A javascript date library for parsing, validating, manipulating, and formatting dates
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon May 25 2020 Michael Mraka <michael.mraka@redhat.com> 2.6.0-7
+- Updated source url
+
 * Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.6.0-6
 - Updated momentjs SourceX links.
 
