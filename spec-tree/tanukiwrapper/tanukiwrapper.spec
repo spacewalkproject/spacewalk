@@ -39,7 +39,7 @@
 
 Name:		tanukiwrapper
 Version:	3.2.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Java Service Wrapper
 Epoch:		0
 License:	BSD
@@ -227,6 +227,9 @@ fi
 %endif
 
 %changelog
+* Mon May 25 2020 Michael Mraka <michael.mraka@redhat.com> 3.2.3-23
+- Updated source link to https
+
 * Wed Oct 02 2019 Michael Mraka <michael.mraka@redhat.com> 3.2.3-22
 - workaround RHEL8 buildrequires module issue
 
