@@ -2,7 +2,7 @@
 %{!?perlgen:%global perlgen 5.8}
 Name: perl-Mail-RFC822-Address
 Version: 0.3
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Mail-RFC822-Address Perl module
 License: distributable
 URL: http://search.cpan.org/search?mode=module&query=Mail%3a%3aRFC822%3a%3aAddress
@@ -62,6 +62,10 @@ fi
 %files -f Mail-RFC822-Address-%{version}-filelist
 
 %changelog
+* Mon May 25 2020 Michael Mraka <michael.mraka@redhat.com> 0.3-17
+- removed unnecessary dynamic requires to make it build on Fedora/RHEL without
+  preinstalled perl
+
 * Mon May 25 2020 Michael Mraka <michael.mraka@redhat.com> 0.3-16
 - Added source URL - Comment to build on RHEL8
 
