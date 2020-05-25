@@ -3776,5 +3776,3 @@ def do_system_setdescription(self, args):
                                       {"description": options.desc})
 
 ####################
-
-
