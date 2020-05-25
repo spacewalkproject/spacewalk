@@ -1,4 +1,3 @@
-# Note that you must have perl installed before building (not the default on RHEL8)
 
 %{!?perlgen:%global perlgen 5.8}
 Name: perl-Mail-RFC822-Address
@@ -19,9 +18,6 @@ BuildRequires:  perl(Data::Dumper)
 %endif
 
 
-Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
-Requires: %(perl -MConfig -le 'if (defined $Config{usethreads}) { print "perl(:WITH_THREADS)" } else { print "perl(:WITHOUT_THREADS)" }')
-Requires: %(perl -MConfig -le 'if (defined $Config{uselargefiles}) { print "perl(:WITH_LARGEFILES)" } else { print "perl(:WITHOUT_LARGEFILES)" }')
 Source0:  https://cpan.metacpan.org/authors/id/P/PD/PDWARREN/Mail-RFC822-Address-0.3.tar.gz
 
 %description
