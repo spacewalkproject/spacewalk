@@ -3772,8 +3772,8 @@ def do_system_setdescription(self, args):
             continue
 
         self.client.system.setDetails(self.session,
-                                   system_id,
-                                    {"description": options.desc})
+                                      system_id,
+                                      {"description": options.desc})
 
 ####################
 
