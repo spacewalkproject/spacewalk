@@ -13,7 +13,7 @@
 %endif
 
 Name:        spacecmd
-Version:     2.11.1
+Version:     2.11.2
 Release:     1%{?dist}
 Summary:     Command-line interface to Spacewalk and Red Hat Satellite servers
 
@@ -111,6 +111,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python_sitelib} \
 %doc %{_mandir}/man1/spacecmd.1.gz
 
 %changelog
+* Mon May 25 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.2-1
+- Added new spacecmd subcommand for changing systems description
+
 * Fri Feb 28 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
 - fixed pylint warnings
 
