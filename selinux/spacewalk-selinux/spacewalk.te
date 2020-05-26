@@ -20,6 +20,11 @@ require {
 	type nfs_t;
 	type rpm_var_lib_t;
 	type sudo_exec_t;
+	type faillog_t;
+        type chkpwd_exec_t;
+        type shadow_t;
+	class dir { add_name write search };
+        class file { create execute execute_no_trans open read };
 }
 
 type spacewalk_install_log_t;
@@ -178,3 +183,7 @@ allow httpd_t etc_t:file { create link rename setattr unlink write };
 allow tomcat_t etc_t:dir { add_name remove_name write };
 allow httpd_t etc_t:dir { add_name remove_name write };
 
+allow tomcat_t chkpwd_exec_t:file { execute execute_no_trans open read };
+allow tomcat_t faillog_t:dir { add_name search write };
+allow tomcat_t faillog_t:file create;
+allow tomcat_t shadow_t:file { open read };
