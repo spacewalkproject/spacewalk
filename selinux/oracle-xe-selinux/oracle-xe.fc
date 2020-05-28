@@ -7,7 +7,7 @@
 /usr/lib/oracle/xe/oradata(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 /usr/lib/oracle/xe/app/oracle/flash_recovery_area(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
+# for oracle-database-xe-18c-1.0-1.x86_64
 /u01/app/oracle/oradata(/.*)?					gen_context(system_u:object_r:oracle_dbfile_t,s0)
 /u01/app/oracle/fast_recovery_area/XE(/.*)?			gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
@@ -20,12 +20,12 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/scripts/backup\.sh          gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/scripts/restore\.sh          gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
-/u01/app/oracle/product/11\.2\.0/xe/config(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/config/scripts(/.*)?	gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/config/scripts/backup\.sh	gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/config/scripts/restore\.sh	gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/config/log(/.*)?		gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
+# for oracle-database-xe-18c-1.0-1.x86_64
+/u01/app/oracle/product/18\.4\.0/xe/config(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/config/scripts(/.*)?	gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/config/scripts/backup\.sh	gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/config/scripts/restore\.sh	gen_context(user_u:object_r:oracle_sqlplus_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/config/log(/.*)?		gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 /u01/app/oracle/admin/XE/adump(/.*)?				gen_context(user_u:object_r:oracle_db_log_t,s0)
 
 # otherwise these would default to bin_t
@@ -36,20 +36,20 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/tnslsnr          gen_context(system_u:object_r:oracle_tnslsnr_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/rman          gen_context(system_u:object_r:oracle_db_exec_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
-/u01/app/oracle/product/11\.2\.0/xe/bin/lsnrctl			gen_context(system_u:object_r:oracle_lsnrctl_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/oracle			gen_context(system_u:object_r:oracle_db_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/orapwd			gen_context(system_u:object_r:oracle_db_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/sqlplus			gen_context(system_u:object_r:oracle_sqlplus_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/tnslsnr			gen_context(system_u:object_r:oracle_tnslsnr_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/rman			gen_context(system_u:object_r:oracle_db_exec_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/bin/oradism			gen_context(system_u:object_r:oracle_db_exec_t,s0)
+# for oracle-database-xe-18c-1.0-1.x86_64
+/u01/app/oracle/product/18\.4\.0/xe/bin/lsnrctl			gen_context(system_u:object_r:oracle_lsnrctl_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/oracle			gen_context(system_u:object_r:oracle_db_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/orapwd			gen_context(system_u:object_r:oracle_db_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/sqlplus			gen_context(system_u:object_r:oracle_sqlplus_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/tnslsnr			gen_context(system_u:object_r:oracle_tnslsnr_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/rman			gen_context(system_u:object_r:oracle_db_exec_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/bin/oradism			gen_context(system_u:object_r:oracle_db_exec_t,s0)
 
 # many jars are not located under lib, jre, or java directories
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?.+\.jar          gen_context(system_u:object_r:shlib_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
-/u01/app/oracle/product/11\.2\.0/xe/(.*/)?.+\.jar		gen_context(system_u:object_r:shlib_t,s0)
+# for oracle-database-xe-18c-1.0-1.x86_64
+/u01/app/oracle/product/18\.4\.0/xe/(.*/)?.+\.jar		gen_context(system_u:object_r:shlib_t,s0)
 
 # otherwise these would default to shlib_t
 # for 10gR2
@@ -63,16 +63,16 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libocci\.so\.10\.1          gen_context(system_u:object_r:texrel_shlib_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libdbcfg10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
-/u01/app/oracle/product/11\.2\.0/xe/lib/libclntsh\.so\.11.*	gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libnnz11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libnque11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libagtsh\.so\.1\.0	gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libsqlplus\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libocrutl11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libhasgen11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libocci\.so\.11\.1	gen_context(system_u:object_r:texrel_shlib_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/lib/libdbcfg11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+# for # oracle-database-xe-18c-1.0-1.x86_64
+/u01/app/oracle/product/18\.4\.0/xe/lib/libclntsh\.so\.11.*	gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libnnz11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libnque11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libagtsh\.so\.1\.0	gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libsqlplus\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libocrutl11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libhasgen11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libocci\.so\.11\.1	gen_context(system_u:object_r:texrel_shlib_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/lib/libdbcfg11\.so		gen_context(system_u:object_r:texrel_shlib_t,s0)
 
 # certain logs are kept under the ORACLE_HOME hierarchy
 # the database writes to these locations
@@ -81,11 +81,11 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/log(/.*)?	gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?rdbms/audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
-/u01/app/oracle/product/11\.2\.0/xe/dbs(/.*)?			gen_context(user_u:object_r:oracle_db_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/log(/.*)?			gen_context(user_u:object_r:oracle_db_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/rdbms/audit(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/rdbms/log(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
+# for # oracle-database-xe-18c-1.0-1.x86_64
+/u01/app/oracle/product/18\.4\.0/xe/dbs(/.*)?			gen_context(user_u:object_r:oracle_db_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/log(/.*)?			gen_context(user_u:object_r:oracle_db_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/rdbms/audit(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/rdbms/log(/.*)?		gen_context(user_u:object_r:oracle_db_log_t,s0)
 /u01/app/oracle/diag(/.*)?					gen_context(user_u:object_r:oracle_db_log_t,s0)
 /u01/app/oracle/oradiag_oracle/diag(/.*)?			gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 
@@ -93,9 +93,9 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*[0-9]/)?server/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?network/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
+# for # oracle-database-xe-18c-1.0-1.x86_64
 /u01/app/oracle/diag/tnslsnr(/.*)?				gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
-/u01/app/oracle/product/11\.2\.0/xe/log/.*/client(/.*)?		gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
+/u01/app/oracle/product/18\.4\.0/xe/log/.*/client(/.*)?		gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 
 # upon ORA-3136, database writes to network/log/sqlnet.log
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?network/log/sqlnet\.log(.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
@@ -103,6 +103,6 @@
 # otherwise this would be unlabeled
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)
 
-# for oracle-xe-11.2.0-1.0.x86_64
+# for # oracle-database-xe-18c-1.0-1.x86_64
 /u01(/.*)?							gen_context(system_u:object_r:lib_t,s0)
 

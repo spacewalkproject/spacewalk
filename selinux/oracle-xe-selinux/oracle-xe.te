@@ -47,7 +47,7 @@ mcs_ptrace_all(oracle_db_t)
 
 allow oracle_sqlplus_t urandom_device_t:chr_file read;
 
-# for oracle-xe-11.2.0-1.0.x86_64
+# for oracle-database-xe-18c-1.0-1.x86_64
 allow oracle_lsnrctl_t self:netlink_route_socket { bind create getattr nlmsg_read };
 
 corenet_udp_bind_generic_node(oracle_lsnrctl_t)

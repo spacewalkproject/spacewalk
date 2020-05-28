@@ -9,9 +9,9 @@
 %define oraclever 10.2.0.3
 %define oracleicver %{oraclever}
 %else
-%define oraclever 11.2
+%define oraclever 18.5
 %define oracleicname instantclient%{oraclever}
-%define oracleicver 11.2.0.4.0
+%define oracleicver 18.5.0.0.0
 %endif
 %endif
 
@@ -60,6 +60,9 @@ export ORACLE_HOME=%{oracle_home}
 %doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
+* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
+- Update instant client to 18.5 [Orabug: 31413086]
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 5.3-5
 - we can use python2 packages and macros everywhere
 

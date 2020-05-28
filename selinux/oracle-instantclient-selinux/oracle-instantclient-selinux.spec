@@ -1,9 +1,9 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:		oracle-instantclient-selinux
-Version:	11.2.0.4
+Version:	18.5.0.0
 Release:	1%{?dist}
-Summary:	SELinux support for Oracle Instant Client 11g
+Summary:	SELinux support for Oracle Instant Client 18c
 License:	GPLv2+
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -15,7 +15,7 @@ BuildArch:	noarch
 
 Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, %{sbinpath}/restorecon
-Requires:	oracle-instantclient11.2-basic
+Requires:	oracle-instantclient18.5-basic
 Requires:	oracle-nofcontext-selinux
 
 %description
@@ -23,7 +23,7 @@ SELinux support for Oracle Instant Client.
 
 %package -n oracle-instantclient-sqlplus-selinux
 Summary:	SELinux support for Oracle Instant Client sqlplus
-Requires:	oracle-instantclient11.2-sqlplus
+Requires:	oracle-instantclient18.5-sqlplus
 Requires:	oracle-nofcontext-selinux
 Requires(post):	/usr/sbin/semanage, %{sbinpath}/restorecon, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, %{sbinpath}/restorecon
@@ -47,7 +47,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 done
-%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 
 EOS
 
@@ -57,7 +57,7 @@ cat <<'EOS' > %{buildroot}%{_sbindir}/oracle-instantclient-sqlplus-selinux-enabl
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
 /usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
-%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 
 EOS
 
@@ -71,7 +71,7 @@ fi
 %posttrans
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 fi
 
 %postun
@@ -79,7 +79,7 @@ if [ $1 -eq 0 ]; then
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/'${i//./\\.}
 	done
-	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 fi
 
 %post -n oracle-instantclient-sqlplus-selinux
@@ -90,7 +90,7 @@ fi
 %posttrans -n oracle-instantclient-sqlplus-selinux
 #this may be safely remove when BZ 505066 is fixed
 if /usr/sbin/selinuxenabled ; then
-	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 fi
 
 %postun -n oracle-instantclient-sqlplus-selinux
@@ -98,7 +98,7 @@ if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/11\.2/client.*/bin/sqlplus'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplus\.so'
 	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/11\.2/client.*/lib/libsqlplusic\.so'
-	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/11.2/client* || :
+	%{sbinpath}/restorecon -Rvv /usr/lib/oracle/18.5/client* || :
 fi
 
 %files
@@ -108,6 +108,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-instantclient-sqlplus-selinux-enable
 
 %changelog
+* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
+- Update instant client to 18.5 [Orabug: 31413086]
+
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.4-1
 - remove install/clean section initial cleanup
 - removed Group from specfile

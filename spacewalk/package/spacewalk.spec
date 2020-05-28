@@ -92,8 +92,8 @@ Obsoletes: spacewalk < 0.7.0
 Requires:  spacewalk-common = %{version}-%{release}
 Conflicts: spacewalk-postgresql
 
-Requires: oracle-instantclient11.2-basic
-Requires: oracle-instantclient11.2-sqlplus
+Requires: oracle-instantclient18.5-basic
+Requires: oracle-instantclient18.5-sqlplus
 Conflicts: oracle-instantclient-basic <= 10.2.0.4
 Conflicts: oracle-instantclient-sqlplus <= 10.2.0.4
 Requires: spacewalk-java-oracle
@@ -170,6 +170,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Thu May 28 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 2.11.0-1
+- Update Instant Client version to 18.5 [Orabug: 31413086]
+
 * Tue Feb 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.10.3-1
 - let's change release name after 10 years
 

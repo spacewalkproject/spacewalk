@@ -17,7 +17,7 @@ use strict;
 use Spacewalk::Setup;
 use File::Spec;
 
-use constant ORACLE_LDCONF    => "/etc/ld.so.conf.d/oracle-instantclient-11.2.conf";
+use constant ORACLE_LDCONF    => "/etc/ld.so.conf.d/oracle-instantclient-18.5.conf";
 use constant TOMCAT_PAM_LDAP  => "/lib{64,}/security/pam_ldap.so";
 use constant TOMCAT_JAVA_OPTS =>
         File::Spec->catfile(Spacewalk::Setup::SHARED_DIR, "tomcat.java_opts");
