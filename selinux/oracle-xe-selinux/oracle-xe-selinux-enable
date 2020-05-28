@@ -9,7 +9,7 @@ for selinuxvariant in mls strict targeted
   done
 
 /usr/sbin/semanage port -a -t oracle_port_t -p tcp 9055 || :
-/usr/sbin/getsebool oracle_11g_support > /dev/null 2>&1 && /usr/sbin/setsebool -P oracle_11g_support 1
+/usr/sbin/getsebool oracle_18c_support > /dev/null 2>&1 && /usr/sbin/setsebool -P oracle_18c_support 1
 
 # Relabel oracle-xe's files
 rpm -qlf /etc/init.d/oracle-xe | xargs -n 100 /sbin/restorecon -Rivv
@@ -19,7 +19,9 @@ rpm -qlf /etc/init.d/oracle-xe | xargs -n 100 /sbin/restorecon -Rivv
 
 EXTRA_SUBDIRS=''
 ORACLE_XE_VERSION=$( rpm -qf --qf '%{version}\n' /etc/init.d/oracle-xe )
-if [ ${ORACLE_XE_VERSION%%.*} == 11 ] ; then
+if [ ${ORACLE_XE_VERSION%%.*} == 18 ] ; then
+    EXTRA_SUBDIRS="/u01/app/oracle/admin /u01/app/oracle/admin/XE/adump /u01/app/oracle/diag /u01/app/oracle/diag/tnslsnr /u01/app/oracle/fast_recovery_area/XE /u01/app/oracle/oradata /u01/app/oracle/product/18.4.0/xe/log/$( hostname -s )/client /u01/app/oracle/oradiag_oracle /u01/app/oracle/oradiag_oracle/diag /u01/app/oracle/product/18\.4\.0/xe/config/log"
+elif [ ${ORACLE_XE_VERSION%%.*} == 11 ] ; then
 	EXTRA_SUBDIRS="/u01/app/oracle/admin /u01/app/oracle/admin/XE/adump /u01/app/oracle/diag /u01/app/oracle/diag/tnslsnr /u01/app/oracle/fast_recovery_area/XE /u01/app/oracle/oradata /u01/app/oracle/product/11.2.0/xe/log/$( hostname -s )/client /u01/app/oracle/oradiag_oracle /u01/app/oracle/oradiag_oracle/diag /u01/app/oracle/product/11\.2\.0/xe/config/log"
 elif [ ${ORACLE_XE_VERSION%%.*} == 10 ] ; then
 	EXTRA_SUBDIRS='/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata /var/tmp/.oracle'

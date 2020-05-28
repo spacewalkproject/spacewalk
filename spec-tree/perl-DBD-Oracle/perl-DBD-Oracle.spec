@@ -8,7 +8,7 @@ Source1: demo.mk
 Url: http://www.cpan.org
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: perl(ExtUtils::MakeMaker)
-BuildRequires: oracle-instantclient11.2-devel
+BuildRequires: oracle-instantclient18.5-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -54,7 +54,7 @@ ORACLE_HOME=$(find /usr/lib/oracle/ -name client64 | tail -1)
 ORACLE_HOME=$(find /usr/lib/oracle/ -name client | tail -1)
 %endif
 export ORACLE_HOME
-perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 11.2.0.4.0
+perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix} -V 18.5.0.0.0
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean
@@ -70,6 +70,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
+- Update instant client to 18.5 [Orabug: 31413086]
+
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 1.62-7
 - workaround RHEL8 buildrequires modules issue
 
