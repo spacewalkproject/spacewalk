@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 9%{?dist}
+Release: 10%{?dist}
 License:  GPL+ or Artistic
 Source0: https://www.cpan.org/modules/by-module/DBD/PYTHIAN/DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
@@ -66,6 +66,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 1.62-10
+- removed no more needed module workadround
+
 * Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 1.62-9
 - fixed source url
 
