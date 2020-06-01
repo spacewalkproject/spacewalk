@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.62
-Release: 7%{?dist}
+Release: 8%{?dist}
 License:  GPL+ or Artistic
 Source0: DBD-Oracle-%{version}.tar.gz
 Source1: demo.mk
@@ -70,8 +70,8 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man3/*
 
 %changelog
-* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
-- Update instant client to 18.5 [Orabug: 31413086]
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 1.62-8
+- Update supported Oracle DB and Instant Client versions.
 
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 1.62-7
 - workaround RHEL8 buildrequires modules issue
