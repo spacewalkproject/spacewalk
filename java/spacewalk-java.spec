@@ -19,7 +19,7 @@
 Name: spacewalk-java
 Summary: Java web application files for Spacewalk
 License: GPLv2
-Version: 2.11.3
+Version: 2.11.4
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0:   https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -760,6 +760,9 @@ fi
 %{_prefix}/share/rhn/search/lib/postgresql-jdbc.jar
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.4-1
+- Update supported Oracle DB and Instant Client versions.
+
 * Tue Mar 17 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.3-1
 - Updated spacewalk-java for RHEL8/Tomcat9
 
