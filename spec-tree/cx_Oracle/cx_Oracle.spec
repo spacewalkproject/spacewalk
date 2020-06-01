@@ -19,7 +19,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 5.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 License: Python Software Foundation License
 Prefix: %{_prefix}
@@ -60,8 +60,8 @@ export ORACLE_HOME=%{oracle_home}
 %doc LICENSE.txt README.txt BUILD.txt samples test
 
 %changelog
-* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
-- Update instant client to 18.5 [Orabug: 31413086]
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 5.3-6
+- Update supported Oracle DB and Instant Client versions.
 
 * Tue Oct 01 2019 Michael Mraka <michael.mraka@redhat.com> 5.3-5
 - we can use python2 packages and macros everywhere
