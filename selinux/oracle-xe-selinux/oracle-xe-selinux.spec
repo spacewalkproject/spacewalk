@@ -6,7 +6,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:            oracle-xe-selinux
-Version:         10.2.0.48
+Version:         10.2.0.49
 Release:         1%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 License:         GPLv2+
@@ -145,6 +145,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 10.2.0.49-1
+- Update supported Oracle DB and Instant Client versions.
+
 * Tue Sep 17 2019 Michael Mraka <michael.mraka@redhat.com> 10.2.0.48-1
 - hardlink has moved to /usr/bin in Fedora 31
 
