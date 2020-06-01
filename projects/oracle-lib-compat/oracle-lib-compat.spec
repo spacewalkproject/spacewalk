@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        15.5.0.0
+Version:        18.5.0.1
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 License:        GPLv2
@@ -103,8 +103,8 @@ find %{_prefix}/lib/oracle/%{icdir} \
         | xargs execstack -c
 
 %changelog
-* Thu 28 May 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 18.5.0.0-1
-- Update instant client to 18.5 [Orabug: 31413086]
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 18.5.0.1-1
+- Update supported Oracle DB and Instant Client versions.
 
 * Fri Feb 09 2018 Michael Mraka <michael.mraka@redhat.com> 11.2.0.16-1
 - remove install/clean section initial cleanup
