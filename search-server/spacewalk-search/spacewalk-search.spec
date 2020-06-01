@@ -3,7 +3,7 @@
 Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 License: GPLv2
-Version: 2.11.0
+Version: 2.11.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -226,6 +226,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
+- Update supported Oracle DB and Instant Client versions.
+
 * Tue Apr 30 2019 Michael Mraka <michael.mraka@redhat.com> 2.10.1-1
 - 1703076 - Add search server JDBC idle time config options to rhn_search.conf
 
