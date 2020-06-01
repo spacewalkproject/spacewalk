@@ -1,7 +1,7 @@
 %define release_name FourtyTwo
 
 Name:           spacewalk
-Version:        2.11.0
+Version:        2.11.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://github.com/spacewalkproject/spacewalk
@@ -170,6 +170,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/setup/defaults.d/postgresql-backend.conf
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
+- Update supported Oracle DB and Instant Client versions.
+
 * Thu May 28 2020 Laurence Rochfort <laurence.rochfort@oracle.com> 2.11.0-1
 - Update Instant Client version to 18.5 [Orabug: 31413086]
 
