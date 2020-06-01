@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.11.1
+Version:        2.11.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -128,6 +128,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.2-1
+- Update supported Oracle DB and Instant Client versions.
+
 * Wed Mar 11 2020 Stefan Bluhm <stefan.bluhm@clacee.eu> 2.11.0-2
 - Allow detection of PyYAML (python2-PyYAML) for RHEL8.
 
