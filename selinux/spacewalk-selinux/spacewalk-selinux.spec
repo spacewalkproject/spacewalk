@@ -8,7 +8,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        2.11.1
+Version:        2.11.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -120,6 +120,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.2-1
+- 1840057 - Fix settings http proxy via Web UI in RHEL 7.8 onwards
+
 * Fri Mar 13 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.1-1
 - allow cobbler to change dac
 
