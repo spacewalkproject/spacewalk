@@ -18,9 +18,10 @@
 
 Summary: Python interface to Oracle
 Name: cx_Oracle
-Version: 5.3
-Release: 6%{?dist}
+Version: 7.3
+Release: 0%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
+Source1: https://github.com/oracle/odpi/archive/v3.3.0.tar.gz#/odpi-3.3.0.tar.gz
 License: Python Software Foundation License
 Prefix: %{_prefix}
 Url: http://cx-oracle.sourceforge.net
@@ -37,7 +38,9 @@ Python interface to Oracle conforming to the Python DB API 2.0 specification.
 See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %prep
+%setup -b 1 -T -D -n odpi-3.3.0
 %setup -n python-%{name}-%{version}
+mv ../odpi-3.3.0/* odpi/
 
 #kinda ugly but we need ORACLE_HOME to be set
 %if "%{_lib}" == "lib64"
@@ -57,7 +60,7 @@ export ORACLE_HOME=%{oracle_home}
 %clean
 
 %files -f INSTALLED_FILES
-%doc LICENSE.txt README.txt BUILD.txt samples test
+%doc LICENSE.txt README.txt samples test
 
 %changelog
 * Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 5.3-6
