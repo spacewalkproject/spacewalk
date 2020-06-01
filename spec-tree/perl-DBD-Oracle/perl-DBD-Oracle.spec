@@ -17,11 +17,7 @@ BuildRequires:  perl-interpreter
 %else
 BuildRequires:  perl
 %endif
-%if 0%{?rhel} == 8
-BuildRequires:  perl-generators < 1.10-7.module
-%else
 BuildRequires:  perl-generators
-%endif
 BuildRequires:  perl(strict)
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
