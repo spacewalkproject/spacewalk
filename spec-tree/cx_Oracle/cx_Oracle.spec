@@ -19,7 +19,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 7.3
-Release: 0%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/oracle/python-%{name}/archive/%{version}.tar.gz#/python-%{name}-%{version}.tar.gz
 Source1: https://github.com/oracle/odpi/archive/v3.3.0.tar.gz#/odpi-3.3.0.tar.gz
 License: Python Software Foundation License
@@ -63,6 +63,9 @@ export ORACLE_HOME=%{oracle_home}
 %doc LICENSE.txt README.txt samples test
 
 %changelog
+* Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 7.3-1
+- rebased to latest version to support instantclient v18
+
 * Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 5.3-6
 - Update supported Oracle DB and Instant Client versions.
 
