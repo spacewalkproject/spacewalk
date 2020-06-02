@@ -46,7 +46,7 @@
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 License: GPLv2
-Version: 2.11.3
+Version: 2.11.4
 Release: 1%{?dist}
 URL:       https://github.com/spacewalkproject/spacewalk
 Source0: https://github.com/spacewalkproject/spacewalk/archive/%{name}-%{version}.tar.gz
@@ -810,6 +810,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %endif
 
 %changelog
+* Tue Jun 02 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.4-1
+- Replaced yum with dnf
+
 * Mon May 11 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.3-1
 - Fix: missing apt breaks and pre-depends repo headers
 
