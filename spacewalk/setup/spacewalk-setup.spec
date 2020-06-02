@@ -1,7 +1,7 @@
 %{!?fedora: %global sbinpath /sbin}%{?fedora: %global sbinpath %{_sbindir}}
 
 Name:           spacewalk-setup
-Version:        2.11.2
+Version:        2.11.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Spacewalk
 
@@ -128,6 +128,9 @@ rm -rf %{buildroot}
 %doc LICENSE
 
 %changelog
+* Tue Jun 02 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.3-1
+- Update supported Oracle DB versions to include 19.0.0 and 18.0.0
+
 * Mon Jun 01 2020 Michael Mraka <michael.mraka@redhat.com> 2.11.2-1
 - Update supported Oracle DB and Instant Client versions.
 
