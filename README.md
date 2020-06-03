@@ -7,7 +7,8 @@ Spacewalk
 
 Source code for this release can be found in [SPACEWALK-2.10
 branch](https://github.com/spacewalkproject/spacewalk/tree/SPACEWALK-2.10).
-Spacewalk project will be discontinued on May 31 2020.
+
+Spacewalk project has been discontinued on May 31 2020.
 
 [Master branch](https://github.com/spacewalkproject/spacewalk) contains unfinished experimental
 attempt to support RHEL8 server and dnf backend which breaks RHEL / CentOS 6 and 7 support.
